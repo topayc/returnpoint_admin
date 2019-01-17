@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.MemberLoginLogMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.MemberLoginLog">
+    <id column="memberLoginLogNo" jdbcType="INTEGER" property="memberLoginLogNo" />
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="memberEmail" jdbcType="VARCHAR" property="memberEmail" />
+    <result column="loginTryCount" jdbcType="INTEGER" property="loginTryCount" />
+    <result column="loginResut" jdbcType="CHAR" property="loginResut" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    memberLoginLogNo, memberNo, memberEmail, loginTryCount, loginResut, createTime, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from member_login_log
+    where memberLoginLogNo = #{memberLoginLogNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from member_login_log
+    where memberLoginLogNo = #{memberLoginLogNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.MemberLoginLog">
+    insert into member_login_log (memberLoginLogNo, memberNo, memberEmail, 
+      loginTryCount, loginResut, createTime, 
+      updateTime)
+    values (#{memberLoginLogNo,jdbcType=INTEGER}, #{memberNo,jdbcType=INTEGER}, #{memberEmail,jdbcType=VARCHAR}, 
+      #{loginTryCount,jdbcType=INTEGER}, #{loginResut,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.MemberLoginLog">
+    insert into member_login_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="memberLoginLogNo != null">
+        memberLoginLogNo,
+      </if>
+      <if test="memberNo != null">
+        memberNo,
+      </if>
+      <if test="memberEmail != null">
+        memberEmail,
+      </if>
+      <if test="loginTryCount != null">
+        loginTryCount,
+      </if>
+      <if test="loginResut != null">
+        loginResut,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="memberLoginLogNo != null">
+        #{memberLoginLogNo,jdbcType=INTEGER},
+      </if>
+      <if test="memberNo != null">
+        #{memberNo,jdbcType=INTEGER},
+      </if>
+      <if test="memberEmail != null">
+        #{memberEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTryCount != null">
+        #{loginTryCount,jdbcType=INTEGER},
+      </if>
+      <if test="loginResut != null">
+        #{loginResut,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.MemberLoginLog">
+    update member_login_log
+    <set>
+      <if test="memberNo != null">
+        memberNo = #{memberNo,jdbcType=INTEGER},
+      </if>
+      <if test="memberEmail != null">
+        memberEmail = #{memberEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTryCount != null">
+        loginTryCount = #{loginTryCount,jdbcType=INTEGER},
+      </if>
+      <if test="loginResut != null">
+        loginResut = #{loginResut,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where memberLoginLogNo = #{memberLoginLogNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.MemberLoginLog">
+    update member_login_log
+    set memberNo = #{memberNo,jdbcType=INTEGER},
+      memberEmail = #{memberEmail,jdbcType=VARCHAR},
+      loginTryCount = #{loginTryCount,jdbcType=INTEGER},
+      loginResut = #{loginResut,jdbcType=CHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP}
+    where memberLoginLogNo = #{memberLoginLogNo,jdbcType=INTEGER}
+  </update>
+</mapper>

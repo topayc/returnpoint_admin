@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.DashBoardMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.DashBoard">
+  	<result column="totalMemberCount" jdbcType="DECIMAL" property="totalMemberCount" />
+    <result column="totalRecommendCount" jdbcType="DECIMAL" property="totalRecommendCount" />
+    <result column="totalSaleManagerCount" jdbcType="DECIMAL" property="totalSaleManagerCount" />
+    <result column="totalBranchCount" jdbcType="DECIMAL" property="totalBranchCount" />
+    <result column="totalAffiliateCount" jdbcType="DECIMAL" property="totalAffiliateCount" />
+    <result column="totalAgenctCount" jdbcType="DECIMAL" property="totalAgenctCount" />
+    <result column="totalSoleDistCount" jdbcType="DECIMAL" property="totalSoleDistCount" />
+    <result column="todayMemberCount" jdbcType="DECIMAL" property="todayMemberCount" />
+    <result column="todayRecommendCount" jdbcType="DECIMAL" property="todayRecommendCount" />
+    <result column="todaySaleManagerCount" jdbcType="DECIMAL" property="todaySaleManagerCount" />
+    <result column="todayBranchCount" jdbcType="DECIMAL" property="todayBranchCount" />
+    <result column="todayAffiliateCount" jdbcType="DECIMAL" property="todayAffiliateCount" />
+    <result column="todayAgenctCount" jdbcType="DECIMAL" property="todayAgenctCount" />
+    <result column="todaySoleDistCount" jdbcType="DECIMAL" property="todaySoleDistCount" />
+    <result column="readyMemberCount" jdbcType="DECIMAL" property="readyMemberCount" />
+    <result column="readyRecommendCount" jdbcType="DECIMAL" property="readyRecommendCount" />
+    <result column="readySaleManagerCount" jdbcType="DECIMAL" property="readySaleManagerCount" />
+    <result column="readyBranchCount" jdbcType="DECIMAL" property="readyBranchCount" />
+    <result column="readyAffiliateCount" jdbcType="DECIMAL" property="readyAffiliateCount" />
+    <result column="readyAgenctCount" jdbcType="DECIMAL" property="readyAgenctCount" />
+    <result column="readySoleDistCount" jdbcType="DECIMAL" property="readySoleDistCount" />
+    <result column="sumMemberRedPoint" jdbcType="DOUBLE" property="sumMemberRedPoint" />
+    <result column="sumMemberGreenPoint" jdbcType="DOUBLE" property="sumMemberGreenPoint" />
+    <result column="sumRecommendGreenPoint" jdbcType="DOUBLE" property="sumRecommendGreenPoint" />
+    <result column="sumSaleManagerGreenPoint" jdbcType="DOUBLE" property="sumSaleManagerGreenPoint" />
+    <result column="sumBranchGreenPoint" jdbcType="DOUBLE" property="sumBranchGreenPoint" />
+    <result column="sumAffiliateGreenPoint" jdbcType="DOUBLE" property="sumAffiliateGreenPoint" />
+    <result column="sumAgenctGreenPoint" jdbcType="DOUBLE" property="sumAgenctGreenPoint" />
+    <result column="sumSoleDistGreenPoint" jdbcType="DOUBLE" property="sumSoleDistGreenPoint" />
+  </resultMap>
+  <resultMap id="ChartMap" type="com.returnp.admin.model.DashBoardChart">
+    <result column="labels" jdbcType="VARCHAR" property="labels" /> 
+    <result column="greenPoint" jdbcType="DOUBLE" property="greenPoint" />
+    <result column="conversionPoint" jdbcType="DOUBLE" property="conversionPoint" />
+    <result column="redPoint" jdbcType="DOUBLE" property="redPoint" />
+    <result column="accRedPoint" jdbcType="DOUBLE" property="accRedPoint" />
+  </resultMap>
+  <sql id="Base_Column_List">   
+	totalMemberCount, totalRecommendCount, totalSaleManagerCount, 
+	totalBranchCount, totalAffiliateCount, 
+	totalAgenctCount, totalSoleDistCount, todayRecommendCount, todayMemberCount, 
+	todaySaleManagerCount, todayBranchCount, 
+	todayAffiliateCount, todayAgenctCount, 
+	todaySoleDistCount, readyMemberCount, readyRecommendCount, 
+	readySaleManagerCount, readyBranchCount, 
+	readyAffiliateCount, readyAgenctCount, 
+	readySoleDistCount, sumMemberRedPoint, sumRecommendGreenPoint, sumMemberGreenPoint, 
+	sumSaleManagerGreenPoint, sumBranchGreenPoint, 
+	sumAffiliateGreenPoint, sumAgenctGreenPoint, 
+	sumSoleDistGreenPoint
+  </sql>
+  <select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dash_board    
+  </select>
+  <select id="selectForChart" parameterType="java.lang.Integer" resultMap="ChartMap">
+  SELECT tb1.date as labels, tb1.greenPoint, conversionPoint, tb2.redPoint, sum(tb2.redPoint) as accRedPoint
+    FROM
+    (
+        SELECT
+		  date,FLOOR(RAND() * 1000) greenPoint,FLOOR(RAND() * 1000) conversionPoint
+		FROM
+		  dates
+		WHERE
+		  date BETWEEN DATE_ADD(curdate(), INTERVAL -30 DAY) and curdate()
+    ) tb1
+    INNER JOIN
+	(
+        SELECT
+		  date,FLOOR(RAND() * 100) redPoint
+		FROM
+		  dates
+		WHERE
+		  date BETWEEN DATE_ADD(curdate(), INTERVAL -30 DAY) and curdate()
+        
+	) as tb2
+    ON
+         tb1.date > tb2.date
+    GROUP BY
+        tb1.date
+    ORDER BY
+        tb1.date asc; 
+    </select> 
+</mapper>
+
+
+

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.NodeFileAttachMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.NodeFileAttach">
+    <id column="nodeFileAttachNo" jdbcType="INTEGER" property="nodeFileAttachNo" />
+    <result column="fileName" jdbcType="VARCHAR" property="fileName" />
+    <result column="originalFileName" jdbcType="VARCHAR" property="originalFileName" />
+    <result column="fileType" jdbcType="VARCHAR" property="fileType" />
+    <result column="fileSize" jdbcType="VARCHAR" property="fileSize" />
+    <result column="fileExt" jdbcType="VARCHAR" property="fileExt" />
+    <result column="regType" jdbcType="CHAR" property="regType" />
+    <result column="regAdminNo" jdbcType="INTEGER" property="regAdminNo" />
+    <result column="fileLocalPath" jdbcType="VARCHAR" property="fileLocalPath" />
+    <result column="fileWebPath" jdbcType="VARCHAR" property="fileWebPath" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    nodeFileAttachNo, fileName, originalFileName, fileType, fileSize, fileExt, regType, 
+    regAdminNo, fileLocalPath, fileWebPath, createTime, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from node_file_attach
+    where nodeFileAttachNo = #{nodeFileAttachNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from node_file_attach
+    where nodeFileAttachNo = #{nodeFileAttachNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.NodeFileAttach">
+    insert into node_file_attach (nodeFileAttachNo, fileName, originalFileName, 
+      fileType, fileSize, fileExt, 
+      regType, regAdminNo, fileLocalPath, 
+      fileWebPath, createTime, updateTime
+      )
+    values (#{nodeFileAttachNo,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, #{originalFileName,jdbcType=VARCHAR}, 
+      #{fileType,jdbcType=VARCHAR}, #{fileSize,jdbcType=VARCHAR}, #{fileExt,jdbcType=VARCHAR}, 
+      #{regType,jdbcType=CHAR}, #{regAdminNo,jdbcType=INTEGER}, #{fileLocalPath,jdbcType=VARCHAR}, 
+      #{fileWebPath,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.NodeFileAttach">
+    insert into node_file_attach
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="nodeFileAttachNo != null">
+        nodeFileAttachNo,
+      </if>
+      <if test="fileName != null">
+        fileName,
+      </if>
+      <if test="originalFileName != null">
+        originalFileName,
+      </if>
+      <if test="fileType != null">
+        fileType,
+      </if>
+      <if test="fileSize != null">
+        fileSize,
+      </if>
+      <if test="fileExt != null">
+        fileExt,
+      </if>
+      <if test="regType != null">
+        regType,
+      </if>
+      <if test="regAdminNo != null">
+        regAdminNo,
+      </if>
+      <if test="fileLocalPath != null">
+        fileLocalPath,
+      </if>
+      <if test="fileWebPath != null">
+        fileWebPath,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="nodeFileAttachNo != null">
+        #{nodeFileAttachNo,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="originalFileName != null">
+        #{originalFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        #{fileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExt != null">
+        #{fileExt,jdbcType=VARCHAR},
+      </if>
+      <if test="regType != null">
+        #{regType,jdbcType=CHAR},
+      </if>
+      <if test="regAdminNo != null">
+        #{regAdminNo,jdbcType=INTEGER},
+      </if>
+      <if test="fileLocalPath != null">
+        #{fileLocalPath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileWebPath != null">
+        #{fileWebPath,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.NodeFileAttach">
+    update node_file_attach
+    <set>
+      <if test="fileName != null">
+        fileName = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="originalFileName != null">
+        originalFileName = #{originalFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        fileType = #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        fileSize = #{fileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="fileExt != null">
+        fileExt = #{fileExt,jdbcType=VARCHAR},
+      </if>
+      <if test="regType != null">
+        regType = #{regType,jdbcType=CHAR},
+      </if>
+      <if test="regAdminNo != null">
+        regAdminNo = #{regAdminNo,jdbcType=INTEGER},
+      </if>
+      <if test="fileLocalPath != null">
+        fileLocalPath = #{fileLocalPath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileWebPath != null">
+        fileWebPath = #{fileWebPath,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where nodeFileAttachNo = #{nodeFileAttachNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.NodeFileAttach">
+    update node_file_attach
+    set fileName = #{fileName,jdbcType=VARCHAR},
+      originalFileName = #{originalFileName,jdbcType=VARCHAR},
+      fileType = #{fileType,jdbcType=VARCHAR},
+      fileSize = #{fileSize,jdbcType=VARCHAR},
+      fileExt = #{fileExt,jdbcType=VARCHAR},
+      regType = #{regType,jdbcType=CHAR},
+      regAdminNo = #{regAdminNo,jdbcType=INTEGER},
+      fileLocalPath = #{fileLocalPath,jdbcType=VARCHAR},
+      fileWebPath = #{fileWebPath,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP}
+    where nodeFileAttachNo = #{nodeFileAttachNo,jdbcType=INTEGER}
+  </update>
+</mapper>

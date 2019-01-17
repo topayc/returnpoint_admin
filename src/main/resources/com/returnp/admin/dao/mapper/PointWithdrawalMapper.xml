@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.PointWithdrawalMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.PointWithdrawal">
+    <id column="pointWithdrawalNo" jdbcType="INTEGER" property="pointWithdrawalNo" />
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="memberBankAccountNo" jdbcType="INTEGER" property="memberBankAccountNo" />
+    <result column="withdrawalAmount" jdbcType="INTEGER" property="withdrawalAmount" />
+    <result column="withdrawalStatus" jdbcType="VARCHAR" property="withdrawalStatus" />
+    <result column="withdrawalPointType" jdbcType="VARCHAR" property="withdrawalPointType" />
+    <result column="regType" jdbcType="CHAR" property="regType" />
+    <result column="regAdminNo" jdbcType="INTEGER" property="regAdminNo" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.returnp.admin.model.PointWithdrawal">
+    <result column="withdrawalMessage" jdbcType="LONGVARCHAR" property="withdrawalMessage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pointWithdrawalNo, memberNo, memberBankAccountNo, withdrawalAmount, withdrawalStatus, 
+    withdrawalPointType, regType, regAdminNo, createTime, updateTime
+  </sql>
+  <sql id="Blob_Column_List">
+    withdrawalMessage
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from point_withdrawal
+    where pointWithdrawalNo = #{pointWithdrawalNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from point_withdrawal
+    where pointWithdrawalNo = #{pointWithdrawalNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.PointWithdrawal">
+    insert into point_withdrawal (pointWithdrawalNo, memberNo, memberBankAccountNo, 
+      withdrawalAmount, withdrawalStatus, withdrawalPointType, 
+      regType, regAdminNo, createTime, 
+      updateTime, withdrawalMessage)
+    values (#{pointWithdrawalNo,jdbcType=INTEGER}, #{memberNo,jdbcType=INTEGER}, #{memberBankAccountNo,jdbcType=INTEGER}, 
+      #{withdrawalAmount,jdbcType=INTEGER}, #{withdrawalStatus,jdbcType=VARCHAR}, #{withdrawalPointType,jdbcType=VARCHAR}, 
+      #{regType,jdbcType=CHAR}, #{regAdminNo,jdbcType=INTEGER}, NOW(), NOW(), #{withdrawalMessage,jdbcType=LONGVARCHAR})
+      
+          <selectKey keyProperty="pointWithdrawalNo" resultType="java.lang.Integer" order ="AFTER">
+		    SELECT LAST_INSERT_ID()
+	  </selectKey>	
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.PointWithdrawal">
+    insert into point_withdrawal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pointWithdrawalNo != null">
+        pointWithdrawalNo,
+      </if>
+      <if test="memberNo != null">
+        memberNo,
+      </if>
+      <if test="memberBankAccountNo != null">
+        memberBankAccountNo,
+      </if>
+      <if test="withdrawalAmount != null">
+        withdrawalAmount,
+      </if>
+      <if test="withdrawalStatus != null">
+        withdrawalStatus,
+      </if>
+      <if test="withdrawalPointType != null">
+        withdrawalPointType,
+      </if>
+      <if test="regType != null">
+        regType,
+      </if>
+      <if test="regAdminNo != null">
+        regAdminNo,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="withdrawalMessage != null">
+        withdrawalMessage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pointWithdrawalNo != null">
+        #{pointWithdrawalNo,jdbcType=INTEGER},
+      </if>
+      <if test="memberNo != null">
+        #{memberNo,jdbcType=INTEGER},
+      </if>
+      <if test="memberBankAccountNo != null">
+        #{memberBankAccountNo,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawalAmount != null">
+        #{withdrawalAmount,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawalStatus != null">
+        #{withdrawalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawalPointType != null">
+        #{withdrawalPointType,jdbcType=VARCHAR},
+      </if>
+      <if test="regType != null">
+        #{regType,jdbcType=CHAR},
+      </if>
+      <if test="regAdminNo != null">
+        #{regAdminNo,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="withdrawalMessage != null">
+        #{withdrawalMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.PointWithdrawal">
+    update point_withdrawal
+    <set>
+      <if test="memberNo != null">
+        memberNo = #{memberNo,jdbcType=INTEGER},
+      </if>
+      <if test="memberBankAccountNo != null">
+        memberBankAccountNo = #{memberBankAccountNo,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawalAmount != null">
+        withdrawalAmount = #{withdrawalAmount,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawalStatus != null">
+        withdrawalStatus = #{withdrawalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawalPointType != null">
+        withdrawalPointType = #{withdrawalPointType,jdbcType=VARCHAR},
+      </if>
+      <if test="regType != null">
+        regType = #{regType,jdbcType=CHAR},
+      </if>
+      <if test="regAdminNo != null">
+        regAdminNo = #{regAdminNo,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="withdrawalMessage != null">
+        withdrawalMessage = #{withdrawalMessage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pointWithdrawalNo = #{pointWithdrawalNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.returnp.admin.model.PointWithdrawal">
+    update point_withdrawal
+    set memberNo = #{memberNo,jdbcType=INTEGER},
+      memberBankAccountNo = #{memberBankAccountNo,jdbcType=INTEGER},
+      withdrawalAmount = #{withdrawalAmount,jdbcType=INTEGER},
+      withdrawalStatus = #{withdrawalStatus,jdbcType=VARCHAR},
+      withdrawalPointType = #{withdrawalPointType,jdbcType=VARCHAR},
+      regType = #{regType,jdbcType=CHAR},
+      regAdminNo = #{regAdminNo,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      withdrawalMessage = #{withdrawalMessage,jdbcType=LONGVARCHAR}
+    where pointWithdrawalNo = #{pointWithdrawalNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.PointWithdrawal">
+    update point_withdrawal
+    set memberNo = #{memberNo,jdbcType=INTEGER},
+      memberBankAccountNo = #{memberBankAccountNo,jdbcType=INTEGER},
+      withdrawalAmount = #{withdrawalAmount,jdbcType=INTEGER},
+      withdrawalStatus = #{withdrawalStatus,jdbcType=VARCHAR},
+      withdrawalPointType = #{withdrawalPointType,jdbcType=VARCHAR},
+      regType = #{regType,jdbcType=CHAR},
+      regAdminNo = #{regAdminNo,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = NOW()
+    where pointWithdrawalNo = #{pointWithdrawalNo,jdbcType=INTEGER}
+  </update>
+</mapper>

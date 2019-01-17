@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">	
+	
+	<!-- <global-method-security secured-annotations="enabled" pre-post-annotations="enabled" >
+	    <expression-handler ref="expressionHandler"/>
+	</global-method-security>
+	 
+	<beans:bean id="expressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
+	    <beans:property name="permissionEvaluator" ref="permissionEvaluator"/>
+	</beans:bean> -->
+	
+	<http pattern="/resources/**" security="none"/>	
+	<http pattern="/favicon.ico" security="none" />          
+	
+	<http auto-config="true" use-expressions="true" disable-url-rewriting="true">
+    	<custom-filter ref="ajaxSessionTimeoutFilter" after="EXCEPTION_TRANSLATION_FILTER"/>
+		<intercept-url pattern="/" access="permitAll" />
+		<intercept-url pattern="/AjaxRequest*" access="permitAll" />
+		<intercept-url pattern="/v1/**" access="permitAll" />
+		<intercept-url pattern="/signIn" access="permitAll" /> 
+		<intercept-url pattern="/common/**" access="permitAll" />
+		<intercept-url pattern="/favicon.ico" access="permitAll" />
+		<intercept-url pattern="/j_spring_security_check" access="permitAll" />
+		<intercept-url pattern="/j_spring_security_logout" access="isAuthenticated()" />
+		<intercept-url pattern="/api/common/**" access="isAuthenticated()"/>
+		<intercept-url pattern="/api/nodes" access="isAuthenticated()" />	
+		
+		<intercept-url pattern="/springSecurity/**" access="hasAnyRole('ROLE_ADMIN','ROLE_1')" />
+		<intercept-url pattern="/api/affiliate/**" access="hasAnyRole('ROLE_ADMIN','ROLE_1')" />	
+		<intercept-url pattern="/api/**" access="hasAnyRole('ROLE_ADMIN','ROLE_API')" />	
+		<intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')" />
+		
+		<!-- <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />   -->
+		
+		<form-login login-page="/signIn" 
+		authentication-success-handler-ref="loginSuccessHandler" 
+		authentication-failure-handler-ref="loginFailureHandler"  
+		username-parameter="j_username" 
+		password-parameter="j_password" 
+		login-processing-url="/j_spring_security_check"/>
+			
+		<logout invalidate-session="true"  logout-success-url="/signIn" logout-url="/j_spring_security_logout"></logout>
+
+    	<csrf disabled="true"/>
+    	<access-denied-handler ref="loginDeniedHandler" />   
+	</http>
+
+	<beans:bean id="ajaxSessionTimeoutFilter" class="com.returnp.admin.security.AjaxSessionCheckFilter">
+        <beans:property name="ajaxHeader" value="AJAX" />
+    </beans:bean>
+    
+	<beans:bean id="loginUserDetailService" class="com.returnp.admin.security.LoginUserDetailService" />
+	<beans:bean id="loginSuccessHandler" class="com.returnp.admin.security.LoginSuccessHandler" />
+	<beans:bean id="loginFailureHandler" class="com.returnp.admin.security.LoginFailureHandler" />
+	<beans:bean id="loginAuthenticationProvider" class="com.returnp.admin.security.LoginAuthenticationProvider" />
+
+	<beans:bean id="loginDeniedHandler" class="com.returnp.admin.security.LoginDeniedHandler">
+        <beans:property name="redirect" value="false" />
+        <beans:property name="errorPage" value="/common/error_403" />
+    </beans:bean>
+    
+	<authentication-manager alias="authenticationManage">
+		<authentication-provider ref="loginAuthenticationProvider" />
+		<authentication-provider user-service-ref="loginUserDetailService"/>
+	</authentication-manager>	
+</beans:beans>

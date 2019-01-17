@@ -1,0 +1,194 @@
+/*!
+ =========================================================
+ * Paper Dashboard 2 - v2.0.0
+ =========================================================
+ * Product Page: https://www.creative-tim.com/product/paper-dashboard-2
+ * Copyright 2018 Creative Tim (http://www.creative-tim.com)
+ * Designed by www.invisionapp.com Coded by www.creative-tim.com
+ =========================================================
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ */
+/*!
+Animate.css - http://daneden.me/animate
+Licensed under the MIT license - http://opensource.org/licenses/MIT
+Copyright (c) 2015 Daniel Eden
+*/
+
+.content {position: relative;  background-color: #f4f3ef;padding: 30px;}
+
+.dashboard .card {  border-radius: 12px;  box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);  background-color: #FFFFFF;  color: #252422;  margin-bottom: 0px;  position: relative;  border: 4px solid #fff;
+  -webkit-transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
+  -moz-transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
+  -o-transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
+  -ms-transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
+  transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease; }
+
+.dashboard .card.active{border:4px solid #ff8691;}
+.dashboard .node1 i{color:#fbc658;}
+.dashboard .node2 i{color:#6bd098;}
+.dashboard .node3 i{color:#ef8157;}
+.dashboard .node4 i{color:#51cbce;}
+.dashboard .node5 i{color:#ff6ba7;}
+.dashboard .node6 i{color:#8048ea;}
+.dashboard .node7 i{color:#c5da23;}
+.dashboard .node8 i{color:#3c9aff;}
+
+.dashboard .card{height:100%;}
+.dashboard .card .card-body {padding: 12px 12px 0px;}
+.dashboard .card .card-header {padding: 12px 12px 0;  border: 0;}
+.dashboard .card .card-header:not([data-background-color]) {background-color: transparent;}
+.dashboard .card .card-header .card-title {margin-top: 10px;}
+.dashboard .card .card-footer {background-color: transparent;  border: 0;}
+.dashboard .card .card-footer .stats i {margin-right: 5px;  position: relative;  top: 0px;  color: #66615B;}
+
+.dashboard .card-stats .fa-sort-down{position: absolute;font-size: 35px;left: 48%;bottom: -14px;color: #fff;}
+.dashboard .card-stats .card-top{padding: 15px 20px;font-size: 15px; color: #888;    line-height: 32px;}
+.dashboard .card-stats .card-title{float:left;margin-bottom:0;}
+.dashboard .card-stats .card-point{float:right;}
+.dashboard .card-stats .card-point p{margin-bottom:0;}
+.dashboard .card-stats .card-top i{font-size:17px;}
+.dashboard .card-stats .card-top .card-category{text-align: right; color: #333; font-size: 20px; line-height: 30px;}
+.dashboard .card-stats .card-top .card-category lable{margin-bottom:0;}
+.dashboard .card-stats .card-top .gpoint{color: #fff; background: #a9ce39; border-radius: 50%; padding: 2px 6px; font-size: 13px; margin: 0 5px; vertical-align: text-top;}
+
+.dashboard .card-stats .card-footer {border-top: 1px solid #efefef;padding: 20px 15px 15px 15px;}
+.dashboard .card-stats .card-footer .stats {color: #9A9A9A;}
+.dashboard .card-stats .card-footer ul{padding: 0 0 0 20px;margin-bottom:5px;}
+.dashboard .card-stats .card-footer li{position: relative;font-size: 12px;}
+.dashboard .card-stats .card-footer li span{position:absolute;right:10px;color: #444;}
+
+.dashboard .nodetitle{background:#ff8691;border:4px solid #ff8691;}
+.dashboard .nodetitle .card-top{padding:12px;color: #fffcfc;font-size: 16px;}
+.dashboard .nodetitle .card-top i{color:#fff;font-size:25px;}
+.dashboard .nodetitle .card-redtotal{border-top: 1px solid #ffa5a5;margin:0;text-align:center;color:#a75555;font-size:15px;padding: 10px 0 5px;}
+.dashboard .nodetitle .card-redtotal span{display:block;color:#fff;font-size:28px;}
+.dashboard .nodetitle .pointunit{color:#fff;font-size:13px;text-align:right;padding-left:20px;}
+.dashboard .nodetitle .card-footer {border-top: 1px solid #ffa5a5;padding: 20px 15px 15px 15px;}
+
+.dashboard .card-chart .card-header .card-title {  margin-top: 10px;  margin-bottom: 0;}
+.dashboard .card-chart .card-header .card-category {  margin-bottom: 5px;}
+.dashboard .card-chart .table {  margin-bottom: 0;}
+.dashboard .card-chart .table td {  border-top: none;  border-bottom: 1px solid #e9ecef;}
+.dashboard .card-chart .card-progress {  margin-top: 30px;}
+.dashboard .card-chart .chart-area {  height: 190px;  width: calc(100% + 30px);  margin-left: -15px;  margin-right: -15px;}
+.dashboard .card-chart .card-footer {  margin-top: 15px;}
+.dashboard .card-chart .card-footer .stats {  color: #9A9A9A;}
+.dashboard .card-chart .dropdown {  position: absolute;  right: 20px;  top: 20px;}
+.dashboard .card-chart .dropdown .btn {  margin: 0;}
+
+.dashboard .text-primary,a.text-primary:focus,a.text-primary:hover {  color: #51cbce !important;}
+.dashboard .text-info,a.text-info:focus,a.text-info:hover {  color: #51bcda !important;}
+.dashboard .text-success,a.text-success:focus,a.text-success:hover {  color: #6bd098 !important;}
+.dashboard .text-warning,a.text-warning:focus,a.text-warning:hover {  color: #fbc658 !important;}
+.dashboard .text-danger,a.text-danger:focus,a.text-danger:hover {  color: #ef8157 !important;}
+.dashboard .text-gray,a.text-gray:focus,a.text-gray:hover {  color: #E3E3E3 !important;}
+
+.dashboard .animated {  -webkit-animation-duration: 1s;  animation-duration: 1s;  -webkit-animation-fill-mode: both;  animation-fill-mode: both;}
+.dashboard .animated.infinite {  -webkit-animation-iteration-count: infinite;  animation-iteration-count: infinite;}
+.dashboard .animated.hinge {  -webkit-animation-duration: 2s;  animation-duration: 2s;}
+.dashboard .animated.bounceIn,
+.dashboard .animated.bounceOut {  -webkit-animation-duration: .75s;  animation-duration: .75s;}
+.dashboard .animated.flipOutX,
+.dashboard .animated.flipOutY {  -webkit-animation-duration: .75s;  animation-duration: .75s;}
+@-webkit-keyframes shake {
+  from,
+  to {    -webkit-transform: translate3d(0, 0, 0);    transform: translate3d(0, 0, 0);  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {    -webkit-transform: translate3d(-10px, 0, 0);    transform: translate3d(-10px, 0, 0);  }
+  20%,
+  40%,
+  60%,
+  80% {    -webkit-transform: translate3d(10px, 0, 0);    transform: translate3d(10px, 0, 0);  }
+}
+
+@keyframes shake {
+  from,
+  to {    -webkit-transform: translate3d(0, 0, 0);    transform: translate3d(0, 0, 0);  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {    -webkit-transform: translate3d(-10px, 0, 0);    transform: translate3d(-10px, 0, 0);  }
+  20%,
+  40%,
+  60%,
+  80% {    -webkit-transform: translate3d(10px, 0, 0);    transform: translate3d(10px, 0, 0);  }
+}
+
+.shake {  -webkit-animation-name: shake;  animation-name: shake;}
+
+@-webkit-keyframes fadeInDown {
+  from {    opacity: 0;    -webkit-transform: translate3d(0, -100%, 0);    transform: translate3d(0, -100%, 0);  }
+  to {    opacity: 1;    -webkit-transform: none;    transform: none;  }
+}
+
+@keyframes fadeInDown {
+  from {    opacity: 0;    -webkit-transform: translate3d(0, -100%, 0);    transform: translate3d(0, -100%, 0);  }
+  to {    opacity: 1;    -webkit-transform: none;    transform: none;  }
+}
+
+.fadeInDown {  -webkit-animation-name: fadeInDown;  animation-name: fadeInDown;}
+
+@-webkit-keyframes fadeOut {
+  from {    opacity: 1;  }
+  to {    opacity: 0;  }
+}
+
+@keyframes fadeOut {
+  from {    opacity: 1;  }
+  to {    opacity: 0;  }
+}
+
+.dashboard .fadeOut {  -webkit-animation-name: fadeOut;  animation-name: fadeOut;}
+
+@-webkit-keyframes fadeOutDown {
+  from {    opacity: 1;  }
+  to {    opacity: 0;    -webkit-transform: translate3d(0, 100%, 0);    transform: translate3d(0, 100%, 0);  }
+}
+
+@keyframes fadeOutDown {
+  from {    opacity: 1;  }
+  to {    opacity: 0;    -webkit-transform: translate3d(0, 100%, 0);    transform: translate3d(0, 100%, 0);  }
+}
+
+.dashboard .fadeOutDown {  -webkit-animation-name: fadeOutDown;  animation-name: fadeOutDown;}
+
+@-webkit-keyframes fadeOutUp {
+  from {    opacity: 1;  }
+  to {    opacity: 0;    -webkit-transform: translate3d(0, -100%, 0);    transform: translate3d(0, -100%, 0);  }
+}
+
+@keyframes fadeOutUp {
+  from {    opacity: 1;  }
+  to {    opacity: 0;    -webkit-transform: translate3d(0, -100%, 0);    transform: translate3d(0, -100%, 0);  }
+}
+
+.dashboard .fadeOutUp {  -webkit-animation-name: fadeOutUp;  animation-name: fadeOutUp;}
+
+@media (min-width: 576px){ .container {max-width:100%;padding:0;}
+.col-sm-6 { -ms-flex: 0 0 100%; flex: 0 0 100%; max-width: 100%;}
+}
+
+@media (min-width: 768px){ .container {max-width:100%;padding:0;}
+.col-md-6 { -ms-flex: 0 0 100%; flex: 0 0 100%; max-width: 100%;}
+}
+
+@media (min-width: 992px){ .container {max-width:100%;padding:0;}
+.col-lg-3 { -ms-flex: 0 0 50%; flex: 0 0 50%; max-width: 50%;}
+}
+
+@media (min-width: 1300px){ .container {max-width:100%;padding:0;}
+.col-lg-3 { -ms-flex: 0 0 25%; flex: 0 0 25%; max-width: 25%;}
+}
+
+.panel, .panel-header, .panel-body { box-sizing: content-box; }
+.row { margin: 10px 0 -3px;}
+
+.col-5, .col-md-4, .col-7, .col-md-8,
+.col-lg-3, .col-md-6, .col-sm-6, .col-md-12{padding-right:8px;padding-left:8px;margin-bottom:10px;}
+.card-chart .card-footer .chart-legend .text-info{color: #ff9797 !important;}
+.card-chart .card-footer .chart-legend .text-warning{color: #a9ce39 !important;}
+.card-chart .card-footer .chart-legend .text-danger{color: #51cbce !important;}

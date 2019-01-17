@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.AdminFileMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.AdminFile">
+    <id column="adminFileNo" jdbcType="INTEGER" property="adminFileNo" />
+    <result column="uploadType" jdbcType="VARCHAR" property="uploadType" />
+    <result column="fileNodeType" jdbcType="VARCHAR" property="fileNodeType" />
+    <result column="fileName" jdbcType="VARCHAR" property="fileName" />
+    <result column="orginalFileName" jdbcType="VARCHAR" property="orginalFileName" />
+    <result column="fileLocalPath" jdbcType="VARCHAR" property="fileLocalPath" />
+    <result column="fileWebPath" jdbcType="VARCHAR" property="fileWebPath" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="regAdminEmail" jdbcType="VARCHAR" property="regAdminEmail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    adminFileNo, uploadType, fileNodeType, fileName, orginalFileName, fileLocalPath, 
+    fileWebPath, createTime, updateTime, regAdminEmail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin_file
+    where adminFileNo = #{adminFileNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from admin_file
+    where adminFileNo = #{adminFileNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.AdminFile">
+    insert into admin_file (adminFileNo, uploadType, fileNodeType, 
+      fileName, orginalFileName, fileLocalPath, 
+      fileWebPath, createTime, updateTime, 
+      regAdminEmail)
+    values (#{adminFileNo,jdbcType=INTEGER}, #{uploadType,jdbcType=VARCHAR}, #{fileNodeType,jdbcType=VARCHAR}, 
+      #{fileName,jdbcType=VARCHAR}, #{orginalFileName,jdbcType=VARCHAR}, #{fileLocalPath,jdbcType=VARCHAR}, 
+      #{fileWebPath,jdbcType=VARCHAR}, NOW(), NOW(), 
+      #{regAdminEmail,jdbcType=VARCHAR})
+          
+    <selectKey keyProperty="adminFileNo" resultType="java.lang.Integer" order ="AFTER">
+		    SELECT LAST_INSERT_ID()
+	 </selectKey>	
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.AdminFile">
+    insert into admin_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adminFileNo != null">
+        adminFileNo,
+      </if>
+      <if test="uploadType != null">
+        uploadType,
+      </if>
+      <if test="fileNodeType != null">
+        fileNodeType,
+      </if>
+      <if test="fileName != null">
+        fileName,
+      </if>
+      <if test="orginalFileName != null">
+        orginalFileName,
+      </if>
+      <if test="fileLocalPath != null">
+        fileLocalPath,
+      </if>
+      <if test="fileWebPath != null">
+        fileWebPath,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="regAdminEmail != null">
+        regAdminEmail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adminFileNo != null">
+        #{adminFileNo,jdbcType=INTEGER},
+      </if>
+      <if test="uploadType != null">
+        #{uploadType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileNodeType != null">
+        #{fileNodeType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="orginalFileName != null">
+        #{orginalFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileLocalPath != null">
+        #{fileLocalPath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileWebPath != null">
+        #{fileWebPath,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regAdminEmail != null">
+        #{regAdminEmail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.AdminFile">
+    update admin_file
+    <set>
+      <if test="uploadType != null">
+        uploadType = #{uploadType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileNodeType != null">
+        fileNodeType = #{fileNodeType,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        fileName = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="orginalFileName != null">
+        orginalFileName = #{orginalFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileLocalPath != null">
+        fileLocalPath = #{fileLocalPath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileWebPath != null">
+        fileWebPath = #{fileWebPath,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="regAdminEmail != null">
+        regAdminEmail = #{regAdminEmail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where adminFileNo = #{adminFileNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.AdminFile">
+    update admin_file
+    set uploadType = #{uploadType,jdbcType=VARCHAR},
+      fileNodeType = #{fileNodeType,jdbcType=VARCHAR},
+      fileName = #{fileName,jdbcType=VARCHAR},
+      orginalFileName = #{orginalFileName,jdbcType=VARCHAR},
+      fileLocalPath = #{fileLocalPath,jdbcType=VARCHAR},
+      fileWebPath = #{fileWebPath,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = NOW(),
+      regAdminEmail = #{regAdminEmail,jdbcType=VARCHAR}
+    where adminFileNo = #{adminFileNo,jdbcType=INTEGER}
+  </update>
+</mapper>

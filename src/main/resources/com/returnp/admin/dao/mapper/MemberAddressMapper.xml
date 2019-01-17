@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.MemberAddressMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.MemberAddress">
+    <id column="memberAddressNo" jdbcType="INTEGER" property="memberAddressNo" />
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="nodeNo" jdbcType="INTEGER" property="nodeNo" />
+    <result column="nodeType" jdbcType="VARCHAR" property="nodeType" />
+    <result column="roadFullAddr" jdbcType="VARCHAR" property="roadFullAddr" />
+    <result column="roadAddrPart1" jdbcType="VARCHAR" property="roadAddrPart1" />
+    <result column="roadAddrPart2" jdbcType="VARCHAR" property="roadAddrPart2" />
+    <result column="addrDetail" jdbcType="VARCHAR" property="addrDetail" />
+    <result column="engAddr" jdbcType="VARCHAR" property="engAddr" />
+    <result column="jibunAddr" jdbcType="VARCHAR" property="jibunAddr" />
+    <result column="zipNo" jdbcType="VARCHAR" property="zipNo" />
+    <result column="admCd" jdbcType="VARCHAR" property="admCd" />
+    <result column="rnMgtSn" jdbcType="VARCHAR" property="rnMgtSn" />
+    <result column="bdMgtSn" jdbcType="VARCHAR" property="bdMgtSn" />
+    <result column="lat" jdbcType="VARCHAR" property="lat" />
+    <result column="lng" jdbcType="VARCHAR" property="lng" />
+    <result column="regAdminNo" jdbcType="INTEGER" property="regAdminNo" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    memberAddressNo, memberNo, nodeNo, nodeType, roadFullAddr, roadAddrPart1, roadAddrPart2, 
+    addrDetail, engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn, lat, lng, regAdminNo, 
+    createTime, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from member_address
+    where memberAddressNo = #{memberAddressNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from member_address
+    where memberAddressNo = #{memberAddressNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.MemberAddress">
+    insert into member_address (memberAddressNo, memberNo, nodeNo, 
+      nodeType, roadFullAddr, roadAddrPart1, 
+      roadAddrPart2, addrDetail, engAddr, 
+      jibunAddr, zipNo, admCd, 
+      rnMgtSn, bdMgtSn, lat, 
+      lng, regAdminNo, createTime, 
+      updateTime)
+    values (#{memberAddressNo,jdbcType=INTEGER}, #{memberNo,jdbcType=INTEGER}, #{nodeNo,jdbcType=INTEGER}, 
+      #{nodeType,jdbcType=VARCHAR}, #{roadFullAddr,jdbcType=VARCHAR}, #{roadAddrPart1,jdbcType=VARCHAR}, 
+      #{roadAddrPart2,jdbcType=VARCHAR}, #{addrDetail,jdbcType=VARCHAR}, #{engAddr,jdbcType=VARCHAR}, 
+      #{jibunAddr,jdbcType=VARCHAR}, #{zipNo,jdbcType=VARCHAR}, #{admCd,jdbcType=VARCHAR}, 
+      #{rnMgtSn,jdbcType=VARCHAR}, #{bdMgtSn,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, 
+      #{lng,jdbcType=VARCHAR}, #{regAdminNo,jdbcType=INTEGER}, NOW(), 
+      NOW())
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.MemberAddress">
+    insert into member_address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="memberAddressNo != null">
+        memberAddressNo,
+      </if>
+      <if test="memberNo != null">
+        memberNo,
+      </if>
+      <if test="nodeNo != null">
+        nodeNo,
+      </if>
+      <if test="nodeType != null">
+        nodeType,
+      </if>
+      <if test="roadFullAddr != null">
+        roadFullAddr,
+      </if>
+      <if test="roadAddrPart1 != null">
+        roadAddrPart1,
+      </if>
+      <if test="roadAddrPart2 != null">
+        roadAddrPart2,
+      </if>
+      <if test="addrDetail != null">
+        addrDetail,
+      </if>
+      <if test="engAddr != null">
+        engAddr,
+      </if>
+      <if test="jibunAddr != null">
+        jibunAddr,
+      </if>
+      <if test="zipNo != null">
+        zipNo,
+      </if>
+      <if test="admCd != null">
+        admCd,
+      </if>
+      <if test="rnMgtSn != null">
+        rnMgtSn,
+      </if>
+      <if test="bdMgtSn != null">
+        bdMgtSn,
+      </if>
+      <if test="lat != null">
+        lat,
+      </if>
+      <if test="lng != null">
+        lng,
+      </if>
+      <if test="regAdminNo != null">
+        regAdminNo,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="memberAddressNo != null">
+        #{memberAddressNo,jdbcType=INTEGER},
+      </if>
+      <if test="memberNo != null">
+        #{memberNo,jdbcType=INTEGER},
+      </if>
+      <if test="nodeNo != null">
+        #{nodeNo,jdbcType=INTEGER},
+      </if>
+      <if test="nodeType != null">
+        #{nodeType,jdbcType=VARCHAR},
+      </if>
+      <if test="roadFullAddr != null">
+        #{roadFullAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="roadAddrPart1 != null">
+        #{roadAddrPart1,jdbcType=VARCHAR},
+      </if>
+      <if test="roadAddrPart2 != null">
+        #{roadAddrPart2,jdbcType=VARCHAR},
+      </if>
+      <if test="addrDetail != null">
+        #{addrDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="engAddr != null">
+        #{engAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="jibunAddr != null">
+        #{jibunAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="zipNo != null">
+        #{zipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="admCd != null">
+        #{admCd,jdbcType=VARCHAR},
+      </if>
+      <if test="rnMgtSn != null">
+        #{rnMgtSn,jdbcType=VARCHAR},
+      </if>
+      <if test="bdMgtSn != null">
+        #{bdMgtSn,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null">
+        #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="regAdminNo != null">
+        #{regAdminNo,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        NOW(),
+      </if>
+      <if test="updateTime != null">
+        NOW(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.MemberAddress">
+    update member_address
+    <set>
+      <if test="memberNo != null">
+        memberNo = #{memberNo,jdbcType=INTEGER},
+      </if>
+      <if test="nodeNo != null">
+        nodeNo = #{nodeNo,jdbcType=INTEGER},
+      </if>
+      <if test="nodeType != null">
+        nodeType = #{nodeType,jdbcType=VARCHAR},
+      </if>
+      <if test="roadFullAddr != null">
+        roadFullAddr = #{roadFullAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="roadAddrPart1 != null">
+        roadAddrPart1 = #{roadAddrPart1,jdbcType=VARCHAR},
+      </if>
+      <if test="roadAddrPart2 != null">
+        roadAddrPart2 = #{roadAddrPart2,jdbcType=VARCHAR},
+      </if>
+      <if test="addrDetail != null">
+        addrDetail = #{addrDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="engAddr != null">
+        engAddr = #{engAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="jibunAddr != null">
+        jibunAddr = #{jibunAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="zipNo != null">
+        zipNo = #{zipNo,jdbcType=VARCHAR},
+      </if>
+      <if test="admCd != null">
+        admCd = #{admCd,jdbcType=VARCHAR},
+      </if>
+      <if test="rnMgtSn != null">
+        rnMgtSn = #{rnMgtSn,jdbcType=VARCHAR},
+      </if>
+      <if test="bdMgtSn != null">
+        bdMgtSn = #{bdMgtSn,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null">
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="regAdminNo != null">
+        regAdminNo = #{regAdminNo,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where memberAddressNo = #{memberAddressNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.MemberAddress">
+    update member_address
+    set memberNo = #{memberNo,jdbcType=INTEGER},
+      nodeNo = #{nodeNo,jdbcType=INTEGER},
+      nodeType = #{nodeType,jdbcType=VARCHAR},
+      roadFullAddr = #{roadFullAddr,jdbcType=VARCHAR},
+      roadAddrPart1 = #{roadAddrPart1,jdbcType=VARCHAR},
+      roadAddrPart2 = #{roadAddrPart2,jdbcType=VARCHAR},
+      addrDetail = #{addrDetail,jdbcType=VARCHAR},
+      engAddr = #{engAddr,jdbcType=VARCHAR},
+      jibunAddr = #{jibunAddr,jdbcType=VARCHAR},
+      zipNo = #{zipNo,jdbcType=VARCHAR},
+      admCd = #{admCd,jdbcType=VARCHAR},
+      rnMgtSn = #{rnMgtSn,jdbcType=VARCHAR},
+      bdMgtSn = #{bdMgtSn,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=VARCHAR},
+      regAdminNo = #{regAdminNo,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = NOW()
+    where memberAddressNo = #{memberAddressNo,jdbcType=INTEGER}
+  </update>
+</mapper>

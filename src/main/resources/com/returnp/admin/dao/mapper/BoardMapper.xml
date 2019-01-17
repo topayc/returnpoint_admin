@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.BoardMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.Board">
+    <id column="boardNo" jdbcType="INTEGER" property="boardNo" />
+    <result column="boardType" jdbcType="VARCHAR" property="boardType" />
+    <result column="boardName" jdbcType="VARCHAR" property="boardName" />
+    <result column="boardTitle" jdbcType="VARCHAR" property="boardTitle" />
+    <result column="boardWriterNo" jdbcType="INTEGER" property="boardWriterNo" />
+    <result column="boardWriterName" jdbcType="VARCHAR" property="boardWriterName" />
+    <result column="boardWriterEmail" jdbcType="VARCHAR" property="boardWriterEmail" />
+    <result column="boardWriterType" jdbcType="VARCHAR" property="boardWriterType" />
+    <result column="viewHitCount" jdbcType="INTEGER" property="viewHitCount" />
+    <result column="isPublic" jdbcType="CHAR" property="isPublic" />
+    <result column="boardPid" jdbcType="INTEGER" property="boardPid" />
+    <result column="boardRef" jdbcType="INTEGER" property="boardRef" />
+    <result column="boardLevel" jdbcType="INTEGER" property="boardLevel" />
+    <result column="boardCate" jdbcType="VARCHAR" property="boardCate" />
+    <result column="replyStatus" jdbcType="VARCHAR" property="replyStatus" />
+    <result column="rerv1" jdbcType="VARCHAR" property="rerv1" />
+    <result column="rerv2" jdbcType="VARCHAR" property="rerv2" />
+    <result column="rerv3" jdbcType="VARCHAR" property="rerv3" />
+    <result column="rerv4" jdbcType="VARCHAR" property="rerv4" />
+    <result column="rerv5" jdbcType="VARCHAR" property="rerv5" />
+    <result column="rerv6" jdbcType="VARCHAR" property="rerv6" />
+    <result column="rerv7" jdbcType="VARCHAR" property="rerv7" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.returnp.admin.model.Board">
+    <result column="boardContent" jdbcType="LONGVARCHAR" property="boardContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    boardNo, boardType, boardName, boardTitle, boardWriterNo, boardWriterName, boardWriterEmail, 
+    boardWriterType, viewHitCount, isPublic, boardPid, boardRef, boardLevel, boardCate, 
+    replyStatus, rerv1, rerv2, rerv3, rerv4, rerv5, rerv6, rerv7, createTime, updateTime
+  </sql>
+  <sql id="Blob_Column_List">
+    boardContent
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from board
+    where boardNo = #{boardNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from board
+    where boardNo = #{boardNo,jdbcType=INTEGER}
+  </delete>
+  
+      <sql id ="Board_WhereStatement">
+      <if test="boardType != null"> AND  boardType = #{boardType,jdbcType=VARCHAR}</if>
+      <if test="boardName != null"> AND boardName = #{boardName,jdbcType=VARCHAR}</if>
+      <if test="boardTitle != null"> AND boardTitle = #{boardTitle,jdbcType=VARCHAR}</if>
+      <if test="boardPid != null"> AND boardPid = #{boardPid,jdbcType=INTEGER}</if>
+      <if test="boardWriterNo != null"> AND boardWriterNo = #{boardWriterNo,jdbcType=INTEGER}</if>
+      <if test="boardWriterName != null"> AND boardWriterName = #{boardWriterName,jdbcType=VARCHAR}</if>
+      <if test="boardWriterEmail != null"> AND boardWriterEmail = #{boardWriterEmail,jdbcType=VARCHAR}</if>
+      <if test="boardWriterType != null"> AND boardWriterType = #{boardWriterType,jdbcType=VARCHAR}</if>
+      <if test="viewHitCount != null"> AND viewHitCount = #{viewHitCount,jdbcType=INTEGER}</if>
+      <if test="isPublic != null"> AND isPublic = #{isPublic,jdbcType=CHAR}</if>
+      <if test="boardRef != null"> AND boardRef = #{boardRef,jdbcType=INTEGER}</if>
+      <if test="boardLevel != null"> AND boardLevel = #{boardLevel,jdbcType=INTEGER}</if>
+      <if test="boardCate != null"> AND boardCate = #{boardCate,jdbcType=VARCHAR}</if>
+      <if test="replyStatus != null"> AND replyStatus = #{replyStatus,jdbcType=VARCHAR}</if>
+      <if test="rerv1 != null"> AND rerv1 = #{rerv1,jdbcType=VARCHAR}</if>
+      <if test="rerv2 != null"> AND rerv2 = #{rerv2,jdbcType=VARCHAR}</if>
+      <if test="rerv3 != null"> AND rerv3 = #{rerv3,jdbcType=VARCHAR}</if>
+      <if test="rerv4 != null"> AND rerv4 = #{rerv4,jdbcType=VARCHAR}</if>
+      <if test="rerv5 != null"> AND rerv5 = #{rerv5,jdbcType=VARCHAR} </if>
+      <if test="rerv6 != null"> AND rerv6 = #{rerv6,jdbcType=VARCHAR} </if>
+      <if test="rerv7 != null"> AND rerv7 = #{rerv7,jdbcType=VARCHAR} </if>
+    </sql>
+   
+   <delete id="deleteBoards" parameterType="com.returnp.admin.model.Board">
+    delete from board
+    where 
+        1 = 1
+        <include  refid="Board_WhereStatement" />
+     </delete>
+     
+  <insert id="insert" parameterType="com.returnp.admin.model.Board">
+    insert into board (boardNo, boardType, boardName, 
+      boardTitle, boardWriterNo, boardWriterName, 
+      boardWriterEmail, boardWriterType, viewHitCount, 
+      isPublic, boardPid, boardRef, 
+      boardLevel, boardCate, replyStatus, 
+      rerv1, rerv2, rerv3, 
+      rerv4, rerv5, rerv6, 
+      rerv7, createTime, updateTime, 
+      boardContent)
+    values (#{boardNo,jdbcType=INTEGER}, #{boardType,jdbcType=VARCHAR}, #{boardName,jdbcType=VARCHAR}, 
+      #{boardTitle,jdbcType=VARCHAR}, #{boardWriterNo,jdbcType=INTEGER}, #{boardWriterName,jdbcType=VARCHAR}, 
+      #{boardWriterEmail,jdbcType=VARCHAR}, #{boardWriterType,jdbcType=VARCHAR}, #{viewHitCount,jdbcType=INTEGER}, 
+      #{isPublic,jdbcType=CHAR}, #{boardPid,jdbcType=INTEGER}, #{boardRef,jdbcType=INTEGER}, 
+      #{boardLevel,jdbcType=INTEGER}, #{boardCate,jdbcType=VARCHAR}, #{replyStatus,jdbcType=VARCHAR}, 
+      #{rerv1,jdbcType=VARCHAR}, #{rerv2,jdbcType=VARCHAR}, #{rerv3,jdbcType=VARCHAR}, 
+      #{rerv4,jdbcType=VARCHAR}, #{rerv5,jdbcType=VARCHAR}, #{rerv6,jdbcType=VARCHAR}, 
+      #{rerv7,jdbcType=VARCHAR}, NOW(), NOW(), 
+      #{boardContent,jdbcType=LONGVARCHAR})
+   
+   <selectKey keyProperty="boardNo" resultType="java.lang.Integer" order ="AFTER">
+        SELECT LAST_INSERT_ID()
+   </selectKey> 
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.Board">
+    insert into board
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="boardNo != null">
+        boardNo,
+      </if>
+      <if test="boardType != null">
+        boardType,
+      </if>
+      <if test="boardName != null">
+        boardName,
+      </if>
+      <if test="boardTitle != null">
+        boardTitle,
+      </if>
+      <if test="boardWriterNo != null">
+        boardWriterNo,
+      </if>
+      <if test="boardWriterName != null">
+        boardWriterName,
+      </if>
+      <if test="boardWriterEmail != null">
+        boardWriterEmail,
+      </if>
+      <if test="boardWriterType != null">
+        boardWriterType,
+      </if>
+      <if test="viewHitCount != null">
+        viewHitCount,
+      </if>
+      <if test="isPublic != null">
+        isPublic,
+      </if>
+      <if test="boardPid != null">
+        boardPid,
+      </if>
+      <if test="boardRef != null">
+        boardRef,
+      </if>
+      <if test="boardLevel != null">
+        boardLevel,
+      </if>
+      <if test="boardCate != null">
+        boardCate,
+      </if>
+      <if test="replyStatus != null">
+        replyStatus,
+      </if>
+      <if test="rerv1 != null">
+        rerv1,
+      </if>
+      <if test="rerv2 != null">
+        rerv2,
+      </if>
+      <if test="rerv3 != null">
+        rerv3,
+      </if>
+      <if test="rerv4 != null">
+        rerv4,
+      </if>
+      <if test="rerv5 != null">
+        rerv5,
+      </if>
+      <if test="rerv6 != null">
+        rerv6,
+      </if>
+      <if test="rerv7 != null">
+        rerv7,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="boardContent != null">
+        boardContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="boardNo != null">
+        #{boardNo,jdbcType=INTEGER},
+      </if>
+      <if test="boardType != null">
+        #{boardType,jdbcType=VARCHAR},
+      </if>
+      <if test="boardName != null">
+        #{boardName,jdbcType=VARCHAR},
+      </if>
+      <if test="boardTitle != null">
+        #{boardTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="boardWriterNo != null">
+        #{boardWriterNo,jdbcType=INTEGER},
+      </if>
+      <if test="boardWriterName != null">
+        #{boardWriterName,jdbcType=VARCHAR},
+      </if>
+      <if test="boardWriterEmail != null">
+        #{boardWriterEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="boardWriterType != null">
+        #{boardWriterType,jdbcType=VARCHAR},
+      </if>
+      <if test="viewHitCount != null">
+        #{viewHitCount,jdbcType=INTEGER},
+      </if>
+      <if test="isPublic != null">
+        #{isPublic,jdbcType=CHAR},
+      </if>
+      <if test="boardPid != null">
+        #{boardPid,jdbcType=INTEGER},
+      </if>
+      <if test="boardRef != null">
+        #{boardRef,jdbcType=INTEGER},
+      </if>
+      <if test="boardLevel != null">
+        #{boardLevel,jdbcType=INTEGER},
+      </if>
+      <if test="boardCate != null">
+        #{boardCate,jdbcType=VARCHAR},
+      </if>
+      <if test="replyStatus != null">
+        #{replyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv1 != null">
+        #{rerv1,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv2 != null">
+        #{rerv2,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv3 != null">
+        #{rerv3,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv4 != null">
+        #{rerv4,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv5 != null">
+        #{rerv5,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv6 != null">
+        #{rerv6,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv7 != null">
+        #{rerv7,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="boardContent != null">
+        #{boardContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.Board">
+    update board
+    <set>
+      <if test="boardType != null">
+        boardType = #{boardType,jdbcType=VARCHAR},
+      </if>
+      <if test="boardName != null">
+        boardName = #{boardName,jdbcType=VARCHAR},
+      </if>
+      <if test="boardTitle != null">
+        boardTitle = #{boardTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="boardWriterNo != null">
+        boardWriterNo = #{boardWriterNo,jdbcType=INTEGER},
+      </if>
+      <if test="boardWriterName != null">
+        boardWriterName = #{boardWriterName,jdbcType=VARCHAR},
+      </if>
+      <if test="boardWriterEmail != null">
+        boardWriterEmail = #{boardWriterEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="boardWriterType != null">
+        boardWriterType = #{boardWriterType,jdbcType=VARCHAR},
+      </if>
+      <if test="viewHitCount != null">
+        viewHitCount = #{viewHitCount,jdbcType=INTEGER},
+      </if>
+      <if test="isPublic != null">
+        isPublic = #{isPublic,jdbcType=CHAR},
+      </if>
+      <if test="boardPid != null">
+        boardPid = #{boardPid,jdbcType=INTEGER},
+      </if>
+      <if test="boardRef != null">
+        boardRef = #{boardRef,jdbcType=INTEGER},
+      </if>
+      <if test="boardLevel != null">
+        boardLevel = #{boardLevel,jdbcType=INTEGER},
+      </if>
+      <if test="boardCate != null">
+        boardCate = #{boardCate,jdbcType=VARCHAR},
+      </if>
+      <if test="replyStatus != null">
+        replyStatus = #{replyStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv1 != null">
+        rerv1 = #{rerv1,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv2 != null">
+        rerv2 = #{rerv2,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv3 != null">
+        rerv3 = #{rerv3,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv4 != null">
+        rerv4 = #{rerv4,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv5 != null">
+        rerv5 = #{rerv5,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv6 != null">
+        rerv6 = #{rerv6,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv7 != null">
+        rerv7 = #{rerv7,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="boardContent != null">
+        boardContent = #{boardContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where boardNo = #{boardNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.returnp.admin.model.Board">
+    update board
+    set boardType = #{boardType,jdbcType=VARCHAR},
+      boardName = #{boardName,jdbcType=VARCHAR},
+      boardTitle = #{boardTitle,jdbcType=VARCHAR},
+      boardWriterNo = #{boardWriterNo,jdbcType=INTEGER},
+      boardWriterName = #{boardWriterName,jdbcType=VARCHAR},
+      boardWriterEmail = #{boardWriterEmail,jdbcType=VARCHAR},
+      boardWriterType = #{boardWriterType,jdbcType=VARCHAR},
+      viewHitCount = #{viewHitCount,jdbcType=INTEGER},
+      isPublic = #{isPublic,jdbcType=CHAR},
+      boardPid = #{boardPid,jdbcType=INTEGER},
+      boardRef = #{boardRef,jdbcType=INTEGER},
+      boardLevel = #{boardLevel,jdbcType=INTEGER},
+      boardCate = #{boardCate,jdbcType=VARCHAR},
+      replyStatus = #{replyStatus,jdbcType=VARCHAR},
+      rerv1 = #{rerv1,jdbcType=VARCHAR},
+      rerv2 = #{rerv2,jdbcType=VARCHAR},
+      rerv3 = #{rerv3,jdbcType=VARCHAR},
+      rerv4 = #{rerv4,jdbcType=VARCHAR},
+      rerv5 = #{rerv5,jdbcType=VARCHAR},
+      rerv6 = #{rerv6,jdbcType=VARCHAR},
+      rerv7 = #{rerv7,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      boardContent = #{boardContent,jdbcType=LONGVARCHAR}
+    where boardNo = #{boardNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.Board">
+    update board
+    set boardType = #{boardType,jdbcType=VARCHAR},
+      boardName = #{boardName,jdbcType=VARCHAR},
+      boardTitle = #{boardTitle,jdbcType=VARCHAR},
+      boardWriterNo = #{boardWriterNo,jdbcType=INTEGER},
+      boardWriterName = #{boardWriterName,jdbcType=VARCHAR},
+      boardWriterEmail = #{boardWriterEmail,jdbcType=VARCHAR},
+      boardWriterType = #{boardWriterType,jdbcType=VARCHAR},
+      viewHitCount = #{viewHitCount,jdbcType=INTEGER},
+      isPublic = #{isPublic,jdbcType=CHAR},
+      boardPid = #{boardPid,jdbcType=INTEGER},
+      boardRef = #{boardRef,jdbcType=INTEGER},
+      boardLevel = #{boardLevel,jdbcType=INTEGER},
+      boardCate = #{boardCate,jdbcType=VARCHAR},
+      replyStatus = #{replyStatus,jdbcType=VARCHAR},
+      rerv1 = #{rerv1,jdbcType=VARCHAR},
+      rerv2 = #{rerv2,jdbcType=VARCHAR},
+      rerv3 = #{rerv3,jdbcType=VARCHAR},
+      rerv4 = #{rerv4,jdbcType=VARCHAR},
+      rerv5 = #{rerv5,jdbcType=VARCHAR},
+      rerv6 = #{rerv6,jdbcType=VARCHAR},
+      rerv7 = #{rerv7,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = NOW()
+    where boardNo = #{boardNo,jdbcType=INTEGER}
+  </update>
+</mapper>
