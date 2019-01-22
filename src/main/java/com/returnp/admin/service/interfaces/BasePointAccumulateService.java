@@ -16,7 +16,7 @@ import com.returnp.admin.model.PaymentTransaction;
 
 @Transactional
 public interface BasePointAccumulateService {
-	public BaseResponse accumulate(DataMap dataMap);
+	public BaseResponse accumulate(DataMap dataMap) throws ReturnpException, Exception;
 
 	public BaseResponse cancelAccumulate(DataMap dataMap);
 

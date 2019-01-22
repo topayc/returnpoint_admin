@@ -7,6 +7,7 @@
 			
 			<div style="margin-bottom:30px"><input id ="company" name="company" style="width:100%" data-options="label:'회사명 ',labelWidth :140,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:30px"><input id ="project" name="project" style="width:100%" data-options="label:'프로젝트명',labelWidth :140,labelPosition : 'left'"> </div>
+			<div style="margin-bottom:30px"><input id ="rfId"" name="rfId" style="width:100%" data-options="label:'RF ID',labelWidth :140,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:30px">
 				<select class = "easyui-combobox"  id ="apiService" name="apiService"   style="width:100%" data-options="label:'서비스 종류',labelWidth :140,labelAlign:'left',labelPosition : 'left'"> 
 					<c:forEach var="apiServiceType"  items="${apiServiceTypes}" >
@@ -51,6 +52,26 @@ function setViewInit(){
 	$('#domain').textbox({
 		prompt: 'www.xxxxx.xxx', 
 	});
+	
+	$('#rfId').textbox({
+		prompt: 'RF ID', 
+		editable : false,
+		buttonText:'발급',
+		onClickButton :
+			function(e){
+				var param = $("#createApiServiceForm").serializeArray();
+				returnp.api.call("makeRfId", param, function(res){
+					console.log(res);
+					if (res.resultCode  == "100") {
+						$.messager.alert('알림', res.message ,'', function(){
+							$("#rfId").textbox('setValue', res.data);	
+						});	
+					}else {
+						$.messager.alert('오류 발생', res.message);
+					}
+				});
+			}
+	});	
 	$('#ip').textbox({
 		prompt: '000.000.000.000', 
 	});

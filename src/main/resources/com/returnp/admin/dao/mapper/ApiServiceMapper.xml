@@ -5,6 +5,7 @@
     <id column="apiServiceNo" jdbcType="INTEGER" property="apiServiceNo" />
     <result column="apiService" jdbcType="VARCHAR" property="apiService" />
     <result column="apiServiceName" jdbcType="VARCHAR" property="apiServiceName" />
+    <result column="rfId" jdbcType="VARCHAR" property="rfId" />
     <result column="company" jdbcType="VARCHAR" property="company" />
     <result column="project" jdbcType="VARCHAR" property="project" />
     <result column="domain" jdbcType="VARCHAR" property="domain" />
@@ -17,30 +18,30 @@
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    apiServiceNo, apiService,apiServiceName, company, project, domain, ip, apiKey, apiServiceStatus, 
-    expireTime, regAdminNo, createTime, updateTime
+    apiServiceNo, apiService, apiServiceName, rfId, company, project, domain, ip, apiKey, 
+    apiServiceStatus, expireTime, regAdminNo, createTime, updateTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from api_service
     where apiServiceNo = #{apiServiceNo,jdbcType=INTEGER}
-  </select>  
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from api_service
     where apiServiceNo = #{apiServiceNo,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.returnp.admin.model.ApiService">
-    insert into api_service (apiServiceNo, apiService, apiServiceName,company, 
-      project, domain, ip, 
-      apiKey, apiServiceStatus, expireTime, 
-      regAdminNo, createTime, updateTime
-      )
-    values (#{apiServiceNo,jdbcType=INTEGER}, #{apiService,jdbcType=VARCHAR},#{apiServiceName,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
-      #{project,jdbcType=VARCHAR}, #{domain,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
-      #{apiKey,jdbcType=VARCHAR}, #{apiServiceStatus,jdbcType=VARCHAR}, NOW()+ INTERVAL 1 YEAR, 
-      #{regAdminNo,jdbcType=INTEGER}, NOW(), NOW()
-      )
+    insert into api_service (apiServiceNo, apiService, apiServiceName, 
+      rfId, company, project, 
+      domain, ip, apiKey, 
+      apiServiceStatus, expireTime, regAdminNo, 
+      createTime, updateTime)
+    values (#{apiServiceNo,jdbcType=INTEGER}, #{apiService,jdbcType=VARCHAR}, #{apiServiceName,jdbcType=VARCHAR}, 
+      #{rfId,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{project,jdbcType=VARCHAR}, 
+      #{domain,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{apiKey,jdbcType=VARCHAR}, 
+      #{apiServiceStatus,jdbcType=VARCHAR}, #{expireTime,jdbcType=TIMESTAMP}, #{regAdminNo,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.returnp.admin.model.ApiService">
     insert into api_service
@@ -51,8 +52,11 @@
       <if test="apiService != null">
         apiService,
       </if>
-      <if test="apiService != null">
+      <if test="apiServiceName != null">
         apiServiceName,
+      </if>
+      <if test="rfId != null">
+        rfId,
       </if>
       <if test="company != null">
         company,
@@ -92,8 +96,11 @@
       <if test="apiService != null">
         #{apiService,jdbcType=VARCHAR},
       </if>
-       <if test="apiService != null">
+      <if test="apiServiceName != null">
         #{apiServiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="rfId != null">
+        #{rfId,jdbcType=VARCHAR},
       </if>
       <if test="company != null">
         #{company,jdbcType=VARCHAR},
@@ -133,8 +140,11 @@
       <if test="apiService != null">
         apiService = #{apiService,jdbcType=VARCHAR},
       </if>
-      <if test="apiService != null">
+      <if test="apiServiceName != null">
         apiServiceName = #{apiServiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="rfId != null">
+        rfId = #{rfId,jdbcType=VARCHAR},
       </if>
       <if test="company != null">
         company = #{company,jdbcType=VARCHAR},
@@ -172,7 +182,8 @@
   <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.ApiService">
     update api_service
     set apiService = #{apiService,jdbcType=VARCHAR},
-    	apiServiceName = #{apiServiceName,jdbcType=VARCHAR},
+      apiServiceName = #{apiServiceName,jdbcType=VARCHAR},
+      rfId = #{rfId,jdbcType=VARCHAR},
       company = #{company,jdbcType=VARCHAR},
       project = #{project,jdbcType=VARCHAR},
       domain = #{domain,jdbcType=VARCHAR},
@@ -186,9 +197,10 @@
     where apiServiceNo = #{apiServiceNo,jdbcType=INTEGER}
   </update>
   
-  <resultMap id="ApiServieResultMap" type="com.returnp.admin.model.ApiService">
+    <resultMap id="ApiServieResultMap" type="com.returnp.admin.model.ApiService">
     <id column="apiServiceNo" jdbcType="INTEGER" property="apiServiceNo" />
     <result column="apiService" jdbcType="VARCHAR" property="apiService" />
+    <result column="rfId" jdbcType="VARCHAR" property="rfId" />
     <result column="apiServiceName" jdbcType="VARCHAR" property="apiServiceName" />
     <result column="company" jdbcType="VARCHAR" property="company" />
     <result column="project" jdbcType="VARCHAR" property="project" />
@@ -202,7 +214,7 @@
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Api_Service_Column_List">
-    apiServiceNo, apiService,apiServiceName, company, project, domain, ip, apiKey, apiServiceStatus, 
+    apiServiceNo, apiService,apiServiceName, rfId, company, project, domain, ip, apiKey, apiServiceStatus, 
     expireTime, regAdminNo, createTime, updateTime
   </sql>
   <select id="findApiServices" parameterType="java.lang.Integer" resultMap="ApiServieResultMap">
@@ -213,7 +225,8 @@
     <include refid = "ApiService_WhereStatement"/>
   </select>
   <sql id ="ApiService_WhereStatement">
-  	<if test="apiService != null">and apiService = #{apiService,jdbcType=VARCHAR}</if>
+    <if test="apiService != null">and apiService = #{apiService,jdbcType=VARCHAR}</if>
+    <if test="rfId != null">and apiService = #{rfId,jdbcType=VARCHAR}</if>
      <if test="apiServiceName != null">and apiServiceName = #{apiServiceName,jdbcType=VARCHAR}</if>
      <if test="company != null">and company = #{company,jdbcType=VARCHAR}</if>
      <if test="project != null">and project = #{project,jdbcType=VARCHAR}</if>

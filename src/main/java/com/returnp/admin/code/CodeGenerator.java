@@ -1,8 +1,12 @@
 package com.returnp.admin.code;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Date;
 
 import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.utils.Crypto;
 
 public class CodeGenerator {
 	public static String generatorRecommenderCode(String key) {
@@ -40,4 +44,23 @@ public class CodeGenerator {
 	public static String generatorPaymentApprovalNumber(Object object) {
 		return "RPAN_" + new Date ().getTime(); 
 	}
+	
+	public static String generatorRfId(Object object) {
+		return "RFID_" + new Date ().getTime(); 
+	}
+	
+	  public static String createApiToken(String data) {
+   	   String token = null;
+   	    SecureRandom secureRandom;
+   	    try {
+   	        secureRandom = SecureRandom.getInstance("SHA1PRNG");
+   	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+   	        secureRandom.setSeed(secureRandom.generateSeed(128));
+   	        token= new String(digest.digest((secureRandom.nextLong() + "").getBytes()));
+   	        token = Crypto.encode_base64(token.getBytes(),token.length());
+   	    } catch (NoSuchAlgorithmException e) {
+   	    	e.printStackTrace();
+   	    }
+   	    return token;
+   }
 }

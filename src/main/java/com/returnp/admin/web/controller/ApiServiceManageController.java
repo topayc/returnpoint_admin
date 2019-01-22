@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.returnp.admin.code.CodeDefine;
+import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.reponse.BaseResponse;
@@ -147,11 +148,30 @@ public class ApiServiceManageController extends ApplicationController{
 		SingleDataObjectResponse<String> res = new SingleDataObjectResponse<String>();
 		try {
 			/*키발급 샘플*/
-			res.setData(Common.createApiToken(apiService));	
+			res.setData(CodeGenerator.createApiToken(apiService));	
 			/*키검증 샘플*/
 			//res.setData(String.valueOf(Common.verifyApiServiceToken("/affiliate/get","UyH.Kx.wL0CvKBOtWUXkYUvnWVPjJ0bjb.")));
 			
 			res.setMessage("API키가 성공적으로 발급되었습니다.");
+			res.setResultCode("100");
+			return res;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/apiService/makeRfId", method = RequestMethod.POST)
+	public  BaseResponse makeRfId( @RequestParam(value = "apiService", required = true) String  apiService){
+		SingleDataObjectResponse<String> res = new SingleDataObjectResponse<String>();
+		try {
+			/*키발급 샘플*/
+			res.setData(CodeGenerator.generatorRfId(apiService));	
+			/*키검증 샘플*/
+			//res.setData(String.valueOf(Common.verifyApiServiceToken("/affiliate/get","UyH.Kx.wL0CvKBOtWUXkYUvnWVPjJ0bjb.")));
+			
+			res.setMessage("RF ID 가  성공적으로 발급되었습니다.");
 			res.setResultCode("100");
 			return res;
 		}catch(Exception e){

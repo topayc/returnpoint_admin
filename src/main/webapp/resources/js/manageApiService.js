@@ -3,15 +3,16 @@
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 			    {field:'apiServiceNo',width:50,align:'center',title : '번호',hidden:false},
 			    {field:'company',width:100,align:'center',title : '회사명'},
-			    {field:'project',width:140,align:'center',title : '프로젝트 명'},
+			    {field:'project',width:110,align:'center',title : '프로젝트 명'},
+			    {field:'rfId',width:100,align:'center',title : 'RF ID'},
 			    {field:'apiService',width:90,align:'center',title : 'API 서비스 분류', formatter : serviceNameFormatter},
-			    {field:'apiServiceName',width:100,align:'center',title : 'API 서비스 이름', hidden: false},
+			    {field:'apiServiceName',width:130,align:'center',title : 'API 서비스 이름', hidden: false},
 			    {field:'domain',width:100,align:'center',title : '도메인'},
 			    {field:'ip',width:80,align:'center',title : 'IP'},
 			    {field:'apiServiceStatus',width:50,align:'center',title : '상태', formatter : serviceStatusFormatter},
 			    {field:'apiKey',width:200,align:'center',title : 'API Key'},
 			    {field:'expireTime',width:100,align:'center',title : '만료일',formatter : dateFormatter},
-			    {field:'createTime',width:100,align:'center',title : '등록일',formatter : dateFormatter},
+			    {field:'createTime',width:100,align:'center',title : '등록일',formatter : dateFormatter, hidden: false},
 			    ]];
 		
 initView();
@@ -369,7 +370,7 @@ function loadApiServiceModifyForm(){
 
 
 function makeFormData(){
-	$("#apiServiceName").val($("#company").val()  + " " +  $('#apiService').combobox("getText"))
+	$("#apiServiceName").val($("#company").val()  + "_" +  $('#apiService').combobox("getText"))
 	var param = $("#createApiServiceForm").serializeArray();
 	return param;
 }

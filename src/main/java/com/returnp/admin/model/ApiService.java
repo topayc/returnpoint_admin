@@ -7,8 +7,10 @@ public class ApiService extends QueryCondition {
     private Integer apiServiceNo;
 
     private String apiService;
-    
+
     private String apiServiceName;
+
+    private String rfId;
 
     private String company;
 
@@ -45,16 +47,24 @@ public class ApiService extends QueryCondition {
     public void setApiService(String apiService) {
         this.apiService = apiService == null ? null : apiService.trim();
     }
-    
+
     public String getApiServiceName() {
-		return apiServiceName;
-	}
+        return apiServiceName;
+    }
 
-	public void setApiServiceName(String apiServiceName) {
-		this.apiServiceName = apiServiceName;
-	}
+    public void setApiServiceName(String apiServiceName) {
+        this.apiServiceName = apiServiceName == null ? null : apiServiceName.trim();
+    }
 
-	public String getCompany() {
+    public String getRfId() {
+        return rfId;
+    }
+
+    public void setRfId(String rfId) {
+        this.rfId = rfId == null ? null : rfId.trim();
+    }
+
+    public String getCompany() {
         return company;
     }
 

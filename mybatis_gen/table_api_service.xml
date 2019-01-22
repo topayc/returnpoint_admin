@@ -11,7 +11,7 @@
       <property name="addRemarkComments" value="false"/>
     </commentGenerator>
     
-    <jdbcConnection connectionURL="jdbc:mysql://192.168.0.37/returnp_db?characterEncoding=UTF-8"  
+    <jdbcConnection connectionURL="jdbc:mysql://127.0.0.1/returnp_db?characterEncoding=UTF-8"  
     	driverClass="com.mysql.jdbc.Driver" password="1q2w3e4r5t!" userId="root" />
 	   
     <javaTypeResolver >

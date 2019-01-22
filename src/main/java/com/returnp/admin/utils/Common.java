@@ -156,4 +156,8 @@ public class Common {
 		
 		return apiList;
     }
+
+	public static String createRfId(String apiService) {
+		return null;
+	}
 }

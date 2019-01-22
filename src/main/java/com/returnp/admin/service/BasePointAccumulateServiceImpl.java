@@ -68,6 +68,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	 * 기본 초기화 작업
 	 * 외부 연결 허용 키 목록 세팅
 	 * 이후 연결 키 생성 기능구현시, 디비로 관리 
+	 * @throws Exception 
 	 */
 /*	@PostConstruct
 	 public void init() {
@@ -75,7 +76,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	 }*/
 	
 	@Override
-	public BaseResponse accumulate(DataMap dataMap) {
+	public BaseResponse accumulate(DataMap dataMap) throws Exception {
 		BaseResponse res = new BaseResponse();
 		try {
 			switch(dataMap.getStr("acc_from").trim()){
@@ -107,16 +108,14 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 			ResponseUtil.setResponse(res, "100", this.messageUtils.getMessage("pointback.message.success_acc_ok"));
 			return res;
 			
-		}catch(ReturnpException e) {
-			e.printStackTrace();
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			res = e.getBaseResponse();
-			return res;
-		}catch(Exception e) {
-			e.printStackTrace();
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}catch(ReturnpException e1) {
+			//e.printStackTrace();
+			res = e1.getBaseResponse();
+			throw e1;
+		}catch(Exception e2) {
+			//e.printStackTrace();
 			ResponseUtil.setResponse(res, "1001", this.messageUtils.getMessage("pointback.message.inner_server_error"));
-			return res;
+			throw e2;
 		}
 	}
 	
@@ -262,10 +261,8 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 			}
 		return member;
 		} catch (ReturnpException e1) {
-			e1.printStackTrace();
 			throw e1;
 		} catch (Exception e2) {
-			e2.printStackTrace();
 			throw e2;
 		}
 	}

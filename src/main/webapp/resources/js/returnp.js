@@ -208,6 +208,7 @@ $(function () {
         	updateApiService: {apiCode: 10000, apiPath : '/api/apiService/update' , requestMethod: 'post'}, /* API 키 발급,등록 */
         	deleteApiService: {apiCode: 10000, apiPath : '/api/apiService/delete' , requestMethod: 'post'}, /* API 키 발급,등록 */
         	makeApiKey: {apiCode: 10000, apiPath : '/api/apiService/makeKey' , requestMethod: 'post'}, /* API 키 발급,등록 */
+        	makeRfId: {apiCode: 10000, apiPath : '/api/apiService/makeRfId' , requestMethod: 'post'}, /* API 키 발급,등록 */
         	
         	 /* 로그인 */
         	signIn : { apiCode: 10000, requestMethod: "post"}, 
