@@ -76,8 +76,6 @@ function initView(){
 	/* 리셋 버튼  초기화*/
 	$('#reset_btn').linkbutton({
 		onClick : function(){
-			/*$('#searchForm').form('clear');*/
-		/*	$('#searchNodeType').combobox('select',0);*/
 			$('#searchNodeStatus').combobox('select', 0);
 			$('#searchKeywordType').combobox('select', 0);
 			$('#searchKeyword').textbox('clear');
@@ -102,7 +100,6 @@ function initView(){
 		pageSize : returnpCommon.appInfo.gridPageSize,
 		onSelect : function(){},
 		onLoadSuccess : function(){
-			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);
 		},	
 		onRowContextMenu : function(e, index, row){
 			e.preventDefault();
