@@ -50,7 +50,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 				pt = data.get(i);
 				
 				if (StringUtils.isEmpty(pt.getMemberEmail())) {
-					ResponseUtil.setResponse(res, "20000", (i + 1 ) + "  행에 회원 이름이 누락되었습니다");
+					ResponseUtil.setResponse(res, "20000", (i + 1 ) + "  행에 회원 이메일이 누락되었습니다");
 					throw new ReturnpException(res);
 				}
 				

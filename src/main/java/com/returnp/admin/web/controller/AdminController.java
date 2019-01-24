@@ -99,6 +99,7 @@ public class AdminController extends ApplicationController{
 		model.addAttribute("boardSearchKeywordTypeList", CodeDefine.getBoardSearchKeywordTypeList());
 		model.addAttribute("memberBankStatusList", CodeDefine.getMemberBankAccountStatusList());
 		model.addAttribute("withdrawalStatusList", CodeDefine.getWithdrawalStatusList());
+		model.addAttribute("marketerStatuses", CodeDefine.getMarketerStatusList());
 		
 		return RequestForward.CONTENT_VIEW;
 	}

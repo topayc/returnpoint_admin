@@ -139,6 +139,17 @@
 		                        </ul>
                             </li>
                             
+                            <li data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">특수 조직 관리</span>
+		                         <ul>
+		                         	<li id = "manageMembershipRequest"  data-options = "iconCls :'icon-info'">
+		                         		<a class= "sub_menu"  view_req_name = "manageMarketer"  menu_deps= '2' >
+		                         			<span style = "font-weight : bold">마케팅 조직 관리</span>
+		                         		</a> 
+		                         	</li>
+		                        </ul>
+                            </li>
+                            
                              <li data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">정회원 신청 관리</span>
 		                         <ul>
