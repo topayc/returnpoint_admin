@@ -47,9 +47,10 @@ public class MarketerServiceImpl implements MarketerService {
 				parentTemp.clear();
 				for (int j = 0 ; j < Math.pow(2, i+ 1) ; j++) {
 					Marketer marketer = new Marketer();
-					marketer.setMarketerDegree(i);
+					marketer.setMarketerDegree(i+1);
 					marketer.setMarketerCode(genCodeList.get(i) + "_"  + String.format("%08d", j+1));
 					marketer.setMarketerStatus("1");
+					marketer.setRegAdminNo(2);
 					if (i != 0) {
 						marketer.setParent(parents.get(j / 2).getMarketerCode());
 					} 
@@ -106,11 +107,11 @@ public class MarketerServiceImpl implements MarketerService {
 	public BaseResponse findMarketerCommands(MarketerCommand command) {
 		BaseResponse res = new BaseResponse();
 		try {
-			ArrayList<MarketerCommand> commands = this.marketerMapper.findMarketerCommand(command);
+			ArrayList<MarketerCommand> commands = this.marketerMapper.findMarketerCommands(command);
 			ArrayListResponse<MarketerCommand> ar = new ArrayListResponse<MarketerCommand>();
 			ar.setRows(commands);
 			ar.setTotal(commands.size());
-			ResponseUtil.setResponse(res, "100", this.messageUtils.getMessage("pointback.transaction_completed"));
+			ResponseUtil.setResponse(ar, "100", this.messageUtils.getMessage("pointback.transaction_completed"));
 			return ar;
 		} catch (Exception e) {
 			e.printStackTrace();

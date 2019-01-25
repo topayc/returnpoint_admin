@@ -2,16 +2,17 @@
 columns = [[
 	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 	   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-	    {field:'marketerNo',width:30,align:'center',title : '번호'},
-	    {field:'marketerDegree',width:40,align:'center',title : '차수'},
-	    {field:'marketerCode',width:100,align:'center',title : '마케터 아이디'},
-	    {field:'memberName',width:100,align:'center',title : '마케터 이름'},
-	    {field:'memberEmail',width:100,align:'center',title : '마케터 이메일'},
-	    {field:'memberPhone',width:100,align:'center',title : '마케터 전화'},
-	    {field:'marketStatus',width:50,align:'center',title : '상태',formatter : nodeStatusFormatter},
-	    {field:'regAdminNo',width:50,align:'center',title : '등록자', formatter : registAdminFormatter},
-	    {field:'createTime',width:100,align:'center',title : '등록일',formatter : dateFormatter},
-	    {field:'updateTime',width:100,align:'center',title : '수정일',formatter : dateFormatter}
+	    {field:'marketerNo',width:30,align:'center',title : 'No'},
+	    {field:'marketerDegree',width:40,align:'center',title : 'Degree'},
+	    {field:'marketerCode',width:100,align:'center',title : 'Marketer Code'},
+	    {field:'parent',width:100,align:'center',title : 'Parent Marketer', formatter : slashFormatter},
+	    {field:'memberName',width:100,align:'center',title : 'Name', formatter : slashFormatter},
+	    {field:'memberEmail',width:100,align:'center',title : 'Email', formatter : slashFormatter},
+	    {field:'memberPhone',width:100,align:'center',title : 'Cell Phone', formatter : slashFormatter},
+	    {field:'marketerStatus',width:50,align:'center',title : 'Status',formatter : marketerStatusFormatter},
+	    {field:'regAdminNo',width:50,align:'center',title : 'Register', formatter : registAdminFormatter},
+	    {field:'createTime',width:100,align:'center',title : 'Create Time',formatter : dateFormatter},
+	    {field:'updateTime',width:100,align:'center',title : 'Update Time',formatter : dateFormatter}
 	 ]];
 
 initView();
@@ -125,15 +126,15 @@ function initView(){
 		  		}
 		  	});
 		  	
-		  	var menus = [  '수정', '삭제','상세 정보' ];
-		  	var icons = ['icon-edit','icon-remove','icon-more'];
-		  	var actions = ['modify','remove','more_detail'];
+		  	var menus = [  '수정', /*'삭제',*/'상세 정보' ];
+		  	var icons = ['icon-edit', /*'icon-remove',*/'icon-more'];
+		  	var actions = ['modify', /*'remove',*/' more_detail'];
 		  	
 		  	for(var i=0; i<menus.length; i++){
 		  		cmenu.menu('appendItem', {
 		  			data : row,
 		  			no : row.memberNo,
-		  			text:  "<strong>[" + row.memberName + "]</strong>"  + " " + menus[i],
+		  			text:  "<strong>[" + row.marketerCode +"]</strong>"  + " " + menus[i],
 		  			action: actions[i],
 		  			iconCls: icons[i]
 		  		});

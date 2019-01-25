@@ -194,7 +194,7 @@
     where 
       1 = 1
 		<include refid = "Marketer_Command_WhereStatement"/>
-	order by createTime desc;
+	order by marketerDegree asc , marketerCode asc 
   </select>  
   
   <select id="selectMaxCodeRow"  resultType="string" >

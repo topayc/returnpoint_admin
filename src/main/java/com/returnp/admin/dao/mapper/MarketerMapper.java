@@ -20,5 +20,5 @@ public interface MarketerMapper {
 
     String selectMaxCodeRow();
     
-    ArrayList<MarketerCommand> findMarketerCommand(MarketerCommand command);
+    ArrayList<MarketerCommand> findMarketerCommands(MarketerCommand command);
 }

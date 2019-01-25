@@ -22,6 +22,15 @@ function affiliateTypeFormatter(value,row,index){
 		return result; 
  }
  
+ function marketerStatusFormatter(value,row,index) {
+	 switch(row.marketerStatus){
+		case "1": result = "정상"  ; break;
+		case "2":  result = "중지" ; break;
+		default :result = '-';break;
+		}
+		return result; 
+ }
+ 
  function serviceStatusFormatter(value,row,index) {
 	 switch(row.apiServiceStatus){
 		case "1": result = "승인"  ; break;
