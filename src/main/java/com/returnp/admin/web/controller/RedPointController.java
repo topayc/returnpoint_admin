@@ -22,7 +22,7 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.GreenPointCommand;
 import com.returnp.admin.dto.command.RedPointCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.RedPoint;
@@ -79,7 +79,7 @@ public class RedPointController extends ApplicationController {
 		}
 		
 		ArrayList<RedPointCommand> commandList = this.searchService.findRedPointCommands(cond);
-		SearchListResponse<RedPointCommand> slr = new SearchListResponse<RedPointCommand>();
+		ArrayListResponse<RedPointCommand> slr = new ArrayListResponse<RedPointCommand>();
 		slr.setRows(commandList);
 		slr.setTotal(commandList.size());	
 		this.setSuccessResponse(slr);

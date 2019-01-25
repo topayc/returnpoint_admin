@@ -29,7 +29,7 @@ import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.PaymentTransactionCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.PaymentTransaction;
@@ -112,7 +112,7 @@ public class PaymentTransactionController extends ApplicationController {
 			vCond.setMemberName(searchCondition.getSearchKeyword());
 		}
 		
-		SearchListResponse<PaymentTransaction> res = new SearchListResponse<PaymentTransaction>();
+		ArrayListResponse<PaymentTransaction> res = new ArrayListResponse<PaymentTransaction>();
 		ArrayList<PaymentTransaction> list = this.searchService.findPaymentTransactions(vCond);
 		res.setRows(list);
 		res.setTotal(list.size());	
@@ -134,7 +134,7 @@ public class PaymentTransactionController extends ApplicationController {
 			vCond.setMemberName(searchCondition.getSearchKeyword());
 		}
 		
-		SearchListResponse<PaymentTransactionCommand> res = new SearchListResponse<PaymentTransactionCommand>();
+		ArrayListResponse<PaymentTransactionCommand> res = new ArrayListResponse<PaymentTransactionCommand>();
 		ArrayList<PaymentTransactionCommand> list = this.searchService.findPaymentTransactionCommands(vCond);
 		res.setRows(list);
 		res.setTotal(list.size());	

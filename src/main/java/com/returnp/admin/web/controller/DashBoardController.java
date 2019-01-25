@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
 import com.returnp.admin.model.DashBoard;
 import com.returnp.admin.model.DashBoardChart;
@@ -32,7 +32,7 @@ public class DashBoardController extends ApplicationController {
 	@ResponseBody
 	@RequestMapping(value = "/dashBoard/getChart", method = RequestMethod.GET)
 	public BaseResponse getDashBoardChart(){
-		SearchListResponse<DashBoardChart> res = new SearchListResponse<DashBoardChart>();
+		ArrayListResponse<DashBoardChart> res = new ArrayListResponse<DashBoardChart>();
 		res.setRows(this.dashBoardService.selectForChart());
 		this.setSuccessResponse(res);
 		return res;

@@ -24,7 +24,7 @@ import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.GreenPointCommand;
 import com.returnp.admin.dto.command.PointConvertRequestCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.GreenPoint;
@@ -109,7 +109,7 @@ public class PointConvertRequestController extends ApplicationController {
 			cond.setMemberName(searchCondition.getSearchKeyword());
 		}
 		
-		SearchListResponse<PointConvertRequestCommand> res = new SearchListResponse<PointConvertRequestCommand>();
+		ArrayListResponse<PointConvertRequestCommand> res = new ArrayListResponse<PointConvertRequestCommand>();
 		ArrayList<PointConvertRequestCommand> list = this.searchService.findPointConvertRequestCommands(cond);
 		res.setRows(list);
 		res.setTotal(list.size());	

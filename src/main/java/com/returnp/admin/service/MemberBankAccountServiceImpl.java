@@ -9,7 +9,7 @@ import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.dao.mapper.MemberBankAccountMapper;
 import com.returnp.admin.dto.command.MemberBankAccountCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.service.interfaces.MemberBankAccountService;
 import com.returnp.admin.service.interfaces.SearchService;

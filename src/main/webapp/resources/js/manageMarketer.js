@@ -3,7 +3,8 @@ columns = [[
 	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 	   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 	    {field:'marketerNo',width:30,align:'center',title : '번호'},
-	    {field:'marketerId',width:100,align:'center',title : '마케터 아이디'},
+	    {field:'marketerDegree',width:40,align:'center',title : '차수'},
+	    {field:'marketerCode',width:100,align:'center',title : '마케터 아이디'},
 	    {field:'memberName',width:100,align:'center',title : '마케터 이름'},
 	    {field:'memberEmail',width:100,align:'center',title : '마케터 이메일'},
 	    {field:'memberPhone',width:100,align:'center',title : '마케터 전화'},
@@ -376,7 +377,7 @@ function loadMarketerDetailInfo(){
 }
 
 function makeFormData(){
-	var param = {degree : $('input[name=degree]').val()}	
+	var param = {count : $('input[name=count]').val()}	
 	return param;
 }
 
@@ -387,7 +388,7 @@ function createMarketer(data){
 	for (var prop in param){
 		console.log(prop + "- " + param[prop] );
 		if (param.hasOwnProperty(prop)) {
-			if (param[prop].trim() == '') {
+			if (param[prop] == '') {
 				valid = false;
 				break;
 			}
@@ -398,7 +399,7 @@ function createMarketer(data){
 		return;
 	}	 
 		
-	if (!$.isNumeric(param.degree) ) {
+	if (!$.isNumeric(param.count) ) {
 		$.messager.alert('알림', "차수는 숫자만 입력가능합니다");
 		return;
 	}

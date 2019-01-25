@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.model.AdminFile;
 import com.returnp.admin.service.interfaces.AdminFileService;
 
@@ -35,7 +35,7 @@ public class AdminFileUploadController extends ApplicationController {
 	@RequestMapping(value = "/adminFileUploads", method = RequestMethod.GET)
 	@ResponseBody
 	public BaseResponse getFiles() {
-		SearchListResponse<AdminFile> slr = new SearchListResponse<AdminFile>();
+		ArrayListResponse<AdminFile> slr = new ArrayListResponse<AdminFile>();
 		ArrayList<AdminFile> adminFiles = this.adminFileSearvice.findAdminFiles(new AdminFile());
 		slr.setRows(adminFiles);
 		slr.setTotal(adminFiles.size());

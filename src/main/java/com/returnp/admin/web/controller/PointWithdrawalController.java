@@ -21,7 +21,7 @@ import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.dto.command.PointWithdrawalCommand;
 import com.returnp.admin.dto.command.RedPointCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.model.Policy;
 import com.returnp.admin.service.interfaces.PointWithdrawalService;
 import com.returnp.admin.service.interfaces.SearchService;
@@ -72,7 +72,7 @@ public class PointWithdrawalController extends ApplicationController {
 	@RequestMapping(value = "/pointWithdrawals", method = RequestMethod.GET)
 	public BaseResponse  getBranch(
 			PointWithdrawalCommand pointWithdrawalCommand) {
-		SearchListResponse<PointWithdrawalCommand> res = new SearchListResponse<PointWithdrawalCommand>();
+		ArrayListResponse<PointWithdrawalCommand> res = new ArrayListResponse<PointWithdrawalCommand>();
 		ArrayList<PointWithdrawalCommand> resultList = this.pointWithdrawalService.findPointWithdrawalCommands(pointWithdrawalCommand);
 		ResponseUtil.setSuccessResponse(res);
 		res.setTotal(resultList.size());

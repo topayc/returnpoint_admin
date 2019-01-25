@@ -26,7 +26,7 @@ import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.MembershipRequestCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.CompanyBankAccount;
@@ -268,7 +268,7 @@ public class MembershipRequestController extends ApplicationController{
 		} 
 		
 		ArrayList<MembershipRequestCommand> datas = this.searchService.findMembershipRequestCommands(mrCond);
-		SearchListResponse<MembershipRequestCommand> res = new SearchListResponse<MembershipRequestCommand>();
+		ArrayListResponse<MembershipRequestCommand> res = new ArrayListResponse<MembershipRequestCommand>();
 		res.setRows(datas);
 		res.setTotal(datas.size());	
 		this.setSuccessResponse(res);

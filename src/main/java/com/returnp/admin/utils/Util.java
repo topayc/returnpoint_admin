@@ -143,4 +143,30 @@ public class Util {
 
 		return String.valueOf((long) decimalValue);
 	}
+	
+	public static String nextAlphabet(String source) {
+	    int length = source.length();
+	    char lastChar = source.charAt(length - 1);
+	    if (lastChar == 'Z') {
+	      if (length == 1) {
+	        return source = "AA";
+	      }
+	      source = nextAlphabet(source.substring(0, length - 1));
+	      source += "A";
+	      return source;
+	    }
+	    return source.substring(0, length - 1) + String.valueOf((char) (lastChar + 1));
+	  }
+	
+	public static void main(String[] args) {
+		String source = "@";
+	    for (int i = 0; i < 10; i++) {
+	      if (i % 26 == 0) {
+	        //System.out.println();
+	      }
+	      source = nextAlphabet(source);
+	      System.out.println(source + "_"  + String.format("%08d", i));
+	 
+	    }
+	}
 }

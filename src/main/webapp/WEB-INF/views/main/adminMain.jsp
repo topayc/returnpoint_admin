@@ -144,7 +144,7 @@
 		                         <ul>
 		                         	<li id = "manageMembershipRequest"  data-options = "iconCls :'icon-info'">
 		                         		<a class= "sub_menu"  view_req_name = "manageMarketer"  menu_deps= '2' >
-		                         			<span style = "font-weight : bold">마케팅 조직 관리</span>
+		                         			<span style = "font-weight : bold">마케팅 코드 및 ID 관리</span>
 		                         		</a> 
 		                         	</li>
 		                        </ul>

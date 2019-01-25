@@ -20,7 +20,7 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.dto.command.MemberBankAccountCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.service.interfaces.MemberBankAccountService;
 import com.returnp.admin.service.interfaces.SearchService;
@@ -59,7 +59,7 @@ public class MemberBankAccountController extends ApplicationController {
 	@ResponseBody
 	@RequestMapping(value = "/memberBankAccounts", method = RequestMethod.GET)
 	public BaseResponse  findMemberBankAccount( MemberBankAccount memberBankAccount) {
-		SearchListResponse<MemberBankAccountCommand> res= new SearchListResponse<MemberBankAccountCommand>();
+		ArrayListResponse<MemberBankAccountCommand> res= new ArrayListResponse<MemberBankAccountCommand>();
 		ArrayList<MemberBankAccountCommand> accountCommands = this.searchService.findMemberBankAccountCommands(memberBankAccount);
 		ResponseUtil.setSuccessResponse(res);
 		res.setTotal(accountCommands.size());

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.model.Policy;
 import com.returnp.admin.service.interfaces.SearchService;
 import com.returnp.admin.service.interfaces.PolicyService;
@@ -36,7 +36,7 @@ public class PolicyController extends ApplicationController {
 		ArrayList<Policy> data = new ArrayList<Policy>();
 		data.add(policies.get(policies.size()-1));
 		
-		SearchListResponse<Policy>  res = new  SearchListResponse<Policy>();
+		ArrayListResponse<Policy>  res = new  ArrayListResponse<Policy>();
 		res.setResultCode(AppConstants.ResponsResultCode.SUCCESS);
 		res.setResult(AppConstants.ResponseResult.SUCCESS);
 		res.setRows(data);

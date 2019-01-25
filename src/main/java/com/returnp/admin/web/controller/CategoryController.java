@@ -21,7 +21,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.CategoryCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
 import com.returnp.admin.model.Category;
 import com.returnp.admin.service.interfaces.CategoryService;
@@ -69,7 +69,7 @@ public class CategoryController extends ApplicationController{
 			}
 		}
 		
-		SearchListResponse<Category> res = new SearchListResponse<Category>();
+		ArrayListResponse<Category> res = new ArrayListResponse<Category>();
 		res.setRows(this.searchService.findCategories(category));
 		this.setSuccessResponse(res);
 		return res;

@@ -4,14 +4,14 @@
 	<div style = "padding:10px;padding-top:5px;padding-bottom:5px" >
 	   <form id="createMarketerForm"  name = "createMarketerForm" >
 			<div style="margin-bottom:30px">
-				<input id ="degree"  name="degree" style="width:100%" data-options="label:'생설할 차수  ',labelWidth :140,labelPosition : 'left'"> 
+				<input id ="count"  name="count" style="width:100%" data-options="label:'생설할 차수  ',labelWidth :140,labelPosition : 'left'"> 
  			</div>
 		</form>
 	</div>
 </div>
 <script>
 	function setViewInit(){
-		$('#degree').textbox({ prompt: '생성할 차수'});
+		$('#count').textbox({ prompt: '생성할 차수 갯수'});
 	}
 	setViewInit();
 </script>

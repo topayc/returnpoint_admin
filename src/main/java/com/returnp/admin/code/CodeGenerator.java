@@ -3,10 +3,11 @@ package com.returnp.admin.code;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Date;
 
-import com.returnp.admin.dto.reponse.BaseResponse;
 import com.returnp.admin.utils.Crypto;
+import com.returnp.admin.utils.Util;
 
 public class CodeGenerator {
 	public static String generatorRecommenderCode(String key) {
@@ -43,6 +44,16 @@ public class CodeGenerator {
 	
 	public static String generatorPaymentApprovalNumber(Object object) {
 		return "RPAN_" + new Date ().getTime(); 
+	}
+	
+	public static ArrayList<String> generatorMarketerCode(String source, int degree) {
+		ArrayList<String> list = new ArrayList<String>();
+		source = source == null ? "@" : source;
+		for (int i = 0; i < degree; i++) {
+			  source = Util.nextAlphabet(source);
+			list.add(source);
+	    }
+		return list;
 	}
 	
 	public static String generatorRfId(Object object) {

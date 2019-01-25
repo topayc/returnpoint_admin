@@ -23,7 +23,7 @@ import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.CodeKeyValuePair;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
 import com.returnp.admin.model.Board;
 import com.returnp.admin.service.interfaces.BoardService;
@@ -115,7 +115,7 @@ public class BoardController extends ApplicationController{
 	@RequestMapping(value = "/boards", method = RequestMethod.GET)
 	public BaseResponse  getBoards(Board  board) {
 		/*메인 스레드의 글만 불러옴*/
-		SearchListResponse<Board> slr = new SearchListResponse<Board>();
+		ArrayListResponse<Board> slr = new ArrayListResponse<Board>();
 		board.setBoardPid(0);
 		ArrayList<Board> boards = this.boardService.findBoards(board);
 		slr.setRows(boards);
@@ -145,7 +145,7 @@ public class BoardController extends ApplicationController{
 	@ResponseBody
 	@RequestMapping(value = "/boardCategories", method = RequestMethod.GET)
 	public BaseResponse  getCategories(String boardType) {
-		SearchListResponse<CodeKeyValuePair> slr = new SearchListResponse<CodeKeyValuePair>();
+		ArrayListResponse<CodeKeyValuePair> slr = new ArrayListResponse<CodeKeyValuePair>();
 		ArrayList<CodeKeyValuePair> cateList = null;
 		switch(boardType) {
 		case "1":

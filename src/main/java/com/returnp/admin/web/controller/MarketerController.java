@@ -1,16 +1,11 @@
 package com.returnp.admin.web.controller;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,29 +15,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.returnp.admin.code.CodeDefine;
-import com.returnp.admin.common.AppConstants;
-import com.returnp.admin.dto.AdminSession;
-import com.returnp.admin.dto.command.MemberCommand;
+import com.returnp.admin.dto.command.MarketerCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
 import com.returnp.admin.model.Member;
-import com.returnp.admin.service.interfaces.GreenPointService;
-import com.returnp.admin.service.interfaces.MemberService;
-import com.returnp.admin.service.interfaces.PointCoversionTransactionService;
-import com.returnp.admin.service.interfaces.RedPointService;
-import com.returnp.admin.service.interfaces.SearchService;
-import com.returnp.admin.utils.ReturnpResponseMessageHandler;
+import com.returnp.admin.service.interfaces.MarketerService;
 
 @Controller
 @RequestMapping("/api")
 @SessionAttributes("marketerFormInfo")
 public class MarketerController extends ApplicationController {
 
-	@Autowired MemberService memberService;
-	@Autowired SearchService searchService;
-	@Autowired GreenPointService  greenPointService;
-	@Autowired RedPointService redPointService;
-	@Autowired PointCoversionTransactionService pointTransactionService;
+	@Autowired MarketerService marketerService;;
 
 	@RequestMapping(value = "/marketer/form/createForm", method = RequestMethod.GET)
 	public String formMemberRequest(
@@ -67,13 +50,13 @@ public class MarketerController extends ApplicationController {
 	@RequestMapping(value = "/marketer/gets", method = RequestMethod.GET)
 	public BaseResponse  getMarketers(
 		@RequestParam(value = "marketerNo", required = false) int  marketerNo) {
-		return null;
+		return this.marketerService.findMarketerCommands(new MarketerCommand());
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/marketer/create", method = RequestMethod.POST)
-	public  BaseResponse createMarketer(@RequestParam(value = "degree", required = true) int  degree, HttpSession httpSession, Model model) {
-		return null;
+	public  BaseResponse createMarketer(@RequestParam(value = "count", required = true) int  count, HttpSession httpSession, Model model) {
+		return this.marketerService.createMarketer(count);
 	}
 	
 	@ResponseBody

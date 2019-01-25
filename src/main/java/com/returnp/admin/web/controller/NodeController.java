@@ -23,7 +23,7 @@ import com.returnp.admin.dto.command.RecommenderCommand2;
 import com.returnp.admin.dto.command.SaleManagerCommand;
 import com.returnp.admin.dto.command.SoleDistCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.service.interfaces.AffiliateService;
 import com.returnp.admin.service.interfaces.AgencyService;
@@ -78,7 +78,7 @@ public class NodeController extends ApplicationController{
 			memberCond.valueOf(nodeSearch);
             
 			ArrayList<MemberCommand> memberList = this.searchService.findMemberCommands(memberCond);
-			SearchListResponse<MemberCommand> slr = new SearchListResponse<MemberCommand>();
+			ArrayListResponse<MemberCommand> slr = new ArrayListResponse<MemberCommand>();
 			slr.setRows(memberList);
 			slr.setTotal(this.searchService.selectTotalRecords());
 			return slr;
@@ -100,7 +100,7 @@ public class NodeController extends ApplicationController{
 
 			rCond.valueOf(nodeSearch);
 			ArrayList<RecommenderCommand2> recommenderList = this.searchService.findRecommenderCommand2s(rCond);
-			SearchListResponse<RecommenderCommand2> slr2 = new SearchListResponse<RecommenderCommand2>();
+			ArrayListResponse<RecommenderCommand2> slr2 = new ArrayListResponse<RecommenderCommand2>();
 			slr2.setRows(recommenderList);
 			slr2.setTotal(this.searchService.selectTotalRecords());
 			return slr2;
@@ -123,7 +123,7 @@ public class NodeController extends ApplicationController{
 			bCond.valueOf(nodeSearch);
 			ArrayList<BranchCommand> branchList = this.searchService.findBranchCommands(bCond);
 
-			SearchListResponse<BranchCommand> slr3 = new SearchListResponse<BranchCommand>();
+			ArrayListResponse<BranchCommand> slr3 = new ArrayListResponse<BranchCommand>();
 			slr3.setRows(branchList);
 			slr3.setTotal(this.searchService.selectTotalRecords());
 			return slr3;
@@ -145,7 +145,7 @@ public class NodeController extends ApplicationController{
 			aCond.valueOf(nodeSearch);
 			ArrayList<AgencyCommand> agencyList = this.searchService.findAgencyCommands(aCond);
 
-			SearchListResponse<AgencyCommand> slr4 = new SearchListResponse<AgencyCommand>();
+			ArrayListResponse<AgencyCommand> slr4 = new ArrayListResponse<AgencyCommand>();
 			slr4.setRows(agencyList);
 			slr4.setTotal(this.searchService.selectTotalRecords());
 			return slr4;
@@ -166,7 +166,7 @@ public class NodeController extends ApplicationController{
 			afCond.valueOf(nodeSearch);
 			ArrayList<AffiliateCommand> affiliateList = this.searchService.findAffiliateCommands(afCond);
 
-			SearchListResponse<AffiliateCommand> slr5 = new SearchListResponse<AffiliateCommand>();
+			ArrayListResponse<AffiliateCommand> slr5 = new ArrayListResponse<AffiliateCommand>();
 			slr5.setRows(affiliateList);
 			slr5.setTotal(this.searchService.selectTotalRecords());
 			return slr5;
@@ -187,7 +187,7 @@ public class NodeController extends ApplicationController{
 			sfCond.valueOf(nodeSearch);
 			ArrayList<SaleManagerCommand> saleManagerList = this.searchService.findSaleManagerCommands(sfCond);
 
-			SearchListResponse<SaleManagerCommand> slr6 = new SearchListResponse<SaleManagerCommand>();
+			ArrayListResponse<SaleManagerCommand> slr6 = new ArrayListResponse<SaleManagerCommand>();
 			slr6.setRows(saleManagerList);
 			slr6.setTotal(this.searchService.selectTotalRecords());
 			return slr6;
@@ -208,7 +208,7 @@ public class NodeController extends ApplicationController{
 
 			sdCond.valueOf(nodeSearch);
 			ArrayList<SoleDistCommand> soleDistList = this.searchService.findSoleDistCommands(sdCond);
-			SearchListResponse<SoleDistCommand> slr7 = new SearchListResponse<SoleDistCommand>();
+			ArrayListResponse<SoleDistCommand> slr7 = new ArrayListResponse<SoleDistCommand>();
 			slr7.setRows(soleDistList);
 			slr7.setTotal(this.searchService.selectTotalRecords());
 			return slr7;

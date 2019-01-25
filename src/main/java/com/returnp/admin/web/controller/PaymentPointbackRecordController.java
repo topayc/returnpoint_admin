@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.PaymentPointbackRecordCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
 import com.returnp.admin.model.Branch;
 import com.returnp.admin.model.PaymentPointbackRecord;
@@ -61,7 +61,7 @@ public class PaymentPointbackRecordController extends ApplicationController{
 	public BaseResponse  getPaymentPonitbackRecords(
 			PaymentPointbackRecordCommand record) {
 		ArrayList<PaymentPointbackRecordCommand> list = this.searchService.findPaymentPointbackRecordCommands(record);
-		SearchListResponse<PaymentPointbackRecordCommand> res = new SearchListResponse<PaymentPointbackRecordCommand>();
+		ArrayListResponse<PaymentPointbackRecordCommand> res = new ArrayListResponse<PaymentPointbackRecordCommand>();
 		res.setRows(list);
 		res.setTotal(list.size());
 		this.setSuccessResponse(res);
@@ -78,7 +78,7 @@ public class PaymentPointbackRecordController extends ApplicationController{
 			record.setMemberName(searchKeyword);
 		}
 		ArrayList<PaymentPointbackRecordCommand> list = this.searchService.findPaymentPointbackRecordCommands(record);
-		SearchListResponse<PaymentPointbackRecordCommand> res = new SearchListResponse<PaymentPointbackRecordCommand>();
+		ArrayListResponse<PaymentPointbackRecordCommand> res = new ArrayListResponse<PaymentPointbackRecordCommand>();
 		res.setRows(list);
 		res.setTotal(list.size());
 		this.setSuccessResponse(res);

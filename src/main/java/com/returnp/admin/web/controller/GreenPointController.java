@@ -21,7 +21,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.GreenPointCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.GreenPoint;
@@ -85,7 +85,7 @@ public class GreenPointController extends ApplicationController {
 		BaseResponse res = new BaseResponse();
 		
 		ArrayList<GreenPointCommand> commandList = this.searchService.findGreenPointCommands(cond);
-		SearchListResponse<GreenPointCommand> slr = new SearchListResponse<GreenPointCommand>();
+		ArrayListResponse<GreenPointCommand> slr = new ArrayListResponse<GreenPointCommand>();
 		slr.setRows(commandList);
 		slr.setTotal(commandList.size());	
 		this.setSuccessResponse(slr);

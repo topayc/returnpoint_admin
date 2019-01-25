@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.PointTransferTransactionCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.model.PointTransferTransaction;
 import com.returnp.admin.model.Policy;
 import com.returnp.admin.service.interfaces.PointTransferTransactionServcie;
@@ -62,7 +62,7 @@ public class PointTransferTransactionController extends ApplicationController {
 	@RequestMapping(value = "/pointTransferTransactions/find", method = RequestMethod.GET)
 	public BaseResponse  findPointTransferTransactions( PointTransferTransactionCommand commnd) {
 		ArrayList<PointTransferTransactionCommand> list = this.searchService.findPointTransferTransactionCommands(commnd);
-		SearchListResponse<PointTransferTransactionCommand> res = new SearchListResponse<PointTransferTransactionCommand>();
+		ArrayListResponse<PointTransferTransactionCommand> res = new ArrayListResponse<PointTransferTransactionCommand>();
 		res.setRows(list);
 		res.setTotal(list.size());
 		this.setSuccessResponse(res);

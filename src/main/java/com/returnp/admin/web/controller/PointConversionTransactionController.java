@@ -24,7 +24,7 @@ import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.PointConversionTransactionCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.GreenPoint;
@@ -70,7 +70,7 @@ public class PointConversionTransactionController extends ApplicationController{
 		}
 		
 		ArrayList<PointConversionTransactionCommand> commands = this.searchService.findPointConversionTransactionCommands(pctCond);
-		SearchListResponse<PointConversionTransactionCommand> res  = new  SearchListResponse<PointConversionTransactionCommand>();
+		ArrayListResponse<PointConversionTransactionCommand> res  = new  ArrayListResponse<PointConversionTransactionCommand>();
 		res.setRows(commands);
 		res.setTotal(commands.size());	
 		this.setSuccessResponse(res);

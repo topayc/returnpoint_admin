@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.returnp.admin.dto.QueryCondition;
 
-public class SearchListResponse<T> extends BaseResponse{
+public class ArrayListResponse<T> extends BaseResponse{
 	public int total;
 	public ArrayList<T> rows;
 

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.MarketerMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.Marketer">
+    <id column="marketerNo" jdbcType="INTEGER" property="marketerNo" />
+    <result column="marketerDegree" jdbcType="INTEGER" property="marketerDegree" />
+    <result column="marketerCode" jdbcType="VARCHAR" property="marketerCode" />
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="parent" jdbcType="VARCHAR" property="parent" />
+    <result column="marketerStatus" jdbcType="VARCHAR" property="marketerStatus" />
+    <result column="regAdminNo" jdbcType="INTEGER" property="regAdminNo" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    marketerNo, marketerDegree, marketerCode, memberNo, parent, marketerStatus, regAdminNo, 
+    createTime, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from marketer
+    where marketerNo = #{marketerNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from marketer
+    where marketerNo = #{marketerNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.Marketer">
+    insert into marketer (marketerNo, marketerDegree, marketerCode, 
+      memberNo, parent, marketerStatus, 
+      regAdminNo, createTime, updateTime
+      )
+    values (#{marketerNo,jdbcType=INTEGER}, #{marketerDegree,jdbcType=INTEGER}, #{marketerCode,jdbcType=VARCHAR}, 
+      #{memberNo,jdbcType=INTEGER}, #{parent,jdbcType=VARCHAR}, #{marketerStatus,jdbcType=VARCHAR}, 
+      #{regAdminNo,jdbcType=INTEGER}, NOW(), NOW()
+      )
+      
+      <selectKey keyProperty="marketerNo" resultType="java.lang.Integer" order ="AFTER">
+		   SELECT LAST_INSERT_ID()
+	 </selectKey>
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.Marketer">
+    insert into marketer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="marketerNo != null">
+        marketerNo,
+      </if>
+      <if test="marketerDegree != null">
+        marketerDegree,
+      </if>
+      <if test="marketerCode != null">
+        marketerCode,
+      </if>
+      <if test="memberNo != null">
+        memberNo,
+      </if>
+      <if test="parent != null">
+        parent,
+      </if>
+      <if test="marketerStatus != null">
+        marketerStatus,
+      </if>
+      <if test="regAdminNo != null">
+        regAdminNo,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="marketerNo != null">
+        #{marketerNo,jdbcType=INTEGER},
+      </if>
+      <if test="marketerDegree != null">
+        #{marketerDegree,jdbcType=INTEGER},
+      </if>
+      <if test="marketerCode != null">
+        #{marketerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="memberNo != null">
+        #{memberNo,jdbcType=INTEGER},
+      </if>
+      <if test="parent != null">
+        #{parent,jdbcType=VARCHAR},
+      </if>
+      <if test="marketerStatus != null">
+        #{marketerStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="regAdminNo != null">
+        #{regAdminNo,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.Marketer">
+    update marketer
+    <set>
+      <if test="marketerDegree != null">
+        marketerDegree = #{marketerDegree,jdbcType=INTEGER},
+      </if>
+      <if test="marketerCode != null">
+        marketerCode = #{marketerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="memberNo != null">
+        memberNo = #{memberNo,jdbcType=INTEGER},
+      </if>
+      <if test="parent != null">
+        parent = #{parent,jdbcType=VARCHAR},
+      </if>
+      <if test="marketerStatus != null">
+        marketerStatus = #{marketerStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="regAdminNo != null">
+        regAdminNo = #{regAdminNo,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where marketerNo = #{marketerNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.Marketer">
+    update marketer
+    set marketerDegree = #{marketerDegree,jdbcType=INTEGER},
+      marketerCode = #{marketerCode,jdbcType=VARCHAR},
+      memberNo = #{memberNo,jdbcType=INTEGER},
+      parent = #{parent,jdbcType=VARCHAR},
+      marketerStatus = #{marketerStatus,jdbcType=VARCHAR},
+      regAdminNo = #{regAdminNo,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = NOW()
+    where marketerNo = #{marketerNo,jdbcType=INTEGER}
+  </update>
+  
+  
+  <resultMap id="MarketerCommandResultMap" type="com.returnp.admin.dto.command.MarketerCommand">
+    <id column="marketerNo" jdbcType="INTEGER" property="marketerNo" />
+    <result column="marketerDegree" jdbcType="INTEGER" property="marketerDegree" />
+    <result column="marketerCode" jdbcType="VARCHAR" property="marketerCode" />
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="parent" jdbcType="VARCHAR" property="parent" />
+    <result column="marketerStatus" jdbcType="VARCHAR" property="marketerStatus" />
+    <result column="memberName" jdbcType="VARCHAR" property="memberName" />
+    <result column="memberEmail" jdbcType="VARCHAR" property="memberEmail" />
+    <result column="memberPhone" jdbcType="VARCHAR" property="memberPhone" />
+    <result column="regAdminNo" jdbcType="INTEGER" property="regAdminNo" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+ <sql id="Marketer_Command_Column_List">
+ 	A.marketerNo, 
+ 	A.marketerDegree, 
+ 	A.marketerCode, 
+ 	A.memberNo, 
+ 	A.parent, 
+ 	A.marketerStatus, 
+ 	B.memberName, 
+ 	B.memberEmail, 
+ 	B.memberPhone,
+ 	A.regAdminNo, 
+ 	A.createTime, 
+ 	A.updateTime
+ </sql>
+
+  <sql id ="Marketer_Command_WhereStatement">
+ 	  <if test="marketerDegree != null"> marketerDegree = #{marketerDegree,jdbcType=INTEGER}</if>
+      <if test="marketerCode != null"> marketerCode = #{marketerCode,jdbcType=VARCHAR}</if>
+      <if test="memberNo != null"> memberNo = #{memberNo,jdbcType=INTEGER}</if>
+      <if test="parent != null"> parent = #{parent,jdbcType=VARCHAR}</if>
+      <if test="marketerStatus != null"> marketerStatus = #{marketerStatus,jdbcType=VARCHAR}</if>
+      <if test="memberEmail != null"> memberEmail = #{memberEmail,jdbcType=VARCHAR}</if>
+      <if test="memberName != null"> memberName = #{memberName,jdbcType=VARCHAR}</if>
+      <if test="memberPhone != null"> memberPhone = #{memberPhone,jdbcType=VARCHAR}</if>
+   </sql>
+   
+  <select id="findMarketerCommands" parameterType="com.returnp.admin.dto.command.MarketerCommand"  resultMap="MarketerCommandResultMap" >
+    select 
+    <include refid="Marketer_Command_Column_List" /> 
+  	from marketer as A  
+    left outer join member as B on (A.memberNo = B.memberNo)
+    where 
+      1 = 1
+		<include refid = "Marketer_Command_WhereStatement"/>
+	order by createTime desc;
+  </select>  
+  
+  <select id="selectMaxCodeRow"  resultType="string" >
+    select max(marketerCode) from marketer;
+  </select>
+</mapper>

@@ -24,7 +24,7 @@ import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SearchListResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.ApiService;
@@ -64,7 +64,7 @@ public class ApiServiceManageController extends ApplicationController{
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model)throws Exception {
 		ApiService  apiService = new ApiService();	
 		ArrayList<ApiService> apiServiceList = apiServiceService.findApiServices(apiService);
-		SearchListResponse<ApiService> res = new SearchListResponse<ApiService>();
+		ArrayListResponse<ApiService> res = new ArrayListResponse<ApiService>();
 		res.setRows(apiServiceList);
 		res.setTotal(apiServiceList.size());	
 		this.setSuccessResponse(res);
@@ -135,7 +135,7 @@ public class ApiServiceManageController extends ApplicationController{
 	public  BaseResponse ApiServiceList(
 			ApiService apiService, BindingResult result, HttpSession httpSession, Model model) {
 		ArrayList<ApiService> apiServiceList = Common.getApiServiceList(applicationContext);
-		SearchListResponse<ApiService> res = new SearchListResponse<ApiService>();
+		ArrayListResponse<ApiService> res = new ArrayListResponse<ApiService>();
 		res.setRows(apiServiceList);
 		res.setTotal(apiServiceList.size());	
 		res.setResultCode("100");
