@@ -18,7 +18,9 @@ public interface MarketerMapper {
 
     int updateByPrimaryKey(Marketer record);
 
-    String selectMaxCodeRow();
+    Marketer selectMaxCodeRow();
     
     ArrayList<MarketerCommand> findMarketerCommands(MarketerCommand command);
+
+    ArrayList<Marketer> findSortedMarketers(Marketer marketer);
 }

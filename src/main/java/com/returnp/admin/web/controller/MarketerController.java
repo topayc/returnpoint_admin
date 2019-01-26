@@ -16,8 +16,9 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.MarketerCommand;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.model.Member;
+import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
 import com.returnp.admin.service.interfaces.MarketerService;
 
 @Controller
@@ -30,7 +31,7 @@ public class MarketerController extends ApplicationController {
 	@RequestMapping(value = "/marketer/form/createForm", method = RequestMethod.GET)
 	public String formMemberRequest(
 			@RequestParam(value = "action", required = true,defaultValue = "create") String action,
-			@RequestParam(value = "marketerNo", defaultValue = "0") int memberNo,
+			@RequestParam(value = "marketerNo", defaultValue = "0") int marketerNo,
 			Model model){
 
 		model.addAttribute("marketerStatuses", CodeDefine.getMarketerStatusList());
@@ -38,7 +39,10 @@ public class MarketerController extends ApplicationController {
 		if (action.equals("create")) {
 			view = "template/form/marketer/createMarketer";
 		}else if (action.equals("modify")){
-			model.addAttribute("marketerFormInfo", null);
+			MarketerCommand command = new  MarketerCommand();
+			command.setMarketerNo(marketerNo);
+			ArrayListResponse<MarketerCommand> response  = (ArrayListResponse<MarketerCommand>)this.marketerService.findMarketerCommands(command);
+			model.addAttribute("marketerFormInfo", response.getRows().get(0));
 			view = "template/form/marketer/updateMarketer";
 		}else if (action.equals("marketerDetailView")) {
 			view = "template/form/marketer/marketerDetailView";
@@ -49,8 +53,21 @@ public class MarketerController extends ApplicationController {
 	@ResponseBody
 	@RequestMapping(value = "/marketer/gets", method = RequestMethod.GET)
 	public BaseResponse  getMarketers(
-		@RequestParam(value = "marketerNo", required = false) int  marketerNo) {
-		return this.marketerService.findMarketerCommands(new MarketerCommand());
+		@RequestParam(value = "marketerNo", required = false, defaultValue = "0") int  marketerNo) {
+		MarketerCommand command = new MarketerCommand();
+		if (marketerNo != 0) {
+			command.setMarketerNo(marketerNo);
+		}
+		BaseResponse res = this.marketerService.findMarketerCommands(command);
+		return res;
+		/*if (marketerNo != 0) {
+			return res;
+		}else {
+			SingleDataObjectResponse<MarketerCommand> res2 = new SingleDataObjectResponse<MarketerCommand>();
+			MarketerCommand c = ((ArrayListResponse<MarketerCommand>)res).getRows().get(0);
+			res2.setData(c);
+			return res2;
+		}*/
 	}
 	
 	@ResponseBody
@@ -61,9 +78,13 @@ public class MarketerController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/marketer/update", method = RequestMethod.POST)
-	public  BaseResponse updateMarketer( @ModelAttribute("marketerFormInfo") Member  member,
+	public  BaseResponse updateMarketer( @ModelAttribute("marketerFormInfo") MarketerCommand  marketCommand,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
-		return null;
+		BaseResponse  res = this.marketerService.udpateMarketer((MarketerCommand)marketCommand);
+		if (res.getResultCode().equals("100")) {
+			sessionStatus.setComplete();
+		}
+		return res;
 	}
 	
 	

@@ -2,17 +2,17 @@
 columns = [[
 	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 	   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-	    {field:'marketerNo',width:30,align:'center',title : 'No'},
-	    {field:'marketerDegree',width:40,align:'center',title : 'Degree'},
-	    {field:'marketerCode',width:100,align:'center',title : 'Marketer Code'},
-	    {field:'parent',width:100,align:'center',title : 'Parent Marketer', formatter : slashFormatter},
-	    {field:'memberName',width:100,align:'center',title : 'Name', formatter : slashFormatter},
-	    {field:'memberEmail',width:100,align:'center',title : 'Email', formatter : slashFormatter},
-	    {field:'memberPhone',width:100,align:'center',title : 'Cell Phone', formatter : slashFormatter},
-	    {field:'marketerStatus',width:50,align:'center',title : 'Status',formatter : marketerStatusFormatter},
-	    {field:'regAdminNo',width:50,align:'center',title : 'Register', formatter : registAdminFormatter},
-	    {field:'createTime',width:100,align:'center',title : 'Create Time',formatter : dateFormatter},
-	    {field:'updateTime',width:100,align:'center',title : 'Update Time',formatter : dateFormatter}
+	    {field:'marketerNo',width:40,align:'center',title : 'No'},
+	    {field:'marketerDegree',width:40,align:'center',title : '레벨'},
+	    {field:'marketerCode',width:100,align:'center',title : '마케터 코드'},
+	    {field:'parent',width:100,align:'center',title : '부모 마케터', formatter : slashFormatter},
+	    {field:'memberName',width:100,align:'center',title : '마케터 이름', formatter : slashFormatter},
+	    {field:'memberEmail',width:100,align:'center',title : '마케터 이메일', formatter : slashFormatter},
+	    {field:'memberPhone',width:100,align:'center',title : '마케터 폰', formatter : slashFormatter},
+	    {field:'marketerStatus',width:50,align:'center',title : '마케터 상태',formatter : marketerStatusFormatter},
+	    {field:'regAdminNo',width:50,align:'center',title : '등록자', formatter : registAdminFormatter},
+	    {field:'createTime',width:100,align:'center',title : '생성일',formatter : dateFormatter},
+	    {field:'updateTime',width:100,align:'center',title : '수정일',formatter : dateFormatter}
 	 ]];
 
 initView();
@@ -126,9 +126,9 @@ function initView(){
 		  		}
 		  	});
 		  	
-		  	var menus = [  '수정', /*'삭제',*/'상세 정보' ];
-		  	var icons = ['icon-edit', /*'icon-remove',*/'icon-more'];
-		  	var actions = ['modify', /*'remove',*/' more_detail'];
+		  	var menus = [  '연결 정보 수정 ' /*'삭제',*//*'상세 정보' */];
+		  	var icons = ['icon-edit' /*'icon-remove',*/ /*'icon-more' */];
+		  	var actions = ['modify' /*'remove',*//*' more_detail' */];
 		  	
 		  	for(var i=0; i<menus.length; i++){
 		  		cmenu.menu('appendItem', {
@@ -160,7 +160,7 @@ function setListPager(){
             	$('#node_list').datagrid('uncheckAll');
             	loadMarketerCreateForm();
             }
-        },{
+        }/*,{
             iconCls:'icon-edit',
             handler:function(){
             	loadMarketerUpdateForm();
@@ -170,7 +170,7 @@ function setListPager(){
             handler:function(){
             	removeMarketer();
             }
-        },{
+        } ,{
             iconCls:'icon-more',
             handler:function(){
             	var node = $('#node_list').datagrid('getSelected');
@@ -179,7 +179,7 @@ function setListPager(){
             		 return;
             	}
             }
-        }],
+        }*/],
         layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
         onSelectPage:function(page,rows){        	
         	var opts = $('#node_list').datagrid('options');
@@ -279,7 +279,7 @@ function loadMarketerUpdateForm(){
 	var nodeType = $('input[name=nodeType]').val();
 	var data = {
         targetElem : "#dlgForm",
-        title : "[" +node.marketerId + " - " + node.memberName + "] " + " 마케터 수정",
+        title : "[" +node.marketerCode + " - " + node.memberName + "] " + " 마케터 수정",
         queryOptions : {
         	action : "modify",
         	marketerNo : node.marketerNo
@@ -291,7 +291,7 @@ function loadMarketerUpdateForm(){
 	data.targetElem = data.targetElem || "#dlgForm";
 	var queryParam = $.param(data.queryOptions);
 	
-	$(data.targetElem).load("/marketer/form/createForm?" + queryParam,
+	$(data.targetElem).load("/api/marketer/form/createForm?" + queryParam,
 		function(response, status, xhr) {
 		console.log("오픈할 DIV : " + data.targetElem);	
 		
@@ -319,18 +319,16 @@ function loadMarketerUpdateForm(){
 			});
 			$(data.targetElem).dialog('center');
 			
-			returnp.api.call('getMemberCommand', {memberNo : data.queryOptions.memberNo}, function(res){
+			returnp.api.call('getMarketers', {marketerNo : data.queryOptions.marketerNo}, function(res){
 				if (res.resultCode  == "100") {
+					console.log("### Update Marketer");
 					console.log(res);
-					$('#createMarketerForm').form('load',res.data);
-					//$('#memberEmail').textbox({ disabled : true });
-					$('#regType').combobox('select',res.data.regType);
+					$('#updateMarketerForm').form('load',res.rows[0]);
 					
 				}else {
 					$.messager.alert('오류 발생', res.message);
 				}
 			});
-			
 		});
 }
 
@@ -378,12 +376,12 @@ function loadMarketerDetailInfo(){
 }
 
 function makeFormData(){
-	var param = {count : $('input[name=count]').val()}	
+	var param = $("#createApiServiceForm").serializeArray();
 	return param;
 }
 
 function createMarketer(data){
-	var param =makeFormData();
+	var param = {count : $('input[name=count]').val()}	
 	console.log(param);
 	var valid = true;
 	for (var prop in param){
@@ -413,19 +411,19 @@ function createMarketer(data){
 			$(data.targetElem).removeAttr('style');
 			realodPage();
 		}else {
-			$.messager.alert('오류 발생', res.message);
+			$.messager.alert('알림', res.message);
 		}
 	});
 }
 
 function updateMarketer(data){
-	var param =makeFormData();
+	var param = $("#updateMarketerForm").serializeObject();
 	console.log(param);
 	var valid = true;
 	for (var prop in param){
 		console.log(prop + "- " + param[prop] );
 		if (param.hasOwnProperty(prop)) {
-			if (param[prop].trim() == '') {
+			if (param[prop] == '') {
 				valid = false;
 				break;
 			}
@@ -437,11 +435,10 @@ function updateMarketer(data){
 		return;
 	}	 
 		
-	if (!$.isNumeric(param.degree) ) {
-		$.messager.alert('알림', "차수는 숫자만 입력가능합니다");
+	if (!$.isNumeric(param.marketerDegree) ) {
+		$.messager.alert('알림', "마케터 레벨은 숫자만 입력가능합니다");
 		return;
 	}
-	
 	returnp.api.call("updateMarketer", param, function(res){
 		if (res.resultCode  == "100") {
 			$.messager.alert('알림', res.message);
@@ -450,7 +447,7 @@ function updateMarketer(data){
 			realodPage();
 			
 		}else {
-			$.messager.alert('오류 발생', res.message);
+			$.messager.alert('알림', res.message);
 		}
 	});
 }

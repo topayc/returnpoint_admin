@@ -14,4 +14,6 @@ public interface MarketerService {
 	public BaseResponse deleteMarketer(int marketerNo);
 	public BaseResponse udpateMarketer(Marketer marketer);
 	public BaseResponse findMarketerCommands(MarketerCommand marketerCommand);
+	public BaseResponse findMarketers(Marketer marketer);
+	
 }

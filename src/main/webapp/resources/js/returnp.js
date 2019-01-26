@@ -199,8 +199,8 @@ $(function () {
         	/* 마케팅 조직 관리*/
         	getMarketers: { apiCode: 10000, apiPath : '/api/marketer/gets' ,  requestMethod: "get"},  
         	createMarketer: { apiCode: 10000, apiPath : '/api/marketer/create' ,  requestMethod: "post"},  
-        	updateMarkete: { apiCode: 10000, apiPath : '/api/marketer/update' ,  requestMethod: "post"},  
-        	deleteMarkete: { apiCode: 10000, apiPath : '/api/marketer/delete' ,  requestMethod: "post"},  
+        	updateMarketer: { apiCode: 10000, apiPath : '/api/marketer/update' ,  requestMethod: "post"},  
+        	deleteMarketer: { apiCode: 10000, apiPath : '/api/marketer/delete' ,  requestMethod: "post"},  
         	
         	/* 대쉬보드 관련 api */
         	getDashBoard: {apiCode: 10000, apiPath : '/api/dashBoard/get' , requestMethod: 'get'}, /* 회원 통계 */

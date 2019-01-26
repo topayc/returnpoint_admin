@@ -176,15 +176,26 @@
  </sql>
 
   <sql id ="Marketer_Command_WhereStatement">
- 	  <if test="marketerDegree != null"> marketerDegree = #{marketerDegree,jdbcType=INTEGER}</if>
-      <if test="marketerCode != null"> marketerCode = #{marketerCode,jdbcType=VARCHAR}</if>
-      <if test="memberNo != null"> memberNo = #{memberNo,jdbcType=INTEGER}</if>
-      <if test="parent != null"> parent = #{parent,jdbcType=VARCHAR}</if>
-      <if test="marketerStatus != null"> marketerStatus = #{marketerStatus,jdbcType=VARCHAR}</if>
-      <if test="memberEmail != null"> memberEmail = #{memberEmail,jdbcType=VARCHAR}</if>
-      <if test="memberName != null"> memberName = #{memberName,jdbcType=VARCHAR}</if>
-      <if test="memberPhone != null"> memberPhone = #{memberPhone,jdbcType=VARCHAR}</if>
+ 	  <if test="marketerNo != null"> AND A.marketerNo = #{marketerNo,jdbcType=INTEGER}</if>
+ 	  <if test="marketerDegree != null"> AND A.marketerDegree = #{marketerDegree,jdbcType=INTEGER}</if>
+      <if test="marketerCode != null"> AND A.marketerCode = #{marketerCode,jdbcType=VARCHAR}</if>
+      <if test="memberNo != null"> AND A.memberNo = #{memberNo,jdbcType=INTEGER}</if>
+      <if test="parent != null"> AND A.parent = #{parent,jdbcType=VARCHAR}</if>
+      <if test="marketerStatus != null"> AND A.marketerStatus = #{marketerStatus,jdbcType=VARCHAR}</if>
+      <if test="memberEmail != null"> AND B.memberEmail = #{memberEmail,jdbcType=VARCHAR}</if>
+      <if test="memberName != null"> AND B.memberName = #{memberName,jdbcType=VARCHAR}</if>
+      <if test="memberPhone != null"> AND B.memberPhone = #{memberPhone,jdbcType=VARCHAR}</if>
    </sql>
+   
+    <sql id ="Marketer_WhereStatement">
+ 	    <if test="marketerNo != null"> AND marketerNo = #{marketerNo!=,jdbcType=INTEGER}</if>
+ 	  <if test="marketerDegree != null"> AND marketerDegree = #{marketerDegree,jdbcType=INTEGER}</if>
+      <if test="marketerCode != null"> AND marketerCode = #{marketerCode,jdbcType=VARCHAR}</if>
+      <if test="memberNo != null"> AND memberNo = #{memberNo,jdbcType=INTEGER}</if>
+      <if test="parent != null"> AND parent = #{parent,jdbcType=VARCHAR}</if>
+      <if test="marketerStatus != null"> AND marketerStatus = #{marketerStatus,jdbcType=VARCHAR}</if>
+   </sql>
+   
    
   <select id="findMarketerCommands" parameterType="com.returnp.admin.dto.command.MarketerCommand"  resultMap="MarketerCommandResultMap" >
     select 
@@ -197,7 +208,21 @@
 	order by marketerDegree asc , marketerCode asc 
   </select>  
   
-  <select id="selectMaxCodeRow"  resultType="string" >
-    select max(marketerCode) from marketer;
+    <select id="findSortedMarketers" parameterType="com.returnp.admin.model.Marketer"  resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" /> 
+  	from marketer 
+    where 
+      1 = 1
+		<include refid = "Marketer_WhereStatement"/>
+	order by marketerDegree desc , marketerCode asc 
+  </select>  
+  
+  
+ <select id="selectMaxCodeRow"  resultMap="BaseResultMap" >
+    select 
+    	<include refid="Base_Column_List" /> 
+     from marketer
+     order by marketerDegree desc, marketerCode desc limit 1
   </select>
 </mapper>

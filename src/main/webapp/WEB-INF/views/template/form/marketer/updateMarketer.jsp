@@ -2,9 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="createNode" style ="padding:5px;margin: 20px" >
 	<div style = "padding:10px;padding-top:5px;padding-bottom:5px" >
-	   <form id="updateMarketerForm"  enctype="multipart/form-data" name = "createForm" method="post" action = "<c:url value='/createAbmsProject'/>">
+	   <form id="updateMarketerForm"  name = "updateMarketerForm" >
+			
 			<div style="margin-bottom:30px">
-				<input id ="memberName"  name="memberName" style="width:100%" data-options="label:'마케터 아이디',labelWidth :140,labelPosition : 'left'"> 
+				<input id ="marketerDegree"  name="marketerDegree" style="width:100%" data-options="label:'마케터 레벨',labelWidth :140,labelPosition : 'left'"> 
+			</div>
+			
+			<div style="margin-bottom:30px">
+				<input id ="marketerCode"  name="marketerCode" style="width:100%" data-options="label:'마케터 아이디',labelWidth :140,labelPosition : 'left'"> 
 			</div>
 			
 			<div style="margin-bottom:30px">
@@ -12,12 +17,13 @@
 			</div>
 			
 			<div style="margin-bottom:30px">
+				<input id ="memberName"  name="memberName" style="width:100%" data-options="label:'연결 회원 이름 ',labelWidth :140,labelPosition : 'left'"> 
+			</div>
+
+			<div style="margin-bottom:30px">
 				<input id ="memberEmail"  name="memberEmail" style="width:100%" data-options="label:'연결 회원 이메일 ',labelWidth :140,labelPosition : 'left'"> 
 			</div>
 			
-			<div style="margin-bottom:30px">
-				<input id ="memberName"  name="memberName" style="width:100%" data-options="label:'연결 회원 이름 ',labelWidth :140,labelPosition : 'left'"> 
-			</div>
 			
 			<div style="margin-bottom:30px">
 				<select id ="marketerStatus" name="marketerStatus"   style="width:100%" data-options="label:'마케터 상태',labelWidth :140,labelPosition : 'left'">
@@ -36,12 +42,20 @@
 	function setViewInit(){
 		$('#memeberStatusContainer').panel();
 
-		$('#memberEmail').textbox({
+		$('#marketerCode').textbox({
+			readonly : true
+		});
+		
+		$('#marketerDegree').textbox({
 			readonly : true
 		});
 		
 		
 		$('#memberName').textbox({
+			readonly : true
+		});
+
+		$('#memberEmail').textbox({
 			readonly : true
 		});
 		
@@ -63,6 +77,7 @@
             	},function callback(selNode){
             		$('#memberNo').textbox('setValue', selNode.memberNo);
             		$('#memberName').textbox('setValue', selNode.memberName)
+            		$('#memberEmail').textbox('setValue', selNode.memberEmail)
             	});
 			}
 		});
