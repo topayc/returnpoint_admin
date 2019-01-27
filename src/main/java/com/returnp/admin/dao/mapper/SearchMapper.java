@@ -137,4 +137,6 @@ public interface SearchMapper {
 	public ArrayList<PointWithdrawal> findPointWithdrawals(PointWithdrawal pointWithdrawal);
 	
 	public ArrayList<PointWithdrawalCommand> findPointWithdrawalCommands(PointWithdrawalCommand pointWithdrawalCommand);
+	
+	public int selectMemberCount();
 }

@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.apache.poi.util.SystemOutLogger;
+
 public class QueryCondition{
 	
 	private boolean pagination = false;

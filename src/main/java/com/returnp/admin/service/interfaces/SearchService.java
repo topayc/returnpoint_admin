@@ -133,5 +133,7 @@ public interface SearchService {
 	
 	public ArrayList<PointWithdrawalCommand> findPointWithdrawalCommands(PointWithdrawalCommand pointWithdrawalCommand);
 	
+	public int selectMemberCount();
+	
 	
 }

@@ -291,7 +291,7 @@
   
  <select id="findMemberCommands" parameterType="com.returnp.admin.dto.command.MemberCommand"  resultMap="MemberCommandResultMap" >
     select 
-    sql_calc_found_rows  
+    sql_calc_found_rows 
     <include refid="MemberCommand_Column_List" /> 
   from member as M  
     inner join red_point as RP on (M.memberNo = RP.memberNo)
@@ -301,6 +301,18 @@
       1 = 1
 		<include refid = "memberCommandSearchWhereStatement"/>
 		<include refid = "commonStatement"/>
+  </select>    
+
+ <select id="selectMemberCount"  resultType="int" >
+    select 
+	count(*)
+  from member as M  
+    inner join red_point as RP on (M.memberNo = RP.memberNo)
+    inner join green_point as GP on (M.memberNo = GP.memberNo AND GP.nodeType ='1' )
+    left outer join member as M2 on (M.recommenderNo = M2.memberNo)
+    where 
+      1 = 1
+		<include refid = "memberCommandSearchWhereStatement"/>
   </select>    
   <!-- ===============================================================================================================    -->
     <!-- SoleDist -->
@@ -1758,6 +1770,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
    <select id="findPaymentTransactionCommands" parameterType="com.returnp.admin.model.PaymentTransaction"  resultMap="PaymentTransactionCommand_ResultMap" >
     select 
+    sql_calc_found_rows
     <include refid="PaymentTransactionCommand_Column_List" />
     from payment_transaction as PA
     inner join affiliate as AF on (PA.affiliateSerial= AF.affiliateSerial)

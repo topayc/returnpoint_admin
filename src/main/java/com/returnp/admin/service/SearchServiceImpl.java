@@ -299,5 +299,8 @@ public class SearchServiceImpl implements SearchService{
 		return this.searchMapper.findPointWithdrawalCommands(pointWithdrawalCommand);
 	}
 
-	
+	@Override
+	public int selectMemberCount() {
+		return this.searchMapper.selectMemberCount();
+	}
 }

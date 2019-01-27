@@ -124,7 +124,7 @@ public class PaymentTransactionController extends ApplicationController {
 	@RequestMapping(value = "/paymentTransactionCommands", method = RequestMethod.GET)
 	public  BaseResponse getPaymentTransactionCommands(SearchCondition searchCondition, HttpSession httpSession, Model model) {
 		
-		PaymentTransaction vCond = new PaymentTransaction();
+		/*PaymentTransaction vCond = new PaymentTransaction();
 		vCond.setPaymentApprovalStatus(searchCondition.getSearchVanPaymentStatus());
 		
 		if (searchCondition.getSearchKeyword()!= null &&  !searchCondition.getSearchKeyword().trim().equals("")) {
@@ -137,7 +137,15 @@ public class PaymentTransactionController extends ApplicationController {
 		ArrayListResponse<PaymentTransactionCommand> res = new ArrayListResponse<PaymentTransactionCommand>();
 		ArrayList<PaymentTransactionCommand> list = this.searchService.findPaymentTransactionCommands(vCond);
 		res.setRows(list);
-		res.setTotal(list.size());	
+		res.setTotal(list.size());	*/
+		
+		PaymentTransaction vCond = new PaymentTransaction();
+		vCond.valueOf(searchCondition);
+		
+		ArrayListResponse<PaymentTransactionCommand> res = new ArrayListResponse<PaymentTransactionCommand>();
+		ArrayList<PaymentTransactionCommand> list = this.searchService.findPaymentTransactionCommands(vCond);
+		res.setRows(list);
+		res.setTotal(this.searchService.selectTotalRecords());	
 		this.setSuccessResponse(res);
 		return res;
 	}
