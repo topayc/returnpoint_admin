@@ -214,7 +214,8 @@ function setListPager(){
             		 $.messager.alert('알림','자세히 보실 항목을  선택해주세요');
             		 return;
             	}
-            }
+            }, 
+            layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
         }]
     }); 
 }
@@ -246,17 +247,18 @@ function formatDate(date) {
  * @returns
  */
 function makeSearchParam(){
-	var param = {
-		pageSize : 10,
-		page : 0,
-		searchDateStart :  $('#searchDateStart').datetimebox('getValue'),
-		searchDateEnd :  $('#searchDateEnd').datetimebox('getValue'),
-		searchApiServiceType :  $('input[name=searchApiServiceType]').val(),
-		searchApiServiceNo :  "0",
-		searchApiServiceStatus :  $('input[name=searchApiServiceStatus]').val(),		
-		searchKeyword :  $('input[name=searchKeyword]').val()
-	};
-	//console.log(JSON.stringify(param));
+	var param = $('#searchForm').serializeObject();
+	var opts = $('#api_service_list').datagrid('options');
+	var total = $('#api_service_list').datagrid('getData').total;
+	
+	$.extend(param, {
+		pagination : opts.pagination,
+		pageSize : opts.pageSize,
+		page : opts.pageNumber,
+		total : total,
+		offset : (opts.pageNumber-1) * opts.pageSize
+	});
+	
 	return param;
 }
 

@@ -681,7 +681,7 @@ function loadPaymentPointbackRecord(title,params){
 				});
 			
 			$('#dlgForm').dialog('center');
-			returnp.api.call('findPaymentPointbackRecords', queryParam , function(res){
+			returnp.api.call('findPaymentPointbackRecords2', queryParam , function(res){
 				if (res.resultCode  == "100") {
 					//console.log(res)
 					$('#list_search_result').datagrid({

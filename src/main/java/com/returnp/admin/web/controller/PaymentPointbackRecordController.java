@@ -68,6 +68,23 @@ public class PaymentPointbackRecordController extends ApplicationController{
 		this.setSuccessResponse(res);
 		return res;
 	}
+
+	@ResponseBody
+	@RequestMapping(value = "/paymentPointbackRecords2/get", method = RequestMethod.GET)
+	public BaseResponse  getPaymentPonitbackRecords2(
+			@RequestParam(value = "searchKeyword" , required = false) String searchKeyword,
+			PaymentPointbackRecordCommand record ) {
+		if (!StringUtils.isBlank(searchKeyword)) {
+			record.setMemberEmail(searchKeyword);
+			record.setMemberName(searchKeyword);
+		}
+		ArrayList<PaymentPointbackRecordCommand> list = this.searchService.findPaymentPointbackRecordCommands(record);
+		ArrayListResponse<PaymentPointbackRecordCommand> res = new ArrayListResponse<PaymentPointbackRecordCommand>();
+		res.setRows(list);
+		res.setTotal(list.size());
+		this.setSuccessResponse(res);
+		return res;
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/paymentPointbackRecords/find", method = RequestMethod.GET)

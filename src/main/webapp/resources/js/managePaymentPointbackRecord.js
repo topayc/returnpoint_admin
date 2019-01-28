@@ -10,7 +10,6 @@ var columns = [[
 		{field:'accRate',width:60,align:'center',title : '적립율'},
 		{field:'pointbackAmount',width:100,align:'center',title : '지급 G 포인트', formatter : numberGreenFormatter},
 		{field:'memberPhone',width:100,align:'center',title : '핸드폰'},
-		{field:'nodeNo',width:70,align:'center',title : 'nodeNo',hidden:true},
 		{field:'createTime',width:100,align:'center',title : '등록일', formatter : dateFormatter},
 		{field:'updateTime',width:100,align:'center',title : '수정일', formatter : dateFormatter},
 	 ]];

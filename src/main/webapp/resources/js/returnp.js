@@ -190,6 +190,7 @@ $(function () {
         	/* 결제에 해당하는 포인트 백 리스트 api*/ 
         	formPaymentPointbackRecordRequest: { apiCode: 10000, apiPath : '/api/paymentPointbackRecord/template/pointbackRecordList' ,  requestMethod: "get"},  
         	getPaymentPonitbackRecords: { apiCode: 10000, apiPath : '/api/paymentPointbackRecords/get' ,  requestMethod: "get"},  
+        	findPaymentPointbackRecords2: { apiCode: 10000, apiPath : '/api/paymentPointbackRecords2/get' ,  requestMethod: "get"},  
         	findPaymentPointbackRecords: { apiCode: 10000, apiPath : '/api/paymentPointbackRecords/find' ,  requestMethod: "get"},  
         	
         	/* 정책 관련 api */
