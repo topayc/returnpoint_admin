@@ -55,6 +55,7 @@ public class PointConversionTransactionController extends ApplicationController{
 			SearchCondition searchCondition, Model model) {
 		
 		PointConversionTransactionCommand pctCond = new PointConversionTransactionCommand();
+		pctCond.valueOf(searchCondition);
 		
 		if (!"0".equals(searchCondition.getSearchNodeType())) {
 			pctCond.setNodeType(searchCondition.getSearchNodeType());
@@ -63,16 +64,17 @@ public class PointConversionTransactionController extends ApplicationController{
 		if (!"0".equals(searchCondition.getSearchConversionStatus())) {
 			pctCond.setConversionStatus(searchCondition.getSearchConversionStatus());
 		}
+		
 		if (searchCondition.getSearchKeyword()!= null &&  !searchCondition.getSearchKeyword().trim().equals("")) {
 			pctCond.setMemberEmail(searchCondition.getSearchKeyword());
 			pctCond.setMemberName(searchCondition.getSearchKeyword());
 			pctCond.setMemberPhone(searchCondition.getSearchKeyword());
 		}
 		
-		ArrayList<PointConversionTransactionCommand> commands = this.searchService.findPointConversionTransactionCommands(pctCond);
 		ArrayListResponse<PointConversionTransactionCommand> res  = new  ArrayListResponse<PointConversionTransactionCommand>();
+		ArrayList<PointConversionTransactionCommand> commands = this.searchService.findPointConversionTransactionCommands(pctCond);
 		res.setRows(commands);
-		res.setTotal(commands.size());	
+		res.setTotal(this.searchService.selectTotalRecords());	
 		this.setSuccessResponse(res);
 		return res;
 	}

@@ -1928,15 +1928,16 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
 
   <select id="findGreenPointCommands" parameterType="com.returnp.admin.dto.command.GreenPointCommand"  resultMap="GreenPointCommand_ResultMap" >
     select 
+    sql_calc_found_rows
     <include refid="GreenPointCommand_ResultMap_Column_List" />
     from green_point as GP
  	inner join member as M on (
     	GP.memberNo = M.memberNo 
     )
-    
     where 
     	1 = 1
     	<include refid = "GreenPointCommand_Where"/>
+    	<include refid = "commonStatement"/>
   </select>
   
   
@@ -2066,15 +2067,16 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
   <select id="findRedPointCommands" parameterType="com.returnp.admin.dto.command.RedPointCommand"  resultMap="RedPointCommand_ResultMap" >
     select 
+    sql_calc_found_rows
     <include refid="RedPointCommand_Column_List" />
     from red_point as RP
  	inner join member as M on (
     	RP.memberNo = M.memberNo 
     )
-    
     where 
     	1 = 1
     	<include refid = "RedPointCommand_Where"/>
+    	<include refid = "commonStatement"/>
   </select>
   
   <select id="findRedPoints" parameterType="com.returnp.admin.model.RedPoint"  resultMap="RedPoint_ResultMap" >
@@ -2282,6 +2284,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
    <select id="findPointConversionTransactionCommands" parameterType="com.returnp.admin.dto.command.PointConversionTransactionCommand"  resultMap="PointConversionTransactionCommand_ResultMap" >
     select 
+    	sql_calc_found_rows
     	<include refid="PointConversionTransactionCommand_Column_List" />
     from point_conversion_transaction as PCT
  	inner join member as M on (
@@ -2289,7 +2292,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     )
     where 
     	1 = 1
-    	<include refid = "PointConversionTransactionCommand_Where"/>
+    	<include refid = "commonStatement"/>
   </select>
   
    <resultMap id="PaymentPointbackRecordCommand_ResultMap" type="com.returnp.admin.dto.command.PaymentPointbackRecordCommand">
@@ -2337,7 +2340,8 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
 	</sql>
 	
   <select id="findPaymentPointbackRecordCommands"  parameterType="com.returnp.admin.dto.command.PaymentPointbackRecordCommand"  resultMap="PaymentPointbackRecordCommand_ResultMap" >
-    select 
+    select
+    sql_calc_found_rows 
     <include refid="PaymentPointbackRecordCommand_Column_List" />
   	from payment_pointback_record as PPR
   	inner join member as M on (PPR.memberNo = M.memberNo)  
@@ -2345,6 +2349,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
 	where
     	1 = 1
 		<include refid = "PaymentPointbackRecordCommand_WhereStatement"/>
+		<include refid = "commonStatement"/>
   </select>
   
  

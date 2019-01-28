@@ -1,8 +1,8 @@
 package com.returnp.admin.dto.command;
 
-import java.util.Date;
+import com.returnp.admin.model.PointConversionTransaction;
 
-public class PointConversionTransactionCommand {
+public class PointConversionTransactionCommand extends PointConversionTransaction{
 	 private String memberName;
 	    private String memberEmail;
 	    private String memberPassword;
@@ -25,31 +25,6 @@ public class PointConversionTransactionCommand {
 	    private String redPointAccStatus;
 	    private String greenPointUseStatus;
 	    private String redPointUseStatus;
-	    
-	    private Integer pointConversionTansactionNo;
-	    private Integer memberNo;
-	    private Float conversionTotalPoint;
-	    private Float conversionAccPoint;
-	    private Float conversionAccRate;
-	    private String nodeType;
-	    private String conversionStatus;
-	    private Date createTime;
-	    private Date updateTime;
-	
-	
-		public String getNodeType() {
-			return nodeType;
-		}
-		public void setNodeType(String nodeType) {
-			this.nodeType = nodeType;
-		}
-		
-		public String getConversionStatus() {
-			return conversionStatus;
-		}
-		public void setConversionStatus(String conversionStatus) {
-			this.conversionStatus = conversionStatus;
-		}
 		public String getMemberName() {
 			return memberName;
 		}
@@ -182,48 +157,8 @@ public class PointConversionTransactionCommand {
 		public void setRedPointUseStatus(String redPointUseStatus) {
 			this.redPointUseStatus = redPointUseStatus;
 		}
-		public Integer getPointConversionTansactionNo() {
-			return pointConversionTansactionNo;
-		}
-		public void setPointConversionTansactionNo(Integer pointConversionTansactionNo) {
-			this.pointConversionTansactionNo = pointConversionTansactionNo;
-		}
-		public Integer getMemberNo() {
-			return memberNo;
-		}
-		public void setMemberNo(Integer memberNo) {
-			this.memberNo = memberNo;
-		}
-		public Float getConversionTotalPoint() {
-			return conversionTotalPoint;
-		}
-		public void setConversionTotalPoint(Float conversionTotalPoint) {
-			this.conversionTotalPoint = conversionTotalPoint;
-		}
-		public Float getConversionAccPoint() {
-			return conversionAccPoint;
-		}
-		public void setConversionAccPoint(Float conversionAccPoint) {
-			this.conversionAccPoint = conversionAccPoint;
-		}
-		public Float getConversionAccRate() {
-			return conversionAccRate;
-		}
-		public void setConversionAccRate(Float conversionAccRate) {
-			this.conversionAccRate = conversionAccRate;
-		}
-		public Date getCreateTime() {
-			return createTime;
-		}
-		public void setCreateTime(Date createTime) {
-			this.createTime = createTime;
-		}
-		public Date getUpdateTime() {
-			return updateTime;
-		}
-		public void setUpdateTime(Date updateTime) {
-			this.updateTime = updateTime;
-		}
-		
+	    
+	
+	
 	    
 }

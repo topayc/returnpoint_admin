@@ -138,8 +138,8 @@ function initView() {
 							setListColumnHeader(param.searchNodeType);
 							$('#node_list').datagrid(
 									{
-										data : res.rows,
-										title : '[검색 결과] ' + res.rows.length
+										data : res,
+										title : '[검색 결과] ' + res.total
 												+ " 개의 결과가 검색되었습니다",
 									});
 							setListPager();
@@ -282,6 +282,12 @@ function setListPager() {
 			            }
 				} ],
 				  layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
+				     onSelectPage:function(page,rows){        	
+				        	var opts = $('#node_list').datagrid('options');
+				        	opts.pageSize=rows;
+				        	opts.pageNumber = page;
+				        	realodPage();
+				    	}
 	});
 }
 
@@ -314,18 +320,18 @@ function formatDate(date) {
  * @returns
  */
 function makeSearchParam() {
-	var param = {
-		pageSize : 10,
-		page : 0,
-		searchDateStart : $('#searchDateStart').datetimebox('getValue'),
-		searchDateEnd : $('#searchDateEnd').datetimebox('getValue'),
-		searchNodeType : $('input[name=searchNodeType]').val(),
-		searchNodeNo : "0",
-		searchNodeStatus : $('input[name=searchNodeStatus]').val(),
-		searchKeywordType : $('input[name=searchKeywordType]').val(),
-		searchKeyword : $('input[name=searchKeyword]').val()
-	};
-	//console.log(JSON.stringify(param));
+	var param = $('#searchForm').serializeObject();
+	var opts = $('#node_list').datagrid('options');
+	var total = $('#node_list').datagrid('getData').total;
+	
+	$.extend(param, {
+		pagination : opts.pagination,
+		pageSize : opts.pageSize,
+		page : opts.pageNumber,
+		total : total,
+		offset : (opts.pageNumber-1) * opts.pageSize
+	});
+	
 	return param;
 }
 

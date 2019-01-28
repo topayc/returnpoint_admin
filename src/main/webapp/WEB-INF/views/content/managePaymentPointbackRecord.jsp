@@ -5,7 +5,7 @@
 		<table id = "node_list" style ="width:100%;height:100%">
 		</table> 
 	</div>
-	<div  data-options="region:'north',split:true"  id = "member_search"  style ="height:170px" title ="회원 검색" >
+	<div  data-options="region:'north',split:true"  id = "member_search"  style ="height:150px" title ="회원 검색" >
 		 <div class="easyui-panel" title="" style="width:100%;padding:10px 15px;">
 	        <form id="searchForm" method="post">
 	            <div style="margin-bottom:10px;margin-left : 10px;width:200px;display:inline-block">
@@ -13,7 +13,7 @@
 	            </div>
 	            
 	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">
-	                <input id = "searchDateEnd"  name="searchDateEnd" label="검색 종료일" style="width:100%"/>
+	                <input id = "searzchDateEnd"  name="searchDateEnd" label="검색 종료일" style="width:100%"/>
 	            </div>
 	            
 	              <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">

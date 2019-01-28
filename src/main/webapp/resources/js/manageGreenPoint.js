@@ -4,7 +4,7 @@
 			{field:'greenPointNo',width:45,align:'center',title : '포인트 번호',hidden:false},	
 			{field:'memberNo',width:45,align:'center',title : '회원 번호',hidden:false},
 			{field:'memberName',width:80,align:'center',title : '이름'},
-			{field:'nodeType',width:50,align:'left',title : '분류',formatter : nodeTypeFormatter},
+			{field:'nodeType',width:50,align:'center',title : '분류',formatter : nodeTypeFormatter},
 			{field:'nodeNo',width:50,align:'center',title : '노드 번호',hidden:true},
 			{field:'memberEmail',width:100,align:'center',title : '이메일'},
 			{field:'nodeTypeName',width:100,align:'center',title : '노드 이름',formatter : nodeTypeFormatter, hidden : true},
@@ -147,11 +147,11 @@ function initView(){
 			//console.log(param);
 			
 			returnp.api.call("getGreenPoints", param, function(res){
-				//console.log(res);
+				console.log(res);
 				if (res.resultCode == "100") {
 					$('#node_list').datagrid({
-						data : res.rows,
-						title : '[검색 결과] ' + res.rows.length + " 개의 결과가 검색되었습니다",
+						data : res,
+						title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
 					});
 					setListPager();
 				}else {
@@ -285,6 +285,12 @@ function setListPager(){
             }
         }]
 	,  layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
+    onSelectPage:function(page,rows){        	
+    	var opts = $('#node_list').datagrid('options');
+    	opts.pageSize=rows;
+    	opts.pageNumber = page;
+    	realodPage();
+	}
     }); 
 }
 
@@ -305,18 +311,18 @@ function setListColumnHeader(nodeType){
  * @returns
  */
 function makeSearchParam(){
-	var param = {
-		pageSize : 10,
-		page : 0,
-		searchDateStart :  $('#searchDateStart').datetimebox('getValue'),
-		searchDateEnd :  $('#searchDateEnd').datetimebox('getValue'),
-		searchNodeType :  $('input[name=searchNodeType]').val(),
-		searchNodeNo :  "0",
-		searchNodeStatus :  $('input[name=searchNodeStatus]').val(),
-		searchKeywordType : $('input[name=searchKeywordType]').val(),
-		searchKeyword :  $('input[name=searchKeyword]').val()
-	};
-	//console.log(JSON.stringify(param));
+	var param = $('#searchForm').serializeObject();
+	var opts = $('#node_list').datagrid('options');
+	var total = $('#node_list').datagrid('getData').total;
+	
+	$.extend(param, {
+		pagination : opts.pagination,
+		pageSize : opts.pageSize,
+		page : opts.pageNumber,
+		total : total,
+		offset : (opts.pageNumber-1) * opts.pageSize
+	});
+	
 	return param;
 }
 

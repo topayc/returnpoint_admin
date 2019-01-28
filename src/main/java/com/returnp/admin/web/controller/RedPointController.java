@@ -64,13 +64,12 @@ public class RedPointController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/redPoints", method = RequestMethod.GET)
-	public  BaseResponse updateRecommender( 
+	public  BaseResponse getRedPoints( 
 			SearchCondition searchQuery,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
-		
 		RedPointCommand  cond = new RedPointCommand();
+		cond.valueOf(searchQuery);
 		cond.setMemberStatus(searchQuery.getSearchNodeStatus());
-		cond.setMemberStatus(searchQuery.getSearchNodeType());
 		
 		if (searchQuery.getSearchKeyword()!= null &&  !searchQuery.getSearchKeyword().trim().equals("")) {
 			cond.setMemberEmail(searchQuery.getSearchKeyword());
@@ -81,7 +80,7 @@ public class RedPointController extends ApplicationController {
 		ArrayList<RedPointCommand> commandList = this.searchService.findRedPointCommands(cond);
 		ArrayListResponse<RedPointCommand> slr = new ArrayListResponse<RedPointCommand>();
 		slr.setRows(commandList);
-		slr.setTotal(commandList.size());	
+		slr.setTotal(this.searchService.selectTotalRecords());	
 		this.setSuccessResponse(slr);
 		return slr;
 	}

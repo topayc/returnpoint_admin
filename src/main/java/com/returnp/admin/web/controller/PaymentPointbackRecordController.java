@@ -16,6 +16,7 @@ import com.returnp.admin.dto.command.PaymentPointbackRecordCommand;
 import com.returnp.admin.dto.reponse.BaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.Branch;
 import com.returnp.admin.model.PaymentPointbackRecord;
 import com.returnp.admin.service.interfaces.BranchService;
@@ -71,16 +72,15 @@ public class PaymentPointbackRecordController extends ApplicationController{
 	@ResponseBody
 	@RequestMapping(value = "/paymentPointbackRecords/find", method = RequestMethod.GET)
 	public BaseResponse  findPaymentPointbackRecords(
-			@RequestParam(value = "searchKeyword" , required = false) String searchKeyword,
-			PaymentPointbackRecordCommand record ) {
-		if (!StringUtils.isBlank(searchKeyword)) {
-			record.setMemberEmail(searchKeyword);
-			record.setMemberName(searchKeyword);
-		}
-		ArrayList<PaymentPointbackRecordCommand> list = this.searchService.findPaymentPointbackRecordCommands(record);
+			SearchCondition searchCondition ) {
+		
+		PaymentPointbackRecordCommand record = new PaymentPointbackRecordCommand();
+		record.valueOf(searchCondition);
+		
 		ArrayListResponse<PaymentPointbackRecordCommand> res = new ArrayListResponse<PaymentPointbackRecordCommand>();
+		ArrayList<PaymentPointbackRecordCommand> list = this.searchService.findPaymentPointbackRecordCommands(record);
 		res.setRows(list);
-		res.setTotal(list.size());
+		res.setTotal(this.searchService.selectTotalRecords());
 		this.setSuccessResponse(res);
 		return res;
 	}

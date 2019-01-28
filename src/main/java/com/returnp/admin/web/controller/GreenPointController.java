@@ -70,8 +70,9 @@ public class GreenPointController extends ApplicationController {
 	public  BaseResponse getGreenPoints( 
 			SearchCondition searchQuery,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
-		
 		GreenPointCommand  cond = new GreenPointCommand();
+		cond.valueOf(searchQuery);
+		
 		cond.setMemberStatus(searchQuery.getSearchNodeStatus());
 		cond.setNodeType(searchQuery.getSearchNodeType());
 		cond.setMemberNo(searchQuery.getMemberNo());
@@ -82,12 +83,11 @@ public class GreenPointController extends ApplicationController {
 			cond.setMemberPhone(searchQuery.getSearchKeyword());
 		}
 		
-		BaseResponse res = new BaseResponse();
 		
 		ArrayList<GreenPointCommand> commandList = this.searchService.findGreenPointCommands(cond);
 		ArrayListResponse<GreenPointCommand> slr = new ArrayListResponse<GreenPointCommand>();
 		slr.setRows(commandList);
-		slr.setTotal(commandList.size());	
+		slr.setTotal(this.searchService.selectTotalRecords());	
 		this.setSuccessResponse(slr);
 		return slr;
 	}

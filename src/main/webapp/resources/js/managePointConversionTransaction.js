@@ -4,7 +4,7 @@
 			    {field:'pointConversionTansactionNo',width:15,align:'center',title : '번호',hidden:false},
 			    {field:'memberName',width:30,align:'center',title : '회원 이름'},
 			    {field:'memberEmail',width:40,align:'center',title : '회원 이메일'},
-			    {field:'nodeType',width:25,align:'left',title : '노드 타입', formatter : nodeTypeFormatter},
+			    {field:'nodeType',width:25,align:'center',title : '노드 타입', formatter : nodeTypeFormatter},
 			    {field:'conversionTotalPoint',width:40,align:'center',title : '전환 대상 포인트', formatter : numberBlueFormatter},
 			    {field:'conversionAccPoint',width:40,align:'center',title : '전환 포인트', formatter : numberGreenFormatter},
 			    {field:'conversionAccRate',width:30,align:'center',title : 'R 적용 전환율', formatter : percentFormatter},
@@ -13,7 +13,6 @@
 			    {field:'updateTime',width:40,align:'center',title : '수정일',formatter : dateFormatter},
 			    {field:'memberNo',width:15,align:'center',title : 'memberNo',hidden:true},
 			    ]];
-initView();
 
 /**
  * 뷰 초기화 
@@ -109,8 +108,8 @@ function initView(){
 				if (res.resultCode == "100") {
 					setListColumnHeader(param.searchNodeType);
 					$('#node_list').datagrid({
-						data : res.rows,
-						title : '[검색 결과] ' + res.rows.length + " 개의 결과가 검색되었습니다",
+						data : res,
+						title : '[검색 결과] ' + res.total+ " 개의 결과가 검색되었습니다",
 					});
 					setListPager();
 				}else {
@@ -230,6 +229,12 @@ function setListPager(){
             }
         }*/],
         layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
+        onSelectPage:function(page,rows){        	
+        	var opts = $('#node_list').datagrid('options');
+        	opts.pageSize=rows;
+        	opts.pageNumber = page;
+        	realodPage();
+    	}
     }); 
 }
 
@@ -251,18 +256,18 @@ function setListColumnHeader(nodeType){
  * @returns
  */
 function makeSearchParam(){
-	var param = {
-		pageSize : 10,
-		page : 0,
-		serachDateStart :  $('#searchDateStart').datetimebox('getValue'),
-		searchDateEnd :  $('#searchDateEnd').datetimebox('getValue'),
-		searchNodeType :  $('input[name=searchNodeType]').val(),
-		searchNodeNo :  "0",
-		searchConversionStatus :  $('input[name=searchConversionStatus]').val(),
-		searchKeywordType : $('input[name=searchKeywordType]').val(),
-		searchKeyword :  $('input[name=searchKeyword]').val()
-	};
-	//console.log(JSON.stringify(param));
+	var param = $('#searchForm').serializeObject();
+	var opts = $('#node_list').datagrid('options');
+	var total = $('#node_list').datagrid('getData').total;
+	
+	$.extend(param, {
+		pagination : opts.pagination,
+		pageSize : opts.pageSize,
+		page : opts.pageNumber,
+		total : total,
+		offset : (opts.pageNumber-1) * opts.pageSize
+	});
+	
 	return param;
 }
 
@@ -465,5 +470,6 @@ function realodPage(){
 }
 
 $(document).ready(function(){
-	$('#search_btn').click();
+	initView();
+	realodPage();
 });

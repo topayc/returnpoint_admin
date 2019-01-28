@@ -2,7 +2,9 @@ package com.returnp.admin.dto.command;
 
 import java.util.Date;
 
-public class GreenPointCommand {
+import com.returnp.admin.model.GreenPoint;
+
+public class GreenPointCommand extends GreenPoint{
     private String memberName;
     private String memberEmail;
     private String memberPassword;
@@ -22,28 +24,20 @@ public class GreenPointCommand {
     private String regType;
     private Integer regAdminNo;
     private String greenPointAccStatus;
-    private String redPointAccStatus;
-    private String greenPointUseStatus;
-    private String redPointUseStatus;
     private Date createTime;
     private Date updateTime;
     
-    private Integer greenPointNo;
-    private Integer memberNo;
-    private Integer nodeNo;
-    private Float pointAmount;
-    private String nodeType;
-    private String nodeTypeName;
-    private Date greenPointCreateTime;
-    private Date greenPointUpdateTime;
-	
-    
-    
-    public String getNodeTypeName() {
-		return nodeTypeName;
+    public Date getCreateTime() {
+		return createTime;
 	}
-	public void setNodeTypeName(String nodeTypeName) {
-		this.nodeTypeName = nodeTypeName;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 	public String getMemberName() {
 		return memberName;
@@ -177,60 +171,9 @@ public class GreenPointCommand {
 	public void setRedPointUseStatus(String redPointUseStatus) {
 		this.redPointUseStatus = redPointUseStatus;
 	}
-	public Date getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-	public Integer getGreenPointNo() {
-		return greenPointNo;
-	}
-	public void setGreenPointNo(Integer greenPointNo) {
-		this.greenPointNo = greenPointNo;
-	}
-	public Integer getMemberNo() {
-		return memberNo;
-	}
-	public void setMemberNo(Integer memberNo) {
-		this.memberNo = memberNo;
-	}
-	public Integer getNodeNo() {
-		return nodeNo;
-	}
-	public void setNodeNo(Integer nodeNo) {
-		this.nodeNo = nodeNo;
-	}
-	public Float getPointAmount() {
-		return pointAmount;
-	}
-	public void setPointAmount(Float pointAmount) {
-		this.pointAmount = pointAmount;
-	}
-	public String getNodeType() {
-		return nodeType;
-	}
-	public void setNodeType(String nodeType) {
-		this.nodeType = nodeType;
-	}
-	
-	public Date getGreenPointCreateTime() {
-		return greenPointCreateTime;
-	}
-	public void setGreenPointCreateTime(Date greenPointCreateTime) {
-		this.greenPointCreateTime = greenPointCreateTime;
-	}
-	public Date getGreenPointUpdateTime() {
-		return greenPointUpdateTime;
-	}
-	public void setGreenPointUpdateTime(Date greenPointUpdateTime) {
-		this.greenPointUpdateTime = greenPointUpdateTime;
-	}
+	private String redPointAccStatus;
+    private String greenPointUseStatus;
+    private String redPointUseStatus;
+
     
 }

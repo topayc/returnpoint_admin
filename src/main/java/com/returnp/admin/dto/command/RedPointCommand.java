@@ -2,7 +2,9 @@ package com.returnp.admin.dto.command;
 
 import java.util.Date;
 
-public class RedPointCommand {
+import com.returnp.admin.model.RedPoint;
+
+public class RedPointCommand extends RedPoint {
 	 private String memberName;
 	    private String memberEmail;
 	    private String memberPassword;
@@ -27,14 +29,6 @@ public class RedPointCommand {
 	    private String redPointUseStatus;
 	    private Date createTime;
 	    private Date updateTime;
-	    
-	    private Integer redPointNo;
-	    private Integer memberNo;
-	    private Integer nodeNo;
-	    private Float pointAmount;
-	    private String nodeType;
-	    private Date redPointCreateTime;
-	    private Date redPointUpdateTime;
 		public String getMemberName() {
 			return memberName;
 		}
@@ -179,50 +173,7 @@ public class RedPointCommand {
 		public void setUpdateTime(Date updateTime) {
 			this.updateTime = updateTime;
 		}
-		public Integer getRedPointNo() {
-			return redPointNo;
-		}
-		public void setRedPointNo(Integer redPointNo) {
-			this.redPointNo = redPointNo;
-		}
-		public Integer getMemberNo() {
-			return memberNo;
-		}
-		public void setMemberNo(Integer memberNo) {
-			this.memberNo = memberNo;
-		}
-		public Integer getNodeNo() {
-			return nodeNo;
-		}
-		public void setNodeNo(Integer nodeNo) {
-			this.nodeNo = nodeNo;
-		}
-		public Float getPointAmount() {
-			return pointAmount;
-		}
-		public void setPointAmount(Float pointAmount) {
-			this.pointAmount = pointAmount;
-		}
-		public String getNodeType() {
-			return nodeType;
-		}
-		public void setNodeType(String nodeType) {
-			this.nodeType = nodeType;
-		}
-		public Date getRedPointCreateTime() {
-			return redPointCreateTime;
-		}
-		public void setRedPointCreateTime(Date redPointCreateTime) {
-			this.redPointCreateTime = redPointCreateTime;
-		}
-		public Date getRedPointUpdateTime() {
-			return redPointUpdateTime;
-		}
-		public void setRedPointUpdateTime(Date redPointUpdateTime) {
-			this.redPointUpdateTime = redPointUpdateTime;
-		}
 		
-	    
 	    
 	    
 }

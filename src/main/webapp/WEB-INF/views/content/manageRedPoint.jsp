@@ -5,9 +5,9 @@
 		<table id = "node_list" style ="width:100%;height:100%">
 		</table> 
 	</div>
-		<div  data-options="region:'north',split:true"  id = "member_search"  style ="height:170px" title ="검색 조건" >
+		<div  data-options="region:'north',split:true"  id = "member_search"  style ="height:120px" title ="검색 조건" >
 		 <div class="easyui-panel" title="" style="width:100%;padding:10px 15px;">
-	        <form id="searchForm" method="post">
+	        <form id="searchForm" >
 	             <div style="margin-bottom:10px;margin-left : 10px;width:200px;display:inline-block">
 	                <input class="easyui-datetimebox"   id = "searchDateStart" name="searchDateStart" label="검색 시작일" style="width:100%"/>
 	            </div>

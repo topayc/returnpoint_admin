@@ -65,8 +65,8 @@ function initView(){
 				if (res.resultCode  == "100") {
 					//console.log(res)
 					$('#node_list').datagrid({
-						data : res.rows,
-						title : '[검색 결과] ' + res.rows.length + " 개의 결과가 검색되었습니다",
+						data : res,
+						title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
 					});
 					setListPager();
 				}else {
@@ -273,6 +273,12 @@ function setListPager(){
             }
         }*/],
         layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
+        onSelectPage:function(page,rows){        	
+        	var opts = $('#node_list').datagrid('options');
+        	opts.pageSize=rows;
+        	opts.pageNumber = page;
+        	realodPage();
+    	}
     }); 
 }
 
@@ -281,19 +287,18 @@ function setListPager(){
  * @returns
  */
 function makeSearchParam(){
-	var param = {
-		pageSize : 10,
-		page : 0,
-		searchDateStart :  $('#searchDateStart').datetimebox('getValue'),
-		searchDateEnd :  $('#searchDateEnd').datetimebox('getValue'),
-		searchPaymentApprovalStatus :  $('input[name=searchPaymentApprovalStatus]').val(),
-/*		paymentType :  $('input[name=paymentType]').val(),
-		keywordType : $('input[name=keywordType]').val(),*/
-		searchKeyword :  $('input[name=searchKeyword]').val()
-	};
+	var param = $('#searchForm').serializeObject();
+	var opts = $('#node_list').datagrid('options');
+	var total = $('#node_list').datagrid('getData').total;
 	
-	//console.log("makeSearchParam");
-	//console.log(JSON.stringify(param));
+	$.extend(param, {
+		pagination : opts.pagination,
+		pageSize : opts.pageSize,
+		page : opts.pageNumber,
+		total : total,
+		offset : (opts.pageNumber-1) * opts.pageSize
+	});
+	
 	return param;
 }
 
