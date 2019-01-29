@@ -22,8 +22,8 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
-import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.model.CompanyBankAccount;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
@@ -75,13 +75,13 @@ public class RecommenderController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/recommender/get", method = RequestMethod.GET)
-	public BaseResponse  getRecommender(
+	public ReturnpBaseResponse  getRecommender(
 			@RequestParam(value = "recommenderNo", required = true) int  recommenderNo) {
 		Recommender reCond =  new Recommender();
 		reCond.setRecommenderNo(recommenderNo);	
 		
 		Recommender  recommender = this.searchService.findRecommenders(reCond).get(0);
-		SingleDataObjectResponse<Recommender> res = new SingleDataObjectResponse<Recommender>();
+		ObjectResponse<Recommender> res = new ObjectResponse<Recommender>();
 		res.setData(recommender);
 		this.setSuccessResponse(res);
 		return res;
@@ -89,7 +89,7 @@ public class RecommenderController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/recommender/create", method = RequestMethod.POST)
-	public  BaseResponse createRecommender(
+	public  ReturnpBaseResponse createRecommender(
 			Recommender recommender, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -97,7 +97,7 @@ public class RecommenderController extends ApplicationController{
 				System.out.println(error.getDefaultMessage());
 			}
 		}
-		BaseResponse res = null;;
+		ReturnpBaseResponse res = null;;
 		AdminSession adminSession = null;
 		if (recommender.getRegType().equals(AppConstants.ReigistType.REGIST_BY_ADMIN)){
 			adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
@@ -158,7 +158,7 @@ public class RecommenderController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/recommender/update", method = RequestMethod.POST)
-	public  BaseResponse updateRecommender( 
+	public  ReturnpBaseResponse updateRecommender( 
 			@ModelAttribute("recommenderFormInfo") Recommender  recommeder,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
@@ -172,14 +172,14 @@ public class RecommenderController extends ApplicationController{
 			AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 			recommeder.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		}
-		BaseResponse res = this.recommenderService.updateRecommender(recommeder);
+		ReturnpBaseResponse res = this.recommenderService.updateRecommender(recommeder);
 		sessionStatus.setComplete();
 		return res;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/recommender/delete", method = RequestMethod.POST)
-	public  BaseResponse deleteRecommender( 
+	public  ReturnpBaseResponse deleteRecommender( 
 			int  recommenderNo, Model model) {
 		return this.recommenderService.deleteRecommender(recommenderNo);
 	}

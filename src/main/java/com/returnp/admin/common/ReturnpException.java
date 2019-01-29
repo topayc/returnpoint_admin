@@ -1,17 +1,17 @@
 package com.returnp.admin.common;
 
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 
 public class ReturnpException extends Exception {
-	private BaseResponse data;
-	public ReturnpException(BaseResponse res) {
+	private ReturnpBaseResponse data;
+	public ReturnpException(ReturnpBaseResponse res) {
 		this.data = res;
 	} 
-	public BaseResponse getBaseResponse() {
+	public ReturnpBaseResponse getBaseResponse() {
 		return data;
 	}
 
-	public void setBaseResponse(BaseResponse data) {
+	public void setBaseResponse(ReturnpBaseResponse data) {
 		this.data = data;
 	}
 }

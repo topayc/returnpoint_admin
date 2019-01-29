@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.model.Policy;
 import com.returnp.admin.service.interfaces.SearchService;
@@ -29,7 +29,7 @@ public class PolicyController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/policy", method = RequestMethod.GET)
-	public  BaseResponse getPolicy(Policy policy, HttpSession httpSession, Model model) {
+	public  ReturnpBaseResponse getPolicy(Policy policy, HttpSession httpSession, Model model) {
 		Policy cond = new Policy();
 		
 		ArrayList<Policy> policies = this.searchService.findPolicies(cond);
@@ -45,12 +45,12 @@ public class PolicyController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/policy/create", method = RequestMethod.POST)
-	public  BaseResponse createPolicy( Policy policy, HttpSession httpSession, Model model) {
+	public  ReturnpBaseResponse createPolicy( Policy policy, HttpSession httpSession, Model model) {
 		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 		policy.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		
 		this.policyService.insert(policy);
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		res.setResultCode(AppConstants.ResponsResultCode.SUCCESS);
 		res.setResult(AppConstants.ResponseResult.SUCCESS);
 		res.setMessage("정책이 잘 적용되었습니다.");

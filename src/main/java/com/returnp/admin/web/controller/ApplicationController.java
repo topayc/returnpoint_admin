@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.returnp.admin.common.AppConstants;
-import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.handler.ReturnPExceptionHandler;
 
 public class ApplicationController extends ReturnPExceptionHandler {
@@ -30,25 +30,25 @@ public class ApplicationController extends ReturnPExceptionHandler {
 		public static final String LOGIN_REDIRECT  ="redirect:/signIn" ;
 	}
 	
-	protected void setRespone(BaseResponse res, String resultCode, String result,String message ){ 
+	protected void setRespone(ReturnpBaseResponse res, String resultCode, String result,String message ){ 
 		res.setResult(result);
 		res.setResultCode(resultCode);	
 		res.setMessage(message);
 	}
 	
-	protected void setSuccessResponse(BaseResponse res){ 
+	protected void setSuccessResponse(ReturnpBaseResponse res){ 
 		res.setResult(AppConstants.ResponseResult.SUCCESS);
 		res.setResultCode(AppConstants.ResponsResultCode.SUCCESS);	
 		res.setMessage("요청이 처리 되었습니다");
 	}
 	
-	protected void setSuccessResponse(BaseResponse res, String mes){ 
+	protected void setSuccessResponse(ReturnpBaseResponse res, String mes){ 
 		res.setResult(AppConstants.ResponseResult.SUCCESS);
 		res.setResultCode(AppConstants.ResponsResultCode.SUCCESS);	
 		res.setMessage(mes);
 	}
 	
-	protected void setSuccessResponse(BaseResponse res, String title, String mes){ 
+	protected void setSuccessResponse(ReturnpBaseResponse res, String title, String mes){ 
 		res.setResult(AppConstants.ResponseResult.SUCCESS);
 		res.setResultCode(AppConstants.ResponsResultCode.SUCCESS);	
 		res.setSummary(title);
@@ -56,20 +56,20 @@ public class ApplicationController extends ReturnPExceptionHandler {
 	}
 	
 	
-	protected void setErrorResponse(BaseResponse res, String title, String mes){ 
+	protected void setErrorResponse(ReturnpBaseResponse res, String title, String mes){ 
 		res.setResult(AppConstants.ResponseResult.ERROR);
 		res.setResultCode(AppConstants.ResponsResultCode.ERROR);	
 		res.setSummary(title);
 		res.setMessage(mes);
 	}
 
-	protected void setErrorResponse(BaseResponse res, String mes){ 
+	protected void setErrorResponse(ReturnpBaseResponse res, String mes){ 
 		res.setResult(AppConstants.ResponseResult.ERROR);
 		res.setResultCode(AppConstants.ResponsResultCode.ERROR);	
 		res.setMessage(mes);
 	}
 	
-	protected void setErrorRespone(BaseResponse res){ 
+	protected void setErrorRespone(ReturnpBaseResponse res){ 
 		res.setResult(AppConstants.ResponseResult.FAILED);
 		res.setResultCode(AppConstants.ResponsResultCode.ERROR);	
 		res.setMessage("요청에러");
@@ -77,9 +77,9 @@ public class ApplicationController extends ReturnPExceptionHandler {
 	
 	@ExceptionHandler(TypeMismatchException.class)
 	@ResponseBody
-	protected BaseResponse typeMismatchExceptionHandler(TypeMismatchException e,
+	protected ReturnpBaseResponse typeMismatchExceptionHandler(TypeMismatchException e,
 			HttpServletResponse response){
-		SingleDataObjectResponse<String> res = new SingleDataObjectResponse<String>();
+		ObjectResponse<String> res = new ObjectResponse<String>();
 		res.setData(e.getMessage());
 		this.setErrorRespone(res);
 		return res;
@@ -87,10 +87,10 @@ public class ApplicationController extends ReturnPExceptionHandler {
 	
 	@ExceptionHandler(MissingServletRequestParameterException.class)
 	@ResponseBody
-	protected BaseResponse missingServletRequestParameterExceptionHandler(
+	protected ReturnpBaseResponse missingServletRequestParameterExceptionHandler(
 			MissingServletRequestParameterException e, 
 			HttpServletResponse response){
-		SingleDataObjectResponse<String> res = new SingleDataObjectResponse<String>();
+		ObjectResponse<String> res = new ObjectResponse<String>();
 		res.setData(e.getMessage());
 		this.setErrorRespone(res);
 		return res;
@@ -98,9 +98,9 @@ public class ApplicationController extends ReturnPExceptionHandler {
 	
 	@ExceptionHandler(DataAccessException.class)
 	@ResponseBody
-	protected  BaseResponse dataAccessExceptionHandler(DataAccessException e,
+	protected  ReturnpBaseResponse dataAccessExceptionHandler(DataAccessException e,
 			HttpServletResponse response ) {
-		SingleDataObjectResponse<String> res = new SingleDataObjectResponse<String>();
+		ObjectResponse<String> res = new ObjectResponse<String>();
 		res.setData(e.getMessage());
 		this.setErrorRespone(res);
 		return res;

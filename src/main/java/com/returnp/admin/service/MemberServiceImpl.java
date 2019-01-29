@@ -10,7 +10,7 @@ import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dao.mapper.MemberMapper;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.MemberCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.RedPoint;
@@ -62,8 +62,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public BaseResponse createMember(Member member) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse createMember(Member member) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		if (this.isEmailDuplicated(member.getMemberEmail())) {
 			ReturnpResponseMessageHandler.setErrorResponse(res,"중복된 이메일입니다. 다시 확인해주세요");
 		}else {
@@ -118,8 +118,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public BaseResponse updateMember(Member member) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse updateMember(Member member) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		Member oriMember = this.memberMapper.selectByPrimaryKey(member.getMemberNo());
 		if (oriMember == null) {
 			ReturnpResponseMessageHandler.setRespone(res, "311", "error", "잘못된 회원 정보입니다");
@@ -169,8 +169,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public BaseResponse deleteMember(int memberNo) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse deleteMember(int memberNo) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.memberMapper.deleteByPrimaryKey(memberNo);
 		ReturnpResponseMessageHandler.setSuccessResponse(res, "삭제 완료");
 		return res;

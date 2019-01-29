@@ -22,8 +22,8 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
-import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.model.Affiliate;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
@@ -74,11 +74,11 @@ public class SaleManagerController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/saleManager/get", method = RequestMethod.GET)
-	public BaseResponse  getSaleManger(
+	public ReturnpBaseResponse  getSaleManger(
 			@RequestParam(value = "saleManagerNo", required = true) int  saleManagerNo) {
 		
 		SaleManager  saleManager = this.saleManagerService.selectByPrimaryKey(saleManagerNo);
-		SingleDataObjectResponse<SaleManager> res = new SingleDataObjectResponse<SaleManager>();
+		ObjectResponse<SaleManager> res = new ObjectResponse<SaleManager>();
 		res.setData(saleManager);
 		this.setSuccessResponse(res);
 		return res;
@@ -86,7 +86,7 @@ public class SaleManagerController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/saleManager/create", method = RequestMethod.POST)
-	public  BaseResponse createSaleManger(
+	public  ReturnpBaseResponse createSaleManger(
 			SaleManager saleManager, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -99,7 +99,7 @@ public class SaleManagerController extends ApplicationController {
 		cond.setMemberNo(saleManager.getMemberNo());
 		cond.setSaleManagerEmail(saleManager.getSaleManagerEmail());
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		
 		if (this.searchService.findSaleManagers(cond).size() > 0) {
 			this.setErrorResponse(res,"이미 협력 업체로 등록되어 있는 회원입니다.");
@@ -138,7 +138,7 @@ public class SaleManagerController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/saleManager/update", method = RequestMethod.POST)
-	public  BaseResponse updateSaleManger( 
+	public  ReturnpBaseResponse updateSaleManger( 
 			@ModelAttribute("saleManagerFormInfo") SaleManager saleManager,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
@@ -153,7 +153,7 @@ public class SaleManagerController extends ApplicationController {
 			saleManager.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		}
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.saleManagerService.updateByPrimaryKey(saleManager);
 		this.setSuccessResponse(res, "수정 완료");
 		sessionStatus.setComplete();
@@ -162,9 +162,9 @@ public class SaleManagerController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/saleManager/delete", method = RequestMethod.POST)
-	public  BaseResponse deleteSaleManager( 
+	public  ReturnpBaseResponse deleteSaleManager( 
 			int  saleManagerNo, Model model) {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.saleManagerService.deleteByPrimaryKey(saleManagerNo);
 		this.setSuccessResponse(res, "삭제 완료");
 		return res;

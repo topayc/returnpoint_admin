@@ -28,9 +28,9 @@ import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.PaymentTransactionCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.service.interfaces.ExecutorService;
@@ -78,11 +78,11 @@ public class PaymentTransactionController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/paymentTransaction/get", method = RequestMethod.GET)
-	public BaseResponse  getPaymentTransaction(
+	public ReturnpBaseResponse  getPaymentTransaction(
 			@RequestParam(value = "paymentTransactionNo", required = true) int  paymentTransactionNo) {
 		
 		PaymentTransaction  vanPaymentTransaction= this.paymentTransactionService.selectByPrimaryKey(paymentTransactionNo);
-		SingleDataObjectResponse<PaymentTransaction> res = new SingleDataObjectResponse<PaymentTransaction>();
+		ObjectResponse<PaymentTransaction> res = new ObjectResponse<PaymentTransaction>();
 		res.setData(vanPaymentTransaction);
 		this.setSuccessResponse(res);
 		return res;
@@ -90,8 +90,8 @@ public class PaymentTransactionController extends ApplicationController {
 
 	@ResponseBody
 	@RequestMapping(value = "/paymentTransaction/genPan", method = RequestMethod.GET)
-	public BaseResponse  genPan() {
-		SingleDataObjectResponse<String> res = new SingleDataObjectResponse<String>();
+	public ReturnpBaseResponse  genPan() {
+		ObjectResponse<String> res = new ObjectResponse<String>();
 		res.setData(CodeGenerator.generatorPaymentApprovalNumber(null));
 		this.setSuccessResponse(res, "결제 번호 생성생성 ");
 		return res;
@@ -100,7 +100,7 @@ public class PaymentTransactionController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/paymentTransactions", method = RequestMethod.GET)
-	public  BaseResponse getPaymentTransactions(SearchCondition searchCondition, HttpSession httpSession, Model model) {
+	public  ReturnpBaseResponse getPaymentTransactions(SearchCondition searchCondition, HttpSession httpSession, Model model) {
 		
 		PaymentTransaction vCond = new PaymentTransaction();
 		vCond.setPaymentApprovalStatus(searchCondition.getSearchVanPaymentStatus());
@@ -122,7 +122,7 @@ public class PaymentTransactionController extends ApplicationController {
 
 	@ResponseBody
 	@RequestMapping(value = "/paymentTransactionCommands", method = RequestMethod.GET)
-	public  BaseResponse getPaymentTransactionCommands(SearchCondition searchCondition, HttpSession httpSession, Model model) {
+	public  ReturnpBaseResponse getPaymentTransactionCommands(SearchCondition searchCondition, HttpSession httpSession, Model model) {
 		
 		/*PaymentTransaction vCond = new PaymentTransaction();
 		vCond.setPaymentApprovalStatus(searchCondition.getSearchVanPaymentStatus());
@@ -159,7 +159,7 @@ public class PaymentTransactionController extends ApplicationController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/paymentTransaction/create", method = RequestMethod.GET)
-	public  BaseResponse createPaymentTransaction(PaymentTransaction transaction, BindingResult result, HttpSession httpSession, Model model) {
+	public  ReturnpBaseResponse createPaymentTransaction(PaymentTransaction transaction, BindingResult result, HttpSession httpSession, Model model) {
 		
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -177,7 +177,7 @@ public class PaymentTransactionController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/paymentTransaction/newCreate", method = RequestMethod.GET)
-	public  BaseResponse createNewPaymentTransaction(
+	public  ReturnpBaseResponse createNewPaymentTransaction(
 			PaymentTransaction transaction, BindingResult result, HttpSession httpSession, Model model) {
 		System.out.println("paymentTransaction/newCreate");
 		
@@ -205,7 +205,7 @@ public class PaymentTransactionController extends ApplicationController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/paymentTransaction/reaccumulate", method = RequestMethod.GET)
-	public  BaseResponse reaccumulate(
+	public  ReturnpBaseResponse reaccumulate(
 			@RequestParam(value = "paymentTransactionNo", required = true,defaultValue = "1") int  paymentTransactionNo ,
 			@RequestParam(value = "reaccmulatetType", required = true,defaultValue = "A") String  reaccmulatetType,
 			HttpSession httpSession, Model model) {
@@ -223,7 +223,7 @@ public class PaymentTransactionController extends ApplicationController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/paymentTransaction/cancel", method = RequestMethod.POST)
-	public  BaseResponse cancelPaymentTransaction(PaymentTransaction transaction, HttpSession httpSession, Model model) {
+	public  ReturnpBaseResponse cancelPaymentTransaction(PaymentTransaction transaction, HttpSession httpSession, Model model) {
 		System.out.println("#####  cancelPaymentTransaction 호출됨");
 		return this.paymentransactionExecutorService.cancelAccumulateRequest(transaction.getPaymentTransactionNo());
 	}
@@ -231,7 +231,7 @@ public class PaymentTransactionController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/paymentTransaction/update", method = RequestMethod.POST)
-	public  BaseResponse updatePaymentTransaction( 
+	public  ReturnpBaseResponse updatePaymentTransaction( 
 			@ModelAttribute("paymentTransactionFormInfo") PaymentTransaction  paymentTransaction,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 /*		System.out.println("updateVanPaymentTransaction 호출됨");*/
@@ -247,7 +247,7 @@ public class PaymentTransactionController extends ApplicationController {
 			paymentTransaction.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		}
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.paymentTransactionService.updateByPrimaryKey(paymentTransaction);
 		this.setSuccessResponse(res, "수정 완료");
 		sessionStatus.setComplete();
@@ -256,11 +256,11 @@ public class PaymentTransactionController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/paymentTransaction/delete", method = RequestMethod.POST)
-	public  BaseResponse deletePaymentTransaction( 
+	public  ReturnpBaseResponse deletePaymentTransaction( 
 			int  paymentTransactionNo, Model model) {
 		System.out.println("vanPaymentTransaction/delete");
 		System.out.println(paymentTransactionNo);
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.paymentTransactionService.deleteByPrimaryKey(paymentTransactionNo);
 		this.setSuccessResponse(res, "삭제 완료");
 		return res;

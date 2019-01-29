@@ -22,9 +22,9 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.CodeKeyValuePair;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.model.Board;
 import com.returnp.admin.service.interfaces.BoardService;
 import com.returnp.admin.service.interfaces.SearchService;
@@ -113,7 +113,7 @@ public class BoardController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/boards", method = RequestMethod.GET)
-	public BaseResponse  getBoards(Board  board) {
+	public ReturnpBaseResponse  getBoards(Board  board) {
 		/*메인 스레드의 글만 불러옴*/
 		ArrayListResponse<Board> slr = new ArrayListResponse<Board>();
 		board.setBoardPid(0);
@@ -126,8 +126,8 @@ public class BoardController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/board/get", method = RequestMethod.GET)
-	public BaseResponse  getBoard(Board board) {
-		SingleDataObjectResponse<Board> res = new SingleDataObjectResponse<Board>();
+	public ReturnpBaseResponse  getBoard(Board board) {
+		ObjectResponse<Board> res = new ObjectResponse<Board>();
 		res.setData(this.boardService.getBoard(board));
 		res.setResultCode("100");
 		return res;
@@ -135,8 +135,8 @@ public class BoardController extends ApplicationController{
 
 	@ResponseBody
 	@RequestMapping(value = "/boardReply/get", method = RequestMethod.GET)
-	public BaseResponse  getReply(Board board) {
-		SingleDataObjectResponse< Board> res = new SingleDataObjectResponse<Board>();
+	public ReturnpBaseResponse  getReply(Board board) {
+		ObjectResponse< Board> res = new ObjectResponse<Board>();
 		res.setData(this.boardService.getReply(board));
 		res.setResultCode("100");
 		return res;
@@ -144,7 +144,7 @@ public class BoardController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/boardCategories", method = RequestMethod.GET)
-	public BaseResponse  getCategories(String boardType) {
+	public ReturnpBaseResponse  getCategories(String boardType) {
 		ArrayListResponse<CodeKeyValuePair> slr = new ArrayListResponse<CodeKeyValuePair>();
 		ArrayList<CodeKeyValuePair> cateList = null;
 		switch(boardType) {
@@ -168,12 +168,12 @@ public class BoardController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/board/create", method = RequestMethod.POST)
-	public BaseResponse  createBoard(
+	public ReturnpBaseResponse  createBoard(
 			@ModelAttribute("boardFormInfo") Board  board,
 			SessionStatus sessionStatus, 
 			BindingResult result) {
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
 			for (ObjectError error : list) {
@@ -197,7 +197,7 @@ public class BoardController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/board/update", method = RequestMethod.POST)
-	public BaseResponse  updateBoard(
+	public ReturnpBaseResponse  updateBoard(
 			@ModelAttribute("boardFormInfo") Board  board, SessionStatus sessionStatus, BindingResult result) {
 		
 		if (result.hasErrors()) {
@@ -207,7 +207,7 @@ public class BoardController extends ApplicationController{
 			}
 		}
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.boardService.updateBoard(board);
 		res.setResultCode("100");
 		res.setMessage("수정 완료");
@@ -218,9 +218,9 @@ public class BoardController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/board/delete", method = RequestMethod.POST)
-	public  BaseResponse deleteBoard( 
+	public  ReturnpBaseResponse deleteBoard( 
 			@RequestParam(value = "boardNo", required  = true ) int  boardNo, Model model) {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.boardService.deleteBoard(boardNo);
 		res.setResultCode("100");
 		res.setMessage("삭제 완료");
@@ -228,9 +228,9 @@ public class BoardController extends ApplicationController{
 	}
 	@ResponseBody
 	@RequestMapping(value = "/boardReply/delete", method = RequestMethod.POST)
-	public  BaseResponse deleteReply( 
+	public  ReturnpBaseResponse deleteReply( 
 			@RequestParam(value = "boardNo", required  = true ) int  boardNo, Model model) {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.boardService.deleteReply(boardNo);
 		res.setResultCode("100");
 		res.setMessage("삭제 완료");

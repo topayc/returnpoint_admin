@@ -2,7 +2,7 @@ package com.returnp.admin.dto.reponse;
 
 import java.util.ArrayList;
 
-public class ApiServiceResponse<T> extends BaseResponse{
+public class ApiServiceResponse<T> extends ReturnpBaseResponse{
 	public int total;
 	public ArrayList<T> rows;
 

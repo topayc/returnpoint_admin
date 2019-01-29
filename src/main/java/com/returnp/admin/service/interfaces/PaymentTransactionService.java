@@ -4,17 +4,17 @@ import java.util.HashMap;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.PaymentTransaction;
 
 @Transactional
 public interface PaymentTransactionService {
 
-	BaseResponse createPaymentTransaction(PaymentTransaction transaction);
+	ReturnpBaseResponse createPaymentTransaction(PaymentTransaction transaction);
 
-	BaseResponse createNewPaymentTransaction(PaymentTransaction transaction);
+	ReturnpBaseResponse createNewPaymentTransaction(PaymentTransaction transaction);
 	
-	BaseResponse checkPaymentTrasnsaction(PaymentTransaction transaction);
+	ReturnpBaseResponse checkPaymentTrasnsaction(PaymentTransaction transaction);
 	
 	int deleteByPrimaryKey(Integer paymentTransactionNo);
 
@@ -28,5 +28,5 @@ public interface PaymentTransactionService {
 
 	int updateByPrimaryKey(PaymentTransaction record);
 	
-	BaseResponse reaccumulatePaymentTransaction(int paymentTransactionNo, String reaccmulatetType);
+	ReturnpBaseResponse reaccumulatePaymentTransaction(int paymentTransactionNo, String reaccmulatetType);
 }

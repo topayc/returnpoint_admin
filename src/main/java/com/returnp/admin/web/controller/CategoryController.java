@@ -20,9 +20,9 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.CategoryCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.model.Category;
 import com.returnp.admin.service.interfaces.CategoryService;
 import com.returnp.admin.service.interfaces.SearchService;
@@ -60,7 +60,7 @@ public class CategoryController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/categories", method = RequestMethod.GET)
-	public  BaseResponse findCategories(
+	public  ReturnpBaseResponse findCategories(
 			Category category, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -77,13 +77,13 @@ public class CategoryController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/category/get", method = RequestMethod.GET)
-	public  BaseResponse getCategoryCommand(
+	public  ReturnpBaseResponse getCategoryCommand(
 			int categoryNo , 
 			Model model) {
 		CategoryCommand commandCond = new CategoryCommand();
 		commandCond.setCategoryNo(categoryNo);
 
-		SingleDataObjectResponse<CategoryCommand> res = new SingleDataObjectResponse<CategoryCommand>();
+		ObjectResponse<CategoryCommand> res = new ObjectResponse<CategoryCommand>();
 		ArrayList<CategoryCommand> commandList = this.searchService.findCategoryCommands(commandCond);
 		if (commandList.size() < 1 || commandList.size()> 1) {
 			this.setErrorResponse(res,"잘못된 요청입니다");
@@ -96,7 +96,7 @@ public class CategoryController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/category/create", method = RequestMethod.POST)
-	public  BaseResponse createCategory(
+	public  ReturnpBaseResponse createCategory(
 			Category category, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -109,14 +109,14 @@ public class CategoryController extends ApplicationController{
 			category.setParentCategoryNo(0);
 		}
 		this.categoryService.insert(category);
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.setSuccessResponse(res,"생성 완료");
 		return res;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/category/update", method = RequestMethod.POST)
-	public  BaseResponse udpateCategory(
+	public  ReturnpBaseResponse udpateCategory(
 			@ModelAttribute("categoryFormInfo") Category category,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
@@ -126,7 +126,7 @@ public class CategoryController extends ApplicationController{
 			}
 		}
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.categoryService.updateByPrimaryKey(category);
 		this.setSuccessResponse(res, "수정 완료");
 		sessionStatus.setComplete();
@@ -136,11 +136,11 @@ public class CategoryController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/category/delete", method = RequestMethod.POST)
-	public  BaseResponse deleteCategory( 
+	public  ReturnpBaseResponse deleteCategory( 
 			int  categoryNo, 
 			int categoryLevel, 
 			Model model) {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.categoryService.deleteByPrimaryKey(categoryNo);
 		
 		/* 대카테고리 삭제 일 경우 하부 카테고리도 삭제*/

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
-import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SingleDataReponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 
 @Controller
 @RequestMapping("/api")
@@ -17,7 +17,7 @@ public class CodeController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/code/create", method = RequestMethod.GET)
-	public BaseResponse generatorRecommenderCode(String key, String nodeType, Model mode) {
+	public ReturnpBaseResponse generatorRecommenderCode(String key, String nodeType, Model mode) {
 		
 		String code = null;
 		switch(nodeType) {
@@ -39,7 +39,7 @@ public class CodeController extends ApplicationController {
 		case AppConstants.NodeType.SALE_MANAGER:
 			code = CodeGenerator.generatorSaleManagerCode(key);
 	}
-		SingleDataReponse  res = new  SingleDataReponse();
+		ObjectResponse<String>  res = new  ObjectResponse<String>();
 		res.setData(code);
 		this.setSuccessResponse(res);
 		return res;

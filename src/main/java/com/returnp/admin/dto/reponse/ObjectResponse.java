@@ -5,7 +5,7 @@ package com.returnp.admin.dto.reponse;
  *
  * @param <T>
  */
-public class SingleDataObjectResponse <T> extends BaseResponse {
+public class ObjectResponse <T> extends ReturnpBaseResponse {
 	T data;
 
 	public T getData() {

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.returnp.admin.common.AppConstants;
-import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
  
  
 public class ReturnPExceptionHandler {
@@ -18,7 +18,7 @@ public class ReturnPExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     @ResponseStatus (HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public BaseResponse exceptionHandler(
+    public ReturnpBaseResponse exceptionHandler(
             HttpServletRequest request,
             HttpServletResponse response,
             Exception exception) {
@@ -27,7 +27,7 @@ public class ReturnPExceptionHandler {
     		System.out.println(exception.getClass().getName());
     		exception.printStackTrace();
     	}catch(NullPointerException ex) {
-    		SingleDataObjectResponse<String> res = new SingleDataObjectResponse<String>();
+    		ObjectResponse<String> res = new ObjectResponse<String>();
     		res.setResult(AppConstants.ResponseResult.ERROR);
     		res.setResultCode(AppConstants.ResponsResultCode.ERROR);	
     		res.setSummary("unknown error!!!");
@@ -55,7 +55,7 @@ public class ReturnPExceptionHandler {
         System.out.println("reason : " + reason);
         System.out.println("statusCode: " + statusCode);
         
-        SingleDataObjectResponse<String> res = new SingleDataObjectResponse<String>();
+        ObjectResponse<String> res = new ObjectResponse<String>();
         res.setResult(AppConstants.ResponseResult.ERROR);
 		res.setResultCode(AppConstants.ResponsResultCode.ERROR);	
 		res.setSummary(exception.getClass().getName());

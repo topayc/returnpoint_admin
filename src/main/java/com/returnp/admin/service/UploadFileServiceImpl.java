@@ -16,7 +16,7 @@ import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.common.DataMap;
 import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.common.ReturnpException;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.service.interfaces.BasePointAccumulateService;
 import com.returnp.admin.service.interfaces.UploadFileService;
@@ -30,8 +30,8 @@ public class UploadFileServiceImpl implements UploadFileService {
 	@Autowired BasePointAccumulateService basePointAccumulateService;
 	
 	@Override
-	public BaseResponse uploadSalesFile(MultipartFile uploadFile, String saveDir ) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse uploadSalesFile(MultipartFile uploadFile, String saveDir ) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		ResponseUtil.setResponse(res, "100", this.messageUtils.getMessage("pointback.transaction_completed"));
 		try {
 			File file = FileManager.save(uploadFile, saveDir);

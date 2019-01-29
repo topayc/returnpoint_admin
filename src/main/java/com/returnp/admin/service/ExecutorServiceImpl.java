@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.common.ResponseUtil;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.service.interfaces.ExecutorService;
 
@@ -76,11 +76,11 @@ public class ExecutorServiceImpl implements ExecutorService{
 	}
 
 	@Override
-	public BaseResponse accumulateRequest(PaymentTransaction transaction) {
+	public ReturnpBaseResponse accumulateRequest(PaymentTransaction transaction) {
 		String remoteCallURL = environment.getProperty("run_mode").equals("dev") ?  
 				environment.getProperty("dev.manual_accumulate_point") : environment.getProperty("real.manual_accumulate_point");
 				String key = environment.getProperty("key");
-		BaseResponse res = null;
+		ReturnpBaseResponse res = null;
 		String urlData;
 		try {
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -103,7 +103,7 @@ public class ExecutorServiceImpl implements ExecutorService{
 			return this.sendRequest(urlData);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-			res = new BaseResponse();
+			res = new ReturnpBaseResponse();
 			ResponseUtil.setResponse(res, "20023", "인코딩 오류 발생");
 		}
 		return null;
@@ -111,7 +111,7 @@ public class ExecutorServiceImpl implements ExecutorService{
 
 	
 	@Override
-	public BaseResponse cancelAccumulateRequest(Integer paymentTransactionNo) {
+	public ReturnpBaseResponse cancelAccumulateRequest(Integer paymentTransactionNo) {
 		String remoteCallURL = environment.getProperty("run_mode").equals("dev") ?  
 				environment.getProperty("dev.cancel_acc_by_payment_transaction_no") : environment.getProperty("real.cancel_acc_by_payment_transaction_no");
 				String key = environment.getProperty("key");
@@ -120,8 +120,8 @@ public class ExecutorServiceImpl implements ExecutorService{
 	}
 
 	@Override
-	public BaseResponse sendRequest(String urlData) {
-		BaseResponse res = null;
+	public ReturnpBaseResponse sendRequest(String urlData) {
+		ReturnpBaseResponse res = null;
 		try {
 			URL url = new URL(urlData);
 			System.out.println("###### 적립 요청 파라메터 구성");
@@ -149,25 +149,25 @@ public class ExecutorServiceImpl implements ExecutorService{
 				System.out.println("###### 적립 요청 후 Response Message : " + response.toString());
 				
 				Gson gson = new Gson();
-				res = gson.fromJson(response.toString(), BaseResponse.class);
+				res = gson.fromJson(response.toString(), ReturnpBaseResponse.class);
 				return res;
 			}else {
-				res = new BaseResponse();
+				res = new ReturnpBaseResponse();
 				ResponseUtil.setResponse(res, "50000", "네트워크 에러");
 				return res;
 			}
 		} catch (MalformedURLException e) {
-			res = new BaseResponse();
+			res = new ReturnpBaseResponse();
 			ResponseUtil.setResponse(res, "50000", "네트워크 에러");
 			e.printStackTrace();
 			return res;
 		} catch (IOException e) {
-			res = new BaseResponse();
+			res = new ReturnpBaseResponse();
 			ResponseUtil.setResponse(res, "50000", "네트워크 에러");
 			e.printStackTrace();
 			return res;
 		} catch (Exception e2) {
-			res = new BaseResponse();
+			res = new ReturnpBaseResponse();
 			ResponseUtil.setResponse(res, "50000", "네트워크 에러");
 			e2.printStackTrace();
 			return res;

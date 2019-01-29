@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dao.mapper.PaymentTransactionMapper;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Affiliate;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.PaymentTransaction;
@@ -24,8 +24,8 @@ public class PaymentTransactionServiceImpl implements PaymentTransactionService 
 	@Autowired ExecutorService paymentransactionExecutorService;
 	
 	@Override
-	public BaseResponse createPaymentTransaction(PaymentTransaction transaction) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse createPaymentTransaction(PaymentTransaction transaction) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		
 		/*
 		 * 존재하는 회원인지 조사 
@@ -81,14 +81,14 @@ public class PaymentTransactionServiceImpl implements PaymentTransactionService 
 	}
 	
 	@Override
-	public BaseResponse createNewPaymentTransaction(PaymentTransaction transaction) {
+	public ReturnpBaseResponse createNewPaymentTransaction(PaymentTransaction transaction) {
 		return this.paymentransactionExecutorService.accumulateRequest(transaction);
 	}
 
 	
 	@Override
-	public BaseResponse reaccumulatePaymentTransaction(int paymentTransactionNo, String reaccmulatetType) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse reaccumulatePaymentTransaction(int paymentTransactionNo, String reaccmulatetType) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		switch(reaccmulatetType) {
 		case AppConstants.reaccumulateType.ACC_AFTER_DEL: /*결제 내역을 삭제하고 재 적립 요청*/
 			break;
@@ -102,8 +102,8 @@ public class PaymentTransactionServiceImpl implements PaymentTransactionService 
 	}
 	
 	@Override
-	public BaseResponse checkPaymentTrasnsaction(PaymentTransaction transaction) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse checkPaymentTrasnsaction(PaymentTransaction transaction) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		return res;
 	}
 

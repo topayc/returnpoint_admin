@@ -23,9 +23,9 @@ import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.PointConversionTransactionCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
@@ -51,7 +51,7 @@ public class PointConversionTransactionController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointConversionTransactions", method = RequestMethod.GET)
-	public BaseResponse  getPointConversionTransactions(
+	public ReturnpBaseResponse  getPointConversionTransactions(
 			SearchCondition searchCondition, Model model) {
 		
 		PointConversionTransactionCommand pctCond = new PointConversionTransactionCommand();

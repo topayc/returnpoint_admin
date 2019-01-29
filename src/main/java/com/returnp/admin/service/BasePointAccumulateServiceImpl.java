@@ -25,7 +25,7 @@ import com.returnp.admin.dao.mapper.PolicyMapper;
 import com.returnp.admin.dto.command.InnerPointBackTarget;
 import com.returnp.admin.dto.command.OuterPointBackTarget;
 import com.returnp.admin.dto.command.PointBackTarget;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Affiliate;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
@@ -76,8 +76,8 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	 }*/
 	
 	@Override
-	public BaseResponse accumulate(DataMap dataMap) throws Exception {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse accumulate(DataMap dataMap) throws Exception {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
 			switch(dataMap.getStr("acc_from").trim()){
 				case AppConstants.PaymentTransactionType.QR:
@@ -120,8 +120,8 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	}
 	
 	@Override
-	public BaseResponse cancelAccumulate(DataMap dataMap) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse cancelAccumulate(DataMap dataMap) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
 			switch(dataMap.getStr("acc_from").trim()){
 				case AppConstants.PaymentTransactionType.QR:
@@ -167,9 +167,9 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	 * PaymentTransactionNo 의한 적립 취소
 	 */
 	@Override
-	public BaseResponse cancelAccumuate(String pan) {
+	public ReturnpBaseResponse cancelAccumuate(String pan) {
 		DataMap dataMap = null;
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		ArrayList<PaymentTransaction> pts = null;
 		PaymentTransaction pt = null;
 		try {
@@ -203,9 +203,9 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	 * 결제번호에 의한 적립 취소 
 	 */
 	@Override
-	public BaseResponse cancelAccumuate(int paymentTrasactionNo) {
+	public ReturnpBaseResponse cancelAccumuate(int paymentTrasactionNo) {
 		DataMap dataMap = null;
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		PaymentTransaction pt = null;
 		try {
 			pt = paymentTransactionMapper.selectByPrimaryKey(paymentTrasactionNo);
@@ -235,7 +235,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	
 	@Override
 	public Member validateMemberAuth(String memberEmail, String phoneNumber, String phoneNumberCountry) throws ReturnpException {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
 			/*존재 하는 회원 인지 검사*/
 			Member member = new Member();;
@@ -269,7 +269,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 
 	@Override
 	public Affiliate validateAffiliateAuth(String afId) throws ReturnpException {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
 			/* * 존재하는 가맹점인지 검사 */
 			Affiliate affiliate = new Affiliate();
@@ -293,7 +293,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	
 	@Override
 	public PaymentTransaction validate(String pan, String pas) throws ReturnpException {
-		BaseResponse res =  new BaseResponse();
+		ReturnpBaseResponse res =  new ReturnpBaseResponse();
 		try {
 			/* * 해당 결제 내역이 이미 등록되어 있는지 여부에 그에 따른 적립 처리 여부 검사 */
 			PaymentTransaction paymentTransaction = new PaymentTransaction();
@@ -420,7 +420,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	
 	@Override
 	public PaymentTransaction createPaymentTransaction(DataMap dataMap) throws ReturnpException {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		PaymentTransaction pt = null;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
@@ -485,7 +485,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 
 	@Override
 	public void  accumuatePoint(int paymentTransactioinNo) throws ReturnpException {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
 			PaymentTransaction paymentTransaction = this.paymentTransactionMapper.selectByPrimaryKey(paymentTransactioinNo);
 			this.accumuatePoint(paymentTransaction);
@@ -506,7 +506,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	 */
 	@Override
 	public void accumuatePoint(PaymentTransaction transaction) throws ReturnpException {
-	BaseResponse res = new BaseResponse();
+	ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
 			/*정책 조회*/
 			Policy policy = new Policy();
@@ -886,7 +886,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 			paymentPointbackRecordMapper.insert(pointBackRecord);
 		} catch (Exception e) {
 			e.printStackTrace();
-			BaseResponse res = new BaseResponse();
+			ReturnpBaseResponse res = new ReturnpBaseResponse();
 			ResponseUtil.setResponse(res, "9000", this.messageUtils.getMessage("pointback.message.inner_server_error"));
 			throw new ReturnpException(res);
 		}
@@ -895,7 +895,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	
 	@Override
 	public void restorePoint(DataMap dataMap) throws ReturnpException {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		PaymentTransaction pt = new PaymentTransaction();
 		pt.setPaymentApprovalNumber(dataMap.getStr("pan"));
 		

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.returnp.admin.dto.command.MemberBankAccountCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.MemberBankAccount;
 
 @Transactional

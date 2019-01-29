@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.returnp.admin.dto.QueryCondition;
 
-public class ArrayListResponse<T> extends BaseResponse{
+public class ArrayListResponse<T> extends ReturnpBaseResponse{
 	public int total;
 	public ArrayList<T> rows;
 
@@ -20,12 +20,5 @@ public class ArrayListResponse<T> extends BaseResponse{
 	}
 	public void setRows(ArrayList<T> rows) {
 		this.rows = rows;
-		
-		/*if(rows != null && rows.size()>0) {
-			System.out.println("+++++++++++++++++++++++++++++++++++++++++" + (rows.get(0) instanceof QueryCondition));
-			if( rows.get(0) instanceof QueryCondition) {
-				this.total = ((QueryCondition)rows.get(0)).getTotal();
-			}
-		}*/
 	}
 }

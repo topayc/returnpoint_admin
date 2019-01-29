@@ -22,8 +22,8 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
-import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.PointConversionTransaction;
@@ -69,10 +69,10 @@ public class SoleDistController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/soleDist/get", method = RequestMethod.GET)
-	public BaseResponse  getSoleDist(
+	public ReturnpBaseResponse  getSoleDist(
 			@RequestParam(value = "soleDistNo", required = true) int  soleDistNo) {
 		SoleDist  soleDist= this.soleDistService.selectByPrimaryKey(soleDistNo);
-		SingleDataObjectResponse<SoleDist> res = new SingleDataObjectResponse<SoleDist>();
+		ObjectResponse<SoleDist> res = new ObjectResponse<SoleDist>();
 		res.setData(soleDist);
 		this.setSuccessResponse(res);
 		return res;
@@ -80,7 +80,7 @@ public class SoleDistController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/soleDist/create", method = RequestMethod.GET)
-	public  BaseResponse createSoleDist(
+	public  ReturnpBaseResponse createSoleDist(
 			SoleDist soleDist, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -89,7 +89,7 @@ public class SoleDistController extends ApplicationController{
 			}
 		}
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		SoleDist soleDistCond = new SoleDist();
 		if (this.searchService.findSoleDists(soleDistCond).size()> 0) {
 			this.setErrorResponse(res,"이미 1개의 총판이 등록되어 있습니다. 총판은 1개만 등록이 가능합니다");
@@ -138,7 +138,7 @@ public class SoleDistController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/soleDist/update", method = RequestMethod.POST)
-	public  BaseResponse updateSoleDist( 
+	public  ReturnpBaseResponse updateSoleDist( 
 			@ModelAttribute("soleDistFormInfo") SoleDist soleDist,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
@@ -153,7 +153,7 @@ public class SoleDistController extends ApplicationController{
 			soleDist.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		}
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.soleDistService.updateByPrimaryKey(soleDist);
 		this.setSuccessResponse(res, "수정 완료");
 		sessionStatus.setComplete();
@@ -162,9 +162,9 @@ public class SoleDistController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/soleDist/delete", method = RequestMethod.POST)
-	public  BaseResponse deleteSoleDist( 
+	public  ReturnpBaseResponse deleteSoleDist( 
 			int  soleDistNo, Model model) {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.soleDistService.deleteByPrimaryKey(soleDistNo);
 		this.setSuccessResponse(res, "삭제 완료");
 		return res;

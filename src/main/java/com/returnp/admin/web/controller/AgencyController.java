@@ -22,8 +22,8 @@ import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.AgencyCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.model.Agency;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
@@ -70,11 +70,11 @@ public class AgencyController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/agency/get", method = RequestMethod.GET)
-	public BaseResponse  getAgency(
+	public ReturnpBaseResponse  getAgency(
 			@RequestParam(value = "agencyNo", required = true) int  agencyNo) {
 		
 		Agency agency= this.agencyService.selectByPrimaryKey(agencyNo);
-		SingleDataObjectResponse<Agency> res = new SingleDataObjectResponse<Agency>();
+		ObjectResponse<Agency> res = new ObjectResponse<Agency>();
 		res.setData(agency);
 		this.setSuccessResponse(res);
 		return res;
@@ -82,11 +82,11 @@ public class AgencyController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/agency/getAgencyCommand", method = RequestMethod.GET)
-	public BaseResponse  getAgencyCommand(
+	public ReturnpBaseResponse  getAgencyCommand(
 			@RequestParam(value = "agencyNo", required = true) int  agencyNo) {
 		
 		AgencyCommand agencyCommand= this.agencyService.selectAgencyCommandByPrimaryKey(agencyNo);
-		SingleDataObjectResponse<AgencyCommand> res = new SingleDataObjectResponse<AgencyCommand>();
+		ObjectResponse<AgencyCommand> res = new ObjectResponse<AgencyCommand>();
 		res.setData(agencyCommand);
 		this.setSuccessResponse(res);
 		return res;
@@ -94,7 +94,7 @@ public class AgencyController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/agency/create", method = RequestMethod.POST)
-	public  BaseResponse createAgency(
+	public  ReturnpBaseResponse createAgency(
 			Agency agency, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -107,7 +107,7 @@ public class AgencyController extends ApplicationController{
 		cond.setMemberNo(agency.getMemberNo());
 		cond.setAgencyEmail(agency.getAgencyEmail());
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		if (this.searchService.findAgencies(cond).size() > 0) {
 			this.setErrorResponse(res,"이미 대리점 등록되어 있는 회원입니다.");
 		}else {
@@ -145,7 +145,7 @@ public class AgencyController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/agency/update", method = RequestMethod.POST)
-	public  BaseResponse updateAgencyr( 
+	public  ReturnpBaseResponse updateAgencyr( 
 			@ModelAttribute("agencyFormInfo") Agency agency,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
@@ -160,7 +160,7 @@ public class AgencyController extends ApplicationController{
 			agency.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		}
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.agencyService.updateByPrimaryKey(agency);
 		this.setSuccessResponse(res, "수정 완료");
 		sessionStatus.setComplete();
@@ -169,9 +169,9 @@ public class AgencyController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/agency/delete", method = RequestMethod.POST)
-	public  BaseResponse deleteAgency( 
+	public  ReturnpBaseResponse deleteAgency( 
 			int  agencyNo, Model model) {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.agencyService.deleteByPrimaryKey(agencyNo);
 		this.setSuccessResponse(res, "삭제 완료");
 		return res;

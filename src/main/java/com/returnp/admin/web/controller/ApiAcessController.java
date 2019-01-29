@@ -43,8 +43,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.reponse.ApiServiceResponse;
-import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.model.Admin;
 import com.returnp.admin.model.AdminRole;
 import com.returnp.admin.model.ApiService;
@@ -63,7 +63,7 @@ public class ApiAcessController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = {"/{dUrl}","/{sUrl}/{dUrl}","/{mUrl}/{sUrl}/{dUrl}","/{lUrl}/{mUrl}/{sUrl}/{dUrl}"}, method = {RequestMethod.POST,RequestMethod.GET})
-	public  BaseResponse apiControl(
+	public  ReturnpBaseResponse apiControl(
 			HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestHeader(value = "Authorization", required = true) String  access_key,
@@ -78,13 +78,13 @@ public class ApiAcessController extends ApplicationController{
 	}
 	
 	
-	public  BaseResponse verifyKey(
+	public  ReturnpBaseResponse verifyKey(
 			HttpServletRequest request,
 			HttpServletResponse response,
 			String access_key,
 			String requestApiService) throws Exception{
 		
-		SingleDataObjectResponse<String> res = new SingleDataObjectResponse<String>();
+		ObjectResponse<String> res = new ObjectResponse<String>();
 		
 		ApiService apiService=new ApiService();
 		String ip = request.getRemoteAddr();
@@ -163,7 +163,7 @@ public class ApiAcessController extends ApplicationController{
 	@ResponseBody
 	//api test url  --> http://localhost:8080/v1/api/test
 	@RequestMapping(value = "/test", method = {RequestMethod.POST,RequestMethod.GET})
-	public  BaseResponse test(HttpServletRequest request, HttpServletResponse response,Model model){
+	public  ReturnpBaseResponse test(HttpServletRequest request, HttpServletResponse response,Model model){
 		ApiServiceResponse<String> res = new ApiServiceResponse<String>();
 		
 		

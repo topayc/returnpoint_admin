@@ -21,9 +21,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.GreenPointCommand;
 import com.returnp.admin.dto.command.RedPointCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.RedPoint;
 import com.returnp.admin.service.interfaces.RedPointService;
@@ -64,7 +64,7 @@ public class RedPointController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/redPoints", method = RequestMethod.GET)
-	public  BaseResponse getRedPoints( 
+	public  ReturnpBaseResponse getRedPoints( 
 			SearchCondition searchQuery,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		RedPointCommand  cond = new RedPointCommand();
@@ -87,7 +87,7 @@ public class RedPointController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/redPoint/update", method = RequestMethod.POST)
-	public  BaseResponse updateRedPoint( 
+	public  ReturnpBaseResponse updateRedPoint( 
 			@ModelAttribute("redPointFormInfo") RedPoint redPoint,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
@@ -97,7 +97,7 @@ public class RedPointController extends ApplicationController {
 			}
 		}
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.redPointService.updateByPrimaryKey(redPoint);
 		this.setSuccessResponse(res, "수정 완료");
 		sessionStatus.setComplete();
@@ -106,7 +106,7 @@ public class RedPointController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/redPointCommand/get", method = RequestMethod.GET)
-	public  BaseResponse getRedPointCommand( 
+	public  ReturnpBaseResponse getRedPointCommand( 
 			@RequestParam(value = "redPointNo", required = false, defaultValue = "0") int  redPointNo, 
 			@RequestParam(value = "memberNo", required = false, defaultValue = "0") int  memberNo, 
 			HttpSession httpSession, Model model) {
@@ -120,7 +120,7 @@ public class RedPointController extends ApplicationController {
 		}
 		
 		RedPointCommand command = this.searchService.findRedPointCommands(cond).get(0);
-		SingleDataObjectResponse<RedPointCommand> slr = new SingleDataObjectResponse<RedPointCommand>();
+		ObjectResponse<RedPointCommand> slr = new ObjectResponse<RedPointCommand>();
 		
 		slr.setData(command);
 		this.setSuccessResponse(slr);
@@ -131,9 +131,9 @@ public class RedPointController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/redPoint/delete", method = RequestMethod.POST)
-	public  BaseResponse deleteRedPoint( 
+	public  ReturnpBaseResponse deleteRedPoint( 
 			int  redPointNo, Model model) {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		
 		RedPoint pc = new RedPoint();
 		pc.setRedPointNo(redPointNo);

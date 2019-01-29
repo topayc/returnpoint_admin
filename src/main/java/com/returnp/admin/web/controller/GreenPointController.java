@@ -20,9 +20,9 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.GreenPointCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Policy;
@@ -67,7 +67,7 @@ public class GreenPointController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/greenPoints", method = RequestMethod.GET)
-	public  BaseResponse getGreenPoints( 
+	public  ReturnpBaseResponse getGreenPoints( 
 			SearchCondition searchQuery,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		GreenPointCommand  cond = new GreenPointCommand();
@@ -94,7 +94,7 @@ public class GreenPointController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/greenPoint/get", method = RequestMethod.GET)
-	public BaseResponse  getGreenPoint(
+	public ReturnpBaseResponse  getGreenPoint(
 		@RequestParam(value = "greenPointNo", required = false, defaultValue = "0" ) int  greenPointNo, 
 		@RequestParam(value = "memberNo", required = false, defaultValue = "0" ) int  memberNo) {
 		
@@ -103,7 +103,7 @@ public class GreenPointController extends ApplicationController {
 		cond.setMemberNo(memberNo);
 		GreenPoint greenPoint= this.searchService.findGreenPoints(cond).get(0);
 		
-		SingleDataObjectResponse<GreenPoint> res = new SingleDataObjectResponse<GreenPoint>();
+		ObjectResponse<GreenPoint> res = new ObjectResponse<GreenPoint>();
 		res.setData(greenPoint);
 		this.setSuccessResponse(res);
 		return res;
@@ -111,7 +111,7 @@ public class GreenPointController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/greenPointCommand/get", method = RequestMethod.GET)
-	public  BaseResponse getGreenPointCommand( 
+	public  ReturnpBaseResponse getGreenPointCommand( 
 			@RequestParam(value = "greenPointNo", required = false, defaultValue = "1" ) int  greenPointNo, 
 			HttpSession httpSession, Model model) {
 		
@@ -120,7 +120,7 @@ public class GreenPointController extends ApplicationController {
 		cond.setGreenPointNo(greenPointNo);
 		
 		GreenPointCommand command = this.searchService.findGreenPointCommands(cond).get(0);
-		SingleDataObjectResponse<GreenPointCommand> slr = new SingleDataObjectResponse<GreenPointCommand>();
+		ObjectResponse<GreenPointCommand> slr = new ObjectResponse<GreenPointCommand>();
 		
 		slr.setData(command);
 		this.setSuccessResponse(slr);
@@ -130,7 +130,7 @@ public class GreenPointController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/greenPoint/update", method = RequestMethod.POST)
-	public  BaseResponse updateGreenPoint( 
+	public  ReturnpBaseResponse updateGreenPoint( 
 			@ModelAttribute("greenPointFormInfo") GreenPoint greenPoint,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		System.out.println("updatePointConvertRequest 호출됨");
@@ -141,7 +141,7 @@ public class GreenPointController extends ApplicationController {
 			}
 		}
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.greenPointService.updateByPrimaryKey(greenPoint);
 		this.setSuccessResponse(res, "수정 완료");
 		sessionStatus.setComplete();
@@ -150,11 +150,11 @@ public class GreenPointController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/greenPoint/delete", method = RequestMethod.POST)
-	public  BaseResponse deleteGreenPoint( 
+	public  ReturnpBaseResponse deleteGreenPoint( 
 			int  greenPointNo, Model model) {
 		System.out.println("deleteGreenPoint");
 		System.out.println(greenPointNo);
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		
 		GreenPoint pc = new GreenPoint();
 		pc.setGreenPointNo(greenPointNo);

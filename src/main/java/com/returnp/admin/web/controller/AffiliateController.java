@@ -28,8 +28,8 @@ import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.AffiliateCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.model.Affiliate;
 import com.returnp.admin.model.Category;
 import com.returnp.admin.model.GreenPoint;
@@ -113,7 +113,7 @@ public class AffiliateController extends ApplicationController {
 		
 	@ResponseBody
 	@RequestMapping(value = "/affiliate/get", method = RequestMethod.GET)
-	public BaseResponse  getAffiliate(
+	public ReturnpBaseResponse  getAffiliate(
 			@RequestParam(value = "affiliateNo", required = true) int  affiliateNo,
 			@RequestParam(value = "memberAddressNo", required = true) int  memberAddressNo) {
 		
@@ -123,7 +123,7 @@ public class AffiliateController extends ApplicationController {
 		map.putAll(Common.objectToMap(affiliate)) ;
 		map.putAll(Common.objectToMap(address)) ;
 		
-		SingleDataObjectResponse<Map<String,Object>> res = new SingleDataObjectResponse<Map<String,Object>>();
+		ObjectResponse<Map<String,Object>> res = new ObjectResponse<Map<String,Object>>();
 		res.setData(map);
 		this.setSuccessResponse(res);
 		return res;
@@ -132,7 +132,7 @@ public class AffiliateController extends ApplicationController {
 
 	@ResponseBody
 	@RequestMapping(value = "/affiliate/getAffiliateCommand", method = RequestMethod.GET)
-	public BaseResponse  getAffiliateCommand(
+	public ReturnpBaseResponse  getAffiliateCommand(
 			@RequestParam(value = "affiliateNo", required = true) int  affiliateNo,
 			@RequestParam(value = "memberAddressNo", required = true) int  memberAddressNo) throws NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 		
@@ -142,7 +142,7 @@ public class AffiliateController extends ApplicationController {
 		map.putAll(Common.objectToMap(affiliateCommand)) ;
 		map.putAll(Common.objectToMap(address)) ;
 		
-		SingleDataObjectResponse<Map<String,Object>> res = new SingleDataObjectResponse<Map<String,Object>>();
+		ObjectResponse<Map<String,Object>> res = new ObjectResponse<Map<String,Object>>();
 		//SingleDataObjectResponse<AffiliateCommand> res = new SingleDataObjectResponse<AffiliateCommand>();
 		//res.setData(affiliateCommand);
 		res.setData(map);
@@ -153,7 +153,7 @@ public class AffiliateController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/affiliate/create", method = RequestMethod.POST)
-	public  BaseResponse createAffiliate(
+	public  ReturnpBaseResponse createAffiliate(
 			Affiliate affiliate, MemberAddress address, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -166,7 +166,7 @@ public class AffiliateController extends ApplicationController {
 		cond.setMemberNo(affiliate.getMemberNo());
 		cond.setAffiliateEmail(affiliate.getAffiliateEmail());*/
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 	/*	if (this.searchService.findAffiliates(cond).size() > 0) {
 			this.setErrorResponse(res,"이미 협력 업체로 등록되어 있는 회원입니다.");
 		}else {*/
@@ -213,7 +213,7 @@ public class AffiliateController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/affiliate/update", method = RequestMethod.POST)
-	public  BaseResponse updateAffiliate( 
+	public  ReturnpBaseResponse updateAffiliate( 
 			@ModelAttribute("affiliateFormInfo") Affiliate affiliate, @ModelAttribute("memberAddressInfo") MemberAddress address,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
@@ -246,7 +246,7 @@ public class AffiliateController extends ApplicationController {
 			this.greenPointService.insert(greenPoint);
 		}
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.affiliateService.updateByPrimaryKey(affiliate);
 		
 		address.setNodeType("5");
@@ -260,10 +260,10 @@ public class AffiliateController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/affiliate/delete", method = RequestMethod.POST)
-	public  BaseResponse deleteAffiliate( 
+	public  ReturnpBaseResponse deleteAffiliate( 
 			@RequestParam(value = "affiliateNo", required = true) int  affiliateNo, 
 			Model model) {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.affiliateService.deleteByPrimaryKey(affiliateNo);
 		this.setSuccessResponse(res, "삭제 완료");
 		return res;
@@ -271,8 +271,8 @@ public class AffiliateController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/affiliate/genTid", method = RequestMethod.GET)
-	public  BaseResponse genTid( Model model) {
-		SingleDataObjectResponse<String> res = new SingleDataObjectResponse<String>();
+	public  ReturnpBaseResponse genTid( Model model) {
+		ObjectResponse<String> res = new ObjectResponse<String>();
 		res.setData(CodeGenerator.generatorTid(null));
 		this.setSuccessResponse(res, "T-ID 생성 ");
 		return res;

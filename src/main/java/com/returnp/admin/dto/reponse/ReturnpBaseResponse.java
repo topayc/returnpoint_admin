@@ -1,6 +1,6 @@
 package com.returnp.admin.dto.reponse;
 
-public class BaseResponse {
+public class ReturnpBaseResponse {
 	public String result;
 	public String summary;
 	public String message;

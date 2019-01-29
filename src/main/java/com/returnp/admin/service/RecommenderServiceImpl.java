@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dao.mapper.RecommenderMapper;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.MembershipRequest;
@@ -71,14 +71,14 @@ public class RecommenderServiceImpl implements RecommenderService{
 	}
 
 	@Override
-	public BaseResponse createRecommender(Recommender recommender) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse createRecommender(Recommender recommender) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		Recommender  cond = new Recommender();
 		cond.setMemberNo(recommender.getMemberNo());
 		
 		ArrayList<Recommender> recommList = this.searchService.findRecommenders(cond);
 		if (recommList.size() > 0) {
-			res = new BaseResponse();
+			res = new ReturnpBaseResponse();
 			ReturnpResponseMessageHandler.setErrorResponse(res, "이미 추천인으로 등록된 사용자 입니다. 다시 확인해 주세요");
 		}else {
 			recommender.setRecommenderCode(CodeGenerator.generatorRecommenderCode(null));
@@ -127,23 +127,23 @@ public class RecommenderServiceImpl implements RecommenderService{
 			mebershipRequest.setPaymentAmount(policy.getMembershipTransLimit());
 			this.membershipRequestService.insert(mebershipRequest);
 			
-			res = new BaseResponse();
+			res = new ReturnpBaseResponse();
 			ReturnpResponseMessageHandler.setSuccessResponse(res, "생성 완료");
 		}
 		return res;
 	}
 
 	@Override
-	public BaseResponse updateRecommender(Recommender recommender) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse updateRecommender(Recommender recommender) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.recommenderMapper.updateByPrimaryKey(recommender);
 		ReturnpResponseMessageHandler.setSuccessResponse(res, "수정 완료");
 		return res;
 	}
 
 	@Override
-	public BaseResponse deleteRecommender(int recommenderNo) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse deleteRecommender(int recommenderNo) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.recommenderMapper.deleteByPrimaryKey(recommenderNo);
 		ReturnpResponseMessageHandler.setSuccessResponse(res, "삭제 완료");
 		return res;

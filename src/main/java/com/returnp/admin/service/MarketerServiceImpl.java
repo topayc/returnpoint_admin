@@ -12,7 +12,7 @@ import com.returnp.admin.common.ReturnpException;
 import com.returnp.admin.dao.mapper.MarketerMapper;
 import com.returnp.admin.dto.command.MarketerCommand;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Marketer;
 import com.returnp.admin.service.interfaces.MarketerService;
 import com.returnp.admin.web.message.MessageUtils;
@@ -30,8 +30,8 @@ public class MarketerServiceImpl implements MarketerService {
 	 * @see com.returnp.admin.service.interfaces.MarketerService#createMarketer(int)
 	 */
 	@Override
-	public BaseResponse createMarketer(int count) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse createMarketer(int count) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
 			String code = null;
 			int offset = 0;
@@ -91,8 +91,8 @@ public class MarketerServiceImpl implements MarketerService {
 	}
 
 	@Override
-	public BaseResponse deleteMarketer(int marketerNo) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse deleteMarketer(int marketerNo) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
 			this.marketerMapper.deleteByPrimaryKey(marketerNo);
 			ResponseUtil.setResponse(res, "100", this.messageUtils.getMessage("pointback.transaction_completed"));
@@ -107,8 +107,8 @@ public class MarketerServiceImpl implements MarketerService {
 	}
 
 	@Override
-	public BaseResponse udpateMarketer(Marketer marketer) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse udpateMarketer(Marketer marketer) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
 			Marketer option = new Marketer();
 			option.setMemberNo(marketer.getMemberNo());
@@ -140,8 +140,8 @@ public class MarketerServiceImpl implements MarketerService {
 	}
 
 	@Override
-	public BaseResponse findMarketerCommands(MarketerCommand command) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse findMarketerCommands(MarketerCommand command) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
 			ArrayList<MarketerCommand> commands = this.marketerMapper.findMarketerCommands(command);
 			ArrayListResponse<MarketerCommand> ar = new ArrayListResponse<MarketerCommand>();
@@ -158,8 +158,8 @@ public class MarketerServiceImpl implements MarketerService {
 	}
 
 	@Override
-	public BaseResponse findMarketers(Marketer marketer) {
-		BaseResponse res = new BaseResponse();
+	public ReturnpBaseResponse findMarketers(Marketer marketer) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
 			ArrayList<Marketer> markteres = this.marketerMapper.findSortedMarketers(marketer);
 			ArrayListResponse<Marketer> ar = new ArrayListResponse<Marketer>();

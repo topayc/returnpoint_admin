@@ -23,9 +23,9 @@ import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.GreenPointCommand;
 import com.returnp.admin.dto.command.PointConvertRequestCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.PointConversionTransaction;
@@ -83,7 +83,7 @@ public class PointConvertRequestController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointConvertRequest/get", method = RequestMethod.GET)
-	public BaseResponse  getPointConvertRequest(
+	public ReturnpBaseResponse  getPointConvertRequest(
 			@RequestParam(value = "pointConvertRequestNo", required = true) int  pointConvertRequestNo,
 			@RequestParam(value = "memberNo", required = false, defaultValue = "0") int  memberNo,
 			@RequestParam(value = "nodeType", required = false, defaultValue = "0") int  nodeType) {
@@ -93,7 +93,7 @@ public class PointConvertRequestController extends ApplicationController {
 		cond.setMemberNo(memberNo);
 		
 		PointConvertRequestCommand  pcrData = this.searchService.findPointConvertRequestCommands(cond).get(0);
-		SingleDataObjectResponse<PointConvertRequestCommand> res = new SingleDataObjectResponse<PointConvertRequestCommand>();
+		ObjectResponse<PointConvertRequestCommand> res = new ObjectResponse<PointConvertRequestCommand>();
 		res.setData(pcrData);
 		this.setSuccessResponse(res);
 		return res;
@@ -102,7 +102,7 @@ public class PointConvertRequestController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointConvertRequests", method = RequestMethod.GET)
-	public  BaseResponse getPointConvertRequests(SearchCondition searchCondition, HttpSession httpSession, Model model) {
+	public  ReturnpBaseResponse getPointConvertRequests(SearchCondition searchCondition, HttpSession httpSession, Model model) {
 		PointConvertRequestCommand cond = new PointConvertRequestCommand();
 		if (searchCondition.getSearchKeyword()!= null &&  !searchCondition.getSearchKeyword().trim().equals("")) {
 			cond.setMemberEmail(searchCondition.getSearchKeyword());
@@ -119,7 +119,7 @@ public class PointConvertRequestController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointConvertRequest/create", method = RequestMethod.GET)
-	public  BaseResponse createPointConvertRequest(
+	public  ReturnpBaseResponse createPointConvertRequest(
 			PointConvertRequest pointCovertRequest, HttpSession httpSession, Model model) {
 		if (pointCovertRequest.getRegType().equals(AppConstants.ReigistType.REGIST_BY_ADMIN)){
 			AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
@@ -155,7 +155,7 @@ public class PointConvertRequestController extends ApplicationController {
 		/*
 		 * 응답 데이타 생성
 		 * */
-		SingleDataObjectResponse<GreenPoint> res = new SingleDataObjectResponse<GreenPoint>();
+		ObjectResponse<GreenPoint> res = new ObjectResponse<GreenPoint>();
 		res.setData(greenPoint);
 		this.setSuccessResponse(
 				res, pointCovertRequest.getRequestNodeTypeName() + " 의  포인트 전환 신청이 처리되었습니다");
@@ -164,7 +164,7 @@ public class PointConvertRequestController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointConvertRequest/update", method = RequestMethod.POST)
-	public  BaseResponse updatePointConvertRequest( 
+	public  ReturnpBaseResponse updatePointConvertRequest( 
 			@ModelAttribute("pointConvertFormInfo") PointConvertRequest pointConvertRequest,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		System.out.println("updatePointConvertRequest 호출됨");
@@ -180,7 +180,7 @@ public class PointConvertRequestController extends ApplicationController {
 			pointConvertRequest.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		}
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.pcrService.updateByPrimaryKey(pointConvertRequest);
 		this.setSuccessResponse(res, "수정 완료");
 		sessionStatus.setComplete();
@@ -189,11 +189,11 @@ public class PointConvertRequestController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointConvertRequest/delete", method = RequestMethod.POST)
-	public  BaseResponse deletePointConvertRequest( 
+	public  ReturnpBaseResponse deletePointConvertRequest( 
 			int  pointConvertRequestNo, Model model) {
 		System.out.println("deletePointConvertRequest/delete");
 		System.out.println(pointConvertRequestNo);
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		PointConvertRequest pc = new PointConvertRequest();
 		pc.setPointConvertRequestNo(pointConvertRequestNo);
 		this.pcrService.deleteByPrimaryKey(pointConvertRequestNo);

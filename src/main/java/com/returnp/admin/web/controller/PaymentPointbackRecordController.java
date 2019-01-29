@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.PaymentPointbackRecordCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.Branch;
 import com.returnp.admin.model.PaymentPointbackRecord;
@@ -52,14 +52,14 @@ public class PaymentPointbackRecordController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/paymentPointbackRecords", method = RequestMethod.GET)
-	public BaseResponse  getPaymentPonitbackRecord(
+	public ReturnpBaseResponse  getPaymentPonitbackRecord(
 			PaymentPointbackRecordCommand record) {
 		return null;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/paymentPointbackRecords/get", method = RequestMethod.GET)
-	public BaseResponse  getPaymentPonitbackRecords(
+	public ReturnpBaseResponse  getPaymentPonitbackRecords(
 			PaymentPointbackRecordCommand record) {
 		ArrayList<PaymentPointbackRecordCommand> list = this.searchService.findPaymentPointbackRecordCommands(record);
 		ArrayListResponse<PaymentPointbackRecordCommand> res = new ArrayListResponse<PaymentPointbackRecordCommand>();
@@ -71,7 +71,7 @@ public class PaymentPointbackRecordController extends ApplicationController{
 
 	@ResponseBody
 	@RequestMapping(value = "/paymentPointbackRecords2/get", method = RequestMethod.GET)
-	public BaseResponse  getPaymentPonitbackRecords2(
+	public ReturnpBaseResponse  getPaymentPonitbackRecords2(
 			@RequestParam(value = "searchKeyword" , required = false) String searchKeyword,
 			PaymentPointbackRecordCommand record ) {
 		if (!StringUtils.isBlank(searchKeyword)) {
@@ -88,7 +88,7 @@ public class PaymentPointbackRecordController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/paymentPointbackRecords/find", method = RequestMethod.GET)
-	public BaseResponse  findPaymentPointbackRecords(
+	public ReturnpBaseResponse  findPaymentPointbackRecords(
 			SearchCondition searchCondition ) {
 		
 		PaymentPointbackRecordCommand record = new PaymentPointbackRecordCommand();

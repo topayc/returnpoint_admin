@@ -22,7 +22,7 @@ import com.returnp.admin.dto.command.MemberCommand;
 import com.returnp.admin.dto.command.RecommenderCommand2;
 import com.returnp.admin.dto.command.SaleManagerCommand;
 import com.returnp.admin.dto.command.SoleDistCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.service.interfaces.AffiliateService;
@@ -52,17 +52,17 @@ public class NodeController extends ApplicationController{
     
 	@ResponseBody
 	@RequestMapping(value = "/nodes", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public  BaseResponse getNodeList( 
+	public  ReturnpBaseResponse getNodeList( 
 			HttpServletRequest request,
 			SearchCondition nodeSearch,
 			Model model) throws Exception {
 		
-		BaseResponse res = this.getNodeArrayList(nodeSearch);
+		ReturnpBaseResponse res = this.getNodeArrayList(nodeSearch);
 		this.setSuccessResponse(res);
 		return res;
 	}
 
-	private BaseResponse getNodeArrayList(SearchCondition nodeSearch) throws Exception {
+	private ReturnpBaseResponse getNodeArrayList(SearchCondition nodeSearch) throws Exception {
 		
 		switch(nodeSearch.getSearchNodeType()) {
 		case AppConstants.NodeType.MEMBER:
@@ -227,7 +227,7 @@ public class NodeController extends ApplicationController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/nodes/create", method = RequestMethod.POST)
-	public BaseResponse createNode( SearchCondition nodeSearchQuery, Model model) {
+	public ReturnpBaseResponse createNode( SearchCondition nodeSearchQuery, Model model) {
 		System.out.println("createNode");
 		return null;
 	}	
@@ -240,7 +240,7 @@ public class NodeController extends ApplicationController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/nodes/delete", method = RequestMethod.POST)
-	public BaseResponse deleteNode( SearchCondition nodeSearchQuery, Model model) {
+	public ReturnpBaseResponse deleteNode( SearchCondition nodeSearchQuery, Model model) {
 		System.out.println("deleteNode");
 		return null;
 	}	
@@ -253,7 +253,7 @@ public class NodeController extends ApplicationController{
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/nodes/update", method = RequestMethod.POST)
-	public BaseResponse updateNode( SearchCondition nodeSearchQuery, Model model) {
+	public ReturnpBaseResponse updateNode( SearchCondition nodeSearchQuery, Model model) {
 		System.out.println("updateNode");
 		return null;
 	}	

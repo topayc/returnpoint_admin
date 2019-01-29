@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.service.interfaces.UploadFileService;
 
 @Controller
@@ -20,7 +20,7 @@ public class UploadController extends ApplicationController {
 	@Autowired UploadFileService uploadService;
 	@ResponseBody
 	@RequestMapping(value = "/upload/salesFile", method = RequestMethod.POST)
-	public BaseResponse  uploadSalesFile( @RequestParam("salesFile") MultipartFile salesFile, HttpServletRequest request) {
+	public ReturnpBaseResponse  uploadSalesFile( @RequestParam("salesFile") MultipartFile salesFile, HttpServletRequest request) {
 		System.out.println("#### UploadController - uploadSalesFile");
 		return this.uploadService.uploadSalesFile(salesFile, request.getSession().getServletContext().getRealPath("/salesFile"));
 	}

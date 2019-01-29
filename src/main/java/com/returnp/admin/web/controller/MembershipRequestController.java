@@ -25,9 +25,9 @@ import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.MembershipRequestCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.CompanyBankAccount;
 import com.returnp.admin.model.GreenPoint;
@@ -82,7 +82,7 @@ public class MembershipRequestController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/membershipRequest/create", method = RequestMethod.POST)
-	public BaseResponse createMembershipRequest(MembershipRequest  membershipRequest,BindingResult result, HttpSession httpSession){
+	public ReturnpBaseResponse createMembershipRequest(MembershipRequest  membershipRequest,BindingResult result, HttpSession httpSession){
 		System.out.println("createMembershipRequest");
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -101,7 +101,7 @@ public class MembershipRequestController extends ApplicationController{
 		MembershipRequest cond = new MembershipRequest();
 		cond.setMemberNo(membershipRequest.getMemberNo());
 		MembershipRequest mbr = this.searchService.findMembershipRequest(cond);
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		
 		if (mbr !=  null) {
 			this.setErrorResponse(res,"[중복 신청] 해당 회원의 정회원 신청내용이 이미 존재합니다");
@@ -162,13 +162,13 @@ public class MembershipRequestController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/membershipRequest/update", method = RequestMethod.POST)
-	public BaseResponse updateMembershipRequest(
+	public ReturnpBaseResponse updateMembershipRequest(
 			@ModelAttribute("membershipRequestFormInfo") MembershipRequest  membershipRequest,
 			SessionStatus sessionStatus,
 			BindingResult result, 
 			HttpSession httpSession) throws ParseException{
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		
 		System.out.println("updateMembershipRequest");
 		if (result.hasErrors()) {
@@ -253,7 +253,7 @@ public class MembershipRequestController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/membershipRequests", method = RequestMethod.GET)
-	public BaseResponse getMembershipRequests(SearchCondition searchCondition){
+	public ReturnpBaseResponse getMembershipRequests(SearchCondition searchCondition){
 		
 		/* 검색어 세팅*/
 		MembershipRequestCommand mrCond = new MembershipRequestCommand();
@@ -276,8 +276,8 @@ public class MembershipRequestController extends ApplicationController{
 	}
 	@ResponseBody
 	@RequestMapping(value = "/membershipRequest/get", method = RequestMethod.GET)
-	public BaseResponse getMembershipRequest(int membershipRequestNo){
-		SingleDataObjectResponse<MembershipRequest> res = new SingleDataObjectResponse<MembershipRequest>();
+	public ReturnpBaseResponse getMembershipRequest(int membershipRequestNo){
+		ObjectResponse<MembershipRequest> res = new ObjectResponse<MembershipRequest>();
 		res.setData(this.membershipRequestService.selectByPrimaryKey(membershipRequestNo));
 		this.setSuccessResponse(res);
 		return res;
@@ -285,8 +285,8 @@ public class MembershipRequestController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/membershipRequestCommand/get", method = RequestMethod.GET)
-	public BaseResponse getMembershipRequestCommand(int membershipRequestNo){
-		SingleDataObjectResponse<MembershipRequestCommand> res = new SingleDataObjectResponse<MembershipRequestCommand>();
+	public ReturnpBaseResponse getMembershipRequestCommand(int membershipRequestNo){
+		ObjectResponse<MembershipRequestCommand> res = new ObjectResponse<MembershipRequestCommand>();
 		MembershipRequestCommand cond = new MembershipRequestCommand();
 		cond.setMembershipRequestNo(membershipRequestNo);
 		res.setData(this.searchService.findMembershipRequestCommands(cond).get(0));
@@ -296,8 +296,8 @@ public class MembershipRequestController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/membershipRequest/delete", method = RequestMethod.POST)
-	public  BaseResponse deleteMembershipRequest( int membershipRequestNo) {
-		BaseResponse res = new BaseResponse();
+	public  ReturnpBaseResponse deleteMembershipRequest( int membershipRequestNo) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.membershipRequestService.deleteByPrimaryKey(membershipRequestNo);
 		this.setSuccessResponse(res, "삭제 완료");
 		return res;

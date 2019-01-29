@@ -23,8 +23,8 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.MemberCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.service.interfaces.GreenPointService;
 import com.returnp.admin.service.interfaces.MemberService;
@@ -69,13 +69,13 @@ public class MemberController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/member/get", method = RequestMethod.GET)
-	public BaseResponse  getMember(
+	public ReturnpBaseResponse  getMember(
 			@RequestParam(value = "memberNo", required = true) int  memberNo) {
 		Member  mCond =  new Member();
 		mCond.setMemberNo(memberNo);	
 		
 		Member  member= this.memberService.selectByPrimaryKey(memberNo);
-		SingleDataObjectResponse<Member> res = new SingleDataObjectResponse<Member>();
+		ObjectResponse<Member> res = new ObjectResponse<Member>();
 		res.setData(member);
 		this.setSuccessResponse(res);
 		return res;
@@ -83,10 +83,10 @@ public class MemberController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/member/getMemberCommand", method = RequestMethod.GET)
-	public BaseResponse  getMemberCommand(
+	public ReturnpBaseResponse  getMemberCommand(
 			@RequestParam(value = "memberNo", required = true) int  memberNo) {
 		MemberCommand  member= this.memberService.selecMemberCommandtByPrimaryKey(memberNo);
-		SingleDataObjectResponse<Member> res = new SingleDataObjectResponse<Member>();
+		ObjectResponse<Member> res = new ObjectResponse<Member>();
 		res.setData(member);
 		this.setSuccessResponse(res);
 		return res;
@@ -94,7 +94,7 @@ public class MemberController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/member/create", method = RequestMethod.POST)
-	public  BaseResponse createMember(
+	public  ReturnpBaseResponse createMember(
 			Member member, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -109,10 +109,10 @@ public class MemberController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/member/update", method = RequestMethod.POST)
-	public  BaseResponse updateMember( 
+	public  ReturnpBaseResponse updateMember( 
 			@ModelAttribute("memberFormInfo") Member  member,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -133,9 +133,9 @@ public class MemberController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/member/checkEmailDuplicated", method = RequestMethod.GET)
-	public  BaseResponse checkEmailDuplicated( 
+	public  ReturnpBaseResponse checkEmailDuplicated( 
 			@RequestParam(value = "email", required = true) String  email, HttpSession httpSession, Model model) {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		if (this.memberService.isEmailDuplicated(email)) {
 			this.setErrorResponse(res,"중복된 이메일입니다. 다시 확인해주세요");
 		}else {
@@ -146,10 +146,10 @@ public class MemberController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/member/checkPhoneDuplicated", method = RequestMethod.GET)
-	public  BaseResponse checkPhoneDuplicated( 
+	public  ReturnpBaseResponse checkPhoneDuplicated( 
 			@RequestParam(value = "phone", required = true) String  phone, HttpSession httpSession, Model model) {
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		phone = phone.replace("-", "");
 		Pattern p = Pattern.compile("	^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$");
 		Matcher m = p.matcher(phone);
@@ -167,7 +167,7 @@ public class MemberController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/member/delete", method = RequestMethod.POST)
-	public  BaseResponse deleteMember( 
+	public  ReturnpBaseResponse deleteMember( 
 			int  memberNo, Model model) {
 		return this.memberService.deleteMember(memberNo);
 	}

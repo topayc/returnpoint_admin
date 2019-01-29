@@ -2,7 +2,7 @@ package com.returnp.admin.service.interfaces;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Recommender;
 
 @Transactional
@@ -14,7 +14,7 @@ public interface RecommenderService {
 	int updateByPrimaryKeySelective(Recommender record);
 	int updateByPrimaryKey(Recommender record);
 	
-    public BaseResponse createRecommender(Recommender recommender);
-    public BaseResponse updateRecommender(Recommender recommender);
-    public BaseResponse deleteRecommender(int recommenderNo);
+    public ReturnpBaseResponse createRecommender(Recommender recommender);
+    public ReturnpBaseResponse updateRecommender(Recommender recommender);
+    public ReturnpBaseResponse deleteRecommender(int recommenderNo);
 }

@@ -234,10 +234,16 @@
 		                            </li> -->
 		                            <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
-		                            		<span style = "font-weight : bold; color : red">결제 및 매출내역 관리</span>
+		                            		<span style = "font-weight : bold; color : red">결제 , 매출 관리</span>
 		                            	</a> 
 		                            </li>
 		                             
+		                          	 <li data-options = "iconCls :'icon-manage'">
+		                          		<a class= "sub_menu"  view_req_name = "manageFileUpload" menu_deps= '2' >
+		                          			<span style = "font-weight : bold">매출 조회</span>
+		                          		</a>
+		                          	</li>
+		                          	
 		                         <!--     <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
 		                            		<span style = "font-weight : bold">관리자 수동 생성 결제 관리</span>
@@ -246,20 +252,21 @@
 		                     <!--        <li id = "managePosPayment" data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' ><span style = "color : blue; font-weight : bold">결제별 Green Point 적립 관리</span></a> </li> -->
 		                            <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePaymentPointbackRecord" menu_deps= '2' >
-		                            		<span style = "font-weight : bold">결제별 R_POINT 세부 적립 관리</span>
+		                            		<span style = "font-weight : bold">결제별 R_POINT 세부 적립내역</span>
 		                            	</a> 
 		                            </li>
 		                          	<li data-options = "iconCls :'icon-manage'">
 		                          		<a class= "sub_menu"  view_req_name = "manualPosPaymentRegister" menu_deps= '2' >
-		                          			<span style = "font-weight : bold">결제, 매출 수동등록</span>
+		                          			<span style = "font-weight : bold">매출 수동등록</span>
 		                          		</a>
 		                          	</li>
 		                          	 
 		                          	 <li data-options = "iconCls :'icon-manage'">
 		                          		<a class= "sub_menu"  view_req_name = "manageFileUpload" menu_deps= '2' >
-		                          			<span style = "font-weight : bold">매출 파일 등록 (엑셀)</span>
+		                          			<span style = "font-weight : bold">매출 파일 등록 </span>
 		                          		</a>
 		                          	</li>
+		                          	
 		                          	
 				                </ul>
                             </li>  

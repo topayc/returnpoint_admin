@@ -22,8 +22,8 @@ import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.BranchCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.model.Branch;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
@@ -68,11 +68,11 @@ public class BranchController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/branch/get", method = RequestMethod.GET)
-	public BaseResponse  getBranch(
+	public ReturnpBaseResponse  getBranch(
 			@RequestParam(value = "branchNo", required = true) int  branchNo) {
 		
 		Branch  branch= this.branchService.selectByPrimaryKey(branchNo);
-		SingleDataObjectResponse<Branch> res = new SingleDataObjectResponse<Branch>();
+		ObjectResponse<Branch> res = new ObjectResponse<Branch>();
 		res.setData(branch);
 		this.setSuccessResponse(res);
 		return res;
@@ -80,11 +80,11 @@ public class BranchController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/branch/getBranchCommand", method = RequestMethod.GET)
-	public BaseResponse  getBranchCommand(
+	public ReturnpBaseResponse  getBranchCommand(
 			@RequestParam(value = "branchNo", required = true) int  branchNo) {
 		
 		BranchCommand  branchCommand= this.branchService.selectBranchCommandByPrimaryKey(branchNo);
-		SingleDataObjectResponse<BranchCommand> res = new SingleDataObjectResponse<BranchCommand>();
+		ObjectResponse<BranchCommand> res = new ObjectResponse<BranchCommand>();
 		res.setData(branchCommand);
 		this.setSuccessResponse(res);
 		return res;
@@ -93,7 +93,7 @@ public class BranchController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/branch/create", method = RequestMethod.POST)
-	public  BaseResponse createBranch(
+	public  ReturnpBaseResponse createBranch(
 			Branch branch, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -106,7 +106,7 @@ public class BranchController extends ApplicationController{
 		cond.setMemberNo(branch.getMemberNo());
 		cond.setBranchEmail(branch.getBranchEmail());
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		if (this.searchService.findBranches(cond).size() > 0) {
 			this.setErrorResponse(res,"이미 지사로 등록되어 있는 회원입니다.");
 		}else {
@@ -143,7 +143,7 @@ public class BranchController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/branch/update", method = RequestMethod.POST)
-	public  BaseResponse updateBranch( 
+	public  ReturnpBaseResponse updateBranch( 
 			@ModelAttribute("branchFormInfo") Branch branch,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
@@ -158,7 +158,7 @@ public class BranchController extends ApplicationController{
 			branch.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		}
 		
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.branchService.updateByPrimaryKey(branch);
 		this.setSuccessResponse(res, "수정 완료");
 		sessionStatus.setComplete();
@@ -167,9 +167,9 @@ public class BranchController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/branch/delete", method = RequestMethod.POST)
-	public  BaseResponse deleteBranch( 
+	public  ReturnpBaseResponse deleteBranch( 
 			int  branchNo, Model model) {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.branchService.deleteByPrimaryKey(branchNo);
 		this.setSuccessResponse(res, "삭제 완료");
 		return res;

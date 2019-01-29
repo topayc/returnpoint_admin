@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.PointTransferTransactionCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.model.PointTransferTransaction;
 import com.returnp.admin.model.Policy;
@@ -60,7 +60,7 @@ public class PointTransferTransactionController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointTransferTransactions/find", method = RequestMethod.GET)
-	public BaseResponse  findPointTransferTransactions( PointTransferTransactionCommand commnd) {
+	public ReturnpBaseResponse  findPointTransferTransactions( PointTransferTransactionCommand commnd) {
 		ArrayList<PointTransferTransactionCommand> list = this.searchService.findPointTransferTransactionCommands(commnd);
 		ArrayListResponse<PointTransferTransactionCommand> res = new ArrayListResponse<PointTransferTransactionCommand>();
 		res.setRows(list);
@@ -71,7 +71,7 @@ public class PointTransferTransactionController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointTransferTransaction/create", method = RequestMethod.POST)
-	public BaseResponse  createPointTransferTransaction( PointTransferTransaction pointTransferTransaction) {
+	public ReturnpBaseResponse  createPointTransferTransaction( PointTransferTransaction pointTransferTransaction) {
 		return this.pointTrnasferTransactionService.createPointTransferTransaction(pointTransferTransaction);
 	}
 }

@@ -23,9 +23,9 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
-import com.returnp.admin.dto.reponse.SingleDataObjectResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.ApiService;
 import com.returnp.admin.service.interfaces.ApiServiceManageService;
@@ -59,7 +59,7 @@ public class ApiServiceManageController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/apiServices", method = RequestMethod.GET)
-	public  BaseResponse getApiServices( 
+	public  ReturnpBaseResponse getApiServices( 
 			SearchCondition searchQuery,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model)throws Exception {
 		ApiService  apiService = new ApiService();	
@@ -73,10 +73,10 @@ public class ApiServiceManageController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/apiService/get", method = RequestMethod.GET)
-	public BaseResponse  getApiServicer(
+	public ReturnpBaseResponse  getApiServicer(
 			@RequestParam(value = "apiServiceNo", required = true) int  apiServiceNo) {
 		ApiService apiService= this.apiServiceService.selectByPrimaryKey(apiServiceNo);
-		SingleDataObjectResponse<ApiService> res = new SingleDataObjectResponse<ApiService>();
+		ObjectResponse<ApiService> res = new ObjectResponse<ApiService>();
 		res.setData(apiService);
 		this.setSuccessResponse(res);
 		return res;
@@ -84,7 +84,7 @@ public class ApiServiceManageController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/apiService/create", method = RequestMethod.POST)
-	public  BaseResponse createApiService(
+	public  ReturnpBaseResponse createApiService(
 			ApiService apiService, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -96,14 +96,14 @@ public class ApiServiceManageController extends ApplicationController{
 		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 		apiService.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		this.apiServiceService.insert(apiService);
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.setSuccessResponse(res,"생성 완료");
 		return res;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/apiService/update", method = RequestMethod.POST)
-	public  BaseResponse updateApiServicer( 
+	public  ReturnpBaseResponse updateApiServicer( 
 			@ModelAttribute("apiServiceFormInfo") ApiService apiService,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
@@ -114,7 +114,7 @@ public class ApiServiceManageController extends ApplicationController{
 		}
 		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 		apiService.setRegAdminNo(adminSession.getAdmin().getAdminNo());
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.apiServiceService.updateByPrimaryKey(apiService);
 		this.setSuccessResponse(res, "수정 완료");
 		sessionStatus.setComplete();
@@ -123,8 +123,8 @@ public class ApiServiceManageController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/apiService/delete", method = RequestMethod.POST)
-	public  BaseResponse deleteApiService( int  apiServiceNo, Model model) {
-		BaseResponse res = new BaseResponse();
+	public  ReturnpBaseResponse deleteApiService( int  apiServiceNo, Model model) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.apiServiceService.deleteByPrimaryKey(apiServiceNo);
 		this.setSuccessResponse(res, "삭제 완료");
 		return res;
@@ -132,7 +132,7 @@ public class ApiServiceManageController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/apiService/list", method = {RequestMethod.GET,RequestMethod.POST})
-	public  BaseResponse ApiServiceList(
+	public  ReturnpBaseResponse ApiServiceList(
 			ApiService apiService, BindingResult result, HttpSession httpSession, Model model) {
 		ArrayList<ApiService> apiServiceList = Common.getApiServiceList(applicationContext);
 		ArrayListResponse<ApiService> res = new ArrayListResponse<ApiService>();
@@ -144,8 +144,8 @@ public class ApiServiceManageController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/apiService/makeKey", method = RequestMethod.POST)
-	public  BaseResponse makeKey( @RequestParam(value = "apiService", required = true) String  apiService){
-		SingleDataObjectResponse<String> res = new SingleDataObjectResponse<String>();
+	public  ReturnpBaseResponse makeKey( @RequestParam(value = "apiService", required = true) String  apiService){
+		ObjectResponse<String> res = new ObjectResponse<String>();
 		try {
 			/*키발급 샘플*/
 			res.setData(CodeGenerator.createApiToken(apiService));	
@@ -163,8 +163,8 @@ public class ApiServiceManageController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/apiService/makeRfId", method = RequestMethod.POST)
-	public  BaseResponse makeRfId( @RequestParam(value = "apiService", required = true) String  apiService){
-		SingleDataObjectResponse<String> res = new SingleDataObjectResponse<String>();
+	public  ReturnpBaseResponse makeRfId( @RequestParam(value = "apiService", required = true) String  apiService){
+		ObjectResponse<String> res = new ObjectResponse<String>();
 		try {
 			/*키발급 샘플*/
 			res.setData(CodeGenerator.generatorRfId(apiService));	

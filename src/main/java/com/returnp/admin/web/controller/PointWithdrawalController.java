@@ -20,7 +20,7 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.dto.command.PointWithdrawalCommand;
 import com.returnp.admin.dto.command.RedPointCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.model.Policy;
 import com.returnp.admin.service.interfaces.PointWithdrawalService;
@@ -70,7 +70,7 @@ public class PointWithdrawalController extends ApplicationController {
 
 	@ResponseBody
 	@RequestMapping(value = "/pointWithdrawals", method = RequestMethod.GET)
-	public BaseResponse  getBranch(
+	public ReturnpBaseResponse  getBranch(
 			PointWithdrawalCommand pointWithdrawalCommand) {
 		ArrayListResponse<PointWithdrawalCommand> res = new ArrayListResponse<PointWithdrawalCommand>();
 		ArrayList<PointWithdrawalCommand> resultList = this.pointWithdrawalService.findPointWithdrawalCommands(pointWithdrawalCommand);
@@ -82,13 +82,13 @@ public class PointWithdrawalController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointWithdrawal/create", method = RequestMethod.POST)
-	public BaseResponse  getMemberBankAccount(
+	public ReturnpBaseResponse  getMemberBankAccount(
 			@ModelAttribute("pointWithdrawalForm") PointWithdrawalCommand pointWithdrawalCommand, 
 			BindingResult result, 
 			SessionStatus sessionStatus,
 			HttpSession httpSession, 
 			Model model) {
-		BaseResponse res= new BaseResponse();
+		ReturnpBaseResponse res= new ReturnpBaseResponse();
 		this.pointWithdrawalService.create(pointWithdrawalCommand);
 		sessionStatus.setComplete();
 		ResponseUtil.setSuccessResponse(res);
@@ -97,13 +97,13 @@ public class PointWithdrawalController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointWithdrawal/update", method = RequestMethod.POST)
-	public BaseResponse  updateMemberBankAccount(
+	public ReturnpBaseResponse  updateMemberBankAccount(
 			@ModelAttribute("pointWithdrawalForm") PointWithdrawalCommand pointWithdrawalCommand, 
 			SessionStatus sessionStatus, 
 			BindingResult result, 
 			HttpSession httpSession, 
 			Model model) {
-		BaseResponse res= new BaseResponse();
+		ReturnpBaseResponse res= new ReturnpBaseResponse();
 		this.pointWithdrawalService.update(pointWithdrawalCommand);
 		sessionStatus.setComplete();
 		ResponseUtil.setSuccessResponse(res);
@@ -112,9 +112,9 @@ public class PointWithdrawalController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointWithdrawal/delete", method = RequestMethod.POST)
-	public BaseResponse  deleteMemberBankAccount(
+	public ReturnpBaseResponse  deleteMemberBankAccount(
 			@RequestParam(value = "pointWithdrawalNo", required = true) int  pointWithdrawalNo) {
-		BaseResponse res= new BaseResponse();
+		ReturnpBaseResponse res= new ReturnpBaseResponse();
 		this.pointWithdrawalService.delete(pointWithdrawalNo);
 		ResponseUtil.setSuccessResponse(res);
 		return res;

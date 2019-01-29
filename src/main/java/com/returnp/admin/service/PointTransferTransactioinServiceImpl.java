@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dao.mapper.PointTransferTransactionMapper;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.PointTransferTransaction;
 import com.returnp.admin.model.RedPoint;
@@ -24,8 +24,8 @@ public class PointTransferTransactioinServiceImpl implements PointTransferTransa
 	@Autowired SearchService searchService;
 
 	@Override
-	public BaseResponse createPointTransferTransaction(PointTransferTransaction pointTransferTransaction) {
-		BaseResponse res  = new BaseResponse();
+	public ReturnpBaseResponse createPointTransferTransaction(PointTransferTransaction pointTransferTransaction) {
+		ReturnpBaseResponse res  = new ReturnpBaseResponse();
 		String trans = String.valueOf(pointTransferTransaction.getPointTransferer()).trim();
 		String recv = String.valueOf(pointTransferTransaction.getPointReceiver()).trim();
 		if (trans.equals(recv)){

@@ -19,7 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.dto.command.MemberBankAccountCommand;
-import com.returnp.admin.dto.reponse.BaseResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.service.interfaces.MemberBankAccountService;
@@ -58,7 +58,7 @@ public class MemberBankAccountController extends ApplicationController {
 
 	@ResponseBody
 	@RequestMapping(value = "/memberBankAccounts", method = RequestMethod.GET)
-	public BaseResponse  findMemberBankAccount( MemberBankAccount memberBankAccount) {
+	public ReturnpBaseResponse  findMemberBankAccount( MemberBankAccount memberBankAccount) {
 		ArrayListResponse<MemberBankAccountCommand> res= new ArrayListResponse<MemberBankAccountCommand>();
 		ArrayList<MemberBankAccountCommand> accountCommands = this.searchService.findMemberBankAccountCommands(memberBankAccount);
 		ResponseUtil.setSuccessResponse(res);
@@ -69,13 +69,13 @@ public class MemberBankAccountController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/memberBankAccount/create", method = RequestMethod.POST)
-	public BaseResponse  getMemberBankAccount(
+	public ReturnpBaseResponse  getMemberBankAccount(
 			@ModelAttribute("memberBankAccountForm") MemberBankAccountCommand memberBankAccountCommand, 
 			BindingResult result, 
 			SessionStatus sessionStatus,
 			HttpSession httpSession, 
 			Model model) {
-		BaseResponse res= new BaseResponse();
+		ReturnpBaseResponse res= new ReturnpBaseResponse();
 		this.memberBankAccountService.create(memberBankAccountCommand);
 		sessionStatus.setComplete();
 		ResponseUtil.setSuccessResponse(res);
@@ -84,13 +84,13 @@ public class MemberBankAccountController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/memberBankAccount/update", method = RequestMethod.POST)
-	public BaseResponse  updateMemberBankAccount(
+	public ReturnpBaseResponse  updateMemberBankAccount(
 			@ModelAttribute("memberBankAccountForm") MemberBankAccountCommand memberBankAccountCommand,
 			SessionStatus sessionStatus, 
 			BindingResult result, 
 			HttpSession httpSession, 
 			Model model) {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.memberBankAccountService.update(memberBankAccountCommand);
 		sessionStatus.setComplete();
 		ResponseUtil.setSuccessResponse(res);
@@ -99,9 +99,9 @@ public class MemberBankAccountController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/memberBankAccount/delete", method = RequestMethod.POST)
-	public BaseResponse  deleteMemberBankAccount(
+	public ReturnpBaseResponse  deleteMemberBankAccount(
 			@RequestParam(value = "memberBankAccountNo", required = true) int  memberBankAccountNo) {
-		BaseResponse res = new BaseResponse();
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.memberBankAccountService.delete(memberBankAccountNo);
 		ResponseUtil.setSuccessResponse(res);
 		return res;
