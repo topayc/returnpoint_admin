@@ -22,10 +22,12 @@ public interface BasePointAccumulateService {
 
 	public void restorePoint(DataMap dataMap) throws ReturnpException;
 	
-	public void   accumuatePoint(int paymentTransactioinNo) throws ReturnpException;
+	public ReturnpBaseResponse   accumuatePoint(int paymentTransactioinNo) throws ReturnpException;
 	
 	public void accumuatePoint(PaymentTransaction paymentTransaction) throws ReturnpException;
 
+	public ReturnpBaseResponse   accumuatePoint(String paymentApprovalNumber) throws ReturnpException;
+	
 	public PaymentTransaction  createPaymentTransaction(DataMap dataMap) throws ReturnpException;
 	
 	public void  increasePoint(PaymentTransaction transaction, int memberNo, int nodeNo, String nodeType, String nodeTypeName, float accRate) throws ReturnpException;

@@ -231,7 +231,7 @@ function paymentTransactionRegistFormatter(value,row,index){
 	var text; 
 	switch(status){
 	case "1": text = '<span style = "border-radius: 10px;background-color: green;padding: 5px;color : #ffffff;font-weight : bold">QR Code</span>' ; break;
-	case "2": text = '<span style = "border-radius: 10px;background-color: red;padding: 5px;color : #ffffff;font-weight : bold">Van</span>' ; break;
+	case "2": text = '<span style = "border-radius: 10px;background-color: red;padding: 5px;color : #ffffff;font-weight : bold">VAN</span>' ; break;
 	case "3": text = '<span style = "border-radius: 10px;background-color: #01A9DB;padding: 5px;color : #ffffff;font-weight : bold">Admin</span>' ; break;
 	case "4": text = '<span style = "border-radius: 10px;background-color: #01A9DB;padding: 5px;color : #ffffff;font-weight : bold">Shopping Mall</span>' ; break;
 	}

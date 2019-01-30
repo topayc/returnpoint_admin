@@ -484,20 +484,57 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	}
 
 	@Override
-	public void  accumuatePoint(int paymentTransactioinNo) throws ReturnpException {
+	public ReturnpBaseResponse  accumuatePoint(int paymentTransactioinNo) throws ReturnpException {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
 			PaymentTransaction paymentTransaction = this.paymentTransactionMapper.selectByPrimaryKey(paymentTransactioinNo);
+			if (paymentTransaction == null) {
+				/* 존재하지 않는 내역에 대한 취소 요청  */	
+				 ResponseUtil.setResponse(res, "10016", this.messageUtils.getMessage("pointback.message.not_payment_invalid_req"));
+					throw new ReturnpException(res);
+			}
 			this.accumuatePoint(paymentTransaction);
-			
+			ResponseUtil.setResponse(res, "100", this.messageUtils.getMessage("pointback.message.success_acc_ok"));
+			return res;
 		}catch(ReturnpException e) {
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			res = e.getBaseResponse();
+			return res;
 		}catch(Exception e) {
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			ResponseUtil.setResponse(res, "1001", this.messageUtils.getMessage("pointback.message.inner_server_error"));
+			return res;
+		}
+	}
+	
+
+	@Override
+	public ReturnpBaseResponse accumuatePoint(String paymentApprovalNumber) throws ReturnpException {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		try {
+			PaymentTransaction pt = new PaymentTransaction();
+			pt.setPaymentApprovalNumber(paymentApprovalNumber);
+			ArrayList<PaymentTransaction> paymentTransactions = this.pointBackMapper.findPaymentTransactions(pt);
+			if (paymentTransactions.size() != 1) {
+				 /* 존재하지 않는 내역에 대한 취소 요청  */	
+				 ResponseUtil.setResponse(res, "10016", this.messageUtils.getMessage("pointback.message.not_payment_invalid_req"));
+					throw new ReturnpException(res);
+			}		
+			this.accumuatePoint(paymentTransactions.get(0));
+			ResponseUtil.setResponse(res, "100", this.messageUtils.getMessage("pointback.message.success_acc_ok"));
+			return res;
+		}catch(ReturnpException e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			res = e.getBaseResponse();
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, "1001", this.messageUtils.getMessage("pointback.message.inner_server_error"));
+			return res;
 		}
 	}
 	
@@ -997,5 +1034,4 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 		dataMap.put("acc_from", AppConstants.PaymentTransactionType.ADMIN);
 		return dataMap;
 	}
-
 }
