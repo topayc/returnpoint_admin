@@ -22,10 +22,10 @@
 		         </select>
 			</div>
 
-			<div style="margin-bottom:12px"><input id ="memberNo"  class="easyui-textbox" name="memberNo" style="width:100%" data-options="label:'* 회원 번호',labelPosition : 'top'"> </div>
-			<div style="margin-bottom:12px"><input id ="memberName"  class="easyui-textbox" name="memberName" style="width:100%" data-options="label:'* 회원 이름',labelPosition : 'top'"> </div>
-			<div style="margin-bottom:12px"><input id ="memberEmail"  class="easyui-textbox" name="memberEmail" style="width:100%" data-options="label:'* 회원 이메일',labelPosition : 'top'"> </div>
-			<div style="margin-bottom:12px"><input id ="memberPhone"  class="easyui-textbox" name="memberPhone" style="width:100%" data-options="label:'* 회원 전화번호',labelPosition : 'top'"> </div>
+			<div style="margin-bottom:12px"><input id ="memberNo"  class="easyui-textbox" name="memberNo" style="width:100%" data-options="label:'* 구매 회원 번호',labelPosition : 'top'"> </div>
+			<div style="margin-bottom:12px"><input id ="memberName"  class="easyui-textbox" name="memberName" style="width:100%" data-options="label:'* 구매 회원 이름',labelPosition : 'top'"> </div>
+			<div style="margin-bottom:12px"><input id ="memberEmail"  class="easyui-textbox" name="memberEmail" style="width:100%" data-options="label:'* 구매 회원 이메일',labelPosition : 'top'"> </div>
+			<div style="margin-bottom:12px"><input id ="memberPhone"  class="easyui-textbox" name="memberPhone" style="width:100%" data-options="label:'* 구매 회원 전화번호',labelPosition : 'top'"> </div>
 
 			<div style="margin-bottom:12px" id = "targetNodeContainer">
 				<select id = "nodeType" class="easyui-combobox" name="nodeType"   data-options="label:'* 노드 타입'" style="width:100%;height:25px"> </select>

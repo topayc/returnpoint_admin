@@ -142,6 +142,7 @@ function nodeColumn(nodeType){
 			    {field:'affiliateCode',width:40,align:'center',title : '가맹점 코드'},
 			    {field:'affiliateSerial',width:40,align:'center',title : 'Serial 번호'},
 			    {field:'affiliateName',width:50,align:'center',title : '가맹점 이름'},
+			    {field:'affiliateType',width:50,align:'center',title : '가맹점 타입', formatter: affiliateTypeFormatter},
 			    {field:'affiliateStatus',width:20,align:'center',title : '가맹점  상태',hidden:true},
 			    {field:'affiliateAddress',width:50,align:'center',title : '가맹점 주소',hidden:true},
 			    {field:'affiliateTel',width:40,align:'center',title : '가맹점 전화'},

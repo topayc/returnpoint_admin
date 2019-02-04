@@ -27,6 +27,7 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
+import com.returnp.admin.dto.CodeKeyValuePair;
 import com.returnp.admin.dto.command.AffiliateCommand;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ObjectResponse;
@@ -271,9 +272,9 @@ public class AffiliateController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/affiliate/genTid", method = RequestMethod.GET)
-	public  ReturnpBaseResponse genTid( Model model) {
+	public  ReturnpBaseResponse genTid(String affiliateType,  Model model) {
 		ObjectResponse<String> res = new ObjectResponse<String>();
-		res.setData(CodeGenerator.generatorTid(null));
+		res.setData(CodeGenerator.generatorTid(affiliateType));
 		this.setSuccessResponse(res, "T-ID 생성 ");
 		return res;
 	}

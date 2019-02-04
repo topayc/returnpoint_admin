@@ -38,8 +38,16 @@ public class CodeGenerator {
 		return "SDC_" + new Date ().getTime(); 
 	}
 	
-	public static String generatorTid(Object object) {
-		return "RTID_" + new Date ().getTime(); 
+	public static String generatorTid(String str){
+		switch(str) {
+		case "A001":
+			return null;
+		case "A002":  // 온라인 사업자, 쇼핑몰
+			return "OTID_" + new Date ().getTime();
+		case "A003":  // 무사업자 
+			return "RTID_" + new Date ().getTime(); 
+		}
+		return null;
 	}
 	
 	public static String generatorPaymentApprovalNumber(Object object) {

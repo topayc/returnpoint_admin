@@ -3,8 +3,8 @@
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 			    {field:'apiServiceNo',width:50,align:'center',title : '번호',hidden:false},
 			    {field:'company',width:100,align:'center',title : '회사명'},
-			    {field:'project',width:100,align:'center',title : '프로젝트 명'},
-			    {field:'tId',width:100,align:'center',title : 'T ID'},
+			    {field:'project',width:110,align:'center',title : '프로젝트 명'},
+			    {field:'rfId',width:100,align:'center',title : 'RF ID'},
 			    {field:'apiService',width:90,align:'center',title : 'API 서비스 분류', formatter : serviceNameFormatter},
 			    {field:'apiServiceName',width:130,align:'center',title : 'API 서비스 이름', hidden: false},
 			    {field:'domain',width:100,align:'center',title : '도메인'},
@@ -373,7 +373,7 @@ function loadApiServiceModifyForm(){
 
 function makeFormData(){
 	$("#apiServiceName").val($("#company").val()  + "_" +  $('#apiService').combobox("getText"))
-	var param = $("#createApiServiceForm").serializeObject();
+	var param = $("#createApiServiceForm").serializeArray();
 	return param;
 }
 
@@ -395,23 +395,14 @@ function updateApiService(data){
 
 function createApiService(data){	
 	var param =makeFormData();
-	var valid = true;
-	var filed = null;
 	for (var prop in param){
 		if (param.hasOwnProperty(prop)) {
-			if (prop != "apiServiceNo" &&  param[prop] == '') {
+			if (param[prop] == '') {
 				valid = false;
-				filed = prop;
 				break;
 			}
 		}
 	}
-	
-	if (!valid) {
-		$.messager.alert('알림', prop + ' 항목이 모두 입력되지 않았습니다');
-		return;
-	}	
-	
 	returnp.api.call("createApiService", param, function(res){
 		if (res.resultCode  == "100") {
 			$.messager.alert('알림', res.message);

@@ -225,7 +225,8 @@
 		/* Tid  생성 버튼*/
 		$('#gen_tid').linkbutton({
 			onClick : function(){
-				returnp.api.call('genTid', null, function(res){
+				var param = {affiliateType : $('#affiliateType').combobox("getValue")};
+				returnp.api.call('genTid', param, function(res){
 					$("#affiliateSerial").textbox('setValue', res.data);
 				});
 			},
@@ -261,7 +262,15 @@
 		});
 		
 		$('#affiliateType').combobox({
-			 panelHeight: 'auto'
+			 panelHeight: 'auto',
+			 onSelect : function(record){
+				 if (record.value == "A001"){
+					 $('#gen_tid').linkbutton('disable');
+				 }else {
+					 $('#gen_tid').linkbutton('enable');
+					 $('#affiliateSerial').textbox("clear");
+				 }
+			 }
 		});
 		
 		$('#category2No').combobox({
@@ -324,6 +333,7 @@
             multiple:false,
 		});
 		$('#regType').combobox('select',"A");
+		
 	}
 	setViewInit();
 	

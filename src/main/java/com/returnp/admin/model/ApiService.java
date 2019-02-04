@@ -10,7 +10,7 @@ public class ApiService extends QueryCondition {
 
     private String apiServiceName;
 
-    private String rfId;
+    private String tId;
 
     private String company;
 
@@ -56,15 +56,16 @@ public class ApiService extends QueryCondition {
         this.apiServiceName = apiServiceName == null ? null : apiServiceName.trim();
     }
 
-    public String getRfId() {
-        return rfId;
-    }
 
-    public void setRfId(String rfId) {
-        this.rfId = rfId == null ? null : rfId.trim();
-    }
+    public String gettId() {
+		return tId;
+	}
 
-    public String getCompany() {
+	public void settId(String tId) {
+		this.tId = tId;
+	}
+
+	public String getCompany() {
         return company;
     }
 

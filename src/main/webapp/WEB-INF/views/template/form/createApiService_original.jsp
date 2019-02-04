@@ -4,10 +4,10 @@
 	<div style = "padding:10px;padding-top:5px;padding-bottom:5px" >
 	   <form id="createApiServiceForm"  enctype="multipart/form-data" name = "createApiServiceForm" method="post" >
 			<input type = "hidden"  id = "apiServiceNo" name = "apiServiceNo"/>			
-			<div style="margin-bottom:30px"><input id ="affiliateNo"  name="affiliateNo" style="width:100%" data-options="label:'API 연결 가맹점 검색 ',labelWidth :140,labelPosition : 'left'"> </div>
+			
 			<div style="margin-bottom:30px"><input id ="company" name="company" style="width:100%" data-options="label:'회사명 ',labelWidth :140,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:30px"><input id ="project" name="project" style="width:100%" data-options="label:'프로젝트명',labelWidth :140,labelPosition : 'left'"> </div>
-			<div style="margin-bottom:30px"><input id ="tId"" name="tId" style="width:100%" data-options="label:'T ID',labelWidth :140,labelPosition : 'left'"> </div>
+			<div style="margin-bottom:30px"><input id ="rfId"" name="rfId" style="width:100%" data-options="label:'RF ID',labelWidth :140,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:30px">
 				<select class = "easyui-combobox"  id ="apiService" name="apiService"   style="width:100%" data-options="label:'서비스 종류',labelWidth :140,labelAlign:'left',labelPosition : 'left'"> 
 					<c:forEach var="apiServiceType"  items="${apiServiceTypes}" >
@@ -33,32 +33,6 @@
 </div>
 <script>
 function setViewInit(){
-	$('#affiliateNo').textbox({
-		prompt: 'API 연결 가맹점 검색 ',
-		editable : false,
-		icons:[{
-			iconCls:'icon-search',
-			handler: function(e){
-				var v = $(e.data.target).textbox('getValue');
-				loadNodeListView({
-            		targetElem : "#dlgForm2",
-            		title : "가맹점 검색",
-            		queryOptions : {
-            			memberEmail : v,
-            			viewReqName : "nodeList",
-            			searchNodeType :  "5"
-            			
-            		}
-            	},function callback(selNode){
-            		$(e.data.target).textbox('setValue', selNode.affiliateNo);
-            		$("#company").textbox('setValue', selNode.affiliateName);
-            		$("#project").textbox('setValue', selNode.affiliateName + "_쇼핑몰 API 연동");
-            		$("#tId").textbox('setValue', selNode.affiliateSerial);
-            	});
-			}
-		}]
-	});
-	
 	$('#apiService').combobox({
 		showItemIcon: true,
         editable: false,
@@ -79,10 +53,10 @@ function setViewInit(){
 		prompt: 'www.xxxxx.xxx', 
 	});
 	
-	$('#tId').textbox({
-		prompt: 'T ID', 
+	$('#rfId').textbox({
+		prompt: 'RF ID', 
 		editable : false,
-/* 		buttonText:'발급',
+		buttonText:'발급',
 		onClickButton :
 			function(e){
 				var param = $("#createApiServiceForm").serializeArray();
@@ -96,7 +70,7 @@ function setViewInit(){
 						$.messager.alert('오류 발생', res.message);
 					}
 				});
-			} */
+			}
 	});	
 	$('#ip').textbox({
 		prompt: '000.000.000.000', 

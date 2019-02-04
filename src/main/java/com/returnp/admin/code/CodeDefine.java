@@ -137,7 +137,7 @@ public class CodeDefine {
 		list.add(new CodeKeyValuePair("1", "QR CODE 매출 등록", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("2", "VAN 매출 등록", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("3", "관리자 수동 매출 등록", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("4", "쇼핑몰 연동 매출", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("4", "온라인 매출 등록", "Y", "Y" ,""));
 		return list;
 	}
 	
@@ -283,7 +283,7 @@ public class CodeDefine {
 	
 	public static ArrayList<CodeKeyValuePair> getAffiliateTypes() {
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
-		list.add(new CodeKeyValuePair("A001", "오프라인 사업자", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("A001", "오프라인 사업자(POS)", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("A002", "온라인 사업자", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("A003", "무사업자", "Y", "Y" ,""));
 		return list;
