@@ -197,15 +197,19 @@ public class AffiliateController extends ApplicationController {
 			this.memberService.updateByPrimaryKeySelective(m);
 			
 			/* 협력 업체 Green Point 생성, 
+			 * 중복 생성을 원천적으로 막기 위해, 그린 포인트가 없는 경우에만 인서트 
 			 * Red point는  회원 가입시 생성되므로 생성할 필요 없음
 			 * */
 			GreenPoint greenPoint = new GreenPoint();
 			greenPoint.setMemberNo(affiliate.getMemberNo());
 			greenPoint.setNodeNo(affiliate.getAffiliateNo());
-			greenPoint.setNodeType(AppConstants.NodeType.AFFILIATE);
-			greenPoint.setPointAmount((float)0);
-			greenPoint.setNodeTypeName("affiliate");
-			this.greenPointService.insert(greenPoint);
+			
+			if (this.searchService.findGreenPoints(greenPoint).size() <  1) {
+				greenPoint.setNodeType(AppConstants.NodeType.AFFILIATE);
+				greenPoint.setPointAmount((float)0);
+				greenPoint.setNodeTypeName("affiliate");
+				this.greenPointService.insert(greenPoint);
+			}
 			
 			this.setSuccessResponse(res, "생성 완료");
 		/*}*/

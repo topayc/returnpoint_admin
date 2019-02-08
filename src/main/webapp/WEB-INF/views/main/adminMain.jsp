@@ -222,8 +222,8 @@
                             				</a> 
                             			</li>
 		                        </ul>
-                            </li>      
-
+                            </li>   
+                               
                              <li data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">결제 내역 관리</span>
 		                         <ul>
@@ -281,6 +281,22 @@
    									</li>
 		                        </ul>
                             </li>     
+                            
+                                 <li data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">상품권 관리 </span>
+		                         <ul>
+                            			<li id = "" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = ""  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 생성</span>
+                            				</a> 
+                            			</li>
+                            			<li id = "" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = ""  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 조회</span>
+                            				</a> 
+                            			</li>
+		                        </ul>
+                            </li>      
                             
                              <li data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">자료 파일 관리</span>

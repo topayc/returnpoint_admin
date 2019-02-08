@@ -7,8 +7,6 @@ import com.returnp.admin.dto.QueryCondition;
 public class ArrayListResponse<T> extends ReturnpBaseResponse{
 	public int total;
 	public ArrayList<T> rows;
-
-	
 	public int getTotal() {
 		return total;
 	}
@@ -21,4 +19,7 @@ public class ArrayListResponse<T> extends ReturnpBaseResponse{
 	public void setRows(ArrayList<T> rows) {
 		this.rows = rows;
 	}
+
+
+	
 }

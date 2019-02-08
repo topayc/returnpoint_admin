@@ -1,12 +1,9 @@
 package com.returnp.admin.code;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
-import com.returnp.admin.utils.Crypto;
 import com.returnp.admin.utils.Util;
 
 public class CodeGenerator {
@@ -69,17 +66,22 @@ public class CodeGenerator {
 	}
 	
 	  public static String createApiToken(String data) {
-   	   String token = null;
-   	    SecureRandom secureRandom;
-   	    try {
-   	        secureRandom = SecureRandom.getInstance("SHA1PRNG");
-   	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-   	        secureRandom.setSeed(secureRandom.generateSeed(128));
-   	        token= new String(digest.digest((secureRandom.nextLong() + "").getBytes()));
-   	        token = Crypto.encode_base64(token.getBytes(),token.length());
-   	    } catch (NoSuchAlgorithmException e) {
-   	    	e.printStackTrace();
-   	    }
-   	    return token;
+		  UUID api = UUID.randomUUID();
+		  /*System.out.println(api.toString().replaceAll("-", ""));*/
+		  return api.toString().replaceAll("-", "");
    }
+/*	  public static String createApiToken(String data) {
+		  String token = null;
+		  SecureRandom secureRandom;
+		  try {
+			  secureRandom = SecureRandom.getInstance("SHA1PRNG");
+			  MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			  secureRandom.setSeed(secureRandom.generateSeed(128));
+			  token= new String(digest.digest((secureRandom.nextLong() + "").getBytes()));
+			  token = Crypto.encode_base64(token.getBytes(),token.length());
+		  } catch (NoSuchAlgorithmException e) {
+			  e.printStackTrace();
+		  }
+		  return token;
+	  }*/
 }

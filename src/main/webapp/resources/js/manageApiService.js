@@ -100,6 +100,7 @@ function initView(){
 				//console.log("apiService datas");
 				//console.log(res);
 				if (res.resultCode == "100") {
+					console.log(res);
 					setListColumnHeader(param.searchApiServiceType);
 					$('#api_service_list').datagrid({
 						data : res.rows,
