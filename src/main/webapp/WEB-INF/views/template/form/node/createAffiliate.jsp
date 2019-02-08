@@ -260,15 +260,15 @@
 		$('#affiliatePhone').textbox({
 			prompt: '협력업체 핸드폰 번호', 
 		});
-		
+		var init = true
 		$('#affiliateType').combobox({
 			 panelHeight: 'auto',
 			 onSelect : function(record){
 				 if (record.value == "A001"){
 					 $('#gen_tid').linkbutton('disable');
 				 }else {
-					 $('#gen_tid').linkbutton('enable');
-					 $('#affiliateSerial').textbox("clear");
+					$('#gen_tid').linkbutton('enable');
+					$('#affiliateSerial').textbox("clear");
 				 }
 			 }
 		});

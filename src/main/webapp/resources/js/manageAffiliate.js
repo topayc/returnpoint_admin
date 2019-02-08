@@ -390,7 +390,6 @@ function loadAffiliateModifyForm(){
 					,memberAddressNo: data.queryOptions.memberAddressNo}, function(res){
 						console.log(res.data);
 					if (res.resultCode  == "100") {		
-						
 						$('#createAffiliateForm').form('load',res.data);
 						//$('#memberNo').textbox({disabled : true });
 						$("#affiliateRoad").textbox('setValue', res.data.zipNo + " " + res.data.roadFullAddr+ " " + res.data.addrDetail);
