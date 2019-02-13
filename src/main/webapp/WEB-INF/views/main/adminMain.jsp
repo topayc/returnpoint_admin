@@ -131,10 +131,10 @@
 		                        	</li>
 
 		                        	<li id = "manageRecommender"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageRecommender"  node = "2"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold;color:#777777"">정회원 관리(2) </span></a> 
+		                        		<span style = "font-weight : bold;">정회원 관리(2) </span></a> 
 		                        	</li>
 		                        	<li id = "manageSaleManager"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageSaleManager"  node = "6"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold;color:#777777"> 영업 관리자 관리(6)</span></a> 
+		                        		<span style = "font-weight : bold;"> 영업 관리자 관리(6)</span></a> 
 		                        	</li>
 		                        </ul>
                             </li>
