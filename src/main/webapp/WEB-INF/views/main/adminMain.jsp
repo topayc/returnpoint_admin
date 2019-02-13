@@ -249,7 +249,7 @@
 		                            </li>
 		                             
 		                          	 <li data-options = "iconCls :'icon-manage'">
-		                          		<a class= "sub_menu"  view_req_name = "manageFileUpload" menu_deps= '2' >
+		                          		<a class= ""  view_req_name = "manageFileUpload" menu_deps= '2' >
 		                          			<span style = "font-weight : bold">세부 매출 조회</span>
 		                          		</a>
 		                          	</li>
