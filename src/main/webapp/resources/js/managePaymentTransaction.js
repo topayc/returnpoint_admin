@@ -2,7 +2,7 @@ var columns = [[
 	
 	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 	   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-	    {field:'paymentTransactionNo',width:17,align:'center',title : '등록 번호',hidden:false},
+	    {field:'paymentTransactionNo',width:15,align:'center',title : '등록 번호',hidden:false},
 	    {field:'memberName',width:25,align:'center',title : '결제 회원 이름'},
 	    {field:'nodeType',width:20,align:'center',title : '노드',formatter : nodeTypeFormatter ,hidden :  true},
 	    {field:'memberEmail',width:40,align:'center',title : '회원 이메일',hidden : true},
