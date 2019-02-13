@@ -1,5 +1,6 @@
 package com.returnp.admin.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,6 +25,7 @@ import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.MemberCommand;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.service.interfaces.GreenPointService;
@@ -67,6 +69,11 @@ public class MemberController extends ApplicationController {
 		return view;
 	}
 	
+	@RequestMapping(value = "/member/template/memberList", method = RequestMethod.GET)
+	public String listTemplate(){
+		return "template/list/memberList";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/member/get", method = RequestMethod.GET)
 	public ReturnpBaseResponse  getMember(
@@ -79,6 +86,21 @@ public class MemberController extends ApplicationController {
 		res.setData(member);
 		this.setSuccessResponse(res);
 		return res;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/member/myMembers", method = RequestMethod.GET)
+	public ReturnpBaseResponse  findMyMemebr(
+			@RequestParam(value = "memberNo", required = true) int  memberNo) {
+		MemberCommand  mCond =  new MemberCommand();
+		mCond.setMemberNo(memberNo);	
+		
+		ArrayListResponse<MemberCommand> slr = new ArrayListResponse<MemberCommand>();
+		ArrayList<MemberCommand> myMembers = this.searchService.findMyMemberCommands((mCond));
+		this.setSuccessResponse(slr);
+		slr.setRows(myMembers);
+		slr.setTotal(myMembers.size());
+		return slr;
 	}
 	
 	@ResponseBody

@@ -110,6 +110,7 @@ $(function () {
         	updateMember: { apiCode: 10000, apiPath : '/api/member/update' ,  requestMethod: "post"},  
         	deleteMember: { apiCode: 10000, apiPath : '/api/member/delete' ,  requestMethod: "post"},  
         	getMemberCommand: { apiCode: 10000, apiPath : '/api/member/getMemberCommand' ,  requestMethod: "get"},  
+        	findMyMembers: { apiCode: 10000, apiPath : '/api/member/myMembers' ,  requestMethod: "get"},  
 
         	/* 지사 관련*/
         	getBranch: { apiCode: 10000, apiPath : '/api/branch/get' ,  requestMethod: "get"},  

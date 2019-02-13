@@ -17,6 +17,7 @@ public class SearchCondition extends QueryCondition {
 	public String searchVanPaymentStatus;
 	public String searchPaymentStatus;
 	public String searchPaymentType;
+	public Integer memberBankAccountNo;
 	
 	public String memberName;
 	public String memberEmail;
@@ -40,6 +41,13 @@ public class SearchCondition extends QueryCondition {
     private String searchApiServiceType;
     private String searchApiServiceStatus;
 	
+    
+	public Integer getMemberBankAccountNo() {
+		return memberBankAccountNo;
+	}
+	public void setMemberBankAccountNo(Integer memberBankAccountNo) {
+		this.memberBankAccountNo = memberBankAccountNo;
+	}
 	public String getSearchConversionStatus() {
 		return searchConversionStatus;
 	}

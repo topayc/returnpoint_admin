@@ -55,6 +55,8 @@ public interface SearchService {
 	public ArrayList<Member> findMembers(Member member);
 	
 	public ArrayList<MemberCommand> findMemberCommands(MemberCommand memberCommand);
+
+	public ArrayList<MemberCommand> findMyMemberCommands(MemberCommand memberCommand);
 	
 	ArrayList<GreenPointCommand> findGreenPointCommands(GreenPointCommand command);
 	public ArrayList<GreenPoint> findGreenPoints(GreenPoint cond);

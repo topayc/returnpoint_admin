@@ -119,6 +119,7 @@
     <result column="memberPhone" jdbcType="VARCHAR" property="memberPhone" />
     <result column="recommenderNo" jdbcType="INTEGER" property="recommenderNo" />
     <result column="joinRoute" jdbcType="VARCHAR" property="joinRoute" />
+     <result column="country" jdbcType="VARCHAR" property="country" />
     <result column="statusReason" jdbcType="VARCHAR" property="statusReason" />
      <result column="isSoleDist" jdbcType="CHAR" property="isSoleDist" />
     <result column="isRecommender" jdbcType="CHAR" property="isRecommender" />
@@ -150,6 +151,7 @@
     <result column="recommenderEmail" jdbcType="VARCHAR" property="recommenderEmail" />
     <result column="recommenderName" jdbcType="VARCHAR" property="recommenderName" />
     <result column="joinRoute" jdbcType="VARCHAR" property="joinRoute" />
+    <result column="country" jdbcType="VARCHAR" property="country" />
     <result column="statusReason" jdbcType="VARCHAR" property="statusReason" />
      <result column="isSoleDist" jdbcType="CHAR" property="isSoleDist" />
     <result column="isRecommender" jdbcType="CHAR" property="isRecommender" />
@@ -172,7 +174,7 @@
   
     <sql id="Member_Column_List">
    memberNo, memberName, memberEmail, memberPassword, memberPassword2,memberType, memberStatus, 
-    memberAuthType, memberPhone, recommenderNo, joinRoute, statusReason, isSoleDist, 
+    memberAuthType, memberPhone, recommenderNo, joinRoute, country, statusReason, isSoleDist, 
     isRecommender, isSaleManager, isBranch, isAffiliate, isAgency, regType, regAdminNo, 
     greenPointAccStatus, redPointAccStatus, greenPointUseStatus, redPointUseStatus, createTime, 
     updateTime
@@ -203,6 +205,7 @@
    M.redPointAccStatus,
    M.greenPointUseStatus,
    M.redPointUseStatus,
+   M.country,
    M.createTime, 
    M.updateTime,
    M2.memberName as recommenderName,
@@ -302,6 +305,18 @@
 		<include refid = "memberCommandSearchWhereStatement"/>
 		<include refid = "commonStatement"/>
   </select>    
+  
+   <select id="findMyMemberCommands" parameterType="com.returnp.admin.dto.command.MemberCommand"  resultMap="MemberCommandResultMap" >
+    select 
+    <include refid="MemberCommand_Column_List" /> 
+  from member as M  
+    inner join red_point as RP on (M.memberNo = RP.memberNo)
+    inner join green_point as GP on (M.memberNo = GP.memberNo AND GP.nodeType ='1' )
+    left outer join member as M2 on (M.recommenderNo = M2.memberNo)
+    where 
+      1 = 1
+		AND M.recommenderNo = #{memberNo}
+  </select> 
 
  <select id="selectMemberCount"  resultType="int" >
     select 
@@ -2772,6 +2787,24 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="accountOwner != null"> AND MA.accountOwner = #{accountOwner,jdbcType=VARCHAR}</if>
       <if test="accountStatus != null"> AND MA.accountStatus = #{accountStatus,jdbcType=VARCHAR}</if>
    </sql>
+   
+    <sql id ="Member_Bank_Account_Command_WhereStatement">
+   	  <if test="memberBankAccountNo!= null"> AND  MA.memberBankAccountNo = #{memberBankAccountNo,jdbcType=INTEGER}</if>
+   	  <if test="memberNo != null"> AND  MA.memberNo = #{memberNo,jdbcType=INTEGER}</if>
+      <if test="accountOwner != null"> AND MA.accountOwner = #{accountOwner,jdbcType=VARCHAR}</if>
+      <if test="accountStatus != null"> AND MA.accountStatus = #{accountStatus,jdbcType=VARCHAR}</if>
+      
+    	<if test="memberName != null or memberEmail != null or memberPhone != null">
+        AND ( 1 = 2 
+      </if>
+      <if test="memberName != null">OR M.memberName  LIKE CONCAT('%',#{memberName},'%') </if>
+      <if test="memberEmail != null">OR M.memberEmail  LIKE CONCAT('%',#{memberEmail},'%' ) </if>
+      <if test="memberPhone != null">OR M.memberPhone  LIKE CONCAT('%',#{memberPhone},'%') </if>
+      <if test="memberName != null or memberEmail != null or memberPhone != null">
+        )
+      </if>
+   </sql>
+   
   
    <select id="findMemberBankAccounts" parameterType="com.returnp.admin.model.MemberBankAccount"  resultMap="Member_Bank_Account_ResultMap" >
     	select 
@@ -2785,13 +2818,14 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
   <select id="findMemberBankAccountCommands" parameterType="com.returnp.admin.model.MemberBankAccount"  resultMap="Member_Bank_Account_Command_ResultMap" >
     	select 
+    		sql_calc_found_rows 
     		<include refid="Member_Bank_Account_Command_Columns" />
     	from member_bank_account as MA
     	inner join member as M  on (MA.memberNo = M.memberNo)
    		where 
     		1 = 1
-    		<include refid = "Member_Bank_Account_WhereStatement"/> 
-    	ORDER by createTime DESC
+    		<include refid = "Member_Bank_Account_Command_WhereStatement"/> 
+    		<include refid = "commonStatement"/>
   </select>
   
     <!-- ===============================================================================================================    -->

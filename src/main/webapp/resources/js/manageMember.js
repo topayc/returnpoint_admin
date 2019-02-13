@@ -11,6 +11,7 @@ columns = [[
 	    {field:'memberStatus',width:30,align:'center',title : '상태',formatter : nodeStatusFormatter},
 	    {field:'recommenderName',width:30,align:'center',title : '추천인', hidden:false,formatter : slashFormatter},
 	    {field:'recommenderEmail',width:60,align:'center',title : '추천인 이메일', hidden:true, formatter : slashFormatter},
+	    {field:'country',width:20,align:'center',title : '국가', formatter : slashFormatter},
 	    {field:'greenPointAmount',width:40,align:'center',title : 'R POINT', formatter : numberGreenFormatter},
 	    {field:'redPointAmount',width:40,align:'center',title : 'R PAY', formatter : numberRedFormatter},
 	    {field:'memberAuthType',width:30,align:'center',title : '인증방법', formatter : authTypeFormatter,  hidden: true},
@@ -194,13 +195,26 @@ function initView(){
 		  					}
 		  				);
 		  				break;
+		  			case "list_my_members":
+		  				var node = $('#node_list').datagrid('getSelected');
+		  				if (!node) {
+		  					 $.messager.alert('알림','세부 회원 리스트를  확인하실 항목을 선택해주세요');
+		  					 return;
+		  				}
+		  				loadMyMemberList(
+		  						node.memberName + "  의 회원 리스트", 
+		  					{
+		  						memberNo : node.memberNo,
+		  					}
+		  				);
+		  				break;
 		  			}
 		  		}
 		  	});
 		  	
-		  	var menus = [  '수정', '삭제','상세 정보','포인트 누적 현황' ];
-		  	var icons = ['icon-edit','icon-remove','icon-more', 'icon-large-chart'];
-		  	var actions = ['modify','remove','more_detail','point_acc_view'];
+		  	var menus = [  '수정', '삭제','상세 정보','포인트 누적 현황' ,"의 회원 리스트 보기 "];
+		  	var icons = ['icon-edit','icon-remove','icon-more', 'icon-large-chart', 'icon-reload'];
+		  	var actions = ['modify','remove','more_detail','point_acc_view', 'list_my_members'];
 		  	
 		  	for(var i=0; i<menus.length; i++){
 		  		cmenu.menu('appendItem', {

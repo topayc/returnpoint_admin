@@ -53,6 +53,8 @@ public interface SearchMapper {
 	public ArrayList<Member> findMembers(Member member);
 
 	public ArrayList<MemberCommand> findMemberCommands(MemberCommand memberCommand);
+
+	public ArrayList<MemberCommand> findMyMemberCommands(MemberCommand memberCommand);
 	
 	public ArrayList<GreenPointCommand> findGreenPointCommands(GreenPointCommand cond);
 	

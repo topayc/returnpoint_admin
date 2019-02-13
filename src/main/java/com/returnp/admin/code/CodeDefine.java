@@ -237,9 +237,9 @@ public class CodeDefine {
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
 		list.add(new CodeKeyValuePair("1", "출금 처리중", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("2", "출금 처리 완료", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("3", "유저에 의한 출금 취소", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("4", "관리자에 의한 출금 취소", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("5", "출금 보류", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("3", "출금 보류", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("4", "유저 출금 취소", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("5", "관리자 출금 취소", "Y", "Y" ,""));
 		return list;
 	}
 	

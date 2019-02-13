@@ -62,10 +62,10 @@ function boardReplyStatusFormatter(value,row,index){
 function withdrawalStatusFormatter(value,row,index){
 	switch(value){
 	case "1": result = '<i style = "color : #FF8200" class="fa fa-check-circle"></i> 출금 처리 중';break;
-	case "2": result = '<i style = "color : #009900" class="fa fa-check-circle"></i> 출금 처리 완료';break;
-	case "3": result = '<i style = "color : #009900" class="fa fa-check-circle"></i> 유저 취소';break;
-	case "4": result = '<i style = "color : #009900" class="fa fa-check-circle"></i> 관리자 취소';break;
-	case "5": result = '<i style = "color : #009900" class="fa fa-check-circle"></i> 출금 보류';break;
+	case "2": result = '<i style = "color : #009900" class="fa fa-check-circle"></i> 출금 완료';break;
+	case "3": result = '<i style = "color : #009900" class="fa fa-check-circle"></i> 출금 보류';break;
+	case "4": result = '<i style = "color : #009900" class="fa fa-check-circle"></i> 출금 취소 ';break;
+	case "5": result = '<i style = "color : #009900" class="fa fa-check-circle"></i> 관리자 출금 취소';break;
 	}
 	return result; 
 }
@@ -643,6 +643,53 @@ function loadCommonListView(data, callback){
 		});
 }
 
+function loadMyMemberList (title,params){
+	var queryParam = $.param(params);
+	$("#dlgForm").load("/api/member/template/memberList?" + queryParam,
+			function(response, status, xhr) {
+			
+					$('#dlgForm').dialog({
+						width:1200,
+						cache: false,
+					    modal : true,
+					    closable : true,
+					    border : 'thick',
+					    constrain : true,
+					    shadow : true,
+					    collapsible : false,
+					    minimizable : false,
+					    maximizable: false,
+					    title : "&nbsp; " + title,
+					    shadow : false,	
+						buttons:[
+							{ 
+								text:'확인', iconCls:'icon-ok', handler:function(){
+									$('#dlgForm').dialog('close');
+									$('#dlgForm').removeAttr('style');
+								} 
+							}/*,
+							{
+								text:'취소', handler:function(){
+									$('#dlgForm').dialog('close');
+									$('#dlgForm').removeAttr('style');
+								}
+							}*/
+						]
+				});
+			
+			$('#dlgForm').dialog('center');
+			returnp.api.call('findMyMembers', queryParam , function(res){
+				if (res.resultCode  == "100") {
+					console.log(res)
+					$('#member_list_grid').datagrid({
+						data : res.rows
+					})
+				}else {
+					$.messager.alert('오류 발생', res.message);
+				}
+			});
+		});
+}
 /* 해당 결제에 대한 포인트 백 세부 레코드 리스트 생성*/
 function loadPaymentPointbackRecord(title,params){
 	//console.log("loadPaymentPointbackRecord");

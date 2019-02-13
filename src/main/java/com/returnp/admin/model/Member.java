@@ -55,8 +55,20 @@ public class Member extends QueryCondition {
     private Date createTime;
 
     private Date updateTime;
+    
+    private String country;
+    
+    
 
-    public Integer getMemberNo() {
+    public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public Integer getMemberNo() {
         return memberNo;
     }
 

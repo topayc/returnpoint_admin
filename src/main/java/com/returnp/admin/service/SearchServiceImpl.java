@@ -303,4 +303,10 @@ public class SearchServiceImpl implements SearchService{
 	public int selectMemberCount() {
 		return this.searchMapper.selectMemberCount();
 	}
+
+	@Override
+	public ArrayList<MemberCommand> findMyMemberCommands(MemberCommand memberCommand) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.findMyMemberCommands(memberCommand);
+	}
 }

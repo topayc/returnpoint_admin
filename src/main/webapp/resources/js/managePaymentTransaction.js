@@ -160,8 +160,9 @@ function initView(){
 		  					 $.messager.alert('알림','세부 내역을 확인하실 항목을 선택해주세요');
 		  					 return;
 		  				}
+		  				var title = node.paymentApprovalStatus == "1" ? '해당 결제의  G POINT 적립 내역' : node.paymentApprovalStatus == "2" ? "해당 결제의 G-POINT 적립 취소 내역" : "";
 		  				loadPaymentPointbackRecord(
-		  					"결제 내역에 따른 Green 포인트 지급 현황", 
+		  						title, 
 		  					{paymentTransactionNo : node.paymentTransactionNo}
 		  				);
 		  				break;
@@ -172,7 +173,9 @@ function initView(){
 		  		}
 		  	});
 		  	
-		  	var menus = [/*'결제 내역 수정' , */'이 결제의  G 포인트 지급 현황'  ,'결제 승인 취소 ' , /*'결제 내역 삭제' , */ '재적립 요청(해당내역 삭제 및 취소후 재적립 진행'];
+		  	var detailTitile1 = row.paymentApprovalStatus == "1" ? '해당 결제의  G POINT 적립 내역' : row.paymentApprovalStatus == "2" ? "해당 결제의 G-POINT 적립 취소 내역" : "";
+		  	var detailTitile2 = row.paymentApprovalStatus == "0" ? '결제 승인 취소' : "";
+		  	var menus = [/*'결제 내역 수정' , */detailTitile1 ,'결제 승인 취소 ' , /*'결제 내역 삭제' , */ '재적립 요청(해당내역 삭제 및 취소후 재적립 진행'];
 		  	var icons = [/*'icon-edit' , */'icon-more', 'icon-clear' , /*'icon-remove' ,*/ 'icon-redo'];
 		  	var actions = [/*'modify' , */'more_detail', 'cancel' , /*'remove' , */'re_pointback' ];
 		  	
