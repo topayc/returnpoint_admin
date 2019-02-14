@@ -134,6 +134,8 @@ public interface SearchService {
 	public ArrayList<PointWithdrawal> findPointWithdrawals(PointWithdrawal pointWithdrawal);
 	
 	public ArrayList<PointWithdrawalCommand> findPointWithdrawalCommands(PointWithdrawalCommand pointWithdrawalCommand);
+
+	public ArrayList<HashMap<String, Object>> selectMyTotalPointInfo(MemberCommand memberCommand);
 	
 	public int selectMemberCount();
 	

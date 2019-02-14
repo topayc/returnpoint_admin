@@ -309,4 +309,9 @@ public class SearchServiceImpl implements SearchService{
 		// TODO Auto-generated method stub
 		return this.searchMapper.findMyMemberCommands(memberCommand);
 	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectMyTotalPointInfo(MemberCommand memberCommand) {
+		return this.searchMapper.selectMyTotalPointInfo(memberCommand);
+	}
 }

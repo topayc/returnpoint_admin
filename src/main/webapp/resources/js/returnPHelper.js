@@ -126,6 +126,37 @@ function categoryStatusFormatter(value,row,index){
 	return result; 
 }
 
+function greenPointTotalFormatter(value,row,index){
+	var total = 0;
+	if (row.soleDistPoint != -1) {
+		total += row.soleDistPoint;
+	}
+	if (row.branchPoint != -1) {
+		total += row.branchPoint;
+	}
+	
+	if (row.agencyPoint != -1) {
+		total += row.agencyPoint;
+	}
+	
+	if (row.affiliatePoint != -1) {
+		total += row.affiliatePoint;
+	}
+	
+	if (row.memberPoint != -1) {
+		total += row.memberPoint;
+	}
+	var data = String(total);
+	return '<span style = "color : red;font-weight : bold">'  + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>';
+}
+function greenPointFormatter(data){
+	data = String(data);
+	if (data == "-1") { return "<strong> - </strong>";}
+	else {
+		return '<span style = "color : #000000;font-weight : bold">'  + (numberGreenFormatter(data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'))) + '</span>';
+	}
+}
+
 function numberFormatter(data){
 	data = String(data);
 	return '<span style = "color : #000000;font-weight : bold">'  + (numberGreenFormatter(data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'))) + '</span>';

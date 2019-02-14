@@ -1,12 +1,15 @@
 package com.returnp.admin.web.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +26,11 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
+import com.returnp.admin.dto.QueryCondition;
 import com.returnp.admin.dto.command.MemberCommand;
-import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.service.interfaces.GreenPointService;
 import com.returnp.admin.service.interfaces.MemberService;
@@ -103,6 +107,85 @@ public class MemberController extends ApplicationController {
 		return slr;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/member/myTotalPointInfo", method = RequestMethod.GET)
+	public ReturnpBaseResponse  getMyTotalPointInfo(
+			@RequestParam(value = "searchKeyword", required = false, defaultValue =  "0" ) String  searchKeyword) {
+		MemberCommand  mCond =  new MemberCommand();
+		if(!"0".equals(searchKeyword)) {
+			mCond.setMemberEmail(searchKeyword);
+			mCond.setMemberName(searchKeyword);
+		}	
+		ArrayList<HashMap<String, Object>> datas = this.searchService.selectMyTotalPointInfo(mCond);
+		
+		ArrayList<HashMap<String, Object>> resMap = new ArrayList<HashMap<String, Object>>();
+		HashMap<String, Object> m = null;
+		
+		for (HashMap<String, Object> dataMap : datas) {
+			boolean iscon = false;
+			int memberSeq = (int)dataMap.get("memberNo");
+			if (resMap.size()> 0) {
+				m  = this.isMapContainsKey(resMap, memberSeq);
+			}
+			if (m == null) {
+				m = new HashMap<String, Object>();
+				m.put("memberNo", memberSeq);
+				m.put("soleDistPoint", -1);
+				m.put("branchPoint", -1);
+				m.put("agencyPoint", -1);
+				m.put("affiliatePoint", -1);
+				m.put("memberPoint", -1);
+				iscon = false;
+			}else {
+				iscon = true;
+			}
+			
+			if (!iscon) {
+				resMap.add(m);
+			}
+			String pointTarget = (String)dataMap.get("pointTarget");
+			System.out.println("pointTarget" + (String)dataMap.get("pointTarget"));
+			switch(pointTarget ) {
+				case "soledist":
+					m.put("soleDistPoint", (float)dataMap.get("pointAmount"));
+					break;
+				case "branch":
+					m.put("branchPoint", (float)dataMap.get("pointAmount"));
+					break;
+				case "agency":
+					m.put("agencyPoint", (float)dataMap.get("pointAmount"));
+					break;
+				case "affiliate":
+					m.put("affiliatePoint", (float)dataMap.get("pointAmount"));
+					break;
+				case "member":
+					m.put("memberPoint", (float)dataMap.get("pointAmount"));
+					break;
+			}
+			m.put("memberName", (String)dataMap.get("memberName"));
+			m.put("memberEmail", (String)dataMap.get("memberEmail"));
+			m.put("memberPhone", (String)dataMap.get("memberPhone"));
+			
+		}
+		ArrayListResponse<HashMap<String, Object>> slr = new ArrayListResponse<HashMap<String, Object>>();
+		slr.setRows(resMap);
+		slr.setTotal(resMap.size());
+		this.setSuccessResponse(slr);
+		return slr;
+	}
+	
+	@SuppressWarnings("unlikely-arg-type")
+	private HashMap<String, Object> isMapContainsKey(ArrayList<HashMap<String, Object>> listMap,  int membeNo) {
+		HashMap<String, Object> returnMap = null;
+		for (HashMap<String, Object> m : listMap) {
+			int value = (int)m.get("memberNo");
+			if (value == membeNo) {
+				returnMap = m;
+				break;
+			}
+		}
+		return returnMap;
+	}
 	@ResponseBody
 	@RequestMapping(value = "/member/getMemberCommand", method = RequestMethod.GET)
 	public ReturnpBaseResponse  getMemberCommand(

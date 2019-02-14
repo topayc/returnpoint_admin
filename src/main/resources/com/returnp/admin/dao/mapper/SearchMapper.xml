@@ -2340,6 +2340,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     M.memberName,
     M.memberPhone,
     M.memberEmail,
+   <!--  VPT.memerName as paymetMemberName, -->
     VPT.paymentApprovalAmount,
     VPT.affiliateSerial,
     VPT.paymentApprovalDateTime
@@ -2936,5 +2937,28 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     		<include refid = "Point_Withdrawal_Command_WhereStatement"/> 
     	ORDER by createTime DESC
   </select>
+  
+ <select id="selectMyTotalPointInfo" parameterType="com.returnp.admin.dto.command.MemberCommand" resultType="HashMap">
+	select M.memberName, M.memberEmail, M.memberPhone,  A.* from 
+		(
+			SELECT memberNo , "G-POINT" as pointType , "soledist" as pointTarget, "총판 G-POINT"  as pointTypeKr, "SoldDist G-POINT"  as  pointTypeEn, pointAmount  as pointAmount 
+			FROM green_point where nodeType = "7"
+			union 
+			SELECT memberNo ,"G-POINT" as pointType , "branch" as pointTarget, "지사 G-POINT"  as pointTypeKr, "Branch G-POINT"  as  pointTypeEn, pointAmount  as pointAmount 
+			FROM green_point where nodeType = "3"
+			union 
+			SELECT memberNo ,"G-POINT" as pointType , "agency" as pointTarget, "대리점 G-POINT"  as pointTypeKr, "Agency G-POINT"  as  pointTypeEn, pointAmount  as pointAmount 
+			FROM green_point where nodeType = "4"
+			union
+			SELECT memberNo ,"G-POINT" as pointType , "affiliate" as pointTarget, "협력업체 G-POINT"  as pointTypeKr, "affiliate G-POINT"  as  pointTypeEn, pointAmount  as pointAmount 
+			FROM green_point where nodeType = "5"
+			union
+			SELECT memberNo ,"G-POINT" as pointType , "member" as pointTarget, "회원 G-POINT"  as pointTypeKr, "member G-POINT"  as  pointTypeEn, pointAmount  as pointAmount 
+			FROM green_point where nodeType = "1"
+		)	as A
+		inner join member as M on A.memberNo = M.memberNo
+		where memberName like CONCAT('%',#{memberName},'%') or memberEmail LIKE CONCAT('%',#{memberEmail},'%')
+		order by memberNo asc
+	</select> 
 </mapper>
  

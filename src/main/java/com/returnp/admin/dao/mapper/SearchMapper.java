@@ -137,7 +137,9 @@ public interface SearchMapper {
 	public ArrayList<MemberBankAccountCommand> findMemberBankAccountCommands(MemberBankAccount memberBankAccount);
 	
 	public ArrayList<PointWithdrawal> findPointWithdrawals(PointWithdrawal pointWithdrawal);
-	
+
+	public ArrayList<HashMap<String, Object>> selectMyTotalPointInfo(MemberCommand memberCommand);
+
 	public ArrayList<PointWithdrawalCommand> findPointWithdrawalCommands(PointWithdrawalCommand pointWithdrawalCommand);
 	
 	public int selectMemberCount();
