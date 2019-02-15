@@ -126,29 +126,73 @@ function categoryStatusFormatter(value,row,index){
 	return result; 
 }
 
+function sumTotalPoint(value,row,index){
+	var total = 0;
+	if (row.soleDistGPoint != -1) {
+		total += row.soleDistGPoint;
+	}
+	if (row.branchGPoint != -1) {
+		total += row.branchGPoint;
+	}
+	
+	if (row.agencyGPoint != -1) {
+		total += row.agencyGPoint;
+	}
+	
+	if (row.affiliateGPoint != -1) {
+		total += row.affiliateGPoint;
+	}
+	
+	if (row.memberGPoint != -1) {
+		total += row.memberGPoint;
+	}
+
+	if (row.memberRPoint != -1) {
+		total += row.memberRPoint;
+	}
+	
+	var data = String(total);
+	return '<span style = "color : blue;font-weight : bold">'  + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>';
+}
+
 function greenPointTotalFormatter(value,row,index){
 	var total = 0;
-	if (row.soleDistPoint != -1) {
-		total += row.soleDistPoint;
+	if (row.soleDistGPoint != -1) {
+		total += row.soleDistGPoint;
 	}
-	if (row.branchPoint != -1) {
-		total += row.branchPoint;
-	}
-	
-	if (row.agencyPoint != -1) {
-		total += row.agencyPoint;
+	if (row.branchGPoint != -1) {
+		total += row.branchGPoint;
 	}
 	
-	if (row.affiliatePoint != -1) {
-		total += row.affiliatePoint;
+	if (row.agencyGPoint != -1) {
+		total += row.agencyGPoint;
 	}
 	
-	if (row.memberPoint != -1) {
-		total += row.memberPoint;
+	if (row.affiliateGPoint != -1) {
+		total += row.affiliateGPoint;
+	}
+	
+	if (row.memberGPoint != -1) {
+		total += row.memberGPoint;
 	}
 	var data = String(total);
-	return '<span style = "color : red;font-weight : bold">'  + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>';
+	return '<span style = "color : blue;font-weight : bold">'  + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>';
 }
+
+function redPointFormatter(data){
+	data = String(data);
+	if (data == "-1") { return "<strong> - </strong>";}
+	else {
+		return '<span style = "color : red;font-weight : bold">'  + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>';
+	}
+}
+
+function affiliateSaleFormatter(data){
+	if (!data || typeof data == 'undefined' ) { return '<span style = "color : red;font-weight : bold"> 0 </span>';}
+	data = String(data);
+		return '<span style = "color : red;font-weight : bold">'  + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>';
+}
+
 function greenPointFormatter(data){
 	data = String(data);
 	if (data == "-1") { return "<strong> - </strong>";}

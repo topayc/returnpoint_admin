@@ -1762,13 +1762,14 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="paymentApprovalDateTime != null"> AND PA.paymentApprovalDateTime = #{paymentApprovalDateTime,jdbcType=TIMESTAMP} </if>
       <if test="regAdminNo != null"> AND PA.regAdminNo = #{regAdminNo,jdbcType=INTEGER} </if>
        
-       <if test="memberName != null or memberEmail != null  or memberPhone != null ">
+       <if test="memberName != null or memberEmail != null  or memberPhone != null || affiliateName != null">
       	AND ( 1 = 2 
       </if>
       <if test="memberName != null">  OR PA.memberName  LIKE CONCAT('%',#{memberName},'%') </if>
       <if test="memberEmail != null"> OR PA.memberEmail  LIKE CONCAT('%',#{memberEmail},'%') </if>
       <if test="memberPhone != null"> OR PA.memberPhone  LIKE CONCAT('%',#{memberPhone},'%') </if>
-      <if test="memberName != null or memberEmail != null  or memberPhone != null ">
+      <if test="affiliateName != null"> OR AF.affiliateName  LIKE CONCAT('%',#{affiliateName},'%') </if>
+      <if test="memberName != null or memberEmail != null  or memberPhone != null  || affiliateName != null">
       	)
       </if>
   </sql>
@@ -1783,7 +1784,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
 		<include refid = "commonStatement"/>    	
   </select>
   
-   <select id="findPaymentTransactionCommands" parameterType="com.returnp.admin.model.PaymentTransaction"  resultMap="PaymentTransactionCommand_ResultMap" >
+   <select id="findPaymentTransactionCommands" parameterType="com.returnp.admin.dto.command.PaymentTransactionCommand"  resultMap="PaymentTransactionCommand_ResultMap" >
     select 
     sql_calc_found_rows
     <include refid="PaymentTransactionCommand_Column_List" />
@@ -2340,6 +2341,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     M.memberName,
     M.memberPhone,
     M.memberEmail,
+    AF.affiliateName,
    <!--  VPT.memerName as paymetMemberName, -->
     VPT.paymentApprovalAmount,
     VPT.affiliateSerial,
@@ -2353,6 +2355,17 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
 	 <if test="paymentTransactionNo != null "> AND PPR.paymentTransactionNo = #{paymentTransactionNo} </if>
 	 <if test="nodeNo != null "> AND PPR.nodeNo = #{nodeNo} </if>
 	 <if test="nodeType != null "> AND PPR.nodeType = #{nodeType} </if>
+	 
+	 <if test="memberName != null or memberEmail != null or memberPhone != null or affiliateName != null">
+        AND ( 1 = 2 
+      </if>
+      <if test="memberName != null">OR M.memberName  LIKE CONCAT('%',#{memberName},'%') </if>
+      <if test="memberEmail != null">OR M.memberEmail  LIKE CONCAT('%',#{memberEmail},'%' ) </if>
+      <if test="memberPhone != null">OR M.memberPhone  LIKE CONCAT('%',#{memberPhone},'%') </if>
+      <if test="affiliateName != null">OR  affiliateName LIKE CONCAT('%',#{affiliateName},'%')</if>
+      <if test="memberName != null or memberEmail != null or memberPhone != null or affiliateName != null">
+        )
+      </if>
 	</sql>
 	
   <select id="findPaymentPointbackRecordCommands"  parameterType="com.returnp.admin.dto.command.PaymentPointbackRecordCommand"  resultMap="PaymentPointbackRecordCommand_ResultMap" >
@@ -2362,6 +2375,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   	from payment_pointback_record as PPR
   	inner join member as M on (PPR.memberNo = M.memberNo)  
     inner join payment_transaction as  VPT on (PPR.paymentTransactionNo = VPT.paymentTransactionNo)
+    inner join affiliate  as  AF on (VPT.affiliateNo = AF.affiliateNo)
 	where
     	1 = 1
 		<include refid = "PaymentPointbackRecordCommand_WhereStatement"/>
@@ -2906,11 +2920,17 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="memberBankAccountNo != null"> AND   memberBankAccountNo = #{memberBankAccountNo,jdbcType=INTEGER} </if>
       <if test="withdrawalStatus != null"> AND  withdrawalStatus = #{withdrawalStatus,jdbcType=VARCHAR} </if>
       <if test="withdrawalPointType != null"> AND  withdrawalPointType = #{withdrawalPointType,jdbcType=VARCHAR} </if>
-      <if test="memberName != null"> AND  memberName = #{memberName,jdbcType=VARCHAR} </if>
-      <if test="memberEmail != null"> AND  memberEmail = #{memberEmail,jdbcType=VARCHAR} </if>
-      <if test="memberPhone != null"> AND  memberPhone = #{memberPhone,jdbcType=VARCHAR} </if>
+      
+      <if test="memberName != null or memberEmail != null or memberPhone != null">
+      	AND ( 1 = 2 
+      </if>
+      <if test="memberName != null">OR memberName  LIKE CONCAT('%',#{memberName},'%') </if>
+      <if test="memberEmail != null">OR memberEmail  LIKE CONCAT('%',#{memberEmail},'%' ) </if>
+      <if test="memberPhone != null">OR  memberPhone = #{memberPhone,jdbcType=VARCHAR}</if>
+      <if test="memberName != null or memberEmail != null or memberPhone != null">
+      	)
+      </if>
    </sql>
-   
   
    <select id="findPointWithdrawals" parameterType="com.returnp.admin.model.PointWithdrawal"  resultMap="Point_Withdrawal_ResultMap" >
     	select 
@@ -2926,6 +2946,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
    <select id="findPointWithdrawalCommands" parameterType="com.returnp.admin.dto.command.PointWithdrawalCommand"  resultMap="Point_Withdrawal_Command_ResultMap" >
     	select 
+    		   sql_calc_found_rows 
     		<include refid="Point_Withdrawal_Command_Columns" />
     		,
     		<include refid="Point_Withdrawal_Blob_Column_List" />
@@ -2935,12 +2956,15 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
    		where 
     		1 = 1
     		<include refid = "Point_Withdrawal_Command_WhereStatement"/> 
-    	ORDER by createTime DESC
+    		<include refid = "commonStatement"/>
   </select>
   
  <select id="selectMyTotalPointInfo" parameterType="com.returnp.admin.dto.command.MemberCommand" resultType="HashMap">
 	select M.memberName, M.memberEmail, M.memberPhone,  A.* from 
 		(
+			SELECT memberNo , "R-POINT" as pointType , "r_member" as pointTarget, "R-POINT"  as pointTypeKr, "R-POINT"  as  pointTypeEn, pointAmount  as pointAmount 
+			FROM red_point 
+			union 
 			SELECT memberNo , "G-POINT" as pointType , "soledist" as pointTarget, "총판 G-POINT"  as pointTypeKr, "SoldDist G-POINT"  as  pointTypeEn, pointAmount  as pointAmount 
 			FROM green_point where nodeType = "7"
 			union 
@@ -2960,5 +2984,24 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
 		where memberName like CONCAT('%',#{memberName},'%') or memberEmail LIKE CONCAT('%',#{memberEmail},'%')
 		order by memberNo asc
 	</select> 
+	
+	<select id="selectAffiliteSaleReport"   resultType="HashMap" >
+   	   	select 
+	    AF.affiliateName,
+	    AF.affiliateSerial, 
+	  	M.memberNo, 
+	  	M.memberName, 
+	  	M.memberPhone, 
+	  	M.memberEmail, 
+	    sum(PA.paymentApprovalAmount) as totalAffiliteSale
+    from payment_transaction as PA
+    right outer  join affiliate as AF on (PA.affiliateSerial= AF.affiliateSerial)
+    left outer join member as M on (AF.memberNo= M.memberNo)
+    where 
+    	1 = 1
+    group by AF.affiliateName
+    order by totalAffiliteSale desc;
+    
+  </select>
 </mapper>
  

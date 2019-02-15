@@ -141,7 +141,7 @@ public class SearchServiceImpl implements SearchService{
 	}
 	
 	@Override
-	public ArrayList<PaymentTransactionCommand> findPaymentTransactionCommands(PaymentTransaction record) {
+	public ArrayList<PaymentTransactionCommand> findPaymentTransactionCommands(PaymentTransactionCommand record) {
 		// TODO Auto-generated method stub
 		return this.searchMapper.findPaymentTransactionCommands(record);
 	}
@@ -313,5 +313,10 @@ public class SearchServiceImpl implements SearchService{
 	@Override
 	public ArrayList<HashMap<String, Object>> selectMyTotalPointInfo(MemberCommand memberCommand) {
 		return this.searchMapper.selectMyTotalPointInfo(memberCommand);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectAffiliteSaleReport() {
+		return this.searchMapper.selectAffiliteSaleReport();
 	}
 }

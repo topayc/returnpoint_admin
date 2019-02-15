@@ -130,11 +130,12 @@ public class MemberController extends ApplicationController {
 			if (m == null) {
 				m = new HashMap<String, Object>();
 				m.put("memberNo", memberSeq);
-				m.put("soleDistPoint", -1);
-				m.put("branchPoint", -1);
-				m.put("agencyPoint", -1);
-				m.put("affiliatePoint", -1);
-				m.put("memberPoint", -1);
+				m.put("soleDistGPoint", -1);
+				m.put("branchGPoint", -1);
+				m.put("agencyGPoint", -1);
+				m.put("affiliateGPoint", -1);
+				m.put("memberGPoint", -1);
+				m.put("memberRPoint", -1);
 				iscon = false;
 			}else {
 				iscon = true;
@@ -144,22 +145,24 @@ public class MemberController extends ApplicationController {
 				resMap.add(m);
 			}
 			String pointTarget = (String)dataMap.get("pointTarget");
-			System.out.println("pointTarget" + (String)dataMap.get("pointTarget"));
 			switch(pointTarget ) {
 				case "soledist":
-					m.put("soleDistPoint", (float)dataMap.get("pointAmount"));
+					m.put("soleDistGPoint", (float)dataMap.get("pointAmount"));
 					break;
 				case "branch":
-					m.put("branchPoint", (float)dataMap.get("pointAmount"));
+					m.put("branchGPoint", (float)dataMap.get("pointAmount"));
 					break;
 				case "agency":
-					m.put("agencyPoint", (float)dataMap.get("pointAmount"));
+					m.put("agencyGPoint", (float)dataMap.get("pointAmount"));
 					break;
 				case "affiliate":
-					m.put("affiliatePoint", (float)dataMap.get("pointAmount"));
+					m.put("affiliateGPoint", (float)dataMap.get("pointAmount"));
 					break;
 				case "member":
-					m.put("memberPoint", (float)dataMap.get("pointAmount"));
+					m.put("memberGPoint", (float)dataMap.get("pointAmount"));
+					break;
+				case "r_member":
+					m.put("memberRPoint", (float)dataMap.get("pointAmount"));
 					break;
 			}
 			m.put("memberName", (String)dataMap.get("memberName"));

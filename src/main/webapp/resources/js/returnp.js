@@ -244,6 +244,9 @@ $(function () {
         	uploadAdminFile: {apiCode: 10000, apiPath : '/api/adminFileUpload/create' , requestMethod: 'post'},
         	
         	uploadSalesFile: {apiCode: 10000, apiPath : '/api/upload/salesFile' , requestMethod: 'post'},
+
+        	/*리포트 */
+        	affilaiteSaleReport: {apiCode: 10000, apiPath : '/api/report/affilaiteSaleReport' , requestMethod: 'get'},
         },
         
         init : function(){

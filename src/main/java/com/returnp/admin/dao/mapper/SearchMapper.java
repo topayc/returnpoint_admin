@@ -98,7 +98,7 @@ public interface SearchMapper {
 	
 	public ArrayList<PaymentTransaction> findPaymentTransactions(PaymentTransaction record);
 	
-	public ArrayList<PaymentTransactionCommand> findPaymentTransactionCommands(PaymentTransaction record);
+	public ArrayList<PaymentTransactionCommand> findPaymentTransactionCommands(PaymentTransactionCommand record);
 	
 	public ArrayList<PaymentPointbackRecordCommand> findPaymentPointbackRecordCommands(PaymentPointbackRecordCommand command);
 	
@@ -143,4 +143,6 @@ public interface SearchMapper {
 	public ArrayList<PointWithdrawalCommand> findPointWithdrawalCommands(PointWithdrawalCommand pointWithdrawalCommand);
 	
 	public int selectMemberCount();
+
+	public ArrayList<HashMap<String, Object>> selectAffiliteSaleReport();
 }

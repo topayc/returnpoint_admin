@@ -139,6 +139,78 @@
 		                        </ul>
                             </li>
                             
+                                           <li data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">포인트 관리</span>
+		                         <ul>
+		                         	<li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
+					                   	<a class= "sub_menu"  view_req_name = "manageTotalGreenPoint"  menu_deps= '2' >
+					                   		<span style = "font-weight : bold">통합 포인트 조회</span>
+					                   	</a>
+					                    </li>
+					                    
+			                         <li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
+					                   	<a class= "sub_menu"  view_req_name = "manageGreenPoint"  menu_deps= '2' >
+					                   		<span style = "font-weight : bold">G-POINT 관리</span>
+					                   	</a>
+					                    </li>
+					                   <li id = "manageRedPoint"  data-options = "iconCls :'icon-info'">
+					                   	<a class= "sub_menu"  view_req_name = "manageRedPoint"  menu_deps= '2' >
+					                   		<span style = "font-weight : bold">R-POINT 관리</span>
+					                   	</a> 
+					                   </li> 
+		                        </ul>
+                            </li> 
+                            
+                              <li data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">결제 및 매출 관리</span>
+		                         <ul>
+		                           <!--  <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
+		                            		<span style = "font-weight : bold">원본 결제 내역 관리</span>
+		                            	</a> 
+		                            </li> -->
+		                            <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
+		                            		<span style = "font-weight : bold; ">결제 및 매출 관리</span>
+		                            	</a> 
+		                            </li>
+		                             
+		                          	 <li data-options = "iconCls :'icon-manage'">
+		                          		<a class= ""  view_req_name = "manageFileUpload" menu_deps= '2' >
+		                          			<span style = "font-weight : bold">세부 매출 조회</span>
+		                          		</a>
+		                          	</li>
+		                          	
+		                         <!--     <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
+		                            		<span style = "font-weight : bold">관리자 수동 생성 결제 관리</span>
+		                            	</a> 
+		                            </li> -->
+		                     <!--        <li id = "managePosPayment" data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' ><span style = "color : blue; font-weight : bold">결제별 Green Point 적립 관리</span></a> </li> -->
+		                            <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "manageAffiliateSale" menu_deps= '2' >
+		                            		<span style = "font-weight : bold">협력업체별 매출 조회</span>
+		                            	</a> 
+		                            </li>
+		                            
+		                            <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "managePaymentPointbackRecord" menu_deps= '2' >
+		                            		<span style = "font-weight : bold">결제별 R-POINT 세부 적립내역</span>
+		                            	</a> 
+		                            </li>
+		                          	<li data-options = "iconCls :'icon-manage'">
+		                          		<a class= "sub_menu"  view_req_name = "manualPosPaymentRegister" menu_deps= '2' >
+		                          			<span style = "font-weight : bold">매출 수동 등록</span>
+		                          		</a>
+		                          	</li>
+		                          	 
+		                          	 <li data-options = "iconCls :'icon-manage'">
+		                          		<a class= "sub_menu"  view_req_name = "manageFileUpload" menu_deps= '2' >
+		                          			<span style = "font-weight : bold">매출 파일 등록 </span>
+		                          		</a>
+		                          	</li>
+				                </ul>
+                            </li> 
                             <li data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">외부 연동 관리</span>
 		                         <ul>
@@ -186,28 +258,6 @@
                             		</li>
 		                        </ul>
                             </li>
-                             <li data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">포인트 관리</span>
-		                         <ul>
-		                         	<li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
-					                   	<a class= "sub_menu"  view_req_name = "manageTotalGreenPoint"  menu_deps= '2' >
-					                   		<span style = "font-weight : bold">통합 포인트 조회</span>
-					                   	</a>
-					                    </li>
-					                    
-			                         <li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
-					                   	<a class= "sub_menu"  view_req_name = "manageGreenPoint"  menu_deps= '2' >
-					                   		<span style = "font-weight : bold">G-POINT 관리</span>
-					                   	</a>
-					                    </li>
-					                   <li id = "manageRedPoint"  data-options = "iconCls :'icon-info'">
-					                   	<a class= "sub_menu"  view_req_name = "manageRedPoint"  menu_deps= '2' >
-					                   		<span style = "font-weight : bold">R-POINT 관리</span>
-					                   	</a> 
-					                   </li> 
-		                        </ul>
-                            </li>
-                             
                                  <li data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">포인트 출금 관리</span>
 		                         <ul>
@@ -240,53 +290,6 @@
 		                        </ul>
                             </li>   
                                
-                             <li data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">결제 내역 관리</span>
-		                         <ul>
-		                           <!--  <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
-		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
-		                            		<span style = "font-weight : bold">원본 결제 내역 관리</span>
-		                            	</a> 
-		                            </li> -->
-		                            <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
-		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
-		                            		<span style = "font-weight : bold;  color : #FA0505">결제 및 매출 관리</span>
-		                            	</a> 
-		                            </li>
-		                             
-		                          	 <li data-options = "iconCls :'icon-manage'">
-		                          		<a class= ""  view_req_name = "manageFileUpload" menu_deps= '2' >
-		                          			<span style = "font-weight : bold">세부 매출 조회</span>
-		                          		</a>
-		                          	</li>
-		                          	
-		                         <!--     <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
-		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
-		                            		<span style = "font-weight : bold">관리자 수동 생성 결제 관리</span>
-		                            	</a> 
-		                            </li> -->
-		                     <!--        <li id = "managePosPayment" data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' ><span style = "color : blue; font-weight : bold">결제별 Green Point 적립 관리</span></a> </li> -->
-		                            <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
-		                            	<a class= "sub_menu"  view_req_name = "managePaymentPointbackRecord" menu_deps= '2' >
-		                            		<span style = "font-weight : bold">결제별 R-POINT 세부 적립내역</span>
-		                            	</a> 
-		                            </li>
-		                          	<li data-options = "iconCls :'icon-manage'">
-		                          		<a class= "sub_menu"  view_req_name = "manualPosPaymentRegister" menu_deps= '2' >
-		                          			<span style = "font-weight : bold">매출 수동 등록</span>
-		                          		</a>
-		                          	</li>
-		                          	 
-		                          	 <li data-options = "iconCls :'icon-manage'">
-		                          		<a class= "sub_menu"  view_req_name = "manageFileUpload" menu_deps= '2' >
-		                          			<span style = "font-weight : bold">매출 파일 등록 </span>
-		                          		</a>
-		                          	</li>
-		                          	
-		                          	
-				                </ul>
-                            </li>  
-                            
                             <li data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">카테고리 관리</span>
 		                         <ul>

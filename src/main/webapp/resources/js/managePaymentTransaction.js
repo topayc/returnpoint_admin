@@ -39,7 +39,15 @@ function initView(){
 	$('#searchForm').form();
 	
 	/* 검색어 입력 박스 초기화 */
-	$('#searchKeyword').textbox({ prompt : "검색할 단어를 입력해주세요" });
+	$('#searchKeyword').textbox({ 
+		prompt : "검색할 단어를 입력해주세요" ,
+		inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
+			keyup:function(e){
+				if(e.keyCode==13)
+					realodPage();
+			}
+		})
+	});
 	
 	
 	$('#searchPaymentApprovalStatus').combobox({

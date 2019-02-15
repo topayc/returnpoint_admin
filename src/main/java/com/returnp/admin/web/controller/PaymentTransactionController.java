@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
+import org.omg.PortableServer.POAPackage.ServantAlreadyActiveHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -139,8 +141,14 @@ public class PaymentTransactionController extends ApplicationController {
 		res.setRows(list);
 		res.setTotal(list.size());	*/
 		
-		PaymentTransaction vCond = new PaymentTransaction();
+		PaymentTransactionCommand vCond = new PaymentTransactionCommand();
+		if (!StringUtils.isEmpty(searchCondition.getSearchKeyword())) {
+			vCond.setMemberEmail(searchCondition.getSearchKeyword());
+			vCond.setMemberName(searchCondition.getSearchKeyword());
+			vCond.setAffiliateName(searchCondition.getSearchKeyword());
+		}
 		vCond.valueOf(searchCondition);
+		
 		
 		ArrayListResponse<PaymentTransactionCommand> res = new ArrayListResponse<PaymentTransactionCommand>();
 		ArrayList<PaymentTransactionCommand> list = this.searchService.findPaymentTransactionCommands(vCond);

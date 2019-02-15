@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.dto.command.PointWithdrawalCommand;
 import com.returnp.admin.dto.command.RedPointCommand;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.model.Policy;
 import com.returnp.admin.service.interfaces.PointWithdrawalService;
@@ -70,19 +72,26 @@ public class PointWithdrawalController extends ApplicationController {
 
 	@ResponseBody
 	@RequestMapping(value = "/pointWithdrawals", method = RequestMethod.GET)
-	public ReturnpBaseResponse  getBranch(
-			PointWithdrawalCommand pointWithdrawalCommand) {
+	public ReturnpBaseResponse  getPointWithdrawals(
+			SearchCondition searchCondition) {
+		PointWithdrawalCommand cond = new PointWithdrawalCommand();
+		cond.valueOf(searchCondition);
+		if (!StringUtils.isEmpty(searchCondition.getSearchKeyword())) {
+			cond.setMemberEmail(searchCondition.getSearchKeyword());
+			cond.setMemberName(searchCondition.getSearchKeyword());
+		}
+		
 		ArrayListResponse<PointWithdrawalCommand> res = new ArrayListResponse<PointWithdrawalCommand>();
-		ArrayList<PointWithdrawalCommand> resultList = this.pointWithdrawalService.findPointWithdrawalCommands(pointWithdrawalCommand);
+		ArrayList<PointWithdrawalCommand> resultList = this.pointWithdrawalService.findPointWithdrawalCommands(cond);
 		ResponseUtil.setSuccessResponse(res);
-		res.setTotal(resultList.size());
+		res.setTotal(this.searchService.selectTotalRecords());
 		res.setRows(resultList);
 		return res;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointWithdrawal/create", method = RequestMethod.POST)
-	public ReturnpBaseResponse  getMemberBankAccount(
+	public ReturnpBaseResponse  createPointWithdrawal(
 			@ModelAttribute("pointWithdrawalForm") PointWithdrawalCommand pointWithdrawalCommand, 
 			BindingResult result, 
 			SessionStatus sessionStatus,
@@ -97,7 +106,7 @@ public class PointWithdrawalController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointWithdrawal/update", method = RequestMethod.POST)
-	public ReturnpBaseResponse  updateMemberBankAccount(
+	public ReturnpBaseResponse  updatePointWithdrawal(
 			@ModelAttribute("pointWithdrawalForm") PointWithdrawalCommand pointWithdrawalCommand, 
 			SessionStatus sessionStatus, 
 			BindingResult result, 
@@ -112,7 +121,7 @@ public class PointWithdrawalController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointWithdrawal/delete", method = RequestMethod.POST)
-	public ReturnpBaseResponse  deleteMemberBankAccount(
+	public ReturnpBaseResponse  deletePointWithdrawal(
 			@RequestParam(value = "pointWithdrawalNo", required = true) int  pointWithdrawalNo) {
 		ReturnpBaseResponse res= new ReturnpBaseResponse();
 		this.pointWithdrawalService.delete(pointWithdrawalNo);

@@ -4,13 +4,15 @@
 			{field:'memberNo',width:50,align:'center',title : '회원 번호',hidden:false},	
 			{field:'memberName',width:100,align:'center',title : '이름'},
 			{field:'memberEmail',width:100,align:'center',title : 'E-MAIL'},
-			{field:'memberPhone',width:100,align:'center',title : '전화 번호'},
-			{field:'soleDistPoint',width:100,align:'center',title : '총판 포인트',hidden:false, formatter : greenPointFormatter},
-			{field:'branchPoint',width:100,align:'center',title : '지점 포인트',hidden:false, formatter : greenPointFormatter},
-			{field:'agencyPoint',width:100,align:'center',title : '대리점 포인트',hidden:false, formatter : greenPointFormatter},
-			{field:'affiliatePoint',width:100,align:'center',title : '협력 업체 포인트',hidden:false, formatter : greenPointFormatter},
-			{field:'memberPoint',width:100,align:'center',title : '회원 포인트',hidden:false, formatter : greenPointFormatter},
-			{field:'total',width:100,align:'center',title : '포인트 총계', formatter : greenPointTotalFormatter},
+			{field:'memberPhone',width:70,align:'center',title : '전화 번호'},
+			{field:'memberRPoint',width:100,align:'center',title : 'R-POINT',hidden:false, formatter : redPointFormatter},
+			{field:'soleDistGPoint',width:100,align:'center',title : '총판 G-POINT',hidden:false, formatter : greenPointFormatter},
+			{field:'branchGPoint',width:100,align:'center',title : '지점 G-POINT',hidden:false, formatter : greenPointFormatter},
+			{field:'agencyGPoint',width:100,align:'center',title : '대리점 G-POINT',hidden:false, formatter : greenPointFormatter},
+			{field:'affiliateGPoint',width:100,align:'center',title : '협력업체 G-POINT',hidden:false, formatter : greenPointFormatter},
+			{field:'memberGPoint',width:100,align:'center',title : '회원 G-POINT',hidden:false, formatter : greenPointFormatter},
+			{field:'totalGPoint',width:100,align:'center',title : 'G-POINT 총계', formatter : greenPointTotalFormatter},
+			{field:'totalPoint',width:100,align:'center',title : '포인트 총계', formatter : sumTotalPoint},
 			]];
 initView();
 

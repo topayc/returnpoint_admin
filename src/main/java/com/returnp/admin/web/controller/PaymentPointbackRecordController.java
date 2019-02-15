@@ -92,6 +92,11 @@ public class PaymentPointbackRecordController extends ApplicationController{
 			SearchCondition searchCondition ) {
 		
 		PaymentPointbackRecordCommand record = new PaymentPointbackRecordCommand();
+		if (!StringUtils.isBlank(searchCondition.getSearchKeyword())) {
+			record.setMemberEmail(searchCondition.getSearchKeyword());
+			record.setMemberName(searchCondition.getSearchKeyword());
+			record.setAffiliateName(searchCondition.getSearchKeyword());
+		}
 		record.valueOf(searchCondition);
 		
 		ArrayListResponse<PaymentPointbackRecordCommand> res = new ArrayListResponse<PaymentPointbackRecordCommand>();

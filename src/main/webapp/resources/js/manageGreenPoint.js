@@ -8,7 +8,7 @@
 			{field:'nodeNo',width:50,align:'center',title : '노드 번호',hidden:true},
 			{field:'memberEmail',width:100,align:'center',title : '이메일'},
 			{field:'nodeTypeName',width:100,align:'center',title : '노드 이름',formatter : nodeTypeFormatter, hidden : true},
-			{field:'pointAmount',width:100,align:'center',title : 'R POINT', formatter : numberGreenFormatter},
+			{field:'pointAmount',width:100,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
 		    {field:'memberPhone',width:80,align:'center',title : '핸드폰'},
 			{field:'greenPointCreateTime',width:100,align:'center',title : '등록일',formatter : dateFormatter},
 			{field:'greenPointUpdateTime',width:100,align:'center',title : '수정일',formatter : dateFormatter},

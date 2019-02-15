@@ -97,7 +97,7 @@ public interface SearchService {
 	
 	public ArrayList<PaymentTransaction> findPaymentTransactions(PaymentTransaction record);
 
-	public ArrayList<PaymentTransactionCommand> findPaymentTransactionCommands(PaymentTransaction record);
+	public ArrayList<PaymentTransactionCommand> findPaymentTransactionCommands(PaymentTransactionCommand record);
 	
 	public ArrayList<PaymentPointbackRecordCommand> findPaymentPointbackRecordCommands(PaymentPointbackRecordCommand command);
 	
@@ -138,6 +138,8 @@ public interface SearchService {
 	public ArrayList<HashMap<String, Object>> selectMyTotalPointInfo(MemberCommand memberCommand);
 	
 	public int selectMemberCount();
+	
+	public ArrayList<HashMap<String, Object>> selectAffiliteSaleReport();
 	
 	
 }

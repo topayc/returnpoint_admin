@@ -11,7 +11,16 @@ public class PaymentPointbackRecordCommand extends PaymentPointbackRecord {
     private String memberEmail;
     private Float paymentApprovalAmount;
     private String affiliateSerial;
+    private String affiliateName;
     private Date paymentApprovalDateTime;
+    
+    
+	public String getAffiliateName() {
+		return affiliateName;
+	}
+	public void setAffiliateName(String affiliateName) {
+		this.affiliateName = affiliateName;
+	}
 	public String getMemberName() {
 		return memberName;
 	}

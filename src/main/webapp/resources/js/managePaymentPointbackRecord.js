@@ -1,15 +1,16 @@
 var columns = [[
 		{field:'paymentPointbackRecordNo',width:60,align:'center',title : '번호',hidden:true},
-		{field:'paymentTransactionNo',width:40,align:'center',title : '참조 결제번호',hidden:false},
-		{field:'memberNo',width:40,align:'center',title : '회원 번호',hidden:false},
-		{field:'memberName',width:70,align:'center',title : '이름'},
-		{field:'memberEmail',width:150,align:'center',title : '이메일'},
+		{field:'paymentTransactionNo',width:60,align:'center',title : '결제번호',hidden:false},
+		{field:'memberNo',width:60,align:'center',title : '회원 번호',hidden:false},
+		{field:'memberName',width:100,align:'center',title : '이름'},
+		{field:'memberEmail',width:120,align:'center',title : '이메일'},
+		{field:'memberPhone',width:100,align:'center',title : '핸드폰'},
 		{field:'nodeType',width:70,align:'center',title : '노드 타입', formatter : nodeTypeFormatter},
-		{field:'nodeNo',width:40,align:'center',title : '노드 번호'},
+		{field:'nodeNo',width:40,align:'center',title : '노드 번호', hidden : true},
+		{field:'affiliateName',width:100,align:'center',title : '결제 가맹점'},
 		{field:'paymentApprovalAmount',width:100,align:'center',title : '결제 금액',formatter : numberRedFormatter},
 		{field:'accRate',width:60,align:'center',title : '적립율'},
 		{field:'pointbackAmount',width:100,align:'center',title : '지급 G 포인트', formatter : numberGreenFormatter},
-		{field:'memberPhone',width:100,align:'center',title : '핸드폰'},
 		{field:'createTime',width:100,align:'center',title : '등록일', formatter : dateFormatter},
 		{field:'updateTime',width:100,align:'center',title : '수정일', formatter : dateFormatter},
 	 ]];
@@ -29,8 +30,15 @@ function initView(){
 	$('#searchForm').form();
 	
 	/* 검색어 입력 박스 초기화 */
-	$('#searchKeyword').textbox({ prompt : "검색할 단어를 입력해주세요" });
-	
+	$('#searchKeyword').textbox({ 
+		prompt : "검색할 단어를 입력해주세요" ,
+		inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
+			keyup:function(e){
+				if(e.keyCode==13)
+					realodPage();
+			}
+		})
+	});
 
 	/* 검색 시작일 갤린더 박스  초기화*/
 	$('#searchDateStart').datetimebox({
