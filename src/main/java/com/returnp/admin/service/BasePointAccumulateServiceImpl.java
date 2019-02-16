@@ -78,6 +78,13 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	@Override
 	public ReturnpBaseResponse accumulate(DataMap dataMap) throws Exception {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		
+		/*
+		 * 기본 결제 번호만으로는 중복이 될 수 있기 때문에 
+		 * 결제 번호에 TID 를 연결하여 TID 별 결제 번호를 생성
+		 *  */
+		dataMap.put("pan", (String)dataMap.get("af_id")+ "_" + (String)dataMap.getDateStr("pan")); 
+		
 		try {
 			switch(dataMap.getStr("acc_from").trim()){
 				case AppConstants.PaymentTransactionType.QR:
@@ -122,6 +129,13 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	@Override
 	public ReturnpBaseResponse cancelAccumulate(DataMap dataMap) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		
+		/*
+		 * 기본 결제 번호만으로는 중복이 될 수 있기 때문에 
+		 * 결제 번호에 TID 를 연결하여 TID 별 결제 번호를 생성
+		 *  */
+		dataMap.put("pan", (String)dataMap.get("af_id")+ "_" + (String)dataMap.getDateStr("pan"));
+		
 		try {
 			switch(dataMap.getStr("acc_from").trim()){
 				case AppConstants.PaymentTransactionType.QR:
