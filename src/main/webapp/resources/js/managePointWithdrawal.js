@@ -2,7 +2,7 @@
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 			    {field:'pointWithdrawalNo',width:20,align:'center',title : '출금 번호',hidden:false},
-			    {field:'memberNo',width:40,align:'center',title : '회원 번호', hidden: true},
+			    {field:'memberNo',width:20,align:'center',title : '회원 번호', hidden: false},
 			    {field:'memberName',width:30,align:'center',title : '회원 이름'},
 			    {field:'memberEmail',width:40,align:'center',title : '회원 이메일'},
 			    {field:'memberPhone',width:40,align:'center',title : '회원 모바일'},
@@ -316,7 +316,7 @@ function loadPointWithdrawalModifyForm(){
 	
 	$(data.targetElem).load("/api/pointWithdrawal/form/createForm?" + queryParam,
 		function(response, status, xhr) {
-		console.log("오픈할 DIV : " + data.targetElem);	
+		console.log("오픈할 DIV : " + data.targetElem);		
 				$(data.targetElem).dialog({
 					width:650,
 					cache : false,
@@ -342,7 +342,7 @@ function loadPointWithdrawalModifyForm(){
 				});
 				$(data.targetElem).dialog('center');
 				returnp.api.call('getPointWithdrawals', { pointWithdrawalNo : data.queryOptions.pointWithdrawalNo}, function(res){
-					console.log(res.data);
+					console.log(res);
 					if (res.resultCode  == "100") {		
 						if (res.rows.length > 0) {
 							$('#createPointWithdrawalForm').form('load',res.rows[0]);
@@ -351,7 +351,7 @@ function loadPointWithdrawalModifyForm(){
 						}
 					}else {
 						$.messager.alert('오류 발생', res.message);
-					}
+					}	
 				});
 				
 				/*선택한 회원의 R PAY 조회*/

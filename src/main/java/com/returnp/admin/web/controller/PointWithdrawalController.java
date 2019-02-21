@@ -76,6 +76,10 @@ public class PointWithdrawalController extends ApplicationController {
 			SearchCondition searchCondition) {
 		PointWithdrawalCommand cond = new PointWithdrawalCommand();
 		cond.valueOf(searchCondition);
+		if (searchCondition.getPointWithdrawalNo() != null){
+			cond.setPointWithdrawalNo(searchCondition.getPointWithdrawalNo());
+		}
+		System.out.println("pointWithdrawalNo " + cond.getPointWithdrawalNo());
 		if (!StringUtils.isEmpty(searchCondition.getSearchKeyword())) {
 			cond.setMemberEmail(searchCondition.getSearchKeyword());
 			cond.setMemberName(searchCondition.getSearchKeyword());

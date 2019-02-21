@@ -63,6 +63,10 @@ public class MemberBankAccountController extends ApplicationController {
 	public ReturnpBaseResponse  findMemberBankAccount( SearchCondition nodeSearch) {
 		MemberBankAccountCommand  mbac = new MemberBankAccountCommand();
 		
+		if (nodeSearch.getMemberNo() != null){
+			mbac.setMemberNo(nodeSearch.getMemberNo());
+		}
+		
 		if (StringUtils.isEmpty(nodeSearch.getSearchKeyword())) {
 			nodeSearch.setSearchKeyword(null);
 		}

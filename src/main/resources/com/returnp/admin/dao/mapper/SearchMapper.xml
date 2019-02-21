@@ -2952,7 +2952,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     		<include refid="Point_Withdrawal_Blob_Column_List" />
     	from point_withdrawal as PW
     	inner join member as M  on (PW.memberNo = M.memberNo)
-    	inner join member_bank_account as MBA  on (PW.memberBankAccountNo = MBA.memberBankAccountNo)
+    	left outer join member_bank_account as MBA  on (PW.memberBankAccountNo = MBA.memberBankAccountNo)
    		where 
     		1 = 1
     		<include refid = "Point_Withdrawal_Command_WhereStatement"/> 
