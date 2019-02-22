@@ -72,11 +72,12 @@ public class NodeController extends ApplicationController{
 			if (StringUtils.isEmpty(nodeSearch.getSearchKeyword())) {
 				nodeSearch.setSearchKeyword(null);
 			}
+			
+			memberCond.valueOf(nodeSearch);
 			memberCond.setMemberEmail(nodeSearch.getSearchKeyword());
 			memberCond.setMemberName(nodeSearch.getSearchKeyword());
-			// memberCond.setMemberPhone(nodeSearch.getSearchKeyword());
-			memberCond.valueOf(nodeSearch);
-            
+			memberCond.setMemberPhone(nodeSearch.getSearchKeyword());
+			
 			ArrayList<MemberCommand> memberList = this.searchService.findMemberCommands(memberCond);
 			ArrayListResponse<MemberCommand> slr = new ArrayListResponse<MemberCommand>();
 			slr.setRows(memberList);

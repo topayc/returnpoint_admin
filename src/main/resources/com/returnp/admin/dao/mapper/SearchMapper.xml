@@ -254,7 +254,6 @@
       <if test="memberType != null">AND  M.memberType = #{memberType,jdbcType=VARCHAR}</if>
       <if test="memberStatus != null and memberStatus !=  '0'  and memberStatus !=  0">AND  M.memberStatus = #{memberStatus,jdbcType=VARCHAR}</if>
       <if test="memberAuthType != null">AND  M.memberAuthType = #{memberAuthType,jdbcType=VARCHAR}</if>
-      <if test="memberPhone != null">AND  M.memberPhone = #{memberPhone,jdbcType=VARCHAR}</if>
       <if test="recommenderNo != null">AND  M.recommenderNo = #{recommenderNo,jdbcType=INTEGER}</if>
       <if test="joinRoute != null">AND  M.joinRoute = #{joinRoute,jdbcType=VARCHAR}</if>
       <if test="isSoleDist != null">AND  M.isSoleDist = #{isSoleDist,jdbcType=CHAR}</if>
@@ -269,14 +268,15 @@
       <if test="redPointAccStatus != null">AND  M.redPointAccStatus = #{redPointAccStatus,jdbcType=CHAR}</if>
       <if test="greenPointUseStatus != null">AND  M.greenPointUseStatus = #{greenPointUseStatus,jdbcType=CHAR}</if>
       <if test="redPointUseStatus != null">AND  M.redPointUseStatus = #{redPointUseStatus,jdbcType=CHAR}</if>
-      <if test="memberName != null or memberEmail != null or statusReason != null">
+      
+      <if test="memberName != null or memberEmail != null or memberPhone != null">
       	AND ( 1 = 2 
       </if>
-      <if test="memberName != null">OR M.memberName  LIKE CONCAT('%',#{memberName},'%') </if>
-      <if test="memberEmail != null">OR M.memberEmail  LIKE CONCAT('%',#{memberEmail},'%' ) </if>
-      <if test="memberPhone != null">OR M.memberPhone  LIKE CONCAT('%',#{memberPhone},'%') </if>
-      <if test="statusReason != null">OR  M.statusReason = #{statusReason,jdbcType=VARCHAR}</if>
-      <if test="memberName != null or memberEmail != null or statusReason != null">
+      <if test="memberName != null">OR M.memberName  LIKE CONCAT('%',#{memberName,jdbcType=VARCHAR},'%') </if>
+      <if test="memberEmail != null">OR M.memberEmail  LIKE CONCAT('%',#{memberEmail,jdbcType=VARCHAR},'%' ) </if>
+      <if test="memberPhone != null">OR M.memberPhone  LIKE CONCAT('%',#{memberPhone,jdbcType=VARCHAR},'%') </if>
+      
+      <if test="memberName != null or memberEmail != null or memberPhone != null">
       	)
       </if>
 	</sql>
