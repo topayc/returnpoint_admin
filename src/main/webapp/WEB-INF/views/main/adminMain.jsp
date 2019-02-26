@@ -218,8 +218,14 @@
                             </li> 
                             
                              <li data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">상품권 관리 </span>
+                            	 <span  style = "font-weight : bold">상품권 관리 (개발중) </span>
 		                         <ul>
+		                            	<li id = "" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = ""  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 판매 조직 관리</span>
+                            				</a> 
+                            			</li>
+                            			
                             			<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = ""  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 생성</span>
@@ -230,6 +236,13 @@
                             					<span style = "font-weight : bold">상품권 조회</span>
                             				</a> 
                             			</li>
+                            			
+                            			<li id = "" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = ""  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 판매 관리</span>
+                            				</a> 
+                            			</li>
+                            			
                             			<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = ""  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 결제 관리</span>
@@ -253,7 +266,7 @@
 		                         <ul>
 		                         	<li id = "manageMembershipRequest"  data-options = "iconCls :'icon-info'">
 		                         		<a class= "sub_menu"  view_req_name = "manageMarketer"  menu_deps= '2' >
-		                         			<span style = "font-weight : bold">마케팅 코드 및 ID 관리</span>
+		                         			<span style = "font-weight : bold">마케팅 코드, ID 관리</span>
 		                         		</a> 
 		                         	</li>
 		                        </ul>
@@ -290,7 +303,7 @@
 		                         <ul>
 			                          <li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
 				                          	<a class= "sub_menu"  view_req_name = "manageMemberBanckAccount"  menu_deps= '2' >
-				                          		<span style = "font-weight : bold">회원 은행 계좌 관리</span>
+				                          		<span style = "font-weight : bold">은행 계좌 관리</span>
 				                          	</a> 
 			                          	</li>
                             			<li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">

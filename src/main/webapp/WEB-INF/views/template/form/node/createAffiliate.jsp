@@ -264,11 +264,12 @@
 		$('#affiliateType').combobox({
 			 panelHeight: 'auto',
 			 onSelect : function(record){
+				/* 오프라인 사업자인 경우 */
 				 if (record.value == "A001"){
 					 $('#gen_tid').linkbutton('disable');
 				 }else {
 					$('#gen_tid').linkbutton('enable');
-					$('#affiliateSerial').textbox("clear");
+					/* $('#affiliateSerial').textbox("clear"); */
 				 }
 			 }
 		});
