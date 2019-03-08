@@ -185,6 +185,7 @@ $(function () {
         	updatePaymentTransaction: { apiCode: 10020, apiPath : '/api/paymentTransaction/update' ,  requestMethod: "post"},  
         	deletePaymentTransaction: { apiCode: 10020, apiPath : '/api/paymentTransaction/delete' ,  requestMethod: "post"},  
         	cancelPaymentTransaction: { apiCode: 10020, apiPath : '/api/paymentTransaction/cancel' ,  requestMethod: "post"},  
+        	cancelForcedPaymentTransaction: { apiCode: 10020, apiPath : '/api/paymentTransaction/forceCancel' ,  requestMethod: "post"},  
 
         	/* 포인트 이체 관련 */ 
         	getPointTransferTransactions: { apiCode: 10000, apiPath : '/api/pointTransferTransactions/find' ,  requestMethod: "get"},  

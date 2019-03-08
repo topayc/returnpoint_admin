@@ -247,6 +247,20 @@ public class PaymentTransactionController extends ApplicationController {
 		System.out.println("#####  cancelPaymentTransaction 호출됨");
 		return this.paymentransactionExecutorService.cancelAccumulateRequest(transaction.getPaymentTransactionNo());
 	}
+
+	/**
+	 * 결제 강제 취소 
+	 * @param transaction
+	 * @param httpSession
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/paymentTransaction/forceCancel", method = RequestMethod.POST)
+	public  ReturnpBaseResponse cancelForcedPaymentTransaction(PaymentTransaction transaction, HttpSession httpSession, Model model) {
+		System.out.println("#####  forceCancel 호출됨");
+		return this.paymentransactionExecutorService.cancelForcedAccumulateRequest(transaction.getPaymentTransactionNo());
+	}
 	
 	
 	@ResponseBody

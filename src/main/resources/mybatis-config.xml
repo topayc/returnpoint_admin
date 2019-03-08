@@ -8,5 +8,6 @@
 		<setting name="cacheEnabled" value="false" />
 		<setting name="useGeneratedKeys" value="true" />
 		<setting name="defaultExecutorType" value="REUSE" />
+		<setting name="defaultStatementTimeout" value="200" />
 	</settings>
 </configuration>	

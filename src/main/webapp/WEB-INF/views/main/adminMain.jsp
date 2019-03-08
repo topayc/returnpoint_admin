@@ -60,7 +60,7 @@
 <body class="dashboard">
     <div class="container easyui-layout"  style="width:100%">
     	<form id = "logOutForm" method="post" action="/j_spring_security_logout">
-        			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <div data-options="region:'north',border : true" style="height:30px;" >
         	<span style = "position: absolute;left : 15px;top:6px;display :none;font-weight : bold" id = "returnp_noti_membership">
         		<i class = "fa fa-exclamation-circle" style = "color : red"></i>
@@ -87,8 +87,8 @@
                         </span>
                         <ul>
                             <li id = "dashBoard"  data-options = "iconCls :'icon-info'">
-                            	 	<span  style = "font-weight : bold">대쉬 보드</span>
-                            	 <ul>
+                            	<span  style = "font-weight : bold">대쉬 보드</span>
+                            	<ul>
 		                            <li id = "dashBoard"  data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "dashBoard"  menu_deps= '2' >
 		                            		<span style = "font-weight : bold">Dash Board </span>
@@ -174,17 +174,18 @@
 		                            		<span style = "font-weight : bold">원본 결제 내역 관리</span>
 		                            	</a> 
 		                            </li> -->
-		                            <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
-		                            	<a class= "sub_menu"  view_req_name = "manageOverlapPaymentTransaction" menu_deps= '2' >
+		                             <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
 		                            		<span style = "font-weight : bold; ">결제 및 매출 관리</span>
 		                            	</a> 
 		                            </li>
-		                            
-		                             <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
-		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
+
+		                            <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "manageOverlapPaymentTransaction" menu_deps= '2' >
 		                            		<span style = "font-weight : bold; ">중복 결제</span>
 		                            	</a> 
 		                            </li>
+		                            
 		                             
 		                          	 <li data-options = "iconCls :'icon-manage'">
 		                          		<a class= ""  view_req_name = "manageFileUpload" menu_deps= '2' >
@@ -224,30 +225,25 @@
                             </li> 
                             
                              <li data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">상품권 관리 (개발중) </span>
+                            	 <span  style = "font-weight : bold">상품권 관리</span>
 		                         <ul>
 		                            	<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = ""  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 판매 조직 관리</span>
                             				</a> 
                             			</li>
-                            			
-                            			<li id = "" data-options = "iconCls :'icon-info'">
-                            				<a class= "sub_menu"  view_req_name = ""  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 생성</span>
-                            				</a> 
-                            			</li>
-                            			<li id = "" data-options = "iconCls :'icon-info'">
-                            				<a class= "sub_menu"  view_req_name = ""  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 조회</span>
+                            			<li id = "manageGiftCardProduct" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = "manageGiftCardProduct"  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 관리</span>
                             				</a> 
                             			</li>
                             			
                             			<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = ""  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 판매 관리</span>
+                            					<span style = "font-weight : bold">상품권 발행 관리</span>
                             				</a> 
                             			</li>
+                            
                             			
                             			<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = ""  menu_deps= '2' >

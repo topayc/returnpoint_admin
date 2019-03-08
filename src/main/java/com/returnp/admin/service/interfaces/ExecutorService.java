@@ -8,5 +8,6 @@ public interface ExecutorService {
 	public ReturnpBaseResponse accumulateRequest(PaymentTransaction transaction);
 	public ReturnpBaseResponse cancelAccumulateRequest(Integer paymentTransactionNo);
 	public ReturnpBaseResponse sendRequest(String urlData);
+	public ReturnpBaseResponse cancelForcedAccumulateRequest(Integer paymentTransactionNo);
 		
 }

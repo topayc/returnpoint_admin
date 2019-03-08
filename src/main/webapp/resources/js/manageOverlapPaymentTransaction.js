@@ -35,16 +35,6 @@ function initView(){
 	
 	/* 패널   초기화*/
 	$('.easyui-panel').panel({ border: false });
-	/* 폼 초기화*/
-	
-	
-	
-	var editData = [
-		{key:"1",value:"입금(결제) 확인중"},
-		{key:"2",value:"입금(결제) 확인 완료"},
-		{key:"3",value:"입금(결제) 취소 확인중"},
-		{key:"4",value:"입금(결제) 취소 완료"}
-	]
 	
 	/* 노드 데이타그리드   초기화*/
 	$('#node_list').datagrid({
@@ -79,20 +69,29 @@ function initView(){
 		  			case "cancel":
 		  				cancelPaymentTransaction();
 		  				break;	
+		  			case "cancelForce":
+		  				cancelForcedPaymentTransaction();
+		  				break;	
 		  			case "remove":
 		  				removePaymentTransaction();
 		  				break;
-		  			case "more_detail":
+		  			case "more_acc_detail":
 		  				var node = $('#node_list').datagrid('getSelected');
 		  				if (!node) {
 		  					 $.messager.alert('알림','세부 내역을 확인하실 항목을 선택해주세요');
 		  					 return;
 		  				}
-		  				var title = node.paymentApprovalStatus == "1" ? '해당 결제의  G POINT 적립 내역' : node.paymentApprovalStatus == "2" ? "해당 결제의 G-POINT 적립 취소 내역" : "";
-		  				loadPaymentPointbackRecord(
-		  						title, 
-		  					{paymentTransactionNo : node.paymentTransactionNo}
-		  				);
+		  				var title = '해당 결제의  G POINT 적립 내역';
+		  				loadPaymentPointbackRecord( title, {paymentTransactionNo : node.paymentTransactionNo} );
+		  				break;
+		  			case "more_cancel_detail":
+		  				var node = $('#node_list').datagrid('getSelected');
+		  				if (!node) {
+		  					 $.messager.alert('알림','세부 내역을 확인하실 항목을 선택해주세요');
+		  					 return;
+		  				}
+		  				var title = '해당 결제의  G POINT 적립 취소 내역';
+		  				loadPaymentPointbackRecord( title, {paymentTransactionNo : node.paymentTransactionNo} );
 		  				break;
 		  			case "re_pointback":
 		  				reAccumulate();
@@ -101,12 +100,16 @@ function initView(){
 		  		}
 		  	});
 		  	
-		  	var detailTitile1 = row.paymentApprovalStatus == "1" ? '해당 결제의  G POINT 적립 내역' : row.paymentApprovalStatus == "2" ? "해당 결제의 G-POINT 적립 취소 내역" : "";
-		  	var detailTitile2 = row.paymentApprovalStatus == "0" ? '결제 승인 취소' : "";
-		  	var menus = [/*'결제 내역 수정' , */detailTitile1 ,'결제 승인 취소 ' , /*'결제 내역 삭제' , */ '재적립 요청(해당내역 삭제 및 취소후 재적립 진행'];
-		  	var icons = [/*'icon-edit' , */'icon-more', 'icon-clear' , /*'icon-remove' ,*/ 'icon-redo'];
-		  	var actions = [/*'modify' , */'more_detail', 'cancel' , /*'remove' , */'re_pointback' ];
-		  	
+		  	var menus, icons, actions;
+		  	if (row.paymentApprovalStatus =="1" ) {
+		  		menus = ['해당 결제의  G POINT 적립 내역' ,'결제 승인 취소' , '적립 강제 취소' ,  '재적립 요청(해당내역 삭제 및 취소후 재적립 진행'];
+		  		icons = ['icon-more' , 'icon-clear' , 'icon-clear' ,  'icon-redo'];
+			  	actions = ['more_acc_detail' , 'cancel' , 'cancelForce', 're_pointback' ];
+		  	}else if (row.paymentApprovalStatus =="2"){
+		  		menus = ['해당 결제의  G POINT 적립 취소 내역'];
+		  		icons = ['icon-more'];
+			  	actions = ['more_cancel_detail' ];
+		  	}
 		  /*	if (row.pointBackStatus == '1' || row.pointBackStatus == '2') {
 		  		menus.push("해당 결제 내역 포인트 적립 재 요청");
 		  		icons.push("icon-redo");
@@ -496,6 +499,38 @@ function cancelPaymentTransaction(){
 	        	});
 			}
 		});
+}
+
+function cancelForcedPaymentTransaction(){
+	var node = $('#node_list').datagrid('getSelected');
+	if (!node) {
+		$.messager.alert('알림','취소하실 거래 내역을 선택해주세요');
+		return;
+	}
+	if (node.pointBackStatus == "4" || node.pointBackStatus == "5"  || 
+			node.pointBackStatus == "6" || node.pointBackStatus == "7" || 
+			node.pointBackStatus == "8"){
+		$.messager.alert('알림','해당 내역은 취소할 수 없는 내역입니다');
+		return;
+	}
+	$.messager.confirm(
+			'알림', 
+			"해당 거래 내역이 취소됩니다. </br>취소 시 관련 계층의 G Point가  취소된 포인트만큼 차감됩니다. 진행하시겠습니까?",
+			function(r){
+				if (r) {
+					var param = { paymentTransactionNo : node.paymentTransactionNo }
+					returnp.api.call("cancelForcedPaymentTransaction", param, function(res){
+						if (res.resultCode  == "100") {
+							$.messager.alert('알림', res.message);
+							realodPage();
+						}else {
+							//console.log("[오류]");
+							//console.log(res);
+							$.messager.alert('오류 발생', res.message);
+						}
+					});
+				}
+			});
 }
 
 function removePaymentTransaction(){
