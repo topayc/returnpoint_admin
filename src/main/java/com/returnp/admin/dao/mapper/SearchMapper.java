@@ -99,6 +99,8 @@ public interface SearchMapper {
 	public ArrayList<PaymentTransaction> findPaymentTransactions(PaymentTransaction record);
 	
 	public ArrayList<PaymentTransactionCommand> findPaymentTransactionCommands(PaymentTransactionCommand record);
+
+	public ArrayList<PaymentTransactionCommand> SelectOverlapPaymentTransactionCommands(PaymentTransactionCommand record);
 	
 	public ArrayList<PaymentPointbackRecordCommand> findPaymentPointbackRecordCommands(PaymentPointbackRecordCommand command);
 	

@@ -99,6 +99,18 @@ public class PaymentTransactionController extends ApplicationController {
 		return res;
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/paymentTransactionCommands/overlap", method = RequestMethod.GET)
+	public ReturnpBaseResponse  getOverlapPaymentTransactionis() {
+		PaymentTransactionCommand vCond = new PaymentTransactionCommand();
+		ArrayListResponse<PaymentTransactionCommand> res = new ArrayListResponse<PaymentTransactionCommand>();
+		ArrayList<PaymentTransactionCommand> list = this.searchService.selectOverlapPaymentTransactionCommands(vCond);
+		res.setRows(list);
+		res.setTotal(list.size());	
+		this.setSuccessResponse(res);
+		return res;
+	}
+
 	
 	@ResponseBody
 	@RequestMapping(value = "/paymentTransactions", method = RequestMethod.GET)

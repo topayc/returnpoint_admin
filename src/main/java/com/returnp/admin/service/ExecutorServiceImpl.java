@@ -44,8 +44,8 @@ public class ExecutorServiceImpl implements ExecutorService{
 	}
 	
 	public void callPointbackProgress(final  String cmd, final int no) {
-		String remoteCallURL = environment.getProperty("run_mode").equals("dev") ?  
-				environment.getProperty("dev.pointback_remote_url_by_admin") : environment.getProperty("real.pointback_remote_url_by_admin");
+		String runMode = environment.getProperty("run_mode");
+		String remoteCallURL = environment.getProperty(runMode + ".pointback_remote_url_by_admin");
 		String key = environment.getProperty("key");
 	
 		try {
@@ -77,9 +77,9 @@ public class ExecutorServiceImpl implements ExecutorService{
 
 	@Override
 	public ReturnpBaseResponse accumulateRequest(PaymentTransaction transaction) {
-		String remoteCallURL = environment.getProperty("run_mode").equals("dev") ?  
-				environment.getProperty("dev.manual_accumulate_point") : environment.getProperty("real.manual_accumulate_point");
-				String key = environment.getProperty("key");
+		String runMode = environment.getProperty("run_mode");
+		String remoteCallURL = environment.getProperty(runMode + ".manual_accumulate_point");
+		String key = environment.getProperty("key");
 		ReturnpBaseResponse res = null;
 		String urlData;
 		try {
@@ -112,9 +112,9 @@ public class ExecutorServiceImpl implements ExecutorService{
 	
 	@Override
 	public ReturnpBaseResponse cancelAccumulateRequest(Integer paymentTransactionNo) {
-		String remoteCallURL = environment.getProperty("run_mode").equals("dev") ?  
-				environment.getProperty("dev.cancel_acc_by_payment_transaction_no") : environment.getProperty("real.cancel_acc_by_payment_transaction_no");
-				String key = environment.getProperty("key");
+		String runMode = environment.getProperty("run_mode");
+		String remoteCallURL = environment.getProperty(runMode + ".cancel_acc_by_payment_transaction_no");
+		String key = environment.getProperty("key");
 		String url = remoteCallURL + "?paymentTransactionNo=" + paymentTransactionNo + "&key=" + key;
 		return this.sendRequest(url);
 	}

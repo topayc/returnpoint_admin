@@ -177,6 +177,7 @@ $(function () {
         	getPaymentTransactions: { apiCode: 10000, apiPath : '/api/paymentTransactions' ,  requestMethod: "get"},  
         	getPaymentTransactionCommands: { apiCode: 10000, apiPath : '/api/paymentTransactionCommands' ,  requestMethod: "get"},  
         	getPaymentTransaction: { apiCode: 10000, apiPath : '/api/paymentTransaction/get' ,  requestMethod: "get"},  
+        	getOvelapPaymentTransactionCommands: { apiCode: 10000, apiPath : '/api/paymentTransactionCommands/overlap' ,  requestMethod: "get"},  
         	genPan: { apiCode: 10000, apiPath : '/api/paymentTransaction/genPan' ,  requestMethod: "get"},  
         	createPaymentTransaction: { apiCode: 10020, apiPath : '/api/paymentTransaction/create' ,  requestMethod: "get"},  
         	createNewPaymentTransaction: { apiCode: 10020, apiPath : '/api/paymentTransaction/newCreate' ,  requestMethod: "get"},  

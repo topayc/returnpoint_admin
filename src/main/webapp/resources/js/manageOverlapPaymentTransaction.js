@@ -36,7 +36,87 @@ function initView(){
 	/* 패널   초기화*/
 	$('.easyui-panel').panel({ border: false });
 	/* 폼 초기화*/
+	$('#searchForm').form();
 	
+	/* 검색어 입력 박스 초기화 */
+	$('#searchKeyword').textbox({ 
+		prompt : "검색할 단어를 입력해주세요" ,
+		inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
+			keyup:function(e){
+				if(e.keyCode==13)
+					realodPage();
+			}
+		})
+	});
+	
+	
+	$('#searchPaymentApprovalStatus').combobox({
+		labelPosition : 'top',
+		showItemIcon: true,
+		editable: false,
+		panelHeight: 'auto',
+		labelPosition: 'top',
+		multiple:false,
+		required:true,
+	});
+
+	$('#searchPaymentTransactionType').combobox({
+		labelPosition : 'top',
+		showItemIcon: true,
+		editable: false,
+		panelHeight: 'auto',
+		labelPosition: 'top',
+		multiple:false,
+		required:true,
+	});
+
+	/* 검색 시작일 갤린더 박스  초기화*/
+	$('#searchDateStart').datetimebox({
+		 prompt : "검색 시작 일자",
+	    showSeconds: false,
+	    labelPosition: 'top',
+	});
+	
+	/* 검색 종료일 갤린더 박스  초기화*/
+	$('#searchDateEnd').datetimebox({
+		 prompt : "검색 종료 일자",
+		showSeconds: false,
+	    labelPosition: 'top',
+	});
+	
+	/* 검색 버튼  초기화*/
+	$('#search_btn').linkbutton({
+		onClick : function(){
+			var param = makeSearchParam();
+			returnp.api.call("getPaymentTransactionCommands", param, function(res){
+				console.log("getPaymentTransactions");
+				console.log(res);
+				if (res.resultCode == "100") {
+					$('#node_list').datagrid({
+						data : res,
+						title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
+					});
+					setListPager();
+				}else {
+					$.messager.alert('오류 발생', message);
+				}
+			});
+		},
+		iconCls:'icon-search'
+	});
+	
+	/* 리셋 버튼  초기화*/
+	$('#reset_btn').linkbutton({
+		onClick : function(){
+			//$('#searchForm').form('clear');
+			$('#searchPaymentApprovalStatus').combobox('select', 0);
+			$('#paymentType').combobox('select', 0);
+			$('#keywordType').combobox('select', 0);
+			$('#searchKeyword').textbox('clear');
+			$('#searchDateStart').datetimebox('clear');
+			$('#searchDateEnd').datetimebox('clear');
+		}
+	});
 	
 	
 	var editData = [
@@ -525,19 +605,7 @@ function removePaymentTransaction(){
 }
 
 function realodPage(){
-	returnp.api.call("getOvelapPaymentTransactionCommands", {}, function(res){
-		console.log("getOvelapPaymentTransactionCommands");
-		console.log(res);
-		if (res.resultCode == "100") {
-			$('#node_list').datagrid({
-				data : res,
-				title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
-			});
-			setListPager();
-		}else {
-			$.messager.alert('오류 발생', message);
-		}
-	});
+	$('#search_btn').click();
 }
 
 $(function(){

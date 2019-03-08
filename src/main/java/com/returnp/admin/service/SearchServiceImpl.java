@@ -319,4 +319,10 @@ public class SearchServiceImpl implements SearchService{
 	public ArrayList<HashMap<String, Object>> selectAffiliteSaleReport() {
 		return this.searchMapper.selectAffiliteSaleReport();
 	}
+	
+	@Override
+	public ArrayList<PaymentTransactionCommand> selectOverlapPaymentTransactionCommands(PaymentTransactionCommand record){
+		return this.searchMapper.SelectOverlapPaymentTransactionCommands(record);
+	};
+	
 }

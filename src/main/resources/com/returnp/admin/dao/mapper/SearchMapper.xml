@@ -3003,5 +3003,38 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     order by totalAffiliteSale desc;
     
   </select>
+  
+  	<select id="SelectOverlapPaymentTransactionCommands"    parameterType="com.returnp.admin.dto.command.PaymentTransactionCommand"  resultMap="PaymentTransactionCommand_ResultMap" >
+   	  select
+   	  sql_calc_found_rows
+    PA.paymentTransactionNo, 
+  	PA.memberNo, 
+  	PA.memberName, 
+  	PA.memberPhone, 
+  	PA.memberEmail, 
+  	PA.nodeType, 
+  	PA.nodeNo, 
+    PA.nodeEmail, 
+    PA.nodeName, 
+    PA.nodePhone, 
+    PA.affiliateNo, 
+    PA.affiliateSerial, 
+    AF.affiliateName, 
+    PA.paymentApprovalAmount, 
+    PA.paymentApprovalNumber, 
+    PA.paymentApprovalStatus, 
+    PA.pointBackStatus, 
+    PA.paymentTransactionType, 
+    PA.paymentApprovalDateTime, 
+    PA.orgPaymentData, 
+    PA.regAdminNo, 
+    PA.createTime, 
+    PA.updateTime
+	FROM payment_transaction as PA
+	inner join affiliate as AF on (PA.affiliateSerial= AF.affiliateSerial)
+	WHERE 
+		PA.paymentApprovalNumber IN (SELECT paymentApprovalNumber FROM payment_transaction GROUP BY paymentApprovalNumber HAVING COUNT(paymentApprovalNumber) > 1)
+	order by PA.paymentApprovalNumber   
+  </select>
 </mapper>
  

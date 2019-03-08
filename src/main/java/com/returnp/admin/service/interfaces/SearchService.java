@@ -3,6 +3,7 @@ package com.returnp.admin.service.interfaces;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.returnp.admin.dto.command.AffiliateCommand;
@@ -140,6 +141,8 @@ public interface SearchService {
 	public int selectMemberCount();
 	
 	public ArrayList<HashMap<String, Object>> selectAffiliteSaleReport();
+	
+	public ArrayList<PaymentTransactionCommand> selectOverlapPaymentTransactionCommands(PaymentTransactionCommand record);
 	
 	
 }
