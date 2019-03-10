@@ -486,33 +486,33 @@
 		<img src="resources/images/progress_loading.gif"/>
 	</div>
 	<script>
-	$.fn.serializeObject = function () {
-	    "use strict";
-	    var result = {};
-	    var extend = function (i, element) {
-	        var node = result[element.name];
-	        if ('undefined' !== typeof node && node !== null) {
-	           if ($.isArray(node)) {
-	               node.push(element.value);
-	           } else {
-	               result[element.name] = [node, element.value];
-	           }
-	        } else {
-	            result[element.name] = element.value;
-	        }
-	    };
-	 
-	    $.each(this.serializeArray(), extend);
-	    return result;
-	};
+		$.fn.serializeObject = function () {
+		    "use strict";
+		    var result = {};
+		    var extend = function (i, element) {
+		        var node = result[element.name];
+		        if ('undefined' !== typeof node && node !== null) {
+		           if ($.isArray(node)) {
+		               node.push(element.value);
+		           } else {
+		               result[element.name] = [node, element.value];
+		           }
+		        } else {
+		            result[element.name] = element.value;
+		        }
+		    };
+		 
+		    $.each(this.serializeArray(), extend);
+		    return result;
+		};
 	</script>
     <script>
-   	var isAjax = false;
-    Array.prototype.hasValue = function(value) {
-    	  var i;
-    	  for (i=0; i<this.length; i++) { if (this[i] === value) return true; }
-    	  return false;
-    	}
+   		var isAjax = false;
+    	Array.prototype.hasValue = function(value) {
+    		var i;
+    		for (i=0; i<this.length; i++) { if (this[i] === value) return true; }
+    		return false;
+     	}
     
     	var selectedMenu = {};
 	    var appNavigation = {deps1 : "",deps2 : "",deps3 :""};
