@@ -221,6 +221,12 @@ $(function () {
         	makeApiKey: {apiCode: 10000, apiPath : '/api/apiService/makeKey' , requestMethod: 'post'}, /* API 키 발급,등록 */
         	makeRfId: {apiCode: 10000, apiPath : '/api/apiService/makeRfId' , requestMethod: 'post'}, /* API 키 발급,등록 */
         	
+        	/*상품 */
+        	selectProducts: {apiCode: 10000, apiPath : '/api/products' , requestMethod: 'get'}, /* 상품 리스트 가져오기*/
+          	createProduct: {apiCode: 10000, apiPath : '/api/product/create' , requestMethod: 'post'}, /* 상품 생성 */
+        	updateProduct: {apiCode: 10000, apiPath : '/api/product/update' , requestMethod: 'post'}, /* 상품 수정 */
+        	deleteProduct: {apiCode: 10000, apiPath : '/api/product/delete' , requestMethod: 'post'}, /* 상품 삭제 */
+        	
         	 /* 로그인 */
         	signIn : { apiCode: 10000, requestMethod: "post"}, 
         	 /* 일반 회원 등록 , 가입*/

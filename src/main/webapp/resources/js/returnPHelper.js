@@ -4,12 +4,27 @@ function getNumber(str)
     return (new Number(str));
 }
 
+function imageTagFormatter(value,row,index){
+	return "<img witdh = '100' height = '60' src = '"+ value +"' />"
+}
+
 function affiliateTypeFormatter(value,row,index){
 	switch(row.affiliateType){
 	case "A001": result = "오프라인 사업자" ; break;
 	case "A002": result = "온라인 사업자";break;
 	case "A003": result = "무사업자";break;
 	default :result = "무사업자";break;
+	}
+	return result; 
+}
+
+	
+function productStatusFormatter(value,row,index){
+	switch(row.productStatus){
+	case "1": result = '<span style = "border-radius: 10px;background-color: green;padding: 5px;color : #ffffff;font-weight : bold">판매중</span>' ; break;
+	case "2": result =  '<span style = "border-radius: 10px;background-color: red;padding: 5px;color : #ffffff;font-weight : bold">판매중지</span>' ; break;
+	case "3": result = '<span style = "border-radius: 10px;background-color: #01A9DB;padding: 5px;color : #ffffff;font-weight : bold">재고 없음</span>' ; break;
+	default :result = "-";break;
 	}
 	return result; 
 }

@@ -41,8 +41,16 @@ public class SearchCondition extends QueryCondition {
     private String searchApiServiceType;
     private String searchApiServiceStatus;
     private Integer pointWithdrawalNo;
+    
+    private Integer productNo;
 	
     
+	public Integer getProductNo() {
+		return productNo;
+	}
+	public void setProductNo(Integer productNo) {
+		this.productNo = productNo;
+	}
 	public Integer getPointWithdrawalNo() {
 		return pointWithdrawalNo;
 	}

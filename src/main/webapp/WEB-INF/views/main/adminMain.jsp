@@ -233,7 +233,7 @@
                             				</a> 
                             			</li>
                             			<li id = "manageGiftCardProduct" data-options = "iconCls :'icon-info'">
-                            				<a class= "sub_menu"  view_req_name = "manageGiftCardProduct"  menu_deps= '2' >
+                            				<a class= "sub_menu"  view_req_name = "manageProduct"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 관리</span>
                             				</a> 
                             			</li>

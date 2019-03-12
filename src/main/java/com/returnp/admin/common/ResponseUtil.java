@@ -3,6 +3,10 @@ package com.returnp.admin.common;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 
 public class ResponseUtil {
+	
+	public static final String RESPONSE_OK = "1000";
+	public static final String RESPONSE_ERROR = "2000";
+	
 	public static void setResponse(ReturnpBaseResponse res, String resultCode, String message ){ 
 		res.setResultCode(resultCode);	
 		res.setMessage(message);

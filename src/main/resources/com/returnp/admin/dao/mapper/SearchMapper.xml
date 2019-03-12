@@ -3036,5 +3036,42 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
 		PA.paymentApprovalNumber IN (SELECT paymentApprovalNumber FROM payment_transaction GROUP BY paymentApprovalNumber HAVING COUNT(paymentApprovalNumber) > 1)
 	order by PA.paymentApprovalNumber   
   </select>
+  <!-- ===============================================================================================================    -->
+  <resultMap id="ProductResultMap" type="com.returnp.admin.model.Product">
+      <id column="productNo" jdbcType="INTEGER" property="productNo" />
+    <result column="productName" jdbcType="VARCHAR" property="productName" />
+    <result column="productPrice" jdbcType="INTEGER" property="productPrice" />
+    <result column="productSalePrice" jdbcType="INTEGER" property="productSalePrice" />
+    <result column="productDes" jdbcType="VARCHAR" property="productDes" />
+    <result column="productStatus" jdbcType="VARCHAR" property="productStatus" />
+    <result column="productCategory" jdbcType="VARCHAR" property="productCategory" />
+    <result column="productImgPath1" jdbcType="VARCHAR" property="productImgPath1" />
+    <result column="productImgPath2" jdbcType="VARCHAR" property="productImgPath2" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+  <sql id ="productSearchWhereStatement">
+	 <if test="productNo != null"> AND productNo = #{productNo,jdbcType=INTEGER}</if>
+	 <if test="productName != null"> AND productName = #{productName,jdbcType=VARCHAR}</if>
+     <if test="productStatus != null"> AND productStatus = #{productStatus,jdbcType=VARCHAR} </if>
+     <if test="productCategory != null"> AND productCategory = #{productCategory,jdbcType=VARCHAR}</if>
+  </sql>
+	
+  <sql id="Product_Column_List">
+  productNo, productName, productPrice, productSalePrice, productDes, productStatus, 
+    productCategory, productImgPath1, productImgPath2, createTime, updateTime
+  </sql>
+  
+ <!-- Product -->
+  <select id="selectProducts"    parameterType="com.returnp.admin.model.Product"  resultMap="ProductResultMap" >
+   	select
+   	 	sql_calc_found_rows
+    	<include refid="Product_Column_List" />
+    from product
+    where 
+    	1 = 1 
+    	<include refid = "productSearchWhereStatement"/>
+  </select>
 </mapper>
  

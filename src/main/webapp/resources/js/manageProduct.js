@@ -1,27 +1,17 @@
 		columns = [[
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-			    {field:'agencyNo',width:15,align:'center',title : '번호',hidden:false},
-			    {field:'memberName',width:25,align:'center',title : '회원 이름'},
-			    {field:'agencyCode',width:40,align:'center',title : '대리점 코드'},
-			    {field:'agencyName',width:40,align:'center',title : '대리점 이름'},
-			    {field:'agencyStatus',width:20,align:'center',title : '대리점  상태', formatter : nodeStatusFormatter},
-			    {field:'greenPointAmount',width:30,align:'center',title : 'G Point', formatter : numberGreenFormatter},
-			    {field:'redPointAmount',width:30,align:'center',title : 'R Point', formatter : numberRedFormatter},
-			    {field:'branchName',width:40,align:'center',title : '소속 지사', hidden:false,formatter : slashFormatter},
-			    {field:'recommenderName',width:20,align:'center',title : '추천인'},
-			    {field:'greenPointAccStatus',width:15,align:'center',title : 'G 적립', formatter : ynFormatter},
-			    {field:'redPointAccStatus',width:15,align:'center',title : 'R 적립', formatter : ynFormatter},
-			    {field:'greenPointUseStatus',width:15,align:'center',title : 'G 사용', formatter : ynFormatter},
-			    {field:'redPointUseStatus',width:15,align:'center',title : 'R 사용', formatter : ynFormatter},
-/*			    {field:'agencyAddress',width:40,align:'center',title : '대리점 주소'},
-			    {field:'agencyTel',width:30,align:'center',title : '대리점 전화',hidden:true},
-			    {field:'agencyPhone',width:30,align:'center',title : '대리점 핸드폰'},*/
-			    {field:'createTime',width:30,align:'center',title : '등록일',formatter : dateFormatter},
-			    {field:'updateTime',width:30,align:'center',title : '수정일',formatter : dateFormatter,hidden:true},
-			    {field:'memberNo',width:15,align:'center',title : 'memberNo',hidden:true},
-			    {field:'branchNo',width:15,align:'center',title : 'barachNo',hidden:true},
-			    {field:'recommenderNo',width:15,align:'center',title : 'recommenderNo',hidden:true}
+			    {field:'productNo',width:50,align:'center',title : '등록 번호',hidden:false},
+			    {field:'productName',width:100,align:'center',title : '상품 이름'},
+			    {field:'productPrice',width:50,align:'center',title : '상품 가격', formatter : numberGreenFormatter},
+			    {field:'productSalePrice',width:60,align:'center',title : '상품 판매 가격', formatter : numberRedFormatter},
+			    {field:'productDes',width:140,align:'center',title : '상품 상세 설명'},
+			    {field:'productCategory',width:70,align:'center',title : '상품 카테고리'},
+			    {field:'productStatus',width:60,align:'center',title : '상품 상태', formatter  : productStatusFormatter},
+			    {field:'productImgPath1',width:100,align:'center',title : '상품 이미지1', formatter  : imageTagFormatter},
+			    {field:'productImgPath2',width:100,align:'center',title : '상품 이미지2' , formatter  : imageTagFormatter},
+			    {field:'createTime',width:100,align:'center',title : '등록일', formatter : dateFormatter},
+			    {field:'updateTime',width:100,align:'center',title : '수정일', formatter : dateFormatter},
 			    ]];
 initView();
 
@@ -41,6 +31,7 @@ function initView(){
 	
 	/* 검색어 입력 박스 초기화 */
 	$('#searchKeyword').textbox({ 
+		width: 300,
 		prompt : "검색할 단어를 입력해주세요" ,
 		inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
 			keyup:function(e){
@@ -51,7 +42,8 @@ function initView(){
 	});
 	
 	/* 노드 타입 셀렉트 박스  초기화*/
-	$('#searchNodeType').combobox({
+	$('#searchProductCategory').combobox({
+		width: 150,
 		labelPosition : 'top',
 		showItemIcon: true,
 		editable: false,
@@ -63,7 +55,8 @@ function initView(){
 	});
 	
 	/* 노드 상태 셀렉트 박스  초기화*/
-	$('#searchNodeStatus').combobox({
+	$('#searchProductStatus').combobox({
+		width: 150,
 		labelPosition : 'top',
 		showItemIcon: true,
 		editable: false,
@@ -75,6 +68,7 @@ function initView(){
 	
 	/* 검색어 타입 셀렉트 박스  초기화*/
 	$('#searchKeywordType').combobox({
+		width: 150,
 		labelPosition : 'top',
 		showItemIcon: true,
 		editable: false,
@@ -87,13 +81,15 @@ function initView(){
 	/* 검색 시작일 갤린더 박스  초기화*/
 	$('#searchDateStart').datebox({	   
 	    prompt : "검색 시작 일자",
-	    labelPosition: 'top'
+	    labelPosition: 'top',
+	    width: 170
 	});
 	
 	/* 검색 종료일 갤린더 박스  초기화*/
 	$('#searchDateEnd').datebox({	  
 	    prompt : "검색 종료 일자",
 	    labelPosition: 'top',
+	    width: 170
 	});
 	
 	/* 검색 버튼  초기화*/
@@ -104,12 +100,11 @@ function initView(){
 			//console.log("검색 쿼리 데이타");
 			//console.log(param);
 			
-			returnp.api.call("getNodes", param, function(res){
-				//console.log("node datas");
-				//console.log(res);
+			returnp.api.call("selectProducts", param, function(res){
+				console.log(res);
 				if (res.resultCode == "100") {
 					setListColumnHeader(param.searchNodeType);
-					$('#node_list').datagrid({
+					$('#product_list').datagrid({
 						data : res,
 						title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
 					});
@@ -135,7 +130,7 @@ function initView(){
 	});
 	
 	/* 노드 데이타그리드   초기화*/
-	$('#node_list').datagrid({
+	$('#product_list').datagrid({
 		title : '[검색 결과]',
 		singleSelect:true,
 		collapsible:false,
@@ -158,44 +153,32 @@ function initView(){
 		  	cmenu.menu({
 		  		onClick : function(item){
 		  			switch(item.action){
-		  			case "create":
-		  				loadAgencyCreatForm()
-		  				break;
 		  			case "modify":
-		  				loadAgencyModifyForm()
+		  				loadProductModifyForm()
 		  				break;
 		  			case "remove":
-		  				removeAgency();
+		  				removeProduct();
 		  				break;
-		  			case "more_detail":
+		  			case "view_product_image1":
+		  				viewProductImage1();
 		  				break;
-		  			case "point_acc_view":
-		  				var node = $('#node_list').datagrid('getSelected');
-		  				if (!node) {
-		  					 $.messager.alert('알림','세부 내역을 확인하실 항목을 선택해주세요');
-		  					 return;
-		  				}
-		  				loadPaymentPointbackRecord(
-		  					"Green Point 누적 지급 현황", 
-		  					{
-		  						memberNo : node.memberNo,
-		  						nodeType : 4
-		  					}
-		  				);
+		  			case "view_product_image2":
+		  				viewProductImage2();
+		  				break;
 		  			}
 		  		},
 		  		itemHeight : 27
 		  	});
 		  	
-		  	var menus = [  '수정', '삭제','상세 정보','포인트 누적 현황' ];
-		  	var icons = ['icon-edit','icon-remove','icon-more', 'icon-large-chart'];
-		  	var actions = ['modify','remove','more_detail','point_acc_view'];
+		  	var menus = [  '수정', '삭제','상품 이미지1 보기','상품 이미지2 보기' ];
+		  	var icons = ['icon-edit','icon-remove','icon-detail','icon-detail'];
+		  	var actions = ['modify','remove','view_product_image1','view_product_image2'];
 		  	
 		  	for(var i=0; i<menus.length; i++){
 		  		cmenu.menu('appendItem', {
 		  			data : row,
 		  			no : row.memberNo,
-		  			text:  "<strong>[" + row.agencyName + "]</strong>"  + " " + menus[i],
+		  			text:  "<strong>[" + row.productName + " 상품 ]</strong>"  + " " + menus[i],
 		  			action: actions[i],
 		  			iconCls: icons[i]
 		  		});
@@ -212,17 +195,17 @@ function initView(){
 }
 
 function setListPager(){
-	var pager = $('#node_list').datagrid().datagrid('getPager');
+	var pager = $('#product_list').datagrid().datagrid('getPager');
 	pager.pagination({
 		displayMsg : ' {from} to {to} of {total}',
 		buttons:[{
             iconCls:'icon-add',
             handler:function(){
-            	$('#node_list').datagrid('unselectAll');
-            	$('#node_list').datagrid('uncheckAll');
-            	loadAgencyCreateForm();
+            	$('#product_list').datagrid('unselectAll');
+            	$('#product_list').datagrid('uncheckAll');
+            	loadProductCreateForm();
             }
-        },{
+        }/*,{
             iconCls:'icon-edit',
             handler:function(){
               loadAgencyModifyForm();
@@ -230,21 +213,21 @@ function setListPager(){
         },{
             iconCls:'icon-remove',
             handler:function(){
-            	removeAgency();
+            	removeProduct();
             }
         },{
             iconCls:'icon-more',
             handler:function(){
-            	var node = $('#node_list').datagrid('getSelected');
+            	var node = $('#product_list').datagrid('getSelected');
             	if (!node) {
             		 $.messager.alert('알림','자세히 보실 항목을  선택해주세요');
             		 return;
             	}
             }
-        }],
+        }*/],
         layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
         onSelectPage:function(page,rows){        	
-        	var opts = $('#node_list').datagrid('options');
+        	var opts = $('#product_list').datagrid('options');
         	opts.pageSize=rows;
         	opts.pageNumber = page;
         	realodPage();
@@ -258,7 +241,7 @@ function setListPager(){
  * @returns
  */
 function setListColumnHeader(nodeType){
-	$('#node_list').datagrid({
+	$('#product_list').datagrid({
 		columns : columns
 	});
 }
@@ -281,8 +264,8 @@ function formatDate(date) {
 function makeSearchParam(){
 	
 	var param = $('#searchForm').serializeObject();
-	var opts = $('#node_list').datagrid('options');
-	var total = $('#node_list').datagrid('getData').total;
+	var opts = $('#product_list').datagrid('options');
+	var total = $('#product_list').datagrid('getData').total;
 	
 	$.extend(param, {
 		pagination : opts.pagination,
@@ -300,11 +283,10 @@ function statusFormatter(value,row,index){
 	return '&nbsp;<span >'+ status + '</span>';
 }
 
-function loadAgencyCreateForm(){
-	
+function loadProductCreateForm(){
 	var data = {
     	targetElem : "#dlgForm",
-        title : "대리점 생성",
+        title : " 상품 생성",
         queryOptions : {
         	action : "create",
        }
@@ -312,7 +294,7 @@ function loadAgencyCreateForm(){
 	
 	//console.log("loadAgencyCreateForm");
 	var queryParam = $.param(data.queryOptions);
-	$(data.targetElem).load("/api/agency/form/createForm?" + queryParam,
+	$(data.targetElem).load("/api/product/form/createForm?" + queryParam,
 		function(response, status, xhr) {	
 			$(data.targetElem).dialog({
 				width:600,
@@ -329,7 +311,7 @@ function loadAgencyCreateForm(){
 				buttons:[
 					{ text:'확인', iconCls:'icon-ok', handler:function(){
 						var nodeType = $('input[name=searchNodeType]').val();
-						createAgency(data);
+						createProduct(data);
 					} },
 					{ text:'취소', handler:function(){
 						console.log("닫을 DIV : " + data.targetElem);	
@@ -342,8 +324,8 @@ function loadAgencyCreateForm(){
 		});
 }
 
-function loadAgencyModifyForm(){
-   	var node = $('#node_list').datagrid('getSelected');
+function loadProductModifyForm(){
+   	var node = $('#product_list').datagrid('getSelected');
 	if (!node) {
 		 $.messager.alert('알림','수정하실 노드를 선택해주세요');
 		 return;
@@ -351,10 +333,10 @@ function loadAgencyModifyForm(){
 	
 	var data = {
         targetElem : "#dlgForm",
-        title : "[" +node.agencyName + "] " + " 대리점 수정",
+        title : "[" +node.productName + "] " + " 수정",
         queryOptions : {
         	action : "modify",
-        	agencyNo : node.agencyNo
+        	productNo : node.productNo
        	}
      }
 	//console.log("loadAgencyrModifyForm");
@@ -362,7 +344,7 @@ function loadAgencyModifyForm(){
 	data.targetElem = data.targetElem || "#dlgForm";
 	var queryParam = $.param(data.queryOptions);
 	
-	$(data.targetElem).load("/api/agency/form/createForm?" + queryParam,
+	$(data.targetElem).load("/api/product/form/createForm?" + queryParam,
 		function(response, status, xhr) {
 		//console.log("오픈할 DIV : " + data.targetElem);	
 		
@@ -380,7 +362,7 @@ function loadAgencyModifyForm(){
 			    shadow : false,	
 				buttons:[
 					{ text:'확인', iconCls:'icon-ok', handler:function(){
-						updateAgency(data);
+						updateProduct(data);
 					} },
 					{ text:'취소', handler:function(){
 						console.log("닫을 DIV : " + data.targetElem);	
@@ -390,13 +372,12 @@ function loadAgencyModifyForm(){
 				}]
 			});
 			$(data.targetElem).dialog('center');
-			
-			returnp.api.call('getAgencyCommand', {agencyNo : data.queryOptions.agencyNo}, function(res){
+			returnp.api.call('selectProducts', {productNo : data.queryOptions.productNo}, function(res){
+				console.log(res)
 				if (res.resultCode  == "100") {
-					console.log(res);
-					$('#createAgencyForm').form('load',res.data);
-					$('#memberNo').textbox({disabled : true });
-					$('#regType').combobox('select',res.data.regType);
+					if (res.rows.length == 1) {
+						$('#createProductForm').form('load',res.rows[0]);
+					}
 				}else {
 					$.messager.alert('오류 발생', res.message);
 				}
@@ -407,71 +388,122 @@ function loadAgencyModifyForm(){
 
 
 function makeFormData(){
-	var param = {
-			memberNo : $('input[name=memberNo]').val(),	
-			branchNo : $('input[name=branchNo]').val(),	
-			recommenderNo : $('input[name=recommenderNo]').val(),	
-			agencyName : $('input[name=agencyName]').val(),	
-			agencyAddress : $('input[name=agencyAddress]').val(),	
-			agencyEmail: $('input[name=agencyEmail]').val(),	
-			agencyTel: $('input[name=agencyTel]').val(),	
-			agencyPhone: $('input[name=agencyPhone]').val(),	
-			agencyStatus : $('#agencyStatus').combobox('getValue'),	
-			regType : $('#regType').combobox('getValue')
-		}
+	var param = $("#createProductForm").serializeObject();
 	return param;
 }
 
-function updateAgency(data){
-	var param =makeFormData();
-	//console.log(param);
-	returnp.api.call("updateAgency", param, function(res){
-		if (res.resultCode  == "100") {
-			$.messager.alert('알림', res.message);
-			$(data.targetElem).dialog('close');
-			$(data.targetElem).removeAttr('style');
-			realodPage();
-			
-		}else {
-			$.messager.alert('오류 발생', res.message);
-		}
-	});
-}
-
-function createAgency(data){	
-	var param =makeFormData();
-	//console.log("createAgency");
-	//console.log(param);
+function updateProduct(data){
+	$('#createProductForm').form('submit', {
+		url: "/api/product/update",
+		type: 'POST',
+		ajax:true,
+		iframe: false,
+		onSubmit: function(){
+			var param =makeFormData();
+			var valid = true;
+			var fieldName = '';
+			for (var prop in param){
+				if (param.hasOwnProperty(prop)) {
+					if (param[prop] == '') {
+						valid = false;
+						fieldName = prop;
+						break;
+					}
+				}
+			}
+			if (!valid) {
+				$.messager.alert('알림', fieldName + ' 항목이 입력되지 않았습니다');
+				return false;
+			}else {
+			/*	$("#productImg1").filebox("files")
+				if ($("#productImg1").filebox("files").length == 0) {
+					$.messager.alert("알림", "상품 이미지 파일 1을  선택해주세요");
+					return false;
+				}
+				
+				$("#productImg2").filebox("files")
+				if ($("#productImg2").filebox("files").length == 0) {
+					$.messager.alert("알림", "상품 이미지 파일 2를  선택해주세요");
+					return false;
+				}*/
+				
+				$('#progress_loading').show();
+				return true
+			}	 
 		
-	var valid = true;
-	for (var prop in param){
-		if (param.hasOwnProperty(prop)) {
-			if (param[prop] == '') {
-				valid = false;
-				break;
+		},
+		success: function(res){
+			res = JSON.parse(res);
+			console.log(res);
+			if (res.resultCode  == "100") {
+				$.messager.alert('알림', res.message);
+				$(data.targetElem).dialog('close');
+				$(data.targetElem).removeAttr('style');
+				realodPage();
+			}else {
+				$.messager.alert('오류 발생', res.message);
 			}
 		}
-	}
-	
-		/* 	if (!valid) {
-			$.messager.alert('알림', '입력 항목이 모두 입력되지 않았습니다');
-			return;
-		}	 */
+	});
+}
+
+function createProduct(data){	
+	$('#createProductForm').form('submit', {
+		url: "/api/product/create",
+		type: 'POST',
+		ajax:true,
+		iframe: false,
+		onSubmit: function(){
+			var param =makeFormData();
+			var valid = true;
+			var fieldName = '';
+			for (var prop in param){
+				if (param.hasOwnProperty(prop)) {
+					if (param[prop] == '') {
+						valid = false;
+						fieldName = prop;
+						break;
+					}
+				}
+			}
+			if (!valid) {
+				$.messager.alert('알림', fieldName + ' 항목이 입력되지 않았습니다');
+				return false;
+			}else {
+			/*	$("#productImg1").filebox("files")
+				if ($("#productImg1").filebox("files").length == 0) {
+					$.messager.alert("알림", "상품 이미지 파일 1을  선택해주세요");
+					return false;
+				}
+				
+				$("#productImg2").filebox("files")
+				if ($("#productImg2").filebox("files").length == 0) {
+					$.messager.alert("알림", "상품 이미지 파일 2를  선택해주세요");
+					return false;
+				}*/
+				
+				$('#progress_loading').show();
+				return true
+			}	 
 		
-	returnp.api.call("createAgency", param, function(res){
-		if (res.resultCode  == "100") {
-			$.messager.alert('알림', res.message);
-			$(data.targetElem).dialog('close');
-			$(data.targetElem).removeAttr('style');
-			realodPage();
-		}else {
-			$.messager.alert('오류 발생', res.message);
+		},
+		success: function(res){
+			res = JSON.parse(res);
+			console.log(res);
+			if (res.resultCode  == "100") {
+				$.messager.alert('알림', res.message);
+				$(data.targetElem).dialog('close');
+				$(data.targetElem).removeAttr('style');
+				realodPage();
+			}else {
+				$.messager.alert('오류 발생', res.message);
+			}
 		}
 	});
 }
 
-function removeAgency(){
-	var node = $('#node_list').datagrid('getSelected');
+function removeProduct(){
+	var node = $('#product_list').datagrid('getSelected');
 	if (!node) {
 		 $.messager.alert('알림','삭제하실 항목을 선택해주세요');
 		 return;
@@ -480,9 +512,9 @@ function removeAgency(){
 	$.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 해당 내용을 정말로 삭제하시겠습니까?', function(r){
         if (r){
         	var param = {
-        			agencyNo : node.agencyNo
+        			productNo : node.productNo
         	}
-        	returnp.api.call("deleteAgency", param, function(res){
+        	returnp.api.call("deleteProduct", param, function(res){
         		if (res.resultCode  == "100") {
         			$.messager.alert('알림', res.message);
         			realodPage();
@@ -494,6 +526,18 @@ function removeAgency(){
         	});
         }
     });
+}
+
+function viewProductImage1(){
+	var node = $('#product_list').datagrid('getSelected');
+	var img1 = node.productImgPath1;
+	window.open(img1, node.productName, "width=700, height=500, left=100, top=50"); 
+}
+
+function viewProductImage2(){
+	var node = $('#product_list').datagrid('getSelected');
+	var img2 = node.productImgPath2;
+	window.open(img2, node.productName, "width=700, height=500, left=100, top=50"); 
 }
 
 function realodPage(){

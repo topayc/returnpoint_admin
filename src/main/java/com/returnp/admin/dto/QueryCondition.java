@@ -54,7 +54,41 @@ public class QueryCondition{
 	}
 	
 	public QueryCondition valueOf(Object obj) {
+		
+        Field[] fields1 = obj.getClass().getDeclaredFields();
+        for (int i = 0; i <= fields1.length - 1; i++) {
+        	
+        	fields1[i].setAccessible(true);
 
+            String key = fields1[i].getName();
+            Class<?> type = fields1[i].getType();
+            String methodString = "set"+key.substring(0,1).toUpperCase()+key.substring(1);
+            Object value = "";
+            try {
+                value = fields1[i].get(obj);
+				if (this.getClass().getMethod(methodString, type)!=null && value != null) {
+					Method method = this.getClass().getMethod(methodString, type);
+					
+					try {						
+						method.invoke(this, value);
+					} catch (InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}  
+            } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        
         Field[] fields = obj.getClass().getSuperclass().getDeclaredFields();
         for (int i = 0; i <= fields.length - 1; i++) {
         	
@@ -87,8 +121,6 @@ public class QueryCondition{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-            
         }
         return this;
 	}

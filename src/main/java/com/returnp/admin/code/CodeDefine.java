@@ -305,4 +305,12 @@ public class CodeDefine {
 		list.add(new CodeKeyValuePair("2", "중지", "Y", "Y" ,""));
 		return list;
 	}
+	
+	public static ArrayList<CodeKeyValuePair> getProductStatusList() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "판매 중", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "판매 중지", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("3", "재고 없음", "Y", "Y" ,""));
+		return list;
+	}
 }	

@@ -40,6 +40,7 @@ import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.model.PointConversionTransaction;
 import com.returnp.admin.model.PointWithdrawal;
 import com.returnp.admin.model.Policy;
+import com.returnp.admin.model.Product;
 import com.returnp.admin.model.Recommender;
 import com.returnp.admin.model.RedPoint;
 import com.returnp.admin.model.SaleManager;
@@ -147,4 +148,6 @@ public interface SearchMapper {
 	public int selectMemberCount();
 
 	public ArrayList<HashMap<String, Object>> selectAffiliteSaleReport();
+	
+	public ArrayList<Product> selectProducts(Product product);
 }

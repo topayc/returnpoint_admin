@@ -44,6 +44,7 @@ import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.model.PointConversionTransaction;
 import com.returnp.admin.model.PointWithdrawal;
 import com.returnp.admin.model.Policy;
+import com.returnp.admin.model.Product;
 import com.returnp.admin.model.Recommender;
 import com.returnp.admin.model.RedPoint;
 import com.returnp.admin.model.SaleManager;
@@ -323,6 +324,12 @@ public class SearchServiceImpl implements SearchService{
 	@Override
 	public ArrayList<PaymentTransactionCommand> selectOverlapPaymentTransactionCommands(PaymentTransactionCommand record){
 		return this.searchMapper.SelectOverlapPaymentTransactionCommands(record);
+	}
+
+	@Override
+	public ArrayList<Product> selectProducts(Product product) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectProducts(product);
 	};
 	
 }
