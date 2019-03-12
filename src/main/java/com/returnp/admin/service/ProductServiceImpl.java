@@ -23,12 +23,12 @@ public class ProductServiceImpl implements ProductService {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		File file = null;
 		try {
-			if (product.getProductImg1() != null ) {
+			if (product.getProductImg1().isEmpty() == false ) {
 				file = FileManager.saveProductImange(product.getProductImg1(), saveDir);
 				product.setProductImgPath1(webPath + "/" + file.getName());
 			}
 			
-			if (product.getProductImg2() != null ) {
+			if (product.getProductImg2().isEmpty() == false ) {
 				file = FileManager.saveProductImange(product.getProductImg2(), saveDir);
 				product.setProductImgPath2(webPath + "/" + file.getName());
 			}
@@ -52,12 +52,12 @@ public class ProductServiceImpl implements ProductService {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		File file = null;
 		try {
-			if (product.getProductImg1() != null ) {
+			if (product.getProductImg1().isEmpty() == false ) {
 				file = FileManager.saveProductImange(product.getProductImg1(), saveDir);
 				product.setProductImgPath1(webPath + "/" + file.getName());
 			}
 			
-			if (product.getProductImg2() != null ) {
+			if (product.getProductImg2().isEmpty() == false ) {
 				file = FileManager.saveProductImange(product.getProductImg2(), saveDir);
 				product.setProductImgPath2(webPath + "/" + file.getName());
 			}

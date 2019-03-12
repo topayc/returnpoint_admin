@@ -70,14 +70,14 @@ public class ProductController extends ApplicationController{
 	@ResponseBody
 	@RequestMapping(value = "/product/create", method = RequestMethod.POST)
 	public ReturnpBaseResponse createProduct( Product product, HttpServletRequest request){
-		System.out.println("###### createProduct");
+		//System.out.println("###### createProduct");
 		return this.productService.createProduct(product, request.getSession().getServletContext().getRealPath("/assets/images/products"), "/assets/images/products");
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/product/update", method = RequestMethod.POST)
 	public ReturnpBaseResponse udpateProduct( @ModelAttribute("productFormInfo")  Product product, SessionStatus sessionStatus, BindingResult result, HttpServletRequest request){
-		System.out.println("###### updateProduct");
+		//System.out.println("###### updateProduct");
 		ReturnpBaseResponse res = this.productService.updateProduct(product, request.getSession().getServletContext().getRealPath("/assets/images/products"), "/assets/images/products");
 		sessionStatus.setComplete();
 		return res;
@@ -86,7 +86,7 @@ public class ProductController extends ApplicationController{
 	@ResponseBody
 	@RequestMapping(value = "/product/delete", method = RequestMethod.POST)
 	public ReturnpBaseResponse deleteProduct( Product product){
-		System.out.println("###### deleteProduct");
+		//System.out.println("###### deleteProduct");
 		return this.productService.deleteProduct(product);
 	}
 }
