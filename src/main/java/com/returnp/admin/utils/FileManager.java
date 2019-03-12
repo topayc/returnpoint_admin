@@ -17,16 +17,15 @@ public class FileManager {
 		if (!saveDir.exists()) {
 			saveDir.mkdirs();
 		}
-		System.out.println("#####  업로드 저장 파일 경로");
-		System.out.println(dir + File.separator + fileName);
+	/*	System.out.println("#####  업로드 저장 파일 경로");
+		System.out.println(dir + File.separator + fileName);*/
 		
 		mFile.transferTo(new File(dir + File.separator + fileName));
 		return new File(dir + File.separator + fileName);
 	}
 	
 	public static File saveProductImange(MultipartFile mFile , String dir) throws IllegalStateException, IOException {
-		System.out.println("업로드한 원래 파일 이름");
-		System.out.println(mFile.getOriginalFilename());
+	/*	System.out.println(mFile.getOriginalFilename());*/
 		
 		String orgFileFullName = mFile.getOriginalFilename();
 		int pos = orgFileFullName.lastIndexOf( "." );
@@ -41,10 +40,10 @@ public class FileManager {
 		if (!saveDir.exists()) {
 			saveDir.mkdirs();
 		}
-		System.out.println(newFileName);
+		/*System.out.println(newFileName);
 		System.out.println("변경된 파일 이름");
 		System.out.println("file.getName()");
-		System.out.println(new File(dir + File.separator + fileName).getName());
+		System.out.println(new File(dir + File.separator + fileName).getName());*/
 
 		mFile.transferTo(new File(dir + File.separator + fileName));
 		return new File(dir + File.separator + fileName);
