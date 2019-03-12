@@ -227,11 +227,11 @@
                              <li data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">상품권 관리</span>
 		                         <ul>
-		                            	<li id = "" data-options = "iconCls :'icon-info'">
+		                            	<!-- <li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = ""  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 판매 조직 관리</span>
                             				</a> 
-                            			</li>
+                            			</li> -->
                             			<li id = "manageGiftCardProduct" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageProduct"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 관리</span>
@@ -239,14 +239,14 @@
                             			</li>
                             			
                             			<li id = "" data-options = "iconCls :'icon-info'">
-                            				<a class= "sub_menu"  view_req_name = ""  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 발행 관리</span>
+                            				<a class= "sub_menu"  view_req_name = "manageGiftProductOrder"  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 주문 관리</span>
                             				</a> 
                             			</li>
                             
                             			
                             			<li id = "" data-options = "iconCls :'icon-info'">
-                            				<a class= "sub_menu"  view_req_name = ""  menu_deps= '2' >
+                            				<a class= "sub_menu"  view_req_name = "manageGiftPayment"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 결제 관리</span>
                             				</a> 
                             			</li>
