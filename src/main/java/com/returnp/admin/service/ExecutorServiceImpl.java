@@ -122,7 +122,16 @@ public class ExecutorServiceImpl implements ExecutorService{
 	@Override
 	public ReturnpBaseResponse cancelForcedAccumulateRequest(Integer paymentTransactionNo) {
 		String runMode = environment.getProperty("run_mode");
-		String remoteCallURL = environment.getProperty(runMode + ".forced_cancel_acc_by_payment_transaction_no");
+		String remoteCallURL = environment.getProperty(runMode + ".forced_acc_by_payment_transaction_no");
+		String key = environment.getProperty("key");
+		String url = remoteCallURL + "?paymentTransactionNo=" + paymentTransactionNo + "&key=" + key;
+		return this.sendRequest(url);
+	}
+	
+	@Override
+	public ReturnpBaseResponse acclForcedAccumulateRequest(Integer paymentTransactionNo) {
+		String runMode = environment.getProperty("run_mode");
+		String remoteCallURL = environment.getProperty(runMode + ".forced_acc_by_payment_transaction_no");
 		String key = environment.getProperty("key");
 		String url = remoteCallURL + "?paymentTransactionNo=" + paymentTransactionNo + "&key=" + key;
 		return this.sendRequest(url);

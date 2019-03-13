@@ -240,10 +240,9 @@
                             			
                             			<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftProductOrder"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 주문 관리</span>
+                            					<span style = "font-weight : bold">상품권 발행 관리</span>
                             				</a> 
                             			</li>
-                            
                             			
                             			<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftPayment"  menu_deps= '2' >

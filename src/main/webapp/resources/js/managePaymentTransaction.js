@@ -163,6 +163,9 @@ function initView(){
 		  			case "cancelForce":
 		  				cancelForcedPaymentTransaction();
 		  				break;	
+		  			case "accForce":
+		  				accForcedPaymentTransaction();
+		  				break;	
 		  				
 		  			case "remove":
 		  				removePaymentTransaction();
@@ -193,9 +196,9 @@ function initView(){
 		  	});
 			var menus, icons, actions;
 		  	if (row.paymentApprovalStatus =="1" ) {
-		  		menus = ['해당 결제의  G POINT 적립 내역' ,'결제 승인 취소' , '적립 강제 취소' ,  '재적립 요청(해당내역 삭제 및 취소후 재적립 진행'];
-		  		icons = ['icon-more' , 'icon-clear' , 'icon-clear' ,  'icon-redo'];
-			  	actions = ['more_acc_detail' , 'cancel' , 'cancelForce', 're_pointback' ];
+		  		menus = ['해당 결제의  G POINT 적립 내역' ,'결제 승인 취소' , '적립 강제 취소' ,'강제 적립',   '재적립 요청(해당내역 삭제 및 취소후 재적립 진행'];
+		  		icons = ['icon-more' , 'icon-clear' , 'icon-clear' , 'icon-redo',  'icon-redo'];
+			  	actions = ['more_acc_detail' , 'cancel' , 'cancelForce', 'accForce', 're_pointback' ];
 		  	}else if (row.paymentApprovalStatus =="2"){
 		  		menus = ['해당 결제의  G POINT 적립 취소 내역'];
 		  		icons = ['icon-more'];
@@ -619,6 +622,35 @@ function cancelForcedPaymentTransaction(){
 				}
 			});
 }
+
+
+function accForcedPaymentTransaction(){
+	var node = $('#node_list').datagrid('getSelected');
+	if (!node) {
+		$.messager.alert('알림','강제 적립하실  거래 내역을 선택해주세요');
+		return;
+	}
+
+	$.messager.confirm(
+			'알림', 
+			"해당 거래 내역에 대해서 동일한 결제번호로 강제 적립을 진행합니다.</br> 진행하시겠습니까?",
+			function(r){
+				if (r) {
+					var param = { paymentTransactionNo : node.paymentTransactionNo }
+					returnp.api.call("accForcedPaymentTransaction", param, function(res){
+						if (res.resultCode  == "100") {
+							$.messager.alert('알림', res.message);
+							realodPage();
+						}else {
+							//console.log("[오류]");
+							//console.log(res);
+							$.messager.alert('오류 발생', res.message);
+						}
+					});
+				}
+			});
+}
+
 
 function removePaymentTransaction(){
 	var node = $('#node_list').datagrid('getSelected');

@@ -313,4 +313,55 @@ public class CodeDefine {
 		list.add(new CodeKeyValuePair("3", "재고 없음", "Y", "Y" ,""));
 		return list;
 	}
+	
+	public static ArrayList<CodeKeyValuePair> getGiftCardTypeList() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "실물 상품권", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "모바일 상품권", "Y", "Y" ,""));
+		return list;
+	}
+	
+	public static ArrayList<CodeKeyValuePair> getPurchageMemberType() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "회원 구매", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "비회원 구매", "Y", "Y" ,""));
+		return list;
+	}
+	
+	public static ArrayList<CodeKeyValuePair> getGiftCardAccStatus() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "적립 완료", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "미 적립", "Y", "Y" ,""));
+		return list;
+	}
+	
+	public static ArrayList<CodeKeyValuePair> getGiftCardUseStatusList() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "사용 완료", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "미 사용", "Y", "Y" ,""));
+		return list;
+	}
+	
+	public static ArrayList<CodeKeyValuePair> getGiftCardStatusList() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "정상 사용", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "사용 중지", "Y", "Y" ,""));
+		return list;
+	}
+	
+	public static ArrayList<CodeKeyValuePair> getOrderStatusList() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "배송중", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "배송중", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("3", "배송 완료", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("4", "주문 취소", "Y", "Y" ,""));
+		return list;
+	}
+	
+	public static ArrayList<CodeKeyValuePair> getGiftCardPublishTypeList() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "일반 구매", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "판매 조직 구매 ", "Y", "Y" ,""));
+		return list;
+	}
 }	

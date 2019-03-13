@@ -196,4 +196,47 @@ public class AppConstants {
 	
 	}
 	
+	public static class ProductStatus {
+		public static String ON_SALE  = "1"; //판매중
+		public static String NOT_ON_SALE = "2"; // 판매 중지
+		public static String NOT_STOCL = "3"; // 재고 없음
+	}
+	
+	public static class GiftCardType {
+		public static String REAL_GIFTCARD  = "1";
+		public static String MOBILE_GIFTCARD  = "2";
+	}
+	
+	public static class PurchageMemberType {
+		public static String MEMBER  = "1";
+		public static String NOT_MEMBER  = "2";
+	}
+	
+	public static class GiftCardAccStatus {
+		public static String ACC_OK = "1";
+		public static String ACC_NOT = "2";
+	}
+	
+	public static class GiftCardUseStatus {
+		public static String USED  = "1";
+		public static String NOT_USED= "2";
+	}
+	
+	public static class GiftCardStatus {
+		public static String NORMAL  = "1";
+		public static String ABNORMAL= "2";
+	}
+	
+	public static class OrderStatus {
+		public static String BEFORE_DELILVERY  = "1";
+		public static String DELIVERING= "2";
+		public static String COMPLETED_DELIVERY= "3";
+		public static String CANCEL_ORDER= "4";
+	}
+	
+	public static class GiftCardPublishType{
+		public static String NORMAL_PUBLISH  = "1";
+		public static String ORGANL_PUBLISH  = "2";
+	}
+	
 }

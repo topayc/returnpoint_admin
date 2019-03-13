@@ -19,10 +19,9 @@
 			<div style="margin-bottom:30px">
 				<input id = productImg1  name = "productImg1" type = "text" style="width:100%" accept=".xlsx">
 			</div>
-			<div style="margin-bottom:30px">
+			<div style="margin-bottom:10px">
 				<input id = productImg2  name = "productImg2" type = "text" style="width:100%" accept=".xlsx">
 			</div>
-			
 		</form>
 	</div>
 	<div id="viewImage"></div>
@@ -59,7 +58,7 @@
 			label:'상품 이미지 1',
 			labelWidth : 100,
 			buttonText: '&nbsp;&nbsp;<strong>파일 선택</strong>&nbsp;&nbsp;',
-		    buttonAlign: 'right',
+		    buttonAlign: 'left',
 		    height: '25px'
 		});
 		
@@ -67,7 +66,7 @@
 			label:'상품 이미지 2',
 			labelWidth : 100,
 			buttonText: '&nbsp;&nbsp;<strong>파일 선택</strong>&nbsp;&nbsp;',
-		    buttonAlign: 'right',
+		    buttonAlign: 'left',
 		    height: '25px'
 		});
 	}
