@@ -7,11 +7,11 @@
 			    {field:'affiliateCode',width:40,align:'center',title : '가맹점 코드',hidden:false},
 			    {field:'affiliateSerial',width:35,align:'center',title : 'T-ID'},
 			    {field:'affiliateComm',width:20,align:'center',title : '환급율'},
-			    {field:'affiliateType',width:35,align:'center',title : '타입', formatter : affiliateTypeFormatter},
-			    {field:'affiliateStatus',width:15,align:'center',title : '상태',formatter : nodeStatusFormatter},
+			    {field:'affiliateType',width:60,align:'center',title : '협력 업체 분류', formatter : affiliateTypeFormatter},
+			    {field:'affiliateStatus',width:20,align:'center',title : '상태',formatter : nodeStatusFormatter},
 			    {field:'greenPointAmount',width:30,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
 			    {field:'redPointAmount',width:30,align:'center',title : 'R POINT', formatter : numberRedFormatter},
-			    {field:'agencyName',width:20,align:'center',title : '소속 대리점', hidden:false,formatter : slashFormatter},
+			    {field:'agencyName',width:30,align:'center',title : '소속 대리점', hidden:false,formatter : slashFormatter},
 			    {field:'recommenderName',width:20,align:'center',title : '추천인'},
 			    {field:'greenPointAccStatus',width:15,align:'center',title : 'G 적립', formatter : ynFormatter},
 			    {field:'redPointAccStatus',width:15,align:'center',title : 'R 적립', formatter : ynFormatter},
@@ -405,13 +405,15 @@ function loadAffiliateModifyForm(){
 
 
 function makeFormData(){
-	var param = $("#createAffiliateForm").serializeArray();
+	var param = $("#createAffiliateForm").serializeObject();
 	return param;
 }
 
 function updateAffiliate(data){
 	var param =makeFormData();
-	//console.log(param);
+	if (param['affiliateType'] &&  typeof param['affiliateType'] != 'string'){
+		param['affiliateType']  = param['affiliateType'].join(","); 
+	}
 	returnp.api.call("updateAffiliate", param, function(res){
 		if (res.resultCode  == "100") {
 			$.messager.alert('알림', res.message);
@@ -427,21 +429,27 @@ function updateAffiliate(data){
 
 function createAffiliate(data){	
 	var param =makeFormData();
+	if (param['affiliateType'] &&  typeof param['affiliateType'] != 'string'){
+		param['affiliateType']  = param['affiliateType'].join(","); 
+	}
+	console.log(param);
 	//console.log("createAffiliate");
 	//console.log(param);
 		
 	var valid = true;
+/*	var pro = null;
 	for (var prop in param){
 		if (param.hasOwnProperty(prop)) {
 			if (param[prop] == '') {
 				valid = false;
+				pro =prop 
 				break;
 			}
 		}
-	}
+	}*/
 	
 	if (!valid) {
-		$.messager.alert('알림', '입력 항목이 모두 입력되지 않았습니다');
+		$.messager.alert('알림', pro + ' 항목이 모두 입력되지 않았습니다');
 		return;
 	}
 		

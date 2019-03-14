@@ -216,3 +216,16 @@ td, th {
 		margin: 5px;
 	}
 	.member-panel a:hover {color : DeepSkyBlue }
+	
+	.circle-text{
+    font-size: .8em;
+    width: 1em;
+    border-radius: 3em;
+    padding: .1em  .2em;
+    line-height: 1.25em;
+    border: 1px solid #333;
+    display: inline-block;
+    text-align: center;
+  }
+	
+	

@@ -239,4 +239,11 @@ public class AppConstants {
 		public static String ORGANL_PUBLISH  = "2";
 	}
 	
+	public static class AffiliateType{
+		public static String COMMON_AFFILIATE  = "A001"; /* 일반 가맹점, 일반 결제후 영수증 큐일 적립 가맹점*/
+		public static String GIFT_CARD_USAGE_AFFILIATE   = "A002";  /* 상품권 사용처 */
+		public static String NO_BUSINESS_NUMBER_AFFILIATE    = "A003";  /* 상품권 사용처 */
+		public static String ONLINE_AFFILIATE    = "A004";  /* 상품권 사용처 */
+	}
+	
 }

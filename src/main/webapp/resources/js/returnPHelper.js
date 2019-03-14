@@ -9,13 +9,21 @@ function imageTagFormatter(value,row,index){
 }
 
 function affiliateTypeFormatter(value,row,index){
-	switch(row.affiliateType){
-	case "A001": result = "오프라인 사업자" ; break;
-	case "A002": result = "온라인 사업자";break;
-	case "A003": result = "무사업자";break;
-	default :result = "무사업자";break;
+	var affiliteTypesArr = row.affiliateType.split(","); 
+	var str = [];
+	if (affiliteTypesArr.hasValue("A001")) {
+		str.push("가맹점");
 	}
-	return result; 
+	if (affiliteTypesArr.hasValue("A002")) {
+		str.push("제휴점");
+	}
+	if (affiliteTypesArr.hasValue("A003")) {
+		str.push("무사업자");
+	}
+	if (affiliteTypesArr.hasValue("A004")) {
+		str.push("온라인");
+	}
+	return str.join(",");
 }
 
 	

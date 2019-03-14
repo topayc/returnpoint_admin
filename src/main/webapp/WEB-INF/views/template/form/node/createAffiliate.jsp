@@ -24,7 +24,7 @@
 			<div style="margin-bottom:8px"><input id ="memberNo"  name="memberNo" style="width:100%" data-options="label:'회원 검색 ',labelWidth :140,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:8px"><input id ="affiliateName"  name="affiliateName" style="width:100%" data-options="label:'협력업체 이름 ',labelWidth :140,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:8px"><input id ="affiliateEmail"  name="affiliateEmail" style="width:100%" data-options="label:'협력업체 이메일 ',labelWidth :140,labelPosition : 'left'"> </div>
-
+			
 			<div style="margin-bottom:8px"> 
 				<select class = "easyui-combobox"  id ="affiliateType" name="affiliateType"   style="width:100%" data-options="label:'협력업체 타입',labelWidth :140,labelAlign:'left',labelPosition : 'left'"> 
 					<c:forEach var="affiliateType"  items="${affiliateTypes}" varStatus="status">
@@ -262,7 +262,8 @@
 		});
 		var init = true
 		$('#affiliateType').combobox({
-			 panelHeight: 'auto',
+			multiple:true, 
+			panelHeight: 'auto',
 			 onSelect : function(record){
 				/* 오프라인 사업자인 경우 */
 				 if (record.value == "A001"){

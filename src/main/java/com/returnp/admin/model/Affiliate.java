@@ -12,6 +12,7 @@ public class Affiliate extends QueryCondition {
 
     public String affiliateCode;
 
+
     public String affiliateName;
 
     public String affiliateAddress;

@@ -283,10 +283,11 @@ public class CodeDefine {
 	
 	public static ArrayList<CodeKeyValuePair> getAffiliateTypes() {
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
-		list.add(new CodeKeyValuePair("A001", "오프라인 사업자(POS)", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("A002", "온라인 사업자", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("A001", "가맹점", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("A002", "제휴점", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("A003", "무사업자", "Y", "Y" ,""));
-		return list;
+		list.add(new CodeKeyValuePair("A004", "온라인", "Y", "Y" ,""));
+		return list;	
 	}
 	
 	
@@ -351,14 +352,15 @@ public class CodeDefine {
 	
 	public static ArrayList<CodeKeyValuePair> getOrderStatusList() {
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
-		list.add(new CodeKeyValuePair("1", "배송중", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("1", "주문 접수 완료", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("2", "배송중", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("3", "배송 완료", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("4", "주문 취소", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("3", "배송중", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("4", "배송 완료", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("5", "주문 취소", "Y", "Y" ,""));
 		return list;
 	}
 	
-	public static ArrayList<CodeKeyValuePair> getGiftCardPublishTypeList() {
+	public static ArrayList<CodeKeyValuePair> getGiftCardOrderTypeList() {
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
 		list.add(new CodeKeyValuePair("1", "일반 구매", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("2", "판매 조직 구매 ", "Y", "Y" ,""));
