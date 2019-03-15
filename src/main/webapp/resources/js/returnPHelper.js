@@ -307,7 +307,7 @@ function pointBackStatusFormatter(value,row,index){
 	case "3": text = '<span style = "color: green;font-weight : bold">적립 완료</span>' ; break;
 	case "4": text = "적립 취소 시작 "; break;
 	case "5": text = "적립 취소 진행중"; break;
-	case "6": text ='<span style = "color: #FF8000;font-weight : bold">적립 취소 완료</span>' ; break;
+	case "6": text ='<span style = "color: #FF8000;font-weight : bold">적립 취소</span>' ; break;
 	case "7": text = "적립 중지"; break;
 	case "8": text = "적립 취소 중지"; break;
 	}

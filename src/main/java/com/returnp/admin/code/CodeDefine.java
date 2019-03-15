@@ -322,7 +322,7 @@ public class CodeDefine {
 		return list;
 	}
 	
-	public static ArrayList<CodeKeyValuePair> getPurchageMemberType() {
+	public static ArrayList<CodeKeyValuePair> getPurchaseMemberType() {
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
 		list.add(new CodeKeyValuePair("1", "회원 구매", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("2", "비회원 구매", "Y", "Y" ,""));
