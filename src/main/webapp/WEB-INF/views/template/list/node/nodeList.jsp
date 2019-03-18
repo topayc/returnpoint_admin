@@ -49,8 +49,8 @@ $('#search_result').datagrid({
 	selectOnCheck : true,
 	checkOnSelect : true,
 	border:true,	
-	rownumbers : true,
-	pagination: true,
+	rownumbers : false,
+	pagination: false,
 	autoRowHeight : false,
 	onSelect : function(){},
 	onLoadSuccess : function(){},
@@ -185,6 +185,76 @@ function nodeColumn(nodeType){
 			    {field:'updateTime',width:30,align:'center',title : '수정일',hidden:true},
 			    {field:'memberNo',width:15,align:'center',title : 'memberNo',hidden:true}
 			    ]];
+		break;
+		
+	case "10":    // 상품권 판매 본사	
+		columns = [[
+            //{field:'check',width:30,align:'center',title : '선택',checkbox : true},
+               // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
+                {field:'giftCardSalesOrganNo',width:50,align:'center',title : 'No',hidden:false},
+                {field:'organType',width:65,align:'center',title : '조직 구분', formatter : organTypeFormatter},
+                {field:'organName',width:100,align:'center',title : '사업장 이름'},
+                {field:'organBusinessNumber',width:100,align:'center',title : '사업자 번호'},
+                {field:'organCode',width:90,align:'center',title : '조직 코드'},
+                {field:'organPassword',width:90,align:'center',title : '비밀 번호'},
+                {field:'organOwner',width:100,align:'center',title : '명의자'},
+                {field:'organStatus',width:60,align:'center',title : '상태', formatter : organStatusFormatter},
+                {field:'organPhone',width:100,align:'center',title : '핸드폰'},
+                {field:'organEmail',width:100,align:'center',title : '이메일'},
+                {field:'organTel',width:100,align:'center',title : '전화번호' },
+                {field:'organAddr',width:100,align:'center',title : '사업장 주소'},
+                {field:'organBankName',width:100,align:'center',title : '은행명'},
+                {field:'organBankAccountOwner',width:100,align:'center',title : '계좌 소유주'},
+                {field:'organBankAccount',width:100,align:'center',title : '계좌번호' },
+                {field:'createTime',width:100,align:'center',title : '등록일', formatter : dateFormatter},
+                {field:'updateTime',width:100,align:'center',title : '수정일', hidden : true},
+                ]];
+		break;
+	case "11":    // 상품권 판매 총판
+		columns = [[
+            //{field:'check',width:30,align:'center',title : '선택',checkbox : true},
+               // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
+                {field:'giftCardSalesOrganNo',width:50,align:'center',title : 'No',hidden:false},
+                {field:'organType',width:65,align:'center',title : '조직 구분', formatter : organTypeFormatter},
+                {field:'organName',width:100,align:'center',title : '사업장 이름'},
+                {field:'organBusinessNumber',width:100,align:'center',title : '사업자 번호'},
+                {field:'organCode',width:90,align:'center',title : '조직 코드'},
+                {field:'organPassword',width:90,align:'center',title : '비밀 번호'},
+                {field:'organOwner',width:100,align:'center',title : '명의자'},
+                {field:'organStatus',width:60,align:'center',title : '상태', formatter : organStatusFormatter},
+                {field:'organPhone',width:100,align:'center',title : '핸드폰'},
+                {field:'organEmail',width:100,align:'center',title : '이메일'},
+                {field:'organTel',width:100,align:'center',title : '전화번호' },
+                {field:'organAddr',width:100,align:'center',title : '사업장 주소'},
+                {field:'organBankName',width:100,align:'center',title : '은행명'},
+                {field:'organBankAccountOwner',width:100,align:'center',title : '계좌 소유주'},
+                {field:'organBankAccount',width:100,align:'center',title : '계좌번호' },
+                {field:'createTime',width:100,align:'center',title : '등록일', formatter : dateFormatter},
+                {field:'updateTime',width:100,align:'center',title : '수정일', hidden : true},
+                ]];
+		break;
+	case "12":    // 상품권 판매 대리점
+		columns = [[
+            //{field:'check',width:30,align:'center',title : '선택',checkbox : true},
+               // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
+                {field:'giftCardSalesOrganNo',width:50,align:'center',title : 'No',hidden:false},
+                {field:'organType',width:65,align:'center',title : '조직 구분', formatter : organTypeFormatter},
+                {field:'organName',width:100,align:'center',title : '사업장 이름'},
+                {field:'organBusinessNumber',width:100,align:'center',title : '사업자 번호'},
+                {field:'organCode',width:90,align:'center',title : '조직 코드'},
+                {field:'organPassword',width:90,align:'center',title : '비밀 번호'},
+                {field:'organOwner',width:100,align:'center',title : '명의자'},
+                {field:'organStatus',width:60,align:'center',title : '상태', formatter : organStatusFormatter},
+                {field:'organPhone',width:100,align:'center',title : '핸드폰'},
+                {field:'organEmail',width:100,align:'center',title : '이메일'},
+                {field:'organTel',width:100,align:'center',title : '전화번호' },
+                {field:'organAddr',width:100,align:'center',title : '사업장 주소'},
+                {field:'organBankName',width:100,align:'center',title : '은행명'},
+                {field:'organBankAccountOwner',width:100,align:'center',title : '계좌 소유주'},
+                {field:'organBankAccount',width:100,align:'center',title : '계좌번호' },
+                {field:'createTime',width:100,align:'center',title : '등록일', formatter : dateFormatter},
+                {field:'updateTime',width:100,align:'center',title : '수정일', hidden : true},
+                ]];
 		break;
 	}
 	return columns;

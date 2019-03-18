@@ -101,6 +101,8 @@ public class AdminController extends ApplicationController{
 		model.addAttribute("withdrawalStatusList", CodeDefine.getWithdrawalStatusList());
 		model.addAttribute("marketerStatuses", CodeDefine.getMarketerStatusList());
 		model.addAttribute("productStatusList", CodeDefine.getProductStatusList());
+		model.addAttribute("saleOrganDetailCodes", CodeDefine.getGiftCardSaleOrganDetailCodes());
+		model.addAttribute("saleOrganStatusList", CodeDefine.getGiftCardSaleOrganStatusList());
 		
 		return RequestForward.CONTENT_VIEW;
 	}

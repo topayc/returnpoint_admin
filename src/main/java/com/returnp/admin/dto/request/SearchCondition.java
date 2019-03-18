@@ -43,8 +43,49 @@ public class SearchCondition extends QueryCondition {
     private Integer pointWithdrawalNo;
     
     private Integer productNo;
-	
     
+    private Integer giftCardSalesOrganNo;
+    private String searchSalesOrganStatus;
+    private String searchSalesOrganType;
+    private String organType;
+    private String organStatus;
+ 
+	public String getOrganType() {
+		return organType;
+	}
+	public void setOrganType(String organType) {
+		this.organType = organType;
+	}
+	public String getOrganStatus() {
+		return organStatus;
+	}
+	public void setOrganStatus(String organStatus) {
+		this.organStatus = organStatus;
+	}
+	public String getSearchSalesOrganStatus() {
+		return searchSalesOrganStatus;
+	}
+	public void setSearchSalesOrganStatus(String searchSalesOrganStatus) {
+		this.searchSalesOrganStatus = searchSalesOrganStatus;
+		if (!searchSalesOrganStatus.equals("0")) {
+			this.organStatus = searchSalesOrganStatus;
+		}
+	}
+	public String getSearchSalesOrganType() {
+		return searchSalesOrganType;
+	}
+	public void setSearchSalesOrganType(String searchSalesOrganType) {
+		this.searchSalesOrganType = searchSalesOrganType;
+		if (!searchSalesOrganType.equals("0")) {
+			this.organType = searchSalesOrganType;
+		}
+	}
+	public Integer getGiftCardSalesOrganNo() {
+		return giftCardSalesOrganNo;
+	}
+	public void setGiftCardSalesOrganNo(Integer giftCardSalesOrganNo) {
+		this.giftCardSalesOrganNo = giftCardSalesOrganNo;
+	}
 	public Integer getProductNo() {
 		return productNo;
 	}

@@ -3073,5 +3073,55 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     	1 = 1 
     	<include refid = "productSearchWhereStatement"/>
   </select>
+  
+ <!-- ===============================================================================================================    -->
+ <!-- GiftCardSalesOrgan Mapper   -->
+<resultMap id="GiftCardSalesOrganResultMap" type="com.returnp.admin.model.GiftCardSalesOrgan">
+    <id column="giftCardSalesOrganNo" jdbcType="INTEGER" property="giftCardSalesOrganNo" />
+    <result column="organCode" jdbcType="VARCHAR" property="organCode" />
+    <result column="organOwner" jdbcType="VARCHAR" property="organOwner" />
+    <result column="organPassword" jdbcType="VARCHAR" property="organPassword" />
+    <result column="organName" jdbcType="VARCHAR" property="organName" />
+    <result column="organBusinessNumber" jdbcType="VARCHAR" property="organBusinessNumber" />
+    <result column="organStatus" jdbcType="VARCHAR" property="organStatus" />
+    <result column="organType" jdbcType="VARCHAR" property="organType" />
+    <result column="organPhone" jdbcType="VARCHAR" property="organPhone" />
+    <result column="organEmail" jdbcType="VARCHAR" property="organEmail" />
+    <result column="organTel" jdbcType="VARCHAR" property="organTel" />
+    <result column="organAddr" jdbcType="VARCHAR" property="organAddr" />
+    <result column="organBankName" jdbcType="VARCHAR" property="organBankName" />
+    <result column="organBankAccount" jdbcType="VARCHAR" property="organBankAccount" />
+    <result column="organBankAccountOwner" jdbcType="VARCHAR" property="organBankAccountOwner" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+  <sql id="GiftCardSalesOrgan_Column_List">
+    giftCardSalesOrganNo, organCode, organOwner, organPassword, organName, organBusinessNumber, organStatus, 
+    organType, organPhone, organEmail, organTel, organAddr, organBankName, organBankAccount, organBankAccountOwner, 
+    createTime, updateTime
+  </sql>
+  
+  <sql id ="GiftCardSalesOrganWhereStatement">
+	 <if test="giftCardSalesOrganNo != null"> AND giftCardSalesOrganNo = #{giftCardSalesOrganNo,jdbcType=INTEGER}</if>
+	 <if test="organCode != null"> AND organCode = #{organCode,jdbcType=VARCHAR}</if>
+	 <if test="organName != null"> AND organName = #{organName,jdbcType=VARCHAR}</if>
+	 <if test="organOwner != null"> AND organOwner = #{organOwner,jdbcType=VARCHAR}</if>
+	 <if test="organBusinessNumber != null"> AND organBusinessNumber = #{organBusinessNumber,jdbcType=VARCHAR}</if>
+	 <if test="organType != null"> AND organType = #{organType,jdbcType=VARCHAR}</if>
+	 <if test="organStatus != null"> AND organStatus = #{organStatus,jdbcType=VARCHAR}</if>
+  </sql>
+  
+  <select id="selectGiftCardSalesOrgans"    parameterType="com.returnp.admin.model.GiftCardSalesOrgan" resultType="com.returnp.admin.model.GiftCardSalesOrgan" >
+   	select
+   	 	sql_calc_found_rows
+       <include refid="GiftCardSalesOrgan_Column_List" />
+    from gift_card_sales_organ
+    where 
+    	1 = 1 
+    	<include refid = "GiftCardSalesOrganWhereStatement"/>
+    	<include refid = "commonStatement"/>
+  </select>
+ <!-- ===============================================================================================================    -->
 </mapper>
  

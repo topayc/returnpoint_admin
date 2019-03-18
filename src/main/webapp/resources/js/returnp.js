@@ -228,6 +228,12 @@ $(function () {
         	updateProduct: {apiCode: 10000, apiPath : '/api/product/update' , requestMethod: 'post'}, /* 상품 수정 */
         	deleteProduct: {apiCode: 10000, apiPath : '/api/product/delete' , requestMethod: 'post'}, /* 상품 삭제 */
         	
+        	/*상품권 판매 조직  */
+        	selectGiftCardSalesOrgans: {apiCode: 10000, apiPath : '/api/giftCardSalesOrgans' , requestMethod: 'get'}, /* 상품권 판매 조직 리스트 가져오기*/
+          	createGiftCardSalesOrgan: {apiCode: 10000, apiPath : '/api/giftCardSalesOrgan/create' , requestMethod: 'post'}, /* 상품권 판매 조직 생성 */
+        	updateGiftCardSalesOrgan: {apiCode: 10000, apiPath : '/api/giftCardSalesOrgan/update' , requestMethod: 'post'}, /* 상품권 판매 조직 수정 */
+        	deleteGiftCardSalesOrgan: {apiCode: 10000, apiPath : '/api/giftCardSalesOrgan/delete' , requestMethod: 'post'}, /* 삭제 */
+        	
         	 /* 로그인 */
         	signIn : { apiCode: 10000, requestMethod: "post"}, 
         	 /* 일반 회원 등록 , 가입*/

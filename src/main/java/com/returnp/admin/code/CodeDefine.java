@@ -366,4 +366,27 @@ public class CodeDefine {
 		list.add(new CodeKeyValuePair("2", "판매 조직 구매 ", "Y", "Y" ,""));
 		return list;
 	}
+	
+	public static ArrayList<CodeKeyValuePair> getSaleOrganCodes() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "일반 프랜차이즈", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "판매 조직 ", "Y", "Y" ,""));
+		return list;
+	}
+	
+	public static ArrayList<CodeKeyValuePair> getGiftCardSaleOrganDetailCodes() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("10", "본사", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("11", "총판 ", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("12", "판매점", "Y", "Y" ,""));
+		return list;
+	}
+	
+	public static ArrayList<CodeKeyValuePair> getGiftCardSaleOrganStatusList() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "정상", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "중지", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("3", "보류", "Y", "Y" ,""));
+		return list;
+	}
 }	

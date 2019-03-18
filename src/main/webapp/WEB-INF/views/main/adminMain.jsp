@@ -104,31 +104,31 @@
                             	 <span  style = "font-weight : bold">조직 관리</span>
 		                         <ul>
 			                         <li id = "manageSoleDist"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageSoleDist"  node = "7"  menu_deps= '2' >
-	                        		<span style = "font-weight : bold">총판(7)</span></a> 
+	                        		<span style = "font-weight : bold">총판 관리(7)</span></a> 
 		                        	</li>
 		                        	
 		                        	<li id= "manageBranch"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageBranch"  node = "3"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold">지사(3)</span></a> 
+		                        		<span style = "font-weight : bold">지사 관리(3)</span></a> 
 		                        	</li>
 		                        	
 		                        	<li id = "manageAgency"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageAgency"  node = "4"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold">대리점(4)</span></a> 
+		                        		<span style = "font-weight : bold">대리점 관리(4)</span></a> 
 		                        	</li>
 		
 		                        	<li id = "manageAffiliate"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageAffiliate"  node = "5"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold">협력업체(5)</span></a> 
+		                        		<span style = "font-weight : bold">협력업체 관리(5)</span></a> 
 		                        	</li>
 		
 		
 		                        	<li id = "manageMember" data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageMember"  node = "1"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold">일반회원(1)</span></a> 
+		                        		<span style = "font-weight : bold">일반회원 관리(1)</span></a> 
 		                        	</li>
 
 		                        	<li id = "manageRecommender"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageRecommender"  node = "2"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold;">정회원(2) </span></a> 
+		                        		<span style = "font-weight : bold;">정회원 관리(2) </span></a> 
 		                        	</li>
 		                        	<li id = "manageSaleManager"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageSaleManager"  node = "6"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold;"> 영업 관리자(6)</span></a> 
+		                        		<span style = "font-weight : bold;"> 영업 관리자 관리(6)</span></a> 
 		                        	</li>
 		                        </ul>
                             </li>
@@ -233,7 +233,13 @@
                             				</a> 
                             			</li> -->
                             			
-                            			<li id = "manageGiftCardProduct" data-options = "iconCls :'icon-info'">
+                            			<li id = "manageGiftCardSalesOrgan" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = "manageGiftCardSalesOrgan"  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 판매 조직 관리</span>
+                            				</a> 
+                            			</li>
+                            			
+                            			<li id = "manageProduct" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageProduct"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 관리</span>
                             				</a> 
@@ -516,6 +522,21 @@
 		    $.each(this.serializeArray(), extend);
 		    return result;
 		};
+		
+		$.extend($.fn.textbox.methods, {
+			show: function(jq){
+				return jq.each(function(){
+					$(this).prev().show();
+					$(this).next().show();
+				})
+			},
+			hide: function(jq){
+				return jq.each(function(){
+					$(this).prev().hide();
+					$(this).next().hide();
+				})
+			}
+		})
 	</script>
     <script>
    		var isAjax = false;

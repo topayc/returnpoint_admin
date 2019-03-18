@@ -27,6 +27,24 @@ function affiliateTypeFormatter(value,row,index){
 }
 
 	
+function organStatusFormatter(value,row,index){
+	switch(row.organStatus){
+	case "1": result = '<span style = "color : green;font-weight : bold" >'+ "정상"+ ' </span>';break;
+	case "2": result = '<span style = "color : red;font-weight : bold" >'+ "중지"+ ' </span>';break;
+	case "3": result = '<span style = "color : black;font-weight : bold" >'+ "보류"+ ' </span>';break;
+	default :result = "-";break;
+	}
+	return result; 
+}
+function organTypeFormatter(value,row,index){
+	switch(row.organType){
+	case "10": result = '<span style = "border-radius: 10px;background-color: #B40486;padding: 5px;color : #ffffff;font-weight : bold">본사</span>' ; break;
+	case "11": result =  '<span style = "border-radius: 10px;background-color: green;padding: 5px;color : #ffffff;font-weight : bold">총판</span>' ; break;
+	case "12": result = '<span style = "border-radius: 10px;background-color: #088A85;padding: 5px;color : #ffffff;font-weight : bold">판매점</span>' ; break;
+	default :result = "-";break;
+	}
+	return result; 
+}
 function productStatusFormatter(value,row,index){
 	switch(row.productStatus){
 	case "1": result = '<span style = "border-radius: 10px;background-color: green;padding: 5px;color : #ffffff;font-weight : bold">판매중</span>' ; break;
@@ -664,7 +682,7 @@ function loadNodeListView(data, callback){
 			console.log(status);	
 			
 			$(data.targetElem).dialog({
-				width:'55%',
+				width: data.queryOptions['width'] ? data.queryOptions['width'] : '55%',
 			    height: 650,
 			    modal : true,
 			   /* cls:'c6',*/

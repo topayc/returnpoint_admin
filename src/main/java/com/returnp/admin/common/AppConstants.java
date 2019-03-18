@@ -245,5 +245,16 @@ public class AppConstants {
 		public static String NO_BUSINESS_NUMBER_AFFILIATE    = "A003";  /* 상품권 사용처 */
 		public static String ONLINE_AFFILIATE    = "A004";  /* 상품권 사용처 */
 	}
+
+	public static class OrganType{
+		public static String COMMON_FRANCHISE= "10"; /* 일반 조직*/
+		public static String SALES   = "11";  /* 판매 조직*/
+	}
+
+	public static class SaleOrganCode{
+		public static String SALE_ENTIRE_SOLEDIST= "10"; /* 전체 총판*/
+		public static String SALE_REGION_SOLIDIST   = "11";  /* 지역 총판*/
+		public static String SALE_AGENCY= "12";  /* 판매점*/
+	}
 	
 }

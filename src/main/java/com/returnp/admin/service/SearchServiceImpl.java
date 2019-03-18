@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.returnp.admin.dao.mapper.SearchMapper;
-import com.returnp.admin.dto.QueryCondition;
 import com.returnp.admin.dto.command.AffiliateCommand;
 import com.returnp.admin.dto.command.AgencyCommand;
 import com.returnp.admin.dto.command.BranchCommand;
@@ -36,6 +35,7 @@ import com.returnp.admin.model.Branch;
 import com.returnp.admin.model.Category;
 import com.returnp.admin.model.Code;
 import com.returnp.admin.model.CompanyBankAccount;
+import com.returnp.admin.model.GiftCardSalesOrgan;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.MemberBankAccount;
@@ -330,6 +330,12 @@ public class SearchServiceImpl implements SearchService{
 	public ArrayList<Product> selectProducts(Product product) {
 		// TODO Auto-generated method stub
 		return this.searchMapper.selectProducts(product);
+	}
+
+	@Override
+	public ArrayList<GiftCardSalesOrgan> selectGiftCardSalesOrgans(GiftCardSalesOrgan record) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectGiftCardSalesOrgans(record);
 	};
 	
 }

@@ -25,6 +25,7 @@ import com.returnp.admin.dto.command.SoleDistCommand;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.request.SearchCondition;
+import com.returnp.admin.model.GiftCardSalesOrgan;
 import com.returnp.admin.service.interfaces.AffiliateService;
 import com.returnp.admin.service.interfaces.AgencyService;
 import com.returnp.admin.service.interfaces.BranchService;
@@ -213,6 +214,41 @@ public class NodeController extends ApplicationController{
 			slr7.setRows(soleDistList);
 			slr7.setTotal(this.searchService.selectTotalRecords());
 			return slr7;
+			
+		case "10": // 상품권 본사 검색
+			GiftCardSalesOrgan organ = new GiftCardSalesOrgan();
+			organ.setOrganType("10");
+			
+			if (StringUtils.isEmpty(nodeSearch.getSearchKeyword())) {
+				nodeSearch.setSearchKeyword(null);
+			}
+			organ.setOrganName(nodeSearch.getSearchKeyword());
+			organ.setOrganOwner(nodeSearch.getSearchKeyword());
+			organ.valueOf(nodeSearch);
+			
+			ArrayList<GiftCardSalesOrgan> organs = this.searchService.selectGiftCardSalesOrgans(organ);
+			ArrayListResponse<GiftCardSalesOrgan> slr8 = new ArrayListResponse<GiftCardSalesOrgan>();
+			slr8.setRows(organs);
+			slr8.setTotal(this.searchService.selectTotalRecords());
+			return slr8;
+			
+		case "11":  //상품권 총판 검색
+			GiftCardSalesOrgan organ2 = new GiftCardSalesOrgan();
+			organ2.setOrganType("11");
+			
+			if (StringUtils.isEmpty(nodeSearch.getSearchKeyword())) {
+				nodeSearch.setSearchKeyword(null);
+			}
+			organ2.setOrganName(nodeSearch.getSearchKeyword());
+			organ2.setOrganOwner(nodeSearch.getSearchKeyword());
+			organ2.valueOf(nodeSearch);
+			
+			ArrayList<GiftCardSalesOrgan> organs2 = this.searchService.selectGiftCardSalesOrgans(organ2);
+			ArrayListResponse<GiftCardSalesOrgan> slr9 = new ArrayListResponse<GiftCardSalesOrgan>();
+			slr9.setRows(organs2);
+			slr9.setTotal(this.searchService.selectTotalRecords());
+			return slr9;
+		case "13":  //상품권 판매점 검색
 			
 		}
 		return null;

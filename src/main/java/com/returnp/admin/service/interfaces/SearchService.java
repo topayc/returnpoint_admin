@@ -3,7 +3,6 @@ package com.returnp.admin.service.interfaces;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.returnp.admin.dto.command.AffiliateCommand;
@@ -34,6 +33,7 @@ import com.returnp.admin.model.Branch;
 import com.returnp.admin.model.Category;
 import com.returnp.admin.model.Code;
 import com.returnp.admin.model.CompanyBankAccount;
+import com.returnp.admin.model.GiftCardSalesOrgan;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.MemberBankAccount;
@@ -146,5 +146,7 @@ public interface SearchService {
 	public ArrayList<PaymentTransactionCommand> selectOverlapPaymentTransactionCommands(PaymentTransactionCommand record);
 	
 	public ArrayList<Product> selectProducts(Product product);
+	
+	public ArrayList<GiftCardSalesOrgan > selectGiftCardSalesOrgans(GiftCardSalesOrgan record);
 	
 }

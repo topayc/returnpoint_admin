@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.GiftCardSalesOrganMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.GiftCardSalesOrgan">
+    <id column="giftCardSalesOrganNo" jdbcType="INTEGER" property="giftCardSalesOrganNo" />
+    <result column="organCode" jdbcType="VARCHAR" property="organCode" />
+    <result column="organPassword" jdbcType="VARCHAR" property="organPassword" />
+    <result column="organOwner" jdbcType="VARCHAR" property="organOwner" />
+    <result column="organName" jdbcType="VARCHAR" property="organName" />
+    <result column="organBusinessNumber" jdbcType="VARCHAR" property="organBusinessNumber" />
+    <result column="organStatus" jdbcType="VARCHAR" property="organStatus" />
+    <result column="organType" jdbcType="VARCHAR" property="organType" />
+    <result column="organPhone" jdbcType="VARCHAR" property="organPhone" />
+    <result column="organEmail" jdbcType="VARCHAR" property="organEmail" />
+    <result column="organTel" jdbcType="VARCHAR" property="organTel" />
+    <result column="organAddr" jdbcType="VARCHAR" property="organAddr" />
+    <result column="organBankName" jdbcType="VARCHAR" property="organBankName" />
+    <result column="organBankAccount" jdbcType="VARCHAR" property="organBankAccount" />
+    <result column="organBankAccountOwner" jdbcType="VARCHAR" property="organBankAccountOwner" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    giftCardSalesOrganNo, organCode, organPassword, organOwner, organName, organBusinessNumber, 
+    organStatus, organType, organPhone, organEmail, organTel, organAddr, organBankName, 
+    organBankAccount, organBankAccountOwner, createTime, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gift_card_sales_organ
+    where giftCardSalesOrganNo = #{giftCardSalesOrganNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from gift_card_sales_organ
+    where giftCardSalesOrganNo = #{giftCardSalesOrganNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.GiftCardSalesOrgan">
+    insert into gift_card_sales_organ (giftCardSalesOrganNo, organCode, 
+      organPassword, organOwner, organName, 
+      organBusinessNumber, organStatus, organType, 
+      organPhone, organEmail, organTel, 
+      organAddr, organBankName, organBankAccount, 
+      organBankAccountOwner, createTime, updateTime
+      )
+    values (#{giftCardSalesOrganNo,jdbcType=INTEGER}, #{organCode,jdbcType=VARCHAR}, 
+      #{organPassword,jdbcType=VARCHAR}, #{organOwner,jdbcType=VARCHAR}, #{organName,jdbcType=VARCHAR}, 
+      #{organBusinessNumber,jdbcType=VARCHAR}, #{organStatus,jdbcType=VARCHAR}, #{organType,jdbcType=VARCHAR}, 
+      #{organPhone,jdbcType=VARCHAR}, #{organEmail,jdbcType=VARCHAR}, #{organTel,jdbcType=VARCHAR}, 
+      #{organAddr,jdbcType=VARCHAR}, #{organBankName,jdbcType=VARCHAR}, #{organBankAccount,jdbcType=VARCHAR}, 
+      #{organBankAccountOwner,jdbcType=VARCHAR}, NOW(), NOW()
+      )
+           <selectKey keyProperty="giftCardSalesOrganNo" resultType="java.lang.Integer" order ="AFTER">
+		    SELECT LAST_INSERT_ID()
+	 </selectKey>
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.GiftCardSalesOrgan">
+    insert into gift_card_sales_organ
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="giftCardSalesOrganNo != null">
+        giftCardSalesOrganNo,
+      </if>
+      <if test="organCode != null">
+        organCode,
+      </if>
+      <if test="organPassword != null">
+        organPassword,
+      </if>
+      <if test="organOwner != null">
+        organOwner,
+      </if>
+      <if test="organName != null">
+        organName,
+      </if>
+      <if test="organBusinessNumber != null">
+        organBusinessNumber,
+      </if>
+      <if test="organStatus != null">
+        organStatus,
+      </if>
+      <if test="organType != null">
+        organType,
+      </if>
+      <if test="organPhone != null">
+        organPhone,
+      </if>
+      <if test="organEmail != null">
+        organEmail,
+      </if>
+      <if test="organTel != null">
+        organTel,
+      </if>
+      <if test="organAddr != null">
+        organAddr,
+      </if>
+      <if test="organBankName != null">
+        organBankName,
+      </if>
+      <if test="organBankAccount != null">
+        organBankAccount,
+      </if>
+      <if test="organBankAccountOwner != null">
+        organBankAccountOwner,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="giftCardSalesOrganNo != null">
+        #{giftCardSalesOrganNo,jdbcType=INTEGER},
+      </if>
+      <if test="organCode != null">
+        #{organCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organPassword != null">
+        #{organPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="organOwner != null">
+        #{organOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="organName != null">
+        #{organName,jdbcType=VARCHAR},
+      </if>
+      <if test="organBusinessNumber != null">
+        #{organBusinessNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="organStatus != null">
+        #{organStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="organType != null">
+        #{organType,jdbcType=VARCHAR},
+      </if>
+      <if test="organPhone != null">
+        #{organPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="organEmail != null">
+        #{organEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="organTel != null">
+        #{organTel,jdbcType=VARCHAR},
+      </if>
+      <if test="organAddr != null">
+        #{organAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="organBankName != null">
+        #{organBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="organBankAccount != null">
+        #{organBankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="organBankAccountOwner != null">
+        #{organBankAccountOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.GiftCardSalesOrgan">
+    update gift_card_sales_organ
+    <set>
+      <if test="organCode != null">
+        organCode = #{organCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organPassword != null">
+        organPassword = #{organPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="organOwner != null">
+        organOwner = #{organOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="organName != null">
+        organName = #{organName,jdbcType=VARCHAR},
+      </if>
+      <if test="organBusinessNumber != null">
+        organBusinessNumber = #{organBusinessNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="organStatus != null">
+        organStatus = #{organStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="organType != null">
+        organType = #{organType,jdbcType=VARCHAR},
+      </if>
+      <if test="organPhone != null">
+        organPhone = #{organPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="organEmail != null">
+        organEmail = #{organEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="organTel != null">
+        organTel = #{organTel,jdbcType=VARCHAR},
+      </if>
+      <if test="organAddr != null">
+        organAddr = #{organAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="organBankName != null">
+        organBankName = #{organBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="organBankAccount != null">
+        organBankAccount = #{organBankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="organBankAccountOwner != null">
+        organBankAccountOwner = #{organBankAccountOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = NOW(),
+      </if>
+    </set>
+    where giftCardSalesOrganNo = #{giftCardSalesOrganNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.GiftCardSalesOrgan">
+    update gift_card_sales_organ
+    set organCode = #{organCode,jdbcType=VARCHAR},
+      organPassword = #{organPassword,jdbcType=VARCHAR},
+      organOwner = #{organOwner,jdbcType=VARCHAR},
+      organName = #{organName,jdbcType=VARCHAR},
+      organBusinessNumber = #{organBusinessNumber,jdbcType=VARCHAR},
+      organStatus = #{organStatus,jdbcType=VARCHAR},
+      organType = #{organType,jdbcType=VARCHAR},
+      organPhone = #{organPhone,jdbcType=VARCHAR},
+      organEmail = #{organEmail,jdbcType=VARCHAR},
+      organTel = #{organTel,jdbcType=VARCHAR},
+      organAddr = #{organAddr,jdbcType=VARCHAR},
+      organBankName = #{organBankName,jdbcType=VARCHAR},
+      organBankAccount = #{organBankAccount,jdbcType=VARCHAR},
+      organBankAccountOwner = #{organBankAccountOwner,jdbcType=VARCHAR},
+      updateTime = NOW()
+    where giftCardSalesOrganNo = #{giftCardSalesOrganNo,jdbcType=INTEGER}
+  </update>
+</mapper>

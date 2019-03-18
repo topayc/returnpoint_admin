@@ -32,6 +32,7 @@ import com.returnp.admin.model.Branch;
 import com.returnp.admin.model.Category;
 import com.returnp.admin.model.Code;
 import com.returnp.admin.model.CompanyBankAccount;
+import com.returnp.admin.model.GiftCardSalesOrgan;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.MemberBankAccount;
@@ -150,4 +151,6 @@ public interface SearchMapper {
 	public ArrayList<HashMap<String, Object>> selectAffiliteSaleReport();
 	
 	public ArrayList<Product> selectProducts(Product product);
+
+	public ArrayList<GiftCardSalesOrgan> selectGiftCardSalesOrgans(GiftCardSalesOrgan record);
 }
