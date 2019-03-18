@@ -3,6 +3,8 @@
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 			    {field:'giftCardSalesOrganNo',width:50,align:'center',title : 'No',hidden:false},
 			    {field:'organType',width:65,align:'center',title : '조직 구분', formatter : organTypeFormatter},
+			    {field:'parentOrganNo',width:65,align:'center',title : '소속 No', hidden:true},
+			    {field:'parentOrganName',width:80,align:'center',title : '소속 이름'},
 			    {field:'organName',width:100,align:'center',title : '사업장 이름'},
 			    {field:'organBusinessNumber',width:100,align:'center',title : '사업자 번호'},
 			    {field:'organCode',width:90,align:'center',title : '조직 코드'},
