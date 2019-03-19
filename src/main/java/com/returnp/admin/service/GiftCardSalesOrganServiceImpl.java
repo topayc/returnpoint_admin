@@ -1,5 +1,8 @@
 package com.returnp.admin.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -20,6 +23,17 @@ public class GiftCardSalesOrganServiceImpl implements GiftCardSalesOrganService 
 		try {
 			int affectedRow  = this.organMapper.insert(record);
 			if (affectedRow != 1) {
+				throw new Exception();
+			}
+
+			/*조직 코드를 mysql  auto 일련번호를 이용해서 생성 후 업데이트*/ 
+			SimpleDateFormat format = new SimpleDateFormat("yy");
+			Date d = new Date();
+			String code = format.format(d) + record.getOrganType()  + String.format("%05d", record.getGiftCardSalesOrganNo());
+			record.setOrganCode(code);
+			
+			int updateRow = this.organMapper.updateByPrimaryKey(record);
+			if (updateRow  != 1) {
 				throw new Exception();
 			}
 			ResponseUtil.setSuccessResponse(res, "100" , "상품권 조직 생성 완료");

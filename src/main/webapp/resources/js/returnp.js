@@ -68,6 +68,7 @@ $(function () {
         apiInfo: {
         	/* 노드 리스트 통합 조회*/
         	getNodes : { apiCode: 10000, apiPath : '/api/nodes' ,  requestMethod: "get"},  
+        	getNodeChilds : { apiCode: 10000, apiPath : '/api/childNodeList' ,  requestMethod: "get"},  
         	
         	/*카테고리 관련*/
         	createCategory : { apiCode: 10000, apiPath : '/api/category/create' ,  requestMethod: "post"},  

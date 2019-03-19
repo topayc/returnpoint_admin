@@ -180,13 +180,24 @@ function initView(){
 		  						nodeType : 7
 		  					}
 		  				);
+		  			case "list_my_child_nodes":
+		  				var node = $('#node_list').datagrid('getSelected');
+		  				if (!node) {
+		  					 $.messager.alert('알림','세부 회원 리스트를  확인하실 항목을 선택해주세요');
+		  					 return;
+		  				}
+		  				loadMyChildList(
+		  					node.soleDistName + "  의 지사 리스트", 
+		  					{ node : node.soleDistNo, nodeType : "7" }
+		  				);
+		  				break;
 		  			}
 		  		}
 		  	});
 		  	
-		  	var menus = [  '수정', '삭제','상세 정보','포인트 누적 현황' ];
-		  	var icons = ['icon-edit','icon-remove','icon-more', 'icon-large-chart'];
-		  	var actions = ['modify','remove','more_detail','point_acc_view'];
+		  	var menus = [  '수정', '삭제','상세 정보','포인트 누적 현황' ,"의 리스트 보기"  ];
+		  	var icons = ['icon-edit','icon-remove','icon-more', 'icon-large-chart','icon-reload'];
+		  	var actions = ['modify','remove','more_detail','point_acc_view','list_my_child_nodes'];
 		  	
 		  	for(var i=0; i<menus.length; i++){
 		  		cmenu.menu('appendItem', {

@@ -50,6 +50,22 @@ public class SearchCondition extends QueryCondition {
     private String organType;
     private String organStatus;
  
+    private String parentNode;
+    private String parentNodeNo;
+    
+    
+	public String getParentNode() {
+		return parentNode;
+	}
+	public void setParentNode(String parentNode) {
+		this.parentNode = parentNode;
+	}
+	public String getParentNodeNo() {
+		return parentNodeNo;
+	}
+	public void setParentNodeNo(String parentNodeNo) {
+		this.parentNodeNo = parentNodeNo;
+	}
 	public String getOrganType() {
 		return organType;
 	}

@@ -3078,6 +3078,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
  <!-- GiftCardSalesOrgan Mapper   -->
 <resultMap id="GiftCardSalesOrganResultMap" type="com.returnp.admin.model.GiftCardSalesOrgan">
     <id column="giftCardSalesOrganNo" jdbcType="INTEGER" property="giftCardSalesOrganNo" />
+    <result column="parentOrganNo" jdbcType="INTEGER" property="parentOrganNo" />
     <result column="organCode" jdbcType="VARCHAR" property="organCode" />
     <result column="organOwner" jdbcType="VARCHAR" property="organOwner" />
     <result column="organPassword" jdbcType="VARCHAR" property="organPassword" />
@@ -3096,10 +3097,54 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   
+  <resultMap id="GiftCardSalesOrganCommandResultMap" type="com.returnp.admin.dto.command.GiftCardSalesOrganCommand">
+    <id column="giftCardSalesOrganNo" jdbcType="INTEGER" property="giftCardSalesOrganNo" />
+    <result column="parentOrganNo" jdbcType="INTEGER" property="parentOrganNo" />
+    <result column="organCode" jdbcType="VARCHAR" property="organCode" />
+    <result column="organOwner" jdbcType="VARCHAR" property="organOwner" />
+    <result column="parentOrganName" jdbcType="VARCHAR" property="parentOrganName" />
+    <result column="organPassword" jdbcType="VARCHAR" property="organPassword" />
+    <result column="organName" jdbcType="VARCHAR" property="organName" />
+    <result column="organBusinessNumber" jdbcType="VARCHAR" property="organBusinessNumber" />
+    <result column="organStatus" jdbcType="VARCHAR" property="organStatus" />
+    <result column="organType" jdbcType="VARCHAR" property="organType" />
+    <result column="organPhone" jdbcType="VARCHAR" property="organPhone" />
+    <result column="organEmail" jdbcType="VARCHAR" property="organEmail" />
+    <result column="organTel" jdbcType="VARCHAR" property="organTel" />
+    <result column="organAddr" jdbcType="VARCHAR" property="organAddr" />
+    <result column="organBankName" jdbcType="VARCHAR" property="organBankName" />
+    <result column="organBankAccount" jdbcType="VARCHAR" property="organBankAccount" />
+    <result column="organBankAccountOwner" jdbcType="VARCHAR" property="organBankAccountOwner" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
   <sql id="GiftCardSalesOrgan_Column_List">
-    giftCardSalesOrganNo, organCode, organOwner, organPassword, organName, organBusinessNumber, organStatus, 
+    giftCardSalesOrganNo, parentOrganNo, organCode, organOwner, organPassword, organName, organBusinessNumber, organStatus, 
     organType, organPhone, organEmail, organTel, organAddr, organBankName, organBankAccount, organBankAccountOwner, 
     createTime, updateTime
+  </sql>
+
+  <sql id="GiftCardSalesOrganCommand_Column_List">
+    A.giftCardSalesOrganNo, 
+    A.parentOrganNo,
+    A.organCode, 
+    A.organOwner, 
+    A.organPassword,
+    B.organName as parentOrganName,  
+    A.organName, 
+    A.organBusinessNumber, 
+    A.organStatus, 
+    A.organType, 
+    A.organPhone, 
+    A.organEmail, 
+    A.organTel, 
+    A.organAddr, 
+    A.organBankName, 
+    A.organBankAccount, 
+    A.organBankAccountOwner, 
+    A.createTime, 
+    A.updateTime
   </sql>
   
   <sql id ="GiftCardSalesOrganWhereStatement">
@@ -3112,6 +3157,17 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
 	 <if test="organStatus != null"> AND organStatus = #{organStatus,jdbcType=VARCHAR}</if>
   </sql>
   
+  <sql id ="GiftCardSalesOrganCommandWhereStatement">
+	 <if test="giftCardSalesOrganNo != null"> AND A.giftCardSalesOrganNo = #{giftCardSalesOrganNo,jdbcType=INTEGER}</if>
+	 <if test="parentOrganName != null"> AND B.parentOrganName = #{parentOrganName,jdbcType=VARCHAR}</if>
+	 <if test="organCode != null"> AND A.organCode = #{organCode,jdbcType=VARCHAR}</if>
+	 <if test="organName != null"> AND A.organName = #{organName,jdbcType=VARCHAR}</if>
+	 <if test="organOwner != null"> AND A.organOwner = #{organOwner,jdbcType=VARCHAR}</if>
+	 <if test="organBusinessNumber != null"> AND A.organBusinessNumber = #{organBusinessNumber,jdbcType=VARCHAR}</if>
+	 <if test="organType != null"> AND A.organType = #{organType,jdbcType=VARCHAR}</if>
+	 <if test="organStatus != null"> AND A.organStatus = #{organStatus,jdbcType=VARCHAR}</if>
+  </sql>
+  
   <select id="selectGiftCardSalesOrgans"    parameterType="com.returnp.admin.model.GiftCardSalesOrgan" resultType="com.returnp.admin.model.GiftCardSalesOrgan" >
    	select
    	 	sql_calc_found_rows
@@ -3122,6 +3178,19 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     	<include refid = "GiftCardSalesOrganWhereStatement"/>
     	<include refid = "commonStatement"/>
   </select>
+  
+  <select id="selectGiftCardSalesOrganCommands"    parameterType="com.returnp.admin.dto.command.GiftCardSalesOrganCommand" resultType="com.returnp.admin.dto.command.GiftCardSalesOrganCommand" >
+   	select
+   	 	sql_calc_found_rows
+       <include refid="GiftCardSalesOrganCommand_Column_List" />
+    from gift_card_sales_organ as A
+    left outer join gift_card_sales_organ as B on (A.parentOrganNo = B.giftCardSalesOrganNo)
+    where 
+    	1 = 1 
+    	<include refid = "GiftCardSalesOrganCommandWhereStatement"/>
+    	<include refid = "commonStatement"/>
+  </select>
+  
  <!-- ===============================================================================================================    -->
 </mapper>
  

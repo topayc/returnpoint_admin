@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.request.SearchCondition;
-import com.returnp.admin.handler.ReturnPException;
 import com.returnp.admin.model.Affiliate;
 import com.returnp.admin.model.Agency;
 import com.returnp.admin.model.Branch;
 import com.returnp.admin.model.CompanyBankAccount;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.Policy;
+import com.returnp.admin.model.Product;
 import com.returnp.admin.model.Recommender;
 import com.returnp.admin.model.SaleManager;
 import com.returnp.admin.service.interfaces.AdminService;
@@ -103,6 +103,10 @@ public class AdminController extends ApplicationController{
 		model.addAttribute("productStatusList", CodeDefine.getProductStatusList());
 		model.addAttribute("saleOrganDetailCodes", CodeDefine.getGiftCardSaleOrganDetailCodes());
 		model.addAttribute("saleOrganStatusList", CodeDefine.getGiftCardSaleOrganStatusList());
+		
+		if (viewReqName.equals("manageGiftCardIssue")) {
+			model.addAttribute("giftCards", this.serachService.selectProducts(new Product()));
+		}
 		
 		return RequestForward.CONTENT_VIEW;
 	}

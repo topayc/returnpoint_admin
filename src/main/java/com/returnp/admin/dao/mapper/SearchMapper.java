@@ -7,6 +7,7 @@ import com.returnp.admin.dto.command.AffiliateCommand;
 import com.returnp.admin.dto.command.AgencyCommand;
 import com.returnp.admin.dto.command.BranchCommand;
 import com.returnp.admin.dto.command.CategoryCommand;
+import com.returnp.admin.dto.command.GiftCardSalesOrganCommand;
 import com.returnp.admin.dto.command.GreenPointCommand;
 import com.returnp.admin.dto.command.MemberBankAccountCommand;
 import com.returnp.admin.dto.command.MemberCommand;
@@ -153,4 +154,6 @@ public interface SearchMapper {
 	public ArrayList<Product> selectProducts(Product product);
 
 	public ArrayList<GiftCardSalesOrgan> selectGiftCardSalesOrgans(GiftCardSalesOrgan record);
+
+	public ArrayList<GiftCardSalesOrganCommand> selectGiftCardSalesOrganCommands(GiftCardSalesOrganCommand record);
 }

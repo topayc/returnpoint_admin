@@ -1,7 +1,6 @@
 package com.returnp.admin.web.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,19 +17,18 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.returnp.admin.code.CodeDefine;
-import com.returnp.admin.dto.QueryCondition;
+import com.returnp.admin.dto.command.GiftCardSalesOrganCommand;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.GiftCardSalesOrgan;
-import com.returnp.admin.model.Product;
 import com.returnp.admin.service.interfaces.GiftCardSalesOrganService;
 import com.returnp.admin.service.interfaces.SearchService;
 
 @Controller
 @RequestMapping("/api")
 @SessionAttributes("giftCardsalesOrganFormInfo")
-public class GiftCardSaleOrganController extends ApplicationController{
+public class GiftCardSalesOrganController extends ApplicationController{
 	
 	@Autowired SearchService searchService;
 	@Autowired GiftCardSalesOrganService organService;;
@@ -53,14 +51,14 @@ public class GiftCardSaleOrganController extends ApplicationController{
 	@ResponseBody
 	@RequestMapping(value = "/giftCardSalesOrgans", method = RequestMethod.GET)
 	public ReturnpBaseResponse selectGiftCardSalesOrgans(SearchCondition searchCondition){
-		GiftCardSalesOrgan organ = new GiftCardSalesOrgan();
+		GiftCardSalesOrganCommand organ = new GiftCardSalesOrganCommand();
 		if (StringUtils.isEmpty(searchCondition.getSearchKeyword())) {
 			searchCondition.setSearchKeyword(null);
 		}
 		organ.valueOf(searchCondition);
 		organ.setOrder("organType asc");
-		ArrayListResponse<GiftCardSalesOrgan> res = new ArrayListResponse<GiftCardSalesOrgan>();
-		ArrayList<GiftCardSalesOrgan> organs = this.searchService.selectGiftCardSalesOrgans(organ);
+		ArrayListResponse<GiftCardSalesOrganCommand> res = new ArrayListResponse<GiftCardSalesOrganCommand>();
+		ArrayList<GiftCardSalesOrganCommand> organs = this.searchService.selectGiftCardSalesOrganCommands(organ);
 		res.setRows(organs);
 		res.setTotal(this.searchService.selectTotalRecords());
 		this.setSuccessResponse(res);

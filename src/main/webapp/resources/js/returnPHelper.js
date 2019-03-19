@@ -1,5 +1,4 @@
-function getNumber(str)
-{
+function getNumber(str) {
     str = "" + str.replace(/(^\s*)|(\s*$)|,/g, ''); // trim, 콤마 제거
     return (new Number(str));
 }
@@ -11,18 +10,10 @@ function imageTagFormatter(value,row,index){
 function affiliateTypeFormatter(value,row,index){
 	var affiliteTypesArr = row.affiliateType.split(","); 
 	var str = [];
-	if (affiliteTypesArr.hasValue("A001")) {
-		str.push("가맹점");
-	}
-	if (affiliteTypesArr.hasValue("A002")) {
-		str.push("제휴점");
-	}
-	if (affiliteTypesArr.hasValue("A003")) {
-		str.push("무사업자");
-	}
-	if (affiliteTypesArr.hasValue("A004")) {
-		str.push("온라인");
-	}
+	if (affiliteTypesArr.hasValue("A001")) str.push("가맹점");
+	if (affiliteTypesArr.hasValue("A002")) str.push("제휴점");
+	if (affiliteTypesArr.hasValue("A003")) str.push("무사업자");
+	if (affiliteTypesArr.hasValue("A004")) str.push("온라인");
 	return str.join(",");
 }
 
@@ -36,11 +27,16 @@ function organStatusFormatter(value,row,index){
 	}
 	return result; 
 }
+
+function organAccountInfoFormatter(value,row,index){
+		return '[' + row.organBankAccountOwner + "]" + row.organBankName + "-" + row.organBankAccount;
+}
+
 function organTypeFormatter(value,row,index){
 	switch(row.organType){
-	case "10": result = '<span style = "border-radius: 10px;background-color: #B40486;padding: 5px;color : #ffffff;font-weight : bold">본사</span>' ; break;
-	case "11": result =  '<span style = "border-radius: 10px;background-color: green;padding: 5px;color : #ffffff;font-weight : bold">총판</span>' ; break;
-	case "12": result = '<span style = "border-radius: 10px;background-color: #088A85;padding: 5px;color : #ffffff;font-weight : bold">판매점</span>' ; break;
+	case "10": result = '<span style = "border-radius: 10px;background-color: #B40486;padding: 5px;color : #ffffff;font-weight : bold">본 사</span>' ; break;
+	case "11": result =  '<span style = "border-radius: 10px;background-color: green;padding: 5px;color : #ffffff;font-weight : bold">총 판</span>' ; break;
+	case "12": result = '<span style = "border-radius: 10px;background-color: #C2722E;padding: 5px;color : #ffffff;font-weight : bold">판매점</span>' ; break;
 	default :result = "-";break;
 	}
 	return result; 
@@ -759,6 +755,47 @@ function loadCommonListView(data, callback){
 		});
 }
 
+/* 해당 노드의 자식 리스트  */
+function loadMyChildList (title,params,listType){
+	var queryParam = $.param(params);
+	$("#dlgForm").load("/api/childNodeListView?" + queryParam,
+			function(response, status, xhr) {
+			
+					$('#dlgForm').dialog({
+						width:1200,
+						cache: false,
+					    modal : true,
+					    closable : true,
+					    border : 'thick',
+					    constrain : true,
+					    shadow : true,
+					    collapsible : false,
+					    minimizable : false,
+					    maximizable: false,
+					    title : "&nbsp; " + title,
+					    shadow : false,	
+						buttons:[
+							{ 
+								text:'확인', iconCls:'icon-ok', handler:function(){
+									$('#dlgForm').dialog('close');
+									$('#dlgForm').removeAttr('style');
+								} 
+							}/*,
+							{
+								text:'취소', handler:function(){
+									$('#dlgForm').dialog('close');
+									$('#dlgForm').removeAttr('style');
+								}
+							}*/
+						]
+				});
+			
+			$('#dlgForm').dialog('center');
+		
+		});
+}
+
+/* 나의 회원 리스트 */
 function loadMyMemberList (title,params){
 	var queryParam = $.param(params);
 	$("#dlgForm").load("/api/member/template/memberList?" + queryParam,

@@ -202,17 +202,16 @@ function initView(){
 		  					 return;
 		  				}
 		  				loadMyMemberList(
-		  						node.memberName + "  의 회원 리스트", 
-		  					{
-		  						memberNo : node.memberNo,
-		  					}
+		  					node.memberName + "  의 회원 리스트", 
+		  					{ memberNo : node.memberNo},
+		  					"member"
 		  				);
 		  				break;
 		  			}
 		  		}
 		  	});
 		  	
-		  	var menus = [  '수정', '삭제','상세 정보','포인트 누적 현황' ,"의 회원 리스트 보기 "];
+		  	var menus = [  '수정', '삭제','상세 정보','포인트 누적 현황' ,"의 리스트 보기"];
 		  	var icons = ['icon-edit','icon-remove','icon-more', 'icon-large-chart', 'icon-reload'];
 		  	var actions = ['modify','remove','more_detail','point_acc_view', 'list_my_members'];
 		  	

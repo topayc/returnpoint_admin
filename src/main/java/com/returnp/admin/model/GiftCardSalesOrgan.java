@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class GiftCardSalesOrgan extends QueryCondition {
     private Integer giftCardSalesOrganNo;
+    
+    private Integer parentOrganNo;
 
     private String organCode;
 
@@ -38,7 +40,16 @@ public class GiftCardSalesOrgan extends QueryCondition {
 
     private Date updateTime;
 
-    public Integer getGiftCardSalesOrganNo() {
+
+	public Integer getParentOrganNo() {
+		return parentOrganNo;
+	}
+
+	public void setParentOrganNo(Integer parentOrganNo) {
+		this.parentOrganNo = parentOrganNo;
+	}
+
+	public Integer getGiftCardSalesOrganNo() {
         return giftCardSalesOrganNo;
     }
 

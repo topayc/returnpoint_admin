@@ -1,23 +1,24 @@
 		columns = [[
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-			    {field:'giftCardSalesOrganNo',width:50,align:'center',title : 'No',hidden:false},
-			    {field:'organType',width:65,align:'center',title : '조직 구분', formatter : organTypeFormatter},
+			    {field:'giftCardSalesOrganNo',width:65,align:'center',title : '등록 No',hidden:false},
+			    {field:'organType',width:65,align:'center',title : '구분', formatter : organTypeFormatter},
 			    {field:'parentOrganNo',width:65,align:'center',title : '소속 No', hidden:true},
-			    {field:'parentOrganName',width:80,align:'center',title : '소속 이름'},
-			    {field:'organName',width:100,align:'center',title : '사업장 이름'},
-			    {field:'organBusinessNumber',width:100,align:'center',title : '사업자 번호'},
-			    {field:'organCode',width:90,align:'center',title : '조직 코드'},
-			    {field:'organPassword',width:90,align:'center',title : '비밀 번호'},
-			    {field:'organOwner',width:100,align:'center',title : '명의자'},
+			    {field:'parentOrganName',width:160,align:'center',title : '소속'},
+			    {field:'organName',width:160,align:'center',title : '사업장'},
+			    {field:'organOwner',width:100,align:'center',title : '사업주'},
+			    {field:'organBusinessNumber',width:130,align:'center',title : '사업자 번호'},
+			    {field:'organCode',width:90,align:'center',title : '코드(ID)'},
+			    {field:'organPassword',width:90,align:'center',title : '비밀번호'},
 			    {field:'organStatus',width:60,align:'center',title : '상태', formatter : organStatusFormatter},
+			    {field:'organAccountInfo',width:220,align:'center',title : '은행 정보' , hidden : true, formatter : organAccountInfoFormatter},
+			    {field:'organBankName',width:100,align:'center',title : '은행명' , hidden : false},
+			    {field:'organBankAccountOwner',width:100,align:'center',title : '계좌주', hidden : false},
+			    {field:'organBankAccount',width:120,align:'center',title : '계좌번호', hidden : false },
 			    {field:'organPhone',width:100,align:'center',title : '핸드폰'},
 			    {field:'organEmail',width:100,align:'center',title : '이메일'},
 			    {field:'organTel',width:100,align:'center',title : '전화번호' },
 			    {field:'organAddr',width:100,align:'center',title : '사업장 주소'},
-			    {field:'organBankName',width:100,align:'center',title : '은행명'},
-			    {field:'organBankAccountOwner',width:100,align:'center',title : '계좌 소유주'},
-			    {field:'organBankAccount',width:100,align:'center',title : '계좌번호' },
 			    {field:'createTime',width:100,align:'center',title : '등록일', formatter : dateFormatter},
 			    {field:'updateTime',width:100,align:'center',title : '수정일', hidden : true},
 			    ]];
@@ -210,23 +211,24 @@ function initView(){
 		width: 600
 	});
 	
-	$('#parentName').textbox({
+	$('#parentOrganName').textbox({
 		label : roundLabel("소속 이름"),
 		prompt: '검색 이름',
 		width: 600,
 		editable : false
 	});
 	
-	$('#parentNo').textbox({
+	$('#parentOrganNo').textbox({
 		label : roundLabel("소속 총판"),
 		prompt: '총판 검색 ',
-		width: 600
+		width: 600,
+		editable : false
 	});
 	
 	$('#organCode').textbox({
 		label :roundLabel("조직 코드 "),
 		editable: false,
-		prompt: '코드   ',
+		prompt: '자동생성 - 입력할 필요 없음   ',
 		width: 600
 	});
 	 
@@ -429,16 +431,22 @@ function submitGiftCardSalesOrganForm(){
 	var params = makeFormData();
 	var action = $("#action").val();
 	var apiName = null;
+	var organType = $('#organType').combobox("getValue");
+	
+	/*본사의 수정 및 생성시에는 아래의 프로퍼티를 제거*/
+	if (organType == "10"){
+		delete params.parentOrganNo;
+		delete params.parentOrganName;
+	}
 	
 	if (action == "create") {
 		delete params.giftCardSalesOrganNo;
 	}
 	
-	var action = $("#action").val();
 	console.log(params);
+	
 	var valid = true;
 	var fieldName = '';
-	var organType = $('#organType').combobox("getValue");
 	
 	for (var prop in params){
 		if (params.hasOwnProperty(prop)) {
@@ -451,7 +459,7 @@ function submitGiftCardSalesOrganForm(){
 	}
 	
 	if (!valid) {
-		if (organType == "10" && ( fieldName == "parentNo" || fieldName == "parentName")) {
+		if (organType == "10" && ( fieldName == "parentOrganNo" || fieldName == "parentOrganName")) {
 		} else {
 			$.messager.alert('알림', fieldName + ' 항목이 입력되지 않았습니다');
 			return false;
@@ -536,13 +544,13 @@ function openGiftSalesOrganForm(action){
 		                    }
 		                },function callback(selNode){
 		                    $(e.data.target).textbox('setValue', selNode.giftCardSalesOrganNo);
-		                    $("#parentName").textbox('setValue', selNode.organName);
+		                    $("#parentOrganName").textbox('setValue', selNode.organName);
 		                });
 		            }
 		        }];
-		        $("#parentNo").textbox("show");
-		        $("#parentName").textbox("show");
-		        $("#parentNo").textbox(searchOptions);
+		        $("#parentOrganNo").textbox("show");
+		        $("#parentOrganName").textbox("show");
+		        $("#parentOrganNo").textbox(searchOptions);
 		    }else if (record.value == "12"){
 		        searchOptions.label = roundLabel("소속 총판");
 		        searchOptions.prompt = "소속 총판";
@@ -562,16 +570,16 @@ function openGiftSalesOrganForm(action){
 		                    }
 		                },function callback(selNode){
 		                    $(e.data.target).textbox('setValue', selNode.giftCardSalesOrganNo);
-		                    $("#parentName").textbox('setValue', selNode.organName);
+		                    $("#parentOrganName").textbox('setValue', selNode.organName);
 		                });
 		            }
 		        }];
-		        $("#parentNo").textbox("show");
-		        $("#parentName").textbox("show");
-		        $("#parentNo").textbox(searchOptions);
+		        $("#parentOrganNo").textbox("show");
+		        $("#parentOrganName").textbox("show");
+		        $("#parentOrganNo").textbox(searchOptions);
 		    }else if (record.value == "10") {
-		    	$("#parentNo").textbox("hide");
-		    	$("#parentName").textbox("hide");
+		    	$("#parentOrganNo").textbox("hide");
+		    	$("#parentOrganName").textbox("hide");
 		    }
 			
 		}

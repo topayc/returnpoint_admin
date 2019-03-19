@@ -3,6 +3,7 @@
 <mapper namespace="com.returnp.admin.dao.mapper.GiftCardSalesOrganMapper">
   <resultMap id="BaseResultMap" type="com.returnp.admin.model.GiftCardSalesOrgan">
     <id column="giftCardSalesOrganNo" jdbcType="INTEGER" property="giftCardSalesOrganNo" />
+    <result column="parentOrganNo" jdbcType="INTEGER" property="parentOrganNo" />
     <result column="organCode" jdbcType="VARCHAR" property="organCode" />
     <result column="organPassword" jdbcType="VARCHAR" property="organPassword" />
     <result column="organOwner" jdbcType="VARCHAR" property="organOwner" />
@@ -20,31 +21,35 @@
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
+  
   <sql id="Base_Column_List">
-    giftCardSalesOrganNo, organCode, organPassword, organOwner, organName, organBusinessNumber, 
+    giftCardSalesOrganNo, organCode, parentOrganNo, organPassword, organOwner, organName, organBusinessNumber, 
     organStatus, organType, organPhone, organEmail, organTel, organAddr, organBankName, 
     organBankAccount, organBankAccountOwner, createTime, updateTime
   </sql>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from gift_card_sales_organ
     where giftCardSalesOrganNo = #{giftCardSalesOrganNo,jdbcType=INTEGER}
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from gift_card_sales_organ
     where giftCardSalesOrganNo = #{giftCardSalesOrganNo,jdbcType=INTEGER}
   </delete>
+  
   <insert id="insert" parameterType="com.returnp.admin.model.GiftCardSalesOrgan">
     insert into gift_card_sales_organ (giftCardSalesOrganNo, organCode, 
-      organPassword, organOwner, organName, 
+      organPassword, organOwner, organName, parentOrganNo, 
       organBusinessNumber, organStatus, organType, 
       organPhone, organEmail, organTel, 
       organAddr, organBankName, organBankAccount, 
       organBankAccountOwner, createTime, updateTime
       )
     values (#{giftCardSalesOrganNo,jdbcType=INTEGER}, #{organCode,jdbcType=VARCHAR}, 
-      #{organPassword,jdbcType=VARCHAR}, #{organOwner,jdbcType=VARCHAR}, #{organName,jdbcType=VARCHAR}, 
+      #{organPassword,jdbcType=VARCHAR}, #{organOwner,jdbcType=VARCHAR}, #{organName,jdbcType=VARCHAR}, #{parentOrganNo,jdbcType=INTEGER},
       #{organBusinessNumber,jdbcType=VARCHAR}, #{organStatus,jdbcType=VARCHAR}, #{organType,jdbcType=VARCHAR}, 
       #{organPhone,jdbcType=VARCHAR}, #{organEmail,jdbcType=VARCHAR}, #{organTel,jdbcType=VARCHAR}, 
       #{organAddr,jdbcType=VARCHAR}, #{organBankName,jdbcType=VARCHAR}, #{organBankAccount,jdbcType=VARCHAR}, 
@@ -59,6 +64,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="giftCardSalesOrganNo != null">
         giftCardSalesOrganNo,
+      </if>
+      <if test="parentOrganNo != null">
+        parentOrganNo,
       </if>
       <if test="organCode != null">
         organCode,
@@ -112,6 +120,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="giftCardSalesOrganNo != null">
         #{giftCardSalesOrganNo,jdbcType=INTEGER},
+      </if>
+      <if test="parentOrganNo != null">
+        #{parentOrganNo,jdbcType=INTEGER},
       </if>
       <if test="organCode != null">
         #{organCode,jdbcType=VARCHAR},
@@ -169,6 +180,9 @@
       <if test="organCode != null">
         organCode = #{organCode,jdbcType=VARCHAR},
       </if>
+      <if test="parentOrganNo != null">
+        parentOrganNo = #{parentOrganNo,jdbcType=INTEGER},
+      </if>
       <if test="organPassword != null">
         organPassword = #{organPassword,jdbcType=VARCHAR},
       </if>
@@ -221,6 +235,7 @@
     update gift_card_sales_organ
     set organCode = #{organCode,jdbcType=VARCHAR},
       organPassword = #{organPassword,jdbcType=VARCHAR},
+      parentOrganNo = #{parentOrganNo,jdbcType=INTEGER},
       organOwner = #{organOwner,jdbcType=VARCHAR},
       organName = #{organName,jdbcType=VARCHAR},
       organBusinessNumber = #{organBusinessNumber,jdbcType=VARCHAR},

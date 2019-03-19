@@ -19,8 +19,8 @@
 										</c:forEach>
 									</select> 
 								</div>
-								<div style="margin-bottom:16px"><input id ="parentNo"  name="parentNo" style="width:100%" data-options="label:'총판 검색',labelWidth :100,labelPosition : 'left'"> </div>
-								<div style="margin-bottom:16px"><input id ="parentName"  name="parentName" style="width:100%" data-options="label:'이름',labelWidth :100,labelPosition : 'left'"> </div>
+								<div style="margin-bottom:16px"><input id ="parentOrganNo"  name="parentOrganNo" style="width:100%" data-options="label:'총판 검색',labelWidth :100,labelPosition : 'left'"> </div>
+								<div style="margin-bottom:16px"><input id ="parentOrganName"  name="parentOrganName" style="width:100%" data-options="label:'이름',labelWidth :100,labelPosition : 'left'"> </div>
 								<input type = "hidden" "id ="giftCardSalesOrganNo"  name="giftCardSalesOrganNo" >
 								<div style="margin-bottom:16px;" ><input id ="organCode"  name="organCode" style="width:100%;" data-options="label:'코드 ',labelWidth :100,labelPosition : 'left'"> </div>
 								<div style="margin-bottom:16px"><input id ="organPassword"  name="organPassword" style="width:100%" data-options="label:'비밀번호',labelWidth :100,labelPosition : 'left'"> </div>

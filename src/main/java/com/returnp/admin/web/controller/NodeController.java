@@ -51,6 +51,35 @@ public class NodeController extends ApplicationController{
 	@Autowired SaleManagerService saleManagerService;
 	@Autowired PointCoversionTransactionService pointTransactionService;
     
+	/**
+	 * 해당 노드의 자식 리스트 뷰
+	 * @param request
+	 * @param nodeSearch
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/childNodeListView", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public  String  geMyChildNodeView( 
+			HttpServletRequest request,
+			SearchCondition nodeSearch,
+			Model model) throws Exception {
+		System.out.println("geMyChildNodeView");
+		return "template/list/nodeChildList";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/childNodeList", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public  ReturnpBaseResponse getHhildNodeList( 
+			HttpServletRequest request,
+			SearchCondition nodeSearch,
+			Model model) throws Exception {
+		
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		this.setSuccessResponse(res);
+		return res;
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/nodes", method = RequestMethod.GET, produces = "application/json; charset=utf8")
 	public  ReturnpBaseResponse getNodeList( 
@@ -253,8 +282,6 @@ public class NodeController extends ApplicationController{
 		}
 		return null;
 	}
-
-	
 
 	/**
 	 * 노드 생성

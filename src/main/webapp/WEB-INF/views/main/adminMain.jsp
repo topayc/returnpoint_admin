@@ -245,8 +245,8 @@
                             				</a> 
                             			</li>
                             			
-                            			<li id = "manageGiftCardProduct" data-options = "iconCls :'icon-info'">
-                            				<a class= "sub_menu"  view_req_name = "manageProduct"  menu_deps= '2' >
+                            			<li id = "manageGiftCardIssue" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = "manageGiftCardIssue"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 발행</span>
                             				</a> 
                             			</li>
@@ -258,12 +258,12 @@
                             			</li>
                             			
                             			<li id = "" data-options = "iconCls :'icon-info'">
-                            				<a class= "sub_menu"  view_req_name = "manageGiftPayment"  menu_deps= '2' >
+                            				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 결제 관리</span>
                             				</a> 
                             			</li>
                             			<li id = "" data-options = "iconCls :'icon-info'">
-                            				<a class= "sub_menu"  view_req_name = "manageGiftPayment"  menu_deps= '2' >
+                            				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 판매 리포트</span>
                             				</a> 
                             			</li>
