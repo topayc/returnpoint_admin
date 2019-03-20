@@ -106,6 +106,8 @@ public class AdminController extends ApplicationController{
 		
 		if (viewReqName.equals("manageGiftCardIssue")) {
 			model.addAttribute("giftCards", this.serachService.selectProducts(new Product()));
+			model.addAttribute("giftCardTypes", CodeDefine.getGiftCardTypeList());
+			model.addAttribute("giftCardIssuerTypes", CodeDefine.getGiftCardSaleOrganDetailCodes());
 		}
 		
 		return RequestForward.CONTENT_VIEW;

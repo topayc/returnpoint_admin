@@ -277,8 +277,22 @@ public class NodeController extends ApplicationController{
 			slr9.setRows(organs2);
 			slr9.setTotal(this.searchService.selectTotalRecords());
 			return slr9;
-		case "13":  //상품권 판매점 검색
+		case "12":  //상품권 판매점 검색
+			GiftCardSalesOrgan organ3 = new GiftCardSalesOrgan();
+			organ3.setOrganType("12");
 			
+			if (StringUtils.isEmpty(nodeSearch.getSearchKeyword())) {
+				nodeSearch.setSearchKeyword(null);
+			}
+			organ3.setOrganName(nodeSearch.getSearchKeyword());
+			organ3.setOrganOwner(nodeSearch.getSearchKeyword());
+			organ3.valueOf(nodeSearch);
+			
+			ArrayList<GiftCardSalesOrgan> organs3 = this.searchService.selectGiftCardSalesOrgans(organ3);
+			ArrayListResponse<GiftCardSalesOrgan> slr10 = new ArrayListResponse<GiftCardSalesOrgan>();
+			slr10.setRows(organs3);
+			slr10.setTotal(this.searchService.selectTotalRecords());
+			return slr10;
 		}
 		return null;
 	}

@@ -241,7 +241,7 @@
                             			
                             			<li id = "manageProduct" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageProduct"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 관리</span>
+                            					<span style = "font-weight : bold">상품권 상품 관리</span>
                             				</a> 
                             			</li>
                             			
@@ -253,7 +253,13 @@
                             			
                             			<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftProductOrder"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 발행(주문) 관리</span>
+                            					<span style = "font-weight : bold">상품권 조직 주문 관리</span>
+                            				</a> 
+                            			</li>
+                            			
+                            			<li id = "" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = "manageGiftProductOrder"  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 개인 주문 관리</span>
                             				</a> 
                             			</li>
                             			

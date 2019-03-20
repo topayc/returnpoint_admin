@@ -317,8 +317,8 @@ public class CodeDefine {
 	
 	public static ArrayList<CodeKeyValuePair> getGiftCardTypeList() {
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
-		list.add(new CodeKeyValuePair("1", "실물 상품권", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("2", "모바일 상품권", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("1", "오프라인 - 실물 상품권", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "온라인 - 모바일 상품권", "Y", "Y" ,""));
 		return list;
 	}
 	
