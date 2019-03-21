@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div  style ="padding:5px;margin: 10px">
-	<div style = "padding:10px;padding-top:5px;padding-bottom:5px" >	
+<div  style ="margin: 10px">
+	<div style = "padding:5px;padding-bottom:5px" >	
 		
 	   	<form id="createAffiliateForm"  enctype="multipart/form-data" name = "createAffiliateForm" method="post" action = "<c:url value='/createAbmsProject'/>">
 			<div style="display:none;">
@@ -57,7 +57,7 @@
 			</div>
 			<div style="margin-bottom:8px"><input id ="affiliateAddress"  name="affiliateAddress" style="width:100%" data-options="label:'협력업체 주소',labelWidth :140,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:8px"><input id ="affiliateRoad"  name="affiliateRoad" style="width:100%" data-options="label:'협력업체 도로명',labelWidth :140,labelPosition : 'left'"> </div>
-			<div style="margin-bottom:8px"><div id="map-canvas" style="width:435px; height:200px;margin-left : 140px;border : 1px solid #dddddd;background-color : #eeeeee"></div></div>
+			<div style="margin-bottom:8px"><div id="map-canvas" style="height:200px;;border : 1px solid #aaaaaa;background-color : #ffffff"></div></div>
 			<div style="margin-bottom:8px"><input id ="affiliateTel"  name="affiliateTel" style="width:100%" data-options="label:'협력업체 전화번호',labelWidth :140,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:8px"><input id ="affiliatePhone"  name="affiliatePhone" style="width:100%" data-options="label:'협력업체 모바일',labelWidth :140,labelPosition : 'left'"> </div>
 			
@@ -96,6 +96,7 @@
 <script>
 	function setViewInit(){
 		$('#memberNo').textbox({
+			label : roundLabel("회원 검색"),
 			prompt: '참조할 회원 검색 ',
 			editable : false,
 			icons:[{
@@ -123,6 +124,7 @@
 		});
 		
 		$('#affiliateAddress').textbox({
+			label : roundLabel("주소"),
 			prompt: '위치정보 조회',
 			editable : false,
 			icons:[{
@@ -159,6 +161,7 @@
 		
 
 		$('#recommenderNo').textbox({
+			label : roundLabel("추천인 검색"),
 			prompt: '추천인 번호 ',
 			editable : false,
 			buttonText:'추천인 검색',
@@ -181,17 +184,20 @@
 		});
 		
 		$('#recommenderName').textbox({
+			label : roundLabel("추천인 이름"),
 			prompt: '추천인 이름',
 			readonly :true
 		});
 
 		$('#agencyName').textbox({
+			label : roundLabel("대리점 이름"),
 			prompt: '대리점 이름',
 			readonly :true
 		});
 		
 		$('#agencyNo').textbox({
 			prompt: '참조할 대리점 검색 ',
+			label : roundLabel("대리점 검색"),
 			editable : false,
 			icons:[{
 				iconCls:'icon-search',
@@ -214,11 +220,14 @@
 			}]
 		});
 
+		
 		$('#affiliateSerial').textbox({
+			label : roundLabel("협력업체 TID"),
 			prompt: '협력 업체 실제 TID'
 		});
 
 		$('#affiliateComm').textbox({
+			label : roundLabel("환급율"),
 			prompt: '환급 수수료'
 		});
 		
@@ -234,34 +243,39 @@
 		});
 
 		$('#affiliateEmail').textbox({
+			label : roundLabel("협력업체 이메일"),
 			prompt: '협력 업체 이메일 ', 
 			editable : false,
 		});
 		
 		$('#affiliateName').textbox({
-		});
-		
-		$('#affiliateName').textbox({
+			label : roundLabel("협력업체 명"),
 			prompt: '협력업체 상호 및 기타 이름', 
 		});
 		
+		
 		$('#affiliateAddress').textbox({
+			label : roundLabel("협력업체 지번"),
 			prompt: '협력업체 지번 주소', 
 			editable : false
 		});
 		
 		$('#affiliateRoad').textbox({
+			label : roundLabel("협력업체 도로명"),
 			prompt: '협력업체 도로명 주소', 
 			editable : false
 		});
 		$('#affiliateTel').textbox({
+			label : roundLabel("협력업체 전화번호"),
 			prompt: '협력업체 전화 번호', 
 		});
 		$('#affiliatePhone').textbox({
+			label : roundLabel("협력업체 핸드폰"),
 			prompt: '협력업체 핸드폰 번호', 
 		});
 		var init = true
 		$('#affiliateType').combobox({
+			label : roundLabel("협력업체 타입"),
 			multiple:true, 
 			panelHeight: 'auto',
 			 onSelect : function(record){
@@ -276,11 +290,11 @@
 		});
 		
 		$('#category2No').combobox({
+			label : roundLabel("카테고리 2"),
 			valueField : "categoryNo",
 			textField : "categoryName",
 			showItemIcon: true,
             panelHeight: 'auto',
-            label: '카테고리2',
             multiple:false,
             required:true
 		});
@@ -288,7 +302,7 @@
 		$('#category1No').combobox({
 			showItemIcon: true,
             panelHeight: 'auto',
-            label: '카테고리1',
+            label : roundLabel("카테고리 1"),
             multiple:false,
             required:true,
             onSelect : function(record){
@@ -323,7 +337,7 @@
 			showItemIcon: true,
 			readonly : true,
             panelHeight: 'auto',
-            label: '협력업체 상태',
+            label : roundLabel("협력업체 상태"),
             multiple:false,
             required:true
 		});
@@ -331,6 +345,7 @@
 		$('#regType').combobox({
 			showItemIcon: true,
             readonly : true,
+            label : roundLabel("등록 타입"),
             panelHeight: 'auto',
             multiple:false,
 		});

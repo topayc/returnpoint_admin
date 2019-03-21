@@ -329,6 +329,7 @@ function loadSoleDistCreateForm(){
 			    collapsible : false,
 			    minimizable : false,
 			    maximizable: false,
+			    cls : "c2",
 			    title : "&nbsp; " + data.title,
 			    shadow : false,	
 				buttons:[
@@ -380,6 +381,7 @@ function loadSoleDistModifyForm(){
 			    shadow : true,
 			    collapsible : false,
 			    minimizable : false,
+			    cls : "c2",
 			    maximizable: false,
 			    title : "&nbsp; " + data.title,
 			    shadow : false,	

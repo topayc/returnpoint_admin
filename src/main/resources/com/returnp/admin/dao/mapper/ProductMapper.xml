@@ -5,6 +5,7 @@
     <id column="productNo" jdbcType="INTEGER" property="productNo" />
     <result column="productName" jdbcType="VARCHAR" property="productName" />
     <result column="productPrice" jdbcType="INTEGER" property="productPrice" />
+    <result column="stockCount" jdbcType="INTEGER" property="stockCount" />
     <result column="productSalePrice" jdbcType="INTEGER" property="productSalePrice" />
     <result column="productDes" jdbcType="VARCHAR" property="productDes" />
     <result column="productStatus" jdbcType="VARCHAR" property="productStatus" />
@@ -15,9 +16,10 @@
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    productNo, productName, productPrice, productSalePrice, productDes, productStatus, 
+    productNo, productName, stockCount, productPrice, productSalePrice, productDes, productStatus, 
     productCategory, productImgPath1, productImgPath2, createTime, updateTime
   </sql>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -31,11 +33,11 @@
   </delete>
   
   <insert id="insert" parameterType="com.returnp.admin.model.Product">
-    insert into product (productNo, productName, productPrice, 
+    insert into product (productNo, productName, stockCount, productPrice, 
       productSalePrice, productDes, productStatus, 
       productCategory, productImgPath1, productImgPath2, 
       createTime, updateTime)
-    values (#{productNo,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{productPrice,jdbcType=INTEGER}, 
+    values (#{productNo,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{stockCount,jdbcType=VARCHAR},#{productPrice,jdbcType=INTEGER}, 
       #{productSalePrice,jdbcType=INTEGER}, #{productDes,jdbcType=VARCHAR}, #{productStatus,jdbcType=VARCHAR}, 
       #{productCategory,jdbcType=VARCHAR}, #{productImgPath1,jdbcType=VARCHAR}, #{productImgPath2,jdbcType=VARCHAR}, 
       NOW(), NOW())
@@ -52,6 +54,9 @@
       </if>
       <if test="productName != null">
         productName,
+      </if>
+      <if test="stockCount != null">
+        stockCount,
       </if>
       <if test="productPrice != null">
         productPrice,
@@ -88,6 +93,9 @@
       <if test="productName != null">
         #{productName,jdbcType=VARCHAR},
       </if>
+      <if test="stockCount != null">
+        #{stockCount,jdbcType=INTEGER},
+      </if>
       <if test="productPrice != null">
         #{productPrice,jdbcType=INTEGER},
       </if>
@@ -123,6 +131,9 @@
       <if test="productName != null">
         productName = #{productName,jdbcType=VARCHAR},
       </if>
+      <if test="stockCount != null">
+        stockCount = #{stockCount,jdbcType=INTEGER},
+      </if>
       <if test="productPrice != null">
         productPrice = #{productPrice,jdbcType=INTEGER},
       </if>
@@ -156,6 +167,7 @@
   <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.Product">
     update product
     set productName = #{productName,jdbcType=VARCHAR},
+      stockCount = #{stockCount,jdbcType=INTEGER},
       productPrice = #{productPrice,jdbcType=INTEGER},
       productSalePrice = #{productSalePrice,jdbcType=INTEGER},
       productDes = #{productDes,jdbcType=VARCHAR},

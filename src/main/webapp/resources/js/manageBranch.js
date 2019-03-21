@@ -316,6 +316,7 @@ function loadBranchCreateForm(){
 			    collapsible : false,
 			    minimizable : false,
 			    maximizable: false,
+			    cls : "c2",
 			    title : "&nbsp; " + data.title,
 			    shadow : false,	
 				buttons:[
@@ -365,6 +366,7 @@ function loadBranchUpdateForm(){
 			    closable : true,
 			    border : 'thick',
 			    shadow : true,
+			    cls : "c2",
 			    collapsible : false,
 			    minimizable : false,
 			    maximizable: false,

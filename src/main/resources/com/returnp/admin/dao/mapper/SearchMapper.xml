@@ -3041,6 +3041,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <id column="productNo" jdbcType="INTEGER" property="productNo" />
     <result column="productName" jdbcType="VARCHAR" property="productName" />
     <result column="productPrice" jdbcType="INTEGER" property="productPrice" />
+    <result column="stockCount" jdbcType="INTEGER" property="stockCount" />
     <result column="productSalePrice" jdbcType="INTEGER" property="productSalePrice" />
     <result column="productDes" jdbcType="VARCHAR" property="productDes" />
     <result column="productStatus" jdbcType="VARCHAR" property="productStatus" />
@@ -3059,7 +3060,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   </sql>
 	
   <sql id="Product_Column_List">
-  productNo, productName, productPrice, productSalePrice, productDes, productStatus, 
+  productNo, productName, stockCount, productPrice, productSalePrice, productDes, productStatus, 
     productCategory, productImgPath1, productImgPath2, createTime, updateTime
   </sql>
   

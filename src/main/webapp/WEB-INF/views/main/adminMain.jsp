@@ -14,7 +14,7 @@
 <META http-equiv="Cache-Control" content="No-Cache"> 
 
   <title>ReturnP Admin</title>
-  <link rel="stylesheet" type="text/css" href="resources/js/lib/easyui/themes/bootstrap/easyui.css">
+  <link rel="stylesheet" type="text/css" href="resources/js/lib/easyui/themes/bootstrap/easyui.css">	
   <link rel="stylesheet" type="text/css" href="resources/js/lib/easyui/themes/icon.css">
   <link rel="stylesheet" type="text/css" href="resources/js/lib/easyui/themes/color.css">
   <link rel="stylesheet" type="text/css" href="resources/js/lib/easyui/texteditor.css">
@@ -241,7 +241,7 @@
                             			
                             			<li id = "manageProduct" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageProduct"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 상품 관리</span>
+                            					<span style = "font-weight : bold">상품권 상품 등록 관리</span>
                             				</a> 
                             			</li>
                             			
@@ -252,14 +252,36 @@
                             			</li>
                             			
                             			<li id = "" data-options = "iconCls :'icon-info'">
+                            					<span style = "font-weight : bold">상품권 주문 관리</span>
+                            					<ul>
+                            						<li id = "" data-options = "iconCls :'icon-info'">
+			                            				<a class= "sub_menu"  view_req_name = "manageGiftProductOrder"  menu_deps= '2' >
+			                            					<span style = "font-weight : bold">판매점 주문 관리</span>
+			                            				</a> 
+			                            			</li>
+			                            			<li id = "" data-options = "iconCls :'icon-info'">
+			                            				<a class= "sub_menu"  view_req_name = "manageGiftProductOrder"  menu_deps= '2' >
+			                            					<span style = "font-weight : bold">일반 주문 관리</span>
+			                            				</a> 
+			                            			</li>
+                            					</ul>
+                            			</li>
+                            			
+                            		<!-- 	<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftProductOrder"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 조직 주문 관리</span>
+                            					<span style = "font-weight : bold">판매점 주문 관리</span>
                             				</a> 
                             			</li>
                             			
                             			<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftProductOrder"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 개인 주문 관리</span>
+                            					<span style = "font-weight : bold">일반 주문 관리</span>
+                            				</a> 
+                            			</li> -->
+
+                            			<li id = "" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = "manageGiftProductOrder"  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 조회</span>
                             				</a> 
                             			</li>
                             			
@@ -270,7 +292,7 @@
                             			</li>
                             			<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 판매 리포트</span>
+                            					<span style = "font-weight : bold">상품권 현황 리포트</span>
                             				</a> 
                             			</li>
 		                        </ul>
@@ -501,7 +523,7 @@
     </div>
 	<div id="modal_area">
 	<!-- 모달 다이얼로그 DIV  -->
-	<div id = "dlgForm" style ="padding:5px" class="modal_dialog"> </div>
+	<div id = "dlgForm" style ="padding:5px;background-color : rgb(237, 237, 237)" class="modal_dialog" > </div>
 	<div id = "dlgForm2" style ="padding:5px" class="modal_dialog"> </div>
 	</div>
 	 <!-- Progress loading bar DIV  -->

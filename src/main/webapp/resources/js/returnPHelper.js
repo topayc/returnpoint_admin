@@ -3,6 +3,11 @@ function getNumber(str) {
     return (new Number(str));
 }
 
+function roundLabel(str, color){
+	if (!color) color = "#444444";
+	return '<span style = "border-radius: 15px;background-color: #444444;padding: 5px;color : #ffffff;font-weight : bold;">'+ str +'</span>';
+}
+
 function imageTagFormatter(value,row,index){
 	return "<img witdh = '100' height = '60' src = '"+ value +"' />"
 }

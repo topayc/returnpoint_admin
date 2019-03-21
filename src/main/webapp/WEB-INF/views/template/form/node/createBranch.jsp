@@ -42,6 +42,7 @@
 <script>
 	function setViewInit(){
 		$('#memberNo').textbox({
+			label : roundLabel("회원 검색"),
 			prompt: '참조할 회원 검색 ',
 			editable : false,
 			icons:[{
@@ -67,6 +68,7 @@
 		});
 		
 		$('#soleDistNo').textbox({
+			label : roundLabel("총판 검색"),
 			prompt: '참조할 총판 검색 ',
 			editable : false,
 			icons:[{
@@ -93,6 +95,7 @@
 		});
 		
 		$('#recommenderNo').textbox({
+			label : roundLabel("추천인 검색"),
 			prompt: '참조할 추천인 검색 ',
 			editable : false,
 			icons:[{
@@ -117,39 +120,45 @@
 		});
 
 		$('#soleDistName').textbox({
+			label : roundLabel("총판명"),
 			prompt: '총판 이름',
 			readonly :true
 		});
 
 		$('#recommenderName').textbox({
+			label : roundLabel("추천인 이름"),
 			prompt: '추천인 이름',
 			readonly :true
 		});
 		
 		$('#branchName').textbox({
+			label : roundLabel("지사명"),
 			prompt: '지사 상호 및 이름 ', 
 		});
-		$('#branchName').textbox({});
 		$('#branchEmail').textbox({
+			label : roundLabel("회원 검색"),
 			editable : false,
-			prompt: '총판 이메일',
+			prompt: '지사 이메일',
 		});
 		$('#soleDistEmail').textbox({
-			editable : false,
-		});
-		$('#soleDistName').textbox({
+			label : roundLabel("총판 이메일"),
 			editable : false,
 		});
 		$('#branchAddress').textbox({
+			label : roundLabel("지사 주소"),
 			prompt: '지사 주소', 
 		});
+		
 		$('#branchTel').textbox({
+			label : roundLabel("지사 전화번호"),
 			prompt: '지사 전화번호 ', 
 		});
 		$('#branchPhone').textbox({
+			label : roundLabel("지사 핸드폰"),
 			prompt: '지사 핸드폰', 
 		});
 		$('#branchStatus').combobox({
+			label : roundLabel("지사 상태"),
 			showItemIcon: true,
             editable: false,
             panelHeight: 'auto',
@@ -158,6 +167,7 @@
 			
 		});
 		$('#regType').combobox({
+			label : roundLabel("등록 타입"),
 			showItemIcon: true,
             readonly : true,
             panelHeight: 'auto',

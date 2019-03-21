@@ -11,6 +11,9 @@
 						   <form id="createGiftCardSalesOrganForm"   name = "createGiftCardSalesOrganForm" method="post"  >
 								<input type = "hidden" id = "action" name = "action"  value = "create"/>
 								<div style="margin-bottom:16px">
+									<div style="margin-bottom:16px">
+										<span style = "font-weight : 700"> * 아래의 항목은 모두 필수 입력 항목입니다.</span>
+									</div>
 									<select id ="organType" name="organType"   style="width:100%" data-options="label:'조직 구분',labelWidth :100,labelPosition : 'left'">
 										<c:forEach var="saleOrganDetailCode"  items="${saleOrganDetailCodes}" varStatus="status">
 											    <c:if test = "${ saleOrganDetailCode.useInAdmin == 'Y' }">
@@ -43,7 +46,7 @@
 								<div style="margin-bottom:16px"><input id ="organAddr"  name="organAddr" style="width:100%" data-options="label:'주소',labelWidth :100,labelPosition : 'left'"> </div>
 								<div style="margin-bottom:16px"><input id ="organBankName"  name="organBankName" style="width:100%" data-options="label:'은행명',labelWidth :100,labelPosition : 'left'"> </div>
 								<div style="margin-bottom:16px"><input id ="organBankAccount"  name="organBankAccount" style="width:100%" data-options="label:'계좌번호',labelWidth :100,labelPosition : 'left'"> </div>
-								<div style="margin-bottom:16px"><input id ="organBankAccountOwner"  name="organBankAccountOwner" style="width:100%" data-options="label:'계좌 소유주',labelWidth :100,labelPosition : 'left'"> </div>
+								<div style="margin-bottom:16px"><input id ="organBankAccountOwner"  name="organBankAccountOwner" style="width:100%" data-options="label:'계좌주',labelWidth :100,labelPosition : 'left'"> </div>
 								
 							    <div style="padding:5px 0;display:inline-block;">
 						            <a href="javascript:void(0)" id = "create_btn"  style="width:80px;">확인</a>

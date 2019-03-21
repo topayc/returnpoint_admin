@@ -352,11 +352,12 @@ public class CodeDefine {
 	
 	public static ArrayList<CodeKeyValuePair> getOrderStatusList() {
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
-		list.add(new CodeKeyValuePair("1", "주문 접수 완료", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("2", "배송중", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("3", "배송중", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("4", "배송 완료", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("5", "주문 취소", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("1", "주문 미 접수 ", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "주문 접수 완료", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("3", "상품 준비중", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("4", "배송중", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("5", "배송 완료", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("6", "주문 취소", "Y", "Y" ,""));
 		return list;
 	}
 	
@@ -387,6 +388,13 @@ public class CodeDefine {
 		list.add(new CodeKeyValuePair("1", "정상", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("2", "중지", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("3", "보류", "Y", "Y" ,""));
+		return list;
+	}
+	
+	public static ArrayList<CodeKeyValuePair> getOrderModeList() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "일반 결제 거래", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "외상 거래", "Y", "Y" ,""));
 		return list;
 	}
 }	

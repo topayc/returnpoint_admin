@@ -94,7 +94,8 @@
 		$('#memeberStatusContainer').panel();
 
 		$('#memberEmail').textbox({
-			prompt: '이메일 입력',
+			label : roundLabel("회원 이메일"),
+			prompt: '회원 이메일',
 			buttonText:'중복/유효성',
 			onClickButton : function(data){
 				var email = $('input[name=memberEmail]').val();
@@ -120,6 +121,7 @@
 		});
 		
 		$('#memberPhone').textbox({
+			label : roundLabel("핸드폰"),
 			prompt: '핸드폰 번호 입력',
 			buttonText:'중복/유효성',
 			onClickButton : function(data){
@@ -146,15 +148,18 @@
 		});
 		
 		$('#memberPassword').textbox({
+			label : roundLabel("1차 비밀번호"),
 			prompt: '비밀번호 입력',
 		});
 		
 		$('#memberPassword2').textbox({
+			label : roundLabel("2차 비밀번호"),
 			prompt: '비밀번호 입력',
 		});
 		
 		$('#memberName').textbox({
-			prompt: '비밀번호 입력',
+			label : roundLabel("회원명"),
+			prompt: '회원명',
 		});
 		
 		$('.toggle').linkbutton({
@@ -162,6 +167,7 @@
 		});
 		
 		$('#recommenderNo').textbox({
+			label : roundLabel("추천인 검색"),
 			prompt: '추천인 번호',
 			editable : false,
 			buttonText:'추천인 검색',
@@ -184,18 +190,22 @@
 		});
 
 		$('#recommenderName').textbox({
+			label : roundLabel("추천인 이름"),
 			prompt: '추천인 이름',
 			readonly :true
 		});
 		
 		$('#memberTel').textbox({
+			label : roundLabel("전화번호"),
 			prompt: '전화번호',
 		});
 		$('#memberPhone').textbox({
+			label : roundLabel("핸드폰"),
 			prompt: '핸드폰 번호',
 		});
 		
 		$('#memberAuthType').combobox({
+			label : roundLabel("인증 방법"),
 			showItemIcon: true,
             readonly :true,
             panelHeight: 'auto',
@@ -205,6 +215,7 @@
 		$('#memberAuthType').combobox('select', "1");
 		
 		$('#memberStatus').combobox({
+			label : roundLabel("회원 상태"),
 			showItemIcon: true,
             editable: false,
             panelHeight: 'auto',
@@ -213,6 +224,7 @@
 		});
 
 		$('#regType').combobox({
+			label : roundLabel("등록 타입"),
 			showItemIcon: true,
             panelHeight: 'auto',
             multiple:false,

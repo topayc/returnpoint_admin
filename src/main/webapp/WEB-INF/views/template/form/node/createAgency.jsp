@@ -43,6 +43,7 @@
 <script>
 	function setViewInit(){
 		$('#memberNo').textbox({
+			label : roundLabel("회원 검색"),
 			prompt: '참조할 회원 검색 ',
 			editable : false,
 			icons:[{
@@ -68,6 +69,7 @@
 		});
 		
 		$('#branchNo').textbox({
+			label : roundLabel("지사 검색"),
 			prompt: '참조할 지사',
 			editable : false,
 			icons:[{
@@ -92,6 +94,7 @@
 		});
 		
 		$('#recommenderNo').textbox({
+			label : roundLabel("추천인 검색"),
 			prompt: '참조할 추천인 검색 ',
 			editable : false,
 			icons:[{
@@ -116,31 +119,39 @@
 		});
 
 		$('#branchName').textbox({
+			label : roundLabel("지사명"),
 			prompt: '지사 이름',
 			readonly :true
 		});
 
 		$('#recommenderName').textbox({
+			label : roundLabel("추천인 이름"),
 			prompt: '추천인 이름',
 			readonly :true
 		});
 		
 		$('#agencyEmail').textbox({
+			label : roundLabel("대리점 이메일"),
 			editable : false,
 		});
 		$('#agencyName').textbox({
+			label : roundLabel("대리점명"),
 			prompt: '대리점 상호 및 이름', 
 		});
 		$('#agencyAddress').textbox({
+			label : roundLabel("대리점 주소"),
 			prompt: '대리점 주소', 
 		});
 		$('#agencyTel').textbox({
+			label : roundLabel("대리점 전화번호"),
 			prompt: '대리점 전화번호', 
 		});
 		$('#agencyPhone').textbox({
+			label : roundLabel("대리점 핸드폰"),
 			prompt: '대리점 핸드폰 번호', 
 		});
 		$('#agencyStatus').combobox({
+			label : roundLabel("대리점 상태"),
 			showItemIcon: true,
             editable: false,
             panelHeight: 'auto',
@@ -149,6 +160,7 @@
 			
 		});
 		$('#regType').combobox({
+			label : roundLabel("등록 타입"),
 			showItemIcon: true,
             readonly : true,
             panelHeight: 'auto',

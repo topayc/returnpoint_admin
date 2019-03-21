@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div style = "padding: 10px;"  id = "fileTab">
     
-	<div title="<strong>매출 파일 업로드</strong>"  style="padding:20px;display:none;" id="container"  data-options="iconCls:'icon-ok'" style="display:none;">
+	<div title="<strong>매출 파일</strong>"  style="padding:20px;display:none;" id="container"   style="display:none;">
 		<div style = "width:50%" >
 			<ul style ='font-weight: bold';'>
 				<li style ="margin-bottom:5px;font-size:12px">매출 파일 을 업로드함으로써 자동 매출 등록을 할 수 있습니다.</li>
@@ -26,7 +26,7 @@
 		</div>
 	</div>
 	
-	<div title="<strong>노드 파일 업로드</strong>"  style="padding:20px;display:none;" id="container"   data-options="iconCls:'icon-ok'" style="display:none;">
+	<div title="<strong>조직 생성 파일</strong>"  style="padding:20px;display:none;" id="container"   style="display:none;">
 	</div>
 	
 </div>
@@ -35,8 +35,9 @@
 
 $('#fileTab').tabs({
     border:true,
-    plain : true,
+    plain : false,
     pill : false,
+    justified : false,
     onSelect:function(title){
     }
 });

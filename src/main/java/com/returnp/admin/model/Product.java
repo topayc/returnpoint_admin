@@ -10,6 +10,7 @@ public class Product extends QueryCondition {
 	private Integer productNo;
     private String productName;
     private Integer productPrice;
+    private Integer stockCount;
     private Integer productSalePrice;
     private String productDes;
     private String productStatus;
@@ -20,7 +21,17 @@ public class Product extends QueryCondition {
     private MultipartFile productImg1;
     private MultipartFile productImg2;
 
-    public MultipartFile getProductImg1() {
+
+
+	public Integer getStockCount() {
+		return stockCount;
+	}
+
+	public void setStockCount(Integer stockCount) {
+		this.stockCount = stockCount;
+	}
+
+	public MultipartFile getProductImg1() {
 		return productImg1;
 	}
 

@@ -224,14 +224,16 @@ public class AppConstants {
 	
 	public static class GiftCardStatus {
 		public static String NORMAL  = "1";
-		public static String ABNORMAL= "2";
+		public static String STOP_USING= "2";
 	}
 	
 	public static class OrderStatus {
-		public static String BEFORE_DELILVERY  = "1";
-		public static String DELIVERING= "2";
-		public static String COMPLETED_DELIVERY= "3";
-		public static String CANCEL_ORDER= "4";
+		public static String ORDER_UNRELIEVED  = "1";
+		public static String ORDER_RECEIPT = "2";
+		public static String PRODUCT_PREPARATION= "3";
+		public static String DELIVERYING = "4";
+		public static String DELIVERY_COMPLETED= "5";
+		public static String ORDER_CANCEL= "6";
 	}
 	
 	public static class GiftCardPublishType{
@@ -250,11 +252,22 @@ public class AppConstants {
 		public static String COMMON_FRANCHISE= "10"; /* 일반 조직*/
 		public static String SALES   = "11";  /* 판매 조직*/
 	}
-
+	
+	public static class GiftCardSaleOrganStatus{
+		public static String NORMAL= "1";
+		public static String STOP   = "2";  /* 지역 총판*/
+		public static String HOLE= "3";  /* 판매점*/
+	}
+	
 	public static class SaleOrganCode{
-		public static String SALE_ENTIRE_SOLEDIST= "10"; /* 전체 총판*/
-		public static String SALE_REGION_SOLIDIST   = "11";  /* 지역 총판*/
-		public static String SALE_AGENCY= "12";  /* 판매점*/
+		public static String SALE_ENTIRE_SOLEDIST= "10";  /* 전체 총판*/
+		public static String SALE_REGION_SOLIDIST   = "11";   /* 지역 총판*/
+		public static String SALE_AGENCY= "12";   /* 판매점*/
+	}
+	
+	public static class OrderMode{
+		public static String COMMON= "1"; /* 일반 결제 거래*/
+		public static String CREDIT   = "2";  /* 외상 신용 거래 */
 	}
 	
 }

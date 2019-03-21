@@ -34,6 +34,7 @@
 <script>
 	function setViewInit(){
 		$('#memberNo').textbox({
+			label : roundLabel("회원 검색"),
 			prompt: '참조할 회원 검색 ',
 			editable : false,
 			icons:[{
@@ -59,20 +60,25 @@
 		});
 
 		$('#soleDistEmail').textbox({
+			label : roundLabel("총판 이메일"),
 			prompt: '총판 이메일 ', 
 			editable : false,
 		});
 		
 		$('#soleDistName').textbox({
+			label : roundLabel("총판명"),
 			prompt: '총판 상호 및 기타 이름', 
 		});
 		$('#soleDistAddress').textbox({
+			label : roundLabel("총판 주소"),
 			prompt: '총판 주소', 
 		});
 		$('#soleDistTel').textbox({
+			label : roundLabel("전화 번호"),
 			prompt: '총판 전화 번호', 
 		});
 		$('#soleDistPhone').textbox({
+			label : roundLabel("총판 핸드폰"),
 			prompt: '총판 핸드폰 번호', 
 		});
 		$('#soleDistStatus').combobox({

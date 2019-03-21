@@ -6,6 +6,7 @@
 			    {field:'productName',width:100,align:'center',title : '상품 이름'},
 			    {field:'productPrice',width:60,align:'center',title : '상품 가격', formatter : numberGreenFormatter},
 			    {field:'productSalePrice',width:60,align:'center',title : '판매 가격', formatter : numberRedFormatter},
+			    {field:'stockCount',width:50,align:'center',title : '재고'},
 			    {field:'productDes',width:140,align:'center',title : '상세 설명'},
 			    {field:'productStatus',width:60,align:'center',title : '상태', formatter  : productStatusFormatter},
 			    {field:'productImgPath1',width:100,align:'center',title : '상품 이미지1', formatter  : imageTagFormatter},
@@ -306,6 +307,7 @@ function loadProductCreateForm(){
 			    collapsible : false,
 			    minimizable : false,
 			    maximizable: false,
+			    cls : "c2",
 			    title : "&nbsp; " + data.title,
 			    shadow : false,	
 				buttons:[
@@ -358,6 +360,7 @@ function loadProductModifyForm(){
 			    collapsible : false,
 			    minimizable : false,
 			    maximizable: false,
+			    cls : "c2",
 			    title : "&nbsp; " + data.title,
 			    shadow : false,	
 				buttons:[
@@ -466,8 +469,11 @@ function createProduct(data){
 					}
 				}
 			}
+			var fieldKorName = '';
+			
 			if (!valid) {
-				$.messager.alert('알림', fieldName + ' 항목이 입력되지 않았습니다');
+				fieldKorName = $("#" +fieldName).prev().children("span").html();
+				$.messager.alert('알림', "<strong><span style = 'color : #FF3232'> " + fieldKorName + "</span></strong> 항목이 입력되지 않았습니다");
 				return false;
 			}else {
 			/*	$("#productImg1").filebox("files")

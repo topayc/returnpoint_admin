@@ -299,9 +299,9 @@ function initView(){
 	});
 	
 	$('#organBankAccountOwner').textbox({
-		label :roundLabel("계좌 소유주"),
+		label :roundLabel("계좌주"),
 		width: 600,
-		prompt: '계좌 소유주'
+		prompt: '계좌주'
 	});
 	
 	$('#create_btn').linkbutton({
@@ -322,9 +322,6 @@ function initView(){
 	
 }
 
-function roundLabel(str){
-	return '<span style = "border-radius: 15px;background-color: #444444;padding: 5px;color : #ffffff;font-weight : bold;">'+ str +'</span>';
-}
 
 function setListPager(){
 	var pager = $('#data_list').datagrid().datagrid('getPager');
@@ -458,10 +455,12 @@ function submitGiftCardSalesOrganForm(){
 		}
 	}
 	
+	var fieldKorName = '';
 	if (!valid) {
 		if (organType == "10" && ( fieldName == "parentOrganNo" || fieldName == "parentOrganName")) {
 		} else {
-			$.messager.alert('알림', fieldName + ' 항목이 입력되지 않았습니다');
+			fieldKorName = $("#" +fieldName).prev().children("span").html();
+			$.messager.alert('알림', "<strong><span style = 'color : #FF3232'> " + fieldKorName + "</span></strong> 항목이 입력되지 않았습니다");
 			return false;
 			
 		}
