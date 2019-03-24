@@ -65,8 +65,8 @@ public class PointWithdrawalController extends ApplicationController {
 	    ArrayList<Policy> policies = this.searchService.findPolicies(cond);
 	    model.addAttribute("policy", policies.get(policies.size()-1));
 	    model.addAttribute("action", action);
-	    model.addAttribute("registTypes", CodeDefine.getRegistType());
-		model.addAttribute("withdrawalStatusList", CodeDefine.getWithdrawalStatusList());
+	    model.addAttribute("registTypes", CodeDefine.getRegistTypes());
+		model.addAttribute("withdrawalStatusList", CodeDefine.getWithdrawalStatuses());
 		return "template/form/pointWithdrawaForm";
 	}
 

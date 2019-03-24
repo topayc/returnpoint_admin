@@ -60,15 +60,15 @@ public class PaymentTransactionController extends ApplicationController {
 			@RequestParam(value = "paymentTransactionNo", defaultValue = "0") int paymentTransactionNo,
 			Model model){
 
-		model.addAttribute("registTypes", CodeDefine.getRegistType());
-		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatusList());
-		model.addAttribute("PaymentStatuses", CodeDefine.getVanPaymentStatusList());
-		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypeList());
-		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatusList());
-		model.addAttribute("nodeTypeList", CodeDefine.getNodeTypeList());
-		model.addAttribute("authTypes", CodeDefine.getAuthtypeList());
-		model.addAttribute("paymentApprovalStatusList", CodeDefine.getPaymentApprovalStatusList());
-		model.addAttribute("paymentTransactionTypeList", CodeDefine.getPaymentTransactionTypeList());
+		model.addAttribute("registTypes", CodeDefine.getRegistTypes());
+		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatuses());
+		model.addAttribute("PaymentStatuses", CodeDefine.getVanPaymentStatusest());
+		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypest());
+		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatuses());
+		model.addAttribute("nodeTypeList", CodeDefine.getNodeTypes());
+		model.addAttribute("authTypes", CodeDefine.getAuthTypes());
+		model.addAttribute("paymentApprovalStatusList", CodeDefine.getPaymentApprovalStatuses());
+		model.addAttribute("paymentTransactionTypeList", CodeDefine.getPaymentTransactionTypes());
 		model.addAttribute("action", action);
 	
 		if (action.equals("create")) {

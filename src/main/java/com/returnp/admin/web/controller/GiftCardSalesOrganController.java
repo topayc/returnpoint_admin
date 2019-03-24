@@ -39,8 +39,8 @@ public class GiftCardSalesOrganController extends ApplicationController{
 			@RequestParam(value = "giftCardSalesOrganNo", defaultValue = "0") int productNo,
 			Model model){
 
-		model.addAttribute("giftCardSaleOrganDetailCodes", CodeDefine.getGiftCardSaleOrganDetailCodes());
-		model.addAttribute("giftCardSaleOrganStatusList", CodeDefine.getGiftCardSaleOrganStatusList());
+		model.addAttribute("giftCardSaleOrganDetailCodes", CodeDefine.getOrganTypes());
+		model.addAttribute("giftCardSaleOrganStatusList", CodeDefine.getOrganStatuses());
 		if (action.equals("create")) {
 		
 		}else if (action.equals("modify")){

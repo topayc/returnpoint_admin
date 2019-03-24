@@ -36,15 +36,15 @@ public class PointTransferTransactionController extends ApplicationController {
 			@RequestParam(value = "pointTransferTransactionNo", defaultValue = "0") int pointTransferTransactionNo,
 			Model model){
 
-		model.addAttribute("registTypes", CodeDefine.getRegistType());
-		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatusList());
-		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypeList());
-		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatusList());
-		model.addAttribute("authTypes", CodeDefine.getAuthtypeList());
+		model.addAttribute("registTypes", CodeDefine.getRegistTypes());
+		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatuses());
+		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypest());
+		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatuses());
+		model.addAttribute("authTypes", CodeDefine.getAuthTypes());
 		model.addAttribute("pointTypes", CodeDefine.getPointTypes());
-		model.addAttribute("pointTransferTypeList", CodeDefine.getPointTransferTypeList());
-		model.addAttribute("pointTransferStatusList", CodeDefine.getPointointTransferStatusList());
-		model.addAttribute("registTypes", CodeDefine.getRegistType());
+		model.addAttribute("pointTransferTypeList", CodeDefine.getPointTransferTypes());
+		model.addAttribute("pointTransferStatusList", CodeDefine.getPointointTransferStatuses());
+		model.addAttribute("registTypes", CodeDefine.getRegistTypes());
 
 		Policy cond = new Policy();
 		ArrayList<Policy> policies = this.searchService.findPolicies(cond);

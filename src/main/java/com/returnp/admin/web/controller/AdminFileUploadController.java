@@ -28,7 +28,7 @@ public class AdminFileUploadController extends ApplicationController {
 	@RequestMapping(value = "/adminFileUpload/form/createFileUploadForm", method = RequestMethod.GET)
 	public String formAffiliateRequest(
 			@RequestParam(value = "action", required = true,defaultValue = "create") String action, Model model){
-		model.addAttribute("nodeTypeList", CodeDefine.getNodeTypeList());
+		model.addAttribute("nodeTypeList", CodeDefine.getNodeTypes());
 		return "template/form/file/createFileUploadForm";
 	}
 	

@@ -34,7 +34,7 @@ public class MarketerController extends ApplicationController {
 			@RequestParam(value = "marketerNo", defaultValue = "0") int marketerNo,
 			Model model){
 
-		model.addAttribute("marketerStatuses", CodeDefine.getMarketerStatusList());
+		model.addAttribute("marketerStatuses", CodeDefine.getMarketerStatuses());
 		String view = null;
 		if (action.equals("create")) {
 			view = "template/form/marketer/createMarketer";

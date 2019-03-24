@@ -78,36 +78,37 @@ public class AdminController extends ApplicationController{
 	@RequestMapping(value = "/{springSecurity}/handleContent", method = RequestMethod.GET)
 	public String handleContentView(@RequestParam String viewReqName, SearchCondition searchCondition, Model model) {
 		model.addAttribute("viewReqName", viewReqName);
-		model.addAttribute("paymentStatusList", CodeDefine.getPaymentStatusList());
-		model.addAttribute("paymentTypeList", CodeDefine.getPaymentTypeList());
-		model.addAttribute("keywordTypeList", CodeDefine.getKeywordTypeList());
+		model.addAttribute("paymentStatusList", CodeDefine.getPaymentStatuses());
+		model.addAttribute("paymentTypeList", CodeDefine.getPaymentTypest());
+		model.addAttribute("keywordTypeList", CodeDefine.getKeywordTypes());
 		
-		model.addAttribute("nodeTypeList", CodeDefine.getNodeTypeList());
-		model.addAttribute("nodeStatusList", CodeDefine.getNodeStatusList());
+		model.addAttribute("nodeTypeList", CodeDefine.getNodeTypes());
+		model.addAttribute("nodeStatusList", CodeDefine.getNodeStatuses());
 		model.addAttribute("searchCondition", searchCondition);
-		model.addAttribute("vanPaymentStatuses", CodeDefine.getVanPaymentStatusList());
-		model.addAttribute("orderTypes", CodeDefine.getOrderTypes());
-		model.addAttribute("conversionStatusList", CodeDefine.getConversionStatusList());
-		model.addAttribute("paymentApprovalStatusList", CodeDefine.getPaymentApprovalStatusList());
-		model.addAttribute("paymentTransactionTypeList", CodeDefine.getPaymentTransactionTypeList());
+		model.addAttribute("vanPaymentStatuses", CodeDefine.getVanPaymentStatusest());
+		model.addAttribute("orderTypes", CodeDefine.getQueryOrderTypes());
+		model.addAttribute("conversionStatusList", CodeDefine.getConversionStatuses());
+		model.addAttribute("paymentApprovalStatusList", CodeDefine.getPaymentApprovalStatuses());
+		model.addAttribute("paymentTransactionTypeList", CodeDefine.getPaymentTransactionTypes());
 		
 		model.addAttribute("pointTypes", CodeDefine.getPointTypes());
 		
 		model.addAttribute("apiServiceList", CodeDefine.getApiServiceList(applicationContext));
-		model.addAttribute("apiServiceStatusList", CodeDefine.getApiServiceStatusList());
-		model.addAttribute("boardTypeList", CodeDefine.getBoardTypeList());
-		model.addAttribute("boardSearchKeywordTypeList", CodeDefine.getBoardSearchKeywordTypeList());
-		model.addAttribute("memberBankStatusList", CodeDefine.getMemberBankAccountStatusList());
-		model.addAttribute("withdrawalStatusList", CodeDefine.getWithdrawalStatusList());
-		model.addAttribute("marketerStatuses", CodeDefine.getMarketerStatusList());
-		model.addAttribute("productStatusList", CodeDefine.getProductStatusList());
-		model.addAttribute("saleOrganDetailCodes", CodeDefine.getGiftCardSaleOrganDetailCodes());
-		model.addAttribute("saleOrganStatusList", CodeDefine.getGiftCardSaleOrganStatusList());
+		model.addAttribute("apiServiceStatusList", CodeDefine.getApiServiceStatuses());
+		model.addAttribute("boardTypeList", CodeDefine.getBoardTypes());
+		model.addAttribute("boardSearchKeywordTypeList", CodeDefine.getBoardSearchKeywordTypest());
+		model.addAttribute("memberBankStatusList", CodeDefine.getMemberBankAccountStatuses());
+		model.addAttribute("withdrawalStatusList", CodeDefine.getWithdrawalStatuses());
+		model.addAttribute("marketerStatuses", CodeDefine.getMarketerStatuses());
+		model.addAttribute("productStatusList", CodeDefine.getProductStatuses());
+		model.addAttribute("saleOrganTypes", CodeDefine.getSaleOrganTypes());
+		model.addAttribute("saleOrganStatusList", CodeDefine.getOrganStatuses());
 		
 		if (viewReqName.equals("manageGiftCardIssue")) {
 			model.addAttribute("giftCards", this.serachService.selectProducts(new Product()));
-			model.addAttribute("giftCardTypes", CodeDefine.getGiftCardTypeList());
-			model.addAttribute("giftCardIssuerTypes", CodeDefine.getGiftCardSaleOrganDetailCodes());
+			model.addAttribute("giftCardTypes", CodeDefine.getGiftCardTypes());
+			model.addAttribute("giftCardOrderTypes", CodeDefine.getOrganTypes());
+			model.addAttribute("orderReasonTypes", CodeDefine.getOrderReasons());
 		}
 		
 		return RequestForward.CONTENT_VIEW;
@@ -125,10 +126,10 @@ public class AdminController extends ApplicationController{
 			SearchCondition nodeSearch,
 			Model model) {
 		model.addAttribute("bankAccounts", this.serachService.findCompanyBanks(new CompanyBankAccount()));
-		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypeList());
-		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatusList());
-		model.addAttribute("registTypes", CodeDefine.getRegistType());
-		model.addAttribute("nodeSatuses", CodeDefine.getNodeStatusList());
+		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypest());
+		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatuses());
+		model.addAttribute("registTypes", CodeDefine.getRegistTypes());
+		model.addAttribute("nodeSatuses", CodeDefine.getNodeStatuses());
 		
 		Policy cond = new Policy();
 		ArrayList<Policy> policies = this.serachService.findPolicies(cond);

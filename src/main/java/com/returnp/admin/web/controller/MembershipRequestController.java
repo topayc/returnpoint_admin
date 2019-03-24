@@ -63,9 +63,9 @@ public class MembershipRequestController extends ApplicationController{
 			@RequestParam(value = "action", required = true,defaultValue = "create") String action,
 			@RequestParam(value = "membershipRequestNo", defaultValue = "0") int membershipRequestNo,
 			Model model){
-		model.addAttribute("registTypes", CodeDefine.getRegistType());
-		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatusList());
-		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypeList());
+		model.addAttribute("registTypes", CodeDefine.getRegistTypes());
+		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatuses());
+		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypest());
 		model.addAttribute("bankAccounts", this.searchService.findCompanyBanks(new CompanyBankAccount()));
 	
 		Policy policyCond = new Policy();

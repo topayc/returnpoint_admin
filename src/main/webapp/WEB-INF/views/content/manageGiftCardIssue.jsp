@@ -24,6 +24,7 @@
 			   <form id="giftCardIssueForm"   name = "giftCardIssueForm"  enctype="multipart/form-data" method="post">
 					<div style="margin-bottom:20px;" >
 						<select id ="giftCardIssuerType"  name="giftCardIssuerType" style="width:100%;" >
+							<option value= "10">본사</option>
 							<option value= "12">판매점</option>
 						</select> 
 					</div>
@@ -50,6 +51,8 @@
 							</c:forEach>
 						</select> 
 					</div>
+					<input type = "hidden"  id = "orderReason"  name = "orderReason" />
+					
 					<div style="margin-bottom:20px;" ><input id ="qty"  name="qty" style="width:100%;"> </div>
 					<div style ="margin-bottom:10px;margin-top:10px;width : 600px;padding : 20px;background-color : #eeeeee"    class = "easyui-panel">
 						<span style = "font-size : 16px; font-weight : 700;">총 발행 금액은 <span id = "total_price" style = "font-size : 16px; font-weight : 700;color : #F92F0C">  0 </span>&nbsp;원입니다</span>
@@ -124,7 +127,7 @@ $('#giftCardType').combobox({
 });
 
 $('#giftCardIssuerType').combobox({
-	label : roundLabel("발주처 타입"),
+	label : roundLabel("주문자 타입"),
 	labelWidth : 100,
 	showItemIcon: true,
 	editable: false,
@@ -132,12 +135,23 @@ $('#giftCardIssuerType').combobox({
 	panelHeight: 'auto',
 	labelPosition: 'left',
 	multiple:false,
+	onSelect : function(record){
+		var orderReason = "";
+		if (record.value == "10") {
+			orderReason  = "1";
+		}
+		if (record.value == "12"){
+			orderReason = "2"
+		}
+		$("#orderReason").val(orderReason);
+	}
 	//height : 25
 });
 
+
 $('#giftCardSalesOrganName').textbox({
 	prompt: '검색 버튼을 눌러 검색',
-	label : roundLabel("발주처 검색"),
+	label : roundLabel("주문자 검색"),
 	labelWidth : 100,
 	width: 600,
 	/* height : 25, */
@@ -167,8 +181,8 @@ $('#giftCardSalesOrganName').textbox({
     }]
 });
 $('#giftCardSalesOrganCode').textbox({
-	prompt: '발주처 코드',
-	label : roundLabel("발주처 코드"),
+	prompt: '주문자 코드',
+	label : roundLabel("주문자 코드"),
 	labelWidth : 100,
 	width: 600,
 	/* height : 25, */

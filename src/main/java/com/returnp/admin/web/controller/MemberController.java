@@ -56,11 +56,11 @@ public class MemberController extends ApplicationController {
 			@RequestParam(value = "memberNo", defaultValue = "0") int memberNo,
 			Model model){
 
-		model.addAttribute("registTypes", CodeDefine.getRegistType());
-		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatusList());
-		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypeList());
-		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatusList());
-		model.addAttribute("authTypes", CodeDefine.getAuthtypeList());
+		model.addAttribute("registTypes", CodeDefine.getRegistTypes());
+		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatuses());
+		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypest());
+		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatuses());
+		model.addAttribute("authTypes", CodeDefine.getAuthTypes());
 		String view = null;
 		if (action.equals("create")) {
 			view = "template/form/node/createMember";

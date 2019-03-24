@@ -59,11 +59,11 @@ public class RecommenderController extends ApplicationController{
 			@RequestParam(value = "recommenderNo", defaultValue = "0") int recommenderNo,
 			Model model){
 
-		model.addAttribute("registTypes", CodeDefine.getRegistType());
-		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatusList());
-		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypeList());
+		model.addAttribute("registTypes", CodeDefine.getRegistTypes());
+		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatuses());
+		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypest());
 		model.addAttribute("bankAccounts", this.searchService.findCompanyBanks(new CompanyBankAccount()));
-		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatusList());
+		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatuses());
 	
 		if (action.equals("create")) {
 		}else if (action.equals("modify")){

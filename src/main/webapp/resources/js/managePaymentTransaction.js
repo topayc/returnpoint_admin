@@ -196,9 +196,9 @@ function initView(){
 		  	});
 			var menus, icons, actions;
 		  	if (row.paymentApprovalStatus =="1" ) {
-		  		menus = ['해당 결제의  G POINT 적립 내역' ,'결제 승인 취소' , '적립 강제 취소' ,'강제 적립',   '재적립 요청(해당내역 삭제 및 취소후 재적립 진행'];
-		  		icons = ['icon-more' , 'icon-clear' , 'icon-clear' , 'icon-redo',  'icon-redo'];
-			  	actions = ['more_acc_detail' , 'cancel' , 'cancelForce', 'accForce', 're_pointback' ];
+		  		menus = ['해당 결제의  G POINT 적립 내역' ,'결제 승인 취소' , '적립 강제 취소' ,'강제 적립' /*,   '재적립 요청(해당내역 삭제 및 취소후 재적립 진행' */];
+		  		icons = ['icon-more' , 'icon-clear' , 'icon-clear' , 'icon-redo' /*,  'icon-redo' */];
+			  	actions = ['more_acc_detail' , 'cancel' , 'cancelForce', 'accForce' /*, 're_pointback' */];
 		  	}else if (row.paymentApprovalStatus =="2"){
 		  		menus = ['해당 결제의  G POINT 적립 취소 내역'];
 		  		icons = ['icon-more'];

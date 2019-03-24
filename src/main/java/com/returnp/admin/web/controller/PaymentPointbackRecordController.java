@@ -41,12 +41,12 @@ public class PaymentPointbackRecordController extends ApplicationController{
 	@RequestMapping(value = "/paymentPointbackRecord/template/paymentPointbackRecordList", method = RequestMethod.GET)
 	public String formPaymentPointbackRecordRequest( Model model){
 
-		model.addAttribute("registTypes", CodeDefine.getRegistType());
-		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatusList());
-		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypeList());
-		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatusList());
-		model.addAttribute("authTypes", CodeDefine.getAuthtypeList());
-		model.addAttribute("nodeTypeList", CodeDefine.getNodeTypeList());
+		model.addAttribute("registTypes", CodeDefine.getRegistTypes());
+		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatuses());
+		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypest());
+		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatuses());
+		model.addAttribute("authTypes", CodeDefine.getAuthTypes());
+		model.addAttribute("nodeTypeList", CodeDefine.getNodeTypes());
 		return "template/list/paymentPointbackDetailRecordList";
 	}
 	

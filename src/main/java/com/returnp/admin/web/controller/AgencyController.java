@@ -55,11 +55,11 @@ public class AgencyController extends ApplicationController{
 			@RequestParam(value = "agencyNo", defaultValue = "0") int agencyNo,
 			Model model){
 
-		model.addAttribute("registTypes", CodeDefine.getRegistType());
-		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatusList());
-		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypeList());
-		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatusList());
-		model.addAttribute("authTypes", CodeDefine.getAuthtypeList());
+		model.addAttribute("registTypes", CodeDefine.getRegistTypes());
+		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatuses());
+		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypest());
+		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatuses());
+		model.addAttribute("authTypes", CodeDefine.getAuthTypes());
 	
 		if (action.equals("create")) {
 		}else if (action.equals("modify")){

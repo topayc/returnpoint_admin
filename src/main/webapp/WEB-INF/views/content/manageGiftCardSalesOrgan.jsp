@@ -15,9 +15,9 @@
 										<span style = "font-weight : 700"> * 아래의 항목은 모두 필수 입력 항목입니다.</span>
 									</div>
 									<select id ="organType" name="organType"   style="width:100%" data-options="label:'조직 구분',labelWidth :100,labelPosition : 'left'">
-										<c:forEach var="saleOrganDetailCode"  items="${saleOrganDetailCodes}" varStatus="status">
-											    <c:if test = "${ saleOrganDetailCode.useInAdmin == 'Y' }">
-												  <option value='${saleOrganDetailCode.key}' >${saleOrganDetailCode.value} </option>
+										<c:forEach var="saleOrganType"  items="${saleOrganTypes}" varStatus="status">
+											    <c:if test = "${ saleOrganType.useInAdmin == 'Y' }">
+												  <option value='${saleOrganType.key}' >${saleOrganType.value} </option>
 											  </c:if>
 										</c:forEach>
 									</select> 

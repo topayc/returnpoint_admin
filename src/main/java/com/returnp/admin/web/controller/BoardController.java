@@ -45,7 +45,7 @@ public class BoardController extends ApplicationController{
 			Model model){
 		
 		model.addAttribute("boardCates", CodeDefine.getCommonBoardCategories());
-		model.addAttribute("boardTypeList", CodeDefine.getBoardTypeList());
+		model.addAttribute("boardTypeList", CodeDefine.getBoardTypes());
 		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 		
 		String view = "template/form/board/createBoard";

@@ -228,12 +228,14 @@ public class AppConstants {
 	}
 	
 	public static class OrderStatus {
-		public static String ORDER_UNRELIEVED  = "1";
-		public static String ORDER_RECEIPT = "2";
-		public static String PRODUCT_PREPARATION= "3";
-		public static String DELIVERYING = "4";
-		public static String DELIVERY_COMPLETED= "5";
-		public static String ORDER_CANCEL= "6";
+		public static String ORDER_RECEPTION  = "1";
+		public static String PRODUCT_IN_PREPARATION = "2";
+		public static String PRODUCT_READY= "3";
+		public static String SHIPPING_PREPARATION = "4";
+		public static String SHIPPING = "5";
+		public static String SHIPPING_COMPLETED= "6";
+		public static String ORDER_PROCESSED= "7";
+		public static String ORDER_CANCELED = "8";
 	}
 	
 	public static class GiftCardPublishType{
@@ -244,30 +246,48 @@ public class AppConstants {
 	public static class AffiliateType{
 		public static String COMMON_AFFILIATE  = "A001"; /* 일반 가맹점, 일반 결제후 영수증 큐일 적립 가맹점*/
 		public static String GIFT_CARD_USAGE_AFFILIATE   = "A002";  /* 상품권 사용처 */
-		public static String NO_BUSINESS_NUMBER_AFFILIATE    = "A003";  /* 상품권 사용처 */
-		public static String ONLINE_AFFILIATE    = "A004";  /* 상품권 사용처 */
+		public static String NO_BUSINESS_NUMBER_AFFILIATE    = "A003";  /* 무사업자 가맹점*/
+		public static String ONLINE_AFFILIATE    = "A004";  /* 온라인 쇼핑몰등의 온라인 사업자 */
 	}
 
 	public static class OrganType{
-		public static String COMMON_FRANCHISE= "10"; /* 일반 조직*/
-		public static String SALES   = "11";  /* 판매 조직*/
+		public static String COMMON_FRANCHISE_ORGAN= "1"; /* 일반 조직*/
+		public static String GIFTCARD_SALES_ORGAN   = "2";  /* 판매 조직*/
 	}
 	
-	public static class GiftCardSaleOrganStatus{
-		public static String NORMAL= "1";
-		public static String STOP   = "2";  /* 지역 총판*/
-		public static String HOLE= "3";  /* 판매점*/
+	public static class OrganStatus{
+		public static String NORMAL= "1"; /*정상*/
+		public static String STOP   = "2";  /* 중지*/
+		public static String HOLD= "3";  /* 보류*/
 	}
 	
-	public static class SaleOrganCode{
-		public static String SALE_ENTIRE_SOLEDIST= "10";  /* 전체 총판*/
-		public static String SALE_REGION_SOLIDIST   = "11";   /* 지역 총판*/
-		public static String SALE_AGENCY= "12";   /* 판매점*/
+	public static class SaleOrganType{
+		public static String SALE_HEADQUARTER= "10";  /* 본사*/
+		public static String SALE_DISTRIBUTOR   = "11";   /* 총판*/
+		public static String SALE_STORE= "12";   /* 판매점*/
 	}
 	
-	public static class OrderMode{
+	public static class BargainType{
 		public static String COMMON= "1"; /* 일반 결제 거래*/
 		public static String CREDIT   = "2";  /* 외상 신용 거래 */
+	}
+	
+	public static class GiftCardOrderType{
+		public static String ISSUE_HEADQUARTER = "10"; /* 본사  구매 요청에 의한 발행*/
+		public static String ISSUE_DISTRIBUTOR   = "11";  /* 총판  구매 요청에 의한 발행 */
+		public static String ISSUE_STORE  = "12";  /* 판매점 구매 요청에 의한 발행*/
+		public static String ISSUE_MEMBER  = "20";  /* 일반 회원 구매 요청에 의한 발행*/
+	}
+	public static class OrderReason{
+		public static String ISSUE_FOR_STOCK = "1"; /* 재고 발행*/
+		public static String ISSUE_FOR_BUY   = "2";  /* 판매점 및 일반 회원 구매에 의한 발행  */
+	}
+	
+	public static class IssueStatus{
+		public static String PREPARE_TO_ISSUE = "1"; /* 발행 준비*/
+		public static String SSUING   = "2";  /* 발행중*/
+		public static String ISSUED   = "3";  /* 발행 완료  */
+		public static String ISSUE_CANCEL   = "4";  /* 발행 취소 */
 	}
 	
 }

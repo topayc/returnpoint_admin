@@ -48,7 +48,7 @@ public class ApiServiceManageController extends ApplicationController{
 			@RequestParam(value = "action", required = true,defaultValue = "create") String action,
 			@RequestParam(value = "apiServiceNo", defaultValue = "0") int apiServiceNo,
 			Model model){
-		model.addAttribute("apiServiceStatuses", CodeDefine.getApiServiceStatusList());
+		model.addAttribute("apiServiceStatuses", CodeDefine.getApiServiceStatuses());
 		model.addAttribute("apiServiceTypes", CodeDefine.geApiServiceTypes());
 		if (action.equals("create")) {
 		}else if (action.equals("modify")){

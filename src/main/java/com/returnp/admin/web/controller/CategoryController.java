@@ -45,7 +45,7 @@ public class CategoryController extends ApplicationController{
 			@RequestParam(value = "parentCategoryNameEn", defaultValue = "0") String parentCategoryNameEn,
 			Model model){
 
-		model.addAttribute("categoryStatusList", CodeDefine.getCategoryStatusList());
+		model.addAttribute("categoryStatusList", CodeDefine.getCategoryStatuses());
 		model.addAttribute("categoryLevel", categoryLevel);
 		model.addAttribute("parentCategoryNo", parentCategoryNo);
 		model.addAttribute("parentCategoryName", parentCategoryName);

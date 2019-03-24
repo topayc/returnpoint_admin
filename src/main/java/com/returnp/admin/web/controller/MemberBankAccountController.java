@@ -53,8 +53,8 @@ public class MemberBankAccountController extends ApplicationController {
 			}
 		}
 		
-		model.addAttribute("registTypes", CodeDefine.getRegistType());
-		model.addAttribute("memberBankAccountStatusList", CodeDefine.getMemberBankAccountStatusList());
+		model.addAttribute("registTypes", CodeDefine.getRegistTypes());
+		model.addAttribute("memberBankAccountStatusList", CodeDefine.getMemberBankAccountStatuses());
 		return "template/form/memberBankAccountForm";
 	}
 

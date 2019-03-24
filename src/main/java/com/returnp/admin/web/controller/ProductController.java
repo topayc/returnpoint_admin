@@ -39,7 +39,7 @@ public class ProductController extends ApplicationController{
 			@RequestParam(value = "productNo", defaultValue = "0") int productNo,
 			Model model){
 
-		model.addAttribute("productStatusList", CodeDefine.getProductStatusList());
+		model.addAttribute("productStatusList", CodeDefine.getProductStatuses());
 		if (action.equals("create")) {
 		
 		}else if (action.equals("modify")){
