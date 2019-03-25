@@ -317,8 +317,8 @@ public class CodeDefine {
 	
 	public static ArrayList<CodeKeyValuePair> getGiftCardTypes() {
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
-		list.add(new CodeKeyValuePair("1", "오프라인 - 실물 상품권", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("2", "온라인 - 모바일 상품권", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("1", "온라인 - 모바일 상품권", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "오프라인 - 실물 상품권", "Y", "Y" ,""));
 		return list;
 	}
 	
@@ -363,13 +363,6 @@ public class CodeDefine {
 		return list;
 	}
 	
-	public static ArrayList<CodeKeyValuePair> getGiftCardOrderTypest() {
-		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
-		list.add(new CodeKeyValuePair("1", "일반 구매", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("2", "판매 조직 구매 ", "Y", "Y" ,""));
-		return list;
-	}
-	
 	public static ArrayList<CodeKeyValuePair> getOrganTypes() {
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
 		list.add(new CodeKeyValuePair("1", "일반 프랜차이즈", "Y", "Y" ,""));
@@ -396,22 +389,23 @@ public class CodeDefine {
 	public static ArrayList<CodeKeyValuePair> getBargainTypest() {
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
 		list.add(new CodeKeyValuePair("1", "일반 결제 거래", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("2", "외상 거래", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "신용 거래", "Y", "Y" ,""));
 		return list;
 	}
 	
-	public static ArrayList<CodeKeyValuePair> getGiftCardOrderTypes() {
+	public static ArrayList<CodeKeyValuePair> getOrderTypes() {
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
-		list.add(new CodeKeyValuePair("10", "본사 구매", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("11", "총판 구매", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("12", "판매점 구매", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("20", "일반 회원 구매", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("10", "본사 발주", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("11", "총판 발주", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("12", "판매점 발주", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("20", "일반 회원 발주", "Y", "Y" ,""));
 		return list;
 	}
+	
 	public static ArrayList<CodeKeyValuePair> getOrderReasons() {
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
 		list.add(new CodeKeyValuePair("1", "재고 주문", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("2", "구매 주문", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "일반 판매에 주문", "Y", "Y" ,""));
 		return list;
 	}
 	

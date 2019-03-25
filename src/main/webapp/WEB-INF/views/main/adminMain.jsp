@@ -233,6 +233,12 @@
                             				</a> 
                             			</li> -->
                             			
+                            			<li id = "manageGiftCardPolicy" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = "manageGiftCardPolicy"  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 정책 관리</span>
+                            				</a> 
+                            			</li>
+                            			
                             			<li id = "manageGiftCardSalesOrgan" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardSalesOrgan"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 판매 조직 관리</span>
@@ -241,7 +247,7 @@
                             			
                             			<li id = "manageProduct" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageProduct"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 상품 등록 관리</span>
+                            					<span style = "font-weight : bold">상품권 상품 관리</span>
                             				</a> 
                             			</li>
                             			
@@ -252,16 +258,21 @@
                             			</li>
                             			
                             			<li id = "" data-options = "iconCls :'icon-info'">
-                            					<span style = "font-weight : bold">상품권 주문 관리</span>
+                            					<span style = "font-weight : bold">상품권 주문 및 발주 관리</span>
                             					<ul>
                             						<li id = "" data-options = "iconCls :'icon-info'">
-			                            				<a class= "sub_menu"  view_req_name = "manageGiftProductOrder"  menu_deps= '2' >
-			                            					<span style = "font-weight : bold">판매점 주문 관리</span>
+			                            				<a class= "sub_menu"  view_req_name = "manageHeadGiftOrder"  menu_deps= '2' >
+			                            					<span style = "font-weight : bold">본사 발주 관리</span>
+			                            				</a> 
+			                            			</li>
+                            						<li id = "" data-options = "iconCls :'icon-info'">
+			                            				<a class= "sub_menu"  view_req_name = "manageSaleOrganGiftOrder"  menu_deps= '2' >
+			                            					<span style = "font-weight : bold">판매점 발주 관리</span>
 			                            				</a> 
 			                            			</li>
 			                            			<li id = "" data-options = "iconCls :'icon-info'">
-			                            				<a class= "sub_menu"  view_req_name = "manageGiftProductOrder"  menu_deps= '2' >
-			                            					<span style = "font-weight : bold">일반 주문 관리</span>
+			                            				<a class= "sub_menu"  view_req_name = "manageCommonGiftOrder"  menu_deps= '2' >
+			                            					<span style = "font-weight : bold">일반 발주 관리</span>
 			                            				</a> 
 			                            			</li>
                             					</ul>

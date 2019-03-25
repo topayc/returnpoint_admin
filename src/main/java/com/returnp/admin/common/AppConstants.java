@@ -203,8 +203,8 @@ public class AppConstants {
 	}
 	
 	public static class GiftCardType {
-		public static String REAL_GIFTCARD  = "1";
-		public static String MOBILE_GIFTCARD  = "2";
+		public static String MOBILE_GIFTCARD  = "1";
+		public static String REAL_GIFTCARD  = "2";
 	}
 	
 	public static class PurchageMemberType {
@@ -269,11 +269,11 @@ public class AppConstants {
 	
 	public static class BargainType{
 		public static String COMMON= "1"; /* 일반 결제 거래*/
-		public static String CREDIT   = "2";  /* 외상 신용 거래 */
+		public static String CREDIT   = "2";  /* 신용 거래 */
 	}
 	
-	public static class GiftCardOrderType{
-		public static String ISSUE_HEADQUARTER = "10"; /* 본사  구매 요청에 의한 발행*/
+	public static class OrderType{
+		public static String ISSUE_HEADQUARTER = "10"; /* 본사 의 재고 및 발주 주문*/
 		public static String ISSUE_DISTRIBUTOR   = "11";  /* 총판  구매 요청에 의한 발행 */
 		public static String ISSUE_STORE  = "12";  /* 판매점 구매 요청에 의한 발행*/
 		public static String ISSUE_MEMBER  = "20";  /* 일반 회원 구매 요청에 의한 발행*/
@@ -289,5 +289,6 @@ public class AppConstants {
 		public static String ISSUED   = "3";  /* 발행 완료  */
 		public static String ISSUE_CANCEL   = "4";  /* 발행 취소 */
 	}
+	
 	
 }

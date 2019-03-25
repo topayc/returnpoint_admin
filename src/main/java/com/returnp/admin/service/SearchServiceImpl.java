@@ -11,6 +11,7 @@ import com.returnp.admin.dto.command.AffiliateCommand;
 import com.returnp.admin.dto.command.AgencyCommand;
 import com.returnp.admin.dto.command.BranchCommand;
 import com.returnp.admin.dto.command.CategoryCommand;
+import com.returnp.admin.dto.command.GiftCardOrderCommand;
 import com.returnp.admin.dto.command.GiftCardSalesOrganCommand;
 import com.returnp.admin.dto.command.GreenPointCommand;
 import com.returnp.admin.dto.command.MemberBankAccountCommand;
@@ -343,6 +344,11 @@ public class SearchServiceImpl implements SearchService{
 	public ArrayList<GiftCardSalesOrganCommand> selectGiftCardSalesOrganCommands(GiftCardSalesOrganCommand record) {
 		// TODO Auto-generated method stub
 		return this.searchMapper.selectGiftCardSalesOrganCommands(record);
+	}
+
+	@Override
+	public ArrayList<GiftCardOrderCommand> selectGiftCardOrderCommands(GiftCardOrderCommand record) {
+		return this.searchMapper.selectGiftCardOrderCommands(record);
 	};
 	
 }
