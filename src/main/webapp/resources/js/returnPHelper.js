@@ -3,9 +3,62 @@ function getNumber(str) {
     return (new Number(str));
 }
 
+function orderReasonFormatter(value,row,index){
+	switch(row.orderReason){
+	case "1": result = '<span style = "color : green;font-weight : bold" >'+ "선발주"+ ' </span>';break;
+	case "2": result = '<span style = "color : red;font-weight : bold" >'+ "일반 주문"+ ' </span>';break;
+	default :result = "-";break;
+	}
+	return result; 
+}
+
+function bargainTypeFormatter(value,row,index){
+	switch(row.bargainType){
+	case "1": result = '일반 결제';break;
+	case "2": result = '신용 거래';break;
+	default :result = "-";break;
+	}
+	return result; 
+}
+
+function orderTypeFormatter(value,row,index){
+	switch(row.orderType){
+	case "10": result = '본사 주문';break;
+	case "11": result = '총판 주문';break;
+	case "12": result = '판매점 주문';break;
+	case "20": result = '일반회원 주문';break;
+	default :result = "-";break;
+	}
+	return result; 
+}
+
+function issueStatusFormatter(value,row,index){
+	switch(row.issueStatus){
+	case "1": result = '미발행';break;
+	case "2": result = '발행중';break;
+	case "3": result = '발행 완료';break;
+	case "4": result = '발행 취소';break;
+	default :result = "-";break;
+	}
+	return result; 
+}
+
+function orderStatusFormatter(value,row,index){
+	switch(row.orderStatus){
+	case "1": result = '주문 접수';break;
+	case "2": result = '상품 준비';break;
+	case "3": result = '상품 준비 완료';break;
+	case "4": result = '배송 준비';break;
+	case "5": result = '배송중';break;
+	case "6": result = '배송 완료';break;
+	default :result = "-";break;
+	}
+	return result; 
+}
+
 function roundLabel(str, color){
 	if (!color) color = "#444444";
-	return '<span style = "border-radius: 15px;background-color: #444444;padding: 5px;color : #ffffff;font-weight : bold;">'+ str +'</span>';
+	return '<span style = "border-radius: 15px;background-color: ' +color+ ';padding: 5px;color : #ffffff;font-weight : bold;">'+ str +'</span>';
 }
 
 function imageTagFormatter(value,row,index){

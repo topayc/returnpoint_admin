@@ -37,14 +37,14 @@ public class GiftCardOrderServiceImpl implements GiftCardOrderService{
 	}
 
 	@Override
-	public ReturnpBaseResponse deleteGiftCardOrder(GiftCardOrder order) {
+	public ReturnpBaseResponse updateGiftCardOrder(GiftCardOrder order) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
-			int affectedRow = this.giftCardOrderMapper.updateByPrimaryKey(order);
+			int affectedRow = this.giftCardOrderMapper.updateByPrimaryKeySelective(order);
 			if (affectedRow != 1) {
 				throw new Exception();
 			}
-			ResponseUtil.setSuccessResponse(res, "100" , "상품권 주문 수정 완료");
+			ResponseUtil.setResponse(res, "100" , "상품권 주문 수정 완료");
 			return res;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -55,11 +55,14 @@ public class GiftCardOrderServiceImpl implements GiftCardOrderService{
 	}
 
 	@Override
-	public ReturnpBaseResponse updateGiftCardOrder(GiftCardOrder order) {
+	public ReturnpBaseResponse deleteGiftCardOrder(GiftCardOrder order) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
-			this.giftCardOrderMapper.deleteByPrimaryKey(order.getOrderNo());
-			ResponseUtil.setResponse(res, "100" , "상품권 주문 삭제 완료");
+			int affectedRow = this.giftCardOrderMapper.updateByPrimaryKey(order);
+			if (affectedRow != 1) {
+				throw new Exception();
+			}
+			ResponseUtil.setSuccessResponse(res, "100" , "상품권 주문 삭제 완료");
 			return res;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -68,5 +71,6 @@ public class GiftCardOrderServiceImpl implements GiftCardOrderService{
 			return res;
 		}
 	}
+
 
 }

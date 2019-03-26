@@ -53,6 +53,14 @@ public class GiftCardOrderController extends ApplicationController{
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/giftCardOrder/update", method = RequestMethod.POST)
+	public ReturnpBaseResponse updateGiftCardOrder(GiftCardOrder order, HttpServletRequest request){
+		System.out.println("###### updateGiftCardOrdeOrder");
+		return this.giftCardOrderService.updateGiftCardOrder(order);
+	}
+	
+	
+	@ResponseBody
 	@RequestMapping(value = "/giftCardOrder/delete", method = RequestMethod.POST)
 	public ReturnpBaseResponse deleteGiftCardOrder( GiftCardOrder order){
 		System.out.println("###### deleteGiftCardOrder");

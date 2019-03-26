@@ -3219,7 +3219,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   
-    <resultMap id="GiftCardOrderCommandResultMap" type="com.returnp.admin.dto.command..GiftCardOrderCommand">
+    <resultMap id="GiftCardOrderCommandResultMap" type="com.returnp.admin.dto.command.GiftCardOrderCommand">
     <id column="orderNo" jdbcType="INTEGER" property="orderNo" />
     <result column="orderNumber" jdbcType="INTEGER" property="orderNumber" />
     <result column="orderName" jdbcType="VARCHAR" property="orderName" />
@@ -3258,41 +3258,43 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   </sql>
   
   <sql id ="GiftCardOrderWhereStatement">
- 	  <if test="orderNumber != null"> orderNumber = #{orderNumber,jdbcType=INTEGER}</if>
-      <if test="orderName != null"> orderName = #{orderName,jdbcType=VARCHAR}</if>
-      <if test="ordererId != null"> ordererId = #{ordererId,jdbcType=VARCHAR}</if>
-      <if test="ordererName != null"> ordererName = #{ordererName,jdbcType=VARCHAR}</if>
-      <if test="ordererPhone != null"> ordererPhone = #{ordererPhone,jdbcType=VARCHAR}</if>
-      <if test="ordererEmail != null"> ordererEmail = #{ordererEmail,jdbcType=VARCHAR}</if>
-      <if test="orderTotalPrice != null"> orderTotalPrice = #{orderTotalPrice,jdbcType=INTEGER}</if>
-      <if test="orderType != null"> orderType = #{orderType,jdbcType=VARCHAR}</if>
-      <if test="orderStatus != null"> orderStatus = #{orderStatus,jdbcType=VARCHAR}</if>
-      <if test="issueStatus != null"> issueStatus = #{issueStatus,jdbcType=VARCHAR}</if>
-      <if test="bargainType != null"> bargainType = #{bargainType,jdbcType=VARCHAR}</if>
-      <if test="orderReason != null"> orderReason = #{orderReason,jdbcType=VARCHAR}</if>
-      <if test="paymentStatus != null"> paymentStatus = #{paymentStatus,jdbcType=VARCHAR}</if>
-      <if test="paymentType != null"> paymentType = #{paymentType,jdbcType=VARCHAR}</if>
-      <if test="deliverNumber != null"> deliverNumber = #{deliverNumber,jdbcType=VARCHAR}</if>
-      <if test="deliveryAddress != null"> deliveryAddress = #{deliveryAddress,jdbcType=VARCHAR}</if>
+      <if test="orderNo != null"> AND orderNo = #{orderNo,jdbcType=INTEGER}</if>
+ 	  <if test="orderNumber != null"> AND orderNumber = #{orderNumber,jdbcType=INTEGER}</if>
+      <if test="orderName != null"> AND orderName = #{orderName,jdbcType=VARCHAR}</if>
+      <if test="ordererId != null"> AND ordererId = #{ordererId,jdbcType=VARCHAR}</if>
+      <if test="ordererName != null"> AND ordererName = #{ordererName,jdbcType=VARCHAR}</if>
+      <if test="ordererPhone != null"> AND ordererPhone = #{ordererPhone,jdbcType=VARCHAR}</if>
+      <if test="ordererEmail != null"> AND ordererEmail = #{ordererEmail,jdbcType=VARCHAR}</if>
+      <if test="orderTotalPrice != null"> AND orderTotalPrice = #{orderTotalPrice,jdbcType=INTEGER}</if>
+      <if test="orderType != null"> AND orderType = #{orderType,jdbcType=VARCHAR}</if>
+      <if test="orderStatus != null"> AND orderStatus = #{orderStatus,jdbcType=VARCHAR}</if>
+      <if test="issueStatus != null"> AND issueStatus = #{issueStatus,jdbcType=VARCHAR}</if>
+      <if test="bargainType != null"> AND bargainType = #{bargainType,jdbcType=VARCHAR}</if>
+      <if test="orderReason != null"> AND orderReason = #{orderReason,jdbcType=VARCHAR}</if>
+      <if test="paymentStatus != null"> AND paymentStatus = #{paymentStatus,jdbcType=VARCHAR}</if>
+      <if test="paymentType != null"> AND paymentType = #{paymentType,jdbcType=VARCHAR}</if>
+      <if test="deliverNumber != null"> AND deliverNumber = #{deliverNumber,jdbcType=VARCHAR}</if>
+      <if test="deliveryAddress != null"> AND deliveryAddress = #{deliveryAddress,jdbcType=VARCHAR}</if>
   </sql>
   
     <sql id ="GiftCardOrderCommandWhereStatement">
- 	  <if test="orderNumber != null"> orderNumber = #{orderNumber,jdbcType=INTEGER}</if>
-      <if test="orderName != null"> orderName = #{orderName,jdbcType=VARCHAR}</if>
-      <if test="ordererId != null"> ordererId = #{ordererId,jdbcType=VARCHAR}</if>
-      <if test="ordererName != null"> ordererName = #{ordererName,jdbcType=VARCHAR}</if>
-      <if test="ordererPhone != null"> ordererPhone = #{ordererPhone,jdbcType=VARCHAR}</if>
-      <if test="ordererEmail != null"> ordererEmail = #{ordererEmail,jdbcType=VARCHAR}</if>
-      <if test="orderTotalPrice != null"> orderTotalPrice = #{orderTotalPrice,jdbcType=INTEGER}</if>
-      <if test="orderType != null"> orderType = #{orderType,jdbcType=VARCHAR}</if>
-      <if test="orderStatus != null"> orderStatus = #{orderStatus,jdbcType=VARCHAR}</if>
-      <if test="issueStatus != null"> issueStatus = #{issueStatus,jdbcType=VARCHAR}</if>
-      <if test="bargainType != null"> bargainType = #{bargainType,jdbcType=VARCHAR}</if>
-      <if test="orderReason != null"> orderReason = #{orderReason,jdbcType=VARCHAR}</if>
-      <if test="paymentStatus != null"> paymentStatus = #{paymentStatus,jdbcType=VARCHAR}</if>
-      <if test="paymentType != null"> paymentType = #{paymentType,jdbcType=VARCHAR}</if>
-      <if test="deliverNumber != null"> deliverNumber = #{deliverNumber,jdbcType=VARCHAR}</if>
-      <if test="deliveryAddress != null"> deliveryAddress = #{deliveryAddress,jdbcType=VARCHAR}</if>
+ 	   <if test="orderNo != null"> AND orderNo = #{orderNo,jdbcType=INTEGER}</if>
+ 	  <if test="orderNumber != null"> AND orderNumber = #{orderNumber,jdbcType=INTEGER}</if>
+      <if test="orderName != null"> AND orderName = #{orderName,jdbcType=VARCHAR}</if>
+      <if test="ordererId != null"> AND ordererId = #{ordererId,jdbcType=VARCHAR}</if>
+      <if test="ordererName != null"> AND ordererName = #{ordererName,jdbcType=VARCHAR}</if>
+      <if test="ordererPhone != null"> AND ordererPhone = #{ordererPhone,jdbcType=VARCHAR}</if>
+      <if test="ordererEmail != null"> AND ordererEmail = #{ordererEmail,jdbcType=VARCHAR}</if>
+      <if test="orderTotalPrice != null"> AND orderTotalPrice = #{orderTotalPrice,jdbcType=INTEGER}</if>
+      <if test="orderType != null"> AND orderType = #{orderType,jdbcType=VARCHAR}</if>
+      <if test="orderStatus != null"> AND orderStatus = #{orderStatus,jdbcType=VARCHAR}</if>
+      <if test="issueStatus != null"> AND issueStatus = #{issueStatus,jdbcType=VARCHAR}</if>
+      <if test="bargainType != null"> AND bargainType = #{bargainType,jdbcType=VARCHAR}</if>
+      <if test="orderReason != null"> AND orderReason = #{orderReason,jdbcType=VARCHAR}</if>
+      <if test="paymentStatus != null"> AND paymentStatus = #{paymentStatus,jdbcType=VARCHAR}</if>
+      <if test="paymentType != null"> AND paymentType = #{paymentType,jdbcType=VARCHAR}</if>
+      <if test="deliverNumber != null"> AND deliverNumber = #{deliverNumber,jdbcType=VARCHAR}</if>
+      <if test="deliveryAddress != null"> AND deliveryAddress = #{deliveryAddress,jdbcType=VARCHAR}</if>
   </sql>
   
   <select id="selectGiftCardOrders" parameterType="com.returnp.admin.model.GiftCardOrder" resultMap="GiftCardOrderResultMap">
@@ -3305,7 +3307,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     	<include refid = "commonStatement"/>
   </select>	
   
-    <select id="selectGiftCardOrderCommand" parameterType="com.returnp.admin.dto.command..GiftCardOrderCommand" resultMap="GiftCardOrderCommandResultMap">
+    <select id="selectGiftCardOrderCommands" parameterType="com.returnp.admin.dto.command.GiftCardOrderCommand" resultMap="GiftCardOrderCommandResultMap">
     select 
     <include refid="GiftCardOrderCommand_Column_List" />
     from gift_card_order

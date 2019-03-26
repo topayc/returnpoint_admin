@@ -54,9 +54,16 @@ public class SearchCondition extends QueryCondition {
     private String parentNodeNo;
     
     private Integer giftCardOrderNo;
+    private String orderType;
     
     
     
+	public String getOrderType() {
+		return orderType;
+	}
+	public void setOrderType(String orderType) {
+		this.orderType = orderType;
+	}
 	public Integer getGiftCardOrderNo() {
 		return giftCardOrderNo;
 	}

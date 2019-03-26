@@ -232,7 +232,11 @@
                             					<span style = "font-weight : bold">상품권 판매 조직 관리</span>
                             				</a> 
                             			</li> -->
-                            			
+                            				<li id = "" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 현황 리포트</span>
+                            				</a> 
+                            			</li>
                             			<li id = "manageGiftCardPolicy" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardPolicy"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 정책 관리</span>
@@ -278,6 +282,12 @@
                             					</ul>
                             			</li>
                             			
+                            			<!-- <li id = "manageGiftCardIssue" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = "manageGiftCardIssue"  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 구매 입금 관리</span>
+                            				</a> 
+                            			</li> -->
+                            			
                             		<!-- 	<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftProductOrder"  menu_deps= '2' >
                             					<span style = "font-weight : bold">판매점 주문 관리</span>
@@ -303,7 +313,7 @@
                             			</li>
                             			<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 현황 리포트</span>
+                            					<span style = "font-weight : bold">상품권 정산</span>
                             				</a> 
                             			</li>
 		                        </ul>
