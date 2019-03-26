@@ -32,6 +32,11 @@ function orderTypeFormatter(value,row,index){
 	return result; 
 }
 
+function orderNameFormatter (value,row,index){
+	var result = row.orderName.length > 12 ? row.orderName.substring(0,12) + "..." : row.orderName
+	return result;
+}
+
 function issueStatusFormatter(value,row,index){
 	switch(row.issueStatus){
 	case "1": result = '미발행';break;

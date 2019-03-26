@@ -1,10 +1,12 @@
 		columns = [[
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-			    {field:'orderNo',width:70,align:'center',title : '등록 번호',hidden:false},
+			    {field:'orderNo',width:70,align:'center',title : '등록번호',hidden:false},
 			    {field:'orderNumber',width:100,align:'center',title : '주문 번호'},
-			    {field:'orderType',width:110,align:'center',title : '주문 타입', formatter : orderTypeFormatter},
-			    {field:'orderReason',width:100,align:'center',title : '주문 이유', formatter : orderReasonFormatter},
+			    {field:'orderName',width:180,align:'center',title : '주문명', formatter : orderNameFormatter},
+			    {field:'orderType',width:90,align:'center',title : '주문 타입', formatter : orderTypeFormatter},
+			    {field:'orderReason',width:90,align:'center',title : '주문 이유', formatter : orderReasonFormatter},
+			    {field:'bargainType',width:100,align:'center',title : '거래 타입', formatter : bargainTypeFormatter},
 			    {field:'ordererName',width:100,align:'center',title : '주문자 이름'},
 			    {field:'ordererId',width:100,align:'center',title : '주문자 코드'},
 			    {field:'ordererEmail',width:100,align:'center',title : '주문자 이메일'},
@@ -14,10 +16,9 @@
 			    {field:'paymentStatus',width:170,align:'center',title : '결제 상태' , formatter : paymentStatusFormatter},
 			    {field:'orderStatus',width:100,align:'center',title : '주문 상태', formatter : orderStatusFormatter},
 			    {field:'issueStatus',width:100,align:'center',title : '발행 상태', formatter : issueStatusFormatter},
-			    {field:'bargainType',width:100,align:'center',title : '거래 타입', formatter : bargainTypeFormatter},
 			    {field:'deliveryNumber',width:100,align:'center',title : '송장 번호'},
 			    {field:'deliveryAddress',width:100,align:'center',title : '배송지 주소',hidden : true},
-			    {field:'deliveryMessage',width:100,align:'center',title : '배송 메세지', hidden : true},
+			    {field:'deliveryMessage',width:100,align:'center',title : '배송 메세지', hidden : false},
 			    {field:'orderTime',width:100,align:'center',title : '주문일'},
 			    {field:'createTime',width:100,align:'center',title : '등록일',hidden : true},
 			    {field:'updateTime',width:100,align:'center',title : '수정일', hidden : true},
@@ -336,6 +337,17 @@ function initView(){
 		  		onclick: function(){
 		  			cancelGiftCardOrder({orderNo : selectedOrder.orderNo});
 		  		}
+		  	});
+		 	
+		  	//------------------------------------------------------
+		  	cmenu.menu('appendItem', {
+		  		separator: true
+		  	});
+		  	//------------------------------------------------------
+		  	cmenu.menu("appendItem", {
+		  		text: '주문 내역 상세 보기',
+		  		/*	iconCls: 'icon-ok',*/
+		  		onclick: function(){}
 		  	});
 		  	
 		  	
