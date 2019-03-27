@@ -3,7 +3,7 @@
 <mapper namespace="com.returnp.admin.dao.mapper.GiftCardOrderMapper">
   <resultMap id="BaseResultMap" type="com.returnp.admin.model.GiftCardOrder">
     <id column="orderNo" jdbcType="INTEGER" property="orderNo" />
-    <result column="orderNumber" jdbcType="INTEGER" property="orderNumber" />
+    <result column="orderNumber" jdbcType="VARCHAR" property="orderNumber" />
     <result column="orderName" jdbcType="VARCHAR" property="orderName" />
     <result column="ordererId" jdbcType="VARCHAR" property="ordererId" />
     <result column="ordererName" jdbcType="VARCHAR" property="ordererName" />
@@ -45,24 +45,54 @@
   </delete>
   
   <insert id="insert" parameterType="com.returnp.admin.model.GiftCardOrder">
-    insert into gift_card_order (orderNo, orderNumber, orderName, 
-      ordererId, ordererName, ordererPhone, 
-      ordererEmail, orderTotalPrice, orderType, 
-      orderStatus, issueStatus, bargainType, 
-      orderReason, paymentStatus, paymentType, 
-      deliverNumber, deliveryAddress, deliveryMessage, 
-      NOW(), NOW(), NOW()
+    insert into gift_card_order (
+    	orderNo, 
+    	orderNumber, 
+    	orderName, 
+      	ordererId,
+      	ordererName, 
+      	ordererPhone, 
+      	ordererEmail, 
+      	orderTotalPrice, 
+      	orderType, 
+      	orderStatus, 
+      	issueStatus, 
+      	bargainType, 
+      	orderReason, 
+      	paymentStatus, 
+      	paymentType, 
+      	deliverNumber, 
+      	deliveryAddress, 
+      	deliveryMessage, 
+      	orderTime, 
+      	createTime, 
+      	updateTime
       )
-    values (#{orderNo,jdbcType=INTEGER}, #{orderNumber,jdbcType=INTEGER}, #{orderName,jdbcType=VARCHAR}, 
-      #{ordererId,jdbcType=VARCHAR}, #{ordererName,jdbcType=VARCHAR}, #{ordererPhone,jdbcType=VARCHAR}, 
-      #{ordererEmail,jdbcType=VARCHAR}, #{orderTotalPrice,jdbcType=INTEGER}, #{orderType,jdbcType=VARCHAR}, 
-      #{orderStatus,jdbcType=VARCHAR}, #{issueStatus,jdbcType=VARCHAR}, #{bargainType,jdbcType=VARCHAR}, 
-      #{orderReason,jdbcType=VARCHAR}, #{paymentStatus,jdbcType=VARCHAR}, #{paymentType,jdbcType=VARCHAR}, 
-      #{deliverNumber,jdbcType=VARCHAR}, #{deliveryAddress,jdbcType=VARCHAR}, #{deliveryMessage,jdbcType=VARCHAR}, 
-      #{orderTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+    values (
+    	#{orderNo,jdbcType=INTEGER}, 
+    	#{orderNumber,jdbcType=VARCHAR}, 
+    	#{orderName,jdbcType=VARCHAR}, 
+    	#{ordererId,jdbcType=VARCHAR},
+    	#{ordererName,jdbcType=VARCHAR}, 
+    	#{ordererPhone,jdbcType=VARCHAR}, 
+     	#{ordererEmail,jdbcType=VARCHAR}, 
+     	#{orderTotalPrice,jdbcType=INTEGER}, 
+     	#{orderType,jdbcType=VARCHAR}, 
+        #{orderStatus,jdbcType=VARCHAR}, 
+        #{issueStatus,jdbcType=VARCHAR}, 
+        #{bargainType,jdbcType=VARCHAR}, 
+        #{orderReason,jdbcType=VARCHAR}, 
+        #{paymentStatus,jdbcType=VARCHAR}, 
+        #{paymentType,jdbcType=VARCHAR}, 
+        #{deliverNumber,jdbcType=VARCHAR}, 
+        #{deliveryAddress,jdbcType=VARCHAR}, 
+        #{deliveryMessage,jdbcType=VARCHAR}, 
+        NOW(), 
+        NOW(), 
+        NOW()
       )
       
-        <selectKey keyProperty="gift_card_order" resultType="java.lang.Integer" order ="AFTER">
+        <selectKey keyProperty="orderNo" resultType="java.lang.Integer" order ="AFTER">
 		    SELECT LAST_INSERT_ID()
 	 </selectKey>	
   </insert>
@@ -139,7 +169,7 @@
         #{orderNo,jdbcType=INTEGER},
       </if>
       <if test="orderNumber != null">
-        #{orderNumber,jdbcType=INTEGER},
+        #{orderNumber,jdbcType=VARCHAR},
       </if>
       <if test="orderName != null">
         #{orderName,jdbcType=VARCHAR},
@@ -204,7 +234,7 @@
     update gift_card_order
     <set>
       <if test="orderNumber != null">
-        orderNumber = #{orderNumber,jdbcType=INTEGER},
+        orderNumber = #{orderNumber,jdbcType=VARCHAR},
       </if>
       <if test="orderName != null">
         orderName = #{orderName,jdbcType=VARCHAR},
@@ -268,7 +298,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.GiftCardOrder">
     update gift_card_order
-    set orderNumber = #{orderNumber,jdbcType=INTEGER},
+    set orderNumber = #{orderNumber,jdbcType=VARCHAR},
       orderName = #{orderName,jdbcType=VARCHAR},
       ordererId = #{ordererId,jdbcType=VARCHAR},
       ordererName = #{ordererName,jdbcType=VARCHAR},

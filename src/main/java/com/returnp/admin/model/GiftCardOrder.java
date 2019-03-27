@@ -6,7 +6,7 @@ import java.util.Date;
 public class GiftCardOrder extends QueryCondition {
     private Integer orderNo;
 
-    private Integer orderNumber;
+    private String orderNumber;
 
     private String orderName;
 
@@ -50,23 +50,35 @@ public class GiftCardOrder extends QueryCondition {
         return orderNo;
     }
 
-    public void setOrderNo(Integer orderNo) {
-        this.orderNo = orderNo;
-    }
+  
 
-    public Integer getOrderNumber() {
-        return orderNumber;
-    }
+    public String getOrderNumber() {
+		return orderNumber;
+	}
 
-    public void setOrderNumber(Integer orderNumber) {
-        this.orderNumber = orderNumber;
-    }
+
+
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+
+
+
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
+	}
+
+
+
+	
 
     public String getOrderName() {
-        return orderName;
-    }
+		return orderName;
+	}
 
-    public void setOrderName(String orderName) {
+
+
+	public void setOrderName(String orderName) {
         this.orderName = orderName == null ? null : orderName.trim();
     }
 

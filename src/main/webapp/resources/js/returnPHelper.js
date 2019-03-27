@@ -26,7 +26,7 @@ function orderTypeFormatter(value,row,index){
 	case "10": result = '본사 주문';break;
 	case "11": result = '총판 주문';break;
 	case "12": result = '판매점 주문';break;
-	case "20": result = '일반회원 주문';break;
+	case "20": result = '일반 주문';break;
 	default :result = "-";break;
 	}
 	return result; 
@@ -39,11 +39,48 @@ function orderNameFormatter (value,row,index){
 
 function issueStatusFormatter(value,row,index){
 	switch(row.issueStatus){
-	case "1": result = '미발행';break;
-	case "2": result = '발행중';break;
-	case "3": result = '발행 완료';break;
-	case "4": result = '발행 취소';break;
+	case "1": result = '<span style = "color : red; font-weight : bold" >미발행</span>';break;
+	case "2": result = '<span style = "color : #00AFFF; font-weight : bold" >발행중</span';break;
+	case "3": result = '<span style = "color : #147814; font-weight : bold" >발행 완료</span>';break;
+	case "4": result = '<span style = "color : #8B6331; font-weight : bold" >발행 취소</span>';break;
 	default :result = "-";break;
+	}
+	return result; 
+}
+
+function issueActionFormatter(value,row,index){
+	var result = "-"
+	if (row.paymentStatus == "2" && row.issueStatus == "1"){
+		result = '<input  style = ";margin-left : 3px; margin-right : 3px" type = "button" value = "발행" onclick = "issueGiftCardOrder('+row.orderNo +');return false;" id = "orderNo_'+row.orderNo+'"/>';
+	}
+	return result; 
+}
+
+function orderColumnKorFormatter(value){
+	var result = "";
+	switch(value){
+		case "orderNo": result = '주문 등록 번호';break;
+		case "orderNumber": result = '주문 번호';break;
+		case "orderName": result = '주문명';break;
+		case "ordererId": result = '주문자 ID';break;
+		case "ordererName": result = '주문자 이름';break;
+		case "ordererPhone": result = '주문자 핸드폰';break;
+		case "ordererEmail": result = '주문자 이메일';break;
+		case "orderTotalPrice": result = '총 가격';break;
+		case "orderType": result = '주문 타입';break;
+		case "orderStatus": result = '주문 상태';break;
+		case "issueStatus": result = '발행 상태';break;
+		case "bargainType": result = '거래 방법';break;
+		case "orderReason": result = '발주 목적';break;
+		case "paymentStatus": result = '결제 상태';break;
+		case "paymentType": result = '결제 타입';break;
+		case "deliverNumber": result = '송장 번호';break;
+		case "deliveryAddress": result = '배송지 주소';break;
+		case "deliveryMessage": result = '배송 메시지';break;
+		case "orderTime": result = '주문 시간';break;
+		case "createTime": result = '등록 시간';break;
+		case "updateTime": result = '수정 시간';break;
+		default :result = "-";break;
 	}
 	return result; 
 }
@@ -597,7 +634,7 @@ function paymentStatusFormatter(value,row,index){
 		text =  '<span style = "color : #FF4000"><i class = "fa fa-check" style="color:#424242;"></i>' + '&nbsp;' + addBoldFomatter(text) + '</span';
 		break;
 	case "2":
-		text = "입금(결제) 확인 완료";
+		text = "입금(결제) 확인";
 		text =  '<span style = "color : #0489B1"><i class = "fa fa-check-circle" style="color:#01DF01;"></i>' + '&nbsp;' + addBoldFomatter(text) + '</span';
 		break;
 	case "3":
@@ -605,7 +642,7 @@ function paymentStatusFormatter(value,row,index){
 		text =  '<span><i class = "fa fa-check" style="color:#424242;">	</i>' + '&nbsp;' + addBoldFomatter(text) + '</span';
 		break;
 	case "4":
-		text = "입금(결제) 환불 처리중";
+		text = "입금(결제) 환불중";
 		text =  '<span><i class = "fa fa-ban" style="color:red;"></i>' + '&nbsp;' + addBoldFomatter(text) + '</span';
 		break;
 	case "5":

@@ -209,11 +209,17 @@ $(function () {
         	updateMarketer: { apiCode: 10000, apiPath : '/api/marketer/update' ,  requestMethod: "post"},  
         	deleteMarketer: { apiCode: 10000, apiPath : '/api/marketer/delete' ,  requestMethod: "post"},  
         	
-        	/* 상품권 관련*/
+        	/* 상품권 주문 관련*/
         	selectGiftCardOrders: { apiCode: 10000, apiPath : '/api/giftCardOrders' ,  requestMethod: "get"},  
         	createGiftCardOrder: { apiCode: 10000, apiPath : '/api/giftCardOrder/create' ,  requestMethod: "post"},  
         	updateGiftCardOrder: { apiCode: 10000, apiPath : '/api/giftCardOrder/update' ,  requestMethod: "post"},  
         	deleteGiftCardOrder: { apiCode: 10000, apiPath : '/api/giftCardOrder/delete' ,  requestMethod: "post"},  
+        	
+        	/* 상품권 발행 명령*/
+        	issueGiftCard: { apiCode: 10000, apiPath : '/api/giftCardOrder/issueGiftCard' ,  requestMethod: "post"},  
+
+        	/* 주문 아이템 관련*/
+        	selectGiftCardItemsOrders: { apiCode: 10000, apiPath : '/api/giftCardOrderItems' ,  requestMethod: "get"},  
 
         	
         	/* 대쉬보드 관련 api */

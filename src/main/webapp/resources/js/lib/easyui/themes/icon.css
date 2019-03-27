@@ -94,3 +94,13 @@
 .icon-large-chart{
 	background:url('icons/large_chart.png') no-repeat center center;
 }
+
+.icon-payment-status{
+	background:url('icons/payment_status.png') no-repeat center center;
+}
+.icon-order-status{
+	background:url('icons/order_status.png') no-repeat center center;
+}
+.icon-gift-card{
+	background:url('icons/gift_card.png') no-repeat center center;
+}

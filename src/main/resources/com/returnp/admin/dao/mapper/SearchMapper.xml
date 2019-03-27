@@ -3197,7 +3197,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
  
   <resultMap id="GiftCardOrderResultMap" type="com.returnp.admin.model.GiftCardOrder">
     <id column="orderNo" jdbcType="INTEGER" property="orderNo" />
-    <result column="orderNumber" jdbcType="INTEGER" property="orderNumber" />
+    <result column="orderNumber" jdbcType="VARCHAR" property="orderNumber" />
     <result column="orderName" jdbcType="VARCHAR" property="orderName" />
     <result column="ordererId" jdbcType="VARCHAR" property="ordererId" />
     <result column="ordererName" jdbcType="VARCHAR" property="ordererName" />
@@ -3221,7 +3221,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
     <resultMap id="GiftCardOrderCommandResultMap" type="com.returnp.admin.dto.command.GiftCardOrderCommand">
     <id column="orderNo" jdbcType="INTEGER" property="orderNo" />
-    <result column="orderNumber" jdbcType="INTEGER" property="orderNumber" />
+    <result column="orderNumber" jdbcType="VARCHAR" property="orderNumber" />
     <result column="orderName" jdbcType="VARCHAR" property="orderName" />
     <result column="ordererId" jdbcType="VARCHAR" property="ordererId" />
     <result column="ordererName" jdbcType="VARCHAR" property="ordererName" />
@@ -3259,7 +3259,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
   <sql id ="GiftCardOrderWhereStatement">
       <if test="orderNo != null"> AND orderNo = #{orderNo,jdbcType=INTEGER}</if>
- 	  <if test="orderNumber != null"> AND orderNumber = #{orderNumber,jdbcType=INTEGER}</if>
+ 	  <if test="orderNumber != null"> AND orderNumber = #{orderNumber,jdbcType=VARCHAR}</if>
       <if test="orderName != null"> AND orderName = #{orderName,jdbcType=VARCHAR}</if>
       <if test="ordererId != null"> AND ordererId = #{ordererId,jdbcType=VARCHAR}</if>
       <if test="ordererName != null"> AND ordererName = #{ordererName,jdbcType=VARCHAR}</if>
@@ -3279,7 +3279,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
     <sql id ="GiftCardOrderCommandWhereStatement">
  	   <if test="orderNo != null"> AND orderNo = #{orderNo,jdbcType=INTEGER}</if>
- 	  <if test="orderNumber != null"> AND orderNumber = #{orderNumber,jdbcType=INTEGER}</if>
+ 	  <if test="orderNumber != null"> AND orderNumber = #{orderNumber,jdbcType=VARCHAR}</if>
       <if test="orderName != null"> AND orderName = #{orderName,jdbcType=VARCHAR}</if>
       <if test="ordererId != null"> AND ordererId = #{ordererId,jdbcType=VARCHAR}</if>
       <if test="ordererName != null"> AND ordererName = #{ordererName,jdbcType=VARCHAR}</if>
@@ -3314,6 +3314,52 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     where 
      	 1 = 1 
     	<include refid = "GiftCardOrderCommandWhereStatement"/>
+    	<include refid = "commonStatement"/>
+  </select>
+  
+ <!-- ===============================================================================================================    -->
+ <!-- GiftCardOrderItem Mapper   -->
+ 
+   <resultMap id="GiftCardOrderItemCommandResultMap" type="com.returnp.admin.dto.command.GiftCardOrderItemCommand">
+    <id column="orderItemNo" jdbcType="INTEGER" property="orderItemNo" />
+    <result column="orderNumber" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="productNo" jdbcType="INTEGER" property="productNo" />
+    <result column="productPrice" jdbcType="INTEGER" property="productPrice" />
+    <result column="productName" jdbcType="VARCHAR" property="productName" />
+    <result column="qty" jdbcType="INTEGER" property="qty" />
+    <result column="totalPrice" jdbcType="INTEGER" property="totalPrice" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+    <sql id="GiftCardOrderItemCommand_Column_List">
+    A.orderItemNo, 
+    A.orderNumber, 
+    C.productNo, 
+    C.productPrice, 
+    C.productName, 
+    A.qty, 
+    A.totalPrice, 
+    A.createTime, 
+    A.updateTime
+  </sql>
+  
+   <sql id ="GiftCardOrderItemCommandWhereStatement">
+      <if test="orderItemNo != null"> AND A.orderItemNo = #{orderItemNo,jdbcType=INTEGER}</if>
+ 	  <if test="orderNumber != null"> AND A.orderNumber = #{orderNumber,jdbcType=VARCHAR}</if>
+      <if test="productNo != null"> AND C.productNo = #{productNo,jdbcType=INTEGER}</if>
+ 	  <if test="productName != null"> AND C.productName = #{productName,jdbcType=VARCHAR}</if>
+  </sql>
+  
+      <select id="selectGiftCardOrderItemCommands" parameterType="com.returnp.admin.dto.command.GiftCardOrderItemCommand" resultMap="GiftCardOrderItemCommandResultMap">
+    select 
+    <include refid="GiftCardOrderItemCommand_Column_List" />
+    from gift_card_order_item as A
+    inner join gift_card_order as B on  (A.orderNumber = B.orderNumber )
+    inner join product as C on  (A.productNo= C.productNo)
+    where 
+     	 1 = 1 
+    	<include refid = "GiftCardOrderItemCommandWhereStatement"/>
     	<include refid = "commonStatement"/>
   </select>
   

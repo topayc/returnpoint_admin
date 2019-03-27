@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.GiftCardOrderItemMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.GiftCardOrderItem">
+    <id column="orderItemNo" jdbcType="INTEGER" property="orderItemNo" />
+    <result column="orderNumber" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="productNo" jdbcType="INTEGER" property="productNo" />
+    <result column="qty" jdbcType="INTEGER" property="qty" />
+    <result column="totalPrice" jdbcType="INTEGER" property="totalPrice" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    orderItemNo, orderNumber, productNo, qty, totalPrice, createTime, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gift_card_order_item
+    where orderItemNo = #{orderItemNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from gift_card_order_item
+    where orderItemNo = #{orderItemNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.GiftCardOrderItem">
+    insert into gift_card_order_item (orderItemNo, orderNumber, productNo, 
+      qty, totalPrice, createTime, 
+      updateTime)
+    values (#{orderItemNo,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}, #{productNo,jdbcType=INTEGER}, 
+      #{qty,jdbcType=INTEGER}, #{totalPrice,jdbcType=INTEGER}, NOW(), NOW())
+	
+	 <selectKey keyProperty="orderItemNo" resultType="java.lang.Integer" order ="AFTER">
+		    SELECT LAST_INSERT_ID()
+	 </selectKey>	
+
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.GiftCardOrderItem">
+    insert into gift_card_order_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderItemNo != null">
+        orderItemNo,
+      </if>
+      <if test="orderNumber != null">
+        orderNumber,
+      </if>
+      <if test="productNo != null">
+        productNo,
+      </if>
+      <if test="qty != null">
+        qty,
+      </if>
+      <if test="totalPrice != null">
+        totalPrice,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderItemNo != null">
+        #{orderItemNo,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="productNo != null">
+        #{productNo,jdbcType=INTEGER},
+      </if>
+      <if test="qty != null">
+        #{qty,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.GiftCardOrderItem">
+    update gift_card_order_item
+    <set>
+      <if test="orderNumber != null">
+        orderNumber = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="productNo != null">
+        productNo = #{productNo,jdbcType=INTEGER},
+      </if>
+      <if test="qty != null">
+        qty = #{qty,jdbcType=INTEGER},
+      </if>
+      <if test="totalPrice != null">
+        totalPrice = #{totalPrice,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where orderItemNo = #{orderItemNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.GiftCardOrderItem">
+    update gift_card_order_item
+    set orderNumber = #{orderNumber,jdbcType=VARCHAR},
+      productNo = #{productNo,jdbcType=INTEGER},
+      qty = #{qty,jdbcType=INTEGER},
+      totalPrice = #{totalPrice,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = NOW()
+    where orderItemNo = #{orderItemNo,jdbcType=INTEGER}
+  </update>
+</mapper>

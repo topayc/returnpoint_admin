@@ -43,7 +43,7 @@
 						</select>
 					</div>
 					<div style="margin-bottom:20px;;" >
-						<select id ="giftCardType"  name="organCode" style="width:100%;" >
+						<select id ="giftCardType"  name="giftCardType" style="width:100%;" >
 							<c:forEach var="giftCardType"  items="${giftCardTypes}" varStatus="status">
 								  <c:if test = "${ giftCardType.useInAdmin == 'Y' }">
 									  <option value='${giftCardType.key}' >${giftCardType.value}</option>
@@ -250,13 +250,14 @@ function orderGiftCard(){
 		$.messager.alert('알림', "<strong><span style = 'color : #FF3232'> " + fieldKorName + "</span></strong> 항목이 입력되지 않았습니다");
 		return false;
 	}
+	console.log(">> 발행 옵션");
+	console.log(params);
 	
+	params.giftCardNo = params.giftCardNo.split(":")[0].trim();
 	$('#create_btn').linkbutton('disable');
 	$('#reset_btn').linkbutton('disable');
 	
 	returnp.api.call("createGiftCardOrder", params, function(res){
-		console.log(res)
-		
 		$('#create_btn').linkbutton('enable');
 		$('#reset_btn').linkbutton('enable')
 		

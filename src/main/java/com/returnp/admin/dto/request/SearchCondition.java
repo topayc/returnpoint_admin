@@ -55,9 +55,16 @@ public class SearchCondition extends QueryCondition {
     
     private Integer giftCardOrderNo;
     private String orderType;
+    private String orderNumber;
     
     
     
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
 	public String getOrderType() {
 		return orderType;
 	}

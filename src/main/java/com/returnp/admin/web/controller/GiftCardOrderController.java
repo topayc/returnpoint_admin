@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.returnp.admin.dto.GiftCardOrderForm;
 import com.returnp.admin.dto.command.GiftCardOrderCommand;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.GiftCardOrder;
-import com.returnp.admin.model.Product;
 import com.returnp.admin.service.interfaces.GiftCardOrderService;
 import com.returnp.admin.service.interfaces.SearchService;
 
@@ -47,9 +47,9 @@ public class GiftCardOrderController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/giftCardOrder/create", method = RequestMethod.POST)
-	public ReturnpBaseResponse createGiftCardOrder(GiftCardOrder order, HttpServletRequest request){
+	public ReturnpBaseResponse createGiftCardOrder(GiftCardOrderForm orderForm, HttpServletRequest request){
 		System.out.println("###### createGiftCardOrder");
-		return this.giftCardOrderService.createGiftCardOrder(order);
+		return this.giftCardOrderService.createGiftCardOrder(orderForm);
 	}
 	
 	@ResponseBody
