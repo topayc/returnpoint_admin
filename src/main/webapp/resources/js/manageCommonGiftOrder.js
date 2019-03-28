@@ -1,7 +1,7 @@
-		columns = [[
+		var columns = [[
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-			    {field:'orderNo',width:70,align:'center',title : '등록번호',hidden:false},
+			    {field:'orderNo',width:70,align:'center',title : '등록번호',hidden:true},
 			    {field:'orderNumber',width:100,align:'center',title : '주문 번호'},
 			    {field:'orderName',width:180,align:'center',title : '주문명', formatter : orderNameFormatter},
 			    {field:'orderType',width:90,align:'center',title : '주문 타입', formatter : orderTypeFormatter},
@@ -11,19 +11,41 @@
 			    {field:'ordererId',width:100,align:'center',title : '주문자 코드'},
 			    {field:'ordererEmail',width:100,align:'center',title : '주문자 이메일'},
 			    {field:'ordererPhone',width:100,align:'center',title : '주문자 핸드폰'},
-			    {field:'orderTotalPrice',width:100,align:'center',title : '총 가격', formatter : numberFormatter},
+			    {field:'productNo',width:100,align:'center',title : '상품 번호', hidden : true},
+			    {field:'productName',width:100,align:'center',title : '상품 이름', hidden : false},
+			    {field:'productType',width:100,align:'center',title : '상품 타입', hidden : false, formatter : giftCardTypeFormatter},
+			    {field:'productPrice',width:100,align:'center',title : '상품 가격', hidden : false, formatter : numberGreenFormatter},
+			    {field:'qty',width:100,align:'center',title : '주문 수량', hidden : false, formatter : numberFormatter},
+			    {field:'orderTotalPrice',width:160,align:'center',title : '총 가격', formatter : numberRedFormatter},
 			    {field:'paymentType',width:100,align:'center',title : '결제 수단', formatter : paymentTypeFormatter},
 			    {field:'paymentStatus',width:170,align:'center',title : '결제 상태' , formatter : paymentStatusFormatter},
 			    {field:'orderStatus',width:100,align:'center',title : '주문 상태', formatter : orderStatusFormatter},
 			    {field:'issueStatus',width:130,align:'center',title : '발행 상태', formatter : issueStatusFormatter},
-			    {field:'noname',width:80,align:'center',title : '발행' , formatter : issueActionFormatter},
-			    {field:'deliveryNumber',width:100,align:'center',title : '송장 번호'},
+			    {field:'noname',width:80,align:'center',title : '발행' , formatter : issueActionFormatter, hidden: false},
+			    {field:'deliveryNumber',width:100,align:'center',title : '송장 번호', hidden : true},
+			    {field:'receiverName',width:100,align:'center',title : '수취자 이름',hidden : false},
+			    {field:'receiverPhone',width:100,align:'center',title : '수취자 핸드폰',hidden : true},
+			    {field:'receiverEmail',width:100,align:'center',title : '수취자 이메일',hidden : true},
 			    {field:'deliveryAddress',width:100,align:'center',title : '배송지 주소',hidden : true},
-			    {field:'deliveryMessage',width:100,align:'center',title : '배송 메세지', hidden : false},
-			    {field:'orderTime',width:100,align:'center',title : '주문일'},
-			    {field:'createTime',width:100,align:'center',title : '등록일',hidden : true},
-			    {field:'updateTime',width:100,align:'center',title : '수정일', hidden : true},
+			    {field:'deliveryMessage',width:100,align:'center',title : '배송 메세지', hidden : true},
+			    {field:'orderTime',width:200,align:'center',title : '주문일',formatter : dateFormatter},
+			    {field:'createTime',width:100,align:'center',title : '등록일',hidden : true,formatter : dateFormatter},
+			    {field:'updateTime',width:100,align:'center',title : '수정일', hidden : true,formatter : dateFormatter},
 			    ]];
+		var orderListItemColumns= [[
+	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
+			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
+			    {field:'orderItemNo',width:50,align:'center',title : '등록번호',hidden:false},
+			    {field:'orderNumber',width:70,align:'center',title : '주문 번호'},
+			    {field:'productNo',width:50,align:'center',title : '상품 번호',},
+			    {field:'productName',width:150,align:'center',title : '상품명'},
+			    {field:'productPrice',width:90,align:'center',title : '상품 가격',formatter : numberFormatter},
+			    {field:'qty',width:100,align:'center',title : '수량', formatter : addBoldFomatter},
+			    {field:'totalPrice',width:100,align:'center',title : '총 금액',formatter : numberRedFormatter},
+			    {field:'createTime',width:100,align:'center',title : '등록일',formatter : dateFormatter},
+			    {field:'updateTime',width:100,align:'center',title : '수정일',formatter : dateFormatter}
+			    ]];
+		
 initView();
 
 /**
@@ -480,6 +502,17 @@ function setListPager(){
  * @param param
  * @returns
  */
+function setOrderListColumnHeader(nodeType){
+	$('#order_item_list').datagrid({
+		columns : orderListItemColumns
+	});
+}
+
+/**
+ * 노드 타입에 따라 리스트 그리드 컬럼 헤더 변경
+ * @param param
+ * @returns
+ */
 function setListColumnHeader(nodeType){
 	$('#gift_card_order_list').datagrid({
 		columns : columns
@@ -586,21 +619,21 @@ function viewOrderDetail(){
 	var order = $('#gift_card_order_list').datagrid('getSelected');
 	$('#more_detail_view').dialog({
 		title: order.orderName,
-		width: 1400,
-		height: 600,
+		width: 800,
+		height: "800",
 		closed: false,
 		cache: false,
 		modal: true,
 		onOpen : function(){
-		
+			var order = $('#gift_card_order_list').datagrid('getSelected');
 			var propertyOrder = { total : Object.keys(order).length , rows:[] };
-			var exitArr = ['pagination', 'pageSize', 'page', 'total', 'order','offset']
-			var columns = [[]];
+			var exitArr = ['pagination', 'pageSize', 'page', 'total', 'order','offset', 'productNo']
+			//var columns = [[]];
 			for (var property in order) {
 				if (order.hasOwnProperty(property)){
 					if (!exitArr.hasValue(property) ) {
-						propertyOrder['rows'].push({name : property, nameKor : orderColumnKorFormatter(property), value : String(order[property]), group : "주문 정부", editor : null})
-						columns[0].push({field: property, width : 100, align : "center", title : property});
+						propertyOrder['rows'].push({name : property, nameKor : orderColumnKorFormatter(property), value : propGridValueForamtter(property, order[property]), group : "주문 정보", editor : null})
+						//columns[0].push({field: property, width : 100, align : "center", title : property});
 					}
 				}
 			}
@@ -617,21 +650,7 @@ function viewOrderDetail(){
 			
 			console.log(columns);
 			/* 주문 상세 아이템 리스트*/
-			
-			var columns2 = [[
-		    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
-				   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-				    {field:'orderItemNo',width:70,align:'center',title : '등록번호',hidden:false},
-				    {field:'orderNumber',width:100,align:'center',title : '주문 번호'},
-				    {field:'productNo',width:70,align:'center',title : '상품 번호', formatter : orderNameFormatter},
-				    {field:'productName',width:130,align:'center',title : '상품명', formatter : orderTypeFormatter},
-				    {field:'productPrice',width:90,align:'center',title : '상품 가격', formatter : orderReasonFormatter},
-				    {field:'qty',width:100,align:'center',title : '수량', formatter : bargainTypeFormatter},
-				    {field:'totalPrice',width:100,align:'center',title : '총 금액'},
-				    {field:'createTime',width:100,align:'center',title : '등록일'},
-				    {field:'updateTime',width:100,align:'center',title : '수정일'}
-				    ]];
-			
+/*			
 			$('#order_item_list').datagrid({
 				singleSelect:true,
 				collapsible:false,
@@ -642,7 +661,7 @@ function viewOrderDetail(){
 				checkOnSelect : true,
 				border:false,
 				rownumbers : true,
-			    columns:columns2,
+			    columns:orderListItemColumns,
 				onRowContextMenu : function(e, index, row){
 					e.preventDefault();
 				  	$(this).datagrid("selectRow", index);
@@ -676,6 +695,19 @@ function viewOrderDetail(){
 				  	});
 				},
 			});
+			returnp.api.call("selectGiftCardItemsOrders", {orderNumber : order.orderNumber}, function(res){
+				console.log("### 주문 아이템");
+				console.log(res);
+				if (res.resultCode == "100") {
+					setOrderListColumnHeader();
+					$('#order_item_list').datagrid({
+						data : res
+					});
+				}else {
+					$.messager.alert(res.message, res.data);
+				}
+			});*/
+		
 		}
 	});
 	

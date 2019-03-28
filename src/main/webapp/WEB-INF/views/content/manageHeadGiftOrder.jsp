@@ -54,8 +54,8 @@
 	</div>
 </div>
 <div  id = "more_detail_view"  style = "display:none;"> 
-		<table id = "order_overview" style ="width:100%;height : 50%;" > </table>
-		<table id = "order_item_list"  style ="width:100%;height : 50%; "></table>
+		<table id = "order_overview" style ="width:100%;height : 100%;" > </table>
+		<!-- <table id = "order_item_list"  style ="width:100%;height : 50%; "></table> -->
 </div>
 
 <script src="resources/js/${viewReqName}.js"></script>

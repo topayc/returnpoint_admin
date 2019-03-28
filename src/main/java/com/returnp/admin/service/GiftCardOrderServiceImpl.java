@@ -1,6 +1,8 @@
 package com.returnp.admin.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,8 +57,6 @@ public class GiftCardOrderServiceImpl implements GiftCardOrderService{
 			organ = saleOrgans.get(0);
 			
 			/*주문 내역 저장*/
-			order.setOrderNumber("9999999");
-			order.setOrderName("본사 일괄 구매");
 			order.setOrdererName(orderForm.getGiftCardSalesOrganName());
 			order.setOrdererPhone(organ.getOrganPhone());
 			order.setOrdererId(orderForm.getGiftCardSalesOrganCode());
@@ -67,21 +67,48 @@ public class GiftCardOrderServiceImpl implements GiftCardOrderService{
 			order.setIssueStatus(AppConstants.IssueStatus.PREPARE_TO_ISSUE);
 			order.setBargainType(orderForm.getGiftCardOrderType().equals("10") ? AppConstants.BargainType.CREDIT : AppConstants.BargainType.COMMON);
 			order.setOrderReason(orderForm.getOrderReason());
+			order.setProductNo(orderForm.getGiftCardNo());
+			order.setProductName(giftCardProduct.getProductName());
+			order.setProductType(orderForm.getGiftCardType());
+			order.setProductPrice(giftCardProduct.getProductPrice());
+			order.setQty(orderForm.getQty());
+			order.setReceiverName(orderForm.getGiftCardSalesOrganName());
+			order.setReceiverEmail(organ.getOrganEmail());
+			order.setReceiverPhone(organ.getOrganPhone());
+			
 			order.setPaymentStatus(AppConstants.PaymentStatus.PAYMENT_CHECK);
 			order.setPaymentType(AppConstants.PaymentType.PAYMENT_ONLINE);
+
+			order.setDeliveryAddress(organ.getOrganAddr());
+			order.setDeliveryMessage(null);
+			order.setDeliveryNumber(null);
 			
 			int affectedRow1 = this.giftCardOrderMapper.insert(order);
-			if (affectedRow1 != 1) {
-				throw new Exception();
-			}
+			if (affectedRow1 != 1) throw new Exception();
 			
-			/*해당 주문에 속해있는 주문 아이템 생성 및 저장*/
-			GiftCardOrderItem orderItem = new GiftCardOrderItem();
+			/*
+			 * 인서트 시 생성된 orderNo 를 바탕으로 주문 명과 주문 번호 생성 후 다시 업데이트
+			 * */
+			
+			SimpleDateFormat format = new SimpleDateFormat("yyMM");
+			Date d = new Date();
+			/*주문 번호 생성*/
+			String orderNumber = String.format("%s%s%s%08d", orderForm.getGiftCardOrderType(), orderForm.getGiftCardType(), format.format(d), order.getOrderNo());
+			order.setOrderNumber(orderNumber);
+			/*주문명 생성*/
+			order.setOrderName(String.format("%s_%s",orderNumber , orderForm.getGiftCardSalesOrganName()));
+			int affectedRow2 =  this.giftCardOrderMapper.updateByPrimaryKeySelective(order);
+			if (affectedRow2 != 1) throw new Exception();
+			/*
+			 * 해당 주문에 속해있는 주문 아이템 생성 및 저장
+			 * 하나의 주문에 하나의 주문 상품만 담기는 것으로 변경했기 때문에 아래 코드는 사용하지 않음
+			 * */
+		/*	GiftCardOrderItem orderItem = new GiftCardOrderItem();
 			orderItem.setOrderNumber("9999999");
 			orderItem.setProductNo(giftCardProduct.getProductNo());
 			orderItem.setQty(orderForm.getQty());
 			orderItem.setTotalPrice(giftCardProduct.getProductPrice() * orderForm.getQty());
-			this.orderItemService.createGiftCardOrderItem(orderItem);
+			this.orderItemService.createGiftCardOrderItem(orderItem);*/
 			
 			ResponseUtil.setSuccessResponse(res, "100" , "상품권 주문 생성완료");
 			return res;

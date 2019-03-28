@@ -29,7 +29,7 @@ public class GiftCardSalesOrganServiceImpl implements GiftCardSalesOrganService 
 			/*조직 코드를 mysql  auto 일련번호를 이용해서 생성 후 업데이트*/ 
 			SimpleDateFormat format = new SimpleDateFormat("yy");
 			Date d = new Date();
-			String code = format.format(d) + record.getOrganType()  + String.format("%05d", record.getGiftCardSalesOrganNo());
+			String code = record.getOrganType() + format.format(d)   + String.format("%04d", record.getGiftCardSalesOrganNo());
 			record.setOrganCode(code);
 			
 			int updateRow = this.organMapper.updateByPrimaryKey(record);

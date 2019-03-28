@@ -30,11 +30,27 @@ public class GiftCardOrder extends QueryCondition {
 
     private String orderReason;
 
+    private Integer productNo;
+
+    private String productName;
+
+    private String productType;
+
+    private Integer productPrice;
+
+    private Integer qty;
+
+    private String receiverName;
+
+    private String receiverPhone;
+
+    private String receiverEmail;
+
     private String paymentStatus;
 
     private String paymentType;
 
-    private String deliverNumber;
+    private String deliveryNumber;
 
     private String deliveryAddress;
 
@@ -50,35 +66,23 @@ public class GiftCardOrder extends QueryCondition {
         return orderNo;
     }
 
-  
+    public void setOrderNo(Integer orderNo) {
+        this.orderNo = orderNo;
+    }
 
     public String getOrderNumber() {
-		return orderNumber;
-	}
+        return orderNumber;
+    }
 
-
-
-	public void setOrderNumber(String orderNumber) {
-		this.orderNumber = orderNumber;
-	}
-
-
-
-	public void setOrderNo(Integer orderNo) {
-		this.orderNo = orderNo;
-	}
-
-
-
-	
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber == null ? null : orderNumber.trim();
+    }
 
     public String getOrderName() {
-		return orderName;
-	}
+        return orderName;
+    }
 
-
-
-	public void setOrderName(String orderName) {
+    public void setOrderName(String orderName) {
         this.orderName = orderName == null ? null : orderName.trim();
     }
 
@@ -162,6 +166,70 @@ public class GiftCardOrder extends QueryCondition {
         this.orderReason = orderReason == null ? null : orderReason.trim();
     }
 
+    public Integer getProductNo() {
+        return productNo;
+    }
+
+    public void setProductNo(Integer productNo) {
+        this.productNo = productNo;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName == null ? null : productName.trim();
+    }
+
+    public String getProductType() {
+        return productType;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType == null ? null : productType.trim();
+    }
+
+    public Integer getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(Integer productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public Integer getQty() {
+        return qty;
+    }
+
+    public void setQty(Integer qty) {
+        this.qty = qty;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName == null ? null : receiverName.trim();
+    }
+
+    public String getReceiverPhone() {
+        return receiverPhone;
+    }
+
+    public void setReceiverPhone(String receiverPhone) {
+        this.receiverPhone = receiverPhone == null ? null : receiverPhone.trim();
+    }
+
+    public String getReceiverEmail() {
+        return receiverEmail;
+    }
+
+    public void setReceiverEmail(String receiverEmail) {
+        this.receiverEmail = receiverEmail == null ? null : receiverEmail.trim();
+    }
+
     public String getPaymentStatus() {
         return paymentStatus;
     }
@@ -178,12 +246,12 @@ public class GiftCardOrder extends QueryCondition {
         this.paymentType = paymentType == null ? null : paymentType.trim();
     }
 
-    public String getDeliverNumber() {
-        return deliverNumber;
+    public String getDeliveryNumber() {
+        return deliveryNumber;
     }
 
-    public void setDeliverNumber(String deliverNumber) {
-        this.deliverNumber = deliverNumber == null ? null : deliverNumber.trim();
+    public void setDeliveryNumber(String deliveryNumber) {
+        this.deliveryNumber = deliveryNumber == null ? null : deliveryNumber.trim();
     }
 
     public String getDeliveryAddress() {

@@ -3,6 +3,43 @@ function getNumber(str) {
     return (new Number(str));
 }
 
+function propGridValueForamtter(name, value){
+	console.log("propGridValueForamtter");
+	switch(name){
+		case "orderTotalPrice": value = numberFormatter(value);break;
+		case "orderType": value = orderTypeFormatter(null,  {orderType : value}, null);break;
+		case "orderStatus": value = orderStatusFormatter(null,  {orderStatus : value}, null);break;
+		case "issueStatus": value = issueStatusFormatter(null,  {issueStatus : value});break;
+		case "bargainType": value = bargainTypeFormatter(null,  {bargainType : value});break;
+		case "orderReason": value = orderReasonFormatter(null,  {orderReason : value});break;
+		case "paymentStatus": value = paymentStatusFormatter(null,  {paymentStatus : value});break;
+		case "paymentType": value = paymentTypeFormatter(null,  {paymentType : value});break;
+		case "productType": value = giftCardTypeFormatter(null,  {productType : value});break;
+		case "productPrice": value = numberFormatter(value);break;
+		case "qty": value = numberFormatter(value);break;
+		case "orderTime": value = dateFormatter(value);break;
+		case "createTime": value = dateFormatter(value);break;
+		case "updateTime": value = dateFormatter(value);break;
+	}
+	return value; 
+}
+
+function giftCardTypeFormatter(value,row,index){
+	switch(row.productType){
+	case "1": result = '<span style = "color : #FF3232;font-weight : bold" >'+ "모바일"+ ' </span>';break;
+	case "2": result = '<span style = "color : #0A6EFF;font-weight : bold" >'+ "실물"+ ' </span>';break;
+	default :result = "-";break;
+	}
+	return result; 
+}
+function giftCardTypeFormatter(value,row,index){
+	switch(row.productType){
+	case "1": result = '<span style = "color : #FF3232;font-weight : bold" >'+ "모바일"+ ' </span>';break;
+	case "2": result = '<span style = "color : #0A6EFF;font-weight : bold" >'+ "실물"+ ' </span>';break;
+	default :result = "-";break;
+	}
+	return result; 
+}
 function orderReasonFormatter(value,row,index){
 	switch(row.orderReason){
 	case "1": result = '<span style = "color : green;font-weight : bold" >'+ "선발주"+ ' </span>';break;
@@ -59,27 +96,35 @@ function issueActionFormatter(value,row,index){
 function orderColumnKorFormatter(value){
 	var result = "";
 	switch(value){
-		case "orderNo": result = '주문 등록 번호';break;
-		case "orderNumber": result = '주문 번호';break;
-		case "orderName": result = '주문명';break;
-		case "ordererId": result = '주문자 ID';break;
-		case "ordererName": result = '주문자 이름';break;
-		case "ordererPhone": result = '주문자 핸드폰';break;
-		case "ordererEmail": result = '주문자 이메일';break;
-		case "orderTotalPrice": result = '총 가격';break;
-		case "orderType": result = '주문 타입';break;
-		case "orderStatus": result = '주문 상태';break;
-		case "issueStatus": result = '발행 상태';break;
-		case "bargainType": result = '거래 방법';break;
-		case "orderReason": result = '발주 목적';break;
-		case "paymentStatus": result = '결제 상태';break;
-		case "paymentType": result = '결제 타입';break;
-		case "deliverNumber": result = '송장 번호';break;
-		case "deliveryAddress": result = '배송지 주소';break;
-		case "deliveryMessage": result = '배송 메시지';break;
-		case "orderTime": result = '주문 시간';break;
-		case "createTime": result = '등록 시간';break;
-		case "updateTime": result = '수정 시간';break;
+		case "orderNo": result = '<span style = "font-weight : bold">주문 등록 번호</span>';break;
+		case "orderNumber": result = '<span style = "font-weight : bold">주문 번호</span>';break;
+		case "orderName": result = '<span style = "font-weight : bold">주문명</span>';break;
+		case "ordererId": result = '<span style = "font-weight : bold">주문자 ID</span>';break;
+		case "ordererName": result = '<span style = "font-weight : bold">주문자 이름</span>';break;
+		case "ordererPhone": result = '<span style = "font-weight : bold">주문자 핸드폰</span>';break;
+		case "ordererEmail": result = '<span style = "font-weight : bold">주문자 이메일</span>';break;
+		case "orderTotalPrice": result = '<span style = "font-weight : bold">총 가격</span>';break;
+		case "orderType": result = '<span style = "font-weight : bold">주문 타입</span>';break;
+		case "orderStatus": result = '<span style = "font-weight : bold">주문 상태</span>';break;
+		case "issueStatus": result = '<span style = "font-weight : bold">발행 상태</span>';break;
+		case "bargainType": result = '<span style = "font-weight : bold">거래 방법</span>';break;
+		case "orderReason": result = '<span style = "font-weight : bold">발주 목적</span>';break;
+		case "paymentStatus": result = '<span style = "font-weight : bold">결제 상태</span>';break;
+		case "paymentType": result = '<span style = "font-weight : bold">결제 타입</span>';break;
+		case "deliveryNumber": result = '<span style = "font-weight : bold">송장 번호</span>';break;
+		case "deliveryAddress": result = '<span style = "font-weight : bold">배송지 주소</span>';break;
+		case "deliveryMessage": result = '<span style = "font-weight : bold">배송 메시지</span>';break;
+		case "orderTime": result = '<span style = "font-weight : bold">주문 시간</span>';break;
+		case "createTime": result = '<span style = "font-weight : bold">등록 시간</span>';break;
+		case "updateTime": result = '<span style = "font-weight : bold">수정 시간</span>';break;
+		case "productNo": result = '<span style = "font-weight : bold">상품 번호</span>';break;
+		case "productName": result = '<span style = "font-weight : bold">상품 명</span>';break;
+		case "productType": result = '<span style = "font-weight : bold">상품 타입</span>';break;
+		case "productPrice": result = '<span style = "font-weight : bold">상품 가격</span>';break;
+		case "qty": result = '<span style = "font-weight : bold">주문 수량</span>';break;
+		case "receiverName": result = '<span style = "font-weight : bold">수취자 이름</span>';break;
+		case "receiverPhone": result = '<span style = "font-weight : bold">수취자 핸드폰</span>';break;
+		case "receiverEmail": result = '<span style = "font-weight : bold">수취자 이메일</span>';break;
 		default :result = "-";break;
 	}
 	return result; 
@@ -340,7 +385,7 @@ function greenPointFormatter(data){
 
 function numberFormatter(data){
 	data = String(data);
-	return '<span style = "color : #000000;font-weight : bold">'  + (numberGreenFormatter(data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'))) + '</span>';
+	return '<span style = "color : #000000;font-weight : bold">'  + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>';
 }
 
 function numberGreenFormatter(data){

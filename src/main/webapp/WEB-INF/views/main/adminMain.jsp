@@ -76,7 +76,7 @@
         </div>
         </form>
         <div data-options="region:'south',split:false" style="height:1px;"></div>
-        <div data-options="region:'west',split:true" title="&nbsp;ReturnP Control Panel " style="width:300px;padding:5px">
+        <div data-options="region:'west',split:true" title="&nbsp;ReturnP Control Panel " style="width:270px;padding:5px;">
         <ul id="submenu_tree" class="easyui-tree,">
             <li>
                 <span><span style = "font-weight : bold">RETURN POINT</span></span>
@@ -207,7 +207,7 @@
 		                            
 		                            <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePaymentPointbackRecord" menu_deps= '2' >
-		                            		<span style = "font-weight : bold">결제별 R.POINT 세부 적립내역</span>
+		                            		<span style = "font-weight : bold">결제별 R.POINT 적립내역</span>
 		                            	</a> 
 		                            </li>
 		                          	<li data-options = "iconCls :'icon-manage'">
@@ -356,7 +356,7 @@
 		                         <ul>
 		                         	<li id = "manageConvertPointRequest" data-options = "iconCls :'icon-info'">
 		                         		<a class= "sub_menu"  view_req_name = "manageConvertPointRequest"  menu_deps= '2' >
-		                         			<span style = "font-weight : bold">R.POINT, G.POINT 적립 요청</span>
+		                         			<span style = "font-weight : bold">R - G.POINT 적립 요청</span>
 		                         		</a> 
 		                         	</li>
                             		<li id = "managePointConversionTransaction" data-options = "iconCls :'icon-info'">
@@ -403,7 +403,7 @@
 		                         <ul>
                           			  <li id = "manageNodeFileUpload" data-options = "iconCls :'icon-info'">
                           			  	<a class= "sub_menu"  view_req_name = "manageUploadFile" menu_deps= '2' >
-                          			  	<span style = "font-weight : bold">노드 파일(코드, 정보) 업로드/관리</span>
+                          			  	<span style = "font-weight : bold">노드 파일 업로드/관리</span>
                           			  	</a> 
                           			  </li>
                             		  <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
@@ -471,29 +471,29 @@
                         	   		
                         	   		<li data-options = "iconCls :'icon-info'">
                         	   			<a class= "sub_menu"  view_req_name = "dashBoard"  menu_deps= '2' >
-                        	   				<span style = "font-weight : bold">Web Server 관리</span>
+                        	   				<span style = "font-weight : bold">Web Server</span>
                         	   			</a> 
                         	   		</li>
                         	  		<li data-options = "iconCls :'icon-info'">
                         	  			<a class= "sub_menu"  view_req_name = "dashBoard"  menu_deps= '2' >
-                        	  				<span style = "font-weight : bold">Admin Server 관리</span>
+                        	  				<span style = "font-weight : bold">Admin Server</span>
                         	  			</a> 
                         	  		</li>
                         	  		
                         	  		<li data-options = "iconCls :'icon-info'">
                         	 			<a class= "sub_menu"  view_req_name = "configVan"  menu_deps= '2' >
-                        	 				<span style = "font-weight : bold">VAN Transaction Server 서버 관리</span>
+                        	 				<span style = "font-weight : bold">VAN Transaction Server</span>
                         	 			</a> 
                         	 		</li>
                         	  		
                         	   		<li id="manageApiService" data-options = "iconCls :'icon-info'">
                         	   			<a class= "sub_menu"  view_req_name = "dashBoard"  menu_deps= '2' >
-                        	   				<span style = "font-weight : bold">API 서버 관리</span>
+                        	   				<span style = "font-weight : bold">API 서버</span>
                         	   				</a> 
                         	   			</li>
                         	   		<li data-options = "iconCls :'icon-info'">
                         	   			<a class= "sub_menu"  view_req_name = "dashBoard"  menu_deps= '2' >
-                        	   				<span style = "font-weight : bold">Database(샤딩) 관리</span>
+                        	   				<span style = "font-weight : bold">Database(샤딩)</span>
                         	   			</a> 
                         	   		</li>		                         
 		                        </ul>
@@ -518,7 +518,7 @@
                         	 		</li>
                         	 		<li data-options = "iconCls :'icon-info'">
                         	 			<a class= "sub_menu"  view_req_name = "configVan"  menu_deps= '2' >
-                        	 				<span style = "font-weight : bold">VAN 가맹점 정보 조회 및 연동</span>
+                        	 				<span style = "font-weight : bold">VAN 가맹점 관리</span>
                         	 			</a> 
                         	 		</li>                         
 		                        </ul>

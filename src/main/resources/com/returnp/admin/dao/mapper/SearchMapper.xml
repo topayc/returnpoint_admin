@@ -3209,9 +3209,17 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="issueStatus" jdbcType="VARCHAR" property="issueStatus" />
     <result column="bargainType" jdbcType="VARCHAR" property="bargainType" />
     <result column="orderReason" jdbcType="VARCHAR" property="orderReason" />
+    <result column="productNo" jdbcType="INTEGER" property="productNo" />
+    <result column="productName" jdbcType="VARCHAR" property="productName" />
+    <result column="productType" jdbcType="VARCHAR" property="productType" />
+    <result column="productPrice" jdbcType="INTEGER" property="productPrice" />
+    <result column="qty" jdbcType="INTEGER" property="qty" />
+    <result column="receiverName" jdbcType="VARCHAR" property="receiverName" />
+    <result column="receiverPhone" jdbcType="VARCHAR" property="receiverPhone" />
+    <result column="receiverEmail" jdbcType="VARCHAR" property="receiverEmail" />
     <result column="paymentStatus" jdbcType="VARCHAR" property="paymentStatus" />
     <result column="paymentType" jdbcType="VARCHAR" property="paymentType" />
-    <result column="deliverNumber" jdbcType="VARCHAR" property="deliverNumber" />
+    <result column="deliveryNumber" jdbcType="VARCHAR" property="deliveryNumber" />
     <result column="deliveryAddress" jdbcType="VARCHAR" property="deliveryAddress" />
     <result column="deliveryMessage" jdbcType="VARCHAR" property="deliveryMessage" />
     <result column="orderTime" jdbcType="TIMESTAMP" property="orderTime" />
@@ -3233,9 +3241,17 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="issueStatus" jdbcType="VARCHAR" property="issueStatus" />
     <result column="bargainType" jdbcType="VARCHAR" property="bargainType" />
     <result column="orderReason" jdbcType="VARCHAR" property="orderReason" />
+    <result column="productNo" jdbcType="INTEGER" property="productNo" />
+    <result column="productName" jdbcType="VARCHAR" property="productName" />
+    <result column="productType" jdbcType="VARCHAR" property="productType" />
+    <result column="productPrice" jdbcType="INTEGER" property="productPrice" />
+    <result column="qty" jdbcType="INTEGER" property="qty" />
+    <result column="receiverName" jdbcType="VARCHAR" property="receiverName" />
+    <result column="receiverPhone" jdbcType="VARCHAR" property="receiverPhone" />
+    <result column="receiverEmail" jdbcType="VARCHAR" property="receiverEmail" />
     <result column="paymentStatus" jdbcType="VARCHAR" property="paymentStatus" />
     <result column="paymentType" jdbcType="VARCHAR" property="paymentType" />
-    <result column="deliverNumber" jdbcType="VARCHAR" property="deliverNumber" />
+    <result column="deliveryNumber" jdbcType="VARCHAR" property="deliveryNumber" />
     <result column="deliveryAddress" jdbcType="VARCHAR" property="deliveryAddress" />
     <result column="deliveryMessage" jdbcType="VARCHAR" property="deliveryMessage" />
     <result column="orderTime" jdbcType="TIMESTAMP" property="orderTime" />
@@ -3245,20 +3261,22 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
   <sql id="GiftCardOrder_Column_List">
     orderNo, orderNumber, orderName, ordererId, ordererName, ordererPhone, ordererEmail, 
-    orderTotalPrice, orderType, orderStatus, issueStatus, bargainType, orderReason, paymentStatus, 
-    paymentType, deliverNumber, deliveryAddress, deliveryMessage, orderTime, createTime, 
-    updateTime
+    orderTotalPrice, orderType, orderStatus, issueStatus, bargainType, orderReason, productNo, 
+    productName, productType, productPrice, qty, receiverName, receiverPhone, receiverEmail, 
+    paymentStatus, paymentType, deliveryNumber, deliveryAddress, deliveryMessage, orderTime, 
+    createTime, updateTime
   </sql>
   
   <sql id="GiftCardOrderCommand_Column_List">
     orderNo, orderNumber, orderName, ordererId, ordererName, ordererPhone, ordererEmail, 
-    orderTotalPrice, orderType, orderStatus, issueStatus, bargainType, orderReason, paymentStatus, 
-    paymentType, deliverNumber, deliveryAddress, deliveryMessage, orderTime, createTime, 
-    updateTime
+    orderTotalPrice, orderType, orderStatus, issueStatus, bargainType, orderReason, productNo, 
+    productName, productType, productPrice, qty, receiverName, receiverPhone, receiverEmail, 
+    paymentStatus, paymentType, deliveryNumber, deliveryAddress, deliveryMessage, orderTime, 
+    createTime, updateTime
   </sql>
   
   <sql id ="GiftCardOrderWhereStatement">
-      <if test="orderNo != null"> AND orderNo = #{orderNo,jdbcType=INTEGER}</if>
+       <if test="orderNo != null"> AND orderNo = #{orderNo,jdbcType=INTEGER}</if>
  	  <if test="orderNumber != null"> AND orderNumber = #{orderNumber,jdbcType=VARCHAR}</if>
       <if test="orderName != null"> AND orderName = #{orderName,jdbcType=VARCHAR}</if>
       <if test="ordererId != null"> AND ordererId = #{ordererId,jdbcType=VARCHAR}</if>
@@ -3270,15 +3288,15 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="orderStatus != null"> AND orderStatus = #{orderStatus,jdbcType=VARCHAR}</if>
       <if test="issueStatus != null"> AND issueStatus = #{issueStatus,jdbcType=VARCHAR}</if>
       <if test="bargainType != null"> AND bargainType = #{bargainType,jdbcType=VARCHAR}</if>
+      <if test="productName != null"> AND productName = #{productName,jdbcType=VARCHAR}</if>
+      <if test="productType != null"> AND productType = #{productType,jdbcType=VARCHAR}</if>
       <if test="orderReason != null"> AND orderReason = #{orderReason,jdbcType=VARCHAR}</if>
       <if test="paymentStatus != null"> AND paymentStatus = #{paymentStatus,jdbcType=VARCHAR}</if>
       <if test="paymentType != null"> AND paymentType = #{paymentType,jdbcType=VARCHAR}</if>
-      <if test="deliverNumber != null"> AND deliverNumber = #{deliverNumber,jdbcType=VARCHAR}</if>
-      <if test="deliveryAddress != null"> AND deliveryAddress = #{deliveryAddress,jdbcType=VARCHAR}</if>
   </sql>
   
     <sql id ="GiftCardOrderCommandWhereStatement">
- 	   <if test="orderNo != null"> AND orderNo = #{orderNo,jdbcType=INTEGER}</if>
+       <if test="orderNo != null"> AND orderNo = #{orderNo,jdbcType=INTEGER}</if>
  	  <if test="orderNumber != null"> AND orderNumber = #{orderNumber,jdbcType=VARCHAR}</if>
       <if test="orderName != null"> AND orderName = #{orderName,jdbcType=VARCHAR}</if>
       <if test="ordererId != null"> AND ordererId = #{ordererId,jdbcType=VARCHAR}</if>
@@ -3290,11 +3308,11 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="orderStatus != null"> AND orderStatus = #{orderStatus,jdbcType=VARCHAR}</if>
       <if test="issueStatus != null"> AND issueStatus = #{issueStatus,jdbcType=VARCHAR}</if>
       <if test="bargainType != null"> AND bargainType = #{bargainType,jdbcType=VARCHAR}</if>
+      <if test="productName != null"> AND productName = #{productName,jdbcType=VARCHAR}</if>
+      <if test="productType != null"> AND productType = #{productType,jdbcType=VARCHAR}</if>
       <if test="orderReason != null"> AND orderReason = #{orderReason,jdbcType=VARCHAR}</if>
       <if test="paymentStatus != null"> AND paymentStatus = #{paymentStatus,jdbcType=VARCHAR}</if>
       <if test="paymentType != null"> AND paymentType = #{paymentType,jdbcType=VARCHAR}</if>
-      <if test="deliverNumber != null"> AND deliverNumber = #{deliverNumber,jdbcType=VARCHAR}</if>
-      <if test="deliveryAddress != null"> AND deliveryAddress = #{deliveryAddress,jdbcType=VARCHAR}</if>
   </sql>
   
   <select id="selectGiftCardOrders" parameterType="com.returnp.admin.model.GiftCardOrder" resultMap="GiftCardOrderResultMap">

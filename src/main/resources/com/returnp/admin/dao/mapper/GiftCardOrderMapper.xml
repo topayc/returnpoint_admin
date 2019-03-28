@@ -15,88 +15,65 @@
     <result column="issueStatus" jdbcType="VARCHAR" property="issueStatus" />
     <result column="bargainType" jdbcType="VARCHAR" property="bargainType" />
     <result column="orderReason" jdbcType="VARCHAR" property="orderReason" />
+    <result column="productNo" jdbcType="INTEGER" property="productNo" />
+    <result column="productName" jdbcType="VARCHAR" property="productName" />
+    <result column="productType" jdbcType="VARCHAR" property="productType" />
+    <result column="productPrice" jdbcType="INTEGER" property="productPrice" />
+    <result column="qty" jdbcType="INTEGER" property="qty" />
+    <result column="receiverName" jdbcType="VARCHAR" property="receiverName" />
+    <result column="receiverPhone" jdbcType="VARCHAR" property="receiverPhone" />
+    <result column="receiverEmail" jdbcType="VARCHAR" property="receiverEmail" />
     <result column="paymentStatus" jdbcType="VARCHAR" property="paymentStatus" />
     <result column="paymentType" jdbcType="VARCHAR" property="paymentType" />
-    <result column="deliverNumber" jdbcType="VARCHAR" property="deliverNumber" />
+    <result column="deliveryNumber" jdbcType="VARCHAR" property="deliveryNumber" />
     <result column="deliveryAddress" jdbcType="VARCHAR" property="deliveryAddress" />
     <result column="deliveryMessage" jdbcType="VARCHAR" property="deliveryMessage" />
     <result column="orderTime" jdbcType="TIMESTAMP" property="orderTime" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
-  
   <sql id="Base_Column_List">
     orderNo, orderNumber, orderName, ordererId, ordererName, ordererPhone, ordererEmail, 
-    orderTotalPrice, orderType, orderStatus, issueStatus, bargainType, orderReason, paymentStatus, 
-    paymentType, deliverNumber, deliveryAddress, deliveryMessage, orderTime, createTime, 
-    updateTime
+    orderTotalPrice, orderType, orderStatus, issueStatus, bargainType, orderReason, productNo, 
+    productName, productType, productPrice, qty, receiverName, receiverPhone, receiverEmail, 
+    paymentStatus, paymentType, deliveryNumber, deliveryAddress, deliveryMessage, orderTime, 
+    createTime, updateTime
   </sql>
-  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from gift_card_order
     where orderNo = #{orderNo,jdbcType=INTEGER}
   </select>
-  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from gift_card_order
     where orderNo = #{orderNo,jdbcType=INTEGER}
   </delete>
-  
   <insert id="insert" parameterType="com.returnp.admin.model.GiftCardOrder">
-    insert into gift_card_order (
-    	orderNo, 
-    	orderNumber, 
-    	orderName, 
-      	ordererId,
-      	ordererName, 
-      	ordererPhone, 
-      	ordererEmail, 
-      	orderTotalPrice, 
-      	orderType, 
-      	orderStatus, 
-      	issueStatus, 
-      	bargainType, 
-      	orderReason, 
-      	paymentStatus, 
-      	paymentType, 
-      	deliverNumber, 
-      	deliveryAddress, 
-      	deliveryMessage, 
-      	orderTime, 
-      	createTime, 
-      	updateTime
-      )
-    values (
-    	#{orderNo,jdbcType=INTEGER}, 
-    	#{orderNumber,jdbcType=VARCHAR}, 
-    	#{orderName,jdbcType=VARCHAR}, 
-    	#{ordererId,jdbcType=VARCHAR},
-    	#{ordererName,jdbcType=VARCHAR}, 
-    	#{ordererPhone,jdbcType=VARCHAR}, 
-     	#{ordererEmail,jdbcType=VARCHAR}, 
-     	#{orderTotalPrice,jdbcType=INTEGER}, 
-     	#{orderType,jdbcType=VARCHAR}, 
-        #{orderStatus,jdbcType=VARCHAR}, 
-        #{issueStatus,jdbcType=VARCHAR}, 
-        #{bargainType,jdbcType=VARCHAR}, 
-        #{orderReason,jdbcType=VARCHAR}, 
-        #{paymentStatus,jdbcType=VARCHAR}, 
-        #{paymentType,jdbcType=VARCHAR}, 
-        #{deliverNumber,jdbcType=VARCHAR}, 
-        #{deliveryAddress,jdbcType=VARCHAR}, 
-        #{deliveryMessage,jdbcType=VARCHAR}, 
-        NOW(), 
-        NOW(), 
-        NOW()
-      )
+    insert into gift_card_order (orderNo, orderNumber, orderName, 
+      ordererId, ordererName, ordererPhone, 
+      ordererEmail, orderTotalPrice, orderType, 
+      orderStatus, issueStatus, bargainType, 
+      orderReason, productNo, productName, 
+      productType, productPrice, qty, 
+      receiverName, receiverPhone, receiverEmail, 
+      paymentStatus, paymentType, deliveryNumber, 
+      deliveryAddress, deliveryMessage, orderTime, 
+      createTime, updateTime)
+    values (#{orderNo,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}, #{orderName,jdbcType=VARCHAR}, 
+      #{ordererId,jdbcType=VARCHAR}, #{ordererName,jdbcType=VARCHAR}, #{ordererPhone,jdbcType=VARCHAR}, 
+      #{ordererEmail,jdbcType=VARCHAR}, #{orderTotalPrice,jdbcType=INTEGER}, #{orderType,jdbcType=VARCHAR}, 
+      #{orderStatus,jdbcType=VARCHAR}, #{issueStatus,jdbcType=VARCHAR}, #{bargainType,jdbcType=VARCHAR}, 
+      #{orderReason,jdbcType=VARCHAR}, #{productNo,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, 
+      #{productType,jdbcType=VARCHAR}, #{productPrice,jdbcType=INTEGER}, #{qty,jdbcType=INTEGER}, 
+      #{receiverName,jdbcType=VARCHAR}, #{receiverPhone,jdbcType=VARCHAR}, #{receiverEmail,jdbcType=VARCHAR}, 
+      #{paymentStatus,jdbcType=VARCHAR}, #{paymentType,jdbcType=VARCHAR}, #{deliveryNumber,jdbcType=VARCHAR}, 
+      #{deliveryAddress,jdbcType=VARCHAR}, #{deliveryMessage,jdbcType=VARCHAR}, NOW(), NOW(), NOW())
       
-        <selectKey keyProperty="orderNo" resultType="java.lang.Integer" order ="AFTER">
+       <selectKey keyProperty="orderNo" resultType="java.lang.Integer" order ="AFTER">
 		    SELECT LAST_INSERT_ID()
 	 </selectKey>	
   </insert>
-  
   <insert id="insertSelective" parameterType="com.returnp.admin.model.GiftCardOrder">
     insert into gift_card_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -139,14 +116,38 @@
       <if test="orderReason != null">
         orderReason,
       </if>
+      <if test="productNo != null">
+        productNo,
+      </if>
+      <if test="productName != null">
+        productName,
+      </if>
+      <if test="productType != null">
+        productType,
+      </if>
+      <if test="productPrice != null">
+        productPrice,
+      </if>
+      <if test="qty != null">
+        qty,
+      </if>
+      <if test="receiverName != null">
+        receiverName,
+      </if>
+      <if test="receiverPhone != null">
+        receiverPhone,
+      </if>
+      <if test="receiverEmail != null">
+        receiverEmail,
+      </if>
       <if test="paymentStatus != null">
         paymentStatus,
       </if>
       <if test="paymentType != null">
         paymentType,
       </if>
-      <if test="deliverNumber != null">
-        deliverNumber,
+      <if test="deliveryNumber != null">
+        deliveryNumber,
       </if>
       <if test="deliveryAddress != null">
         deliveryAddress,
@@ -204,14 +205,38 @@
       <if test="orderReason != null">
         #{orderReason,jdbcType=VARCHAR},
       </if>
+      <if test="productNo != null">
+        #{productNo,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null">
+        #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice,jdbcType=INTEGER},
+      </if>
+      <if test="qty != null">
+        #{qty,jdbcType=INTEGER},
+      </if>
+      <if test="receiverName != null">
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null">
+        #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverEmail != null">
+        #{receiverEmail,jdbcType=VARCHAR},
+      </if>
       <if test="paymentStatus != null">
         #{paymentStatus,jdbcType=VARCHAR},
       </if>
       <if test="paymentType != null">
         #{paymentType,jdbcType=VARCHAR},
       </if>
-      <if test="deliverNumber != null">
-        #{deliverNumber,jdbcType=VARCHAR},
+      <if test="deliveryNumber != null">
+        #{deliveryNumber,jdbcType=VARCHAR},
       </if>
       <if test="deliveryAddress != null">
         #{deliveryAddress,jdbcType=VARCHAR},
@@ -269,14 +294,38 @@
       <if test="orderReason != null">
         orderReason = #{orderReason,jdbcType=VARCHAR},
       </if>
+      <if test="productNo != null">
+        productNo = #{productNo,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null">
+        productName = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productType != null">
+        productType = #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        productPrice = #{productPrice,jdbcType=INTEGER},
+      </if>
+      <if test="qty != null">
+        qty = #{qty,jdbcType=INTEGER},
+      </if>
+      <if test="receiverName != null">
+        receiverName = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null">
+        receiverPhone = #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverEmail != null">
+        receiverEmail = #{receiverEmail,jdbcType=VARCHAR},
+      </if>
       <if test="paymentStatus != null">
         paymentStatus = #{paymentStatus,jdbcType=VARCHAR},
       </if>
       <if test="paymentType != null">
         paymentType = #{paymentType,jdbcType=VARCHAR},
       </if>
-      <if test="deliverNumber != null">
-        deliverNumber = #{deliverNumber,jdbcType=VARCHAR},
+      <if test="deliveryNumber != null">
+        deliveryNumber = #{deliveryNumber,jdbcType=VARCHAR},
       </if>
       <if test="deliveryAddress != null">
         deliveryAddress = #{deliveryAddress,jdbcType=VARCHAR},
@@ -310,9 +359,17 @@
       issueStatus = #{issueStatus,jdbcType=VARCHAR},
       bargainType = #{bargainType,jdbcType=VARCHAR},
       orderReason = #{orderReason,jdbcType=VARCHAR},
+      productNo = #{productNo,jdbcType=INTEGER},
+      productName = #{productName,jdbcType=VARCHAR},
+      productType = #{productType,jdbcType=VARCHAR},
+      productPrice = #{productPrice,jdbcType=INTEGER},
+      qty = #{qty,jdbcType=INTEGER},
+      receiverName = #{receiverName,jdbcType=VARCHAR},
+      receiverPhone = #{receiverPhone,jdbcType=VARCHAR},
+      receiverEmail = #{receiverEmail,jdbcType=VARCHAR},
       paymentStatus = #{paymentStatus,jdbcType=VARCHAR},
       paymentType = #{paymentType,jdbcType=VARCHAR},
-      deliverNumber = #{deliverNumber,jdbcType=VARCHAR},
+      deliveryNumber = #{deliveryNumber,jdbcType=VARCHAR},
       deliveryAddress = #{deliveryAddress,jdbcType=VARCHAR},
       deliveryMessage = #{deliveryMessage,jdbcType=VARCHAR},
       orderTime = #{orderTime,jdbcType=TIMESTAMP},
