@@ -38,6 +38,7 @@ import com.returnp.admin.model.Branch;
 import com.returnp.admin.model.Category;
 import com.returnp.admin.model.Code;
 import com.returnp.admin.model.CompanyBankAccount;
+import com.returnp.admin.model.GiftCard;
 import com.returnp.admin.model.GiftCardSalesOrgan;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
@@ -47,7 +48,6 @@ import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.model.PointConversionTransaction;
 import com.returnp.admin.model.PointWithdrawal;
 import com.returnp.admin.model.Policy;
-import com.returnp.admin.model.Product;
 import com.returnp.admin.model.Recommender;
 import com.returnp.admin.model.RedPoint;
 import com.returnp.admin.model.SaleManager;
@@ -330,9 +330,9 @@ public class SearchServiceImpl implements SearchService{
 	}
 
 	@Override
-	public ArrayList<Product> selectProducts(Product product) {
+	public ArrayList<GiftCard> selectGiftCards(GiftCard giftCard) {
 		// TODO Auto-generated method stub
-		return this.searchMapper.selectProducts(product);
+		return this.searchMapper.selectGiftCards(giftCard);
 	}
 
 	@Override

@@ -35,7 +35,7 @@
     
  
     <table 
-   		tableName="product" domainObjectName="Product" enableCountByExample="false" 
+   		tableName="gift_card" domainObjectName="GiftCard" enableCountByExample="false" 
    		enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" 
    		selectByExampleQueryId="false">
     	<property name="useActualColumnNames" value="true" />

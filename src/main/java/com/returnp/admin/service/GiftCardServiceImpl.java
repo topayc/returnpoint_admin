@@ -7,33 +7,33 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.returnp.admin.common.ResponseUtil;
-import com.returnp.admin.dao.mapper.ProductMapper;
+import com.returnp.admin.dao.mapper.GiftCardMapper;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
-import com.returnp.admin.model.Product;
-import com.returnp.admin.service.interfaces.ProductService;
+import com.returnp.admin.model.GiftCard;
+import com.returnp.admin.service.interfaces.GiftCardSearvice;
 import com.returnp.admin.utils.FileManager;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+public class GiftCardServiceImpl implements GiftCardSearvice {
 
-	@Autowired ProductMapper productMapper;
+	@Autowired GiftCardMapper GiftCardMapper;
 
 	@Override
-	public ReturnpBaseResponse createProduct(Product product, String saveDir, String webPath) {
+	public ReturnpBaseResponse createGiftCard(GiftCard giftCard, String saveDir, String webPath) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		File file = null;
 		try {
-			if (product.getProductImg1().isEmpty() == false ) {
-				file = FileManager.saveProductImange(product.getProductImg1(), saveDir);
-				product.setProductImgPath1(webPath + "/" + file.getName());
+			if (giftCard.getProductImg1().isEmpty() == false ) {
+				file = FileManager.saveProductImange(giftCard.getProductImg1(), saveDir);
+				giftCard.setGiftCardImgPath1(webPath + "/" + file.getName());
 			}
 			
-			if (product.getProductImg2().isEmpty() == false ) {
-				file = FileManager.saveProductImange(product.getProductImg2(), saveDir);
-				product.setProductImgPath2(webPath + "/" + file.getName());
+			if (giftCard.getProductImg2().isEmpty() == false ) {
+				file = FileManager.saveProductImange(giftCard.getProductImg2(), saveDir);
+				giftCard.setGiftCardImgPath2(webPath + "/" + file.getName());
 			}
-			product.setProductCategory("상품권");
-			int affectedRow = this.productMapper.insert(product);
+			giftCard.setGiftCardCategory("상품권");
+			int affectedRow = this.GiftCardMapper.insert(giftCard);
 			if (affectedRow != 1) {
 				throw new Exception();
 			}
@@ -48,21 +48,21 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public ReturnpBaseResponse updateProduct(Product product, String saveDir, String webPath) {
+	public ReturnpBaseResponse updateGiftCard(GiftCard giftCard, String saveDir, String webPath) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		File file = null;
 		try {
-			if (product.getProductImg1().isEmpty() == false ) {
-				file = FileManager.saveProductImange(product.getProductImg1(), saveDir);
-				product.setProductImgPath1(webPath + "/" + file.getName());
+			if (giftCard.getProductImg1().isEmpty() == false ) {
+				file = FileManager.saveProductImange(giftCard.getProductImg1(), saveDir);
+				giftCard.setGiftCardImgPath1(webPath + "/" + file.getName());
 			}
 			
-			if (product.getProductImg2().isEmpty() == false ) {
-				file = FileManager.saveProductImange(product.getProductImg2(), saveDir);
-				product.setProductImgPath2(webPath + "/" + file.getName());
+			if (giftCard.getProductImg2().isEmpty() == false ) {
+				file = FileManager.saveProductImange(giftCard.getProductImg2(), saveDir);
+				giftCard.setGiftCardImgPath2(webPath + "/" + file.getName());
 			}
-			product.setProductCategory("상품권");
-			int affectedRow = this.productMapper.updateByPrimaryKey(product);
+			giftCard.setGiftCardCategory("상품권");
+			int affectedRow = this.GiftCardMapper.updateByPrimaryKey(giftCard);
 			if (affectedRow != 1) {
 				throw new Exception();
 			}
@@ -77,10 +77,10 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ReturnpBaseResponse deleteProduct(Product product) {
+	public ReturnpBaseResponse deleteGiftCard(GiftCard giftCard) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
-			this.productMapper.deleteByPrimaryKey(product.getProductNo());
+			this.GiftCardMapper.deleteByPrimaryKey(giftCard.getGiftCardNo());
 			ResponseUtil.setResponse(res, "100" , "상품 삭제 완료");
 			return res;
 		}catch(Exception e) {

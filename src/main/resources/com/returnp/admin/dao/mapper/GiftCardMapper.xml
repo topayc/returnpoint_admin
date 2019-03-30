@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.GiftCardMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.GiftCard">
+    <id column="giftCardNo" jdbcType="INTEGER" property="giftCardNo" />
+    <result column="giftCardName" jdbcType="VARCHAR" property="giftCardName" />
+    <result column="stockCount" jdbcType="INTEGER" property="stockCount" />
+    <result column="giftCardAmount" jdbcType="INTEGER" property="giftCardAmount" />
+    <result column="giftCardSalePrice" jdbcType="INTEGER" property="giftCardSalePrice" />
+    <result column="giftCardDes" jdbcType="VARCHAR" property="giftCardDes" />
+    <result column="giftCardSaleStatus" jdbcType="VARCHAR" property="giftCardSaleStatus" />
+    <result column="giftCardCategory" jdbcType="VARCHAR" property="giftCardCategory" />
+    <result column="giftCardImgPath1" jdbcType="VARCHAR" property="giftCardImgPath1" />
+    <result column="giftCardImgPath2" jdbcType="VARCHAR" property="giftCardImgPath2" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    giftCardNo, giftCardName, stockCount, giftCardAmount, giftCardSalePrice, giftCardDes, 
+    giftCardSaleStatus, giftCardCategory, giftCardImgPath1, giftCardImgPath2, createTime, 
+    updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from gift_card
+    where giftCardNo = #{giftCardNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from gift_card
+    where giftCardNo = #{giftCardNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.GiftCard">
+    insert into gift_card (giftCardNo, giftCardName, stockCount, 
+      giftCardAmount, giftCardSalePrice, giftCardDes, 
+      giftCardSaleStatus, giftCardCategory, giftCardImgPath1, 
+      giftCardImgPath2, createTime, updateTime
+      )
+    values (#{giftCardNo,jdbcType=INTEGER}, #{giftCardName,jdbcType=VARCHAR}, #{stockCount,jdbcType=INTEGER}, 
+      #{giftCardAmount,jdbcType=INTEGER}, #{giftCardSalePrice,jdbcType=INTEGER}, #{giftCardDes,jdbcType=VARCHAR}, 
+      #{giftCardSaleStatus,jdbcType=VARCHAR}, #{giftCardCategory,jdbcType=VARCHAR}, #{giftCardImgPath1,jdbcType=VARCHAR}, 
+      #{giftCardImgPath2,jdbcType=VARCHAR}, NOW(), NOW()
+      )
+      <selectKey keyProperty="giftCardNo" resultType="java.lang.Integer" order ="AFTER">
+		    SELECT LAST_INSERT_ID()
+	 </selectKey>	
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.GiftCard">
+    insert into gift_card
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="giftCardNo != null">
+        giftCardNo,
+      </if>
+      <if test="giftCardName != null">
+        giftCardName,
+      </if>
+      <if test="stockCount != null">
+        stockCount,
+      </if>
+      <if test="giftCardAmount != null">
+        giftCardAmount,
+      </if>
+      <if test="giftCardSalePrice != null">
+        giftCardSalePrice,
+      </if>
+      <if test="giftCardDes != null">
+        giftCardDes,
+      </if>
+      <if test="giftCardSaleStatus != null">
+        giftCardSaleStatus,
+      </if>
+      <if test="giftCardCategory != null">
+        giftCardCategory,
+      </if>
+      <if test="giftCardImgPath1 != null">
+        giftCardImgPath1,
+      </if>
+      <if test="giftCardImgPath2 != null">
+        giftCardImgPath2,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="giftCardNo != null">
+        #{giftCardNo,jdbcType=INTEGER},
+      </if>
+      <if test="giftCardName != null">
+        #{giftCardName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockCount != null">
+        #{stockCount,jdbcType=INTEGER},
+      </if>
+      <if test="giftCardAmount != null">
+        #{giftCardAmount,jdbcType=INTEGER},
+      </if>
+      <if test="giftCardSalePrice != null">
+        #{giftCardSalePrice,jdbcType=INTEGER},
+      </if>
+      <if test="giftCardDes != null">
+        #{giftCardDes,jdbcType=VARCHAR},
+      </if>
+      <if test="giftCardSaleStatus != null">
+        #{giftCardSaleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="giftCardCategory != null">
+        #{giftCardCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="giftCardImgPath1 != null">
+        #{giftCardImgPath1,jdbcType=VARCHAR},
+      </if>
+      <if test="giftCardImgPath2 != null">
+        #{giftCardImgPath2,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.GiftCard">
+    update gift_card
+    <set>
+      <if test="giftCardName != null">
+        giftCardName = #{giftCardName,jdbcType=VARCHAR},
+      </if>
+      <if test="stockCount != null">
+        stockCount = #{stockCount,jdbcType=INTEGER},
+      </if>
+      <if test="giftCardAmount != null">
+        giftCardAmount = #{giftCardAmount,jdbcType=INTEGER},
+      </if>
+      <if test="giftCardSalePrice != null">
+        giftCardSalePrice = #{giftCardSalePrice,jdbcType=INTEGER},
+      </if>
+      <if test="giftCardDes != null">
+        giftCardDes = #{giftCardDes,jdbcType=VARCHAR},
+      </if>
+      <if test="giftCardSaleStatus != null">
+        giftCardSaleStatus = #{giftCardSaleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="giftCardCategory != null">
+        giftCardCategory = #{giftCardCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="giftCardImgPath1 != null">
+        giftCardImgPath1 = #{giftCardImgPath1,jdbcType=VARCHAR},
+      </if>
+      <if test="giftCardImgPath2 != null">
+        giftCardImgPath2 = #{giftCardImgPath2,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where giftCardNo = #{giftCardNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.GiftCard">
+    update gift_card
+    set giftCardName = #{giftCardName,jdbcType=VARCHAR},
+      stockCount = #{stockCount,jdbcType=INTEGER},
+      giftCardAmount = #{giftCardAmount,jdbcType=INTEGER},
+      giftCardSalePrice = #{giftCardSalePrice,jdbcType=INTEGER},
+      giftCardDes = #{giftCardDes,jdbcType=VARCHAR},
+      giftCardSaleStatus = #{giftCardSaleStatus,jdbcType=VARCHAR},
+      giftCardCategory = #{giftCardCategory,jdbcType=VARCHAR},
+      giftCardImgPath1 = #{giftCardImgPath1,jdbcType=VARCHAR},
+      giftCardImgPath2 = #{giftCardImgPath2,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = NOW()
+    where giftCardNo = #{giftCardNo,jdbcType=INTEGER}
+  </update>
+</mapper>

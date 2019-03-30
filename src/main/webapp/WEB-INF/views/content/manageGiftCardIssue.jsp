@@ -36,8 +36,8 @@
 					<div style="margin-bottom:20px;">
 						<select id ="giftCardNo" name="giftCardNo"   style="width:100%" >
 							<c:forEach var="giftCard"  items="${giftCards}" varStatus="status">
-								  <c:if test = "${ giftCard.productStatus == '1' }">
-									  <option value='${giftCard.productNo}:${giftCard.productPrice}' >${giftCard.productName} - <fmt:formatNumber value="${giftCard.productPrice}" pattern="###,###,###,###"/> 원 상품권</option>
+								  <c:if test = "${ giftCard.giftCardSaleStatus == '1' }">
+									  <option value='${giftCard.giftCardNo}:${giftCard.giftCardSalePrice}' >${giftCard.giftCardName} - <fmt:formatNumber value="${giftCard.giftCardSalePrice}" pattern="###,###,###,###"/> 원 상품권</option>
 								  </c:if>
 							</c:forEach>
 						</select>

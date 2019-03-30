@@ -237,10 +237,10 @@ $(function () {
         	makeRfId: {apiCode: 10000, apiPath : '/api/apiService/makeRfId' , requestMethod: 'post'}, /* API 키 발급,등록 */
         	
         	/*상품 */
-        	selectProducts: {apiCode: 10000, apiPath : '/api/products' , requestMethod: 'get'}, /* 상품 리스트 가져오기*/
-          	createProduct: {apiCode: 10000, apiPath : '/api/product/create' , requestMethod: 'post'}, /* 상품 생성 */
-        	updateProduct: {apiCode: 10000, apiPath : '/api/product/update' , requestMethod: 'post'}, /* 상품 수정 */
-        	deleteProduct: {apiCode: 10000, apiPath : '/api/product/delete' , requestMethod: 'post'}, /* 상품 삭제 */
+        	selectGiftCards: {apiCode: 10000, apiPath : '/api/giftCards' , requestMethod: 'get'}, /* 상품 리스트 가져오기*/
+          	createGiftCard: {apiCode: 10000, apiPath : '/api/giftCard/create' , requestMethod: 'post'}, /* 상품 생성 */
+        	updateGiftCard: {apiCode: 10000, apiPath : '/api/giftCard/update' , requestMethod: 'post'}, /* 상품 수정 */
+        	deleteGiftCard: {apiCode: 10000, apiPath : '/api/giftCard/delete' , requestMethod: 'post'}, /* 상품 삭제 */
         	
         	/*상품권 판매 조직  */
         	selectGiftCardSalesOrgans: {apiCode: 10000, apiPath : '/api/giftCardSalesOrgans' , requestMethod: 'get'}, /* 상품권 판매 조직 리스트 가져오기*/

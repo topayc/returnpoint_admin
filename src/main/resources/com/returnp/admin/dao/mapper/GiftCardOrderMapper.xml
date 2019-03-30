@@ -15,10 +15,11 @@
     <result column="issueStatus" jdbcType="VARCHAR" property="issueStatus" />
     <result column="bargainType" jdbcType="VARCHAR" property="bargainType" />
     <result column="orderReason" jdbcType="VARCHAR" property="orderReason" />
-    <result column="productNo" jdbcType="INTEGER" property="productNo" />
-    <result column="productName" jdbcType="VARCHAR" property="productName" />
-    <result column="productType" jdbcType="VARCHAR" property="productType" />
-    <result column="productPrice" jdbcType="INTEGER" property="productPrice" />
+    <result column="giftCardNo" jdbcType="INTEGER" property="giftCardNo" />
+    <result column="giftCardName" jdbcType="VARCHAR" property="giftCardName" />
+    <result column="giftCardType" jdbcType="VARCHAR" property="giftCardType" />
+    <result column="giftCardAmount" jdbcType="INTEGER" property="giftCardAmount" />
+    <result column="giftCardSalePrice" jdbcType="INTEGER" property="giftCardSalePrice" />
     <result column="qty" jdbcType="INTEGER" property="qty" />
     <result column="receiverName" jdbcType="VARCHAR" property="receiverName" />
     <result column="receiverPhone" jdbcType="VARCHAR" property="receiverPhone" />
@@ -34,10 +35,10 @@
   </resultMap>
   <sql id="Base_Column_List">
     orderNo, orderNumber, orderName, ordererId, ordererName, ordererPhone, ordererEmail, 
-    orderTotalPrice, orderType, orderStatus, issueStatus, bargainType, orderReason, productNo, 
-    productName, productType, productPrice, qty, receiverName, receiverPhone, receiverEmail, 
-    paymentStatus, paymentType, deliveryNumber, deliveryAddress, deliveryMessage, orderTime, 
-    createTime, updateTime
+    orderTotalPrice, orderType, orderStatus, issueStatus, bargainType, orderReason, giftCardNo, 
+    giftCardName, giftCardType, giftCardAmount, giftCardSalePrice, qty, receiverName, 
+    receiverPhone, receiverEmail, paymentStatus, paymentType, deliveryNumber, deliveryAddress, 
+    deliveryMessage, orderTime, createTime, updateTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -54,23 +55,25 @@
       ordererId, ordererName, ordererPhone, 
       ordererEmail, orderTotalPrice, orderType, 
       orderStatus, issueStatus, bargainType, 
-      orderReason, productNo, productName, 
-      productType, productPrice, qty, 
-      receiverName, receiverPhone, receiverEmail, 
-      paymentStatus, paymentType, deliveryNumber, 
-      deliveryAddress, deliveryMessage, orderTime, 
-      createTime, updateTime)
+      orderReason, giftCardNo, giftCardName, 
+      giftCardType, giftCardAmount, giftCardSalePrice, 
+      qty, receiverName, receiverPhone, 
+      receiverEmail, paymentStatus, paymentType, 
+      deliveryNumber, deliveryAddress, deliveryMessage, 
+      orderTime, createTime, updateTime
+      )
     values (#{orderNo,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}, #{orderName,jdbcType=VARCHAR}, 
       #{ordererId,jdbcType=VARCHAR}, #{ordererName,jdbcType=VARCHAR}, #{ordererPhone,jdbcType=VARCHAR}, 
       #{ordererEmail,jdbcType=VARCHAR}, #{orderTotalPrice,jdbcType=INTEGER}, #{orderType,jdbcType=VARCHAR}, 
       #{orderStatus,jdbcType=VARCHAR}, #{issueStatus,jdbcType=VARCHAR}, #{bargainType,jdbcType=VARCHAR}, 
-      #{orderReason,jdbcType=VARCHAR}, #{productNo,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, 
-      #{productType,jdbcType=VARCHAR}, #{productPrice,jdbcType=INTEGER}, #{qty,jdbcType=INTEGER}, 
-      #{receiverName,jdbcType=VARCHAR}, #{receiverPhone,jdbcType=VARCHAR}, #{receiverEmail,jdbcType=VARCHAR}, 
-      #{paymentStatus,jdbcType=VARCHAR}, #{paymentType,jdbcType=VARCHAR}, #{deliveryNumber,jdbcType=VARCHAR}, 
-      #{deliveryAddress,jdbcType=VARCHAR}, #{deliveryMessage,jdbcType=VARCHAR}, NOW(), NOW(), NOW())
-      
-       <selectKey keyProperty="orderNo" resultType="java.lang.Integer" order ="AFTER">
+      #{orderReason,jdbcType=VARCHAR}, #{giftCardNo,jdbcType=INTEGER}, #{giftCardName,jdbcType=VARCHAR}, 
+      #{giftCardType,jdbcType=VARCHAR}, #{giftCardAmount,jdbcType=INTEGER}, #{giftCardSalePrice,jdbcType=INTEGER}, 
+      #{qty,jdbcType=INTEGER}, #{receiverName,jdbcType=VARCHAR}, #{receiverPhone,jdbcType=VARCHAR}, 
+      #{receiverEmail,jdbcType=VARCHAR}, #{paymentStatus,jdbcType=VARCHAR}, #{paymentType,jdbcType=VARCHAR}, 
+      #{deliveryNumber,jdbcType=VARCHAR}, #{deliveryAddress,jdbcType=VARCHAR}, #{deliveryMessage,jdbcType=VARCHAR}, 
+      NOW(), NOW(), NOW()
+      )    
+      <selectKey keyProperty="orderNo" resultType="java.lang.Integer" order ="AFTER">
 		    SELECT LAST_INSERT_ID()
 	 </selectKey>	
   </insert>
@@ -116,17 +119,20 @@
       <if test="orderReason != null">
         orderReason,
       </if>
-      <if test="productNo != null">
-        productNo,
+      <if test="giftCardNo != null">
+        giftCardNo,
       </if>
-      <if test="productName != null">
-        productName,
+      <if test="giftCardName != null">
+        giftCardName,
       </if>
-      <if test="productType != null">
-        productType,
+      <if test="giftCardType != null">
+        giftCardType,
       </if>
-      <if test="productPrice != null">
-        productPrice,
+      <if test="giftCardAmount != null">
+        giftCardAmount,
+      </if>
+      <if test="giftCardSalePrice != null">
+        giftCardSalePrice,
       </if>
       <if test="qty != null">
         qty,
@@ -205,17 +211,20 @@
       <if test="orderReason != null">
         #{orderReason,jdbcType=VARCHAR},
       </if>
-      <if test="productNo != null">
-        #{productNo,jdbcType=INTEGER},
+      <if test="giftCardNo != null">
+        #{giftCardNo,jdbcType=INTEGER},
       </if>
-      <if test="productName != null">
-        #{productName,jdbcType=VARCHAR},
+      <if test="giftCardName != null">
+        #{giftCardName,jdbcType=VARCHAR},
       </if>
-      <if test="productType != null">
-        #{productType,jdbcType=VARCHAR},
+      <if test="giftCardType != null">
+        #{giftCardType,jdbcType=VARCHAR},
       </if>
-      <if test="productPrice != null">
-        #{productPrice,jdbcType=INTEGER},
+      <if test="giftCardAmount != null">
+        #{giftCardAmount,jdbcType=INTEGER},
+      </if>
+      <if test="giftCardSalePrice != null">
+        #{giftCardSalePrice,jdbcType=INTEGER},
       </if>
       <if test="qty != null">
         #{qty,jdbcType=INTEGER},
@@ -294,17 +303,20 @@
       <if test="orderReason != null">
         orderReason = #{orderReason,jdbcType=VARCHAR},
       </if>
-      <if test="productNo != null">
-        productNo = #{productNo,jdbcType=INTEGER},
+      <if test="giftCardNo != null">
+        giftCardNo = #{giftCardNo,jdbcType=INTEGER},
       </if>
-      <if test="productName != null">
-        productName = #{productName,jdbcType=VARCHAR},
+      <if test="giftCardName != null">
+        giftCardName = #{giftCardName,jdbcType=VARCHAR},
       </if>
-      <if test="productType != null">
-        productType = #{productType,jdbcType=VARCHAR},
+      <if test="giftCardType != null">
+        giftCardType = #{giftCardType,jdbcType=VARCHAR},
       </if>
-      <if test="productPrice != null">
-        productPrice = #{productPrice,jdbcType=INTEGER},
+      <if test="giftCardAmount != null">
+        giftCardAmount = #{giftCardAmount,jdbcType=INTEGER},
+      </if>
+      <if test="giftCardSalePrice != null">
+        giftCardSalePrice = #{giftCardSalePrice,jdbcType=INTEGER},
       </if>
       <if test="qty != null">
         qty = #{qty,jdbcType=INTEGER},
@@ -359,10 +371,11 @@
       issueStatus = #{issueStatus,jdbcType=VARCHAR},
       bargainType = #{bargainType,jdbcType=VARCHAR},
       orderReason = #{orderReason,jdbcType=VARCHAR},
-      productNo = #{productNo,jdbcType=INTEGER},
-      productName = #{productName,jdbcType=VARCHAR},
-      productType = #{productType,jdbcType=VARCHAR},
-      productPrice = #{productPrice,jdbcType=INTEGER},
+      giftCardNo = #{giftCardNo,jdbcType=INTEGER},
+      giftCardName = #{giftCardName,jdbcType=VARCHAR},
+      giftCardType = #{giftCardType,jdbcType=VARCHAR},
+      giftCardAmount = #{giftCardAmount,jdbcType=INTEGER},
+      giftCardSalePrice = #{giftCardSalePrice,jdbcType=INTEGER},
       qty = #{qty,jdbcType=INTEGER},
       receiverName = #{receiverName,jdbcType=VARCHAR},
       receiverPhone = #{receiverPhone,jdbcType=VARCHAR},

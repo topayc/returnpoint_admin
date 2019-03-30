@@ -3037,42 +3037,43 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
 	order by PA.paymentApprovalNumber   
   </select>
   <!-- ===============================================================================================================    -->
-  <resultMap id="ProductResultMap" type="com.returnp.admin.model.Product">
-      <id column="productNo" jdbcType="INTEGER" property="productNo" />
-    <result column="productName" jdbcType="VARCHAR" property="productName" />
-    <result column="productPrice" jdbcType="INTEGER" property="productPrice" />
+  <resultMap id="GiftCardResultMap" type="com.returnp.admin.model.GiftCard">
+ <id column="giftCardNo" jdbcType="INTEGER" property="giftCardNo" />
+    <result column="giftCardName" jdbcType="VARCHAR" property="giftCardName" />
     <result column="stockCount" jdbcType="INTEGER" property="stockCount" />
-    <result column="productSalePrice" jdbcType="INTEGER" property="productSalePrice" />
-    <result column="productDes" jdbcType="VARCHAR" property="productDes" />
-    <result column="productStatus" jdbcType="VARCHAR" property="productStatus" />
-    <result column="productCategory" jdbcType="VARCHAR" property="productCategory" />
-    <result column="productImgPath1" jdbcType="VARCHAR" property="productImgPath1" />
-    <result column="productImgPath2" jdbcType="VARCHAR" property="productImgPath2" />
+    <result column="giftCardAmount" jdbcType="INTEGER" property="giftCardAmount" />
+    <result column="giftCardSalePrice" jdbcType="INTEGER" property="giftCardSalePrice" />
+    <result column="giftCardDes" jdbcType="VARCHAR" property="giftCardDes" />
+    <result column="giftCardSaleStatus" jdbcType="VARCHAR" property="giftCardSaleStatus" />
+    <result column="giftCardCategory" jdbcType="VARCHAR" property="giftCardCategory" />
+    <result column="giftCardImgPath1" jdbcType="VARCHAR" property="giftCardImgPath1" />
+    <result column="giftCardImgPath2" jdbcType="VARCHAR" property="giftCardImgPath2" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   
-  <sql id ="productSearchWhereStatement">
-	 <if test="productNo != null"> AND productNo = #{productNo,jdbcType=INTEGER}</if>
-	 <if test="productName != null"> AND productName = #{productName,jdbcType=VARCHAR}</if>
-     <if test="productStatus != null"> AND productStatus = #{productStatus,jdbcType=VARCHAR} </if>
-     <if test="productCategory != null"> AND productCategory = #{productCategory,jdbcType=VARCHAR}</if>
+  <sql id ="GiftCardSearchWhereStatement">
+	 <if test="giftCardNo != null"> AND giftCardNo = #{giftCardNo,jdbcType=INTEGER}</if>
+	 <if test="giftCardName != null"> AND giftCardName = #{giftCardName,jdbcType=VARCHAR}</if>
+     <if test="giftCardSaleStatus != null"> AND giftCardSaleStatus = #{giftCardSaleStatus,jdbcType=VARCHAR} </if>
+     <if test="giftCardCategory != null"> AND giftCardCategory = #{giftCardCategory,jdbcType=VARCHAR}</if>
   </sql>
 	
-  <sql id="Product_Column_List">
-  productNo, productName, stockCount, productPrice, productSalePrice, productDes, productStatus, 
-    productCategory, productImgPath1, productImgPath2, createTime, updateTime
+  <sql id="GiftCard_Column_List">
+   giftCardNo, giftCardName, stockCount, giftCardAmount, giftCardSalePrice, giftCardDes, 
+    giftCardSaleStatus, giftCardCategory, giftCardImgPath1, giftCardImgPath2, createTime, 
+    updateTime
   </sql>
   
- <!-- Product -->
-  <select id="selectProducts"    parameterType="com.returnp.admin.model.Product"  resultMap="ProductResultMap" >
+ <!-- GiftCard -->
+  <select id="selectGiftCards"    parameterType="com.returnp.admin.model.GiftCard"  resultMap="GiftCardResultMap" >
    	select
    	 	sql_calc_found_rows
-    	<include refid="Product_Column_List" />
-    from product
+    	<include refid="GiftCard_Column_List" />
+    from gift_card
     where 
     	1 = 1 
-    	<include refid = "productSearchWhereStatement"/>
+    	<include refid = "GiftCardSearchWhereStatement"/>
   </select>
   
  <!-- ===============================================================================================================    -->
@@ -3196,7 +3197,6 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
  <!-- GiftCardOrder Mapper   -->
  
   <resultMap id="GiftCardOrderResultMap" type="com.returnp.admin.model.GiftCardOrder">
-    <id column="orderNo" jdbcType="INTEGER" property="orderNo" />
     <result column="orderNumber" jdbcType="VARCHAR" property="orderNumber" />
     <result column="orderName" jdbcType="VARCHAR" property="orderName" />
     <result column="ordererId" jdbcType="VARCHAR" property="ordererId" />
@@ -3209,10 +3209,11 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="issueStatus" jdbcType="VARCHAR" property="issueStatus" />
     <result column="bargainType" jdbcType="VARCHAR" property="bargainType" />
     <result column="orderReason" jdbcType="VARCHAR" property="orderReason" />
-    <result column="productNo" jdbcType="INTEGER" property="productNo" />
-    <result column="productName" jdbcType="VARCHAR" property="productName" />
-    <result column="productType" jdbcType="VARCHAR" property="productType" />
-    <result column="productPrice" jdbcType="INTEGER" property="productPrice" />
+    <result column="giftCardNo" jdbcType="INTEGER" property="giftCardNo" />
+    <result column="giftCardName" jdbcType="VARCHAR" property="giftCardName" />
+    <result column="giftCardType" jdbcType="VARCHAR" property="giftCardType" />
+    <result column="giftCardAmount" jdbcType="INTEGER" property="giftCardAmount" />
+    <result column="giftCardSalePrice" jdbcType="INTEGER" property="giftCardSalePrice" />
     <result column="qty" jdbcType="INTEGER" property="qty" />
     <result column="receiverName" jdbcType="VARCHAR" property="receiverName" />
     <result column="receiverPhone" jdbcType="VARCHAR" property="receiverPhone" />
@@ -3228,7 +3229,6 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   </resultMap>
   
     <resultMap id="GiftCardOrderCommandResultMap" type="com.returnp.admin.dto.command.GiftCardOrderCommand">
-    <id column="orderNo" jdbcType="INTEGER" property="orderNo" />
     <result column="orderNumber" jdbcType="VARCHAR" property="orderNumber" />
     <result column="orderName" jdbcType="VARCHAR" property="orderName" />
     <result column="ordererId" jdbcType="VARCHAR" property="ordererId" />
@@ -3241,10 +3241,11 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="issueStatus" jdbcType="VARCHAR" property="issueStatus" />
     <result column="bargainType" jdbcType="VARCHAR" property="bargainType" />
     <result column="orderReason" jdbcType="VARCHAR" property="orderReason" />
-    <result column="productNo" jdbcType="INTEGER" property="productNo" />
-    <result column="productName" jdbcType="VARCHAR" property="productName" />
-    <result column="productType" jdbcType="VARCHAR" property="productType" />
-    <result column="productPrice" jdbcType="INTEGER" property="productPrice" />
+    <result column="giftCardNo" jdbcType="INTEGER" property="giftCardNo" />
+    <result column="giftCardName" jdbcType="VARCHAR" property="giftCardName" />
+    <result column="giftCardType" jdbcType="VARCHAR" property="giftCardType" />
+    <result column="giftCardAmount" jdbcType="INTEGER" property="giftCardAmount" />
+    <result column="giftCardSalePrice" jdbcType="INTEGER" property="giftCardSalePrice" />
     <result column="qty" jdbcType="INTEGER" property="qty" />
     <result column="receiverName" jdbcType="VARCHAR" property="receiverName" />
     <result column="receiverPhone" jdbcType="VARCHAR" property="receiverPhone" />
@@ -3261,18 +3262,18 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
   <sql id="GiftCardOrder_Column_List">
     orderNo, orderNumber, orderName, ordererId, ordererName, ordererPhone, ordererEmail, 
-    orderTotalPrice, orderType, orderStatus, issueStatus, bargainType, orderReason, productNo, 
-    productName, productType, productPrice, qty, receiverName, receiverPhone, receiverEmail, 
-    paymentStatus, paymentType, deliveryNumber, deliveryAddress, deliveryMessage, orderTime, 
-    createTime, updateTime
+    orderTotalPrice, orderType, orderStatus, issueStatus, bargainType, orderReason, giftCardNo, 
+    giftCardName, giftCardType, giftCardAmount, giftCardSalePrice, qty, receiverName, 
+    receiverPhone, receiverEmail, paymentStatus, paymentType, deliveryNumber, deliveryAddress, 
+    deliveryMessage, orderTime, createTime, updateTime
   </sql>
   
   <sql id="GiftCardOrderCommand_Column_List">
     orderNo, orderNumber, orderName, ordererId, ordererName, ordererPhone, ordererEmail, 
-    orderTotalPrice, orderType, orderStatus, issueStatus, bargainType, orderReason, productNo, 
-    productName, productType, productPrice, qty, receiverName, receiverPhone, receiverEmail, 
-    paymentStatus, paymentType, deliveryNumber, deliveryAddress, deliveryMessage, orderTime, 
-    createTime, updateTime
+    orderTotalPrice, orderType, orderStatus, issueStatus, bargainType, orderReason, giftCardNo, 
+    giftCardName, giftCardType, giftCardAmount, giftCardSalePrice, qty, receiverName, 
+    receiverPhone, receiverEmail, paymentStatus, paymentType, deliveryNumber, deliveryAddress, 
+    deliveryMessage, orderTime, createTime, updateTime
   </sql>
   
   <sql id ="GiftCardOrderWhereStatement">
@@ -3288,8 +3289,8 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="orderStatus != null"> AND orderStatus = #{orderStatus,jdbcType=VARCHAR}</if>
       <if test="issueStatus != null"> AND issueStatus = #{issueStatus,jdbcType=VARCHAR}</if>
       <if test="bargainType != null"> AND bargainType = #{bargainType,jdbcType=VARCHAR}</if>
-      <if test="productName != null"> AND productName = #{productName,jdbcType=VARCHAR}</if>
-      <if test="productType != null"> AND productType = #{productType,jdbcType=VARCHAR}</if>
+      <if test="giftCardName != null"> AND giftCardName = #{giftCardName,jdbcType=VARCHAR}</if>
+      <if test="giftCardType != null"> AND giftCardType = #{giftCardType,jdbcType=VARCHAR}</if>
       <if test="orderReason != null"> AND orderReason = #{orderReason,jdbcType=VARCHAR}</if>
       <if test="paymentStatus != null"> AND paymentStatus = #{paymentStatus,jdbcType=VARCHAR}</if>
       <if test="paymentType != null"> AND paymentType = #{paymentType,jdbcType=VARCHAR}</if>
@@ -3308,8 +3309,8 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="orderStatus != null"> AND orderStatus = #{orderStatus,jdbcType=VARCHAR}</if>
       <if test="issueStatus != null"> AND issueStatus = #{issueStatus,jdbcType=VARCHAR}</if>
       <if test="bargainType != null"> AND bargainType = #{bargainType,jdbcType=VARCHAR}</if>
-      <if test="productName != null"> AND productName = #{productName,jdbcType=VARCHAR}</if>
-      <if test="productType != null"> AND productType = #{productType,jdbcType=VARCHAR}</if>
+      <if test="giftCardName != null"> AND giftCardName = #{giftCardName,jdbcType=VARCHAR}</if>
+      <if test="giftCardType != null"> AND giftCardType = #{giftCardType,jdbcType=VARCHAR}</if>
       <if test="orderReason != null"> AND orderReason = #{orderReason,jdbcType=VARCHAR}</if>
       <if test="paymentStatus != null"> AND paymentStatus = #{paymentStatus,jdbcType=VARCHAR}</if>
       <if test="paymentType != null"> AND paymentType = #{paymentType,jdbcType=VARCHAR}</if>

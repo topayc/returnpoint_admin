@@ -21,46 +21,46 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.request.SearchCondition;
-import com.returnp.admin.model.Product;
-import com.returnp.admin.service.interfaces.ProductService;
+import com.returnp.admin.model.GiftCard;
+import com.returnp.admin.service.interfaces.GiftCardSearvice;
 import com.returnp.admin.service.interfaces.SearchService;
 
 @Controller
 @RequestMapping("/api")
-@SessionAttributes("productFormInfo")
-public class ProductController extends ApplicationController{
+@SessionAttributes("giftCardFormInfo")
+public class GiftCardController extends ApplicationController{
 	
-	@Autowired ProductService productService;
+	@Autowired GiftCardSearvice giftCardService;
 	@Autowired SearchService searchService;
 	
-	@RequestMapping(value = "/product/form/createForm", method = RequestMethod.GET)
+	@RequestMapping(value = "/giftCard/form/createForm", method = RequestMethod.GET)
 	public String formProductRequest(
 			@RequestParam(value = "action", required = true,defaultValue = "create") String action,
-			@RequestParam(value = "productNo", defaultValue = "0") int productNo,
+			@RequestParam(value = "giftCardNo", defaultValue = "0") int giftCardNo,
 			Model model){
 
 		model.addAttribute("productStatusList", CodeDefine.getProductStatuses());
 		if (action.equals("create")) {
 		
 		}else if (action.equals("modify")){
-			Product product = new Product();
-			product.setProductNo(productNo);
-			model.addAttribute("productFormInfo", this.searchService.selectProducts(product).get(0));
+			GiftCard giftCard = new GiftCard();
+			giftCard.setGiftCardNo(giftCardNo);
+			model.addAttribute("giftCardFormInfo", this.searchService.selectGiftCards(giftCard).get(0));
 		}
-		return "template/form/createProduct";
+		return "template/form/createGiftCard";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/products", method = RequestMethod.GET)
-	public ReturnpBaseResponse selectProducts(
+	@RequestMapping(value = "/giftCards", method = RequestMethod.GET)
+	public ReturnpBaseResponse selectGiftCards(
 			SearchCondition searchCondition){
-		Product product = new Product();
+		GiftCard giftCard = new GiftCard();
 		if (StringUtils.isEmpty(searchCondition.getSearchKeyword())) {
 			searchCondition.setSearchKeyword(null);
 		}
-		product.valueOf(searchCondition);
-		ArrayListResponse<Product> res = new ArrayListResponse<Product>();
-		ArrayList<Product> products = this.searchService.selectProducts(product);
+		giftCard.valueOf(searchCondition);
+		ArrayListResponse<GiftCard> res = new ArrayListResponse<GiftCard>();
+		ArrayList<GiftCard> products = this.searchService.selectGiftCards(giftCard);
 		res.setRows(products);
 		res.setTotal(this.searchService.selectTotalRecords());
 		this.setSuccessResponse(res);
@@ -68,25 +68,25 @@ public class ProductController extends ApplicationController{
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/product/create", method = RequestMethod.POST)
-	public ReturnpBaseResponse createProduct( Product product, HttpServletRequest request){
-		//System.out.println("###### createProduct");
-		return this.productService.createProduct(product, request.getSession().getServletContext().getRealPath("/assets/images/products"), "/assets/images/products");
+	@RequestMapping(value = "/giftCard/create", method = RequestMethod.POST)
+	public ReturnpBaseResponse createGiftCard( GiftCard giftCard, HttpServletRequest request){
+		//System.out.println("###### createGiftCard");
+		return this.giftCardService.createGiftCard(giftCard, request.getSession().getServletContext().getRealPath("/assets/images/products"), "/assets/images/products");
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/product/update", method = RequestMethod.POST)
-	public ReturnpBaseResponse udpateProduct( @ModelAttribute("productFormInfo")  Product product, SessionStatus sessionStatus, BindingResult result, HttpServletRequest request){
+	@RequestMapping(value = "/giftCard/update", method = RequestMethod.POST)
+	public ReturnpBaseResponse udpateProduct( @ModelAttribute("giftCardFormInfo")  GiftCard giftCard, SessionStatus sessionStatus, BindingResult result, HttpServletRequest request){
 		//System.out.println("###### updateProduct");
-		ReturnpBaseResponse res = this.productService.updateProduct(product, request.getSession().getServletContext().getRealPath("/assets/images/products"), "/assets/images/products");
+		ReturnpBaseResponse res = this.giftCardService.updateGiftCard(giftCard, request.getSession().getServletContext().getRealPath("/assets/images/products"), "/assets/images/products");
 		sessionStatus.setComplete();
 		return res;
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/product/delete", method = RequestMethod.POST)
-	public ReturnpBaseResponse deleteProduct( Product product){
-		//System.out.println("###### deleteProduct");
-		return this.productService.deleteProduct(product);
+	@RequestMapping(value = "/giftCard/delete", method = RequestMethod.POST)
+	public ReturnpBaseResponse deleteGiftCard( GiftCard giftCard){
+		//System.out.println("###### deleteGiftCard");
+		return this.giftCardService.deleteGiftCard(giftCard);
 	}
 }

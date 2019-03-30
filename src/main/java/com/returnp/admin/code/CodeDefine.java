@@ -359,7 +359,8 @@ public class CodeDefine {
 		list.add(new CodeKeyValuePair("5", "배송 중", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("6", "배송 완료", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("7", "주문 처리 완료", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("8", "주문 취소", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("8", "주문 취소", "Y", "Y" ,"")); /* 사용자 주문 취소*/ 
+		list.add(new CodeKeyValuePair("9", " 관리자 주문 취소", "Y", "Y" ,"")); /* 관리자 주문 취소*/ 
 		return list;
 	}
 	
@@ -415,6 +416,16 @@ public class CodeDefine {
 		list.add(new CodeKeyValuePair("2", "발행중", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("3", "발행 완료", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("4", "발행 취소 - 삭제", "Y", "Y" ,""));
+		return list;
+	}
+	
+	public static ArrayList<CodeKeyValuePair> getRefundStatuses() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "결제 처리중", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "결제 처리 완료", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("3", "결제 보류", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("4", "사용자 결제 요청 취소", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("5", "관리가 결제 처리 취소", "Y", "Y" ,""));
 		return list;
 	}
 }	

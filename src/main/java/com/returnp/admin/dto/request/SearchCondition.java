@@ -2,6 +2,10 @@ package com.returnp.admin.dto.request;
 
 import com.returnp.admin.dto.QueryCondition;
 
+/**
+ * @author topayc
+ *
+ */
 public class SearchCondition extends QueryCondition {
 	
 	public int nodeNo;
@@ -43,7 +47,7 @@ public class SearchCondition extends QueryCondition {
     private Integer pointWithdrawalNo;
     
     private Integer productNo;
-    
+    private Integer giftCardNo;
     private Integer giftCardSalesOrganNo;
     private String searchSalesOrganStatus;
     private String searchSalesOrganType;
@@ -59,6 +63,12 @@ public class SearchCondition extends QueryCondition {
     
     
     
+	public Integer getGiftCardNo() {
+		return giftCardNo;
+	}
+	public void setGiftCardNo(Integer giftCardNo) {
+		this.giftCardNo = giftCardNo;
+	}
 	public String getOrderNumber() {
 		return orderNumber;
 	}

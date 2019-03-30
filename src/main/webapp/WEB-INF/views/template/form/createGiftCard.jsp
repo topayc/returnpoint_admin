@@ -3,11 +3,11 @@
 <div style ="padding:5px;margin: 20px;">
 	<div style = "padding:5px;padding-top:5px;padding-bottom:5px;" >
 	   <form id="createProductForm"  enctype="multipart/form-data" name = "createProductForm" method="post"  >
-			<div style="margin-bottom:25px"><input id ="productName"  name="productName" style="width:100%" data-options="label:'상품 이름 ',labelWidth :100,labelPosition : 'left'"> </div>
-			<div style="margin-bottom:25px"><input id ="productPrice"  name="productPrice" style="width:100%" data-options="label:'상품 가격 ',labelWidth :100,labelPosition : 'left'"> </div>
-			<div style="margin-bottom:25px"><input id ="productSalePrice"  name="productSalePrice" style="width:100%" data-options="label:'상품 판매 가격 ',labelWidth :100,labelPosition : 'left'"> </div>
+			<div style="margin-bottom:25px"><input id ="giftCardName"  name="giftCardName" style="width:100%" data-options="label:'상품 이름 ',labelWidth :100,labelPosition : 'left'"> </div>
+			<div style="margin-bottom:25px"><input id ="giftCardAmount"  name="giftCardAmount" style="width:100%" data-options="label:'상품 가격 ',labelWidth :100,labelPosition : 'left'"> </div>
+			<div style="margin-bottom:25px"><input id ="giftCardSalePrice"  name="giftCardSalePrice" style="width:100%" data-options="label:'상품 판매 가격 ',labelWidth :100,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:25px">
-				<select id ="productStatus" name="productStatus"   style="width:100%" data-options="label:'상품 상태',labelWidth :100,labelPosition : 'left'">
+				<select id ="giftCardSaleStatus" name="giftCardSaleStatus"   style="width:100%" data-options="label:'상품 상태',labelWidth :100,labelPosition : 'left'">
 					<c:forEach var="productStatus"  items="${productStatusList}" varStatus="status">
 						    <c:if test = "${ productStatus.useInAdmin == 'Y' }">
 							  <option value='${productStatus.key}' >${productStatus.value} </option>
@@ -16,7 +16,7 @@
 				</select> 
 			</div>
 			<div style="margin-bottom:25px"><input id ="stockCount"  name="stockCount" style="width:100%" data-options="label:'재고 수량 ',labelWidth :100,labelPosition : 'left'"> </div>
-			<div style="margin-bottom:25px"><textarea id ="productDes"  name="productDes" style="width:100%" data-options="label:'상품 설명 ',labelWidth :100,labelPosition : 'left'"></textarea> </div>
+			<div style="margin-bottom:25px"><textarea id ="giftCardDes"  name="giftCardDes" style="width:100%" data-options="label:'상품 설명 ',labelWidth :100,labelPosition : 'left'"></textarea> </div>
 			
 			<div style="margin-bottom:25px">
 				<input id = productImg1  name = "productImg1" type = "text" style="width:100%" accept=".xlsx">
@@ -31,34 +31,34 @@
 <script>
 	function setViewInit(){
 		
-		$('#productName').textbox({
-			label : roundLabel("상품명")
+		$('#giftCardName').textbox({
+			label : roundLabel("상품권 이름")
 		});
 
-		$('#productPrice').numberbox({
+		$('#giftCardAmount').numberbox({
 			groupSeparator:',',
-			label : roundLabel("상품가격"),
+			label : roundLabel("상품권 금액"),
 			onChange : function(newValue,oldValue){
-				$('#productSalePrice').numberbox("setValue", newValue);
+				$('#giftCardSalePrice').numberbox("setValue", newValue);
 			}
 		});
 
-		$('#productSalePrice').numberbox({
-			label : roundLabel("판매가격"),
+		$('#giftCardSalePrice').numberbox({
+			label : roundLabel("판매 가격"),
 			groupSeparator:','
 		});
 		$('#stockCount').numberbox({
-			label : roundLabel("재고수량"),
+			label : roundLabel("재고 수량"),
 			groupSeparator:','
 		});
-		$('#productDes').textbox({
-			label : roundLabel("상품설명"),
+		$('#giftCardDes').textbox({
+			label : roundLabel("상품권 설명"),
 			height: 150,
 			multiline:true	
 		});
 		
-		$('#productStatus').combobox({
-			label : roundLabel("상품상태"),
+		$('#giftCardSaleStatus').combobox({
+			label : roundLabel("판매 상태"),
 			showItemIcon: true,
             editable: false,
             multiple:false,

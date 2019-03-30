@@ -30,13 +30,15 @@ public class GiftCardOrder extends QueryCondition {
 
     private String orderReason;
 
-    private Integer productNo;
+    private Integer giftCardNo;
 
-    private String productName;
+    private String giftCardName;
 
-    private String productType;
+    private String giftCardType;
 
-    private Integer productPrice;
+    private Integer giftCardAmount;
+
+    private Integer giftCardSalePrice;
 
     private Integer qty;
 
@@ -166,36 +168,44 @@ public class GiftCardOrder extends QueryCondition {
         this.orderReason = orderReason == null ? null : orderReason.trim();
     }
 
-    public Integer getProductNo() {
-        return productNo;
+    public Integer getGiftCardNo() {
+        return giftCardNo;
     }
 
-    public void setProductNo(Integer productNo) {
-        this.productNo = productNo;
+    public void setGiftCardNo(Integer giftCardNo) {
+        this.giftCardNo = giftCardNo;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getGiftCardName() {
+        return giftCardName;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName == null ? null : productName.trim();
+    public void setGiftCardName(String giftCardName) {
+        this.giftCardName = giftCardName == null ? null : giftCardName.trim();
     }
 
-    public String getProductType() {
-        return productType;
+    public String getGiftCardType() {
+        return giftCardType;
     }
 
-    public void setProductType(String productType) {
-        this.productType = productType == null ? null : productType.trim();
+    public void setGiftCardType(String giftCardType) {
+        this.giftCardType = giftCardType == null ? null : giftCardType.trim();
     }
 
-    public Integer getProductPrice() {
-        return productPrice;
+    public Integer getGiftCardAmount() {
+        return giftCardAmount;
     }
 
-    public void setProductPrice(Integer productPrice) {
-        this.productPrice = productPrice;
+    public void setGiftCardAmount(Integer giftCardAmount) {
+        this.giftCardAmount = giftCardAmount;
+    }
+
+    public Integer getGiftCardSalePrice() {
+        return giftCardSalePrice;
+    }
+
+    public void setGiftCardSalePrice(Integer giftCardSalePrice) {
+        this.giftCardSalePrice = giftCardSalePrice;
     }
 
     public Integer getQty() {

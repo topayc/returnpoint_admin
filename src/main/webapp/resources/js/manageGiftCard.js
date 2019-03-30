@@ -1,16 +1,16 @@
 		columns = [[
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-			    {field:'productNo',width:50,align:'center',title : '등록 번호',hidden:false},
-			    {field:'productCategory',width:60,align:'center',title : '카테고리'},
-			    {field:'productName',width:100,align:'center',title : '상품 이름'},
-			    {field:'productPrice',width:60,align:'center',title : '상품 가격', formatter : numberGreenFormatter},
-			    {field:'productSalePrice',width:60,align:'center',title : '판매 가격', formatter : numberRedFormatter},
+			    {field:'giftCardNo',width:50,align:'center',title : '등록 번호',hidden:false},
+			    {field:'giftCardCategory',width:60,align:'center',title : '카테고리'},
+			    {field:'giftCardName',width:100,align:'center',title : '상품 이름'},
+			    {field:'giftCardAmount',width:60,align:'center',title : '상품권 금액', formatter : numberGreenFormatter},
+			    {field:'giftCardSalePrice',width:60,align:'center',title : '판매 가격', formatter : numberRedFormatter},
 			    {field:'stockCount',width:50,align:'center',title : '재고'},
-			    {field:'productDes',width:140,align:'center',title : '상세 설명'},
-			    {field:'productStatus',width:60,align:'center',title : '상태', formatter  : productStatusFormatter},
-			    {field:'productImgPath1',width:100,align:'center',title : '상품 이미지1', formatter  : imageTagFormatter},
-			    {field:'productImgPath2',width:100,align:'center',title : '상품 이미지2' , formatter  : imageTagFormatter},
+			    {field:'giftCardDes',width:140,align:'center',title : '상세 설명'},
+			    {field:'giftCardSaleStatus',width:60,align:'center',title : '상태', formatter  : productStatusFormatter},
+			    {field:'giftCardImgPath1',width:100,align:'center',title : '상품 이미지1', formatter  : imageTagFormatter},
+			    {field:'giftCardImgPath2',width:100,align:'center',title : '상품 이미지2' , formatter  : imageTagFormatter},
 			    {field:'createTime',width:100,align:'center',title : '등록일', formatter : dateFormatter},
 			    {field:'updateTime',width:100,align:'center',title : '수정일', formatter : dateFormatter},
 			    ]];
@@ -101,7 +101,7 @@ function initView(){
 			//console.log("검색 쿼리 데이타");
 			//console.log(param);
 			
-			returnp.api.call("selectProducts", param, function(res){
+			returnp.api.call("selectGiftCards", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
 					setListColumnHeader(param.searchNodeType);
@@ -155,10 +155,10 @@ function initView(){
 		  		onClick : function(item){
 		  			switch(item.action){
 		  			case "modify":
-		  				loadProductModifyForm()
+		  				loadGiftCardModifyForm()
 		  				break;
 		  			case "remove":
-		  				removeProduct();
+		  				removeGiftCard();
 		  				break;
 		  			case "view_product_image1":
 		  				viewProductImage1();
@@ -179,7 +179,7 @@ function initView(){
 		  		cmenu.menu('appendItem', {
 		  			data : row,
 		  			no : row.memberNo,
-		  			text:  "<strong>[" + row.productName + " 상품 ]</strong>"  + " " + menus[i],
+		  			text:  "<strong>[" + row.giftCardName + " 상품 ]</strong>"  + " " + menus[i],
 		  			action: actions[i],
 		  			iconCls: icons[i]
 		  		});
@@ -204,7 +204,7 @@ function setListPager(){
             handler:function(){
             	$('#product_list').datagrid('unselectAll');
             	$('#product_list').datagrid('uncheckAll');
-            	loadProductCreateForm();
+            	loadGiftCardCreateForm();
             }
         }/*,{
             iconCls:'icon-edit',
@@ -214,7 +214,7 @@ function setListPager(){
         },{
             iconCls:'icon-remove',
             handler:function(){
-            	removeProduct();
+            	removeGiftCard();
             }
         },{
             iconCls:'icon-more',
@@ -284,7 +284,7 @@ function statusFormatter(value,row,index){
 	return '&nbsp;<span >'+ status + '</span>';
 }
 
-function loadProductCreateForm(){
+function loadGiftCardCreateForm(){
 	var data = {
     	targetElem : "#dlgForm",
         title : " 상품 생성",
@@ -295,7 +295,7 @@ function loadProductCreateForm(){
 	
 	//console.log("loadAgencyCreateForm");
 	var queryParam = $.param(data.queryOptions);
-	$(data.targetElem).load("/api/product/form/createForm?" + queryParam,
+	$(data.targetElem).load("/api/giftCard/form/createForm?" + queryParam,
 		function(response, status, xhr) {	
 			$(data.targetElem).dialog({
 				width:600,
@@ -313,7 +313,7 @@ function loadProductCreateForm(){
 				buttons:[
 					{ text:'확인', iconCls:'icon-ok', handler:function(){
 						var nodeType = $('input[name=searchNodeType]').val();
-						createProduct(data);
+						createGiftCard(data);
 					} },
 					{ text:'취소', handler:function(){
 						console.log("닫을 DIV : " + data.targetElem);	
@@ -326,7 +326,7 @@ function loadProductCreateForm(){
 		});
 }
 
-function loadProductModifyForm(){
+function loadGiftCardModifyForm(){
    	var node = $('#product_list').datagrid('getSelected');
 	if (!node) {
 		 $.messager.alert('알림','수정하실 노드를 선택해주세요');
@@ -335,10 +335,10 @@ function loadProductModifyForm(){
 	
 	var data = {
         targetElem : "#dlgForm",
-        title : "[" +node.productName + "] " + " 수정",
+        title : "[" +node.giftCardName + "] " + " 수정",
         queryOptions : {
         	action : "modify",
-        	productNo : node.productNo
+        	giftCardNo : node.giftCardNo
        	}
      }
 	//console.log("loadAgencyrModifyForm");
@@ -346,7 +346,7 @@ function loadProductModifyForm(){
 	data.targetElem = data.targetElem || "#dlgForm";
 	var queryParam = $.param(data.queryOptions);
 	
-	$(data.targetElem).load("/api/product/form/createForm?" + queryParam,
+	$(data.targetElem).load("/api/giftCard/form/createForm?" + queryParam,
 		function(response, status, xhr) {
 		//console.log("오픈할 DIV : " + data.targetElem);	
 		
@@ -365,7 +365,7 @@ function loadProductModifyForm(){
 			    shadow : false,	
 				buttons:[
 					{ text:'확인', iconCls:'icon-ok', handler:function(){
-						updateProduct(data);
+						updateGiftCard(data);
 					} },
 					{ text:'취소', handler:function(){
 						console.log("닫을 DIV : " + data.targetElem);	
@@ -375,7 +375,7 @@ function loadProductModifyForm(){
 				}]
 			});
 			$(data.targetElem).dialog('center');
-			returnp.api.call('selectProducts', {productNo : data.queryOptions.productNo}, function(res){
+			returnp.api.call('selectGiftCards', {giftCardNo : data.queryOptions.giftCardNo}, function(res){
 				console.log(res)
 				if (res.resultCode  == "100") {
 					if (res.rows.length == 1) {
@@ -395,9 +395,9 @@ function makeFormData(){
 	return param;
 }
 
-function updateProduct(data){
+function updateGiftCard(data){
 	$('#createProductForm').form('submit', {
-		url: "/api/product/update",
+		url: "/api/giftCard/update",
 		type: 'POST',
 		ajax:true,
 		iframe: false,
@@ -450,9 +450,9 @@ function updateProduct(data){
 	});
 }
 
-function createProduct(data){	
+function createGiftCard(data){	
 	$('#createProductForm').form('submit', {
-		url: "/api/product/create",
+		url: "/api/giftCard/create",
 		type: 'POST',
 		ajax:true,
 		iframe: false,
@@ -508,7 +508,7 @@ function createProduct(data){
 	});
 }
 
-function removeProduct(){
+function removeGiftCard(){
 	var node = $('#product_list').datagrid('getSelected');
 	if (!node) {
 		 $.messager.alert('알림','삭제하실 항목을 선택해주세요');
@@ -518,9 +518,9 @@ function removeProduct(){
 	$.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 해당 내용을 정말로 삭제하시겠습니까?', function(r){
         if (r){
         	var param = {
-        			productNo : node.productNo
+        			giftCardNo : node.giftCardNo
         	}
-        	returnp.api.call("deleteProduct", param, function(res){
+        	returnp.api.call("deleteGiftCard", param, function(res){
         		if (res.resultCode  == "100") {
         			$.messager.alert('알림', res.message);
         			realodPage();
@@ -536,13 +536,13 @@ function removeProduct(){
 
 function viewProductImage1(){
 	var node = $('#product_list').datagrid('getSelected');
-	var img1 = node.productImgPath1;
+	var img1 = node.giftCardImgPath1;
 	window.open(img1, node.productName, "width=700, height=500, left=100, top=50"); 
 }
 
 function viewProductImage2(){
 	var node = $('#product_list').datagrid('getSelected');
-	var img2 = node.productImgPath2;
+	var img2 = node.giftCardImgPath2;
 	window.open(img2, node.productName, "width=700, height=500, left=100, top=50"); 
 }
 

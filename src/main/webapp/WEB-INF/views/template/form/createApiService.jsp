@@ -34,6 +34,7 @@
 <script>
 function setViewInit(){
 	$('#affiliateNo').textbox({
+		label : roundLabel("API 연결 가맹점"),
 		prompt: 'API 연결 가맹점 검색 ',
 		editable : false,
 		icons:[{
@@ -60,6 +61,7 @@ function setViewInit(){
 	});
 	
 	$('#apiService').combobox({
+		label : roundLabel("제공 서비스 타입"),
 		showItemIcon: true,
         editable: false,
         panelHeight: 'auto',
@@ -70,16 +72,20 @@ function setViewInit(){
 	});
 	
 	$('#company').textbox({
+		label : roundLabel("회사명"),
 		prompt: '회사명', 
 	});
 	$('#project').textbox({
+		label : roundLabel("프로젝트 명"),
 		prompt: '프로젝트명', 
 	});
 	$('#domain').textbox({
+		label : roundLabel("도메인"),
 		prompt: 'www.xxxxx.xxx', 
 	});
 	
 	$('#tId').textbox({
+		label : roundLabel("T ID"),
 		prompt: 'T ID', 
 		editable : false,
 /* 		buttonText:'발급',
@@ -99,10 +105,12 @@ function setViewInit(){
 			} */
 	});	
 	$('#ip').textbox({
+		label : roundLabel("아이피(IP)"),
 		prompt: '000.000.000.000', 
 	});
 	
 	$('#apiKey').textbox({
+		label : roundLabel("API KEY"),
 		prompt: 'API KEY', 
 		editable : false,
 		buttonText:'발급',
@@ -121,7 +129,9 @@ function setViewInit(){
 				});
 			}
 	});	
-	$('#apiServiceStatus').combobox();
+	$('#apiServiceStatus').combobox({
+		label : roundLabel("서비스 상태"),
+	});
 	$('#apiServiceStatus').combobox('select',"1");
 }
 $(document).ready(function(){

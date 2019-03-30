@@ -234,8 +234,9 @@ public class AppConstants {
 		public static String SHIPPING_PREPARATION = "4";
 		public static String SHIPPING = "5";
 		public static String SHIPPING_COMPLETED= "6";
-		public static String ORDER_PROCESSED= "7";
-		public static String ORDER_CANCELED = "8";
+		public static String ORDER_PROCESSED= "7"; /*주문 처리 완료*/ 
+		public static String ORDER_USER_CANCELED = "8";  /* 사용자 주문 취소*/
+		public static String ORDER_ADMIN_CANCELED = "9"; /* 관리자 주문 취소*/
 	}
 	
 	public static class GiftCardPublishType{

@@ -23,9 +23,9 @@ import com.returnp.admin.model.Affiliate;
 import com.returnp.admin.model.Agency;
 import com.returnp.admin.model.Branch;
 import com.returnp.admin.model.CompanyBankAccount;
+import com.returnp.admin.model.GiftCard;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.Policy;
-import com.returnp.admin.model.Product;
 import com.returnp.admin.model.Recommender;
 import com.returnp.admin.model.SaleManager;
 import com.returnp.admin.service.interfaces.AdminService;
@@ -105,7 +105,7 @@ public class AdminController extends ApplicationController{
 		model.addAttribute("saleOrganStatusList", CodeDefine.getOrganStatuses());
 		
 		if (viewReqName.equals("manageGiftCardIssue")) {
-			model.addAttribute("giftCards", this.serachService.selectProducts(new Product()));
+			model.addAttribute("giftCards", this.serachService.selectGiftCards(new GiftCard()));
 			model.addAttribute("giftCardTypes", CodeDefine.getGiftCardTypes());
 			model.addAttribute("giftCardOrderTypes", CodeDefine.getOrganTypes());
 			model.addAttribute("orderReasonTypes", CodeDefine.getOrderReasons());

@@ -14,8 +14,9 @@ function propGridValueForamtter(name, value){
 		case "orderReason": value = orderReasonFormatter(null,  {orderReason : value});break;
 		case "paymentStatus": value = paymentStatusFormatter(null,  {paymentStatus : value});break;
 		case "paymentType": value = paymentTypeFormatter(null,  {paymentType : value});break;
-		case "productType": value = giftCardTypeFormatter(null,  {productType : value});break;
-		case "productPrice": value = numberFormatter(value);break;
+		case "giftCardType": value = giftCardTypeFormatter(null,  {productType : value});break;
+		case "giftCardAmount": value = numberFormatter(value);break;
+		case "giftCardSalePrice": value = numberFormatter(value);break;
 		case "qty": value = numberFormatter(value);break;
 		case "orderTime": value = dateFormatter(value);break;
 		case "createTime": value = dateFormatter(value);break;
@@ -25,7 +26,7 @@ function propGridValueForamtter(name, value){
 }
 
 function giftCardTypeFormatter(value,row,index){
-	switch(row.productType){
+	switch(row.giftCardType){
 	case "1": result = '<span style = "color : #FF3232;font-weight : bold" >'+ "모바일"+ ' </span>';break;
 	case "2": result = '<span style = "color : #0A6EFF;font-weight : bold" >'+ "실물"+ ' </span>';break;
 	default :result = "-";break;
@@ -117,10 +118,11 @@ function orderColumnKorFormatter(value){
 		case "orderTime": result = '<span style = "font-weight : bold">주문 시간</span>';break;
 		case "createTime": result = '<span style = "font-weight : bold">등록 시간</span>';break;
 		case "updateTime": result = '<span style = "font-weight : bold">수정 시간</span>';break;
-		case "productNo": result = '<span style = "font-weight : bold">상품 번호</span>';break;
-		case "productName": result = '<span style = "font-weight : bold">상품 명</span>';break;
-		case "productType": result = '<span style = "font-weight : bold">상품 타입</span>';break;
-		case "productPrice": result = '<span style = "font-weight : bold">상품 가격</span>';break;
+		case "giftCardNo": result = '<span style = "font-weight : bold">상품 번호</span>';break;
+		case "giftCardName": result = '<span style = "font-weight : bold">상품 명</span>';break;
+		case "giftCardType": result = '<span style = "font-weight : bold">상품 타입</span>';break;
+		case "giftCardAmount": result = '<span style = "font-weight : bold">상품권 금액</span>';break;
+		case "giftCardSalePrice": result = '<span style = "font-weight : bold">상품 가격</span>';break;
 		case "qty": result = '<span style = "font-weight : bold">주문 수량</span>';break;
 		case "receiverName": result = '<span style = "font-weight : bold">수취자 이름</span>';break;
 		case "receiverPhone": result = '<span style = "font-weight : bold">수취자 핸드폰</span>';break;
@@ -138,6 +140,9 @@ function orderStatusFormatter(value,row,index){
 	case "4": result = '배송 준비';break;
 	case "5": result = '배송중';break;
 	case "6": result = '배송 완료';break;
+	case "7": result = '주문 처리 완료';break;
+	case "8": result = '주문 취소';break;
+	case "9": result = '관리자 주문 취소';break;
 	default :result = "-";break;
 	}
 	return result; 
@@ -187,7 +192,7 @@ function organTypeFormatter(value,row,index){
 	return result; 
 }
 function productStatusFormatter(value,row,index){
-	switch(row.productStatus){
+	switch(row.giftCardSaleStatus){
 	case "1": result = '<span style = "border-radius: 10px;background-color: green;padding: 5px;color : #ffffff;font-weight : bold">판매중</span>' ; break;
 	case "2": result =  '<span style = "border-radius: 10px;background-color: red;padding: 5px;color : #ffffff;font-weight : bold">판매중지</span>' ; break;
 	case "3": result = '<span style = "border-radius: 10px;background-color: #01A9DB;padding: 5px;color : #ffffff;font-weight : bold">재고 없음</span>' ; break;

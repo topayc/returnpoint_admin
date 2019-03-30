@@ -4,17 +4,18 @@
 			    {field:'orderNo',width:70,align:'center',title : '등록번호',hidden:true},
 			    {field:'orderNumber',width:100,align:'center',title : '주문 번호'},
 			    {field:'orderName',width:180,align:'center',title : '주문명', formatter : orderNameFormatter},
-			    {field:'orderType',width:90,align:'center',title : '주문 타입', formatter : orderTypeFormatter},
+			    {field:'orderType',width:90,align:'center',title : '주문자 타입', formatter : orderTypeFormatter},
 			    {field:'orderReason',width:90,align:'center',title : '발주 목적', formatter : orderReasonFormatter},
 			    {field:'bargainType',width:100,align:'center',title : '거래 타입', formatter : bargainTypeFormatter},
-			    {field:'ordererName',width:100,align:'center',title : '주문자 이름'},
+			    {field:'ordererName',width:100,align:'center',title : '주문자'},
 			    {field:'ordererId',width:100,align:'center',title : '주문자 코드'},
 			    {field:'ordererEmail',width:100,align:'center',title : '주문자 이메일'},
 			    {field:'ordererPhone',width:100,align:'center',title : '주문자 핸드폰'},
-			    {field:'productNo',width:100,align:'center',title : '상품 번호', hidden : true},
-			    {field:'productName',width:100,align:'center',title : '상품 이름', hidden : false},
-			    {field:'productType',width:100,align:'center',title : '상품 타입', hidden : false, formatter : giftCardTypeFormatter},
-			    {field:'productPrice',width:100,align:'center',title : '상품 가격', hidden : false, formatter : numberGreenFormatter},
+			    {field:'giftCardNo',width:100,align:'center',title : '상품권 번호', hidden : true},
+			    {field:'giftCardName',width:100,align:'center',title : '상품권 이름', hidden : false},
+			    {field:'giftCardType',width:100,align:'center',title : '상품권 타입', hidden : false, formatter : giftCardTypeFormatter},
+			    {field:'giftCardAmount',width:100,align:'center',title : '상품권 금액', hidden : false},
+			    {field:'giftCardSalePrice',width:100,align:'center',title : '상품권 가격', hidden : false, formatter : numberGreenFormatter},
 			    {field:'qty',width:100,align:'center',title : '주문 수량', hidden : false, formatter : numberFormatter},
 			    {field:'orderTotalPrice',width:160,align:'center',title : '총 가격', formatter : numberRedFormatter},
 			    {field:'paymentType',width:100,align:'center',title : '결제 수단', formatter : paymentTypeFormatter},
@@ -319,6 +320,33 @@ function initView(){
 				iconCls: row.orderStatus == "6" ? 'icon-ok' : "",
 		  		onclick: function(){
 		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "6"});
+		  		}
+		  	});
+		  	
+		  	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.orderStatus == "7" ? roundLabel("배송 완료", "#04B404") : "주문 처리 완료",
+				iconCls: row.orderStatus == "7" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "7"});
+		  		}
+		  	});
+		  	
+		 	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.orderStatus == "8" ? roundLabel("주문 취소", "#04B404") : "주문 취소",
+				iconCls: row.orderStatus == "8" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "8"});
+		  		}
+		  	});
+		 	
+		 	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.orderStatus == "9" ? roundLabel("관리자 주문 취소", "#04B404") : "관리자 주문 취소",
+				iconCls: row.orderStatus == "9" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "9"});
 		  		}
 		  	});
 		  	
@@ -654,7 +682,7 @@ function viewOrderDetail(){
 	$('#more_detail_view').dialog({
 		title: order.orderName,
 		width: 800,
-		height: "800",
+		height: "830",
 		closed: false,
 		cache: false,
 		modal: true,
