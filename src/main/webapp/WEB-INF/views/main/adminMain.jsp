@@ -249,6 +249,10 @@
                             				</a> 
                             			</li>
                             			
+                            			<li id = "manageGiftCardAffiliate"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageGiftCardAffiliate"  node = "5"  menu_deps= '2' >
+		                        		<span style = "font-weight : bold">가맹점 관리</span></a> 
+		                        		</li>
+		                        	
                             			<li id = "manageGiftCard" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCard"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 상품 관리</span>
@@ -615,6 +619,7 @@
     			"manageBranch",
     			"manageAgency",
     			"manageAffiliate",
+    			"manageGiftCardAffiliate",
     			"manageBoard",
     			"manageRecommender",
     			"manageSaleManager",

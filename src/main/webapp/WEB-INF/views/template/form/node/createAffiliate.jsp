@@ -39,6 +39,7 @@
 			</div>
 			
 			<div style="margin-bottom:8px"><input id ="affiliateComm"  name="affiliateComm" style="width:100%" data-options="label:'환급율) ',labelWidth :140,labelPosition : 'left'" value = "${policy.affiliateComm}"> </div>
+			<div style="margin-bottom:8px"><input id ="giftCardPayRefundRate"  name="giftCardPayRefundRate" style="width:100%" data-options="label:'상품권 수수료율) ',labelWidth :140,labelPosition : 'left'"  value = "0"> </div>
 			
 			<div style="margin-bottom:8px"> 
 				<select class = "easyui-combobox"  id ="category1No" name="category1No"   style="width:100%" data-options="label:'카테고리1',labelWidth :140,labelAlign:'left',labelPosition : 'left'"> 
@@ -229,6 +230,11 @@
 		$('#affiliateComm').textbox({
 			label : roundLabel("환급율"),
 			prompt: '환급 수수료'
+		});
+		
+		$('#giftCardPayRefundRate').textbox({
+			label : roundLabel("상품권 수수료율"),
+			prompt: '상품권 결제 수수료율'
 		});
 		
 		/* Tid  생성 버튼*/

@@ -4,50 +4,51 @@ import com.returnp.admin.dto.QueryCondition;
 import java.util.Date;
 
 public class Affiliate extends QueryCondition {
-    public Integer affiliateNo;
+    private Integer affiliateNo;
 
-    public String affiliateSerial;
+    private String affiliateSerial;
 
-    public Float affiliateComm;
+    private Float affiliateComm;
 
-    public String affiliateCode;
+    private Float giftCardPayRefundRate;
 
+    private String affiliateCode;
 
-    public String affiliateName;
+    private String affiliateType;
 
-    public String affiliateAddress;
+    private String affiliateName;
 
-    public String affiliateTel;
+    private String affiliateAddress;
 
-    public String affiliatePhone;
+    private String affiliateTel;
 
-    public Integer memberNo;
+    private String affiliatePhone;
 
-    public Integer agencyNo;
+    private Integer memberNo;
 
-    public Integer recommenderNo;
+    private Integer agencyNo;
 
-    public String affiliateStatus;
+    private Integer recommenderNo;
 
-    public String affiliateType;
+    private String affiliateStatus;
 
-    public String regType;
+    private String regType;
 
-    public Integer regAdminNo;
+    private Integer regAdminNo;
 
-    public String affiliateEmail;
+    private String affiliateEmail;
 
-    public String greenPointAccStatus;
+    private String greenPointAccStatus;
 
-    public String redPointAccStatus;
+    private String redPointAccStatus;
 
-    public String greenPointUseStatus;
+    private String greenPointUseStatus;
 
-    public String redPointUseStatus;
+    private String redPointUseStatus;
 
-    public Date createTime;
+    private Date createTime;
 
-    public Date updateTime;
+    private Date updateTime;
 
     public Integer getAffiliateNo() {
         return affiliateNo;
@@ -73,12 +74,28 @@ public class Affiliate extends QueryCondition {
         this.affiliateComm = affiliateComm;
     }
 
+    public Float getGiftCardPayRefundRate() {
+        return giftCardPayRefundRate;
+    }
+
+    public void setGiftCardPayRefundRate(Float giftCardPayRefundRate) {
+        this.giftCardPayRefundRate = giftCardPayRefundRate;
+    }
+
     public String getAffiliateCode() {
         return affiliateCode;
     }
 
     public void setAffiliateCode(String affiliateCode) {
         this.affiliateCode = affiliateCode == null ? null : affiliateCode.trim();
+    }
+
+    public String getAffiliateType() {
+        return affiliateType;
+    }
+
+    public void setAffiliateType(String affiliateType) {
+        this.affiliateType = affiliateType == null ? null : affiliateType.trim();
     }
 
     public String getAffiliateName() {
@@ -143,14 +160,6 @@ public class Affiliate extends QueryCondition {
 
     public void setAffiliateStatus(String affiliateStatus) {
         this.affiliateStatus = affiliateStatus == null ? null : affiliateStatus.trim();
-    }
-
-    public String getAffiliateType() {
-        return affiliateType;
-    }
-
-    public void setAffiliateType(String affiliateType) {
-        this.affiliateType = affiliateType == null ? null : affiliateType.trim();
     }
 
     public String getRegType() {

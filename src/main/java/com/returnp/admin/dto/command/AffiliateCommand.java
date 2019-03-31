@@ -8,6 +8,7 @@ public class AffiliateCommand  extends QueryCondition{
     public Integer affiliateNo;
     public String affiliateSerial;
     public Float affiliateComm;
+    public Float giftCardPayRefundRate;
     public String affiliateCode;
     public String affiliateName;
     public String affiliateAddress;
@@ -49,6 +50,12 @@ public class AffiliateCommand  extends QueryCondition{
     public String lng;
     public String agencyName;
     
+	public Float getGiftCardPayRefundRate() {
+		return giftCardPayRefundRate;
+	}
+	public void setGiftCardPayRefundRate(Float giftCardPayRefundRate) {
+		this.giftCardPayRefundRate = giftCardPayRefundRate;
+	}
 	public String getAgencyName() {
 		return agencyName;
 	}

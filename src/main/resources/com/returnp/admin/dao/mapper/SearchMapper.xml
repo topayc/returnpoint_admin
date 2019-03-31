@@ -989,6 +989,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="affiliatePhone" jdbcType="VARCHAR" property="affiliatePhone" />
     <result column="affiliateType" jdbcType="VARCHAR" property="affiliateType" />
     <result column="affiliateComm" jdbcType="FLOAT" property="affiliateComm" />
+     <result column="giftCardPayRefundRate" jdbcType="REAL" property="giftCardPayRefundRate" />
     <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
     <result column="agencyNo" jdbcType="INTEGER" property="agencyNo" />
     <result column="recommenderNo" jdbcType="INTEGER" property="recommenderNo" />
@@ -1014,6 +1015,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="affiliatePhone" jdbcType="VARCHAR" property="affiliatePhone" />
     <result column="affiliateType" jdbcType="VARCHAR" property="affiliateType" />
      <result column="affiliateComm" jdbcType="FLOAT" property="affiliateComm" />
+      <result column="giftCardPayRefundRate" jdbcType="REAL" property="giftCardPayRefundRate" />
     <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
     <result column="agencyNo" jdbcType="INTEGER" property="agencyNo" />
     <result column="recommenderNo" jdbcType="INTEGER" property="recommenderNo" />
@@ -1052,7 +1054,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
   <sql id="Affiliate_Column_List">
     affiliateNo, affiliateSerial, affiliateCode, affiliateName, affiliateAddress, affiliateTel, 
-    affiliatePhone, affiliateType, affiliateComm, memberNo, agencyNo, recommenderNo, affiliateStatus, regType, regAdminNo, 
+    affiliatePhone, affiliateType, affiliateComm, giftCardPayRefundRate, memberNo, agencyNo, recommenderNo, affiliateStatus, regType, regAdminNo, 
     affiliateEmail, greenPointAccStatus, redPointAccStatus, greenPointUseStatus, redPointUseStatus, 
     createTime, updateTime
   </sql>
@@ -1067,6 +1069,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     AF.affiliatePhone, 
     AF.affiliateType,
     AF.affiliateComm,
+    AF.giftCardPayRefundRate,
     AF.memberNo, 
     AF.agencyNo, 
     AF.recommenderNo, 
@@ -1188,6 +1191,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
 		<include refid = "affiliateSearchWhereStatement"/>
 		<include refid = "commonStatement"/>
   </select> -->
+  
   
   <select id="findAffiliateCommands" parameterType="com.returnp.admin.dto.command.AffiliateCommand"  resultMap="AffiliateCommandResultMap" >
     select 

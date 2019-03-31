@@ -107,8 +107,6 @@ function initView(){
 			var param = makeSearchParam();
 			console.log("쿼리 데이타");
 			console.log(param);
-			//console.log("검색 쿼리 데이타");
-			//console.log(param);
 			
 			returnp.api.call("getNodes", param, function(res){
 				
@@ -317,7 +315,6 @@ function loadAffiliateCreateForm(){
 					    shadow : true,
 					    collapsible : false,
 					    minimizable : false,
-					    resizable : true,
 					    cls : "c2",
 					    maximizable: false,
 					    title : "&nbsp; " + data.title,

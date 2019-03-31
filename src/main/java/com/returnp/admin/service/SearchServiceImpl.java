@@ -107,6 +107,7 @@ public class SearchServiceImpl implements SearchService{
 		return this.searchMapper.findAffiliates(affiliate);
 	}
 
+
 	@Override
 	public ArrayList<SaleManager> findSaleManagers(SaleManager saleManager) {
 		return this.searchMapper.findSaleManagers(saleManager);
