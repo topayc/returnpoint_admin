@@ -248,6 +248,7 @@ public class AdminController extends ApplicationController{
 	@RequestMapping(value =  AdminController.AccessPoint.SIGN_IN, method = RequestMethod.POST)
 	public String signIn( HttpServletRequest request, HttpSession httpSession, Model model) {
 		String error = (String) request.getAttribute("errorMessage");
+		//System.out.println("signIn");
 		if(!error.equals(null)) {
 			model.addAttribute("message", error);
 			return RequestForward.SIGN_IN_VIEW;
