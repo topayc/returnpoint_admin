@@ -13,14 +13,14 @@
 			    {field:'ordererPhone',width:100,align:'center',title : '주문자 핸드폰'},
 			    {field:'giftCardNo',width:100,align:'center',title : '상품권 번호', hidden : true},
 			    {field:'giftCardName',width:100,align:'center',title : '상품권 이름', hidden : false},
-			    {field:'giftCardType',width:100,align:'center',title : '상품권 타입', hidden : true, formatter : giftCardTypeFormatter},
+			    {field:'giftCardType',width:100,align:'center',title : '상품권 타입', formatter : giftCardTypeFormatter2},
 			    {field:'giftCardAmount',width:100,align:'center',title : '상품권 금액', hidden : true},
 			    {field:'giftCardSalePrice',width:100,align:'center',title : '상품권 가격', hidden : false, formatter : numberGreenFormatter},
 			    {field:'qty',width:100,align:'center',title : '주문 수량', hidden : false, formatter : numberFormatter},
 			    {field:'orderTotalPrice',width:160,align:'center',title : '총 가격', formatter : numberRedFormatter},
 			    {field:'paymentType',width:100,align:'center',title : '결제 수단', formatter : paymentTypeFormatter},
-			    {field:'paymentStatus',width:170,align:'center',title : '결제 상태' , formatter : paymentStatusFormatter},
-			    {field:'orderStatus',width:100,align:'center',title : '주문 상태', formatter : orderStatusFormatter},
+			    {field:'paymentStatus',width:150,align:'center',title : '결제 상태' , formatter : paymentStatusFormatter},
+			    {field:'orderStatus',width:130,align:'center',title : '주문 상태', formatter : orderStatusFormatter},
 			    {field:'issueStatus',width:130,align:'center',title : '발행 상태', formatter : issueStatusFormatter},
 			    {field:'noname',width:80,align:'center',title : '발행' , formatter : issueActionFormatter, hidden: false},
 			    {field:'deliveryNumber',width:100,align:'center',title : '송장 번호', hidden : true},
@@ -179,6 +179,7 @@ function initView(){
 		rownumbers : true,
 		pagination: true,
 		pagePosition : "top",
+		pageSize : returnpCommon.appInfo.gridPageSize,
 		onSelect : function(){},
 		onLoadSuccess : function(){
 			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);
@@ -614,17 +615,36 @@ function stopGiftCardOrder(param){
 }
 
 function cancelGiftCardOrder(param){
+	var selectedOrder = $('#gift_card_order_list').datagrid('getSelected');
+	var confirmMessage = "주문명 - " + selectedOrder.orderName + " 의 주문에 대한 상품권 발행을 취소하시겠습니까?"
+	$.messager.confirm('상품권 발행 취소',confirmMessage, function(r){
+        if (r){
+        	var param = {
+        			giftCardOrderNo : selectedOrder.orderNo
+        	}
+        	returnp.api.call("invalidateGiftCardIssue", param, function(res){
+        		if (res.resultCode  == "100") {
+        			$.messager.alert('알림', res.message);
+        			realodPage();
+        		}else {
+        			//console.log("[오류]");
+        			//console.log(res);
+        			$.messager.alert('오류 발생', res.message);
+        		}
+        	});
+        }
+    });
 }
 
 function issueGiftCardOrder(param){
 	var selectedOrder = $('#gift_card_order_list').datagrid('getSelected');
-	var confirmMessage = "주문명 - " + selectedOrder.orderName + " 의 주문에 대한 상품권 발생을 실행하시겠습니까?"
+	var confirmMessage = "주문명 - " + selectedOrder.orderName + " 의 주문에 대한 상품권 발행을 실행하시겠습니까?"
 	$.messager.confirm('상품권 발행',confirmMessage, function(r){
         if (r){
         	var param = {
-        			orderNo : selectedOrder.orderNo
+        			giftCardOrderNo : selectedOrder.orderNo
         	}
-        	returnp.api.call("issueGiftCard", param, function(res){
+        	returnp.api.call("createBatchGiftCardIssue", param, function(res){
         		if (res.resultCode  == "100") {
         			$.messager.alert('알림', res.message);
         			realodPage();

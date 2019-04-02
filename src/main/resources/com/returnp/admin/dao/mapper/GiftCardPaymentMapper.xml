@@ -15,21 +15,25 @@
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
+  
   <sql id="Base_Column_List">
     giftCardPaymentNo, affiliateNo, giftCardIssueNo, giftCardPaymentAmount, refundRate, 
     refundAmount, refundStatus, bankName, backAccount, bankAccountOwner, createTime, 
     updateTime
   </sql>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from gift_card_payment
     where giftCardPaymentNo = #{giftCardPaymentNo,jdbcType=INTEGER}
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from gift_card_payment
     where giftCardPaymentNo = #{giftCardPaymentNo,jdbcType=INTEGER}
   </delete>
+  
   <insert id="insert" parameterType="com.returnp.admin.model.GiftCardPayment">
     insert into gift_card_payment (giftCardPaymentNo, affiliateNo, giftCardIssueNo, 
       giftCardPaymentAmount, refundRate, refundAmount, 
@@ -41,10 +45,11 @@
       #{refundStatus,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{backAccount,jdbcType=VARCHAR}, 
       #{bankAccountOwner,jdbcType=VARCHAR}, NOW(), NOW()
       )
-         <selectKey keyProperty="branchNo" resultType="java.lang.Integer" order ="AFTER">
+     <selectKey keyProperty="branchNo" resultType="java.lang.Integer" order ="AFTER">
 		    SELECT LAST_INSERT_ID()
 	 </selectKey>	
   </insert>
+  
   <insert id="insertSelective" parameterType="com.returnp.admin.model.GiftCardPayment">
     insert into gift_card_payment
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -124,6 +129,7 @@
       </if>
     </trim>
   </insert>
+  
   <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.GiftCardPayment">
     update gift_card_payment
     <set>
@@ -163,6 +169,7 @@
     </set>
     where giftCardPaymentNo = #{giftCardPaymentNo,jdbcType=INTEGER}
   </update>
+  
   <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.GiftCardPayment">
     update gift_card_payment
     set affiliateNo = #{affiliateNo,jdbcType=INTEGER},
@@ -178,4 +185,5 @@
       updateTime = NOW()
     where giftCardPaymentNo = #{giftCardPaymentNo,jdbcType=INTEGER}
   </update>
+
 </mapper>

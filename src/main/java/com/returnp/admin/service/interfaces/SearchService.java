@@ -9,8 +9,10 @@ import com.returnp.admin.dto.command.AffiliateCommand;
 import com.returnp.admin.dto.command.AgencyCommand;
 import com.returnp.admin.dto.command.BranchCommand;
 import com.returnp.admin.dto.command.CategoryCommand;
+import com.returnp.admin.dto.command.GiftCardIssueCommand;
 import com.returnp.admin.dto.command.GiftCardOrderCommand;
 import com.returnp.admin.dto.command.GiftCardOrderItemCommand;
+import com.returnp.admin.dto.command.GiftCardPaymentCommand;
 import com.returnp.admin.dto.command.GiftCardSalesOrganCommand;
 import com.returnp.admin.dto.command.GreenPointCommand;
 import com.returnp.admin.dto.command.MemberBankAccountCommand;
@@ -157,6 +159,10 @@ public interface SearchService {
 	public ArrayList<GiftCardOrderCommand> selectGiftCardOrderCommands(GiftCardOrderCommand record);
 
 	public ArrayList<GiftCardOrderItemCommand> selectGiftCardOrderItemCommands(GiftCardOrderItemCommand record);
+	
+	public ArrayList<GiftCardIssueCommand> selectGiftCardIssueCommands(GiftCardIssueCommand record);
+
+	public ArrayList<GiftCardPaymentCommand> selectGiftCardPaymentCommands(GiftCardPaymentCommand record);
 
 	
 }

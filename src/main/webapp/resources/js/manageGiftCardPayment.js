@@ -1,52 +1,23 @@
 		var columns = [[
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-			    {field:'orderNo',width:70,align:'center',title : '등록번호',hidden:true},
-			    {field:'orderNumber',width:100,align:'center',title : '주문 번호'},
-			    {field:'orderName',width:180,align:'center',title : '주문명', formatter : orderNameFormatter},
-			    {field:'orderType',width:90,align:'center',title : '주문자 타입', formatter : orderTypeFormatter},
-			    {field:'orderReason',width:90,align:'center',title : '발주 목적', formatter : orderReasonFormatter},
-			    {field:'bargainType',width:100,align:'center',title : '거래 타입', formatter : bargainTypeFormatter},
-			    {field:'ordererName',width:100,align:'center',title : '주문자'},
-			    {field:'ordererId',width:100,align:'center',title : '주문자 코드'},
-			    {field:'ordererEmail',width:100,align:'center',title : '주문자 이메일'},
-			    {field:'ordererPhone',width:100,align:'center',title : '주문자 핸드폰'},
-			    {field:'giftCardNo',width:100,align:'center',title : '상품권 번호', hidden : true},
-			    {field:'giftCardName',width:100,align:'center',title : '상품권 이름', hidden : false},
-			    {field:'giftCardType',width:100,align:'center',title : '상품권 타입', formatter : giftCardTypeFormatter2},
-			    {field:'giftCardAmount',width:100,align:'center',title : '상품권 금액', hidden : true},
-			    {field:'giftCardSalePrice',width:100,align:'center',title : '상품권 가격', hidden : false, formatter : numberGreenFormatter},
-			    {field:'qty',width:100,align:'center',title : '주문 수량', hidden : false, formatter : numberFormatter},
-			    {field:'orderTotalPrice',width:160,align:'center',title : '총 가격', formatter : numberRedFormatter},
-			    {field:'paymentType',width:100,align:'center',title : '결제 수단', formatter : paymentTypeFormatter},
-			    {field:'paymentStatus',width:150,align:'center',title : '결제 상태' , formatter : paymentStatusFormatter},
-			    {field:'orderStatus',width:130,align:'center',title : '주문 상태', formatter : orderStatusFormatter},
-			    {field:'issueStatus',width:130,align:'center',title : '발행 상태', formatter : issueStatusFormatter},
-			    {field:'noname',width:80,align:'center',title : '발행' , formatter : issueActionFormatter, hidden: false},
-			    {field:'deliveryNumber',width:100,align:'center',title : '송장 번호', hidden : true},
-			    {field:'receiverName',width:100,align:'center',title : '수취자 이름',hidden : false},
-			    {field:'receiverPhone',width:100,align:'center',title : '수취자 핸드폰',hidden : true},
-			    {field:'receiverEmail',width:100,align:'center',title : '수취자 이메일',hidden : true},
-			    {field:'deliveryAddress',width:100,align:'center',title : '배송지 주소',hidden : true},
-			    {field:'deliveryMessage',width:100,align:'center',title : '배송 메세지', hidden : true},
-			    {field:'orderTime',width:200,align:'center',title : '주문일',formatter : dateFormatter},
-			    {field:'createTime',width:100,align:'center',title : '등록일',hidden : true,formatter : dateFormatter},
-			    {field:'updateTime',width:100,align:'center',title : '수정일', hidden : true,formatter : dateFormatter},
+			    {field:'giftCardPaymentNo',width:100,align:'center',title : '등록번호',hidden:true},
+			    {field:'affiliateNo',width:100,align:'center',title : '제휴점 번호'},
+			    {field:'affiliateName',width:100,align:'center',title : '제휴점 명'},
+			    {field:'affiliateEmail',width:100,align:'center',title : '제휴점 이메일'},
+			    {field:'affiliatePhone',width:100,align:'center',title : '제휴점 핸드폰'},
+			    {field:'giftCardIssueNo',width:100,align:'center',title : '발행 상품권 번호'},
+			    {field:'pinNumber',width:100,align:'center',title : '핀 번호'},
+			    {field:'giftCardPaymentAmount',width:100,align:'center',title : '상품권 금액', formatter : orderTypeFormatter},
+			    {field:'refundRate',width:100,align:'center',title : '결제 수수료율', formatter : orderReasonFormatter},
+			    {field:'refundAmount',width:100,align:'center',title : '실 결제 금액', formatter : bargainTypeFormatter},
+			    {field:'refundStatus',width:100,align:'center',title : '결제 상태'},
+			    {field:'bankName',width:100,align:'center',title : '결제 은행'},
+			    {field:'backAccount',width:100,align:'center',title : '결제 계좌'},
+			    {field:'bankAccountOwner',width:100,align:'center',title : '계좌주'},
+			    {field:'createTime',width:100,align:'center',title : '등록일'},
+			    {field:'updateTime',width:100,align:'center',title : '수정일', hidden : true},
 			    ]];
-		var orderListItemColumns= [[
-	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
-			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-			    {field:'orderItemNo',width:50,align:'center',title : '등록번호',hidden:false},
-			    {field:'orderNumber',width:70,align:'center',title : '주문 번호'},
-			    {field:'productNo',width:50,align:'center',title : '상품 번호',},
-			    {field:'productName',width:150,align:'center',title : '상품명'},
-			    {field:'productPrice',width:90,align:'center',title : '상품 가격',formatter : numberFormatter},
-			    {field:'qty',width:100,align:'center',title : '수량', formatter : addBoldFomatter},
-			    {field:'totalPrice',width:100,align:'center',title : '총 금액',formatter : numberRedFormatter},
-			    {field:'createTime',width:100,align:'center',title : '등록일',formatter : dateFormatter},
-			    {field:'updateTime',width:100,align:'center',title : '수정일',formatter : dateFormatter}
-			    ]];
-		
 initView();
 
 /**
@@ -130,26 +101,7 @@ function initView(){
 	/* 검색 버튼  초기화*/
 	$('#search_btn').linkbutton({
 		onClick : function(){
-			//$.messager.progress();
-			var param = makeSearchParam();
-			/* 본사 발주 상품 검색*/
-			param.orderType = "10";
-			//console.log("검색 쿼리 데이타");
-			//console.log(param);
-			
-			returnp.api.call("selectGiftCardOrders", param, function(res){
-				console.log(res);
-				if (res.resultCode == "100") {
-					setListColumnHeader(param.searchNodeType);
-					$('#gift_card_order_list').datagrid({
-						data : res,
-						title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
-					});
-					setListPager();
-				}else {
-					$.messager.alert(res.message, res.data);
-				}
-			});
+			realodPage();
 		},
 		iconCls:'icon-search'
 	});
@@ -167,7 +119,7 @@ function initView(){
 	});
 	
 	/* 노드 데이타그리드   초기화*/
-	$('#gift_card_order_list').datagrid({
+	$('#gift_card_payment_list').datagrid({
 		title : '[검색 결과]',
 		singleSelect:true,
 		collapsible:false,
@@ -179,7 +131,6 @@ function initView(){
 		rownumbers : true,
 		pagination: true,
 		pagePosition : "top",
-		pageSize : returnpCommon.appInfo.gridPageSize,
 		onSelect : function(){},
 		onLoadSuccess : function(){
 			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);
@@ -206,7 +157,7 @@ function initView(){
 		  	});
 		  	
 		  	var menuArr = [];
-			var selectedOrder = $('#gift_card_order_list').datagrid('getSelected');
+			var selectedOrder = $('#gift_card_payment_list').datagrid('getSelected');
 		  	
 		  	cmenu.menu("appendItem", {
 		  		id : "paymentStatusItem",
@@ -372,7 +323,7 @@ function initView(){
 		  			text:  "상품권 발행 시작",
 		  			iconCls: 'icon-reload',
 		  			onclick: function(){
-		  				issueGiftCardOrder({orderNo : selectedOrder.orderNo});
+		  				createGiftCardPayment({orderNo : selectedOrder.orderNo});
 		  			}
 		  		});
 		  	}
@@ -520,14 +471,14 @@ function initView(){
 }
 
 function setListPager(){
-	var pager = $('#gift_card_order_list').datagrid().datagrid('getPager');
+	var pager = $('#gift_card_payment_list').datagrid().datagrid('getPager');
 	pager.pagination({
 		displayMsg : ' {from} to {to} of {total}',
 		buttons:[/*{
             iconCls:'icon-add',
             handler:function(){
-            	$('#gift_card_order_list').datagrid('unselectAll');
-            	$('#gift_card_order_list').datagrid('uncheckAll');
+            	$('#gift_card_payment_list').datagrid('unselectAll');
+            	$('#gift_card_payment_list').datagrid('uncheckAll');
             	loadProductCreateForm();
             }
         }*//*,{
@@ -543,7 +494,7 @@ function setListPager(){
         },{
             iconCls:'icon-more',
             handler:function(){
-            	var node = $('#gift_card_order_list').datagrid('getSelected');
+            	var node = $('#gift_card_payment_list').datagrid('getSelected');
             	if (!node) {
             		 $.messager.alert('알림','자세히 보실 항목을  선택해주세요');
             		 return;
@@ -552,7 +503,7 @@ function setListPager(){
         }*/],
         layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
         onSelectPage:function(page,rows){        	
-        	var opts = $('#gift_card_order_list').datagrid('options');
+        	var opts = $('#gift_card_payment_list').datagrid('options');
         	opts.pageSize=rows;
         	opts.pageNumber = page;
         	realodPage();
@@ -565,19 +516,8 @@ function setListPager(){
  * @param param
  * @returns
  */
-function setOrderListColumnHeader(nodeType){
-	$('#order_item_list').datagrid({
-		columns : orderListItemColumns
-	});
-}
-
-/**
- * 노드 타입에 따라 리스트 그리드 컬럼 헤더 변경
- * @param param
- * @returns
- */
 function setListColumnHeader(nodeType){
-	$('#gift_card_order_list').datagrid({
+	$('#gift_card_payment_list').datagrid({
 		columns : columns
 	});
 }
@@ -590,8 +530,8 @@ function setListColumnHeader(nodeType){
 function makeSearchParam(){
 	
 	var param = $('#searchForm').serializeObject();
-	var opts = $('#gift_card_order_list').datagrid('options');
-	var total = $('#gift_card_order_list').datagrid('getData').total;
+	var opts = $('#gift_card_payment_list').datagrid('options');
+	var total = $('#gift_card_payment_list').datagrid('getData').total;
 	
 	$.extend(param, {
 		pagination : opts.pagination,
@@ -604,75 +544,79 @@ function makeSearchParam(){
 	return param;
 }
 
-function statusFormatter(value,row,index){
-	var status = row.memberStatus;
-	return '&nbsp;<span >'+ status + '</span>';
+
+function makeFormData(){
+	var param = $("#createGiftCardPaymentForm").serializeObject();
+	return param;
 }
 
-
-
-function stopGiftCardOrder(param){
-}
-
-function cancelGiftCardOrder(param){
-	var selectedOrder = $('#gift_card_order_list').datagrid('getSelected');
-	var confirmMessage = "주문명 - " + selectedOrder.orderName + " 의 주문에 대한 상품권 발행을 취소하시겠습니까?"
-	$.messager.confirm('상품권 발행 취소',confirmMessage, function(r){
-        if (r){
-        	var param = {
-        			giftCardOrderNo : selectedOrder.orderNo
-        	}
-        	returnp.api.call("invalidateGiftCardIssue", param, function(res){
-        		if (res.resultCode  == "100") {
-        			$.messager.alert('알림', res.message);
-        			realodPage();
-        		}else {
-        			//console.log("[오류]");
-        			//console.log(res);
-        			$.messager.alert('오류 발생', res.message);
-        		}
-        	});
-        }
-    });
-}
-
-function issueGiftCardOrder(param){
-	var selectedOrder = $('#gift_card_order_list').datagrid('getSelected');
-	var confirmMessage = "주문명 - " + selectedOrder.orderName + " 의 주문에 대한 상품권 발행을 실행하시겠습니까?"
-	$.messager.confirm('상품권 발행',confirmMessage, function(r){
-        if (r){
-        	var param = {
-        			giftCardOrderNo : selectedOrder.orderNo
-        	}
-        	returnp.api.call("createBatchGiftCardIssue", param, function(res){
-        		if (res.resultCode  == "100") {
-        			$.messager.alert('알림', res.message);
-        			realodPage();
-        		}else {
-        			//console.log("[오류]");
-        			//console.log(res);
-        			$.messager.alert('오류 발생', res.message);
-        		}
-        	});
-        }
-    });
+function createGiftCardPayment(param){
+	var param =makeFormData();
+	var valid = true;
+	var fieldName = '';
+	for (var prop in param){
+		if (param.hasOwnProperty(prop)) {
+			if (param[prop] == '') {
+				valid = false;
+				fieldName = prop;
+				break;
+			}
+		}
+	}
+	var fieldKorName = '';
+	if (!valid) {
+		fieldKorName = $("#" +fieldName).prev().children("span").html();
+		$.messager.alert('알림', "<strong><span style = 'color : #FF3232'> " + fieldKorName + "</span></strong> 항목이 입력되지 않았습니다");
+		return false;
+	}else {
+		returnp.api.call("createGiftCardPayment", param, function(res){
+			//console.log(res);
+			if (res.resultCode  == "100") {
+				$.messager.alert('알림', res.message);
+				$(data.targetElem).dialog('close');
+				$(data.targetElem).removeAttr('style');
+				realodPage();
+			}else {
+				$.messager.alert('오류 발생', res.message);
+			}
+		});
+	}
+		
 }
 
 function updateGiftCardOrder(param){
-	returnp.api.call("updateGiftCardOrder", param, function(res){
-		if (res.resultCode  == "100") {
-			$.messager.alert('알림', res.message);
-			realodPage();
-		}else {
-			//console.log("[오류]");
-			//console.log(res);
-			$.messager.alert('오류 발생', res.message);
+	var param =makeFormData();
+	var valid = true;
+	var fieldName = '';
+	for (var prop in param){
+		if (param.hasOwnProperty(prop)) {
+			if (param[prop] == '') {
+				valid = false;
+				fieldName = prop;
+				break;
+			}
 		}
-	});
+	}
+	var fieldKorName = '';
+	
+	if (!valid) {
+		fieldKorName = $("#" +fieldName).prev().children("span").html();
+		$.messager.alert('알림', "<strong><span style = 'color : #FF3232'> " + fieldKorName + "</span></strong> 항목이 입력되지 않았습니다");
+		return false;
+	}else {
+		returnp.api.call("updateGiftCardPayment", param, function(res){
+			if (res.resultCode  == "100") {
+				$.messager.alert('알림', res.message);
+				realodPage();
+			}else {
+				$.messager.alert('오류 발생', res.message);
+			}
+		});
+	}
 }
 
 function removeGiftCardOrder(){
-	var node = $('#gift_card_order_list').datagrid('getSelected');
+	var node = $('#gift_card_payment_list').datagrid('getSelected');
 	if (!node) {
 		 $.messager.alert('알림','삭제하실 항목을 선택해주세요');
 		 return;
@@ -681,15 +625,13 @@ function removeGiftCardOrder(){
 	$.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 해당 내용을 정말로 삭제하시겠습니까?', function(r){
         if (r){
         	var param = {
-        			productNo : node.productNo
+        			giftCardPaymentNo : node.giftCardPaymentNo
         	}
-        	returnp.api.call("deleteProduct", param, function(res){
+        	returnp.api.call("deleteGiftCardPayment", param, function(res){
         		if (res.resultCode  == "100") {
         			$.messager.alert('알림', res.message);
         			realodPage();
         		}else {
-        			//console.log("[오류]");
-        			//console.log(res);
         			$.messager.alert('오류 발생', res.message);
         		}
         	});
@@ -698,7 +640,7 @@ function removeGiftCardOrder(){
 }
 
 function viewOrderDetail(){
-	var order = $('#gift_card_order_list').datagrid('getSelected');
+	var order = $('#gift_card_payment_list').datagrid('getSelected');
 	$('#more_detail_view').dialog({
 		title: order.orderName,
 		width: 800,
@@ -707,7 +649,7 @@ function viewOrderDetail(){
 		cache: false,
 		modal: true,
 		onOpen : function(){
-			var order = $('#gift_card_order_list').datagrid('getSelected');
+			var order = $('#gift_card_payment_list').datagrid('getSelected');
 			var propertyOrder = { total : Object.keys(order).length , rows:[] };
 			var exitArr = ['pagination', 'pageSize', 'page', 'total', 'order','offset', 'productNo']
 			//var columns = [[]];
@@ -796,7 +738,20 @@ function viewOrderDetail(){
 }
 
 function realodPage(){
-	$('#search_btn').click();
+	var param = makeSearchParam();
+	returnp.api.call("selectGiftCardPayment", param, function(res){
+		console.log(res);
+		if (res.resultCode == "100") {
+			setListColumnHeader(param.searchNodeType);
+			$('#gift_card_payment_list').datagrid({
+				data : res,
+				title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
+			});
+			setListPager();
+		}else {
+			$.messager.alert(res.message, res.data);
+		}
+	});
 }
 
 $(document).ready(function(){

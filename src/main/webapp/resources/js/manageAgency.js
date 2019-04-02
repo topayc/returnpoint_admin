@@ -147,6 +147,7 @@ function initView(){
 		rownumbers : true,
 		pagination: true,
 		pagePosition : "top",
+		pageSize : returnpCommon.appInfo.gridPageSize,
 		onSelect : function(){},
 		onLoadSuccess : function(){
 			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);

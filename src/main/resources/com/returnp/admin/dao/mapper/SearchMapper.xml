@@ -3322,6 +3322,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
   <select id="selectGiftCardOrders" parameterType="com.returnp.admin.model.GiftCardOrder" resultMap="GiftCardOrderResultMap">
     select 
+     sql_calc_found_rows 
     <include refid="GiftCardOrder_Column_List" />
     from gift_card_order
     where 
@@ -3332,6 +3333,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
     <select id="selectGiftCardOrderCommands" parameterType="com.returnp.admin.dto.command.GiftCardOrderCommand" resultMap="GiftCardOrderCommandResultMap">
     select 
+     sql_calc_found_rows 
     <include refid="GiftCardOrderCommand_Column_List" />
     from gift_card_order
     where 
@@ -3376,6 +3378,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
       <select id="selectGiftCardOrderItemCommands" parameterType="com.returnp.admin.dto.command.GiftCardOrderItemCommand" resultMap="GiftCardOrderItemCommandResultMap">
     select 
+     sql_calc_found_rows 
     <include refid="GiftCardOrderItemCommand_Column_List" />
     from gift_card_order_item as A
     inner join gift_card_order as B on  (A.orderNumber = B.orderNumber )
@@ -3392,12 +3395,17 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
  
    <resultMap id="GiftCardIssueCommandResultMap" type="com.returnp.admin.dto.command.GiftCardIssueCommand">
  <id column="giftCardIssueNo" jdbcType="INTEGER" property="giftCardIssueNo" />
+    <id column="pinNumber" jdbcType="VARCHAR" property="pinNumber" />
     <result column="giftCardOrderNo" jdbcType="INTEGER" property="giftCardOrderNo" />
-    <result column="giftCardNo" jdbcType="VARCHAR" property="giftCardNo" />
-    <result column="pinNumber" jdbcType="VARCHAR" property="pinNumber" />
+    <result column="giftCardNo" jdbcType="INTEGER" property="giftCardNo" />
+    <result column="orderNumber" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="orderName" jdbcType="VARCHAR" property="orderName" />
+    <result column="giftCardName" jdbcType="VARCHAR" property="giftCardName" />
+    <result column="ordererName" jdbcType="VARCHAR" property="ordererName" />
+    <result column="ordererPhone" jdbcType="VARCHAR" property="ordererPhone" />
     <result column="accableStatus" jdbcType="VARCHAR" property="accableStatus" />
     <result column="payableStatus" jdbcType="VARCHAR" property="payableStatus" />
-    <result column="giftCardStaus" jdbcType="VARCHAR" property="giftCardStaus" />
+    <result column="giftCardStatus" jdbcType="VARCHAR" property="giftCardStatus" />
     <result column="giftCardType" jdbcType="VARCHAR" property="giftCardType" />
     <result column="giftCardAmount" jdbcType="INTEGER" property="giftCardAmount" />
     <result column="giftCardSalePrice" jdbcType="INTEGER" property="giftCardSalePrice" />
@@ -3407,35 +3415,63 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="payQrScanner" jdbcType="VARCHAR" property="payQrScanner" />
     <result column="accQrScanTime" jdbcType="TIMESTAMP" property="accQrScanTime" />
     <result column="payQrScanTime" jdbcType="TIMESTAMP" property="payQrScanTime" />
+    <result column="issueTime" jdbcType="TIMESTAMP" property="issueTime" />
+    <result column="expirationTime" jdbcType="TIMESTAMP" property="expirationTime" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   
     <sql id="GiftCardIssueCommand_Column_List">
-   giftCardIssueNo, giftCardOrderNo, giftCardNo, pinNumber, accableStatus, payableStatus, 
-    giftCardStaus, giftCardType, giftCardAmount, giftCardSalePrice, accQrData, payQrData, 
-    accQrScanner, payQrScanner, accQrScanTime, payQrScanTime, createTime, updateTime
+   A.giftCardIssueNo, 
+   A.pinNumber, 
+   A.giftCardOrderNo, 
+   A.giftCardNo, 
+   A.accableStatus, 
+   A.payableStatus, 
+   A.giftCardStatus, 
+   A.giftCardType, 
+   A.giftCardAmount, 
+   A.giftCardSalePrice, 
+   A.accQrData, 
+   A.payQrData, 
+   A.accQrScanner, 
+   A.payQrScanner, 
+   A.accQrScanTime, 
+   A.payQrScanTime, 
+   A.issueTime, 
+   A.expirationTime, 
+   A.createTime, 
+   A.updateTime,
+   B.orderName,
+   B.orderNumber,
+   B.ordererName,
+   B.ordererPhone,
+   C.giftCardName
   </sql>
   
    <sql id ="GiftCardIssueCommandWhereStatement">
-      <if test="giftCardOrderNo != null"> AND giftCardOrderNo = #{giftCardOrderNo,jdbcType=INTEGER}</if>
-      <if test="giftCardNo != null"> AND giftCardNo = #{giftCardNo,jdbcType=INTEGER}</if>
- 	  <if test="pinNumber != null"> AND pinNumber = #{pinNumber,jdbcType=VARCHAR}</if>
- 	  <if test="accableStatus != null"> AND accableStatus = #{accableStatus,jdbcType=VARCHAR}</if>
- 	  <if test="payableStatus != null"> AND payableStatus = #{payableStatus,jdbcType=VARCHAR}</if>
- 	  <if test="accableStatus != null"> AND accableStatus = #{accableStatus,jdbcType=VARCHAR}</if>
- 	  <if test="giftCardType != null"> AND giftCardType = #{giftCardType,jdbcType=VARCHAR}</if>
- 	  <if test="accQrData != null"> AND accQrData = #{accQrData,jdbcType=VARCHAR}</if>
- 	  <if test="payQrData != null"> AND payQrData = #{payQrData,jdbcType=VARCHAR}</if>
- 	  <if test="accQrScanner != null"> AND accQrScanner = #{accQrScanner,jdbcType=VARCHAR}</if>
- 	  <if test="payQrScanner != null"> AND payQrScanner = #{payQrScanner,jdbcType=VARCHAR}</if>
+      <if test="giftCardOrderNo != null"> AND A.giftCardOrderNo = #{giftCardOrderNo,jdbcType=INTEGER}</if>
+      <if test="giftCardNo != null"> AND A.giftCardNo = #{giftCardNo,jdbcType=INTEGER}</if>
+ 	  <if test="pinNumber != null"> AND A.pinNumber = #{pinNumber,jdbcType=VARCHAR}</if>
+ 	  <if test="accableStatus != null"> AND A.accableStatus = #{accableStatus,jdbcType=VARCHAR}</if>
+ 	  <if test="payableStatus != null"> AND A.payableStatus = #{payableStatus,jdbcType=VARCHAR}</if>
+ 	  <if test="accableStatus != null"> AND A.accableStatus = #{accableStatus,jdbcType=VARCHAR}</if>
+ 	  <if test="giftCardType != null"> AND A.giftCardType = #{giftCardType,jdbcType=VARCHAR}</if>
+ 	  <if test="giftCardStatus != null"> AND A.giftCardStatus = #{giftCardStatus,jdbcType=VARCHAR}</if>
+ 	  <if test="accQrData != null"> AND A.accQrData = #{accQrData,jdbcType=VARCHAR}</if>
+ 	  <if test="payQrData != null"> AND A.payQrData = #{payQrData,jdbcType=VARCHAR}</if>
+ 	  <if test="accQrScanner != null"> AND A.accQrScanner = #{accQrScanner,jdbcType=VARCHAR}</if>
+ 	  <if test="payQrScanner != null"> AND A.payQrScanner = #{payQrScanner,jdbcType=VARCHAR}</if>
   </sql>
   
       <select id="selectGiftCardIssueCommands" parameterType="com.returnp.admin.dto.command.GiftCardIssueCommand" resultMap="GiftCardIssueCommandResultMap">
     select 
+     sql_calc_found_rows 
     <include refid="GiftCardIssueCommand_Column_List" />
-    from gift_card_issue
-    where 
+    from gift_card_issue as A
+    inner join gift_card_order as B on (A.giftCardOrderNo = B.orderNo)
+    inner join gift_card as C on (A.giftCardNo = C.giftCardNo)
+    where  
      	 1 = 1 
     	<include refid = "GiftCardIssueCommandWhereStatement"/>
     	<include refid = "commonStatement"/>
@@ -3477,8 +3513,9 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
       <select id="selectGiftCardPaymentCommands" parameterType="com.returnp.admin.dto.command.GiftCardPaymentCommand" resultMap="GiftCardPaymentCommandResultMap">
     select 
+      sql_calc_found_rows 
     <include refid="GiftCardPaymentCommand_Column_List" />
-    from gift_card_order_payment
+    from gift_card_payment
     where 
      	 1 = 1 
     	<include refid = "GiftCardPaymentCommandWhereStatement"/>

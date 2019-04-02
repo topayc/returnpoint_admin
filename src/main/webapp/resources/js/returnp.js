@@ -215,8 +215,22 @@ $(function () {
         	updateGiftCardOrder: { apiCode: 10000, apiPath : '/api/giftCardOrder/update' ,  requestMethod: "post"},  
         	deleteGiftCardOrder: { apiCode: 10000, apiPath : '/api/giftCardOrder/delete' ,  requestMethod: "post"},  
         	
-        	/* 상품권 발행 명령*/
+        	/* 상품권 발주 및 주문 명령*/
         	issueGiftCard: { apiCode: 10000, apiPath : '/api/giftCardOrder/issueGiftCard' ,  requestMethod: "post"},  
+        	
+        	/* 상품권 발행 및  조회 및 수정 관련*/ 
+        	selectGiftCardIssue: { apiCode: 10000, apiPath : '/api/giftCardIssues' ,  requestMethod: "get"},  
+        	createGiftCardIssue: { apiCode: 10000, apiPath : '/api/giftCardIssue/create' ,  requestMethod: "post"},  
+        	createBatchGiftCardIssue: { apiCode: 10000, apiPath : '/api/giftCardIssue/createBatch' ,  requestMethod: "post"},  
+        	deleteGiftCardIssue: { apiCode: 10000, apiPath : '/api/giftCardIssue/delete' ,  requestMethod: "post"},  
+        	updateGiftCardIssue: { apiCode: 10000, apiPath : '/api/giftCardIssue/update' ,  requestMethod: "post"},  
+        	invalidateGiftCardIssue: { apiCode: 10000, apiPath : '/api/giftCardIssue/invalidateBatch' ,  requestMethod: "post"},  
+        	
+        	/* 상품권 결제 관련*/ 
+        	selectGiftCardPayment: { apiCode: 10000, apiPath : '/api/giftCardPayments' ,  requestMethod: "get"},  
+        	createGiftCardPayment: { apiCode: 10000, apiPath : '/api/giftCardPayment/create' ,  requestMethod: "post"},  
+        	deleteGiftCardPayment: { apiCode: 10000, apiPath : '/api/giftCardPayment/delete' ,  requestMethod: "post"},  
+        	updateGiftCardPayment: { apiCode: 10000, apiPath : '/api/giftCardPayment/update' ,  requestMethod: "post"},  
 
         	/* 주문 아이템 관련*/
         	selectGiftCardItemsOrders: { apiCode: 10000, apiPath : '/api/giftCardOrderItems' ,  requestMethod: "get"},  

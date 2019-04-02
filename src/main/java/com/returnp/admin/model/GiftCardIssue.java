@@ -1,22 +1,17 @@
 package com.returnp.admin.model;
 
-import com.returnp.admin.dto.QueryCondition;
 import java.util.Date;
 
-public class GiftCardIssue extends QueryCondition {
-    private Integer giftCardIssueNo;
-
+public class GiftCardIssue extends GiftCardIssueKey {
     private Integer giftCardOrderNo;
 
-    private String giftCardNo;
-
-    private String pinNumber;
+    private Integer giftCardNo;
 
     private String accableStatus;
 
     private String payableStatus;
 
-    private String giftCardStaus;
+    private String giftCardStatus;
 
     private String giftCardType;
 
@@ -36,17 +31,13 @@ public class GiftCardIssue extends QueryCondition {
 
     private Date payQrScanTime;
 
+    private Date issueTime;
+
+    private Date expirationTime;
+
     private Date createTime;
 
     private Date updateTime;
-
-    public Integer getGiftCardIssueNo() {
-        return giftCardIssueNo;
-    }
-
-    public void setGiftCardIssueNo(Integer giftCardIssueNo) {
-        this.giftCardIssueNo = giftCardIssueNo;
-    }
 
     public Integer getGiftCardOrderNo() {
         return giftCardOrderNo;
@@ -56,20 +47,12 @@ public class GiftCardIssue extends QueryCondition {
         this.giftCardOrderNo = giftCardOrderNo;
     }
 
-    public String getGiftCardNo() {
+    public Integer getGiftCardNo() {
         return giftCardNo;
     }
 
-    public void setGiftCardNo(String giftCardNo) {
-        this.giftCardNo = giftCardNo == null ? null : giftCardNo.trim();
-    }
-
-    public String getPinNumber() {
-        return pinNumber;
-    }
-
-    public void setPinNumber(String pinNumber) {
-        this.pinNumber = pinNumber == null ? null : pinNumber.trim();
+    public void setGiftCardNo(Integer giftCardNo) {
+        this.giftCardNo = giftCardNo;
     }
 
     public String getAccableStatus() {
@@ -88,15 +71,17 @@ public class GiftCardIssue extends QueryCondition {
         this.payableStatus = payableStatus == null ? null : payableStatus.trim();
     }
 
-    public String getGiftCardStaus() {
-        return giftCardStaus;
-    }
+   
 
-    public void setGiftCardStaus(String giftCardStaus) {
-        this.giftCardStaus = giftCardStaus == null ? null : giftCardStaus.trim();
-    }
+    public String getGiftCardStatus() {
+		return giftCardStatus;
+	}
 
-    public String getGiftCardType() {
+	public void setGiftCardStatus(String giftCardStatus) {
+		this.giftCardStatus = giftCardStatus;
+	}
+
+	public String getGiftCardType() {
         return giftCardType;
     }
 
@@ -166,6 +151,22 @@ public class GiftCardIssue extends QueryCondition {
 
     public void setPayQrScanTime(Date payQrScanTime) {
         this.payQrScanTime = payQrScanTime;
+    }
+
+    public Date getIssueTime() {
+        return issueTime;
+    }
+
+    public void setIssueTime(Date issueTime) {
+        this.issueTime = issueTime;
+    }
+
+    public Date getExpirationTime() {
+        return expirationTime;
+    }
+
+    public void setExpirationTime(Date expirationTime) {
+        this.expirationTime = expirationTime;
     }
 
     public Date getCreateTime() {

@@ -3,12 +3,12 @@
 <mapper namespace="com.returnp.admin.dao.mapper.GiftCardIssueMapper">
   <resultMap id="BaseResultMap" type="com.returnp.admin.model.GiftCardIssue">
     <id column="giftCardIssueNo" jdbcType="INTEGER" property="giftCardIssueNo" />
+    <id column="pinNumber" jdbcType="VARCHAR" property="pinNumber" />
     <result column="giftCardOrderNo" jdbcType="INTEGER" property="giftCardOrderNo" />
-    <result column="giftCardNo" jdbcType="VARCHAR" property="giftCardNo" />
-    <result column="pinNumber" jdbcType="VARCHAR" property="pinNumber" />
+    <result column="giftCardNo" jdbcType="INTEGER" property="giftCardNo" />
     <result column="accableStatus" jdbcType="VARCHAR" property="accableStatus" />
     <result column="payableStatus" jdbcType="VARCHAR" property="payableStatus" />
-    <result column="giftCardStaus" jdbcType="VARCHAR" property="giftCardStaus" />
+    <result column="giftCardStatus" jdbcType="VARCHAR" property="giftCardStatus" />
     <result column="giftCardType" jdbcType="VARCHAR" property="giftCardType" />
     <result column="giftCardAmount" jdbcType="INTEGER" property="giftCardAmount" />
     <result column="giftCardSalePrice" jdbcType="INTEGER" property="giftCardSalePrice" />
@@ -18,40 +18,99 @@
     <result column="payQrScanner" jdbcType="VARCHAR" property="payQrScanner" />
     <result column="accQrScanTime" jdbcType="TIMESTAMP" property="accQrScanTime" />
     <result column="payQrScanTime" jdbcType="TIMESTAMP" property="payQrScanTime" />
+    <result column="issueTime" jdbcType="TIMESTAMP" property="issueTime" />
+    <result column="expirationTime" jdbcType="TIMESTAMP" property="expirationTime" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    giftCardIssueNo, giftCardOrderNo, giftCardNo, pinNumber, accableStatus, payableStatus, 
-    giftCardStaus, giftCardType, giftCardAmount, giftCardSalePrice, accQrData, payQrData, 
-    accQrScanner, payQrScanner, accQrScanTime, payQrScanTime, createTime, updateTime
+    giftCardIssueNo, pinNumber, giftCardOrderNo, giftCardNo, accableStatus, payableStatus, 
+    giftCardStatus, giftCardType, giftCardAmount, giftCardSalePrice, accQrData, payQrData, 
+    accQrScanner, payQrScanner, accQrScanTime, payQrScanTime, issueTime, expirationTime, 
+    createTime, updateTime
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="com.returnp.admin.model.GiftCardIssueKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from gift_card_issue
     where giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER}
+      and pinNumber = #{pinNumber,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="com.returnp.admin.model.GiftCardIssueKey">
     delete from gift_card_issue
     where giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER}
+      and pinNumber = #{pinNumber,jdbcType=VARCHAR}
   </delete>
+  
+   <delete id="deleteByGiftCardOrderNo" parameterType="int">
+    delete from gift_card_issue
+    where giftCardOrderNo = #{giftCardOrderNo,jdbcType=INTEGER}
+  </delete>
+  
+    <insert id = "insertBatch" parameterType = "HashMap">
+        insert into gift_card_issue (
+        giftCardOrderNo,
+        giftCardNo,
+        pinNumber,
+        accableStatus,
+        payableStatus,
+        giftCardStatus,
+        giftCardType,
+        giftCardAmount,
+        giftCardSalePrice,
+        accQrData,
+        payQrData,
+        accQrScanner,
+        payQrScanner,
+        accQrScanTime,
+        payQrScanTime,
+        issueTime,
+        expirationTime,
+        createTime,
+        updateTime
+        ) 
+        values 
+        <foreach collection="giftCardIssueList" item="item" separator=" , ">
+         (
+         	#{item.giftCardOrderNo}, 
+         	#{item.giftCardNo},
+         	#{item.pinNumber},
+         	#{item.accableStatus},
+         	#{item.payableStatus},
+         	#{item.giftCardStatus},
+         	#{item.giftCardType},
+         	#{item.giftCardAmount},
+         	#{item.giftCardSalePrice},
+         	#{item.accQrData},
+         	#{item.payQrData},
+         	#{item.accQrScanner},
+         	#{item.payQrScanner},
+         	#{item.accQrScanTime},
+         	#{item.payQrScanTime},
+         	#{item.issueTime},
+         	#{item.expirationTime},
+         	NOW(),
+         	NOW()
+         )
+     </foreach>
+  </insert>
+  
   <insert id="insert" parameterType="com.returnp.admin.model.GiftCardIssue">
-    insert into gift_card_issue (giftCardIssueNo, giftCardOrderNo, 
-      giftCardNo, pinNumber, accableStatus, 
-      payableStatus, giftCardStaus, giftCardType, 
-      giftCardAmount, giftCardSalePrice, accQrData, 
-      payQrData, accQrScanner, payQrScanner, 
-      accQrScanTime, payQrScanTime, createTime, 
-      updateTime)
-    values (#{giftCardIssueNo,jdbcType=INTEGER}, #{giftCardOrderNo,jdbcType=INTEGER}, 
-      #{giftCardNo,jdbcType=VARCHAR}, #{pinNumber,jdbcType=VARCHAR}, #{accableStatus,jdbcType=VARCHAR}, 
-      #{payableStatus,jdbcType=VARCHAR}, #{giftCardStaus,jdbcType=VARCHAR}, #{giftCardType,jdbcType=VARCHAR}, 
-      #{giftCardAmount,jdbcType=INTEGER}, #{giftCardSalePrice,jdbcType=INTEGER}, #{accQrData,jdbcType=VARCHAR}, 
-      #{payQrData,jdbcType=VARCHAR}, #{accQrScanner,jdbcType=VARCHAR}, #{payQrScanner,jdbcType=VARCHAR}, 
-      #{accQrScanTime,jdbcType=TIMESTAMP}, #{payQrScanTime,jdbcType=TIMESTAMP}, NOW(), NOW())
-      
-         <selectKey keyProperty="giftCardIssueNo" resultType="java.lang.Integer" order ="AFTER">
+    insert into gift_card_issue (giftCardIssueNo, pinNumber, giftCardOrderNo, 
+      giftCardNo, accableStatus, payableStatus, 
+      giftCardStatus, giftCardType, giftCardAmount, 
+      giftCardSalePrice, accQrData, payQrData, 
+      accQrScanner, payQrScanner, accQrScanTime, 
+      payQrScanTime, issueTime, expirationTime, 
+      createTime, updateTime)
+    values (#{giftCardIssueNo,jdbcType=INTEGER}, #{pinNumber,jdbcType=VARCHAR}, #{giftCardOrderNo,jdbcType=INTEGER}, 
+      #{giftCardNo,jdbcType=INTEGER}, #{accableStatus,jdbcType=VARCHAR}, #{payableStatus,jdbcType=VARCHAR}, 
+      #{giftCardStatus,jdbcType=VARCHAR}, #{giftCardType,jdbcType=VARCHAR}, #{giftCardAmount,jdbcType=INTEGER}, 
+      #{giftCardSalePrice,jdbcType=INTEGER}, #{accQrData,jdbcType=VARCHAR}, #{payQrData,jdbcType=VARCHAR}, 
+      #{accQrScanner,jdbcType=VARCHAR}, #{payQrScanner,jdbcType=VARCHAR}, #{accQrScanTime,jdbcType=TIMESTAMP}, 
+      #{payQrScanTime,jdbcType=TIMESTAMP}, #{issueTime,jdbcType=TIMESTAMP}, #{expirationTime,jdbcType=TIMESTAMP}, 
+      NOW(), NOW())
+       <selectKey keyProperty="giftCardIssueNo" resultType="java.lang.Integer" order ="AFTER">
 		    SELECT LAST_INSERT_ID()
 	 </selectKey>	
   </insert>
@@ -61,14 +120,14 @@
       <if test="giftCardIssueNo != null">
         giftCardIssueNo,
       </if>
+      <if test="pinNumber != null">
+        pinNumber,
+      </if>
       <if test="giftCardOrderNo != null">
         giftCardOrderNo,
       </if>
       <if test="giftCardNo != null">
         giftCardNo,
-      </if>
-      <if test="pinNumber != null">
-        pinNumber,
       </if>
       <if test="accableStatus != null">
         accableStatus,
@@ -76,8 +135,8 @@
       <if test="payableStatus != null">
         payableStatus,
       </if>
-      <if test="giftCardStaus != null">
-        giftCardStaus,
+      <if test="giftCardStatus != null">
+        giftCardStatus,
       </if>
       <if test="giftCardType != null">
         giftCardType,
@@ -106,6 +165,12 @@
       <if test="payQrScanTime != null">
         payQrScanTime,
       </if>
+      <if test="issueTime != null">
+        issueTime,
+      </if>
+      <if test="expirationTime != null">
+        expirationTime,
+      </if>
       <if test="createTime != null">
         createTime,
       </if>
@@ -117,14 +182,14 @@
       <if test="giftCardIssueNo != null">
         #{giftCardIssueNo,jdbcType=INTEGER},
       </if>
+      <if test="pinNumber != null">
+        #{pinNumber,jdbcType=VARCHAR},
+      </if>
       <if test="giftCardOrderNo != null">
         #{giftCardOrderNo,jdbcType=INTEGER},
       </if>
       <if test="giftCardNo != null">
-        #{giftCardNo,jdbcType=VARCHAR},
-      </if>
-      <if test="pinNumber != null">
-        #{pinNumber,jdbcType=VARCHAR},
+        #{giftCardNo,jdbcType=INTEGER},
       </if>
       <if test="accableStatus != null">
         #{accableStatus,jdbcType=VARCHAR},
@@ -132,8 +197,8 @@
       <if test="payableStatus != null">
         #{payableStatus,jdbcType=VARCHAR},
       </if>
-      <if test="giftCardStaus != null">
-        #{giftCardStaus,jdbcType=VARCHAR},
+      <if test="giftCardStatus != null">
+        #{giftCardStatus,jdbcType=VARCHAR},
       </if>
       <if test="giftCardType != null">
         #{giftCardType,jdbcType=VARCHAR},
@@ -162,6 +227,12 @@
       <if test="payQrScanTime != null">
         #{payQrScanTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="issueTime != null">
+        #{issueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expirationTime != null">
+        #{expirationTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -177,10 +248,7 @@
         giftCardOrderNo = #{giftCardOrderNo,jdbcType=INTEGER},
       </if>
       <if test="giftCardNo != null">
-        giftCardNo = #{giftCardNo,jdbcType=VARCHAR},
-      </if>
-      <if test="pinNumber != null">
-        pinNumber = #{pinNumber,jdbcType=VARCHAR},
+        giftCardNo = #{giftCardNo,jdbcType=INTEGER},
       </if>
       <if test="accableStatus != null">
         accableStatus = #{accableStatus,jdbcType=VARCHAR},
@@ -188,8 +256,8 @@
       <if test="payableStatus != null">
         payableStatus = #{payableStatus,jdbcType=VARCHAR},
       </if>
-      <if test="giftCardStaus != null">
-        giftCardStaus = #{giftCardStaus,jdbcType=VARCHAR},
+      <if test="giftCardStatus != null">
+        giftCardStatus = #{giftCardStatus,jdbcType=VARCHAR},
       </if>
       <if test="giftCardType != null">
         giftCardType = #{giftCardType,jdbcType=VARCHAR},
@@ -218,6 +286,12 @@
       <if test="payQrScanTime != null">
         payQrScanTime = #{payQrScanTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="issueTime != null">
+        issueTime = #{issueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expirationTime != null">
+        expirationTime = #{expirationTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -226,15 +300,15 @@
       </if>
     </set>
     where giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER}
+      and pinNumber = #{pinNumber,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.GiftCardIssue">
     update gift_card_issue
     set giftCardOrderNo = #{giftCardOrderNo,jdbcType=INTEGER},
-      giftCardNo = #{giftCardNo,jdbcType=VARCHAR},
-      pinNumber = #{pinNumber,jdbcType=VARCHAR},
+      giftCardNo = #{giftCardNo,jdbcType=INTEGER},
       accableStatus = #{accableStatus,jdbcType=VARCHAR},
       payableStatus = #{payableStatus,jdbcType=VARCHAR},
-      giftCardStaus = #{giftCardStaus,jdbcType=VARCHAR},
+      giftCardStatus = #{giftCardStatus,jdbcType=VARCHAR},
       giftCardType = #{giftCardType,jdbcType=VARCHAR},
       giftCardAmount = #{giftCardAmount,jdbcType=INTEGER},
       giftCardSalePrice = #{giftCardSalePrice,jdbcType=INTEGER},
@@ -244,8 +318,11 @@
       payQrScanner = #{payQrScanner,jdbcType=VARCHAR},
       accQrScanTime = #{accQrScanTime,jdbcType=TIMESTAMP},
       payQrScanTime = #{payQrScanTime,jdbcType=TIMESTAMP},
+      issueTime = #{issueTime,jdbcType=TIMESTAMP},
+      expirationTime = #{expirationTime,jdbcType=TIMESTAMP},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       updateTime = NOW()
     where giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER}
+      and pinNumber = #{pinNumber,jdbcType=VARCHAR}
   </update>
 </mapper>
