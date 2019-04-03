@@ -23,7 +23,18 @@ import com.google.zxing.client.j2se.MatrixToImageConfig;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 
+
 public class QRManager {
+	public static class QRCmd {
+		public static final String GEN_JOIN_RECOM_QR = "10000";
+		public static final String GEN_PRODUCT_QR = "10001";
+		public static final String GEN_GIFT_QR = "10002";
+		public static final String EXE_JOIN_WITH_RECOM = "20000";
+
+		public static final String ACC_BY_GIFTCARD= "900";
+		public static final String PAYBY_GIFTCARD= "901";
+		
+	}
 	
 	public static String QR_MAP_KEY_D = "D";
 	public static String QR_MAP_KEY_F = "F";
@@ -33,7 +44,7 @@ public class QRManager {
 	public static String CHARSET = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
 
 	public static HashMap<String, String> parseQRToMap(String queryQR) throws ParseException{
-		System.out.println("QRManager.parseQRToMap");
+		/*System.out.println("QRManager.parseQRToMap");*/
 		HashMap<String, String> queryMap = Util.queryToMap(queryQR);
 		if (!QRManager.beforeValidateQR(queryMap)) {
 			return null;
@@ -48,16 +59,17 @@ public class QRManager {
 			return null;
 		}
 		
+		
 		String[] encArr =  encData.split(sep);
 		if (encArr.length != 5) return null;
 		
-		System.out.println(encData);
+		/*System.out.println(encData);
 		System.out.println(encArr[0]);
 		System.out.println(encArr[1]);
 		System.out.println(encArr[2]);
 		System.out.println(encArr[3]);
 		System.out.println(encArr[4]);
-		System.out.println();
+		System.out.println();*/
 		
 		long field1 = AntiLogarithm62.get62CharDecode(encArr[0]);
 		long field2 = AntiLogarithm62.get62CharDecode(encArr[1]);
@@ -68,11 +80,11 @@ public class QRManager {
 	/*	if (!QRManager.afterValidateQR(field1, field2, field3 ,  field4, field5)) {
 			return null;
 		}*/
-		System.out.println("결제 금액");
+	/*	System.out.println("결제 금액");
 		System.out.println(field4);
 		System.out.println(String.format("%09d", Long.valueOf(field4)) );
 		System.out.println("결제 승인 번호 마지막 4자리 ");
-		System.out.println(String.format("%04d", Long.valueOf(field5)) );
+		System.out.println(String.format("%04d", Long.valueOf(field5)) );*/
 		String qrPText = 
 				String.format("%09d", field1)+ 
 				String.format("%09d", field2) + 
@@ -101,8 +113,8 @@ public class QRManager {
 				String.format("%09d", Long.valueOf(field3)) + 
 				String.format("%09d", Long.valueOf(field4)) +
 				String.format("%04d", Long.valueOf(field5));*/
-		System.out.println("큐알 원문 데이타");
-		System.out.println(qrPText);
+/*		System.out.println("큐알 원문 데이타");
+		System.out.println(qrPText);*/
 		/*VAN 시간을 내부 포맷으로 변경*/
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		GregorianCalendar calendar = new GregorianCalendar(
@@ -133,6 +145,7 @@ public class QRManager {
 			qrMap.put("pam", String.valueOf(Integer.valueOf(qrPText.substring(27, 35))));    //승인 금액
 			qrMap.put("pas", qrPText.substring(35,36));    //승인 상태 
 			qrMap.put("pas_str", qrPText.substring(35,36).equals("0") ? "승인 완료" : "승인 취소");    //승인 상태 
+			qrMap.put("pay_type_str", sep.equals(QRManager.QR_MAP_SEP_CREDIT ) ? "신용카드 결제" : "현금 결제");    //1 : 신용카드 2 : 현금 결제 
 			qrMap.put("pay_type", sep.equals(QRManager.QR_MAP_SEP_CREDIT ) ? "1" : "2");    //1 : 신용카드 2 : 현금 결제 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,7 +155,7 @@ public class QRManager {
 	}
 
 	
-	public static String genQRCode(String savedir, String qrText) throws Exception {
+	public static String genQRCode(String savedir, String webRoot, String qrText, String fileName) throws Exception {
 		Charset charset = Charset.forName("UTF-8");
 		CharsetEncoder encoder = charset.newEncoder();
 
@@ -169,7 +182,7 @@ public class QRManager {
 		}
 		
 		String ext = "png";
-		String qrFileTempNm = String.format("%s.%s", RandomStringUtils.randomAlphanumeric(10), ext);
+		String qrFileTempNm = fileName != null ?  String.format("%s.%s", fileName, ext):  String.format("%s.%s", RandomStringUtils.randomAlphanumeric(10), ext);
 		String filePath = savedir + "/" + qrFileTempNm;
 		
 		try {
@@ -194,7 +207,7 @@ public class QRManager {
 				throw e;
 			}
 
-			qrAccessUrl = "/qr_temp/" + qrFileTempNm;
+			qrAccessUrl = webRoot + "/" + qrFileTempNm;
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw e;

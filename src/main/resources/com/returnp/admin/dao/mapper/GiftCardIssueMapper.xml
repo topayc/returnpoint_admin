@@ -20,15 +20,22 @@
     <result column="payQrScanTime" jdbcType="TIMESTAMP" property="payQrScanTime" />
     <result column="issueTime" jdbcType="TIMESTAMP" property="issueTime" />
     <result column="expirationTime" jdbcType="TIMESTAMP" property="expirationTime" />
+    <result column="accQrCodeWebPath" jdbcType="VARCHAR" property="accQrCodeWebPath" />
+    <result column="payQrCodeWebPath" jdbcType="VARCHAR" property="payQrCodeWebPath" />
+    <result column="accQrCodeFilePath" jdbcType="VARCHAR" property="accQrCodeFilePath" />
+    <result column="payQrCodeFilePath" jdbcType="VARCHAR" property="payQrCodeFilePath" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
+ 
   <sql id="Base_Column_List">
     giftCardIssueNo, pinNumber, giftCardOrderNo, giftCardNo, accableStatus, payableStatus, 
     giftCardStatus, giftCardType, giftCardAmount, giftCardSalePrice, accQrData, payQrData, 
     accQrScanner, payQrScanner, accQrScanTime, payQrScanTime, issueTime, expirationTime, 
-    createTime, updateTime
+    accQrCodeWebPath, payQrCodeWebPath, accQrCodeFilePath, payQrCodeFilePath, createTime, 
+    updateTime
   </sql>
+ 
   <select id="selectByPrimaryKey" parameterType="com.returnp.admin.model.GiftCardIssueKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -36,18 +43,14 @@
     where giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER}
       and pinNumber = #{pinNumber,jdbcType=VARCHAR}
   </select>
+ 
   <delete id="deleteByPrimaryKey" parameterType="com.returnp.admin.model.GiftCardIssueKey">
     delete from gift_card_issue
     where giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER}
       and pinNumber = #{pinNumber,jdbcType=VARCHAR}
   </delete>
-  
-   <delete id="deleteByGiftCardOrderNo" parameterType="int">
-    delete from gift_card_issue
-    where giftCardOrderNo = #{giftCardOrderNo,jdbcType=INTEGER}
-  </delete>
-  
-    <insert id = "insertBatch" parameterType = "HashMap">
+ 
+ <insert id = "insertBatch" parameterType = "HashMap">
         insert into gift_card_issue (
         giftCardOrderNo,
         giftCardNo,
@@ -72,29 +75,29 @@
         values 
         <foreach collection="giftCardIssueList" item="item" separator=" , ">
          (
-         	#{item.giftCardOrderNo}, 
-         	#{item.giftCardNo},
-         	#{item.pinNumber},
-         	#{item.accableStatus},
-         	#{item.payableStatus},
-         	#{item.giftCardStatus},
-         	#{item.giftCardType},
-         	#{item.giftCardAmount},
-         	#{item.giftCardSalePrice},
-         	#{item.accQrData},
-         	#{item.payQrData},
-         	#{item.accQrScanner},
-         	#{item.payQrScanner},
-         	#{item.accQrScanTime},
-         	#{item.payQrScanTime},
-         	#{item.issueTime},
-         	#{item.expirationTime},
-         	NOW(),
-         	NOW()
+            #{item.giftCardOrderNo}, 
+            #{item.giftCardNo},
+            #{item.pinNumber},
+            #{item.accableStatus},
+            #{item.payableStatus},
+            #{item.giftCardStatus},
+            #{item.giftCardType},
+            #{item.giftCardAmount},
+            #{item.giftCardSalePrice},
+            #{item.accQrData},
+            #{item.payQrData},
+            #{item.accQrScanner},
+            #{item.payQrScanner},
+            #{item.accQrScanTime},
+            #{item.payQrScanTime},
+            #{item.issueTime},
+            #{item.expirationTime},
+            NOW(),
+            NOW()
          )
      </foreach>
   </insert>
-  
+ 
   <insert id="insert" parameterType="com.returnp.admin.model.GiftCardIssue">
     insert into gift_card_issue (giftCardIssueNo, pinNumber, giftCardOrderNo, 
       giftCardNo, accableStatus, payableStatus, 
@@ -102,17 +105,22 @@
       giftCardSalePrice, accQrData, payQrData, 
       accQrScanner, payQrScanner, accQrScanTime, 
       payQrScanTime, issueTime, expirationTime, 
-      createTime, updateTime)
+      accQrCodeWebPath, payQrCodeWebPath, accQrCodeFilePath, 
+      payQrCodeFilePath, createTime, updateTime
+      )
     values (#{giftCardIssueNo,jdbcType=INTEGER}, #{pinNumber,jdbcType=VARCHAR}, #{giftCardOrderNo,jdbcType=INTEGER}, 
       #{giftCardNo,jdbcType=INTEGER}, #{accableStatus,jdbcType=VARCHAR}, #{payableStatus,jdbcType=VARCHAR}, 
       #{giftCardStatus,jdbcType=VARCHAR}, #{giftCardType,jdbcType=VARCHAR}, #{giftCardAmount,jdbcType=INTEGER}, 
       #{giftCardSalePrice,jdbcType=INTEGER}, #{accQrData,jdbcType=VARCHAR}, #{payQrData,jdbcType=VARCHAR}, 
       #{accQrScanner,jdbcType=VARCHAR}, #{payQrScanner,jdbcType=VARCHAR}, #{accQrScanTime,jdbcType=TIMESTAMP}, 
       #{payQrScanTime,jdbcType=TIMESTAMP}, #{issueTime,jdbcType=TIMESTAMP}, #{expirationTime,jdbcType=TIMESTAMP}, 
-      NOW(), NOW())
+      #{accQrCodeWebPath,jdbcType=VARCHAR}, #{payQrCodeWebPath,jdbcType=VARCHAR}, #{accQrCodeFilePath,jdbcType=VARCHAR}, 
+      #{payQrCodeFilePath,jdbcType=VARCHAR}, NOW(), NOW()
+      )
+      
        <selectKey keyProperty="giftCardIssueNo" resultType="java.lang.Integer" order ="AFTER">
-		    SELECT LAST_INSERT_ID()
-	 </selectKey>	
+                SELECT LAST_INSERT_ID()
+       </selectKey>     
   </insert>
   <insert id="insertSelective" parameterType="com.returnp.admin.model.GiftCardIssue">
     insert into gift_card_issue
@@ -170,6 +178,18 @@
       </if>
       <if test="expirationTime != null">
         expirationTime,
+      </if>
+      <if test="accQrCodeWebPath != null">
+        accQrCodeWebPath,
+      </if>
+      <if test="payQrCodeWebPath != null">
+        payQrCodeWebPath,
+      </if>
+      <if test="accQrCodeFilePath != null">
+        accQrCodeFilePath,
+      </if>
+      <if test="payQrCodeFilePath != null">
+        payQrCodeFilePath,
       </if>
       <if test="createTime != null">
         createTime,
@@ -233,6 +253,18 @@
       <if test="expirationTime != null">
         #{expirationTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="accQrCodeWebPath != null">
+        #{accQrCodeWebPath,jdbcType=VARCHAR},
+      </if>
+      <if test="payQrCodeWebPath != null">
+        #{payQrCodeWebPath,jdbcType=VARCHAR},
+      </if>
+      <if test="accQrCodeFilePath != null">
+        #{accQrCodeFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="payQrCodeFilePath != null">
+        #{payQrCodeFilePath,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -292,6 +324,18 @@
       <if test="expirationTime != null">
         expirationTime = #{expirationTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="accQrCodeWebPath != null">
+        accQrCodeWebPath = #{accQrCodeWebPath,jdbcType=VARCHAR},
+      </if>
+      <if test="payQrCodeWebPath != null">
+        payQrCodeWebPath = #{payQrCodeWebPath,jdbcType=VARCHAR},
+      </if>
+      <if test="accQrCodeFilePath != null">
+        accQrCodeFilePath = #{accQrCodeFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="payQrCodeFilePath != null">
+        payQrCodeFilePath = #{payQrCodeFilePath,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -320,6 +364,10 @@
       payQrScanTime = #{payQrScanTime,jdbcType=TIMESTAMP},
       issueTime = #{issueTime,jdbcType=TIMESTAMP},
       expirationTime = #{expirationTime,jdbcType=TIMESTAMP},
+      accQrCodeWebPath = #{accQrCodeWebPath,jdbcType=VARCHAR},
+      payQrCodeWebPath = #{payQrCodeWebPath,jdbcType=VARCHAR},
+      accQrCodeFilePath = #{accQrCodeFilePath,jdbcType=VARCHAR},
+      payQrCodeFilePath = #{payQrCodeFilePath,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       updateTime = NOW()
     where giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER}

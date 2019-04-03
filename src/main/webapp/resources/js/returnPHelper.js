@@ -60,6 +60,10 @@ function issueColumnKorFormatter(value) {
 	case "accQrData": result = '<span style = "font-weight : bold">적립 QR 데이타</span>'; break;
 	case "payQrData": result = '<span style = "font-weight : bold">결제 QR 데이타</span>'; break;
 	case "accQrScanner": result = '<span style = "font-weight : bold">적립 QR 스캐너</span>'; break;
+	case "accQrCodeWebPath": result = '<span style = "font-weight : bold">적립 QR Code 웹 경로</span>'; break;
+	case "payQrCodeWebPath": result = '<span style = "font-weight : bold">적립 QR Code 웹 경로</span>'; break;
+	case "accQrCodeFilePath": result = '<span style = "font-weight : bold">적립 QR Code 파일 경로</span>'; break;
+	case "payQrCodeFilePath": result = '<span style = "font-weight : bold">적립 QR Code 파일 경오</span>'; break;
 	case "payQrScanner": result = '<span style = "font-weight : bold">결제 QR 스캐너</span>'; break;
 	case "accQrScanTime": result = '<span style = "font-weight : bold">적립 QR 스캔 시간</span>'; break;
 	case "payQrScanTime": result = '<span style = "font-weight : bold">결제 QR 스캔 시간</span>'; break;
@@ -77,7 +81,7 @@ function issueGridValueForamtter(name, value) {
 	switch (name) {
 	case "accableStatus": value = accableStatusFormatter(null, { accableStatus : value }); break;
 	case "payableStatus": value = payableStatusFormatter(null, { payableStatus : value }); break;
-	case "giftCardStaus": value = giftCardStatusFormatter(null, { giftCardStatus : value }); break;
+	case "giftCardStatus": value = giftCardStatusFormatter(null, { giftCardStatus : value }); break;
 	case "giftCardType": value = giftCardTypeFormatter2(null, { giftCardType : value }); break;
 	case "giftCardAmount": value = numberFormatter(value); break; 
 	case "giftCardSalePrice": value = numberFormatter(value); break;

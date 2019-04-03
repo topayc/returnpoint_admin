@@ -3,6 +3,7 @@ package com.returnp.admin.utils;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -168,5 +169,18 @@ public class Util {
 	      System.out.println(source + "_"  + String.format("%08d", i));
 	 
 	    }
+	}
+	
+	public static String nullToString(String data) {
+		if (data == null ) {
+			return "-";
+		}else {
+			return data;
+		}
+	}
+	public static String dateToString(Date date) {
+		if (date == null) return "-";
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		return df.format(date);
 	}
 }

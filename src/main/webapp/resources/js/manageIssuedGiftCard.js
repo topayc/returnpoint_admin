@@ -3,12 +3,12 @@
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 			    {field:'giftCardIssueNo',width:70,align:'center',title : '등록번호'},
 			    {field:'giftCardOrderNo',width:70,align:'center',title : '주문 등록 번호', hidden : true},
-			    {field:'orderNumber',width:70,align:'center',title : '주문 번호', hidden : false},
+			    {field:'orderNumber',width:100,align:'center',title : '주문 번호', hidden : false},
 			    {field:'orderName',width:100,align:'center',title : '주문명', hidden : false},
 			    {field:'ordererName',width:100,align:'center',title : '주문자', hidden : true},
 			    {field:'ordererPhone',width:100,align:'center',title : '주문자 핸드폰', hidden : true},
 			    {field:'giftCardNo',width:100,align:'center',title : '상품권 번호', hidden : true},
-			    {field:'giftCardName',width:100,align:'center',title : '상품권 이름'},
+			    {field:'giftCardName',width:120,align:'center',title : '상품권 이름'},
 			    {field:'pinNumber',width:200,align:'center',title : '핀 번호'/*,formatter : addBoldFomatter*/},
 			    {field:'giftCardStatus',width:80,align:'center',title : '상태', formatter : giftCardStatusFormatter},
 			    {field:'giftCardType',width:80,align:'center',title : '타입', formatter : giftCardTypeFormatter2},
@@ -16,8 +16,10 @@
 			    {field:'payableStatus',width:80,align:'center',title : '결제 가능', formatter : payableStatusFormatter},
 			    {field:'giftCardAmount',width:100,align:'center',title : '상품권 금액',formatter : numberFormatter},
 			    {field:'giftCardSalePrice',width:100,align:'center',title : '판매 금액', formatter : numberGreenFormatter},
-			    {field:'accQrData',width:130,align:'center',title : '적립 QR 데이타'},
-			    {field:'payQrData',width:130,align:'center',title : '결제 QR 데이타'},
+			    {field:'accQrData',width:130,align:'center',title : '적립 QR 데이타',hidden : true},
+			    {field:'payQrData',width:130,align:'center',title : '결제 QR 데이타',hidden : true},
+			    {field:'accQrCodeWebPath',width:100,align:'center',title : '적립 QR Code', hidden : true},
+			    {field:'payQrCodeWebPath',width:100,align:'center',title : '결제 QR Code', hidden : true},
 			    {field:'accQrScanner',width:130,align:'center',title : '적립 QR 스캐너'},
 			    {field:'payQrScanner',width:130,align:'center',title : '결제 QR 스캐너'},
 			    {field:'accQrScanTime',width:140,align:'center',title : '적립 QR 스캔일', formatter : dateFormatter},
@@ -211,8 +213,48 @@ function initView(){
 		  		});
 		  		
 		  	}
-		  	
-		  	cmenu.menu("appendItem", {
+		 	cmenu.menu('appendItem', {
+		  		separator: true
+		  	});
+			cmenu.menu('appendItem', {
+	  			id : "m_3",  // the parent item element
+	  			text:  "상품권QR코드 보기",
+	  			//iconCls: 'icon-ok',
+	  			onclick: function(){
+	  			}
+	  		});
+			
+			item = cmenu.menu('findItem', '상품권QR코드 보기');  
+	  		cmenu.menu('appendItem', {
+	  			parent: item.target,  // the parent item element
+	  			text:  "적립 QR Code 보기",
+	  			//iconCls: 'icon-ok',
+	  			onclick: function(){
+	  				if (selectedIssue.accQrCodeWebPath == null || selectedIssue.accQrCodeWebPath == ""){
+	  					createQrCode(selectedIssue.giftCardIssueNo, "A");
+	  				}else {
+	  					viewQrCode(selectedIssue.accQrCodeWebPath,"적립 큐알");
+	  				}
+	  			}
+	  		});
+	  		
+	  		item = cmenu.menu('findItem', '상품권QR코드 보기');  
+	  		cmenu.menu('appendItem', {
+	  			parent: item.target,  // the parent item element
+	  			//iconCls: 'icon-ok',
+	  			text:  "결제 QR Code 보기",
+	  			onclick: function(){
+	  				if (selectedIssue.payQrCodeWebPath == null || selectedIssue.payQrCodeWebPath == ""){
+	  					createQrCode(selectedIssue.giftCardIssueNo, "P");
+	  				}else {
+	  					viewQrCode(selectedIssue.payQrCodeWebPath,"결제 큐알");
+	  				}
+	  			}
+	  		});
+	  	 	cmenu.menu('appendItem', {
+		  		separator: true
+		  	});
+	  	  	cmenu.menu("appendItem", {
 		  		id : "m_2",
 		  		text: '발행 내역 상세 보기',
 		  		/*	iconCls: 'icon-ok',*/
@@ -220,7 +262,6 @@ function initView(){
 		  			viewDetailIssue();
 		  		}
 		  	});
-		  	
 		  	cmenu.menu('show', {
 		  		left:e.pageX,
 		  		top:e.pageY
@@ -361,15 +402,32 @@ function makeSearchParam(){
 	return param;
 }
 
-function sendGiftCardByKakao(){
-}
-
-function sendGiftCardByMobile(){
-}
-
 function makeFormData(){
 	var param = $("#createGiftCardIssueForm").serializeObject();
 	return param;
+}
+
+function createQrCode(giftCardIssueNo, type){
+	returnp.api.call("createQr", {giftCardIssueNo : giftCardIssueNo, type : type}, function(res){
+		if (res.resultCode  == "100") {
+			console.log(res);
+			var node = $('#gift_card_issue_list').datagrid('getSelected');
+			var index = $('#gift_card_issue_list').datagrid('getRowIndex',node);
+			
+			$('#gift_card_issue_list').datagrid("updateRow", {
+				index: index,
+				row: res.data
+			});
+			var path = type == "A" ?  res.data.accQrCodeWebPath : res.data.payQrCodeWebPath 
+			viewQrCode(path , type == "A" ? "적립 큐알": "결제 큐알");
+		}else {
+			$.messager.alert('오류 발생', res.message);
+		}
+	});
+}
+function viewQrCode(path, title){
+	var w = window.open(path, "QR Code", "width=400, height=400, left=100, top=100"); 
+	w.document.title = title;
 }
 
 function updateGiftCardIssue(data){

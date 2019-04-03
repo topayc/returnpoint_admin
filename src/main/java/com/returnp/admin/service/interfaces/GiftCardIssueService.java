@@ -12,4 +12,5 @@ public interface GiftCardIssueService {
 	public ReturnpBaseResponse deleteGiftCardIssue(GiftCardIssue record);
 	public ReturnpBaseResponse updateGiftCardIssue(GiftCardIssue record);
 	public ReturnpBaseResponse invalidate(int giftCardOrderNo);
+	public ReturnpBaseResponse createQrImage( int giftCardIssueNo, String type, String filePath, String webPat);
 }

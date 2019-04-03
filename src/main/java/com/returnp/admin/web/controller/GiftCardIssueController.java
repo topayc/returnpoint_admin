@@ -3,6 +3,7 @@ package com.returnp.admin.web.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.axis.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.View;
 
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.GiftCardIssueCommand;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.request.SearchCondition;
-import com.returnp.admin.model.GiftCard;
 import com.returnp.admin.model.GiftCardIssue;
 import com.returnp.admin.service.interfaces.GiftCardIssueService;
 import com.returnp.admin.service.interfaces.SearchService;
+import com.returnp.admin.view.ListExcelDownload;
 
 @Controller
 @RequestMapping("/api")
@@ -85,6 +87,17 @@ public class GiftCardIssueController extends ApplicationController{
 		//System.out.println("###### createGiftCard");
 		return this.giftCardIssueService.createBatchGiftCardIssue(giftCardOrderNo);
 	}
+	
+	@RequestMapping(value = "/giftCardIssue/issueExcelDownload", method = RequestMethod.GET)
+	public View downloadExcel(@RequestParam(value = "giftCardOrderNo", required = true,defaultValue = "0") int giftCardOrderNo, 
+			HttpServletRequest request, HttpServletResponse response, Model model) {
+		/*System.out.println("###### issueExcelDownload");*/
+		GiftCardIssueCommand giftCardIssue = new GiftCardIssueCommand();
+		giftCardIssue.setGiftCardOrderNo(giftCardOrderNo);
+		ArrayList<GiftCardIssueCommand> giftCardIssues = this.searchService.selectGiftCardIssueCommands(giftCardIssue);		
+		model.addAttribute("giftCardIssuseList", giftCardIssues);
+		return new ListExcelDownload();
+	}
 
 	/**
 	 * 해당 주문에 대하여 발행된 상품권 모두 취소 삭제 
@@ -117,5 +130,18 @@ public class GiftCardIssueController extends ApplicationController{
 	public ReturnpBaseResponse deleteGiftCard( GiftCardIssue giftCardIssue){
 		//System.out.println("###### deleteGiftCard");
 		return this.giftCardIssueService.deleteGiftCardIssue(giftCardIssue);
+	}
+	
+	/**
+	 * @param giftCardIssueNo
+	 * @param type  A : 적립 큐알, P : 결제 큐알
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/giftCardIssue/createQr", method = RequestMethod.GET)
+	public ReturnpBaseResponse createQrImage( int giftCardIssueNo,String  type, HttpServletRequest request ){
+		/*System.out.println("###### createQrImage");*/
+		return this.giftCardIssueService.createQrImage(
+			giftCardIssueNo, type,request.getSession().getServletContext().getRealPath("/gift_qr/" + giftCardIssueNo),  "/gift_qr/" + giftCardIssueNo);
 	}
 }

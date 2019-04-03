@@ -225,6 +225,8 @@ $(function () {
         	deleteGiftCardIssue: { apiCode: 10000, apiPath : '/api/giftCardIssue/delete' ,  requestMethod: "post"},  
         	updateGiftCardIssue: { apiCode: 10000, apiPath : '/api/giftCardIssue/update' ,  requestMethod: "post"},  
         	invalidateGiftCardIssue: { apiCode: 10000, apiPath : '/api/giftCardIssue/invalidateBatch' ,  requestMethod: "post"},  
+        	issueExcelDownload: { apiCode: 10000, apiPath : '/api/giftCardIssue/issueExcelDownload' ,  requestMethod: "get"},  
+        	createQr: { apiCode: 10000, apiPath : '/api/giftCardIssue/createQr' ,  requestMethod: "get"},  
         	
         	/* 상품권 결제 관련*/ 
         	selectGiftCardPayment: { apiCode: 10000, apiPath : '/api/giftCardPayments' ,  requestMethod: "get"},  

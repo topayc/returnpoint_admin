@@ -436,9 +436,11 @@ function initView(){
 		  		onclick: function(){
 		  			if (selectedOrder.issueStatus != "3") {
 		  				$.messager.alert('알림', "발행 완료된 주문 및 상품권만 엑셀로 변환할 수 있습니다.");
+		  				
 		  			}else {
-		  				$.messager.confirm('상품권 발행',"상품권을 발행하시겠습니까?", function(r){
+		  				$.messager.confirm('상품권 발생 내역 다운 ' , ' 상품권 발행 리스트를 엑셀로 받으시겠습나까', function(r){
 		  			        if (r){
+		  			        	window.open("/api/giftCardIssue/issueExcelDownload?giftCardOrderNo=" + selectedOrder.orderNo);
 		  			        }
 		  			    });
 		  			}

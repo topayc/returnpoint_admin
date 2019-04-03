@@ -35,6 +35,14 @@ public class GiftCardIssue extends GiftCardIssueKey {
 
     private Date expirationTime;
 
+    private String accQrCodeWebPath;
+
+    private String payQrCodeWebPath;
+
+    private String accQrCodeFilePath;
+
+    private String payQrCodeFilePath;
+
     private Date createTime;
 
     private Date updateTime;
@@ -71,17 +79,15 @@ public class GiftCardIssue extends GiftCardIssueKey {
         this.payableStatus = payableStatus == null ? null : payableStatus.trim();
     }
 
-   
-
     public String getGiftCardStatus() {
-		return giftCardStatus;
-	}
+        return giftCardStatus;
+    }
 
-	public void setGiftCardStatus(String giftCardStatus) {
-		this.giftCardStatus = giftCardStatus;
-	}
+    public void setGiftCardStatus(String giftCardStatus) {
+        this.giftCardStatus = giftCardStatus == null ? null : giftCardStatus.trim();
+    }
 
-	public String getGiftCardType() {
+    public String getGiftCardType() {
         return giftCardType;
     }
 
@@ -167,6 +173,38 @@ public class GiftCardIssue extends GiftCardIssueKey {
 
     public void setExpirationTime(Date expirationTime) {
         this.expirationTime = expirationTime;
+    }
+
+    public String getAccQrCodeWebPath() {
+        return accQrCodeWebPath;
+    }
+
+    public void setAccQrCodeWebPath(String accQrCodeWebPath) {
+        this.accQrCodeWebPath = accQrCodeWebPath == null ? null : accQrCodeWebPath.trim();
+    }
+
+    public String getPayQrCodeWebPath() {
+        return payQrCodeWebPath;
+    }
+
+    public void setPayQrCodeWebPath(String payQrCodeWebPath) {
+        this.payQrCodeWebPath = payQrCodeWebPath == null ? null : payQrCodeWebPath.trim();
+    }
+
+    public String getAccQrCodeFilePath() {
+        return accQrCodeFilePath;
+    }
+
+    public void setAccQrCodeFilePath(String accQrCodeFilePath) {
+        this.accQrCodeFilePath = accQrCodeFilePath == null ? null : accQrCodeFilePath.trim();
+    }
+
+    public String getPayQrCodeFilePath() {
+        return payQrCodeFilePath;
+    }
+
+    public void setPayQrCodeFilePath(String payQrCodeFilePath) {
+        this.payQrCodeFilePath = payQrCodeFilePath == null ? null : payQrCodeFilePath.trim();
     }
 
     public Date getCreateTime() {
