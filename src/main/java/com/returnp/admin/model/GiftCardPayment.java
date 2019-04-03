@@ -14,7 +14,7 @@ public class GiftCardPayment extends QueryCondition {
 
     private Float refundRate;
 
-    private Integer refundAmount;
+    private float refundAmount;
 
     private String refundStatus;
 
@@ -68,15 +68,17 @@ public class GiftCardPayment extends QueryCondition {
         this.refundRate = refundRate;
     }
 
-    public Integer getRefundAmount() {
-        return refundAmount;
-    }
+    
 
-    public void setRefundAmount(Integer refundAmount) {
-        this.refundAmount = refundAmount;
-    }
+    public float getRefundAmount() {
+		return refundAmount;
+	}
 
-    public String getRefundStatus() {
+	public void setRefundAmount(float refundAmount) {
+		this.refundAmount = refundAmount;
+	}
+
+	public String getRefundStatus() {
         return refundStatus;
     }
 

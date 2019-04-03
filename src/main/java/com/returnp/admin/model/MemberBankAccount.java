@@ -16,6 +16,10 @@ public class MemberBankAccount extends QueryCondition {
 
     private String accountStatus;
 
+    private String isDefault;
+
+    private String bankPurpose;
+
     private String statusMessage;
 
     private Integer regAdminNo;
@@ -72,6 +76,22 @@ public class MemberBankAccount extends QueryCondition {
 
     public void setAccountStatus(String accountStatus) {
         this.accountStatus = accountStatus == null ? null : accountStatus.trim();
+    }
+
+    public String getIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(String isDefault) {
+        this.isDefault = isDefault == null ? null : isDefault.trim();
+    }
+
+    public String getBankPurpose() {
+        return bankPurpose;
+    }
+
+    public void setBankPurpose(String bankPurpose) {
+        this.bankPurpose = bankPurpose == null ? null : bankPurpose.trim();
     }
 
     public String getStatusMessage() {

@@ -7,7 +7,7 @@
     <result column="giftCardIssueNo" jdbcType="INTEGER" property="giftCardIssueNo" />
     <result column="giftCardPaymentAmount" jdbcType="INTEGER" property="giftCardPaymentAmount" />
     <result column="refundRate" jdbcType="REAL" property="refundRate" />
-    <result column="refundAmount" jdbcType="INTEGER" property="refundAmount" />
+    <result column="refundAmount" jdbcType="REAL" property="refundAmount" />
     <result column="refundStatus" jdbcType="VARCHAR" property="refundStatus" />
     <result column="bankName" jdbcType="VARCHAR" property="bankName" />
     <result column="backAccount" jdbcType="VARCHAR" property="backAccount" />
@@ -41,7 +41,7 @@
       bankAccountOwner, createTime, updateTime
       )
     values (#{giftCardPaymentNo,jdbcType=INTEGER}, #{affiliateNo,jdbcType=INTEGER}, #{giftCardIssueNo,jdbcType=INTEGER}, 
-      #{giftCardPaymentAmount,jdbcType=INTEGER}, #{refundRate,jdbcType=REAL}, #{refundAmount,jdbcType=INTEGER}, 
+      #{giftCardPaymentAmount,jdbcType=INTEGER}, #{refundRate,jdbcType=REAL}, #{refundAmount,jdbcType=REAL}, 
       #{refundStatus,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{backAccount,jdbcType=VARCHAR}, 
       #{bankAccountOwner,jdbcType=VARCHAR}, NOW(), NOW()
       )
@@ -107,7 +107,7 @@
         #{refundRate,jdbcType=REAL},
       </if>
       <if test="refundAmount != null">
-        #{refundAmount,jdbcType=INTEGER},
+        #{refundAmount,jdbcType=REAL},
       </if>
       <if test="refundStatus != null">
         #{refundStatus,jdbcType=VARCHAR},
@@ -146,7 +146,7 @@
         refundRate = #{refundRate,jdbcType=REAL},
       </if>
       <if test="refundAmount != null">
-        refundAmount = #{refundAmount,jdbcType=INTEGER},
+        refundAmount = #{refundAmount,jdbcType=REAL},
       </if>
       <if test="refundStatus != null">
         refundStatus = #{refundStatus,jdbcType=VARCHAR},
@@ -176,7 +176,7 @@
       giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER},
       giftCardPaymentAmount = #{giftCardPaymentAmount,jdbcType=INTEGER},
       refundRate = #{refundRate,jdbcType=REAL},
-      refundAmount = #{refundAmount,jdbcType=INTEGER},
+      refundAmount = #{refundAmount,jdbcType=REAL},
       refundStatus = #{refundStatus,jdbcType=VARCHAR},
       bankName = #{bankName,jdbcType=VARCHAR},
       backAccount = #{backAccount,jdbcType=VARCHAR},

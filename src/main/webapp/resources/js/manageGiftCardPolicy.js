@@ -11,10 +11,11 @@ function initView(){
 	/* 패널   초기화*/
 	$('.easyui-panel').panel({ border: false });
 	var properties  = {"total":7,"rows":[
-		{"name":"상품권 판매시 본사 수수료","value":"10%","group":"정산","editor":"text"},
-		{"name":" 상품권 판매시 총판 수수료","value":"10%","group":"정산","editor":"text"},
-		{"name":" 상품권 판매시 판매점 수수료","value":"10%","group":"정산","editor":"text"},
-	    {"name":" 상품권 환전 수수료","value":"10%","group":"정산","editor":"text"},
+		{"name":"상품권 판매시 본사 수수료","value":"0.12","group":"정산","editor":"text"},
+		{"name":" 상품권 판매시 총판 수수료","value":"0.12","group":"정산","editor":"text"},
+		{"name":" 상품권 판매시 판매점 수수료","value":"0.12","group":"정산","editor":"text"},
+	    {"name":" 상품권 결제 수수료","value":"0.12","group":"정산","editor":"text"},
+	    {"name":" 상품권 적립율","value":"0.12","group":"정산","editor":"text"},
 
 	    {"name":" 회사명","value":"리턴포인트","group":"회사 운영 정보","editor":"text"},
 	    {"name":" 웹사이트","value":"https://www.returnp.com","group":"회사 운영 정보","editor":"text"},

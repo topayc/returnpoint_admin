@@ -2749,17 +2749,19 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   <!-- ===============================================================================================================    -->
      <!--MemberBankAccount -->
 	<resultMap id="Member_Bank_Account_ResultMap" type="com.returnp.admin.model.MemberBankAccount">
-	   <id column="memberBankAccountNo" jdbcType="INTEGER" property="memberBankAccountNo" />
-	    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
-	    <result column="bankName" jdbcType="VARCHAR" property="bankName" />
-	    <result column="accountOwner" jdbcType="VARCHAR" property="accountOwner" />
-	    <result column="bankAccount" jdbcType="VARCHAR" property="bankAccount" />
-	    <result column="accountStatus" jdbcType="VARCHAR" property="accountStatus" />
-	    <result column="statusMessage" jdbcType="VARCHAR" property="statusMessage" />
-	    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
-	    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
-	    <result column="regAdminNo" jdbcType="INTEGER" property="regAdminNo" />
-	     <result column="regType" jdbcType="CHAR" property="regType" />
+	    <id column="memberBankAccountNo" jdbcType="INTEGER" property="memberBankAccountNo" />
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="bankName" jdbcType="VARCHAR" property="bankName" />
+    <result column="accountOwner" jdbcType="VARCHAR" property="accountOwner" />
+    <result column="bankAccount" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="accountStatus" jdbcType="VARCHAR" property="accountStatus" />
+    <result column="isDefault" jdbcType="VARCHAR" property="isDefault" />
+    <result column="bankPurpose" jdbcType="VARCHAR" property="bankPurpose" />
+    <result column="statusMessage" jdbcType="VARCHAR" property="statusMessage" />
+    <result column="regAdminNo" jdbcType="INTEGER" property="regAdminNo" />
+    <result column="regType" jdbcType="CHAR" property="regType" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
 	  </resultMap>
 	  
 	 <resultMap id="Member_Bank_Account_Command_ResultMap" type="com.returnp.admin.dto.command.MemberBankAccountCommand">
@@ -2771,6 +2773,8 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
 	    <result column="bankName" jdbcType="VARCHAR" property="bankName" />
 	    <result column="accountOwner" jdbcType="VARCHAR" property="accountOwner" />
 	    <result column="bankAccount" jdbcType="VARCHAR" property="bankAccount" />
+	     <result column="isDefault" jdbcType="VARCHAR" property="isDefault" />
+    	<result column="bankPurpose" jdbcType="VARCHAR" property="bankPurpose" />
 	    <result column="accountStatus" jdbcType="VARCHAR" property="accountStatus" />
 	    <result column="statusMessage" jdbcType="VARCHAR" property="statusMessage" />
 	    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
@@ -2780,7 +2784,8 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
    </resultMap>
  
   <sql id="Member_Bank_Account_Columns">
-    memberBankAccountNo, memberNo, bankName, accountOwner, bankAccount, accountStatus, statusMessage, createTime, updateTime, regAdminNo,regType
+    memberBankAccountNo, memberNo, bankName, accountOwner, bankAccount, accountStatus, 
+    isDefault, bankPurpose, statusMessage, regAdminNo, regType, createTime, updateTime
   </sql>
   
    <sql id="Member_Bank_Account_Command_Columns">
@@ -2790,6 +2795,8 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     M.memberEmail, 
     M.memberPhone, 
     MA.bankName, 
+    MA.bankPurpose,
+    MA.isDefault,
     MA.accountOwner, 
     MA.bankAccount, 
     MA.accountStatus, 
@@ -3498,7 +3505,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="giftCardIssueNo" jdbcType="INTEGER" property="giftCardIssueNo" />
     <result column="giftCardPaymentAmount" jdbcType="INTEGER" property="giftCardPaymentAmount" />
     <result column="refundRate" jdbcType="REAL" property="refundRate" />
-    <result column="refundAmount" jdbcType="INTEGER" property="refundAmount" />
+    <result column="refundAmount" jdbcType="REAL" property="refundAmount" />
     <result column="refundStatus" jdbcType="VARCHAR" property="refundStatus" />
     <result column="bankName" jdbcType="VARCHAR" property="bankName" />
     <result column="backAccount" jdbcType="VARCHAR" property="backAccount" />

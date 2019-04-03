@@ -308,7 +308,12 @@
                             					<span style = "font-weight : bold">일반 주문 관리</span>
                             				</a> 
                             			</li> -->
-
+										<li id = "" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = "manageGiftCardAccHistory"  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 적립 내역 </span>
+                            				</a> 
+                            			</li>
+                            			
                             			<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageIssuedGiftCard"  menu_deps= '2' >
                             					<span style = "font-weight : bold">발행 상품권 조회</span>
