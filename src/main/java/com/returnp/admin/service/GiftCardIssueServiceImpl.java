@@ -98,13 +98,13 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 					issue.setGiftCardSalePrice(giftCardOrder.getGiftCardSalePrice());
 					
 					arDataJson = new JSONObject();
-					arDataJson.put("qr_cmd", QRManager.QRCmd.ACC_BY_GIFTCARD);
+					arDataJson.put("qrCmd", QRManager.QRCmd.ACC_BY_GIFTCARD);
 					arDataJson.put("data", issue.getPinNumber());
 					issue.setAccQrData(arDataJson.toString());
-					System.out.println("적립 큐알 데이타  : " + arDataJson.toString());;
+					//System.out.println("적립 큐알 데이타  : " + arDataJson.toString());;
 					
-					arDataJson.put("qr_cmd", QRManager.QRCmd.PAYBY_GIFTCARD);
-					System.out.println("결제 큐알 데이타  : " + arDataJson.toString());;
+					arDataJson.put("qrCmd", QRManager.QRCmd.PAY_BY_GIFTCARD);
+					//System.out.println("결제 큐알 데이타  : " + arDataJson.toString());;
 
 					issue.setPayQrData(arDataJson.toString());
 					issue.setAccQrScanner(null);

@@ -255,7 +255,7 @@
                             			</li>
                             			
                             			<li id = "manageGiftCardAffiliate"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageGiftCardAffiliate"  node = "5"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold">가맹점 관리</span></a> 
+		                        		<span style = "font-weight : bold">상품권 가맹점 관리</span></a> 
 		                        		</li>
 		                        	
                             			<li id = "manageGiftCard" data-options = "iconCls :'icon-info'">
@@ -322,7 +322,7 @@
                             			</li>
                             			<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 정산</span>
+                            					<span style = "font-weight : bold">상품권 판매점 정산</span>
                             				</a> 
                             			</li>
 		                        </ul>

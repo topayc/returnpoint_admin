@@ -9,13 +9,13 @@
 			    {field:'ordererPhone',width:100,align:'center',title : '주문자 핸드폰', hidden : true},
 			    {field:'giftCardNo',width:100,align:'center',title : '상품권 번호', hidden : true},
 			    {field:'giftCardName',width:120,align:'center',title : '상품권 이름'},
+			    {field:'giftCardAmount',width:100,align:'center',title : '상품권 금액',formatter : numberFormatter},
+			    {field:'giftCardSalePrice',width:100,align:'center',title : '판매 금액', formatter : numberGreenFormatter},
 			    {field:'pinNumber',width:200,align:'center',title : '핀 번호'/*,formatter : addBoldFomatter*/},
 			    {field:'giftCardStatus',width:80,align:'center',title : '상태', formatter : giftCardStatusFormatter},
 			    {field:'giftCardType',width:80,align:'center',title : '타입', formatter : giftCardTypeFormatter2},
-			    {field:'accableStatus',width:80,align:'center',title : '적립 가능', formatter : accableStatusFormatter},
-			    {field:'payableStatus',width:80,align:'center',title : '결제 가능', formatter : payableStatusFormatter},
-			    {field:'giftCardAmount',width:100,align:'center',title : '상품권 금액',formatter : numberFormatter},
-			    {field:'giftCardSalePrice',width:100,align:'center',title : '판매 금액', formatter : numberGreenFormatter},
+			    {field:'accableStatus',width:80,align:'center',title : '적립 여부', formatter : accableStatusFormatter},
+			    {field:'payableStatus',width:80,align:'center',title : '결제 여부', formatter : payableStatusFormatter},
 			    {field:'accQrData',width:130,align:'center',title : '적립 QR 데이타',hidden : true},
 			    {field:'payQrData',width:130,align:'center',title : '결제 QR 데이타',hidden : true},
 			    {field:'accQrCodeWebPath',width:100,align:'center',title : '적립 QR Code', hidden : true},
@@ -426,7 +426,7 @@ function createQrCode(giftCardIssueNo, type){
 	});
 }
 function viewQrCode(path, title){
-	var w = window.open(path, "QR Code", "width=400, height=400, left=100, top=100"); 
+	var w = window.open(path, "QR Code", "width=550, height=550, left=100, top=100"); 
 	w.document.title = title;
 }
 

@@ -32,7 +32,7 @@ public class QRManager {
 		public static final String EXE_JOIN_WITH_RECOM = "20000";
 
 		public static final String ACC_BY_GIFTCARD= "900";
-		public static final String PAYBY_GIFTCARD= "901";
+		public static final String PAY_BY_GIFTCARD= "901";
 		
 	}
 	
