@@ -256,6 +256,10 @@ function imageTagFormatter(value, row, index) {
 	return "<img witdh = '100' height = '60' src = '" + value + "' />"
 }
 
+function linkFormatter(value, row, index) {
+	return "<a href ='"+row.web+"' target = '_blank'>" + row.web + "</a>"
+}
+
 function affiliateTypeFormatter(value, row, index) {
 	var affiliteTypesArr = row.affiliateType.split(",");
 	var str = [];

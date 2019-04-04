@@ -27,6 +27,7 @@
   <script type="text/javascript" src="resources/js/lib/jquery-number.js"></script>
   <script type="text/javascript" src="resources/js/lib/easyui/jquery.portal.js"></script>
   <script type="text/javascript" src="resources/js/lib/easyui/jquery.texteditor.js"></script>
+  <script type="text/javascript" src="resources/js/lib/easyui/datagrid-cellediting.js"></script>
 <!-- <script type="text/javascript" src="resources/js/lib/easyui/datagrid-cellediting.js"></script> -->
   <script type="text/javascript" src="resources/js/returnp.js"></script>
   <script type="text/javascript" src="resources/js/returnpCommon.js"></script>
@@ -308,11 +309,6 @@
                             					<span style = "font-weight : bold">일반 주문 관리</span>
                             				</a> 
                             			</li> -->
-										<li id = "" data-options = "iconCls :'icon-info'">
-                            				<a class= "sub_menu"  view_req_name = "manageGiftCardAccHistory"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 적립 내역 </span>
-                            				</a> 
-                            			</li>
                             			
                             			<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageIssuedGiftCard"  menu_deps= '2' >
@@ -320,6 +316,11 @@
                             				</a> 
                             			</li>
                             			
+										<li id = "" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = "manageGiftCardAccHistory"  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 적립 내역 </span>
+                            				</a> 
+                            			</li>
                             			<li id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
                             					<span style = "font-weight : bold">발행 상품권 결제 관리</span>

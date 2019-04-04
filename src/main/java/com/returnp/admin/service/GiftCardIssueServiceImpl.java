@@ -26,6 +26,7 @@ import com.returnp.admin.model.GiftCardIssue;
 import com.returnp.admin.service.interfaces.GiftCardIssueService;
 import com.returnp.admin.service.interfaces.GiftCardOrderService;
 import com.returnp.admin.service.interfaces.SearchService;
+import com.returnp.admin.utils.BASE64Util;
 import com.returnp.admin.utils.QRManager;
 
 @Service
@@ -98,15 +99,13 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 					issue.setGiftCardSalePrice(giftCardOrder.getGiftCardSalePrice());
 					
 					arDataJson = new JSONObject();
-					arDataJson.put("qrCmd", QRManager.QRCmd.ACC_BY_GIFTCARD);
-					arDataJson.put("data", issue.getPinNumber());
-					issue.setAccQrData(arDataJson.toString());
-					//System.out.println("적립 큐알 데이타  : " + arDataJson.toString());;
+					arDataJson.put("qr_cmd", QRManager.QRCmd.ACC_BY_GIFTCARD);
+					arDataJson.put("pinNumber", issue.getPinNumber());
+					issue.setAccQrData(BASE64Util.encodeString(arDataJson.toString()));
 					
-					arDataJson.put("qrCmd", QRManager.QRCmd.PAY_BY_GIFTCARD);
-					//System.out.println("결제 큐알 데이타  : " + arDataJson.toString());;
-
-					issue.setPayQrData(arDataJson.toString());
+					arDataJson.put("qr_cmd", QRManager.QRCmd.PAY_BY_GIFTCARD);
+					issue.setPayQrData(BASE64Util.encodeString(arDataJson.toString()));
+					
 					issue.setAccQrScanner(null);
 					issue.setPayQrScanner(null);
 					issue.setAccQrScanTime(null);

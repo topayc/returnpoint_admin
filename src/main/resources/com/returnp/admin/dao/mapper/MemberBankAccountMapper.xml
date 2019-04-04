@@ -39,8 +39,10 @@
     values (#{memberBankAccountNo,jdbcType=INTEGER}, #{memberNo,jdbcType=INTEGER}, #{bankName,jdbcType=VARCHAR}, 
       #{accountOwner,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR}, #{accountStatus,jdbcType=VARCHAR}, 
       #{isDefault,jdbcType=VARCHAR}, #{bankPurpose,jdbcType=VARCHAR}, #{statusMessage,jdbcType=VARCHAR}, 
-      #{regAdminNo,jdbcType=INTEGER}, #{regType,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{regAdminNo,jdbcType=INTEGER}, #{regType,jdbcType=CHAR}, NOW(), NOW())
+        <selectKey keyProperty="memberBankAccountNo" resultType="java.lang.Integer" order ="AFTER">
+		    SELECT LAST_INSERT_ID()
+	 </selectKey>	
   </insert>
   <insert id="insertSelective" parameterType="com.returnp.admin.model.MemberBankAccount">
     insert into member_bank_account
@@ -185,4 +187,5 @@
       updateTime = #{updateTime,jdbcType=TIMESTAMP}
     where memberBankAccountNo = #{memberBankAccountNo,jdbcType=INTEGER}
   </update>
+  
 </mapper>

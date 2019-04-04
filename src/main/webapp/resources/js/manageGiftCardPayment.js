@@ -6,6 +6,7 @@
 			    {field:'affiliateName',width:100,align:'center',title : '제휴점 명'},
 			    {field:'affiliateEmail',width:100,align:'center',title : '제휴점 이메일'},
 			    {field:'affiliatePhone',width:100,align:'center',title : '제휴점 핸드폰'},
+			    {field:'giftCardName',width:100,align:'center',title : '상품권 이름'},
 			    {field:'giftCardIssueNo',width:100,align:'center',title : '발행 상품권 번호'},
 			    {field:'pinNumber',width:100,align:'center',title : '핀 번호'},
 			    {field:'giftCardPaymentAmount',width:100,align:'center',title : '상품권 금액', formatter : orderTypeFormatter},
@@ -14,7 +15,7 @@
 			    {field:'refundStatus',width:100,align:'center',title : '결제 상태'},
 			    {field:'bankName',width:100,align:'center',title : '결제 은행'},
 			    {field:'backAccount',width:100,align:'center',title : '결제 계좌'},
-			    {field:'bankAccountOwner',width:100,align:'center',title : '계좌주'},
+			    {field:'accountOwner',width:100,align:'center',title : '계좌주'},
 			    {field:'createTime',width:100,align:'center',title : '등록일'},
 			    {field:'updateTime',width:100,align:'center',title : '수정일', hidden : true},
 			    ]];

@@ -7,6 +7,7 @@ import com.returnp.admin.dto.command.AffiliateCommand;
 import com.returnp.admin.dto.command.AgencyCommand;
 import com.returnp.admin.dto.command.BranchCommand;
 import com.returnp.admin.dto.command.CategoryCommand;
+import com.returnp.admin.dto.command.GiftCardAccHistoryCommand;
 import com.returnp.admin.dto.command.GiftCardIssueCommand;
 import com.returnp.admin.dto.command.GiftCardOrderCommand;
 import com.returnp.admin.dto.command.GiftCardOrderItemCommand;
@@ -38,6 +39,7 @@ import com.returnp.admin.model.Category;
 import com.returnp.admin.model.Code;
 import com.returnp.admin.model.CompanyBankAccount;
 import com.returnp.admin.model.GiftCard;
+import com.returnp.admin.model.GiftCardAccHistory;
 import com.returnp.admin.model.GiftCardSalesOrgan;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
@@ -168,4 +170,8 @@ public interface SearchMapper {
 	public ArrayList<GiftCardPaymentCommand> selectGiftCardPaymentCommands(GiftCardPaymentCommand record);
 
 	public ArrayList<GiftCardIssueCommand> selectGiftCardIssueCommands(GiftCardIssueCommand record);
+
+	public ArrayList<GiftCardAccHistory> selectGiftCardAccHistories(GiftCardAccHistory record);
+
+	public ArrayList<GiftCardAccHistoryCommand> selectGiftCardAccHistoryCommands(GiftCardAccHistoryCommand record);
 }

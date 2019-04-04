@@ -5,13 +5,14 @@ import com.returnp.admin.model.MemberBankAccount;
 public interface MemberBankAccountMapper {
     int deleteByPrimaryKey(Integer memberBankAccountNo);
 
-    int insert(MemberBankAccount record);
+	int insert(MemberBankAccount record);
 
-    int insertSelective(MemberBankAccount record);
+	int insertSelective(MemberBankAccount record);
 
-    MemberBankAccount selectByPrimaryKey(Integer memberBankAccountNo);
+	MemberBankAccount selectByPrimaryKey(Integer memberBankAccountNo);
 
-    int updateByPrimaryKeySelective(MemberBankAccount record);
+	int updateByPrimaryKeySelective(MemberBankAccount record);
 
-    int updateByPrimaryKey(MemberBankAccount record);
+	int updateByPrimaryKey(MemberBankAccount record);
+
 }

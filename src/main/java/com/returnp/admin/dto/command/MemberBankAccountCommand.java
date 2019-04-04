@@ -6,6 +6,7 @@ public class MemberBankAccountCommand extends MemberBankAccount {
 	private String memberName;
 	private String memberEmail;
 	private String memberPhone;
+	
 	public String getMemberName() {
 		return memberName;
 	}

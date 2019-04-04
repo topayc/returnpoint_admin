@@ -8,6 +8,8 @@ public class GiftCardAccHistory extends QueryCondition {
 
     private Integer memberNo;
 
+    private Integer giftCardIssueNo;
+
     private Integer baseAmount;
 
     private Float accRate;
@@ -34,6 +36,14 @@ public class GiftCardAccHistory extends QueryCondition {
 
     public void setMemberNo(Integer memberNo) {
         this.memberNo = memberNo;
+    }
+
+    public Integer getGiftCardIssueNo() {
+        return giftCardIssueNo;
+    }
+
+    public void setGiftCardIssueNo(Integer giftCardIssueNo) {
+        this.giftCardIssueNo = giftCardIssueNo;
     }
 
     public Integer getBaseAmount() {

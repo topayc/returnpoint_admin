@@ -234,6 +234,9 @@ $(function () {
         	deleteGiftCardPayment: { apiCode: 10000, apiPath : '/api/giftCardPayment/delete' ,  requestMethod: "post"},  
         	updateGiftCardPayment: { apiCode: 10000, apiPath : '/api/giftCardPayment/update' ,  requestMethod: "post"},  
 
+        	/* 상품권 적립 내역 */
+        	selectGiftCardAccHistory: { apiCode: 10000, apiPath : '/api/giftCardAccHistories' ,  requestMethod: "get"},  
+
         	/* 주문 아이템 관련*/
         	selectGiftCardItemsOrders: { apiCode: 10000, apiPath : '/api/giftCardOrderItems' ,  requestMethod: "get"},  
 
@@ -264,7 +267,11 @@ $(function () {
         	updateGiftCardSalesOrgan: {apiCode: 10000, apiPath : '/api/giftCardSalesOrgan/update' , requestMethod: 'post'}, /* 상품권 판매 조직 수정 */
         	deleteGiftCardSalesOrgan: {apiCode: 10000, apiPath : '/api/giftCardSalesOrgan/delete' , requestMethod: 'post'}, /* 삭제 */
         	
-        	 /* 로그인 */
+        	/*상품권 정책  */
+        	selectGiftCardPolicy: {apiCode: 10000, apiPath : '/api/giftCardPolicy' , requestMethod: 'get'}, 
+        	updateGiftCardPolicy: {apiCode: 10000, apiPath : '/api/giftCardPolicy/update' , requestMethod: 'post'},
+
+        	/* 로그인 */
         	signIn : { apiCode: 10000, requestMethod: "post"}, 
         	 /* 일반 회원 등록 , 가입*/
         	signUp : { apiCode: 10001, requestMethod: "post"},
