@@ -683,9 +683,9 @@ function removeGiftCardOrder(){
 	$.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 해당 내용을 정말로 삭제하시겠습니까?', function(r){
         if (r){
         	var param = {
-        			productNo : node.productNo
+        			giftCardOrderNo : node.giftCardOrderNo
         	}
-        	returnp.api.call("deleteProduct", param, function(res){
+        	returnp.api.call("deleteGiftCardOrder", param, function(res){
         		if (res.resultCode  == "100") {
         			$.messager.alert('알림', res.message);
         			realodPage();
