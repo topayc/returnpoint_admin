@@ -15,6 +15,18 @@ function giftCardStatusFormatter(value, row, index) {
 	return result;
 }
 
+function refundStatusFormatter(value, row, index) {
+	switch (row.refundStatus) {
+	case "1": result = '<span style = "color : green;font-weight : bold" >' + "결제 처리줌" + ' </span>'; break;
+	case "2": result = '<span style = "color : red;font-weight : bold" >' + "결제 완료" + ' </span>'; break;
+	case "3": result = '<span style = "color : #B57611;font-weight : bold" >' + "결제 보류" + ' </span>'; break;
+	case "4": result = '<span style = "color : #B57611;font-weight : bold" >' + "사용자 취소" + ' </span>'; break;
+	case "5": result = '<span style = "color : #B57611;font-weight : bold" >' + "관리자 취소" + ' </span>'; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
 function accableStatusFormatter(value, row, index) {
 	switch (row.accableStatus) {
 	case "Y": result = '<span style = "color : #2FA8E1;font-weight : bold" >' + "미적립" + ' </span>'; break;
@@ -181,6 +193,7 @@ function issueStatusFormatter(value, row, index) {
 	}
 	return result;
 }
+
 
 function issueActionFormatter(value, row, index) {
 	var result = "-"
