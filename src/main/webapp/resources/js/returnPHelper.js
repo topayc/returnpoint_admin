@@ -18,7 +18,7 @@ function giftCardStatusFormatter(value, row, index) {
 function accableStatusFormatter(value, row, index) {
 	switch (row.accableStatus) {
 	case "Y": result = '<span style = "color : #2FA8E1;font-weight : bold" >' + "미적립" + ' </span>'; break;
-	case "N": result = '<span style = "color : #EC4664;font-weight : bold" >' + "적립처리 됨" + ' </span>'; break;
+	case "N": result = '<span style = "color : #EC4664;font-weight : bold" >' + "적립 완료" + ' </span>'; break;
 	default: result = "-"; break;
 	}
 	return result;
@@ -30,7 +30,7 @@ function payableStatusFormatter(value, row, index) {
 		result = '<span style = "color : #2FA8E1;font-weight : bold" >' + "미결제" + ' </span>'; 
 		break;
 	case "N":
-		result = '<span style = "color : #EC4664;font-weight : bold" >' + "결제 처리됨" + ' </span>'; 
+		result = '<span style = "color : #EC4664;font-weight : bold" >' + "결제 완료" + ' </span>'; 
 		break;
 	default:
 		result = "-";

@@ -732,67 +732,7 @@ function viewOrderDetail(){
 					{field:'value',title:'값',width:8, resizable:false}
 					]]
 			});
-			
 			console.log(columns);
-			/* 주문 상세 아이템 리스트*/
-/*			
-			$('#order_item_list').datagrid({
-				singleSelect:true,
-				collapsible:false,
-				border : true,
-				//autoRowHeight: false,
-				fitColumns:true,
-				selectOnCheck : true,
-				checkOnSelect : true,
-				border:false,
-				rownumbers : true,
-			    columns:orderListItemColumns,
-				onRowContextMenu : function(e, index, row){
-					e.preventDefault();
-				  	$(this).datagrid("selectRow", index);
-				  	var cmenu = $('<div/>').appendTo('body');
-				  	cmenu.menu({
-				  		onClick : function(item){
-				  			switch(item.action){
-				  			case "view_gift_list":
-				  				viewGiftList();
-				  				break;
-				  			}
-				  		}
-				  	});
-				  	
-				  	var menus = [ '해당 주문 아이템의 상품권 발행 리스트 보기'];
-				  	var icons = ['icon-more'];
-				  	var actions = ['view_gift_list'];
-				  	
-				  	for(var i=0; i<menus.length; i++){
-				  		cmenu.menu('appendItem', {
-				  			data : row,
-				  			no : row.memberNo,
-				  			text:  "<strong>[" + row.orderItemName + "]</strong>"  + " " + menus[i],
-				  			action: actions[i],
-				  			iconCls: icons[i]
-				  		});
-				  	}
-				  	cmenu.menu('show', {
-				  		left:e.pageX,
-				  		top:e.pageY
-				  	});
-				},
-			});
-			returnp.api.call("selectGiftCardItemsOrders", {orderNumber : order.orderNumber}, function(res){
-				console.log("### 주문 아이템");
-				console.log(res);
-				if (res.resultCode == "100") {
-					setOrderListColumnHeader();
-					$('#order_item_list').datagrid({
-						data : res
-					});
-				}else {
-					$.messager.alert(res.message, res.data);
-				}
-			});*/
-		
 		}
 	});
 	
