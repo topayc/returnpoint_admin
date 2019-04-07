@@ -15,6 +15,14 @@ function giftCardStatusFormatter(value, row, index) {
 	return result;
 }
 
+function refundeRatePercenFormatter(value, row, index) {
+	return  (row.refundRate * 100) + "%";
+}
+
+function giftCardAccRatePercenFormatter(value, row, index) {
+	return  (row.accRate * 100) + "%";
+}
+
 function refundStatusFormatter(value, row, index) {
 	switch (row.refundStatus) {
 	case "1": result = '<span style = "color : green;font-weight : bold" >' + "결제 처리줌" + ' </span>'; break;
@@ -29,8 +37,10 @@ function refundStatusFormatter(value, row, index) {
 
 function accableStatusFormatter(value, row, index) {
 	switch (row.accableStatus) {
-	case "Y": result = '<span style = "color : #2FA8E1;font-weight : bold" >' + "미적립" + ' </span>'; break;
-	case "N": result = '<span style = "color : #EC4664;font-weight : bold" >' + "적립 완료" + ' </span>'; break;
+/*	case "Y": result = '<span style = "color : #2FA8E1;font-weight : bold" >' + "미적립" + ' </span>' ; break;
+	case "N": result = '<span style = "color : #EC4664;font-weight : bold" >' + "적립 완료" + ' </span>'; break;*/
+	case "Y": result = roundLabel("미 적립", '#2FA8E1') ; break;
+	case "N": result = roundLabel("적립 완료", '#EC4664'); break;
 	default: result = "-"; break;
 	}
 	return result;
@@ -38,12 +48,8 @@ function accableStatusFormatter(value, row, index) {
 
 function payableStatusFormatter(value, row, index) {
 	switch (row.payableStatus) {
-	case "Y":
-		result = '<span style = "color : #2FA8E1;font-weight : bold" >' + "미결제" + ' </span>'; 
-		break;
-	case "N":
-		result = '<span style = "color : #EC4664;font-weight : bold" >' + "결제 완료" + ' </span>'; 
-		break;
+	case "Y": result = roundLabel("미 결제 ", '#2FA8E1') ; break;
+	case "N": result = roundLabel("결제 완료", '#EC4664'); break;
 	default:
 		result = "-";
 		break;

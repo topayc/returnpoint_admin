@@ -1,16 +1,16 @@
 		var columns = [[
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-			    {field:'giftCardPaymentNo',width:100,align:'center',title : '등록번호',hidden:true},
-			    {field:'affiliateNo',width:100,align:'center',title : '제휴점 번호'},
+			    {field:'giftCardPaymentNo',width:75,align:'center',title : '등록번호',hidden:false},
+			    {field:'affiliateNo',width:80,align:'center',title : '제휴점 번호'},
 			    {field:'affiliateName',width:100,align:'center',title : '제휴점 명'},
 			    {field:'affiliateEmail',width:100,align:'center',title : '제휴점 이메일'},
 			    {field:'affiliatePhone',width:100,align:'center',title : '제휴점 핸드폰'},
 			    {field:'giftCardIssueNo',width:100,align:'center',title : '발행 상품권 번호', hidden: true},
 			    {field:'giftCardName',width:100,align:'center',title : '상품권 이름'},
-			    {field:'pinNumber',width:130,align:'center',title : '핀 번호'},
+			    {field:'pinNumber',width:150,align:'center',title : '핀 번호'},
 			    {field:'giftCardPaymentAmount',width:80,align:'center',title : '상품권 금액', formatter : numberRedFormatter},
-			    {field:'refundRate',width:70,align:'center',title : '수수료율'},
+			    {field:'refundRate',width:60,align:'center',title : '수수료율', formatter :  refundeRatePercenFormatter},
 			    {field:'refundAmount',width:80,align:'center',title : '실 결제 금액', formatter : numberGreenFormatter},
 			    {field:'refundStatus',width:100,align:'center',title : '결제 상태',formatter : refundStatusFormatter},
 			    {field:'bankName',width:100,align:'center',title : '결제 은행'},
@@ -30,7 +30,7 @@ function initView(){
 	$('.easyui-layout').layout();
 	
 	/* 패널   초기화*/
-	$('.easyui-panel').panel({ border: false, fit : true });
+	$('.easyui-panel').panel({ border: false, fit : true }); 
 	
 	/* 폼 초기화*/
 	$('#searchForm').form();
