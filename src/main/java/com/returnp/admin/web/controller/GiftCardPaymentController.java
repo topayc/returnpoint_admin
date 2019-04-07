@@ -94,4 +94,15 @@ public class GiftCardPaymentController extends ApplicationController{
 		//System.out.println("###### deleteGiftCard");
 		return this.giftCardPaymentService.deleteGiftCardPayment(giftCardPayment);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/giftCardPayment/change", method = RequestMethod.POST)
+	public ReturnpBaseResponse changeRefundStatus( 
+			@RequestParam(value = "giftCardPaymentNo", required = true,defaultValue = "0") int giftCardPaymentNo,
+			@RequestParam(value = "refundStatus", required = true,defaultValue = "0") String refundStatus,
+			
+			HttpServletRequest request){
+		
+		return this.giftCardPaymentService.changeGiftCardStatus(giftCardPaymentNo, refundStatus);
+	}
 }

@@ -11,4 +11,5 @@ public interface GiftCardPaymentService {
 	public ReturnpBaseResponse createGiftCardPayment(GiftCardPayment record);
 	public ReturnpBaseResponse deleteGiftCardPayment(GiftCardPayment record);
 	public ReturnpBaseResponse updateGiftCardPayment(GiftCardPayment record);
+	public ReturnpBaseResponse changeGiftCardStatus(int giftCardPaymentNo, String refundStatus);
 }

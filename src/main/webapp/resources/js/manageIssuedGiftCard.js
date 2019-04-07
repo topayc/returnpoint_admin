@@ -455,6 +455,7 @@ function changeGiftCardStatus(status){
                 index: index,
                 row: res.data
             });
+            $('#gift_card_issue_list').datagrid('unselectAll');
 		}else {
 			$.messager.alert('오류 발생', res.message);
 		}

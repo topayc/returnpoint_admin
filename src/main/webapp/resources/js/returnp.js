@@ -234,6 +234,7 @@ $(function () {
         	createGiftCardPayment: { apiCode: 10000, apiPath : '/api/giftCardPayment/create' ,  requestMethod: "post"},  
         	deleteGiftCardPayment: { apiCode: 10000, apiPath : '/api/giftCardPayment/delete' ,  requestMethod: "post"},  
         	updateGiftCardPayment: { apiCode: 10000, apiPath : '/api/giftCardPayment/update' ,  requestMethod: "post"},  
+        	changeGiftCardRefundStatus: { apiCode: 10000, apiPath : '/api/giftCardPayment/change' ,  requestMethod: "post"},  
 
         	/* 상품권 적립 내역 */
         	selectGiftCardAccHistory: { apiCode: 10000, apiPath : '/api/giftCardAccHistories' ,  requestMethod: "get"},  
