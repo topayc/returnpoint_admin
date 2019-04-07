@@ -87,7 +87,18 @@ public class GiftCardIssueController extends ApplicationController{
 		//System.out.println("###### createGiftCard");
 		return this.giftCardIssueService.createBatchGiftCardIssue(giftCardOrderNo);
 	}
-	
+
+	@ResponseBody
+	@RequestMapping(value = "/giftCardIssue/change", method = RequestMethod.POST)
+	public ReturnpBaseResponse changeGiftCardStatus( 
+			@RequestParam(value = "giftCardIssueNo", required = true,defaultValue = "0") int giftCardIssueNo,
+			@RequestParam(value = "giftCardStatus", required = true,defaultValue = "0") String giftCardStatus,
+			
+			HttpServletRequest request){
+		
+		return this.giftCardIssueService.changeGiftCardStatus(giftCardIssueNo, giftCardStatus);
+	}
+		
 	@RequestMapping(value = "/giftCardIssue/issueExcelDownload", method = RequestMethod.GET)
 	public View downloadExcel(@RequestParam(value = "giftCardOrderNo", required = true,defaultValue = "0") int giftCardOrderNo, 
 			HttpServletRequest request, HttpServletResponse response, Model model) {

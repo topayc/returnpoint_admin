@@ -9,7 +9,7 @@ function giftCardStatusFormatter(value, row, index) {
 	case "2": result = '<span style = "color : red;font-weight : bold" >' + "중지" + ' </span>'; break;
 	case "3": result = '<span style = "color : #B57611;font-weight : bold" >' + "적립 중지" + ' </span>'; break;
 	case "4": result = '<span style = "color : #B57611;font-weight : bold" >' + "결제 중지" + ' </span>'; break;
-	case "5": result = '<span style = "color : #B57611;font-weight : bold" >' + "사용기간 만료" + ' </span>'; break;
+	case "5": result = '<span style = "color : #B57611;font-weight : bold" >' + "만료" + ' </span>'; break;
 	default: result = "-"; break;
 	}
 	return result;
