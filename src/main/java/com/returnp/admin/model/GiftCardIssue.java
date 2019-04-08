@@ -43,6 +43,22 @@ public class GiftCardIssue extends GiftCardIssueKey {
 
     private String payQrCodeFilePath;
 
+    private String receiverPhone;
+
+    private String receiverEmail;
+
+    private String receiverName;
+
+    private String receiverAddress;
+
+    private String receiverIsMember;
+
+    private String deliveryMessage;
+
+    private String deliveryStatus;
+
+    private String deliveryNumber;
+
     private Date createTime;
 
     private Date updateTime;
@@ -205,6 +221,70 @@ public class GiftCardIssue extends GiftCardIssueKey {
 
     public void setPayQrCodeFilePath(String payQrCodeFilePath) {
         this.payQrCodeFilePath = payQrCodeFilePath == null ? null : payQrCodeFilePath.trim();
+    }
+
+    public String getReceiverPhone() {
+        return receiverPhone;
+    }
+
+    public void setReceiverPhone(String receiverPhone) {
+        this.receiverPhone = receiverPhone == null ? null : receiverPhone.trim();
+    }
+
+    public String getReceiverEmail() {
+        return receiverEmail;
+    }
+
+    public void setReceiverEmail(String receiverEmail) {
+        this.receiverEmail = receiverEmail == null ? null : receiverEmail.trim();
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName == null ? null : receiverName.trim();
+    }
+
+    public String getReceiverAddress() {
+        return receiverAddress;
+    }
+
+    public void setReceiverAddress(String receiverAddress) {
+        this.receiverAddress = receiverAddress == null ? null : receiverAddress.trim();
+    }
+
+    public String getReceiverIsMember() {
+        return receiverIsMember;
+    }
+
+    public void setReceiverIsMember(String receiverIsMember) {
+        this.receiverIsMember = receiverIsMember == null ? null : receiverIsMember.trim();
+    }
+
+    public String getDeliveryMessage() {
+        return deliveryMessage;
+    }
+
+    public void setDeliveryMessage(String deliveryMessage) {
+        this.deliveryMessage = deliveryMessage == null ? null : deliveryMessage.trim();
+    }
+
+    public String getDeliveryStatus() {
+        return deliveryStatus;
+    }
+
+    public void setDeliveryStatus(String deliveryStatus) {
+        this.deliveryStatus = deliveryStatus == null ? null : deliveryStatus.trim();
+    }
+
+    public String getDeliveryNumber() {
+        return deliveryNumber;
+    }
+
+    public void setDeliveryNumber(String deliveryNumber) {
+        this.deliveryNumber = deliveryNumber == null ? null : deliveryNumber.trim();
     }
 
     public Date getCreateTime() {

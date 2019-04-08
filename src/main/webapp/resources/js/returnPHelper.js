@@ -46,6 +46,16 @@ function accableStatusFormatter(value, row, index) {
 	return result;
 }
 
+function deliveryStatusFormatter(value, row, index) {
+	switch (row.deliveryStatus) {
+	case "4": result = roundLabel("배송전", '#6e6e6e') ; break;
+	case "5": result = roundLabel("배송중", '#FF32B1'); break;
+	case "6": result = roundLabel("배송완료", '#4AB34A'); break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
 function payableStatusFormatter(value, row, index) {
 	switch (row.payableStatus) {
 	case "Y": result = roundLabel("미 결제 ", '#2FA8E1') ; break;
@@ -90,6 +100,14 @@ function issueColumnKorFormatter(value) {
 	case "expirationTime": result = '<span style = "font-weight : bold">만료일</span>'; break;
 	case "createTime": result = '<span style = "font-weight : bold">등록 시간</span>'; break;
 	case "updateTime": result = '<span style = "font-weight : bold">수정 시간</span>'; break;
+	case "receiverPhone": result = '<span style = "font-weight : bold">수취자 핸드폰</span>'; break;
+	case "receiverName": result = '<span style = "font-weight : bold">수취자 이름</span>'; break;
+	case "receiverIsMember": result = '<span style = "font-weight : bold">수취자 회원 여부</span>'; break;
+	case "receiverEmail": result = '<span style = "font-weight : bold">수취자 이메일</span>'; break;
+	case "receiverAddress": result = '<span style = "font-weight : bold">수취자 주소</span>'; break;
+	case "deliveryMessage": result = '<span style = "font-weight : bold">배송 메세지</span>'; break;
+	case "deliveryStatus": result = '<span style = "font-weight : bold">배송상태</span>'; break;
+	case "deliveryNumber": result = '<span style = "font-weight : bold">송장 번호</span>'; break;
 	default: result = "-"; break;
 	}
 	return result;

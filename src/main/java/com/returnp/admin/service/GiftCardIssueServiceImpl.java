@@ -20,10 +20,11 @@ import com.returnp.admin.common.ReturnpException;
 import com.returnp.admin.dao.mapper.GiftCardIssueMapper;
 import com.returnp.admin.dto.command.GiftCardIssueCommand;
 import com.returnp.admin.dto.command.GiftCardOrderCommand;
+import com.returnp.admin.dto.command.MemberCommand;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.GiftCardIssue;
-import com.returnp.admin.model.GiftCardIssueKey;
 import com.returnp.admin.service.interfaces.GiftCardIssueService;
 import com.returnp.admin.service.interfaces.GiftCardOrderService;
 import com.returnp.admin.service.interfaces.SearchService;
@@ -98,6 +99,7 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 					issue.setGiftCardType(giftCardOrder.getGiftCardType());
 					issue.setGiftCardAmount(giftCardOrder.getGiftCardAmount());
 					issue.setGiftCardSalePrice(giftCardOrder.getGiftCardSalePrice());
+					issue.setDeliveryStatus("4");
 					
 					arDataJson = new JSONObject();
 					arDataJson.put("qr_cmd", QRManager.QRCmd.ACC_BY_GIFTCARD);
@@ -262,6 +264,63 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "상품권 상태 변경 에러");
+			return res;
+		}
+	}
+	@Override
+	public ReturnpBaseResponse sendGiftCardByMobile(ArrayList<String> pinNumbers, String receiverPhone) {
+		ArrayListResponse<GiftCardIssueCommand> res = new ArrayListResponse<GiftCardIssueCommand>();
+		try {
+
+			/*
+			 * 문자 발송 소스 삽입 
+			 */
+			
+			/* 
+			 * 해당 상품권 배송 정보 및 기타 정보를 업데이트 함
+			 * */
+			GiftCardIssueCommand giftCardCommand = new GiftCardIssueCommand();
+			MemberCommand memberCommand;
+			ArrayList<GiftCardIssueCommand> selectArray = null;
+			ArrayList<MemberCommand> memberCommands = null;
+			
+			ArrayList<GiftCardIssueCommand> returnList = new ArrayList<GiftCardIssueCommand>();
+			for (String pinNumber : pinNumbers) {
+				giftCardCommand.setPinNumber(pinNumber);
+				selectArray = this.searchService.selectGiftCardIssueCommands(giftCardCommand);
+				
+				if (selectArray.size() == 1) {
+					selectArray.get(0).setReceiverPhone(receiverPhone);
+					selectArray.get(0).setDeliveryStatus("6");
+					selectArray.get(0).setReceiverPhone(receiverPhone);
+					
+					memberCommand = new MemberCommand();
+					memberCommand.setMemberPhone(receiverPhone);
+					memberCommands = this.searchService.findMemberCommands(memberCommand);
+				
+					if (memberCommands.size() == 1) {
+						selectArray.get(0).setReceiverIsMember("Y");
+						selectArray.get(0).setReceiverName(memberCommands.get(0).getMemberName());
+						selectArray.get(0).setReceiverEmail(memberCommands.get(0).getMemberEmail());
+					}else {
+						selectArray.get(0).setReceiverIsMember("N");
+					}
+					
+					this.giftCardIssueMapper.updateByPrimaryKeySelective(selectArray.get(0));
+					memberCommands = null;
+					memberCommand = null;
+					returnList.add(selectArray.get(0));
+				}
+			}
+			
+			res.setRows(returnList);
+			ResponseUtil.setSuccessResponse(res, "100" , "상품권 모바일 전송 완료");
+			return res;
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "상품권 모바일 전송 에러");
 			return res;
 		}
 	}

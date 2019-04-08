@@ -24,18 +24,25 @@
     <result column="payQrCodeWebPath" jdbcType="VARCHAR" property="payQrCodeWebPath" />
     <result column="accQrCodeFilePath" jdbcType="VARCHAR" property="accQrCodeFilePath" />
     <result column="payQrCodeFilePath" jdbcType="VARCHAR" property="payQrCodeFilePath" />
+    <result column="receiverPhone" jdbcType="VARCHAR" property="receiverPhone" />
+    <result column="receiverEmail" jdbcType="VARCHAR" property="receiverEmail" />
+    <result column="receiverName" jdbcType="VARCHAR" property="receiverName" />
+    <result column="receiverAddress" jdbcType="VARCHAR" property="receiverAddress" />
+    <result column="receiverIsMember" jdbcType="VARCHAR" property="receiverIsMember" />
+    <result column="deliveryMessage" jdbcType="VARCHAR" property="deliveryMessage" />
+    <result column="deliveryStatus" jdbcType="VARCHAR" property="deliveryStatus" />
+    <result column="deliveryNumber" jdbcType="VARCHAR" property="deliveryNumber" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
- 
   <sql id="Base_Column_List">
     giftCardIssueNo, pinNumber, giftCardOrderNo, giftCardNo, accableStatus, payableStatus, 
     giftCardStatus, giftCardType, giftCardAmount, giftCardSalePrice, accQrData, payQrData, 
     accQrScanner, payQrScanner, accQrScanTime, payQrScanTime, issueTime, expirationTime, 
-    accQrCodeWebPath, payQrCodeWebPath, accQrCodeFilePath, payQrCodeFilePath, createTime, 
-    updateTime
+    accQrCodeWebPath, payQrCodeWebPath, accQrCodeFilePath, payQrCodeFilePath, receiverPhone, 
+    receiverEmail, receiverName, receiverAddress, receiverIsMember, deliveryMessage, 
+    deliveryStatus, deliveryNumber, createTime, updateTime
   </sql>
- 
   <select id="selectByPrimaryKey" parameterType="com.returnp.admin.model.GiftCardIssueKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -43,14 +50,13 @@
     where giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER}
       and pinNumber = #{pinNumber,jdbcType=VARCHAR}
   </select>
- 
   <delete id="deleteByPrimaryKey" parameterType="com.returnp.admin.model.GiftCardIssueKey">
     delete from gift_card_issue
     where giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER}
       and pinNumber = #{pinNumber,jdbcType=VARCHAR}
   </delete>
- 
- <insert id = "insertBatch" parameterType = "HashMap">
+  
+  <insert id = "insertBatch" parameterType = "HashMap">
         insert into gift_card_issue (
         giftCardOrderNo,
         giftCardNo,
@@ -61,6 +67,7 @@
         giftCardType,
         giftCardAmount,
         giftCardSalePrice,
+        deliveryStatus,
         accQrData,
         payQrData,
         accQrScanner,
@@ -84,6 +91,7 @@
             #{item.giftCardType},
             #{item.giftCardAmount},
             #{item.giftCardSalePrice},
+            #{item.deliveryStatus},
             #{item.accQrData},
             #{item.payQrData},
             #{item.accQrScanner},
@@ -97,7 +105,7 @@
          )
      </foreach>
   </insert>
- 
+  
   <insert id="insert" parameterType="com.returnp.admin.model.GiftCardIssue">
     insert into gift_card_issue (giftCardIssueNo, pinNumber, giftCardOrderNo, 
       giftCardNo, accableStatus, payableStatus, 
@@ -106,8 +114,10 @@
       accQrScanner, payQrScanner, accQrScanTime, 
       payQrScanTime, issueTime, expirationTime, 
       accQrCodeWebPath, payQrCodeWebPath, accQrCodeFilePath, 
-      payQrCodeFilePath, createTime, updateTime
-      )
+      payQrCodeFilePath, receiverPhone, receiverEmail, 
+      receiverName, receiverAddress, receiverIsMember, 
+      deliveryMessage, deliveryStatus, deliveryNumber, 
+      createTime, updateTime)
     values (#{giftCardIssueNo,jdbcType=INTEGER}, #{pinNumber,jdbcType=VARCHAR}, #{giftCardOrderNo,jdbcType=INTEGER}, 
       #{giftCardNo,jdbcType=INTEGER}, #{accableStatus,jdbcType=VARCHAR}, #{payableStatus,jdbcType=VARCHAR}, 
       #{giftCardStatus,jdbcType=VARCHAR}, #{giftCardType,jdbcType=VARCHAR}, #{giftCardAmount,jdbcType=INTEGER}, 
@@ -115,10 +125,11 @@
       #{accQrScanner,jdbcType=VARCHAR}, #{payQrScanner,jdbcType=VARCHAR}, #{accQrScanTime,jdbcType=TIMESTAMP}, 
       #{payQrScanTime,jdbcType=TIMESTAMP}, #{issueTime,jdbcType=TIMESTAMP}, #{expirationTime,jdbcType=TIMESTAMP}, 
       #{accQrCodeWebPath,jdbcType=VARCHAR}, #{payQrCodeWebPath,jdbcType=VARCHAR}, #{accQrCodeFilePath,jdbcType=VARCHAR}, 
-      #{payQrCodeFilePath,jdbcType=VARCHAR}, NOW(), NOW()
-      )
-      
-       <selectKey keyProperty="giftCardIssueNo" resultType="java.lang.Integer" order ="AFTER">
+      #{payQrCodeFilePath,jdbcType=VARCHAR}, #{receiverPhone,jdbcType=VARCHAR}, #{receiverEmail,jdbcType=VARCHAR}, 
+      #{receiverName,jdbcType=VARCHAR}, #{receiverAddress,jdbcType=VARCHAR}, #{receiverIsMember,jdbcType=VARCHAR}, 
+      #{deliveryMessage,jdbcType=VARCHAR}, #{deliveryStatus,jdbcType=VARCHAR}, #{deliveryNumber,jdbcType=VARCHAR}, 
+      NOW(), NOW())
+          <selectKey keyProperty="giftCardIssueNo" resultType="java.lang.Integer" order ="AFTER">
                 SELECT LAST_INSERT_ID()
        </selectKey>     
   </insert>
@@ -190,6 +201,30 @@
       </if>
       <if test="payQrCodeFilePath != null">
         payQrCodeFilePath,
+      </if>
+      <if test="receiverPhone != null">
+        receiverPhone,
+      </if>
+      <if test="receiverEmail != null">
+        receiverEmail,
+      </if>
+      <if test="receiverName != null">
+        receiverName,
+      </if>
+      <if test="receiverAddress != null">
+        receiverAddress,
+      </if>
+      <if test="receiverIsMember != null">
+        receiverIsMember,
+      </if>
+      <if test="deliveryMessage != null">
+        deliveryMessage,
+      </if>
+      <if test="deliveryStatus != null">
+        deliveryStatus,
+      </if>
+      <if test="deliveryNumber != null">
+        deliveryNumber,
       </if>
       <if test="createTime != null">
         createTime,
@@ -265,6 +300,30 @@
       <if test="payQrCodeFilePath != null">
         #{payQrCodeFilePath,jdbcType=VARCHAR},
       </if>
+      <if test="receiverPhone != null">
+        #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverEmail != null">
+        #{receiverEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null">
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverAddress != null">
+        #{receiverAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverIsMember != null">
+        #{receiverIsMember,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryMessage != null">
+        #{deliveryMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryStatus != null">
+        #{deliveryStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryNumber != null">
+        #{deliveryNumber,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -336,6 +395,30 @@
       <if test="payQrCodeFilePath != null">
         payQrCodeFilePath = #{payQrCodeFilePath,jdbcType=VARCHAR},
       </if>
+      <if test="receiverPhone != null">
+        receiverPhone = #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverEmail != null">
+        receiverEmail = #{receiverEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null">
+        receiverName = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverAddress != null">
+        receiverAddress = #{receiverAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverIsMember != null">
+        receiverIsMember = #{receiverIsMember,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryMessage != null">
+        deliveryMessage = #{deliveryMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryStatus != null">
+        deliveryStatus = #{deliveryStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryNumber != null">
+        deliveryNumber = #{deliveryNumber,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -368,6 +451,14 @@
       payQrCodeWebPath = #{payQrCodeWebPath,jdbcType=VARCHAR},
       accQrCodeFilePath = #{accQrCodeFilePath,jdbcType=VARCHAR},
       payQrCodeFilePath = #{payQrCodeFilePath,jdbcType=VARCHAR},
+      receiverPhone = #{receiverPhone,jdbcType=VARCHAR},
+      receiverEmail = #{receiverEmail,jdbcType=VARCHAR},
+      receiverName = #{receiverName,jdbcType=VARCHAR},
+      receiverAddress = #{receiverAddress,jdbcType=VARCHAR},
+      receiverIsMember = #{receiverIsMember,jdbcType=VARCHAR},
+      deliveryMessage = #{deliveryMessage,jdbcType=VARCHAR},
+      deliveryStatus = #{deliveryStatus,jdbcType=VARCHAR},
+      deliveryNumber = #{deliveryNumber,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       updateTime = NOW()
     where giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER}

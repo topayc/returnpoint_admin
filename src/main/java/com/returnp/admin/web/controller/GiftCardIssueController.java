@@ -1,6 +1,7 @@
 package com.returnp.admin.web.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -146,7 +147,7 @@ public class GiftCardIssueController extends ApplicationController{
 	/**
 	 * @param giftCardIssueNo
 	 * @param type  A : 적립 큐알, P : 결제 큐알
-	 * @return
+	 * @returnjavascript:void(0)
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/giftCardIssue/createQr", method = RequestMethod.GET)
@@ -154,5 +155,21 @@ public class GiftCardIssueController extends ApplicationController{
 		/*System.out.println("###### createQrImage");*/
 		return this.giftCardIssueService.createQrImage(
 			giftCardIssueNo, type,request.getSession().getServletContext().getRealPath("/gift_qr/" + giftCardIssueNo),  "/gift_qr/" + giftCardIssueNo);
+	}
+
+	/**
+	 * 상품권 문자 전송	
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/giftCardIssue/sendGiftCardByMobile", method = RequestMethod.POST)
+	public ReturnpBaseResponse sendGiftCardByMobile(
+			@RequestParam(value = "pinNumbers[]", required = true) ArrayList<String> pinNumbers, 
+			@RequestParam(value = "giftCardIssueNos[]", required = true) ArrayList<String> giftCardIssueNos, 
+			String receiverPhone, 
+			HttpServletRequest request ){
+		for (int i = 0; i < pinNumbers.size(); i++) {
+			System.out.println(giftCardIssueNos.get(i) + " : " + pinNumbers.get(i));
+		}
+		return this.giftCardIssueService.sendGiftCardByMobile(pinNumbers, receiverPhone);
 	}
 }

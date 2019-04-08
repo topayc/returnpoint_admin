@@ -1,27 +1,37 @@
 		var columns = [[
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-			    {field:'giftCardIssueNo',width:70,align:'center',title : '등록번호'},
+				{field:'ck',checkbox:true},
+			    {field:'giftCardIssueNo',width:80,align:'center',title : '등록번호'},
 			    {field:'giftCardOrderNo',width:70,align:'center',title : '주문 등록 번호', hidden : true},
 			    {field:'orderNumber',width:100,align:'center',title : '주문 번호', hidden : true},
 			    {field:'orderName',width:100,align:'center',title : '주문명', hidden : false},
 			    {field:'ordererName',width:100,align:'center',title : '주문자', hidden : true},
 			    {field:'ordererPhone',width:100,align:'center',title : '주문자 핸드폰', hidden : true},
 			    {field:'giftCardNo',width:100,align:'center',title : '상품권 번호', hidden : true},
-			    {field:'giftCardName',width:120,align:'center',title : '상품권 이름'},
+			    {field:'giftCardName',width:120,align:'center',title : '상품권 이름', hidden : true},
 			    {field:'pinNumber',width:200,align:'center',title : '핀 번호'/*,formatter : addBoldFomatter*/},
-			    {field:'giftCardAmount',width:100,align:'center',title : '상품권 금액',formatter : numberFormatter},
+			    {field:'giftCardAmount',width:100,align:'center',title : '상품권 금액',formatter : numberFormatter, hidden : true},
 			    {field:'giftCardSalePrice',width:100,align:'center',title : '판매 금액', formatter : numberGreenFormatter},
 			    {field:'giftCardStatus',width:90,align:'center',title : '상태', formatter : giftCardStatusFormatter},
 			    {field:'giftCardType',width:80,align:'center',title : '타입', formatter : giftCardTypeFormatter2},
-			    {field:'accableStatus',width:100,align:'center',title : '적립 여부', formatter : accableStatusFormatter},
-			    {field:'payableStatus',width:100,align:'center',title : '결제 여부', formatter : payableStatusFormatter},
+			    {field:'accableStatus',width:110,align:'center',title : '적립 여부', formatter : accableStatusFormatter},
+			    {field:'payableStatus',width:110,align:'center',title : '결제 여부', formatter : payableStatusFormatter},
+			    
+			    {field:'deliveryStatus',width:100,align:'center',title : '배송 상태', hidden : false, formatter : deliveryStatusFormatter},
+			    {field:'receiverPhone',width:130,align:'center',title : '수취자 핸드폰',hidden : false},
+			    {field:'receiverName',width:120,align:'center',title : '수취자 이름',hidden : false},
+			    {field:'receiverIsMember',width:90,align:'center',title : '회원여부',hidden : false},
+			    {field:'receiverEmail',width:100,align:'center',title : '수취자 이메일',hidden : true},
+			    {field:'receiverAddress',width:100,align:'center',title : '배송지 주소',hidden : true},
+			    {field:'deliveryMessage',width:100,align:'center',title : '배송 메세지', hidden : true},
+			    
 			    {field:'accQrData',width:130,align:'center',title : '적립 QR 데이타',hidden : true},
 			    {field:'payQrData',width:130,align:'center',title : '결제 QR 데이타',hidden : true},
 			    {field:'accQrCodeWebPath',width:100,align:'center',title : '적립 QR Code', hidden : true},
 			    {field:'payQrCodeWebPath',width:100,align:'center',title : '결제 QR Code', hidden : true},
-			    {field:'accQrScanner',width:160,align:'center',title : '적립 QR 스캐너', formatter : slashFormatter},
-			    {field:'payQrScanner',width:160,align:'center',title : '결제 QR 스캐너', formatter : slashFormatter},
+			    {field:'accQrScanner',width:170,align:'center',title : '적립 QR 스캔 회원', formatter : slashFormatter},
+			    {field:'payQrScanner',width:170,align:'center',title : '결제 QR 스캔 회원', formatter : slashFormatter},
 			    {field:'accQrScanTime',width:160,align:'center',title : '적립 QR 스캔일', formatter : dateFormatter},
 			    {field:'payQrScanTime',width:160,align:'center',title : '결제 QR 스캔일', formatter : dateFormatter},
 			    {field:'issueTime',width:180,align:'center',title : '발행일', formatter : dateFormatter},
@@ -146,10 +156,10 @@ function initView(){
 	/* 노드 데이타그리드   초기화*/
 	$('#gift_card_issue_list').datagrid({
 		title : '[검색 결과]',
-		singleSelect:true,
 		collapsible:false,
 		//autoRowHeight: false,
 		fitColumns:true,
+		singleSelect:true,
 		selectOnCheck : true,
 		checkOnSelect : true,
 		border:false,
@@ -157,7 +167,14 @@ function initView(){
 		pagination: true,
 		pagePosition : "top",
 		pageSize : returnpCommon.appInfo.gridPageSize,
-		onSelect : function(){},
+		onSelect : function(index, row){
+			var options = $('#gift_card_issue_list').datagrid("options"); 
+			if (options.singleSelect == false) {
+				 if (row.giftCardType != 1){
+					 $("#gift_card_issue_list").datagrid("unselectRow", index);
+				 }
+			}
+		},
 		onLoadSuccess : function(){
 			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);
 		},	
@@ -183,153 +200,170 @@ function initView(){
 		  	});
 		  	
 		  	var menuArr = [];
-			var selectedIssue = $('#gift_card_issue_list').datagrid('getSelected');
-		  	if (selectedIssue.giftCardType == 1) {
-		  		cmenu.menu("appendItem", {
-		  			id : "m_1",
-		  			text: '모바일전송',
-		  			/*	iconCls: 'icon-ok',*/
-		  			onclick: function(){}
-		  		});
-		  		
-		  		item = cmenu.menu('findItem', '모바일전송');  
-		  		cmenu.menu('appendItem', {
-		  			parent: item.target,  // the parent item element
-		  			text:  "카톡으로 보내기",
-		  			//iconCls: 'icon-ok',
-		  			onclick: function(){
-		  				sendGiftCardByKakao();
-		  			}
-		  		});
-		  		
-		  		item = cmenu.menu('findItem', '모바일전송');  
-		  		cmenu.menu('appendItem', {
-		  			parent: item.target,  // the parent item element
-		  			text:  "모바일로 보내기",
-		  			//iconCls: 'icon-ok',
-		  			onclick: function(){
-		  				sendGiftCardByMobile()
-		  			}
-		  		});
-		  		
-		  	}
-		 	cmenu.menu('appendItem', {
-		  		separator: true
-		  	});
-			cmenu.menu('appendItem', {
-	  			id : "m_3",  // the parent item element
-	  			text:  "상품권QR코드 보기",
-	  			//iconCls: 'icon-ok',
-	  			onclick: function(){
-	  			}
-	  		});
+		  	$('#gift_card_issue_list').datagrid("selectRow", index);
+		  	var selectedIssue = row;
 			
-			item = cmenu.menu('findItem', '상품권QR코드 보기');  
-	  		cmenu.menu('appendItem', {
-	  			parent: item.target,  // the parent item element
-	  			text:  "적립 QR Code 보기",
-	  			//iconCls: 'icon-ok',
-	  			onclick: function(){
-	  				if (selectedIssue.accQrCodeWebPath == null || selectedIssue.accQrCodeWebPath == ""){
-	  					createQrCode(selectedIssue.giftCardIssueNo, "A");
-	  				}else {
-	  					viewQrCode(selectedIssue.accQrCodeWebPath,"적립 큐알");
-	  				}
-	  			}
-	  		});
-	  		
-	  		item = cmenu.menu('findItem', '상품권QR코드 보기');  
-	  		cmenu.menu('appendItem', {
-	  			parent: item.target,  // the parent item element
-	  			//iconCls: 'icon-ok',
-	  			text:  "결제 QR Code 보기",
-	  			onclick: function(){
-	  				if (selectedIssue.payQrCodeWebPath == null || selectedIssue.payQrCodeWebPath == ""){
-	  					createQrCode(selectedIssue.giftCardIssueNo, "P");
-	  				}else {
-	  					viewQrCode(selectedIssue.payQrCodeWebPath,"결제 큐알");
-	  				}
-	  			}
-	  		});
-	  		
-	  		cmenu.menu('appendItem', {
-		  		separator: true
-		  	});
-	  		
-	  		cmenu.menu('appendItem', {
-	  			id : "m_3",  // the parent item element
-	  			text:  "상품권상태변경",
-	  			//iconCls: 'icon-ok',
-	  			onclick: function(){
-	  			}
-	  		});
-	  		
-	  		item = cmenu.menu('findItem', '상품권상태변경');  
-	  		cmenu.menu('appendItem', {
-	  			parent: item.target,  // the parent item element
-	  			//iconCls: 'icon-ok',
-	  			text:  "적립, 결제 정상",
-	  			onclick: function(){
-	  				changeGiftCardStatus('1');
-	  			}
-	  		});
-	  		
-	  		item = cmenu.menu('findItem', '상품권상태변경');  
-	  		cmenu.menu('appendItem', {
-	  			parent: item.target,  // the parent item element
-	  			//iconCls: 'icon-ok',
-	  			text:  "적립, 결제 중지",
-	  			onclick: function(){
-	  				changeGiftCardStatus('2');
-	  			}
-	  		});
-	  		
-	  		item = cmenu.menu('findItem', '상품권상태변경');  
-	  		cmenu.menu('appendItem', {
-	  			parent: item.target,  // the parent item element
-	  			//iconCls: 'icon-ok',
-	  			text:  "적립 불가",
-	  			onclick: function(){
-	  				changeGiftCardStatus('3');
-	  			}
-	  		});
-	  		
-	  		item = cmenu.menu('findItem', '상품권상태변경');  
-	  		cmenu.menu('appendItem', {
-	  			parent: item.target,  // the parent item element
-	  			//iconCls: 'icon-ok',
-	  			text:  "결제 불가",
-	  			onclick: function(){
-	  				changeGiftCardStatus('4');
-	  			}
-	  		});
-	  		
-			item = cmenu.menu('findItem', '상품권상태변경');  
-	  		cmenu.menu('appendItem', {
-	  			parent: item.target,  // the parent item element
-	  			//iconCls: 'icon-ok',
-	  			text:  "사용기간 만료 ",
-	  			onclick: function(){
-	  				changeGiftCardStatus('5');
-	  			}
-	  		});
-	  		
-	  		
-	  	 	cmenu.menu('appendItem', {
-		  		separator: true
-		  	});
-	  	  	cmenu.menu("appendItem", {
-		  		id : "m_2",
-		  		text: '발행 내역 상세 보기',
-		  		/*	iconCls: 'icon-ok',*/
-		  		onclick: function(){
-		  			viewDetailIssue();
-		  		}
-		  	});
-		  	cmenu.menu('show', {
-		  		left:e.pageX,
-		  		top:e.pageY
-		  	})
+			var options = $('#gift_card_issue_list').datagrid("options");
+			 if (options.singleSelect == true) {
+					cmenu.menu('appendItem', {
+			  			id : "m_3",  // the parent item element
+			  			text:  "상품권QR코드 보기",
+			  			//iconCls: 'icon-ok',
+			  			onclick: function(){
+			  			}
+			  		});
+					
+					item = cmenu.menu('findItem', '상품권QR코드 보기');  
+			  		cmenu.menu('appendItem', {
+			  			parent: item.target,  // the parent item element
+			  			text:  "적립 QR Code 보기",
+			  			//iconCls: 'icon-ok',
+			  			onclick: function(){
+			  				if (selectedIssue.accQrCodeWebPath == null || selectedIssue.accQrCodeWebPath == ""){
+			  					createQrCode(selectedIssue.giftCardIssueNo, "A");
+			  				}else {
+			  					viewQrCode(selectedIssue.accQrCodeWebPath,"적립 큐알");
+			  				}
+			  			}
+			  		});
+			  		
+			  		item = cmenu.menu('findItem', '상품권QR코드 보기');  
+			  		cmenu.menu('appendItem', {
+			  			parent: item.target,  // the parent item element
+			  			//iconCls: 'icon-ok',
+			  			text:  "결제 QR Code 보기",
+			  			onclick: function(){
+			  				if (selectedIssue.payQrCodeWebPath == null || selectedIssue.payQrCodeWebPath == ""){
+			  					createQrCode(selectedIssue.giftCardIssueNo, "P");
+			  				}else {
+			  					viewQrCode(selectedIssue.payQrCodeWebPath,"결제 큐알");
+			  				}
+			  			}
+			  		});
+			  		
+			  		cmenu.menu('appendItem', {
+				  		separator: true
+				  	});
+			  		
+			  		cmenu.menu('appendItem', {
+			  			id : "m_3",  // the parent item element
+			  			text:  "상품권상태변경",
+			  			//iconCls: 'icon-ok',
+			  			onclick: function(){
+			  			}
+			  		});
+			  		
+			  		item = cmenu.menu('findItem', '상품권상태변경');  
+			  		cmenu.menu('appendItem', {
+			  			parent: item.target,  // the parent item element
+			  			//iconCls: 'icon-ok',
+			  			text:  "적립, 결제 정상",
+			  			onclick: function(){
+			  				changeGiftCardStatus('1');
+			  			}
+			  		});
+			  		
+			  		item = cmenu.menu('findItem', '상품권상태변경');  
+			  		cmenu.menu('appendItem', {
+			  			parent: item.target,  // the parent item element
+			  			//iconCls: 'icon-ok',
+			  			text:  "적립, 결제 중지",
+			  			onclick: function(){
+			  				changeGiftCardStatus('2');
+			  			}
+			  		});
+			  		
+			  		item = cmenu.menu('findItem', '상품권상태변경');  
+			  		cmenu.menu('appendItem', {
+			  			parent: item.target,  // the parent item element
+			  			//iconCls: 'icon-ok',
+			  			text:  "적립 불가",
+			  			onclick: function(){
+			  				changeGiftCardStatus('3');
+			  			}
+			  		});
+			  		
+			  		item = cmenu.menu('findItem', '상품권상태변경');  
+			  		cmenu.menu('appendItem', {
+			  			parent: item.target,  // the parent item element
+			  			//iconCls: 'icon-ok',
+			  			text:  "결제 불가",
+			  			onclick: function(){
+			  				changeGiftCardStatus('4');
+			  			}
+			  		});
+			  		
+					item = cmenu.menu('findItem', '상품권상태변경');  
+			  		cmenu.menu('appendItem', {
+			  			parent: item.target,  // the parent item element
+			  			//iconCls: 'icon-ok',
+			  			text:  "사용기간 만료 ",
+			  			onclick: function(){
+			  				changeGiftCardStatus('5');
+			  			}
+			  		});
+			  		
+			  		
+			  	 	cmenu.menu('appendItem', {
+				  		separator: true
+				  	});
+			  	  	cmenu.menu("appendItem", {
+				  		id : "m_2",
+				  		text: '발행 내역 상세 보기',
+				  		/*	iconCls: 'icon-ok',*/
+				  		onclick: function(){
+				  			viewDetailIssue();
+				  		}
+				  	});
+			  	 	cmenu.menu('show', {
+				  		left:e.pageX,
+				  		top:e.pageY
+				  	})
+			 }
+			 
+			 if (options.singleSelect == false) {
+				 if (selectedIssue.giftCardType == 1) {
+					 var options = $('#gift_card_issue_list').datagrid("options");
+			  	  		cmenu.menu("appendItem", {
+				  			id : "m_1",
+				  			text: '온라인상품권전송',
+				  			/*	iconCls: 'icon-ok',*/
+				  			onclick: function(){}
+				  		});
+				  		
+				  		item = cmenu.menu('findItem', '온라인상품권전송');  
+				  		cmenu.menu('appendItem', {
+				  			parent: item.target,  // the parent item element
+				  			text:  "모바일 전송",
+				  			//iconCls: 'icon-ok',
+				  			onclick: function(){
+				  				openGiftCardByMobilViiew();
+				  			}
+				  		});
+				  		
+				  		item = cmenu.menu('findItem', '온라인상품권전송');  
+				  		cmenu.menu('appendItem', {
+				  			parent: item.target,  // the parent item element
+				  			text:  "카카오톡 전송",
+				  			//iconCls: 'icon-ok',
+				  			onclick: function(){
+				  				sendGiftCardByKakao();
+				  			}
+				  		});
+				  	 	cmenu.menu('show', {
+					  		left:e.pageX,
+					  		top:e.pageY
+					  	})
+			  	}else {
+			  		$('#gift_card_issue_list').datagrid("unselectRow", index);
+			  	}
+				 
+			 }
+			 
+			 
+	
+		  	
+		  	
 		  	
 	/*	  	var menus = [  '주문 수정', '주문 삭제','상세 주문내역 보기' ];
 		  	var icons = ['icon-edit','icon-remove','icon-detail'];
@@ -352,26 +386,61 @@ function initView(){
 	    columns:columns
 	    
 	});
+	$('#receiverPhone1').combobox({
+		width: 80,
+		showItemIcon: true,
+		editable: false,
+		panelHeight: 'auto',
+		labelPosition: 'top',
+		multiple:false,
+		required:true,
+	});
+	$('#receiverPhone2').numberbox({width: 130}); 
+	$('#receiverPhone3').numberbox({
+		width: 130,
+		onChange : function(newValue, oldVaue) {
+			//if (newValue.length == 4) {}
+		}
+	}); 
+	$('.easyui-linkbutton').linkbutton(); 
+	$('#sendGiftCardByMobile').linkbutton({
+		iconCls:'icon-ok'
+	}); 
 	setListPager();
 }
 
 function setListPager(){
+	var selectedIssue = $('#gift_card_issue_list').datagrid('getSelected');
 	var pager = $('#gift_card_issue_list').datagrid().datagrid('getPager');
 	pager.pagination({
 		displayMsg : ' {from} to {to} of {total}',
-		buttons:[/*{
-            iconCls:'icon-add',
+		buttons:[{
+            iconCls:'icon-edit',
+            text  : "<span'>일반뷰 전환</span>",
             handler:function(){
             	$('#gift_card_issue_list').datagrid('unselectAll');
-            	$('#gift_card_issue_list').datagrid('uncheckAll');
-            	loadProductCreateForm();
-            }
-        }*//*,{
-            iconCls:'icon-edit',
-            handler:function(){
-              loadAgencyModifyForm();
+            	$('#gift_card_issue_list').datagrid({singleSelect: true});
+            	$('#gift_card_issue_list').datagrid('hideColumn', "ck");
+            	setListPager();
             }
         },{
+            iconCls:'icon-edit',
+            text  : "<span'>발송뷰 전환</span>",
+            handler:function(){
+            	$('#gift_card_issue_list').datagrid('unselectAll');
+            	$('#gift_card_issue_list').datagrid({singleSelect: false});
+            	$('#gift_card_issue_list').datagrid('showColumn', "ck");
+            	setListPager();
+            }
+        },
+        {
+            iconCls:'icon-redo',
+            text  : "<span'>선택 해제</span>",
+            handler:function(){
+            	$('#gift_card_issue_list').datagrid('unselectAll');
+            	setListPager();
+            }
+        }/*,{
             iconCls:'icon-remove',
             handler:function(){
             	removeProduct();
@@ -489,6 +558,81 @@ function makeFormData(){
 	return param;
 }
 
+function openGiftCardByMobilViiew(){
+	$('#send_gift_sms_view').dialog({
+	    title: '상품권 모바일 전송 ',
+	    width: 450,
+	    height: 160,
+	    closed: false,
+	    cache: false,
+	    modal: true,
+	    buttons: '#dlg-buttons'
+	});
+	
+	$('#receiverPhone1').combobox("setValue", "010");
+	$('#receiverPhone2').numberbox("clear"); 
+	$('#receiverPhone3').numberbox("clear"); 
+}
+
+function sendGiftCardByMobile(){
+	var selectedRows =  $('#gift_card_issue_list').datagrid('getSelections');
+
+	var phone1 = $('#receiverPhone1').combobox("getValue").trim()
+	var phone2 = $('#receiverPhone2').numberbox("getValue").trim(); 
+	var phone3 = $('#receiverPhone3').numberbox("getValue").trim()
+
+	var params = {};
+	params.pinNumbers = [];
+	params.giftCardIssueNos = [];
+	params.receiverPhone = phone1 + phone2 + phone3;
+	
+	var errorMsg = "";
+	var error = false;
+	for (var j = 0; j < selectedRows.length; j++){
+		if (selectedRows[j].receiverPhone && selectedRows[j].receiverPhone.trim() != "" && selectedRows[j].receiverPhone.trim() != params.receiverPhone.trim()) {
+			errorMsg = 
+				"발행 번호 : " + selectedRows[j].giftCardIssueNo + "</br>" + 
+				"핀번호 : " + selectedRows[j].pinNumber + " </br> " + 
+				"이미 " + selectedRows[j].receiverPhone + " 으로 전송된 상품권으로</br> " + params.receiverPhone + "으로 다시 재전송할 수 없습니다";
+			$.messager.alert('알림', errorMsg );
+			return;
+		}
+	}
+	
+	for (var i = 0; i < selectedRows.length; i++){
+		params.pinNumbers.push(selectedRows[i].pinNumber);
+		params.giftCardIssueNos.push(selectedRows[i].giftCardIssueNo);
+	}
+	
+	returnp.api.call("sendGiftCardByMobile", params,
+		function(res){
+			if (res.resultCode  == "100") {
+				$('#send_gift_sms_view').dialog("close");
+				 $('#gift_card_issue_list').datagrid('unselectAll');
+				console.log(res);
+				var node = null;
+				selectedRows
+				var index = $('#gift_card_issue_list').datagrid('getRowIndex',node);
+				for (var k = 0; k < selectedRows.length ; k++){
+					for (var i = 0; i < res.rows.length ; i++){
+						if (selectedRows[k].pinNumber == res.rows[i].pinNumber){
+							var index = $('#gift_card_issue_list').datagrid('getRowIndex',selectedRows[k]);
+							$('#gift_card_issue_list').datagrid("updateRow", {
+								index: index,
+								row: res.rows[i]
+							});
+							break;
+						}
+					}
+				}
+			}else {
+				$.messager.alert('오류 발생', res.message);
+			}
+		}
+	)
+	
+}
+
 function createQrCode(giftCardIssueNo, type){
 	returnp.api.call("createQr", {giftCardIssueNo : giftCardIssueNo, type : type}, function(res){
 		if (res.resultCode  == "100") {
@@ -562,7 +706,17 @@ function reloadPage(){
 				data : res,
 				title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
 			});
-			setListPager();
+			 var options = $('#gift_card_issue_list').datagrid("options");
+			 if (options.singleSelect == true) {
+				$('#gift_card_issue_list').datagrid('unselectAll');
+		     	$('#gift_card_issue_list').datagrid({singleSelect: true});
+		     	$('#gift_card_issue_list').datagrid('hideColumn', "ck");
+			 }else {
+				$('#gift_card_issue_list').datagrid('unselectAll');
+		        $('#gift_card_issue_list').datagrid({singleSelect: true});
+		        $('#gift_card_issue_list').datagrid('hideColumn', "ck");
+			 }
+			 setListPager();
 		}else {
 			$.messager.alert(res.message, res.data);
 		}

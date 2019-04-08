@@ -251,6 +251,7 @@
        <if test="memberNo != null">AND  M.memberNo = #{memberNo,jdbcType=INTEGER}</if>
       <if test="memberPassword != null"> AND M.memberPassword = #{memberPassword,jdbcType=VARCHAR}</if>
       <if test="memberPassword2 != null">AND  M.memberPassword2 = #{memberPassword2,jdbcType=VARCHAR}</if>
+      <if test="memberPhone != null">AND  M.memberPhone = #{memberPhone,jdbcType=VARCHAR}</if>
       <if test="memberType != null">AND  M.memberType = #{memberType,jdbcType=VARCHAR}</if>
       <if test="memberStatus != null and memberStatus !=  '0'  and memberStatus !=  0">AND  M.memberStatus = #{memberStatus,jdbcType=VARCHAR}</if>
       <if test="memberAuthType != null">AND  M.memberAuthType = #{memberAuthType,jdbcType=VARCHAR}</if>
@@ -269,14 +270,14 @@
       <if test="greenPointUseStatus != null">AND  M.greenPointUseStatus = #{greenPointUseStatus,jdbcType=CHAR}</if>
       <if test="redPointUseStatus != null">AND  M.redPointUseStatus = #{redPointUseStatus,jdbcType=CHAR}</if>
       
-      <if test="memberName != null or memberEmail != null or memberPhone != null">
+      <if test="memberName != null or memberEmail != null">
       	AND ( 1 = 2 
       </if>
       <if test="memberName != null">OR M.memberName  LIKE CONCAT('%',#{memberName,jdbcType=VARCHAR},'%') </if>
       <if test="memberEmail != null">OR M.memberEmail  LIKE CONCAT('%',#{memberEmail,jdbcType=VARCHAR},'%' ) </if>
-      <if test="memberPhone != null">OR M.memberPhone  LIKE CONCAT('%',#{memberPhone,jdbcType=VARCHAR},'%') </if>
+ <!--      <if test="memberPhone != null">OR M.memberPhone  LIKE CONCAT('%',#{memberPhone,jdbcType=VARCHAR},'%') </if> -->
       
-      <if test="memberName != null or memberEmail != null or memberPhone != null">
+      <if test="memberName != null or memberEmail != null">
       	)
       </if>
 	</sql>
@@ -3401,7 +3402,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   <!-- GiftCardIssueMapper   -->
   
    <resultMap id="GiftCardIssueCommandResultMap" type="com.returnp.admin.dto.command.GiftCardIssueCommand">
-  <id column="giftCardIssueNo" jdbcType="INTEGER" property="giftCardIssueNo" />
+    <id column="giftCardIssueNo" jdbcType="INTEGER" property="giftCardIssueNo" />
     <id column="pinNumber" jdbcType="VARCHAR" property="pinNumber" />
     <result column="giftCardOrderNo" jdbcType="INTEGER" property="giftCardOrderNo" />
     <result column="giftCardNo" jdbcType="INTEGER" property="giftCardNo" />
@@ -3423,14 +3424,15 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="payQrCodeWebPath" jdbcType="VARCHAR" property="payQrCodeWebPath" />
     <result column="accQrCodeFilePath" jdbcType="VARCHAR" property="accQrCodeFilePath" />
     <result column="payQrCodeFilePath" jdbcType="VARCHAR" property="payQrCodeFilePath" />
+    <result column="receiverPhone" jdbcType="VARCHAR" property="receiverPhone" />
+    <result column="receiverName" jdbcType="VARCHAR" property="receiverName" />
+    <result column="receiverAddress" jdbcType="VARCHAR" property="receiverAddress" />
+    <result column="receiverIsMember" jdbcType="VARCHAR" property="receiverIsMember" />
+    <result column="deliveryMessage" jdbcType="VARCHAR" property="deliveryMessage" />
+    <result column="deliveryStatus" jdbcType="VARCHAR" property="deliveryStatus" />
+    <result column="deliveryNumber" jdbcType="VARCHAR" property="deliveryNumber" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="orderNumber" jdbcType="VARCHAR" property="orderNumber" />
-    <result column="orderName" jdbcType="VARCHAR" property="orderName" />
-    <result column="giftCardName" jdbcType="VARCHAR" property="giftCardName" />
-    <result column="ordererName" jdbcType="VARCHAR" property="ordererName" />
-    <result column="ordererEmail" jdbcType="VARCHAR" property="ordererEmail" />
-    <result column="ordererPhone" jdbcType="VARCHAR" property="ordererPhone" />
   </resultMap>
   
     <sql id="GiftCardIssueCommand_Column_List">
@@ -3458,6 +3460,14 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
    A.expirationTime, 
    A.createTime, 
    A.updateTime,
+   A.receiverPhone,
+   A.receiverName,
+   A.receiverEmail,
+   A.receiverAddress,
+   A.receiverIsMember,
+   A.deliveryMessage,
+   A.deliveryStatus,
+   A.deliveryNumber,
    B.orderName,
    B.orderNumber,
    B.ordererName,
@@ -3475,6 +3485,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
  	  <if test="payableStatus != null"> AND A.payableStatus = #{payableStatus,jdbcType=VARCHAR}</if>
  	  <if test="accableStatus != null"> AND A.accableStatus = #{accableStatus,jdbcType=VARCHAR}</if>
  	  <if test="giftCardType != null"> AND A.giftCardType = #{giftCardType,jdbcType=VARCHAR}</if>
+ 	  <if test="deliveryStatus != null"> AND A.deliveryStatus = #{deliveryStatus,jdbcType=VARCHAR}</if>
  	  <if test="giftCardStatus != null"> AND A.giftCardStatus = #{giftCardStatus,jdbcType=VARCHAR}</if>
  	  <if test="accQrScanner != null"> AND A.accQrScanner = #{accQrScanner,jdbcType=VARCHAR}</if>
  	  <if test="payQrScanner != null"> AND A.payQrScanner = #{payQrScanner,jdbcType=VARCHAR}</if>

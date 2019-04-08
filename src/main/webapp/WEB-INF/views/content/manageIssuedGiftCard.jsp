@@ -57,5 +57,18 @@
 		<table id = "issue_overview" style ="width:100%;height : 100%;" > </table>
 		<!-- <table id = "order_item_list"  style ="width:100%;height : 50%; "></table> -->
 </div>
+<div id="send_gift_sms_view" style = "padding : 30px">
+   	<select id = "receiverPhone1" style="width:20%" name = "receiverPhone1">
+		<option value="010">010</option>
+		<option value="011">011</option>
+	</select>&nbsp;-&nbsp;
+   	<input id ="receiverPhone2"  name="receiverPhone2" style="width:30%;margin-left : 20px"> -  
+   	<input id ="receiverPhone3"  name="receiverPhone3" style="width:30%;margin-left : 20x">
+</div>
+
+  <div id="dlg-buttons">
+        <a href="javascript:void(0)"  id = "sendGiftCardByMobile" class="easyui-linkbutton" onclick="javascript:sendGiftCardByMobile()">상품권 전송</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#send_gift_sms_view').dialog('close')">취소</a>
+    </div>
 
 <script src="resources/js/${viewReqName}.js"></script>
