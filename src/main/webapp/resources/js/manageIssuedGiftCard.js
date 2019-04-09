@@ -608,7 +608,8 @@ function sendGiftCardByMobile(){
 		function(res){
 			if (res.resultCode  == "100") {
 				$('#send_gift_sms_view').dialog("close");
-				 $('#gift_card_issue_list').datagrid('unselectAll');
+				$('#gift_card_issue_list').datagrid('unselectAll');
+				$.messager.alert('알림', res.message);
 				console.log(res);
 				var node = null;
 				selectedRows

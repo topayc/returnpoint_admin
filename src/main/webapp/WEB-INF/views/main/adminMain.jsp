@@ -156,6 +156,22 @@
 		                        </ul>
                             </li> 
                             
+                              <li data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">Push Service Manage</span>
+		                         <ul>
+   									<li id = "manageGiftCardSalesOrgan"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageGiftCardSalesOrgan"  node = "5"  menu_deps= '2' >
+		                        		<span style = "font-weight : bold">Device Push Message </span>
+		                        	</li>
+		                        	<li id = "manageGiftCardSalesOrgan"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageGiftCardSalesOrgan"  node = "5"  menu_deps= '2' >
+		                        		<span style = "font-weight : bold">Mobile SMS/MMS </span></a> 
+		                        	</li>
+		                        	
+		                        	<li id = "manageGiftCardSalesOrgan"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageGiftCardSalesOrgan"  node = "5"  menu_deps= '2' >
+		                        		<span style = "font-weight : bold">Email</span></a> 
+		                        	</li>
+		                        </ul>
+                            </li>   
+                            
                                <li data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">카테고리 관리</span>
 		                         <ul>
