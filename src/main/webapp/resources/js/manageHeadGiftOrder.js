@@ -23,7 +23,7 @@
 			    {field:'paymentStatus',width:150,align:'center',title : '결제 상태' , formatter : paymentStatusFormatter},
 			    {field:'orderStatus',width:130,align:'center',title : '주문 상태', formatter : orderStatusFormatter},
 			    {field:'issueStatus',width:130,align:'center',title : '발행 상태', formatter : issueStatusFormatter},
-			    {field:'noname',width:80,align:'center',title : '발행' , formatter : issueActionFormatter, hidden: false},
+			    {field:'noname',width:80,align:'center',title : '발행' , formatter : issueActionFormatter, hidden: true},
 			    {field:'deliveryNumber',width:100,align:'center',title : '송장 번호', hidden : true},
 			    {field:'receiverName',width:100,align:'center',title : '수취자 이름',hidden : false},
 			    {field:'receiverPhone',width:100,align:'center',title : '수취자 핸드폰',hidden : true},

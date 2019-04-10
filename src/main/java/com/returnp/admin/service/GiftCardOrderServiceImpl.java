@@ -72,6 +72,7 @@ public class GiftCardOrderServiceImpl implements GiftCardOrderService{
 			order.setGiftCardAmount(giftCardProduct.getGiftCardAmount());
 			order.setGiftCardSalePrice(giftCardProduct.getGiftCardSalePrice());
 			order.setQty(orderForm.getQty());
+			order.setOrderTime(new Date());
 			order.setReceiverName(orderForm.getGiftCardSalesOrganName());
 			order.setReceiverEmail(organ.getOrganEmail());
 			order.setReceiverPhone(organ.getOrganPhone());
