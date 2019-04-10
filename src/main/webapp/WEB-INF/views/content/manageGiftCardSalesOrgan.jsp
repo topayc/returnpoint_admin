@@ -39,7 +39,7 @@
 										</c:forEach>
 									</select> 
 								</div>
-								
+								<div style="margin-bottom:16px"><input id ="saleOrganSaleFeeRate"  name="saleOrganSaleFeeRate" style="width:100%" data-options="label:'상품권 판매 수수료',labelWidth :100,labelPosition : 'left'"> </div>
 								<div style="margin-bottom:16px"><input id ="organEmail"  name="organEmail" style="width:100%" data-options="label:'이메일',labelWidth :100,labelPosition : 'left'"> </div>
 								<div style="margin-bottom:16px"><input id ="organPhone"  name="organPhone" style="width:100%" data-options="label:'핸드폰',labelWidth :100,labelPosition : 'left'"> </div>
 								<div style="margin-bottom:16px"><input id ="organTel"  name="organTel" style="width:100%" data-options="label:'전화번호',labelWidth :100,labelPosition : 'left'"> </div>

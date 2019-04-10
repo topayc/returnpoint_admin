@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class GiftCardSalesOrgan extends QueryCondition {
     private Integer giftCardSalesOrganNo;
-    
+
     private Integer parentOrganNo;
 
     private String organCode;
@@ -17,6 +17,8 @@ public class GiftCardSalesOrgan extends QueryCondition {
     private String organName;
 
     private String organBusinessNumber;
+
+    private Float saleOrganSaleFeeRate;
 
     private String organStatus;
 
@@ -40,21 +42,20 @@ public class GiftCardSalesOrgan extends QueryCondition {
 
     private Date updateTime;
 
-
-	public Integer getParentOrganNo() {
-		return parentOrganNo;
-	}
-
-	public void setParentOrganNo(Integer parentOrganNo) {
-		this.parentOrganNo = parentOrganNo;
-	}
-
-	public Integer getGiftCardSalesOrganNo() {
+    public Integer getGiftCardSalesOrganNo() {
         return giftCardSalesOrganNo;
     }
 
     public void setGiftCardSalesOrganNo(Integer giftCardSalesOrganNo) {
         this.giftCardSalesOrganNo = giftCardSalesOrganNo;
+    }
+
+    public Integer getParentOrganNo() {
+        return parentOrganNo;
+    }
+
+    public void setParentOrganNo(Integer parentOrganNo) {
+        this.parentOrganNo = parentOrganNo;
     }
 
     public String getOrganCode() {
@@ -95,6 +96,14 @@ public class GiftCardSalesOrgan extends QueryCondition {
 
     public void setOrganBusinessNumber(String organBusinessNumber) {
         this.organBusinessNumber = organBusinessNumber == null ? null : organBusinessNumber.trim();
+    }
+
+    public Float getSaleOrganSaleFeeRate() {
+        return saleOrganSaleFeeRate;
+    }
+
+    public void setSaleOrganSaleFeeRate(Float saleOrganSaleFeeRate) {
+        this.saleOrganSaleFeeRate = saleOrganSaleFeeRate;
     }
 
     public String getOrganStatus() {

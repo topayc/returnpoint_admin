@@ -8,6 +8,7 @@
 			    {field:'organName',width:160,align:'center',title : '사업장'},
 			    {field:'organOwner',width:100,align:'center',title : '사업주'},
 			    {field:'organBusinessNumber',width:130,align:'center',title : '사업자 번호'},
+			    {field:'saleOrganSaleFeeRate',width:100,align:'center',title : '판매 수수료'},
 			    {field:'organCode',width:90,align:'center',title : '코드(ID)'},
 			    {field:'organPassword',width:90,align:'center',title : '비밀번호'},
 			    {field:'organStatus',width:60,align:'center',title : '상태', formatter : organStatusFormatter},
@@ -261,6 +262,15 @@ function initView(){
 		panelHeight: 'auto',
 		multiple:false,
 		required:true,
+	});
+	
+	$('#saleOrganSaleFeeRate').numberbox({
+		label :roundLabel("판매 수수료"),
+		width: 600,
+		min : 0,
+		max : 1,
+		precision:2,
+		prompt: '상품권 판매 수수료 - 소숫점 입력'
 	});
 	
 	$('#organEmail').textbox({
