@@ -38,6 +38,7 @@ import com.returnp.admin.model.Branch;
 import com.returnp.admin.model.Category;
 import com.returnp.admin.model.Code;
 import com.returnp.admin.model.CompanyBankAccount;
+import com.returnp.admin.model.DeviceInfo;
 import com.returnp.admin.model.GiftCard;
 import com.returnp.admin.model.GiftCardAccHistory;
 import com.returnp.admin.model.GiftCardSalesOrgan;
@@ -174,4 +175,8 @@ public interface SearchMapper {
 	public ArrayList<GiftCardAccHistory> selectGiftCardAccHistories(GiftCardAccHistory record);
 
 	public ArrayList<GiftCardAccHistoryCommand> selectGiftCardAccHistoryCommands(GiftCardAccHistoryCommand record);
+
+	public ArrayList<DeviceInfo> selectDeviceInfos(DeviceInfo record);
+	
+	
 }

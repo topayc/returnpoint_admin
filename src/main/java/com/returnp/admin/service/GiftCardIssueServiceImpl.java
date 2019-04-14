@@ -17,16 +17,22 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.common.ReturnpException;
+import com.returnp.admin.dao.mapper.DeviceInfoMapper;
 import com.returnp.admin.dao.mapper.GiftCardIssueMapper;
+import com.returnp.admin.dao.mapper.SearchMapper;
 import com.returnp.admin.dto.command.GiftCardIssueCommand;
 import com.returnp.admin.dto.command.GiftCardOrderCommand;
 import com.returnp.admin.dto.command.MemberCommand;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.model.DeviceInfo;
 import com.returnp.admin.model.GiftCardIssue;
+import com.returnp.admin.model.Member;
+import com.returnp.admin.service.interfaces.AndroidPushService;
 import com.returnp.admin.service.interfaces.GiftCardIssueService;
 import com.returnp.admin.service.interfaces.GiftCardOrderService;
+import com.returnp.admin.service.interfaces.IOSPushService;
 import com.returnp.admin.service.interfaces.SearchService;
 import com.returnp.admin.utils.BASE64Util;
 import com.returnp.admin.utils.QRManager;
@@ -37,6 +43,10 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 	@Autowired SearchService searchService;;
 	@Autowired GiftCardIssueMapper  giftCardIssueMapper;
 	@Autowired GiftCardOrderService giftCardOrderService;
+	@Autowired DeviceInfoMapper deviceInfoMapper;
+	@Autowired SearchMapper searchMapper;;
+	@Autowired AndroidPushService androidPushService;
+	@Autowired IOSPushService iosPushService;
 	
 	
 	@Override
@@ -271,11 +281,33 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 	public ReturnpBaseResponse sendGiftCardByMobile(ArrayList<String> pinNumbers, String receiverPhone) {
 		ArrayListResponse<GiftCardIssueCommand> res = new ArrayListResponse<GiftCardIssueCommand>();
 		try {
-
-			/*
-			 * 문자 발송 소스 삽입 
-			 */
+			Member m = new Member();
+			m.setMemberPhone(receiverPhone);
+			ArrayList<Member> memebrs = this.searchService.findMembers(m); 
+			if (memebrs.size() != 1) {
+				ResponseUtil.setResponse(res, "3502", "발송 번호의 회원이 존재하지 않습니다.</br>리턴 포인트 회원에게만 발송할 수 있습니다");
+				throw new ReturnpException(res);
+			}
 			
+			DeviceInfo deviceInfo = new DeviceInfo();
+			deviceInfo.setMemberNo(memebrs.get(0).getMemberNo());
+			ArrayList<DeviceInfo> deviceInfos = this.searchMapper.selectDeviceInfos(deviceInfo);
+			if (deviceInfos.size() != 1) {
+				ResponseUtil.setResponse(res, "3502", "해당 회원의 디바이스 정보가 존재하지 않습니다. </br> 리턴포인트 앱의 업데이트 혹은 앱내의 푸쉬 서비스를 활성화 해주세요");
+				throw new ReturnpException(res);
+			}
+			
+			/* 
+			 * 푸시 발송 
+			 * */
+			String pushReturn = "";
+			if (deviceInfo.getOs().equalsIgnoreCase("android")) {
+				pushReturn = androidPushService.push();
+			}else  if (deviceInfo.getOs().equalsIgnoreCase("apple")) {
+				pushReturn = iosPushService.push();
+			}
+			
+		
 			/* 
 			 * 해당 상품권 배송 정보 및 기타 정보를 업데이트 함
 			 * */
@@ -316,7 +348,11 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 			res.setRows(returnList);
 			ResponseUtil.setSuccessResponse(res, "100" , "상품권 모바일 전송 완료");
 			return res;
-		
+			
+		}catch(ReturnpException e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return e.getBaseResponse();
 		}catch(Exception e) {
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();

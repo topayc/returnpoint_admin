@@ -165,7 +165,7 @@ public class GiftCardIssueController extends ApplicationController{
 	public ReturnpBaseResponse sendGiftCardByMobile(
 			@RequestParam(value = "pinNumbers[]", required = true) ArrayList<String> pinNumbers, 
 			@RequestParam(value = "giftCardIssueNos[]", required = true) ArrayList<String> giftCardIssueNos, 
-			String receiverPhone, 
+			@RequestParam(value = "receiverPhone", required = true) String receiverPhone, 
 			HttpServletRequest request ){
 		for (int i = 0; i < pinNumbers.size(); i++) {
 			System.out.println(giftCardIssueNos.get(i) + " : " + pinNumbers.get(i));

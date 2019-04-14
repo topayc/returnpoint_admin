@@ -334,14 +334,14 @@ function initView(){
 				  		item = cmenu.menu('findItem', '온라인상품권전송');  
 				  		cmenu.menu('appendItem', {
 				  			parent: item.target,  // the parent item element
-				  			text:  "모바일 전송",
+				  			text:  "전송 하기",
 				  			//iconCls: 'icon-ok',
 				  			onclick: function(){
 				  				openGiftCardByMobilViiew();
 				  			}
 				  		});
 				  		
-				  		item = cmenu.menu('findItem', '온라인상품권전송');  
+				  /*		item = cmenu.menu('findItem', '온라인상품권전송');  
 				  		cmenu.menu('appendItem', {
 				  			parent: item.target,  // the parent item element
 				  			text:  "카카오톡 전송",
@@ -349,7 +349,7 @@ function initView(){
 				  			onclick: function(){
 				  				sendGiftCardByKakao();
 				  			}
-				  		});
+				  		});*/
 				  	 	cmenu.menu('show', {
 					  		left:e.pageX,
 					  		top:e.pageY
@@ -526,7 +526,7 @@ function changeGiftCardStatus(status){
             });
             $('#gift_card_issue_list').datagrid('unselectAll');
 		}else {
-			$.messager.alert('오류 발생', res.message);
+			$.messager.alert('알림', res.message);
 		}
 	});
 }
@@ -581,6 +581,10 @@ function sendGiftCardByMobile(){
 	var phone2 = $('#receiverPhone2').numberbox("getValue").trim(); 
 	var phone3 = $('#receiverPhone3').numberbox("getValue").trim()
 
+	if (!phone2 || !phone3) {
+		$.messager.alert('알림', "항목이 모두 입력되지 않았습니다");
+		return;
+	}
 	var params = {};
 	params.pinNumbers = [];
 	params.giftCardIssueNos = [];
@@ -627,11 +631,10 @@ function sendGiftCardByMobile(){
 					}
 				}
 			}else {
-				$.messager.alert('오류 발생', res.message);
+				$.messager.alert('알림', res.message);
 			}
 		}
 	)
-	
 }
 
 function createQrCode(giftCardIssueNo, type){
@@ -640,7 +643,6 @@ function createQrCode(giftCardIssueNo, type){
 			console.log(res);
 			var node = $('#gift_card_issue_list').datagrid('getSelected');
 			var index = $('#gift_card_issue_list').datagrid('getRowIndex',node);
-			
 			$('#gift_card_issue_list').datagrid("updateRow", {
 				index: index,
 				row: res.data
@@ -648,7 +650,7 @@ function createQrCode(giftCardIssueNo, type){
 			var path = type == "A" ?  res.data.accQrCodeWebPath : res.data.payQrCodeWebPath 
 			viewQrCode(path , type == "A" ? "적립 큐알": "결제 큐알");
 		}else {
-			$.messager.alert('오류 발생', res.message);
+			$.messager.alert('알림', res.message);
 		}
 	});
 }
@@ -666,7 +668,7 @@ function updateGiftCardIssue(data){
 		}else {
 			//console.log("[오류]");
 			//console.log(res);
-			$.messager.alert('오류 발생', res.message);
+			$.messager.alert('알림', res.message);
 		}
 	});
 }
@@ -690,7 +692,7 @@ function removeGiftCardIssue(){
         		}else {
         			//console.log("[오류]");
         			//console.log(res);
-        			$.messager.alert('오류 발생', res.message);
+        			$.messager.alert('알림', res.message);
         		}
         	});
         }

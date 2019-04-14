@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.DeviceInfoMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.DeviceInfo">
+    <id column="deviceInfoNo" jdbcType="INTEGER" property="deviceInfoNo" />
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="memberEmail" jdbcType="VARCHAR" property="memberEmail" />
+    <result column="memberName" jdbcType="VARCHAR" property="memberName" />
+    <result column="memberPhone" jdbcType="VARCHAR" property="memberPhone" />
+    <result column="manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="os" jdbcType="VARCHAR" property="os" />
+    <result column="osVersion" jdbcType="VARCHAR" property="osVersion" />
+    <result column="pushKey" jdbcType="VARCHAR" property="pushKey" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    deviceInfoNo, memberNo, memberEmail, memberName, memberPhone, manufacturer, os, osVersion, 
+    pushKey, updateTime, createTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from device_info
+    where deviceInfoNo = #{deviceInfoNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from device_info
+    where deviceInfoNo = #{deviceInfoNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.DeviceInfo">
+    insert into device_info (deviceInfoNo, memberNo, memberEmail, 
+      memberName, memberPhone, manufacturer, 
+      os, osVersion, pushKey, 
+      updateTime, createTime)
+    values (#{deviceInfoNo,jdbcType=INTEGER}, #{memberNo,jdbcType=INTEGER}, #{memberEmail,jdbcType=VARCHAR}, 
+      #{memberName,jdbcType=VARCHAR}, #{memberPhone,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR}, 
+      #{os,jdbcType=VARCHAR}, #{osVersion,jdbcType=VARCHAR}, #{pushKey,jdbcType=VARCHAR}, 
+      NOW(), NOW())
+      <selectKey keyProperty="deviceInfoNo" resultType="java.lang.Integer" order ="AFTER">
+		    SELECT LAST_INSERT_ID()
+	 </selectKey>
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.DeviceInfo">
+    insert into device_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deviceInfoNo != null">
+        deviceInfoNo,
+      </if>
+      <if test="memberNo != null">
+        memberNo,
+      </if>
+      <if test="memberEmail != null">
+        memberEmail,
+      </if>
+      <if test="memberName != null">
+        memberName,
+      </if>
+      <if test="memberPhone != null">
+        memberPhone,
+      </if>
+      <if test="manufacturer != null">
+        manufacturer,
+      </if>
+      <if test="os != null">
+        os,
+      </if>
+      <if test="osVersion != null">
+        osVersion,
+      </if>
+      <if test="pushKey != null">
+        pushKey,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deviceInfoNo != null">
+        #{deviceInfoNo,jdbcType=INTEGER},
+      </if>
+      <if test="memberNo != null">
+        #{memberNo,jdbcType=INTEGER},
+      </if>
+      <if test="memberEmail != null">
+        #{memberEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null">
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberPhone != null">
+        #{memberPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null">
+        #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="osVersion != null">
+        #{osVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="pushKey != null">
+        #{pushKey,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.DeviceInfo">
+    update device_info
+    <set>
+      <if test="memberNo != null">
+        memberNo = #{memberNo,jdbcType=INTEGER},
+      </if>
+      <if test="memberEmail != null">
+        memberEmail = #{memberEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null">
+        memberName = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberPhone != null">
+        memberPhone = #{memberPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null">
+        manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null">
+        os = #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="osVersion != null">
+        osVersion = #{osVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="pushKey != null">
+        pushKey = #{pushKey,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where deviceInfoNo = #{deviceInfoNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.DeviceInfo">
+    update device_info
+    set memberNo = #{memberNo,jdbcType=INTEGER},
+      memberEmail = #{memberEmail,jdbcType=VARCHAR},
+      memberName = #{memberName,jdbcType=VARCHAR},
+      memberPhone = #{memberPhone,jdbcType=VARCHAR},
+      manufacturer = #{manufacturer,jdbcType=VARCHAR},
+      os = #{os,jdbcType=VARCHAR},
+      osVersion = #{osVersion,jdbcType=VARCHAR},
+      pushKey = #{pushKey,jdbcType=VARCHAR},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      createTime = #{createTime,jdbcType=TIMESTAMP}
+    where deviceInfoNo = NOW()
+  </update>
+</mapper>

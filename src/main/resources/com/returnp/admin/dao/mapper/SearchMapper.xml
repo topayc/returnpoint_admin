@@ -3670,5 +3670,47 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     	<include refid = "GiftCardAccHistoryCommandWhereStatement"/>
     	<include refid = "commonStatement"/>
   </select>
+  
+  <!-- ===============================================================================================================    -->
+  
+  <!-- DeviceInfo Mapperr   -->
+ 
+   <resultMap id="DeviceInfoResultMap" type="com.returnp.admin.model.DeviceInfo">
+    <id column="deviceInfoNo" jdbcType="INTEGER" property="deviceInfoNo" />
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="memberEmail" jdbcType="VARCHAR" property="memberEmail" />
+    <result column="memberName" jdbcType="VARCHAR" property="memberName" />
+    <result column="memberPhone" jdbcType="VARCHAR" property="memberPhone" />
+    <result column="manufacturer" jdbcType="VARCHAR" property="manufacturer" />
+    <result column="os" jdbcType="VARCHAR" property="os" />
+    <result column="osVersion" jdbcType="VARCHAR" property="osVersion" />
+    <result column="pushKey" jdbcType="VARCHAR" property="pushKey" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  
+    <sql id="DeviceInfo_Column_List">
+   deviceInfoNo, memberNo, memberEmail, memberName, memberPhone, manufacturer, os, osVersion, 
+    pushKey, updateTime, createTime
+  </sql>
+  
+   <sql id ="DeviceInfoWhereStatement">
+      <if test="deviceInfoNo != null"> AND deviceInfoNo = #{deviceInfoNo,jdbcType=INTEGER}</if>
+      <if test="memberNo != null"> AND memberNo = #{memberNo,jdbcType=INTEGER}</if>
+      <if test="os != null"> AND os = #{os,jdbcType=VARCHAR}</if>
+      <if test="manufacturer != null"> AND manufacturer = #{manufacturer,jdbcType=VARCHAR}</if>
+  </sql>
+  
+   <select id="selectDeviceInfos" parameterType="com.returnp.admin.model.DeviceInfo" resultMap="DeviceInfoResultMap">
+    select 
+      sql_calc_found_rows 
+    <include refid="DeviceInfo_Column_List" />
+    from device_info
+    where 
+     	 1 = 1 
+    	<include refid = "DeviceInfoWhereStatement"/>
+    	<include refid = "commonStatement"/>
+  </select>
+
 </mapper>
  
