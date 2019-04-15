@@ -302,6 +302,9 @@ $(function () {
 
         	/*리포트 */
         	affilaiteSaleReport: {apiCode: 10000, apiPath : '/api/report/affilaiteSaleReport' , requestMethod: 'get'},
+        	
+        	/*push token 등록*/
+        	sendPushToken: {apiCode: 10000, apiPath : '/api/device/registToken' , requestMethod: 'post'},
         },
         
         init : function(){
