@@ -180,7 +180,7 @@ public interface SearchMapper {
 
 	public ArrayList<DeviceInfo> selectDeviceInfos(DeviceInfo record);
 
-	public ArrayList<MyGiftCard> selectMyGiftCards(MyGiftCardCommand record);
+	public ArrayList<MyGiftCardCommand> selectMyGiftCards(MyGiftCardCommand record);
 	
 	
 }

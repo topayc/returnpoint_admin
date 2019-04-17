@@ -17,7 +17,7 @@ import com.returnp.admin.service.interfaces.AndroidPushService;
 @Service
 @PropertySource("classpath:/config.properties")
 public class AndroidPushServiceImpl implements AndroidPushService {
-	
+
 	public  String fcmWebKey;
 	@Autowired Environment env;
 	

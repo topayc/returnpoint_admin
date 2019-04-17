@@ -3729,8 +3729,8 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
    G.myGiftCardNo, 
    G.memberNo, 
    G.giftCardIssueNo, 
-   G.createTime, 
-   G.updateTime,
+   G.createTime as createTime,
+   G.updateTime as updateTime,
    M.memberName,
    A.giftCardIssueNo, 
    A.pinNumber, 
@@ -3754,8 +3754,6 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
    A.payQrScanTime, 
    A.issueTime, 
    A.expirationTime, 
-   A.createTime, 
-   A.updateTime,
    A.receiverPhone,
    A.receiverName,
    A.receiverEmail,
@@ -3763,21 +3761,22 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
    A.receiverIsMember,
    A.deliveryMessage,
    A.deliveryStatus,
-   A.deliveryNumber,
+   A.deliveryNumber
   </sql>
   
    <sql id ="MyGiftCardCommandWhereStatement">
-      <if test="myGiftCardNo != null"> AND myGiftCardNo = #{myGiftCardNo,jdbcType=INTEGER}</if>
-      <if test="memberNo != null"> AND memberNo = #{memberNo,jdbcType=INTEGER}</if>
+      <if test="myGiftCardNo != null"> AND G.myGiftCardNo = #{myGiftCardNo,jdbcType=INTEGER}</if>
+      <if test="memberNo != null"> AND G.memberNo = #{memberNo,jdbcType=INTEGER}</if>
+      <if test="giftCardIssueNo != null"> AND A.giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER}</if>
   </sql>
   
    <select id="selectMyGiftCards" parameterType="com.returnp.admin.dto.command.MyGiftCardCommand" resultMap="MyGiftCardCommandResultMap">
     select 
       sql_calc_found_rows 
-    <include refid="DeviceInfo_Column_List" />
+    <include refid="MyGiftCardCommand_Column_List" />
     from my_gift_card as G
     inner join member as M on (G.memberNo = M.memberNo)
-    inner join giftCardIssue as A on (G.giftCardIssueNo= A.giftCardIssueNo)
+    inner join gift_card_issue as A on (G.giftCardIssueNo= A.giftCardIssueNo)
     
     where 
      	 1 = 1 

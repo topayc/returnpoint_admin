@@ -19,16 +19,19 @@ import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.common.ReturnpException;
 import com.returnp.admin.dao.mapper.DeviceInfoMapper;
 import com.returnp.admin.dao.mapper.GiftCardIssueMapper;
+import com.returnp.admin.dao.mapper.MyGiftCardMapper;
 import com.returnp.admin.dao.mapper.SearchMapper;
 import com.returnp.admin.dto.command.GiftCardIssueCommand;
 import com.returnp.admin.dto.command.GiftCardOrderCommand;
 import com.returnp.admin.dto.command.MemberCommand;
+import com.returnp.admin.dto.command.MyGiftCardCommand;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.DeviceInfo;
 import com.returnp.admin.model.GiftCardIssue;
 import com.returnp.admin.model.Member;
+import com.returnp.admin.model.MyGiftCard;
 import com.returnp.admin.service.interfaces.AndroidPushService;
 import com.returnp.admin.service.interfaces.GiftCardIssueService;
 import com.returnp.admin.service.interfaces.GiftCardOrderService;
@@ -47,7 +50,7 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 	@Autowired SearchMapper searchMapper;;
 	@Autowired AndroidPushService androidPushService;
 	@Autowired IOSPushService iosPushService;
-	
+	@Autowired MyGiftCardMapper myGiftCardMapper;;
 	
 	@Override
 	public ReturnpBaseResponse createGiftCardIssue(GiftCardIssue record) {
@@ -309,6 +312,8 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 			ArrayList<MemberCommand> memberCommands = null;
 			
 			ArrayList<GiftCardIssueCommand> returnList = new ArrayList<GiftCardIssueCommand>();
+			ArrayList<MyGiftCardCommand> myGiftCardCommands  = null;
+			MyGiftCardCommand  myGiftCardCommand = null;
 			for (String pinNumber : pinNumbers) {
 				giftCardCommand.setPinNumber(pinNumber);
 				sendGifts = this.searchService.selectGiftCardIssueCommands(giftCardCommand);
@@ -331,16 +336,27 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 					}
 					
 					this.giftCardIssueMapper.updateByPrimaryKeySelective(sendGifts.get(0));
+
+					myGiftCardCommand = new MyGiftCardCommand();
+					myGiftCardCommand.setMemberNo(memberCommands.get(0).getMemberNo());
+					myGiftCardCommand.setGiftCardIssueNo(sendGifts.get(0).getGiftCardIssueNo());
+					myGiftCardCommands = this.searchMapper.selectMyGiftCards(myGiftCardCommand);
+					if (myGiftCardCommands.size()  < 1) {
+						this.myGiftCardMapper.insert(myGiftCardCommand);
+					}
+					
 					memberCommands = null;
 					memberCommand = null;
 					returnList.add(sendGifts.get(0));
 					
+				
 					/* 선택한 상품권 푸쉬 발송*/
 					if (deviceInfo.getOs().equalsIgnoreCase("android")) {
 						pushReturn = androidPushService.pushGiftCard(deviceInfo, sendGifts.get(0));
 					}else  if (deviceInfo.getOs().equalsIgnoreCase("apple")) {
 						pushReturn = iosPushService.push();
 					}
+					
 					if (pushReturn == null) {
 						ResponseUtil.setResponse(res, "3512", receiverPhone + " 으로 상품권 발송을 실패했습니다.");
 						throw new ReturnpException(res);
