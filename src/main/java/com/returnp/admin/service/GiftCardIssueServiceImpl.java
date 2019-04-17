@@ -297,51 +297,54 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 				throw new ReturnpException(res);
 			}
 			
-			/* 
-			 * 푸시 발송 
-			 * */
 			String pushReturn = "";
-			if (deviceInfo.getOs().equalsIgnoreCase("android")) {
-				pushReturn = androidPushService.push();
-			}else  if (deviceInfo.getOs().equalsIgnoreCase("apple")) {
-				pushReturn = iosPushService.push();
-			}
-			
+			deviceInfo = deviceInfos.get(0);
 		
 			/* 
 			 * 해당 상품권 배송 정보 및 기타 정보를 업데이트 함
 			 * */
 			GiftCardIssueCommand giftCardCommand = new GiftCardIssueCommand();
 			MemberCommand memberCommand;
-			ArrayList<GiftCardIssueCommand> selectArray = null;
+			ArrayList<GiftCardIssueCommand> sendGifts = null;
 			ArrayList<MemberCommand> memberCommands = null;
 			
 			ArrayList<GiftCardIssueCommand> returnList = new ArrayList<GiftCardIssueCommand>();
 			for (String pinNumber : pinNumbers) {
 				giftCardCommand.setPinNumber(pinNumber);
-				selectArray = this.searchService.selectGiftCardIssueCommands(giftCardCommand);
+				sendGifts = this.searchService.selectGiftCardIssueCommands(giftCardCommand);
 				
-				if (selectArray.size() == 1) {
-					selectArray.get(0).setReceiverPhone(receiverPhone);
-					selectArray.get(0).setDeliveryStatus("6");
-					selectArray.get(0).setReceiverPhone(receiverPhone);
+				if (sendGifts.size() == 1) {
+					sendGifts.get(0).setReceiverPhone(receiverPhone);
+					sendGifts.get(0).setDeliveryStatus("6");
+					sendGifts.get(0).setReceiverPhone(receiverPhone);
 					
 					memberCommand = new MemberCommand();
 					memberCommand.setMemberPhone(receiverPhone);
 					memberCommands = this.searchService.findMemberCommands(memberCommand);
 				
 					if (memberCommands.size() == 1) {
-						selectArray.get(0).setReceiverIsMember("Y");
-						selectArray.get(0).setReceiverName(memberCommands.get(0).getMemberName());
-						selectArray.get(0).setReceiverEmail(memberCommands.get(0).getMemberEmail());
+						sendGifts.get(0).setReceiverIsMember("Y");
+						sendGifts.get(0).setReceiverName(memberCommands.get(0).getMemberName());
+						sendGifts.get(0).setReceiverEmail(memberCommands.get(0).getMemberEmail());
 					}else {
-						selectArray.get(0).setReceiverIsMember("N");
+						sendGifts.get(0).setReceiverIsMember("N");
 					}
 					
-					this.giftCardIssueMapper.updateByPrimaryKeySelective(selectArray.get(0));
+					this.giftCardIssueMapper.updateByPrimaryKeySelective(sendGifts.get(0));
 					memberCommands = null;
 					memberCommand = null;
-					returnList.add(selectArray.get(0));
+					returnList.add(sendGifts.get(0));
+					
+					/* 선택한 상품권 푸쉬 발송*/
+					if (deviceInfo.getOs().equalsIgnoreCase("android")) {
+						pushReturn = androidPushService.pushGiftCard(deviceInfo, sendGifts.get(0));
+					}else  if (deviceInfo.getOs().equalsIgnoreCase("apple")) {
+						pushReturn = iosPushService.push();
+					}
+					if (pushReturn == null) {
+						ResponseUtil.setResponse(res, "3512", receiverPhone + " 으로 상품권 발송을 실패했습니다.");
+						throw new ReturnpException(res);
+					}
 				}
 			}
 			

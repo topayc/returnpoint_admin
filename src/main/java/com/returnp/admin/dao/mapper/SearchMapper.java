@@ -17,6 +17,7 @@ import com.returnp.admin.dto.command.GreenPointCommand;
 import com.returnp.admin.dto.command.MemberBankAccountCommand;
 import com.returnp.admin.dto.command.MemberCommand;
 import com.returnp.admin.dto.command.MembershipRequestCommand;
+import com.returnp.admin.dto.command.MyGiftCardCommand;
 import com.returnp.admin.dto.command.PaymentPointbackRecordCommand;
 import com.returnp.admin.dto.command.PaymentTransactionCommand;
 import com.returnp.admin.dto.command.PointConversionTransactionCommand;
@@ -46,6 +47,7 @@ import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.model.MembershipRequest;
+import com.returnp.admin.model.MyGiftCard;
 import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.model.PointConversionTransaction;
 import com.returnp.admin.model.PointWithdrawal;
@@ -177,6 +179,8 @@ public interface SearchMapper {
 	public ArrayList<GiftCardAccHistoryCommand> selectGiftCardAccHistoryCommands(GiftCardAccHistoryCommand record);
 
 	public ArrayList<DeviceInfo> selectDeviceInfos(DeviceInfo record);
+
+	public ArrayList<MyGiftCard> selectMyGiftCards(MyGiftCardCommand record);
 	
 	
 }

@@ -3711,6 +3711,79 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     	<include refid = "DeviceInfoWhereStatement"/>
     	<include refid = "commonStatement"/>
   </select>
+  
+  <!-- ===============================================================================================================    -->
+  
+  <!-- MyGiftCard Mapperr   -->
+ 
+   <resultMap id="MyGiftCardCommandResultMap" type="com.returnp.admin.dto.command.MyGiftCardCommand">
+    <id column="myGiftCardNo" jdbcType="INTEGER" property="myGiftCardNo" />
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="giftCardIssueNo" jdbcType="INTEGER" property="giftCardIssueNo" />
+    
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+    <sql id="MyGiftCardCommand_Column_List">
+   G.myGiftCardNo, 
+   G.memberNo, 
+   G.giftCardIssueNo, 
+   G.createTime, 
+   G.updateTime,
+   M.memberName,
+   A.giftCardIssueNo, 
+   A.pinNumber, 
+   A.giftCardOrderNo, 
+   A.giftCardNo, 
+   A.accableStatus, 
+   A.payableStatus, 
+   A.giftCardStatus, 
+   A.giftCardType, 
+   A.giftCardAmount, 
+   A.giftCardSalePrice, 
+   A.accQrData, 
+   A.payQrData, 
+   A.accQrCodeWebPath, 
+   A.payQrCodeWebPath, 
+   A.accQrCodeFilePath, 
+   A.payQrCodeFilePath, 
+   A.accQrScanner, 
+   A.payQrScanner, 
+   A.accQrScanTime, 
+   A.payQrScanTime, 
+   A.issueTime, 
+   A.expirationTime, 
+   A.createTime, 
+   A.updateTime,
+   A.receiverPhone,
+   A.receiverName,
+   A.receiverEmail,
+   A.receiverAddress,
+   A.receiverIsMember,
+   A.deliveryMessage,
+   A.deliveryStatus,
+   A.deliveryNumber,
+  </sql>
+  
+   <sql id ="MyGiftCardCommandWhereStatement">
+      <if test="myGiftCardNo != null"> AND myGiftCardNo = #{myGiftCardNo,jdbcType=INTEGER}</if>
+      <if test="memberNo != null"> AND memberNo = #{memberNo,jdbcType=INTEGER}</if>
+  </sql>
+  
+   <select id="selectMyGiftCards" parameterType="com.returnp.admin.dto.command.MyGiftCardCommand" resultMap="MyGiftCardCommandResultMap">
+    select 
+      sql_calc_found_rows 
+    <include refid="DeviceInfo_Column_List" />
+    from my_gift_card as G
+    inner join member as M on (G.memberNo = M.memberNo)
+    inner join giftCardIssue as A on (G.giftCardIssueNo= A.giftCardIssueNo)
+    
+    where 
+     	 1 = 1 
+    	<include refid = "MyGiftCardCommandWhereStatement"/>
+    	<include refid = "commonStatement"/>
+  </select>
 
 </mapper>
  
