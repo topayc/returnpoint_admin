@@ -8,5 +8,5 @@ import com.returnp.admin.model.GiftCardIssue;
 
 @Transactional
 public interface AndroidPushService {
-	public String pushGiftCard(DeviceInfo deviceInfo, GiftCardIssue giftCardIssueCommand) throws FirebaseMessagingException;
+	public String pushGiftCard(DeviceInfo deviceInfo, GiftCardIssue giftCardIssueCommand, int myGiftCardNo) throws FirebaseMessagingException;
 }

@@ -204,10 +204,20 @@ function initView(){
 		  	var selectedIssue = row;
 			
 			var options = $('#gift_card_issue_list').datagrid("options");
-			 if (options.singleSelect == true) {
+			
+			cmenu.menu('appendItem', {
+		  		id : "m_3",  // the parent item element
+		  		text:  "<strong>선택 상품권 QR 코드 일괄 생성<strong>",
+		  		//iconCls: 'icon-ok',
+		  		onclick: function(){
+		  			createQrBatch();
+		  		}
+		  	});
+			
+			if (options.singleSelect == true) {
 					cmenu.menu('appendItem', {
 			  			id : "m_3",  // the parent item element
-			  			text:  "상품권QR코드 보기",
+			  			text:  "<strong>상품권QR코드 보기</strong>",
 			  			//iconCls: 'icon-ok',
 			  			onclick: function(){
 			  			}
@@ -247,7 +257,7 @@ function initView(){
 			  		
 			  		cmenu.menu('appendItem', {
 			  			id : "m_3",  // the parent item element
-			  			text:  "상품권상태변경",
+			  			text:  "<strong>상품권상태변경</strong>",
 			  			//iconCls: 'icon-ok',
 			  			onclick: function(){
 			  			}
@@ -309,7 +319,7 @@ function initView(){
 				  	});
 			  	  	cmenu.menu("appendItem", {
 				  		id : "m_2",
-				  		text: '발행 내역 상세 보기',
+				  		text: '<strong>발행 내역 상세 보기</strong>',
 				  		/*	iconCls: 'icon-ok',*/
 				  		onclick: function(){
 				  			viewDetailIssue();
@@ -326,7 +336,7 @@ function initView(){
 					 var options = $('#gift_card_issue_list').datagrid("options");
 			  	  		cmenu.menu("appendItem", {
 				  			id : "m_1",
-				  			text: '온라인상품권전송',
+				  			text: '<strong>온라인상품권전송</strong>',
 				  			/*	iconCls: 'icon-ok',*/
 				  			onclick: function(){}
 				  		});
@@ -360,10 +370,12 @@ function initView(){
 				 
 			 }
 			 
+			 cmenu.menu('appendItem', {
+			  		separator: true
+			  	});
 			 
-	
-		  	
-		  	
+		
+			 
 		  	
 	/*	  	var menus = [  '주문 수정', '주문 삭제','상세 주문내역 보기' ];
 		  	var icons = ['icon-edit','icon-remove','icon-detail'];
@@ -573,10 +585,51 @@ function openGiftCardByMobilViiew(){
 	$('#receiverPhone2').numberbox("clear"); 
 	$('#receiverPhone3').numberbox("clear"); 
 }
+function createQrBatch(){
+	var selectedRows =  $('#gift_card_issue_list').datagrid('getSelections');
+	if (selectedRows.length  < 1) {
+		$.messager.alert('알림', "상품권이 선택되지 않았습니다");
+	}
+	var params = {};
+	params.giftCardIssueNos = [];
+	
+	for (var j = 0; j < selectedRows.length; j++){
+		if (selectedRows[j].payQrCodeWebPath == null || selectedRows[j].payQrCodeWebPath == "" || 
+				selectedRows[j].accQrCodeWebPath == null || selectedRows[j].accQrCodeWebPath == "" ){
+			params.giftCardIssueNos.push(selectedRows[j].giftCardIssueNo);
+		}
+	}
+	
+	if (params.giftCardIssueNos.length < 1) {
+		$.messager.alert('알림', "선택하신 상품권 목록은 이미 QR 코드가 생성이 되어 있습니다.");
+		return;
+	}
+	
+	returnp.api.call("createQrBatch", params,function(res){
+		$.messager.alert('알림', res.message);
+		var node, index;
+		if (res.resultCode  == "100") {
+			for (var i = 0; i < selectedRows.length; i++){
+				node = selectedRows[i];
+				for (var j = 0; j < res.rows.length ; j++){
+					if (node.giftCardIssueNo == res.rows[j].giftCardIssueNo){
+						 index = $('#gift_card_issue_list').datagrid('getRowIndex',node);
+						 $('#gift_card_issue_list').datagrid("updateRow", {
+								index: index,
+								row: res.rows[j]
+							});
+						 break;
+					}
+				}
+			}
+		}else {
+			
+		}
+	});
+}
 
 function sendGiftCardByMobile(){
 	var selectedRows =  $('#gift_card_issue_list').datagrid('getSelections');
-
 	var phone1 = $('#receiverPhone1').combobox("getValue").trim()
 	var phone2 = $('#receiverPhone2').numberbox("getValue").trim(); 
 	var phone3 = $('#receiverPhone3').numberbox("getValue").trim()
@@ -593,6 +646,19 @@ function sendGiftCardByMobile(){
 	var errorMsg = "";
 	var error = false;
 	for (var j = 0; j < selectedRows.length; j++){
+		if (selectedRows[j].payQrCodeWebPath == null || selectedRows[j].payQrCodeWebPath == "" || 
+				selectedRows[j].accQrCodeWebPath == null || selectedRows[j].accQrCodeWebPath == "" ){
+			$.messager.confirm({
+				title: '알림',
+				msg: '선택하신 상품권중에 QR Code 생성되지 않은 상품권이 있습니다. </b>생성을 먼저 하셔야 발송이 가능합니다.</br>선택하신 항목에서 QR Code 일괄 생성하시겠습니까? ',
+				fn: function(r){
+					if (r){
+						createQrBatch();
+					}
+				}
+			});
+			return; 
+		}
 		if (selectedRows[j].receiverPhone && selectedRows[j].receiverPhone.trim() != "" && selectedRows[j].receiverPhone.trim() != params.receiverPhone.trim()) {
 			errorMsg = 
 				"발행 번호 : " + selectedRows[j].giftCardIssueNo + "</br>" + 

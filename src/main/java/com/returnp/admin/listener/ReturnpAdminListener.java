@@ -3,6 +3,8 @@ package com.returnp.admin.listener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -15,12 +17,18 @@ public class ReturnpAdminListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		System.out.println("########################################################################");
-		System.out.println("### ReturnpAdminListener.contextInitialized");
-		System.out.println("########################################################################");
 		FileInputStream serviceAccount;
 		try {
-			serviceAccount = new FileInputStream("C:\\Users\\topayc\\returnp\\firebase\\returnp-fcm-firebase-adminsdk-7k3u6-fd6c0a5190.json");
+			 InputStream is = getClass().getResourceAsStream("/config.properties");
+			 Properties props = new Properties();
+			 props.load(is);
+
+			 System.out.println("########################################################################");
+			 System.out.println("### ReturnpAdminListener.contextInitialized");
+			 System.out.println( "fcm_auth_file_path : " + props.getProperty("fcm_auth_file_path").trim());
+			 System.out.println("########################################################################");
+			 
+			serviceAccount = new FileInputStream(props.getProperty("fcm_auth_file_path").trim());
 			FirebaseOptions options = new FirebaseOptions.Builder()
 					.setCredentials(GoogleCredentials.fromStream(serviceAccount))
 					//.setDatabaseUrl("https://<DATABASE_NAME>.firebaseio.com/")
@@ -34,7 +42,6 @@ public class ReturnpAdminListener implements ServletContextListener {
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		// TODO Auto-generated method stub
-
 	}
 
 }

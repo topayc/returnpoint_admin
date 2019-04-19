@@ -50,6 +50,7 @@
     where giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER}
       and pinNumber = #{pinNumber,jdbcType=VARCHAR}
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="com.returnp.admin.model.GiftCardIssueKey">
     delete from gift_card_issue
     where giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER}

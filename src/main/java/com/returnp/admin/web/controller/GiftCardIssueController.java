@@ -158,6 +158,21 @@ public class GiftCardIssueController extends ApplicationController{
 	}
 
 	/**
+	 * 지정된 상품권의 큐알 코드 일괄 생성
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/giftCardIssue/createQrBatch", method = RequestMethod.GET)
+	public ReturnpBaseResponse createQrImageBatch( 
+			@RequestParam(value = "giftCardIssueNos[]", required = true) ArrayList<Integer> giftCardIssueNos, 
+			HttpServletRequest request, HttpServletResponse response ){
+		System.out.println("###### createQrImageBatch");
+		for (int i = 0; i < giftCardIssueNos.size(); i++) {
+			System.out.println(giftCardIssueNos.get(i) + " : " + giftCardIssueNos.get(i));
+		}
+		return this.giftCardIssueService.createQrImageBatch( giftCardIssueNos, request, response);
+	}
+
+	/**
 	 * 상품권 문자 전송	
 	 */
 	@ResponseBody

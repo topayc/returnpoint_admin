@@ -227,6 +227,7 @@ $(function () {
         	invalidateGiftCardIssue: { apiCode: 10000, apiPath : '/api/giftCardIssue/invalidateBatch' ,  requestMethod: "post"},  
         	issueExcelDownload: { apiCode: 10000, apiPath : '/api/giftCardIssue/issueExcelDownload' ,  requestMethod: "get"},  
         	createQr: { apiCode: 10000, apiPath : '/api/giftCardIssue/createQr' ,  requestMethod: "get"},  
+        	createQrBatch: { apiCode: 10000, apiPath : '/api/giftCardIssue/createQrBatch' ,  requestMethod: "get"},  
         	changeGiftCardStatus: { apiCode: 10000, apiPath : '/api/giftCardIssue/change' ,  requestMethod: "post"},  
         	sendGiftCardByMobile: { apiCode: 10000, apiPath : '/api/giftCardIssue/sendGiftCardByMobile' ,  requestMethod: "post"},  
         	

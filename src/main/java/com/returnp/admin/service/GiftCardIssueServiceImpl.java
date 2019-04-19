@@ -1,5 +1,6 @@
 package com.returnp.admin.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -9,6 +10,9 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.SplittableRandom;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +35,6 @@ import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.DeviceInfo;
 import com.returnp.admin.model.GiftCardIssue;
 import com.returnp.admin.model.Member;
-import com.returnp.admin.model.MyGiftCard;
 import com.returnp.admin.service.interfaces.AndroidPushService;
 import com.returnp.admin.service.interfaces.GiftCardIssueService;
 import com.returnp.admin.service.interfaces.GiftCardOrderService;
@@ -244,6 +247,72 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 			return res;
 		}
 	}
+	
+	@Override
+	public ReturnpBaseResponse createQrImageBatch(ArrayList<Integer> giftCardIssueNos, HttpServletRequest request,
+			HttpServletResponse response) {
+		ArrayListResponse<GiftCardIssueCommand> res = new ArrayListResponse<GiftCardIssueCommand>();
+		ArrayList<GiftCardIssueCommand> datas = new ArrayList<GiftCardIssueCommand>();
+		String filePath = null;
+		String webPath  = null;
+		String payQrData = null;
+		String accQrData = null;
+		String fileName = null;
+		
+		GiftCardIssueCommand issue;
+		ArrayList<GiftCardIssueCommand> issuseCommandList = null;
+		try {
+			for (int giftCardIssueNo : giftCardIssueNos) {
+				
+				
+				issue = new GiftCardIssueCommand();
+				issue.setGiftCardIssueNo(giftCardIssueNo);
+				issuseCommandList=  this.searchService.selectGiftCardIssueCommands(issue);
+				
+				if (issuseCommandList.size() != 1) {
+					ResponseUtil.setResponse(res, "3097", "해당 상품권이 존재하지 않습니다");
+					throw new ReturnpException(res);
+				}
+				issue = issuseCommandList.get(0);
+				
+				filePath = request.getSession().getServletContext().getRealPath("/gift_qr/" + giftCardIssueNo);
+				webPath = "/gift_qr/" + giftCardIssueNo;
+				
+				/* 적립큐알 이미지가 없을 경우 적립 QR 코드 이미지 생성 */
+				if (issue.getAccQrCodeWebPath() == null || "".equals(issue.getAccQrCodeWebPath().trim())) {
+					accQrData = issue.getAccQrData();
+					fileName = "gift_card_acc_qr";
+					issue.setAccQrCodeFilePath(filePath + giftCardIssueNo + File.separator + fileName + ".png");
+					issue.setAccQrCodeWebPath(QRManager.genQRCode(filePath ,  webPath, accQrData, fileName ));
+				}
+				
+				/* 결제 큐알 이미지가 없을 경우 결제 QR 코드 이미지 생성*/
+				if (issue.getPayQrCodeWebPath() == null || "".equals(issue.getPayQrCodeWebPath().trim())) {
+					payQrData = issue.getPayQrData();
+					fileName = "gift_card_pay_qr";
+					issue.setPayQrCodeFilePath(filePath + giftCardIssueNo + File.separator + fileName + ".png");
+					issue.setPayQrCodeWebPath( QRManager.genQRCode(filePath ,  webPath, payQrData, fileName ));
+				}
+				
+				this.giftCardIssueMapper.updateByPrimaryKey(issue);
+				datas.add(issue);
+			}
+			res.setRows(datas);
+			res.setTotal(datas.size());
+			ResponseUtil.setSuccessResponse(res, "100" , "상품권 QR 이미지 일괄 생성 완료");
+			return res;
+		}catch(ReturnpException e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return e.getBaseResponse();
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "상품권 QR 이미지 생성 에러");
+			return res;
+		}
+	}
+	
 	@Override
 	public ReturnpBaseResponse changeGiftCardStatus(int giftCardIssueNo, String giftCardStatus) {
 		
@@ -336,13 +405,17 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 					}
 					
 					this.giftCardIssueMapper.updateByPrimaryKeySelective(sendGifts.get(0));
-
+					
+					/* MyGiftCard 정보 기록*/
 					myGiftCardCommand = new MyGiftCardCommand();
 					myGiftCardCommand.setMemberNo(memberCommands.get(0).getMemberNo());
 					myGiftCardCommand.setGiftCardIssueNo(sendGifts.get(0).getGiftCardIssueNo());
+					
 					myGiftCardCommands = this.searchMapper.selectMyGiftCards(myGiftCardCommand);
 					if (myGiftCardCommands.size()  < 1) {
 						this.myGiftCardMapper.insert(myGiftCardCommand);
+					}else {
+						myGiftCardCommand = myGiftCardCommands.get(0);
 					}
 					
 					memberCommands = null;
@@ -352,7 +425,7 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 				
 					/* 선택한 상품권 푸쉬 발송*/
 					if (deviceInfo.getOs().equalsIgnoreCase("android")) {
-						pushReturn = androidPushService.pushGiftCard(deviceInfo, sendGifts.get(0));
+						pushReturn = androidPushService.pushGiftCard(deviceInfo, sendGifts.get(0), myGiftCardCommand.getMyGiftCardNo());
 					}else  if (deviceInfo.getOs().equalsIgnoreCase("apple")) {
 						pushReturn = iosPushService.push();
 					}
@@ -379,4 +452,5 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 			return res;
 		}
 	}
+
 }
