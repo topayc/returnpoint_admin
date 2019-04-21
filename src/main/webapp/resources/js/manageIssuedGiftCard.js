@@ -229,11 +229,12 @@ function initView(){
 			  			text:  "적립 QR Code 보기",
 			  			//iconCls: 'icon-ok',
 			  			onclick: function(){
-			  				if (selectedIssue.accQrCodeWebPath == null || selectedIssue.accQrCodeWebPath == ""){
+			  				viewQrCode(selectedIssue.giftCardIssueNo,"A");
+			  			/*	if (selectedIssue.accQrCodeWebPath == null || selectedIssue.accQrCodeWebPath == ""){
 			  					createQrCode(selectedIssue.giftCardIssueNo, "A");
 			  				}else {
 			  					viewQrCode(selectedIssue.accQrCodeWebPath,"적립 큐알");
-			  				}
+			  				}*/
 			  			}
 			  		});
 			  		
@@ -243,11 +244,12 @@ function initView(){
 			  			//iconCls: 'icon-ok',
 			  			text:  "결제 QR Code 보기",
 			  			onclick: function(){
-			  				if (selectedIssue.payQrCodeWebPath == null || selectedIssue.payQrCodeWebPath == ""){
+			  				viewQrCode(selectedIssue.giftCardIssueNo,"P");
+			  				/*if (selectedIssue.payQrCodeWebPath == null || selectedIssue.payQrCodeWebPath == ""){
 			  					createQrCode(selectedIssue.giftCardIssueNo, "P");
 			  				}else {
 			  					viewQrCode(selectedIssue.payQrCodeWebPath,"결제 큐알");
-			  				}
+			  				}*/
 			  			}
 			  		});
 			  		
@@ -646,7 +648,8 @@ function sendGiftCardByMobile(){
 	var errorMsg = "";
 	var error = false;
 	for (var j = 0; j < selectedRows.length; j++){
-		if (selectedRows[j].payQrCodeWebPath == null || selectedRows[j].payQrCodeWebPath == "" || 
+		/*QR 이미지를 생성하지 않아도 되기 때문에 해당 아래 구문 주석 처리 */
+	/*	if (selectedRows[j].payQrCodeWebPath == null || selectedRows[j].payQrCodeWebPath == "" || 
 				selectedRows[j].accQrCodeWebPath == null || selectedRows[j].accQrCodeWebPath == "" ){
 			$.messager.confirm({
 				title: '알림',
@@ -658,8 +661,9 @@ function sendGiftCardByMobile(){
 				}
 			});
 			return; 
-		}
-		if (selectedRows[j].receiverPhone && selectedRows[j].receiverPhone.trim() != "" && selectedRows[j].receiverPhone.trim() != params.receiverPhone.trim()) {
+		}*/
+		if (selectedRows[j].receiverPhone && selectedRows[j].receiverPhone.trim() != "" && 
+				selectedRows[j].receiverPhone.trim() != params.receiverPhone.trim()) {
 			errorMsg = 
 				"발행 번호 : " + selectedRows[j].giftCardIssueNo + "</br>" + 
 				"핀번호 : " + selectedRows[j].pinNumber + " </br> " + 
@@ -720,9 +724,31 @@ function createQrCode(giftCardIssueNo, type){
 		}
 	});
 }
-function viewQrCode(path, title){
+function viewQrCode(giftCardIssueNo, type){
+/*	var url = "/api/giftCardIssue/downQrCode?giftCardIssueNo=" + giftCardIssueNo + "&type=" + type;
 	var w = window.open(path, "QR Code", "width=550, height=550, left=100, top=100"); 
-	w.document.title = title;
+	w.document.title = title;*/
+	$('#qr_code_no').attr("src", "");
+	$('#qr_code_no').attr("src", "/api/giftCardIssue/downQrCode?giftCardIssueNo=" + giftCardIssueNo + "&type=" + type);
+	$("#qr_code_view").dialog({
+		title : type == "A" ?  "적립 QR Code" : "결제 QR Code",
+		modal : true,
+		closable : true,
+		border : 'thick',
+		shadow : true,
+		collapsible : false,
+		minimizable : false,
+		maximizable : false,
+		shadow : false,
+		buttons : [ {
+			text : '확인',
+			iconCls : 'icon-ok',
+			handler : function(){
+				$("#qr_code_view").dialog('close');
+				$('#qr_code_no').attr("src", "");
+			}
+		} ]
+	});
 }
 
 function updateGiftCardIssue(data){

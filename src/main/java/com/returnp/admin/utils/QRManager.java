@@ -1,5 +1,7 @@
 package com.returnp.admin.utils;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,10 +17,13 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Hashtable;
 
+import javax.imageio.ImageIO;
+
 import org.apache.commons.lang3.RandomStringUtils;
 
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageConfig;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
@@ -154,6 +159,64 @@ public class QRManager {
 		return qrMap;
 	}
 
+	public static byte[] genQRCode(String qrText) throws IOException, WriterException{
+		Charset charset = Charset.forName("UTF-8");
+		CharsetEncoder encoder = charset.newEncoder();
+
+		String data = null;
+		String qrAccessUrl = null;
+		
+		int qrcodeColor = 0x00000000;
+		int backgroundColor = 0xFFFFFFFF;
+		int h = 500	;
+		int w = 500;
+		
+		
+		byte[] b = null;
+		try {
+			ByteBuffer bbuf = encoder.encode(CharBuffer.wrap(qrText));
+			b = bbuf.array();
+		} catch (CharacterCodingException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+		try {
+			data = new String(b, "UTF-8");
+			BitMatrix matrix = null;
+			com.google.zxing.Writer writer = new MultiFormatWriter();
+
+			try {
+				Hashtable<EncodeHintType, String> hints = new Hashtable<EncodeHintType, String>(2);
+				hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+				matrix = writer.encode(data, com.google.zxing.BarcodeFormat.QR_CODE, w, h, hints);
+			} catch (com.google.zxing.WriterException e) {
+				e.printStackTrace();
+				throw e;
+			}
+			
+			MatrixToImageConfig matrixToImageConfig = new MatrixToImageConfig(qrcodeColor, backgroundColor);
+			BufferedImage bImage;
+			ByteArrayOutputStream baos;
+			byte[] qrImgBytes; 
+			try {
+				bImage = MatrixToImageWriter.toBufferedImage(matrix, matrixToImageConfig);
+				baos = new ByteArrayOutputStream();
+				ImageIO.write(bImage, "png", baos);
+				baos.flush();
+				qrImgBytes = baos.toByteArray();
+				baos.flush();
+				return qrImgBytes;
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw e;
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 	
 	public static String genQRCode(String savedir, String webRoot, String qrText, String fileName) throws Exception {
 		Charset charset = Charset.forName("UTF-8");

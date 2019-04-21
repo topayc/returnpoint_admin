@@ -249,6 +249,37 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 	}
 	
 	@Override
+	public ReturnpBaseResponse downQrCoder(int giftCardIssueNo, String type) {
+		ObjectResponse<byte[]> res = new ObjectResponse<byte[]>();
+		try {
+			GiftCardIssueCommand command = new GiftCardIssueCommand();
+			command.setGiftCardIssueNo(giftCardIssueNo);
+			ArrayList<GiftCardIssueCommand> commandList = this.searchService.selectGiftCardIssueCommands(command);
+			if (commandList.size() != 1) {
+				ResponseUtil.setResponse(res, "405", "해당 상품권이 존재하지 않습니다");
+				throw new ReturnpException(res);
+			}
+			
+			command = commandList.get(0);
+			String qrData = type.equals("A") ? command.getAccQrData() : command.getPayQrData();
+			byte[] qrCodeBytes = QRManager.genQRCode(qrData);
+			res.setData(qrCodeBytes);
+			ResponseUtil.setSuccessResponse(res, "100" , "상품권 QR 이미지 생성 완료");
+			return res;
+			
+		}catch(ReturnpException e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return e.getBaseResponse();
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "상품권 QR 이미지 생성 에러");
+			return res;
+		}
+	}
+	
+	@Override
 	public ReturnpBaseResponse createQrImageBatch(ArrayList<Integer> giftCardIssueNos, HttpServletRequest request,
 			HttpServletResponse response) {
 		ArrayListResponse<GiftCardIssueCommand> res = new ArrayListResponse<GiftCardIssueCommand>();
@@ -452,5 +483,6 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 			return res;
 		}
 	}
+
 
 }

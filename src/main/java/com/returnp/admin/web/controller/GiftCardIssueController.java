@@ -1,7 +1,7 @@
 package com.returnp.admin.web.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +23,7 @@ import org.springframework.web.servlet.View;
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.GiftCardIssueCommand;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.GiftCardIssue;
@@ -145,6 +146,7 @@ public class GiftCardIssueController extends ApplicationController{
 	}
 	
 	/**
+	 *  * 큐알코드만 생성하고 해당 큐알 코드 이미지 정보를 디비에 기록한 후, 생성된 큐알 이미지 url 정보 반환
 	 * @param giftCardIssueNo
 	 * @param type  A : 적립 큐알, P : 결제 큐알
 	 * @returnjavascript:void(0)
@@ -155,6 +157,20 @@ public class GiftCardIssueController extends ApplicationController{
 		/*System.out.println("###### createQrImage");*/
 		return this.giftCardIssueService.createQrImage(
 			giftCardIssueNo, type,request.getSession().getServletContext().getRealPath("/gift_qr/" + giftCardIssueNo),  "/gift_qr/" + giftCardIssueNo);
+	}
+	
+	/**
+	 * 큐알코드만 생성하고 해당 큐알 코드를 전송
+	 * @param giftCardIssueNo
+	 * @param type  A : 적립 큐알, P : 결제 큐알
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "/giftCardIssue/downQrCode", method = RequestMethod.GET)
+	public void downQrCord( int giftCardIssueNo,String  type, HttpServletRequest request, HttpServletResponse response ) throws IOException{
+		/*System.out.println("###### createQrImage");*/
+		ObjectResponse<byte[]> res  = (ObjectResponse<byte[]>) this.giftCardIssueService.downQrCoder(giftCardIssueNo, type);
+		response.setContentType("image/png");
+		response.getOutputStream().write(res.getData());
 	}
 
 	/**

@@ -66,6 +66,10 @@
    	<input id ="receiverPhone3"  name="receiverPhone3" style="width:30%;margin-left : 20x">
 </div>
 
+<div id="qr_code_view" class="easyui-dialog" title="QR Code" style="width:550px;height:600px;">
+    <img id = "qr_code_no"  width = "500" height = "500" src = ""/>
+</div>
+
   <div id="dlg-buttons">
         <a href="javascript:void(0)"  id = "sendGiftCardByMobile" class="easyui-linkbutton" onclick="javascript:sendGiftCardByMobile()">상품권 전송</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#send_gift_sms_view').dialog('close')">취소</a>

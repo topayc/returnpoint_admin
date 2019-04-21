@@ -22,5 +22,6 @@ public interface GiftCardIssueService {
 	public ReturnpBaseResponse sendGiftCardByMobile(ArrayList<String>  pinNumbers, String receiverPhone);
 	public ReturnpBaseResponse createQrImageBatch(ArrayList<Integer> giftCardIssueNos, HttpServletRequest request,
 			HttpServletResponse response);
+	public ReturnpBaseResponse downQrCoder(int giftCardIssueNo, String type);
 }
 	
