@@ -92,11 +92,11 @@
                             	<ul>
 		                            <li id = "dashBoard"  data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "dashBoard"  menu_deps= '2' >
-		                            		<span style = "font-weight : bold">Dash Board </span>
+		                            		<span style = "font-weight : bold">대쉬 보드</span>
 		                            	</a> 
 		                            </li>
 		                             <li data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "managePolicy"  menu_deps= '2' >
-		                            	<span style = "font-weight : bold">Return Point 정책</span></a> 
+		                            	<span style = "font-weight : bold">리턴포인트 정책</span></a> 
 		                            </li>
 		                        </ul>
                             </li>
@@ -160,14 +160,14 @@
                             	 <span  style = "font-weight : bold">Push Service Manage</span>
 		                         <ul>
    									<li id = "manageGiftCardSalesOrgan"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageGiftCardSalesOrgan"  node = "5"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold">Device Push Message </span>
+		                        		<span style = "font-weight : bold">디바이스 PUSH </span>
 		                        	</li>
 		                        	<li id = "manageGiftCardSalesOrgan"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageGiftCardSalesOrgan"  node = "5"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold">Mobile SMS/MMS </span></a> 
+		                        		<span style = "font-weight : bold">SMS/MMS </span></a> 
 		                        	</li>
 		                        	
 		                        	<li id = "manageGiftCardSalesOrgan"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageGiftCardSalesOrgan"  node = "5"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold">Email</span></a> 
+		                        		<span style = "font-weight : bold">EMAIL</span></a> 
 		                        	</li>
 		                        </ul>
                             </li>   

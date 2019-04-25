@@ -36,7 +36,7 @@
       #{giftCardPaymentAmount,jdbcType=INTEGER}, #{memberBankAccountNo,jdbcType=INTEGER}, 
       #{refundRate,jdbcType=REAL}, #{refundAmount,jdbcType=REAL}, #{refundStatus,jdbcType=VARCHAR}, 
       NOW(), NOW())
-         <selectKey keyProperty="branchNo" resultType="java.lang.Integer" order ="AFTER">
+         <selectKey keyProperty="giftCardPaymentNo" resultType="java.lang.Integer" order ="AFTER">
 		    SELECT LAST_INSERT_ID()
 	 </selectKey>	
   </insert>

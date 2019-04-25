@@ -188,6 +188,8 @@ public class NodeController extends ApplicationController{
 			if (StringUtils.isEmpty(nodeSearch.getSearchKeyword())) {
 				nodeSearch.setSearchKeyword(null);
 			}
+			afCond.setMemberName(nodeSearch.getSearchKeyword());
+			afCond.setMemberEmail(nodeSearch.getSearchKeyword());
 			afCond.setAffiliateName(nodeSearch.getSearchKeyword());
 			afCond.setAffiliateCode(nodeSearch.getSearchKeyword());
 			afCond.setAffiliatePhone(nodeSearch.getSearchKeyword());

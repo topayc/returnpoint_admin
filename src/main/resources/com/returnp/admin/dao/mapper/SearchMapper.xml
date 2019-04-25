@@ -251,7 +251,6 @@
        <if test="memberNo != null">AND  M.memberNo = #{memberNo,jdbcType=INTEGER}</if>
       <if test="memberPassword != null"> AND M.memberPassword = #{memberPassword,jdbcType=VARCHAR}</if>
       <if test="memberPassword2 != null">AND  M.memberPassword2 = #{memberPassword2,jdbcType=VARCHAR}</if>
-      <if test="memberPhone != null">AND  M.memberPhone = #{memberPhone,jdbcType=VARCHAR}</if>
       <if test="memberType != null">AND  M.memberType = #{memberType,jdbcType=VARCHAR}</if>
       <if test="memberStatus != null and memberStatus !=  '0'  and memberStatus !=  0">AND  M.memberStatus = #{memberStatus,jdbcType=VARCHAR}</if>
       <if test="memberAuthType != null">AND  M.memberAuthType = #{memberAuthType,jdbcType=VARCHAR}</if>
@@ -270,14 +269,15 @@
       <if test="greenPointUseStatus != null">AND  M.greenPointUseStatus = #{greenPointUseStatus,jdbcType=CHAR}</if>
       <if test="redPointUseStatus != null">AND  M.redPointUseStatus = #{redPointUseStatus,jdbcType=CHAR}</if>
       
-      <if test="memberName != null or memberEmail != null">
+      <if test="memberName != null or memberEmail != null or memberPhone != null">
       	AND ( 1 = 2 
       </if>
+      <if test="memberPhone != null">OR M.memberPhone  LIKE CONCAT('%',#{memberPhone,jdbcType=VARCHAR},'%') </if>
       <if test="memberName != null">OR M.memberName  LIKE CONCAT('%',#{memberName,jdbcType=VARCHAR},'%') </if>
       <if test="memberEmail != null">OR M.memberEmail  LIKE CONCAT('%',#{memberEmail,jdbcType=VARCHAR},'%' ) </if>
  <!--      <if test="memberPhone != null">OR M.memberPhone  LIKE CONCAT('%',#{memberPhone,jdbcType=VARCHAR},'%') </if> -->
       
-      <if test="memberName != null or memberEmail != null">
+      <if test="memberName != null or memberEmail != null or memberPhone != null">
       	)
       </if>
 	</sql>
@@ -1086,6 +1086,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     AF.updateTime,
   	M.memberEmail as memberEmail, 
     M.memberName as memberName, 
+    M.memberPhone as memberPhone, 
     GP.pointAmount as greenPointAmount, 
     RP.pointAmount as redPointAmount,
     MA.memberAddressNo, 
@@ -1152,16 +1153,18 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="regType != null">AND regType = #{regType,jdbcType=CHAR} </if>
       <if test="regAdminNo != null">AND regAdminNo = #{regAdminNo,jdbcType=INTEGER} </if>
       
-       <if test="affiliateCode != null or affiliateAddress != null or affiliateTel != null or affiliatePhone != null or affiliateName != null  or affiliateEmail != null ">
+       <if test="affiliateCode != null or affiliateAddress != null or affiliateTel != null or affiliatePhone != null or affiliateName != null  or affiliateEmail != null or memberName != null or memberPhone != null ">
       	AND ( 1 = 2 
       </if>
+       <if test="memberName != null"> OR M.memberName  LIKE CONCAT('%',#{memberName},'%')</if>
+       <if test="memberPhone != null"> OR M.memberPhone  LIKE CONCAT('%',#{memberPhone},'%')</if>
        <if test="affiliateCode != null"> OR affiliateCode  LIKE CONCAT('%',#{affiliateCode},'%')</if>
       <if test="affiliateAddress != null"> OR affiliateAddress  LIKE CONCAT('%',#{affiliateAddress},'%')</if>
       <if test="affiliateEmail != null"> OR affiliateEmail  LIKE CONCAT('%',#{affiliateEmail},'%')</if>
       <if test="affiliateTel != null"> OR affiliateTel  LIKE CONCAT('%',#{affiliateTel},'%')</if>
       <if test="affiliatePhone != null">OR affiliatePhone  LIKE CONCAT('%',#{affiliatePhone},'%') </if>
       <if test="affiliateName != null">OR affiliateName  LIKE CONCAT('%',#{affiliateName},'%')</if>
-       <if test="affiliateCode != null or affiliateAddress != null or affiliateTel != null or affiliatePhone != null or affiliateName != null  or affiliateEmail != null ">
+    <if test="affiliateCode != null or affiliateAddress != null or affiliateTel != null or affiliatePhone != null or affiliateName != null  or affiliateEmail != null or memberName != null or memberPhone != null ">
       	)
       </if>
    </sql>
@@ -1177,22 +1180,6 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
 		<include refid = "commonStatement"/>
   </select>
   
-<!--   <select id="findAffiliateCommands" parameterType="com.returnp.admin.dto.command.AffiliateCommand"  resultMap="AffiliateCommandResultMap" >
-    select 
-    sql_calc_found_rows 
-    <include refid="AffiliateCommand_Column_List" />
-	 from member as M  
-    inner join affiliate as AF on (M.memberNo = AF.memberNo)
-    inner join red_point as RP on (M.memberNo = RP.memberNo)
-    inner join green_point as GP on (M.memberNo = GP.memberNo AND GP.nodeType ='5' )    
-    left outer join member_address as MA on (AF.affiliateNo = MA.nodeNo AND MA.nodeType ='5' )
-    left outer join member as M2 on (AF.recommenderNo = M2.memberNo)
-    where 
-      1 = 1
-		<include refid = "affiliateSearchWhereStatement"/>
-		<include refid = "commonStatement"/>
-  </select> -->
-  
   
   <select id="findAffiliateCommands" parameterType="com.returnp.admin.dto.command.AffiliateCommand"  resultMap="AffiliateCommandResultMap" >
     select 
@@ -1207,7 +1194,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     left outer join agency as AG on (AF.agencyNo= AG.agencyNo)
     where 
       1 = 1
-		<include refid = "affiliateSearchWhereStatement"/>
+		<include refid = "affiliateCommandSearchWhereStatement"/>
 		<include refid = "commonStatement"/>
   </select>
   

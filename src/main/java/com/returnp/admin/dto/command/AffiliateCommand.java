@@ -32,6 +32,7 @@ public class AffiliateCommand  extends QueryCondition{
 	public float redPointAmount;
     public String memberName;
     public String memberEmail;
+    public String memberPhone;
     public String recommenderName;
     public Integer memberAddressNo;
     public Integer nodeNo;
@@ -50,6 +51,13 @@ public class AffiliateCommand  extends QueryCondition{
     public String lng;
     public String agencyName;
     
+    
+	public String getMemberPhone() {
+		return memberPhone;
+	}
+	public void setMemberPhone(String memberPhone) {
+		this.memberPhone = memberPhone;
+	}
 	public Float getGiftCardPayRefundRate() {
 		return giftCardPayRefundRate;
 	}

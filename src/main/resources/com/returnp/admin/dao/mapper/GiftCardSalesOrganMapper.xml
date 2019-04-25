@@ -52,7 +52,7 @@
       #{organStatus,jdbcType=VARCHAR}, #{organType,jdbcType=VARCHAR}, #{organPhone,jdbcType=VARCHAR}, 
       #{organEmail,jdbcType=VARCHAR}, #{organTel,jdbcType=VARCHAR}, #{organAddr,jdbcType=VARCHAR}, 
       #{organBankName,jdbcType=VARCHAR}, #{organBankAccount,jdbcType=VARCHAR}, #{organBankAccountOwner,jdbcType=VARCHAR}, 
-      NOW(), NOW(0))
+      NOW(), NOW())
       
           <selectKey keyProperty="giftCardSalesOrganNo" resultType="java.lang.Integer" order ="AFTER">
 		    SELECT LAST_INSERT_ID()
