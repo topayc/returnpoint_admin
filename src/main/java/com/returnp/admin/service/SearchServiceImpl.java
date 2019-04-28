@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.returnp.admin.dao.mapper.SearchMapper;
 import com.returnp.admin.dto.command.AffiliateCommand;
+import com.returnp.admin.dto.command.AffiliateTidCommand;
 import com.returnp.admin.dto.command.AgencyCommand;
 import com.returnp.admin.dto.command.BranchCommand;
 import com.returnp.admin.dto.command.CategoryCommand;
@@ -46,6 +47,7 @@ import com.returnp.admin.model.GiftCardAccHistory;
 import com.returnp.admin.model.GiftCardSalesOrgan;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
+import com.returnp.admin.model.MemberAddress;
 import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.model.MembershipRequest;
 import com.returnp.admin.model.PaymentTransaction;
@@ -385,6 +387,18 @@ public class SearchServiceImpl implements SearchService{
 	public ArrayList<GiftCardAccHistoryCommand> selectGiftCardAccHistoryCommands(GiftCardAccHistoryCommand record) {
 		// TODO Auto-generated method stub
 		return this.searchMapper.selectGiftCardAccHistoryCommands(record);
+	}
+
+	@Override
+	public ArrayList<MemberAddress> selectMemberAddresses(MemberAddress record) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectMemberAddresses(record);
+	}
+
+	@Override
+	public ArrayList<AffiliateTidCommand> selectAffilaiteTidCommands(AffiliateTidCommand record) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectAffilaiteTidCommands(record);
 	};
 	
 }

@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,15 +24,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.google.api.gax.rpc.ResponseObserver;
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
+import com.returnp.admin.common.ResponseUtil;
+import com.returnp.admin.dao.mapper.AffiliateTidMapper;
 import com.returnp.admin.dto.AdminSession;
-import com.returnp.admin.dto.CodeKeyValuePair;
 import com.returnp.admin.dto.command.AffiliateCommand;
-import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.dto.command.AffiliateTidCommand;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Affiliate;
+import com.returnp.admin.model.AffiliateTid;
 import com.returnp.admin.model.Category;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
@@ -65,6 +71,7 @@ public class AffiliateController extends ApplicationController {
 	@Autowired RedPointService redPointService;
 	@Autowired PointCoversionTransactionService pointTransactionService;
 	@Autowired CategoryService categoryService;
+	@Autowired AffiliateTidMapper affiliateTidMapper;
 	
 	@RequestMapping(value = "/affiliate/form/createForm", method = RequestMethod.GET)
 	public String formAffiliateRequest(
@@ -128,6 +135,39 @@ public class AffiliateController extends ApplicationController {
 		res.setData(map);
 		this.setSuccessResponse(res);
 		return res;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/affiliate/selectAffiliateTids", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectAffiliateTids( @RequestParam(value = "affiliateNo", required = true) int  affiliateNo) {
+		ArrayListResponse<AffiliateTidCommand> res = new ArrayListResponse<AffiliateTidCommand>();
+
+		AffiliateTidCommand command = new AffiliateTidCommand();
+		command.setAffiliateNo(affiliateNo);
+		ArrayList<AffiliateTidCommand> commands = this.searchService.selectAffilaiteTidCommands(command);
+		res.setRows(commands);
+		res.setTotal(this.searchService.selectTotalRecords());
+		this.setSuccessResponse(res);
+		return res;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/affiliate/updateAffiliateTid", method = RequestMethod.POST)
+	public ReturnpBaseResponse  updateAffiliateTid(AffiliateTid affiliateTid) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		
+		AffiliateTidCommand option = new AffiliateTidCommand();
+		option.setTid(affiliateTid.getTid());
+		ArrayList<AffiliateTidCommand> list = this.searchService.selectAffilaiteTidCommands(option);
+		
+		if (list.size()> 0) {
+			ResponseUtil.setResponse(res, "981", "이미 존재하는 TID 입니다. 확인후 다시 시도해주세요");
+			return res;
+		}else {
+			this.affiliateTidMapper.updateByPrimaryKeySelective(affiliateTid);
+			this.setSuccessResponse(res);
+			return res;
+		}
 	}
 
 
@@ -263,6 +303,45 @@ public class AffiliateController extends ApplicationController {
 		return res;
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value = "/affiliate/addAffiliateTid", method = RequestMethod.POST)
+	public  ReturnpBaseResponse addAffiliateTid( AffiliateTid affiliateTid, HttpSession httpSession, Model model) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		
+		Affiliate affOptions = new Affiliate();
+		affOptions.setAffiliateNo(affiliateTid.getAffiliateNo());
+		
+		if (this.searchService.findAffiliates(affOptions).size() != 1) {
+			ResponseUtil.setResponse(res, "981", "해당 가맹점이 존재하지 않습니다.확인 후 다시 시도해주세요");
+			return res;
+		}
+		
+		AffiliateTidCommand affTidOption = new AffiliateTidCommand();
+		affTidOption.setTid(affiliateTid.getTid());
+		ArrayList<AffiliateTidCommand> list = this.searchService.selectAffilaiteTidCommands(affTidOption);
+		
+		if (list.size()> 0) {
+			ResponseUtil.setResponse(res, "981", "이미 존재하는 TID 입니다. 확인후 다시 시도해주세요");
+			return res;
+		}else {
+			this.affiliateTidMapper.insert(affiliateTid);
+			this.setSuccessResponse(res, "TID 추가 완료");
+			return res;
+		}
+	
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/affiliate/removeAffiliateTid", method = RequestMethod.POST)
+	public  ReturnpBaseResponse removeAffiliateTid( AffiliateTid affiliateTid, HttpSession httpSession, Model model) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		
+		this.affiliateTidMapper.deleteByPrimaryKey(affiliateTid.getAffiliateTidNo());
+		this.setSuccessResponse(res, "TID 삭제 완료");
+		return res;
+	}
+
 	@ResponseBody
 	@RequestMapping(value = "/affiliate/delete", method = RequestMethod.POST)
 	public  ReturnpBaseResponse deleteAffiliate( 

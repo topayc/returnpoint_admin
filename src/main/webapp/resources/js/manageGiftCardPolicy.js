@@ -43,8 +43,8 @@ function initView(){
 	});
 	
 	grid.datagrid('enableCellEditing').datagrid('gotoCell', {
-        index: 0,
-        field: 'productid'
+    /*    index: 0,
+        field: 'productid'*/
     });
 	
 	$('#update_btn').linkbutton({

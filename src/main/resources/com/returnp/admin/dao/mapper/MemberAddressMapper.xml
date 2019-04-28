@@ -52,6 +52,10 @@
       #{rnMgtSn,jdbcType=VARCHAR}, #{bdMgtSn,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, 
       #{lng,jdbcType=VARCHAR}, #{regAdminNo,jdbcType=INTEGER}, NOW(), 
       NOW())
+      
+          <selectKey keyProperty="memberAddressNo" resultType="java.lang.Integer" order ="AFTER">
+		    SELECT LAST_INSERT_ID()
+	 </selectKey>	
   </insert>
   <insert id="insertSelective" parameterType="com.returnp.admin.model.MemberAddress">
     insert into member_address

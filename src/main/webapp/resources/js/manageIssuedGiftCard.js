@@ -400,22 +400,8 @@ function initView(){
 	    columns:columns
 	    
 	});
-	$('#receiverPhone1').combobox({
-		width: 80,
-		showItemIcon: true,
-		editable: false,
-		panelHeight: 'auto',
-		labelPosition: 'top',
-		multiple:false,
-		required:true,
-	});
-	$('#receiverPhone2').numberbox({width: 130}); 
-	$('#receiverPhone3').numberbox({
-		width: 130,
-		onChange : function(newValue, oldVaue) {
-			//if (newValue.length == 4) {}
-		}
-	}); 
+	
+	$('#add_tid').textbox({width: 130}); 
 	$('.easyui-linkbutton').linkbutton(); 
 	$('#sendGiftCardByMobile').linkbutton({
 		iconCls:'icon-ok'

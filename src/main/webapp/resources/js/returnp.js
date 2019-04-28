@@ -135,6 +135,10 @@ $(function () {
         	updateAffiliate: { apiCode: 10000, apiPath : '/api/affiliate/update' ,  requestMethod: "post"},
         	deleteAffiliate: { apiCode: 10000, apiPath : '/api/affiliate/delete' ,  requestMethod: "post"},
         	genTid : { apiCode: 10000, apiPath : '/api/affiliate/genTid' ,  requestMethod: "get"},
+        	selectAffiliateTids : { apiCode: 10000, apiPath : '/api/affiliate/selectAffiliateTids' ,  requestMethod: "get"},
+        	updateAffiliateTid : { apiCode: 10000, apiPath : '/api/affiliate/updateAffiliateTid' ,  requestMethod: "post"},
+        	addAffiliateTid : { apiCode: 10000, apiPath : '/api/affiliate/addAffiliateTid' ,  requestMethod: "post"},
+        	removeAffiliateTid : { apiCode: 10000, apiPath : '/api/affiliate/removeAffiliateTid' ,  requestMethod: "post"},
         	
         	/* 영업 관리자 관련*/
         	getSaleManager: { apiCode: 10000, apiPath : '/api/saleManager/get' ,  requestMethod: "get"},  

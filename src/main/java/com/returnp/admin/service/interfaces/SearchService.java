@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.returnp.admin.dto.command.AffiliateCommand;
+import com.returnp.admin.dto.command.AffiliateTidCommand;
 import com.returnp.admin.dto.command.AgencyCommand;
 import com.returnp.admin.dto.command.BranchCommand;
 import com.returnp.admin.dto.command.CategoryCommand;
@@ -44,6 +45,7 @@ import com.returnp.admin.model.GiftCardAccHistory;
 import com.returnp.admin.model.GiftCardSalesOrgan;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
+import com.returnp.admin.model.MemberAddress;
 import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.model.MembershipRequest;
 import com.returnp.admin.model.PaymentTransaction;
@@ -169,6 +171,10 @@ public interface SearchService {
 	public ArrayList<GiftCardAccHistory> selectGiftCardAccHistories(GiftCardAccHistory record);
 
 	public ArrayList<GiftCardAccHistoryCommand> selectGiftCardAccHistoryCommands(GiftCardAccHistoryCommand record);
+
+	public ArrayList<MemberAddress> selectMemberAddresses(MemberAddress record);
+	
+	public ArrayList<AffiliateTidCommand> selectAffilaiteTidCommands(AffiliateTidCommand record);
 
 	
 }

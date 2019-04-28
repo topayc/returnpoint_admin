@@ -55,6 +55,18 @@
 	</div>
 </div>
 
+
+
+<div id="add_affiliate_tid_virew" style = "padding : 15px;display : none">
+   	<input id ="add_tid"  name="tid" >   
+</div>
+<div id="dlg-buttons">
+        <a href="javascript:void(0)"  id = "add_tid_btn" class="easyui-linkbutton">확인</a>
+        <a href="javascript:void(0)" id  = "cancel_btn" class="cancel_btn" >취소</a>
+    </div>
+<div id="view_affiliate_tids" style = "padding : 15px;display : none">
+   <table id = "tid_list" style ="width:100%;height:100%"></table> 
+</div>
 <script>
 var searchFormData = {
 		nodeType :  '${searchCondition.searchNodeType}'

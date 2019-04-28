@@ -6,6 +6,7 @@ import com.returnp.admin.dto.QueryCondition;
 
 public class AffiliateCommand  extends QueryCondition{
     public Integer affiliateNo;
+    public Integer affiliateSerialCount;
     public String affiliateSerial;
     public Float affiliateComm;
     public Float giftCardPayRefundRate;
@@ -52,6 +53,12 @@ public class AffiliateCommand  extends QueryCondition{
     public String agencyName;
     
     
+	public Integer getAffiliateSerialCount() {
+		return affiliateSerialCount;
+	}
+	public void setAffiliateSerialCount(Integer affiliateSerialCount) {
+		this.affiliateSerialCount = affiliateSerialCount;
+	}
 	public String getMemberPhone() {
 		return memberPhone;
 	}

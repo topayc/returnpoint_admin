@@ -1008,6 +1008,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
     <resultMap id="AffiliateCommandResultMap" type="com.returnp.admin.dto.command.AffiliateCommand">
     <id column="affiliateNo" jdbcType="INTEGER" property="affiliateNo" />
+    <result column="affiliateSerialCount" jdbcType="INTEGER" property="affiliateSerialCount" />
     <result column="affiliateSerial" jdbcType="VARCHAR" property="affiliateSerial" />
     <result column="affiliateCode" jdbcType="VARCHAR" property="affiliateCode" />
     <result column="affiliateName" jdbcType="VARCHAR" property="affiliateName" />
@@ -1106,7 +1107,8 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     MA.lat, 
     MA.lng,
     M2.memberName as recommenderName,
-    AG.agencyName
+    AG.agencyName,
+    (select count(*) from affiliate_tid as AT where AF.affiliateNo = AT.affiliateNo) as affiliateSerialCount
   </sql>
   
     <sql id ="affiliateSearchWhereStatement">
@@ -3699,6 +3701,56 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     	<include refid = "commonStatement"/>
   </select>
   
+  
+  <!-- ===============================================================================================================    -->
+  
+  <!-- MemberAddress Mapperr   -->
+ 
+   <resultMap id="MemberAddressResultMap" type="com.returnp.admin.model.MemberAddress">
+    <id column="memberAddressNo" jdbcType="INTEGER" property="memberAddressNo" />
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="nodeNo" jdbcType="INTEGER" property="nodeNo" />
+    <result column="nodeType" jdbcType="VARCHAR" property="nodeType" />
+    <result column="roadFullAddr" jdbcType="VARCHAR" property="roadFullAddr" />
+    <result column="roadAddrPart1" jdbcType="VARCHAR" property="roadAddrPart1" />
+    <result column="roadAddrPart2" jdbcType="VARCHAR" property="roadAddrPart2" />
+    <result column="addrDetail" jdbcType="VARCHAR" property="addrDetail" />
+    <result column="engAddr" jdbcType="VARCHAR" property="engAddr" />
+    <result column="jibunAddr" jdbcType="VARCHAR" property="jibunAddr" />
+    <result column="zipNo" jdbcType="VARCHAR" property="zipNo" />
+    <result column="admCd" jdbcType="VARCHAR" property="admCd" />
+    <result column="rnMgtSn" jdbcType="VARCHAR" property="rnMgtSn" />
+    <result column="bdMgtSn" jdbcType="VARCHAR" property="bdMgtSn" />
+    <result column="lat" jdbcType="VARCHAR" property="lat" />
+    <result column="lng" jdbcType="VARCHAR" property="lng" />
+    <result column="regAdminNo" jdbcType="INTEGER" property="regAdminNo" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+   <sql id="MemberAddress_Column_List">
+     memberAddressNo, memberNo, nodeNo, nodeType, roadFullAddr, roadAddrPart1, roadAddrPart2, 
+    addrDetail, engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn, lat, lng, regAdminNo, 
+    createTime, updateTime
+  </sql>
+  
+   <sql id ="MemberAddressWhereStatement">
+      <if test="memberNo != null"> AND memberNo = #{memberNo,jdbcType=INTEGER}</if>
+      <if test="nodeNo != null"> AND nodeNo = #{nodeNo,jdbcType=INTEGER}</if>
+      <if test="nodeType != null"> AND nodeType = #{nodeType,jdbcType=VARCHAR}</if>
+  </sql>
+  
+   <select id="selectMemberAddresses" parameterType="com.returnp.admin.model.MemberAddress" resultMap="MemberAddressResultMap">
+    select 
+      sql_calc_found_rows 
+    <include refid="MemberAddress_Column_List" />
+    from device_info
+    where 
+     	 1 = 1 
+    	<include refid = "MemberAddressWhereStatement"/>
+    	<include refid = "commonStatement"/>
+  </select>
+  
   <!-- ===============================================================================================================    -->
   
   <!-- MyGiftCard Mapperr   -->
@@ -3771,5 +3823,119 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     	<include refid = "commonStatement"/>
   </select>
 
+<!-- ===============================================================================================================    -->
+  
+  <!-- MyGiftCard Mapperr   -->
+ 
+<!--    <resultMap id="MyGiftCardCommandResultMap" type="com.returnp.admin.dto.command.MyGiftCardCommand">
+    <id column="myGiftCardNo" jdbcType="INTEGER" property="myGiftCardNo" />
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="giftCardIssueNo" jdbcType="INTEGER" property="giftCardIssueNo" />
+    
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+    <sql id="MyGiftCardCommand_Column_List">
+   G.myGiftCardNo, 
+   G.memberNo, 
+   G.giftCardIssueNo, 
+   G.createTime as createTime,
+   G.updateTime as updateTime,
+   M.memberName,
+   A.giftCardIssueNo, 
+   A.pinNumber, 
+   A.giftCardOrderNo, 
+   A.giftCardNo, 
+   A.accableStatus, 
+   A.payableStatus, 
+   A.giftCardStatus, 
+   A.giftCardType, 
+   A.giftCardAmount, 
+   A.giftCardSalePrice, 
+   A.accQrData, 
+   A.payQrData, 
+   A.accQrCodeWebPath, 
+   A.payQrCodeWebPath, 
+   A.accQrCodeFilePath, 
+   A.payQrCodeFilePath, 
+   A.accQrScanner, 
+   A.payQrScanner, 
+   A.accQrScanTime, 
+   A.payQrScanTime, 
+   A.issueTime, 
+   A.expirationTime, 
+   A.receiverPhone,
+   A.receiverName,
+   A.receiverEmail,
+   A.receiverAddress,
+   A.receiverIsMember,
+   A.deliveryMessage,
+   A.deliveryStatus,
+   A.deliveryNumber
+  </sql>
+  
+   <sql id ="MyGiftCardCommandWhereStatement">
+      <if test="myGiftCardNo != null"> AND G.myGiftCardNo = #{myGiftCardNo,jdbcType=INTEGER}</if>
+      <if test="memberNo != null"> AND G.memberNo = #{memberNo,jdbcType=INTEGER}</if>
+      <if test="giftCardIssueNo != null"> AND A.giftCardIssueNo = #{giftCardIssueNo,jdbcType=INTEGER}</if>
+  </sql>
+  
+   <select id="selectMyGiftCards" parameterType="com.returnp.admin.dto.command.MyGiftCardCommand" resultMap="MyGiftCardCommandResultMap">
+    select 
+      sql_calc_found_rows 
+    <include refid="MyGiftCardCommand_Column_List" />
+    from my_gift_card as G
+    inner join member as M on (G.memberNo = M.memberNo)
+    inner join gift_card_issue as A on (G.giftCardIssueNo= A.giftCardIssueNo)
+    
+    where 
+     	 1 = 1 
+    	<include refid = "MyGiftCardCommandWhereStatement"/>
+    	<include refid = "commonStatement"/>
+  </select> -->
+  
+  <!-- ===============================================================================================================    -->
+  
+  <!-- AffilaiteTid Mapperr   -->
+ 
+   <resultMap id="AffilaiteTidCommandResultMap" type="com.returnp.admin.dto.command.AffiliateTidCommand">
+    <id column="affiliateTidNo" jdbcType="INTEGER" property="affiliateTidNo" />
+    <result column="affiliateNo" jdbcType="INTEGER" property="affiliateNo" />
+    <result column="affiliateName" jdbcType="VARCHAR" property="affiliateName" />
+    <result column="tid" jdbcType="VARCHAR" property="tid" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+    <sql id="AffilaiteTidCommand_Column_List">
+  AT.affiliateTidNo,
+  AT.affiliateNo, 
+  A.affiliateName, 
+  AT.tid, 
+  AT.createTime, 
+  AT.updateTime
+  </sql>
+  
+   <sql id ="AffilaiteTidCommandWhereStatement">
+      <if test="affiliateTidNo != null"> AND AT.affiliateTidNo = #{affiliateTidNo,jdbcType=INTEGER}</if>
+      <if test="affiliateNo != null"> AND AT.affiliateNo = #{affiliateNo,jdbcType=INTEGER}</if>
+       <if test="affiliateName != null"> AND A.affiliateName = #{affiliateName,jdbcType=VARCHAR}</if>
+       <if test="tid != null"> AND AT.tid = #{tid,jdbcType=VARCHAR}</if>
+  </sql>
+  
+   <select id="selectAffilaiteTidCommands" parameterType="com.returnp.admin.dto.command.AffiliateTidCommand" resultMap="AffilaiteTidCommandResultMap">
+    select 
+      sql_calc_found_rows 
+    <include refid="AffilaiteTidCommand_Column_List" />
+    from affiliate_tid as AT
+    inner join Affiliate as A on (AT.affiliateNo= A.AffiliateNo)
+    
+    where 
+     	 1 = 1 
+    	<include refid = "AffilaiteTidCommandWhereStatement"/>
+    	<include refid = "commonStatement"/>
+  </select>
+  
 </mapper>
  

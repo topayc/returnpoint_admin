@@ -226,6 +226,18 @@ function issueActionFormatter(value, row, index) {
 	return result;
 }
 
+function tidActionFormatter(value, row, index) {
+	var result = "-"
+	result = '<input  style = ";margin:2px" type = "button" value = "수정" onclick = "updateTid(' + row.affiliateTidNo + ',this);return false;" id = "affiliateTidNo' + row.affiliateTidNo + '"/>'; 
+	return result;
+}
+
+function tidDelFormatter(value, row, index) {
+	var result = "-"
+	result = '<input  style = ";margin:2px" type = "button" value = "삭제" onclick = "removeTid(' + row.affiliateTidNo + ',this);return false;" id = "affiliateTidNo' + row.affiliateTidNo + '"/>'; 
+	return result;
+}
+
 function orderColumnKorFormatter(value) {
 	var result = "";
 	switch (value) {
