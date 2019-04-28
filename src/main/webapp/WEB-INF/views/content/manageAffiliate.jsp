@@ -57,8 +57,18 @@
 
 
 
-<div id="add_affiliate_tid_virew" style = "padding : 15px;display : none">
-   	<input id ="add_tid"  name="tid" >   
+<div id="add_affiliate_tid_virew" style = "width: 40% ;padding : 15px;display : none">
+	<div>
+			<ul style ='font-weight: bold';'>
+				<li style ="margin-bottom:5px;font-size:12px">선택한 협력업체의 타입은 <span id = "aff_type" style = "color : blue">무사업자</span>입니다</li>
+				<li style ="margin-bottom:5px;font-size:12px">무사업자의 경우, TID는 직접 생성할 수 없으며, 생성 버튼을 눌러 생성하세요</li>
+				<li style ="margin-bottom:5px;font-size:12px">무사업자의 경우 다른 타입의 협력업체 타입을 추가할 수 없습니다</li>
+			</ul>
+		</div>
+   	<div style = "margin-left : 30px; margin-top : 20px">
+   		<input id ="add_tid"  name="tid" >
+   		<a id = "gen_tid"  style = "margin-left: 10px">TID 생성</a>   
+   		</div>
 </div>
 <div id="dlg-buttons">
         <a href="javascript:void(0)"  id = "add_tid_btn" class="easyui-linkbutton">확인</a>

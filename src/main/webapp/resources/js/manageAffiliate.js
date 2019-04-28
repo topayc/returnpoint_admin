@@ -235,22 +235,39 @@ function initView(){
 	});
 	setListPager();
 	
-	$('#add_tid').textbox({
-		width: 250,
-	}); 
-	
+
 	$('#add_tid_btn').linkbutton({
 		onClick : function(){
 			addAffiliateTid();
-		}
+		},
+		iconCls:'icon-ok'
 	}); 
+	
+	/* Tid  생성 버튼*/
+	$('#gen_tid').linkbutton({
+		onClick : function(){
+			var param = {};
+			var node = $('#node_list').datagrid('getSelected');
+			var affTypes = node.affiliateType.split(",");
+			
+			if (affTypes.hasValue("A001")) {
+				param.affiliateType = "A001";
+			}else if (affTypes.hasValue("A003")) {
+				param.affiliateType = "A003";
+			}else if (affTypes.hasValue("A004")) {
+				param.affiliateType = "A004";
+			}
+			returnp.api.call('genTid', param, function(res){
+				$("#add_tid").textbox('setValue', res.data);
+			});
+		},
+		iconCls:'icon-add'
+	});
+	
 	$('#cancel_btn').linkbutton({
 		onClick : function(){
 			$('#add_affiliate_tid_virew').dialog('close')
 		}
-	}); 
-	$('#add_tid_btn').linkbutton({
-		iconCls:'icon-ok'
 	}); 
 	
 	var tidGrid = $('#tid_list').datagrid({
@@ -479,10 +496,23 @@ function openTidsListView(){
 
 function openAddTidView(){
 	var node = $('#node_list').datagrid('getSelected');
+	$("#aff_type").html(affiliateTypeFormatter(null, {affiliateType : node.affiliateType}, null));
+	var types = node.affiliateType.split(",");
+	if (!types.hasValue("A001") && !types.hasValue("A003") && !types.hasValue("A003")){
+		 $.messager.alert('알림','가맹점, 온라인, 무사업자만이 TID 를 등록할 수 있습니다. </br> 제휴점만 있는 경우는 등록할 수 없습니다');
+		 return;
+	}
+	
+	if (types.hasValue("A001") ||  types.hasValue("A004")){
+		$('#gen_tid').linkbutton('disable');
+	}else {
+		$('#gen_tid').linkbutton('enable');
+	}
+	
 	$('#add_affiliate_tid_virew').dialog({
-	    title: "> " + node.affiliateName + ' TID 추가  ',
-	    width: 310,
-	    height: 140,
+	    title: " " + node.affiliateName + ' TID 추가  ',
+	    width: 600,
+	    height: 250,
 	    closed: false,
 	    cache: false,
 	    modal: true,
@@ -500,10 +530,10 @@ function openAddTidView(){
 		} ]
 	});
 	
+	$('#add_tid').textbox({width : 200});
 	$('#add_tid').textbox("clear");
 }
 function loadAffiliateModifyForm(actionType){
-	
 	var node = $('#node_list').datagrid('getSelected');
 	if (!node) {
 		 $.messager.alert('알림','수정하실 노드를 선택해주세요');
@@ -512,7 +542,7 @@ function loadAffiliateModifyForm(actionType){
 	
 	var data = {
 		targetElem : "#dlgForm",
-        title : actionType == "협력 업체 수정",
+        title : node.affiliateName + " 수정",
         queryOptions : {
         	action : "modify",
         	affiliateNo : node.affiliateNo,
@@ -544,11 +574,7 @@ function loadAffiliateModifyForm(actionType){
 				    shadow : false,	
 					buttons:[
 						{ text:'확인', iconCls:'icon-ok', handler:function(){
-							if (actionType == "MOD") {
-								updateAffiliate(data);
-							}else if (actionType == "ADD"){
-								addAffiliate(data);
-							}
+							updateAffiliate(data);
 						} },
 						{ text:'취소', handler:function(){
 							//console.log("닫을 DIV : " + data.targetElem);	

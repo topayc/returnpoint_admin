@@ -37,7 +37,6 @@
 				<input id ="affiliateSerialCount"  name="affiliateSerialCount" style="width:35%" data-options="label:'TID 수 ',labelWidth :140,labelPosition : 'left'"> 
 				<a id = "view_tid" >TID 보기</a>
 				<a id = "addtid" >TID 추가</a>
-				<a id = "gen_tid" >TID 생성</a>
 			</div>
 			
 			<div style="margin-bottom:8px"><input id ="affiliateComm"  name="affiliateComm" style="width:100%" data-options="label:'환급율) ',labelWidth :140,labelPosition : 'left'" value = "${policy.affiliateComm}"> </div>
@@ -253,7 +252,7 @@
 		});
 		
 		/* Tid  생성 버튼*/
-		$('#gen_tid').linkbutton({
+	/* 	$('#gen_tid').linkbutton({
 			onClick : function(){
 				var param = {affiliateType : $('#affiliateType').combobox("getValue")};
 				returnp.api.call('genTid', param, function(res){
@@ -261,7 +260,7 @@
 				});
 			},
 			iconCls:'icon-add'
-		});
+		}); */
 
 		$('#affiliateEmail').textbox({
 			label : roundLabel("협력업체 이메일"),
