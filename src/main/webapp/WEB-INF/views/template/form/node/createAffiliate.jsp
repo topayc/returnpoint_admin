@@ -34,7 +34,9 @@
 			</div>
 
 			<div style="margin-bottom:8px">
-				<input id ="affiliateSerial"  name="affiliateSerial" style="width:86%" data-options="label:'협력업체 TID ',labelWidth :140,labelPosition : 'left'"> 
+				<input id ="affiliateSerialCount"  name="affiliateSerialCount" style="width:35%" data-options="label:'TID 수 ',labelWidth :140,labelPosition : 'left'"> 
+				<a id = "view_tid" >TID 보기</a>
+				<a id = "addtid" >TID 추가</a>
 				<a id = "gen_tid" >TID 생성</a>
 			</div>
 			
@@ -222,9 +224,8 @@
 		});
 
 		
-		$('#affiliateSerial').textbox({
-			label : roundLabel("협력업체 TID"),
-			prompt: '협력 업체 실제 TID'
+		$('#affiliateSerialCount').textbox({
+			label : roundLabel("TID 수"),
 		});
 
 		$('#affiliateComm').textbox({
@@ -235,6 +236,20 @@
 		$('#giftCardPayRefundRate').textbox({
 			label : roundLabel("상품권 수수료율"),
 			prompt: '상품권 결제 수수료율'
+		});
+		
+
+		$('#view_tid').linkbutton({
+			onClick : function(){
+				openTidsListView();
+			},
+			iconCls:'icon-add'
+		});
+		$('#addtid').linkbutton({
+			onClick : function(){
+				openAddTidView();
+			},
+			iconCls:'icon-add'
 		});
 		
 		/* Tid  생성 버튼*/
