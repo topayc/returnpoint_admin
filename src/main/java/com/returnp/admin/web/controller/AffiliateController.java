@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.google.api.gax.rpc.ResponseObserver;
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
@@ -51,6 +49,7 @@ import com.returnp.admin.service.interfaces.GreenPointService;
 import com.returnp.admin.service.interfaces.MemberAddressService;
 import com.returnp.admin.service.interfaces.MemberService;
 import com.returnp.admin.service.interfaces.PointCoversionTransactionService;
+import com.returnp.admin.service.interfaces.QueryService;
 import com.returnp.admin.service.interfaces.RedPointService;
 import com.returnp.admin.service.interfaces.SearchService;
 import com.returnp.admin.utils.Common;
@@ -72,6 +71,7 @@ public class AffiliateController extends ApplicationController {
 	@Autowired PointCoversionTransactionService pointTransactionService;
 	@Autowired CategoryService categoryService;
 	@Autowired AffiliateTidMapper affiliateTidMapper;
+	@Autowired QueryService queryService;
 	
 	@RequestMapping(value = "/affiliate/form/createForm", method = RequestMethod.GET)
 	public String formAffiliateRequest(
@@ -349,7 +349,11 @@ public class AffiliateController extends ApplicationController {
 			Model model) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.affiliateService.deleteByPrimaryKey(affiliateNo);
-		this.setSuccessResponse(res, "삭제 완료");
+		
+		AffiliateTid affiliateTid = new AffiliateTid();
+		affiliateTid.setAffiliateNo(affiliateNo);
+		this.queryService.deleteAffiliateTid(affiliateTid);
+		this.setSuccessResponse(res, "가맹점과 가맹점의 TID 삭제 완료");
 		return res;
 	}
 	

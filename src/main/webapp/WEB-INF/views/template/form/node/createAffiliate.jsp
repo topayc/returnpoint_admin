@@ -34,9 +34,9 @@
 			</div>
 
 			<div style="margin-bottom:8px">
-				<input id ="affiliateSerialCount"  name="affiliateSerialCount" style="width:35%" data-options="label:'TID 수 ',labelWidth :140,labelPosition : 'left'"> 
-				<a id = "view_tid" >TID 보기</a>
-				<a id = "addtid" >TID 추가</a>
+				<input id ="affiliateSerialCount"  name="affiliateSerialCount" style="width:35%" data-options="label:'TID 수 ',labelWidth :140,labelPosition : 'left'"> 개 (입력할 필요 없음)
+ 			<!-- 	<a id = "view_tid" >TID 보기</a>
+				<a id = "addtid" >TID 추가</a> -->
 			</div>
 			
 			<div style="margin-bottom:8px"><input id ="affiliateComm"  name="affiliateComm" style="width:100%" data-options="label:'환급율) ',labelWidth :140,labelPosition : 'left'" value = "${policy.affiliateComm}"> </div>
@@ -225,6 +225,7 @@
 		
 		$('#affiliateSerialCount').textbox({
 			label : roundLabel("TID 수"),
+			readonly : true
 		});
 
 		$('#affiliateComm').textbox({
@@ -294,13 +295,46 @@
 			prompt: '협력업체 핸드폰 번호', 
 		});
 		var init = true
+		
 		$('#affiliateType').combobox({
 			label : roundLabel("협력업체 타입"),
 			multiple:true, 
 			panelHeight: 'auto',
 			 onSelect : function(record){
 				/* 오프라인 사업자인 경우 */
-				 if (record.value == "A001"){
+				var orginValues  = $('#affiliateType').combobox("getValues");
+				var selectedValues =  [];
+				for (var i = 0; i <orginValues.length ; i++){
+					selectedValues.push(orginValues[i]); 
+				}
+				if (!selectedValues.hasValue(record.value)){
+					selectedValues.push(record.value);
+				}
+				console.log("기존값 "); 
+				console.log(orginValues); 
+				console.log("선택된 값 : "); 
+				console.log(selectedValues);
+				
+				if (selectedValues.hasValue("A002")) {
+					if (selectedValues.hasValue("A003") || selectedValues.hasValue("A004")){
+						$.messager.confirm('알림','제휴점은 가맹점만이 중복 선택할 수 있습니다. </br> 확인후 다시 선택해주세요',function(r){
+						    if (r){
+						    	$('#affiliateType').combobox("setValues", orginValues );
+						    }
+						});
+					return;
+					}
+				}else if (selectedValues.length > 1){
+					$.messager.confirm('알림','가맹점, 온라인, 무사업자는 각각 개별적인 선택만 가능합니다. </br> 이 타입의 중복 선택은 불가능합니다',function(r){
+					    if (r){
+					    	$('#affiliateType').combobox("setValues", orginValues );
+					    }
+					});
+				}
+					
+				
+				
+				if (record.value == "A001"){
 					 $('#gen_tid').linkbutton('disable');
 				 }else {
 					$('#gen_tid').linkbutton('enable');
