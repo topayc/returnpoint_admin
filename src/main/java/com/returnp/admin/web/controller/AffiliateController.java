@@ -137,38 +137,7 @@ public class AffiliateController extends ApplicationController {
 		return res;
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/affiliate/selectAffiliateTids", method = RequestMethod.GET)
-	public ReturnpBaseResponse  selectAffiliateTids( @RequestParam(value = "affiliateNo", required = true) int  affiliateNo) {
-		ArrayListResponse<AffiliateTidCommand> res = new ArrayListResponse<AffiliateTidCommand>();
-
-		AffiliateTidCommand command = new AffiliateTidCommand();
-		command.setAffiliateNo(affiliateNo);
-		ArrayList<AffiliateTidCommand> commands = this.searchService.selectAffilaiteTidCommands(command);
-		res.setRows(commands);
-		res.setTotal(this.searchService.selectTotalRecords());
-		this.setSuccessResponse(res);
-		return res;
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/affiliate/updateAffiliateTid", method = RequestMethod.POST)
-	public ReturnpBaseResponse  updateAffiliateTid(AffiliateTid affiliateTid) {
-		ReturnpBaseResponse res = new ReturnpBaseResponse();
-		
-		AffiliateTidCommand option = new AffiliateTidCommand();
-		option.setTid(affiliateTid.getTid());
-		ArrayList<AffiliateTidCommand> list = this.searchService.selectAffilaiteTidCommands(option);
-		
-		if (list.size()> 0) {
-			ResponseUtil.setResponse(res, "981", "이미 존재하는 TID 입니다. 확인후 다시 시도해주세요");
-			return res;
-		}else {
-			this.affiliateTidMapper.updateByPrimaryKeySelective(affiliateTid);
-			this.setSuccessResponse(res);
-			return res;
-		}
-	}
+	
 
 
 	@ResponseBody
@@ -303,6 +272,14 @@ public class AffiliateController extends ApplicationController {
 		return res;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/affiliate/genTid", method = RequestMethod.GET)
+	public  ReturnpBaseResponse genTid(String affiliateType,  Model model) {
+		ObjectResponse<String> res = new ObjectResponse<String>();
+		res.setData(CodeGenerator.generatorTid(affiliateType));
+		this.setSuccessResponse(res, "T-ID 생성 ");
+		return res;
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/affiliate/addAffiliateTid", method = RequestMethod.POST)
@@ -357,12 +334,38 @@ public class AffiliateController extends ApplicationController {
 		return res;
 	}
 	
+
+	
 	@ResponseBody
-	@RequestMapping(value = "/affiliate/genTid", method = RequestMethod.GET)
-	public  ReturnpBaseResponse genTid(String affiliateType,  Model model) {
-		ObjectResponse<String> res = new ObjectResponse<String>();
-		res.setData(CodeGenerator.generatorTid(affiliateType));
-		this.setSuccessResponse(res, "T-ID 생성 ");
+	@RequestMapping(value = "/affiliate/selectAffiliateTids", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectAffiliateTids( @RequestParam(value = "affiliateNo", required = true) int  affiliateNo) {
+		ArrayListResponse<AffiliateTidCommand> res = new ArrayListResponse<AffiliateTidCommand>();
+
+		AffiliateTidCommand command = new AffiliateTidCommand();
+		command.setAffiliateNo(affiliateNo);
+		ArrayList<AffiliateTidCommand> commands = this.searchService.selectAffilaiteTidCommands(command);
+		res.setRows(commands);
+		res.setTotal(this.searchService.selectTotalRecords());
+		this.setSuccessResponse(res);
 		return res;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/affiliate/updateAffiliateTid", method = RequestMethod.POST)
+	public ReturnpBaseResponse  updateAffiliateTid(AffiliateTid affiliateTid) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		
+		AffiliateTidCommand option = new AffiliateTidCommand();
+		option.setTid(affiliateTid.getTid());
+		ArrayList<AffiliateTidCommand> list = this.searchService.selectAffilaiteTidCommands(option);
+		
+		if (list.size()> 0) {
+			ResponseUtil.setResponse(res, "981", "이미 존재하는 TID 입니다. 확인후 다시 시도해주세요");
+			return res;
+		}else {
+			this.affiliateTidMapper.updateByPrimaryKeySelective(affiliateTid);
+			this.setSuccessResponse(res);
+			return res;
+		}
 	}
 }

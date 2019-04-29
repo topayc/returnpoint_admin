@@ -26,9 +26,18 @@ public class Admin extends QueryCondition implements UserDetails {
     private Date createTime;
 
     private Date updateTime;
-
     
-    public String getAdminName() {
+    private String adminType;
+
+    public String getAdminType() {
+		return adminType;
+	}
+
+	public void setAdminType(String adminType) {
+		this.adminType = adminType;
+	}
+
+	public String getAdminName() {
 		return adminName;
 	}
 

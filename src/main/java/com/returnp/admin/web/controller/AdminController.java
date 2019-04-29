@@ -18,12 +18,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.common.AppConstants;
+import com.returnp.admin.dao.mapper.SearchMapper;
+import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.request.SearchCondition;
+import com.returnp.admin.model.Admin;
 import com.returnp.admin.model.Affiliate;
 import com.returnp.admin.model.Agency;
 import com.returnp.admin.model.Branch;
 import com.returnp.admin.model.CompanyBankAccount;
 import com.returnp.admin.model.GiftCard;
+import com.returnp.admin.model.GiftCardSalesOrgan;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.Policy;
 import com.returnp.admin.model.Recommender;
@@ -58,6 +62,7 @@ public class AdminController extends ApplicationController{
 	@Autowired private AdminService adminService;
 	@Autowired private SearchService serachService;
 	@Autowired PolicyService policyService;
+	@Autowired SearchMapper  searchMapper;
 	
 	/**
 	 * @param locale
@@ -236,6 +241,7 @@ public class AdminController extends ApplicationController{
 		return RequestForward.SIGN_IN_VIEW;
 	}
 	
+	
 	/**
 	 * 회원 로그인 처리 
 	 * @param memberEmail
@@ -246,14 +252,35 @@ public class AdminController extends ApplicationController{
 	 * @return
 	 */	
 	@RequestMapping(value =  AdminController.AccessPoint.SIGN_IN, method = RequestMethod.POST)
-	public String signIn( HttpServletRequest request, HttpSession httpSession, Model model) {
+	public String signIn( @RequestParam String id, @RequestParam String password, HttpServletRequest request, HttpSession httpSession, Model model) {
 		String error = (String) request.getAttribute("errorMessage");
-		//System.out.println("signIn");
-		if(!error.equals(null)) {
-			model.addAttribute("message", error);
-			return RequestForward.SIGN_IN_VIEW;
+
+		Admin admin = new Admin();
+		admin.setAdminEmail(id);
+		admin.setAdminPassword(password);
+		
+		ArrayList<Admin> admins = this.serachService.findAdmins(admin);
+		ArrayList<GiftCardSalesOrgan> organs = null;
+		GiftCardSalesOrgan organ = null;
+		
+		AdminSession adminSession = new AdminSession();
+		/*시스템 관리자 로그인 성공*/
+		if (admins.size() == 1) {
+			return RequestRedirect.MAIN_REDIRECT;
+		}else {
+			organ = new GiftCardSalesOrgan();
+			organ.setOrganCode(id);
+			organ.setOrganPassword(password);
+			organs = this.searchMapper.selectGiftCardSalesOrgans(organ);
+			
+			/* 상품권 판매 조직 로그인 성공 */
+			if (organs.size() == 1) {
+				return RequestRedirect.MAIN_REDIRECT;
+			}else {
+				model.addAttribute("message", "아이디 혹은 비밀번호가 틀립니다");
+				return RequestForward.SIGN_IN_VIEW;
+			}
 		}
-		return RequestRedirect.MAIN_REDIRECT;
 	}
 	
 	/**

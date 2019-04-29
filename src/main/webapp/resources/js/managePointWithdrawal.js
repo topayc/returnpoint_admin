@@ -13,8 +13,9 @@
 			    {field:'withdrawalAmount',width:40,align:'center',title : '출금 금액', formatter : numberBoldFormatter},
 			    {field:'withdrawalStatus',width:50,align:'center',title : '출금 상태', formatter : withdrawalStatusFormatter},
 			    {field:'withdrawalPointType',width:20,align:'center',title : '타입'},
-			    {field:'withdrawalMessage',width:50,align:'center',title : '출금 메시지'},
-			    {field:'createTime',width:30,align:'center',title : '등록일',formatter : dateFormatter}
+			    {field:'withdrawalMessage',width:50,align:'center',title : '출금 메시지', hidden: true},
+			    {field:'createTime',width:50,align:'center',title : '등록일',formatter : dateFormatter},
+			    {field:'updateTime',width:50,align:'center',title : '출금일',formatter : dateFormatter}
 			    ]];
 initView();
 

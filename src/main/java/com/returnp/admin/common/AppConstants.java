@@ -3,6 +3,12 @@ package com.returnp.admin.common;
 public class AppConstants {
 	public static String ADMIN_SESSION = "adminSession";
 
+	public static class AdminType {
+		public static  final String SYSTEM = "100";   /*전체 시스템 관리자*/
+		public static  final String HEAD_ORGAN= "200";    /*상품권 본사*/
+		public static  final String DIST_ORGAN = "201";  /*상품권 총판*/ 
+		public static  final String SALES_ORGAN = "202";  /*상품권 판매점 */ 
+	}
 	public static class NodeType {
 		public static final String MEMBER = "1";
 		public static final String RECOMMENDER = "2";

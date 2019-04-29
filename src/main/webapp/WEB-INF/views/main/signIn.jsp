@@ -26,20 +26,31 @@
 	  	-->
 	  </div>
 	  <div class="login-box-body">
-	    <form id = "loginForm" method="post" action="/j_spring_security_check">
+	    <!-- <form id = "loginForm" method="post" action="/j_spring_security_check"> -->
+	     <form id = "loginForm" method="post">
 	      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	      <div style ="height:14px"class="form-group">
 	        <span class = "blue_message">${message}</span>
 	      </div>
 	      <div class="form-group has-feedback">
-	        <input type="text" class="form-control border_gray opa" placeholder="EMAIL"  id = "adminEmail" name = "j_username" value ="${userSession.userId}">
+	     <%--    <input type="text" class="form-control border_gray opa" placeholder="EMAIL"  id = "adminEmail" name = "j_username" value ="${userSession.userId}"> --%>
+	        <input type="text" class="form-control border_gray opa" placeholder="EMAIL"  id = "id" name = "id" value ="${userSession.userId}">
 	        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 	      </div>
 	      <div class="form-group has-feedback">
-	        <input type="password" class="form-control border_gray opa" placeholder="PASSWORD"  id ="adminPassword" name = "j_password" value ="${userSession.userPassword}">
+	        <%-- <input type="password" class="form-control border_gray opa" placeholder="PASSWORD"  id ="adminPassword" name = "j_password" value ="${userSession.userPassword}"> --%>
+	        <input type="password" class="form-control border_gray opa" placeholder="PASSWORD"  id ="password" name = password value ="${userSession.userPassword}">
 	        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
 	      </div>
-	      <div class="row">
+	      
+	     <!--   <div class="form-group has-feedback">
+	        <input type="radio" name="adminType" value="100" checked="checked" /> 시스템
+	        <input type="radio" name="adminType" value="200"  style = "margin-left : 20px"/> 본사
+	        <input type="radio" name="adminType" value="201" style = "margin-left : 20px"/> 총판
+	          <input type="radio" name="adminType" value="202" style = "margin-left : 20px"/> 판매점
+	      </div> -->
+	      
+	      <div class="row" style = "margin-top : 30px">
 	        <div class="col-xs-12">
 	          <button type="submit" class="btn btn-primary btn-block">로그인</button>
 	        </div>
