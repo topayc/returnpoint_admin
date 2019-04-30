@@ -11,9 +11,35 @@ public class AdminSession {
 	public Date loginDatetime;
 	public boolean isLogin;
 	public String adminType;
+	public String getLoginName() {
+		if (admin != null) {
+			return admin.getAdminName();
+		}else {
+			return saleOrgan.getOrganName();
+		}
+	}
 	
 	
-
+	public String getAdminTypeStr() {
+		String str = null;
+		switch(this.getAdminType()) {
+		case "1":
+			str = "시스템 관리자";
+			break;
+		case "10":
+			str = "상품권 본사";
+			break;
+		case "11":
+			str = "상품권 총판";
+			break;
+		case "12":
+			str = "상품권 판매점";
+			break;
+		}
+		return str;
+		
+	}
+	
 	public String getAdminType() {
 		return adminType;
 	}

@@ -7,8 +7,8 @@
 			    {field:'affiliateCode',width:40,align:'center',title : '가맹점 코드',hidden:false},
 			    {field:'affiliateSerialCount',width:20,align:'center',title : 'T-ID 수'},
 			  //  {field:'noname',width:30,align:'center',title : 'TID 보기' , formatter : tidActionFormatter, hidden: true},
-			    {field:'affiliateComm',width:20,align:'center',title : '적립율'},
-			    {field:'giftCardPayRefundRate',width:20,align:'center',title : 'Gift 결제율'},
+			    {field:'affiliateComm',width:35,align:'center',title : 'QR 코드 적립율'},
+			    {field:'giftCardPayRefundRate',width:35,align:'center',title : '상품권 수수료율'},
 			    {field:'affiliateType',width:40,align:'center',title : '협력 업체 분류', formatter : affiliateTypeFormatter},
 			    {field:'affiliateStatus',width:20,align:'center',title : '상태',formatter : nodeStatusFormatter},
 			    {field:'greenPointAmount',width:30,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
@@ -22,12 +22,13 @@
 //			    {field:'affiliateAddress',width:40,align:'center',title : '가맹점 주소',hidden:true},
 //			    {field:'affiliateTel',width:40,align:'center',title : '가맹점 전화',hidden:true},
 //			    {field:'affiliatePhone',width:30,align:'center',title : '가맹점 핸드폰',hidden:true},
-			    {field:'createTime',width:30,align:'center',title : '등록일',formatter : dateFormatter},
-			    {field:'updateTime',width:30,align:'center',title : '수정일',formatter : dateFormatter,hidden:true},
+			    {field:'createTime',width:40,align:'center',title : '등록일',formatter : dateFormatter},
+			    {field:'updateTime',width:40,align:'center',title : '수정일',formatter : dateFormatter,hidden:false},
 			    {field:'memberNo',width:15,align:'center',title : 'memberNo',hidden:true},
 			    {field:'branchNo',width:15,align:'center',title : 'barachNo',hidden:true},
 			    {field:'recommenderNo',width:15,align:'center',title : 'recommenderNo',hidden:true}
 			    ]];
+
 	affiliateTidCols = [[
 		{field:'affiliateTidNo',width:60,align:'center',title : '등록 번호'},
 		{field:'affiliateNo',width:60,align:'center',title : '협력 업체 번호'},
@@ -39,7 +40,15 @@
 		{field:'updateTime',width:95,align:'center',title : '수정일',formatter : dateFormatter}
 		]];
 initView();
-
+var exitColumns = ['greenPointAmount', 'redPointAmount', 'recommenderName','greenPointAccStatus','redPointUseStatus' ,'branchNo','recommenderNo','agencyName'];
+if (loginType != 1) {
+	for (var i = 0; i < columns[0].length ; i++){
+		console.log(columns[0][i].field);
+		if (exitColumns.hasValue(columns[0][i].field)) {
+			$('#node_list').datagrid('hideColumn', columns[0][i].field);
+		}
+	}
+} 
 
 
 /**
@@ -126,7 +135,7 @@ function initView(){
 			returnp.api.call("getNodes", param, function(res){
 				
 				if (res.resultCode == "100") {
-					setListColumnHeader(param.searchNodeType);
+					/*setListColumnHeader(param.searchNodeType);*/
 					console.log(res);
 					$('#node_list').datagrid({
 						data : res,
@@ -645,6 +654,7 @@ function addAffiliateTid(){
 	
 
 function createAffiliate(data){	
+	console.log(">>> createAffiliate 호출됨");
 	var param =makeFormData();
 	if (param['affiliateType'] &&  typeof param['affiliateType'] != 'string'){
 		param['affiliateType']  = param['affiliateType'].join(","); 

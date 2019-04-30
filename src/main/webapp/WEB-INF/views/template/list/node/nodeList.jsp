@@ -15,11 +15,10 @@ $('#listSearchKeyword').searchbox({
 	iconAlign : 'left',
 	searcher: function(){
 		var keyword = $(this).searchbox("getValue");
-		/* if (keyword.length == 0 || keyword == '') {
-			$.messager.alert('알림', '검색어를 입력해주세요');
+		if (keyword.length == 0 || keyword == '') {
+			$.messager.alert('알림', '1자 이상의 검색어를 입력해주세요');
 			return;
-		} */
-		//console.log('keyword : ' + keyword );	
+		}
 		
 		var param = {
 			searchNodeType : nodeType,

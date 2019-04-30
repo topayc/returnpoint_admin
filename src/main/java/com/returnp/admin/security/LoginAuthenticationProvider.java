@@ -39,7 +39,6 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
 		Admin admin = null;		
 		List<AdminRole> authorities;
 		
-		
 		admin =  (Admin) loginUserDetailService.loadUserByUsername(username);
 		if (admin==null) {
 			throw new InternalAuthenticationServiceException("접속자 정보를 찾을 수 없습니다.");

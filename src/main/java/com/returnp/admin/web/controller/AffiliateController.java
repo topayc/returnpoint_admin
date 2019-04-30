@@ -172,17 +172,28 @@ public class AffiliateController extends ApplicationController {
 			}
 		}
 		
-		/*Affiliate cond = new Affiliate();
+		Affiliate cond = new Affiliate();
 		cond.setMemberNo(affiliate.getMemberNo());
-		cond.setAffiliateEmail(affiliate.getAffiliateEmail());*/
+		cond.setAffiliateEmail(affiliate.getAffiliateEmail());
 		
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
-	/*	if (this.searchService.findAffiliates(cond).size() > 0) {
+		if (this.searchService.findAffiliates(cond).size() > 0) {
 			this.setErrorResponse(res,"이미 협력 업체로 등록되어 있는 회원입니다.");
-		}else {*/
-			if (affiliate.getRegType().equals(AppConstants.ReigistType.REGIST_BY_ADMIN)){
+		}else {
+		/*	if (affiliate.getRegType().equals(AppConstants.ReigistType.REGIST_BY_ADMIN)){
 				AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 				affiliate.setRegAdminNo(adminSession.getAdmin().getAdminNo());
+			}*/
+			AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
+			
+			/*슈퍼 관리자에 의하여 가맹점 생성*/
+			if (adminSession.getAdminType() == "1") {
+				affiliate.setRegType("A");
+			}
+			
+			/*상품권 본사에 의한 등록*/
+			if (adminSession.getAdminType() == "10") {
+				affiliate.setRegType("H");
 			}
 			
 			affiliate.setAffiliateCode(CodeGenerator.generatorAffiliateCode(null));
@@ -221,7 +232,7 @@ public class AffiliateController extends ApplicationController {
 			}
 			
 			this.setSuccessResponse(res, "생성 완료");
-		/*}*/
+		}
 		return res;
 	}
 	

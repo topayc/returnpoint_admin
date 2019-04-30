@@ -310,10 +310,10 @@
 				if (!selectedValues.hasValue(record.value)){
 					selectedValues.push(record.value);
 				}
-				console.log("기존값 "); 
-				console.log(orginValues); 
-				console.log("선택된 값 : "); 
-				console.log(selectedValues);
+				//console.log("기존값 "); 
+				//console.log(orginValues); 
+				//console.log("선택된 값 : "); 
+				//console.log(selectedValues);
 				
 				if (selectedValues.hasValue("A002")) {
 					if (selectedValues.hasValue("A003") || selectedValues.hasValue("A004")){
@@ -321,14 +321,16 @@
 						    if (r){
 						    	$('#affiliateType').combobox("setValues", orginValues );
 						    }
+						    $('#affiliateType').combobox("setValues", orginValues );
 						});
 					return;
 					}
 				}else if (selectedValues.length > 1){
 					$.messager.confirm('알림','가맹점, 온라인, 무사업자는 각각 개별적인 선택만 가능합니다. </br> 이 타입의 중복 선택은 불가능합니다',function(r){
 					    if (r){
-					    	$('#affiliateType').combobox("setValues", orginValues );
+							$('#affiliateType').combobox("setValues", orginValues );
 					    }
+					    $('#affiliateType').combobox("setValues", orginValues );
 					});
 				}
 					

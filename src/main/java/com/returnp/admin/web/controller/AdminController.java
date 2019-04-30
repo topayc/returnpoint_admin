@@ -70,7 +70,10 @@ public class AdminController extends ApplicationController{
 	 * @return
 	 */
 	@RequestMapping(value = AccessPoint.ROOT, method = RequestMethod.GET)
-	public String adminMainView(Locale locale, Model model) {
+	public String adminMainView(HttpSession session, Locale locale, Model model) {
+		session.setAttribute("adminType", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAdminType());
+		session.setAttribute("adminTypeStr", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAdminTypeStr());
+		session.setAttribute("loginName", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getLoginName());
 		return RequestForward.MAIN_VIEW;
 	}
 	
@@ -255,12 +258,12 @@ public class AdminController extends ApplicationController{
 	public String signIn( @RequestParam String id, @RequestParam String password, HttpServletRequest request, HttpSession httpSession, Model model) {
 		String error = (String) request.getAttribute("errorMessage");
 		//System.out.println("signIn");
-		if(!error.equals(null)) {
+	/*	if(!error.equals(null)) {
 			model.addAttribute("message", error);
 			return RequestForward.SIGN_IN_VIEW;
 		}
-		return RequestRedirect.MAIN_REDIRECT;
-		/*	System.out.println("로그인 프로세스 시작");
+		return RequestRedirect.MAIN_REDIRECT;*/
+			System.out.println("로그인 프로세스 시작");
 		Admin admin = new Admin();
 		admin.setAdminEmail(id);
 		admin.setAdminPassword(password);
@@ -271,10 +274,9 @@ public class AdminController extends ApplicationController{
 		
 		AdminSession adminSession = new AdminSession();
 		
-		시스템 관리자 로그인 성공
 		if (admins.size() == 1) {
 			adminSession.setAdmin(admins.get(0));
-			adminSession.setAdminType(AppConstants.AdminType.SYSTEM);
+			adminSession.setAdminType(AppConstants.AdminType.SUPER);
 			httpSession.setAttribute(AppConstants.ADMIN_SESSION, adminSession);
 			return RequestRedirect.MAIN_REDIRECT;
 			
@@ -284,7 +286,6 @@ public class AdminController extends ApplicationController{
 			organ.setOrganPassword(password);
 			organs = this.searchMapper.selectGiftCardSalesOrgans(organ);
 			
-			 상품권 판매 조직 로그인 성공 
 			if (organs.size() == 1) {
 				adminSession.setSaleOrgan(organs.get(0));
 				adminSession.setAdminType(organs.get(0).getOrganType());
@@ -294,7 +295,7 @@ public class AdminController extends ApplicationController{
 				model.addAttribute("message", "아이디 혹은 비밀번호가 틀립니다");
 				return RequestForward.SIGN_IN_VIEW;
 			}
-		}*/
+		}
 	}
 	
 	/**
@@ -326,7 +327,7 @@ public class AdminController extends ApplicationController{
 	 * 로그 아웃 처리 
 	 * @return
 	 */
-	@RequestMapping(value =  AdminController.AccessPoint.LOGOUT, method = RequestMethod.GET)
+	@RequestMapping(value =  AdminController.AccessPoint.LOGOUT, method = RequestMethod.POST)
 	public String logout(HttpSession httpSession, Model model ) {
 		httpSession.removeAttribute(AppConstants.ADMIN_SESSION);
 		return RequestRedirect.LOGIN_REDIRECT;
