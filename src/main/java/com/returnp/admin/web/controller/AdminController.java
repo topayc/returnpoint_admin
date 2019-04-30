@@ -254,7 +254,13 @@ public class AdminController extends ApplicationController{
 	@RequestMapping(value =  AdminController.AccessPoint.SIGN_IN, method = RequestMethod.POST)
 	public String signIn( @RequestParam String id, @RequestParam String password, HttpServletRequest request, HttpSession httpSession, Model model) {
 		String error = (String) request.getAttribute("errorMessage");
-
+		//System.out.println("signIn");
+		if(!error.equals(null)) {
+			model.addAttribute("message", error);
+			return RequestForward.SIGN_IN_VIEW;
+		}
+		return RequestRedirect.MAIN_REDIRECT;
+		/*	System.out.println("로그인 프로세스 시작");
 		Admin admin = new Admin();
 		admin.setAdminEmail(id);
 		admin.setAdminPassword(password);
@@ -264,23 +270,31 @@ public class AdminController extends ApplicationController{
 		GiftCardSalesOrgan organ = null;
 		
 		AdminSession adminSession = new AdminSession();
-		/*시스템 관리자 로그인 성공*/
+		
+		시스템 관리자 로그인 성공
 		if (admins.size() == 1) {
+			adminSession.setAdmin(admins.get(0));
+			adminSession.setAdminType(AppConstants.AdminType.SYSTEM);
+			httpSession.setAttribute(AppConstants.ADMIN_SESSION, adminSession);
 			return RequestRedirect.MAIN_REDIRECT;
+			
 		}else {
 			organ = new GiftCardSalesOrgan();
 			organ.setOrganCode(id);
 			organ.setOrganPassword(password);
 			organs = this.searchMapper.selectGiftCardSalesOrgans(organ);
 			
-			/* 상품권 판매 조직 로그인 성공 */
+			 상품권 판매 조직 로그인 성공 
 			if (organs.size() == 1) {
+				adminSession.setSaleOrgan(organs.get(0));
+				adminSession.setAdminType(organs.get(0).getOrganType());
+				httpSession.setAttribute(AppConstants.ADMIN_SESSION, adminSession);
 				return RequestRedirect.MAIN_REDIRECT;
 			}else {
 				model.addAttribute("message", "아이디 혹은 비밀번호가 틀립니다");
 				return RequestForward.SIGN_IN_VIEW;
 			}
-		}
+		}*/
 	}
 	
 	/**

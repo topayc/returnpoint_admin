@@ -10,14 +10,15 @@ public class AdminSession {
 	public GiftCardSalesOrgan saleOrgan;
 	public Date loginDatetime;
 	public boolean isLogin;
-	public String loginUserType;
+	public String adminType;
 	
 	
-	public String getLoginUserType() {
-		return loginUserType;
+
+	public String getAdminType() {
+		return adminType;
 	}
-	public void setLoginUserType(String loginUserType) {
-		this.loginUserType = loginUserType;
+	public void setAdminType(String adminType) {
+		this.adminType = adminType;
 	}
 	public GiftCardSalesOrgan getSaleOrgan() {
 		return saleOrgan;
