@@ -5,7 +5,7 @@
 			    {field:'giftCardIssueNo',width:80,align:'center',title : '등록번호',hidden : false},
 			    {field:'giftCardOrderNo',width:70,align:'center',title : '주문 등록 번호', hidden : true},
 			    {field:'orderNumber',width:100,align:'center',title : '주문 번호', hidden : true},
-			    {field:'orderName',width:280,align:'center',title : '주문명', hidden : false},
+			    {field:'orderName',width:150,align:'center',title : '주문명', hidden : false},
 			    {field:'ordererName',width:100,align:'center',title : '주문자', hidden : true},
 			    {field:'ordererPhone',width:100,align:'center',title : '주문자 핸드폰', hidden : true},
 			    {field:'giftCardNo',width:100,align:'center',title : '상품권 번호', hidden : true},

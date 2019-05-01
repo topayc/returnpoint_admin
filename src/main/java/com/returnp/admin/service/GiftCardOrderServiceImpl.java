@@ -97,7 +97,7 @@ public class GiftCardOrderServiceImpl implements GiftCardOrderService{
 			String orderNumber = String.format("%s%s%s%08d", orderForm.getGiftCardOrderType(), orderForm.getGiftCardType(), format.format(d), order.getOrderNo());
 			order.setOrderNumber(orderNumber);
 			/*주문명 생성*/
-			order.setOrderName(String.format("%s_%s",orderNumber , orderForm.getGiftCardSalesOrganName()));
+			order.setOrderName(String.format("%s_%s",orderForm.getGiftCardSalesOrganName(), orderNumber));
 			int affectedRow2 =  this.giftCardOrderMapper.updateByPrimaryKeySelective(order);
 			if (affectedRow2 != 1) throw new Exception();
 			/*
