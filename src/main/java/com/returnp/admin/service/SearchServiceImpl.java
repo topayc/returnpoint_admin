@@ -399,6 +399,13 @@ public class SearchServiceImpl implements SearchService{
 	public ArrayList<AffiliateTidCommand> selectAffilaiteTidCommands(AffiliateTidCommand record) {
 		// TODO Auto-generated method stub
 		return this.searchMapper.selectAffilaiteTidCommands(record);
+	}
+
+	@Override
+	public GiftCardSalesOrganCommand selectGiftCardSalesOrganCommand(GiftCardSalesOrganCommand organ) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectGiftCardSalesOrganCommand(organ);
 	};
+	
 	
 }

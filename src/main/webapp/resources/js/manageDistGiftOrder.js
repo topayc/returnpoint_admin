@@ -134,7 +134,7 @@ function initView(){
 			//$.messager.progress();
 			var param = makeSearchParam();
 			/* 본사 발주 상품 검색*/
-			param.orderType = "12";
+			param.orderType = "11";
 			param.organCode = organCode;
 			//console.log("검색 쿼리 데이타");
 			//console.log(param);

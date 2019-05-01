@@ -19,6 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.GiftCardSalesOrganCommand;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.GiftCardSalesOrgan;
@@ -61,6 +62,17 @@ public class GiftCardSalesOrganController extends ApplicationController{
 		ArrayList<GiftCardSalesOrganCommand> organs = this.searchService.selectGiftCardSalesOrganCommands(organ);
 		res.setRows(organs);
 		res.setTotal(this.searchService.selectTotalRecords());
+		this.setSuccessResponse(res);
+		return res;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/giftCardSalesOrgan", method = RequestMethod.GET)
+	public ReturnpBaseResponse selectGiftCardSalesOrgans(String organCode){
+		GiftCardSalesOrganCommand organ = new GiftCardSalesOrganCommand();
+		organ.setOrganCode(organCode);
+		ObjectResponse<GiftCardSalesOrganCommand> res = new ObjectResponse<GiftCardSalesOrganCommand>();
+		res.setData(this.searchService.selectGiftCardSalesOrganCommand(organ));
 		this.setSuccessResponse(res);
 		return res;
 	}

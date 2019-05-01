@@ -79,10 +79,10 @@ $(document).ready(function(){
 			$("#giftCardSalesOrganName").textbox("reset");
 			$("#giftCardSalesOrganCode").textbox("reset");
 			var orderReason = "";
-			if (record.value == "10") {
+			if (record.value == "10" ) {
 				orderReason  = "1";
 			}
-			if (record.value == "12"){
+			if (record.value == "12" || record.value == "11"){
 				orderReason = "2"
 			}
 			$("#orderReason").val(orderReason);
@@ -160,6 +160,7 @@ function orderGiftCard(){
 			if (!params[prop] ||  params[prop] == '') {
 				valid = false;
 				fieldName = prop;
+				/*console.log(fieldName);*/
 				break;
 			}
 		}
@@ -172,7 +173,6 @@ function orderGiftCard(){
 		}else {
 			fieldKorName = $("#" +fieldName).prev().children("span").html();
 		}
-		
 		$.messager.alert('알림', "<strong><span style = 'color : #FF3232'> " + fieldKorName + "</span></strong> 항목이 입력되지 않았습니다");
 		return false;
 	}

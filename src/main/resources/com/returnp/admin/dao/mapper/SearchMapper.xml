@@ -3156,23 +3156,38 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   
   <sql id ="GiftCardSalesOrganWhereStatement">
 	 <if test="giftCardSalesOrganNo != null"> AND giftCardSalesOrganNo = #{giftCardSalesOrganNo,jdbcType=INTEGER}</if>
-	 <if test="organCode != null"> AND organCode = #{organCode,jdbcType=VARCHAR}</if>
-	 <if test="organName != null"> AND organName = #{organName,jdbcType=VARCHAR}</if>
-	 <if test="organOwner != null"> AND organOwner = #{organOwner,jdbcType=VARCHAR}</if>
 	 <if test="organBusinessNumber != null"> AND organBusinessNumber = #{organBusinessNumber,jdbcType=VARCHAR}</if>
 	 <if test="organType != null"> AND organType = #{organType,jdbcType=VARCHAR}</if>
 	 <if test="organStatus != null"> AND organStatus = #{organStatus,jdbcType=VARCHAR}</if>
+	 
+	 
+       <if test="organCode != null or organName != null or organOwner != null ">
+      	AND ( 1 = 2 
+      </if>
+       <if test="organCode != null"> OR organCode  LIKE CONCAT('%',#{organCode},'%')</if>
+      <if test="organName != null"> OR organName  LIKE CONCAT('%',#{organName},'%')</if>
+      <if test="organOwner != null"> OR organOwner  LIKE CONCAT('%',#{organOwner},'%')</if>
+       <if test="organCode != null or organName != null or organOwner != null ">
+      	)
+      </if>
   </sql>
   
   <sql id ="GiftCardSalesOrganCommandWhereStatement">
 	 <if test="giftCardSalesOrganNo != null"> AND A.giftCardSalesOrganNo = #{giftCardSalesOrganNo,jdbcType=INTEGER}</if>
 	 <if test="parentOrganName != null"> AND B.parentOrganName = #{parentOrganName,jdbcType=VARCHAR}</if>
-	 <if test="organCode != null"> AND A.organCode = #{organCode,jdbcType=VARCHAR}</if>
-	 <if test="organName != null"> AND A.organName = #{organName,jdbcType=VARCHAR}</if>
-	 <if test="organOwner != null"> AND A.organOwner = #{organOwner,jdbcType=VARCHAR}</if>
 	 <if test="organBusinessNumber != null"> AND A.organBusinessNumber = #{organBusinessNumber,jdbcType=VARCHAR}</if>
 	 <if test="organType != null"> AND A.organType = #{organType,jdbcType=VARCHAR}</if>
 	 <if test="organStatus != null"> AND A.organStatus = #{organStatus,jdbcType=VARCHAR}</if>
+	 
+	    <if test="organCode != null or organName != null or organOwner != null ">
+      	AND ( 1 = 2 
+      </if>
+       <if test="organCode != null"> OR A.organCode  LIKE CONCAT('%',#{organCode},'%')</if>
+      <if test="organName != null"> OR A.organName  LIKE CONCAT('%',#{organName},'%')</if>
+      <if test="organOwner != null"> OR A.organOwner  LIKE CONCAT('%',#{organOwner},'%')</if>
+       <if test="organCode != null or organName != null or organOwner != null ">
+      	)
+      </if>
   </sql>
   
   <select id="selectGiftCardSalesOrgans"    parameterType="com.returnp.admin.model.GiftCardSalesOrgan" resultType="com.returnp.admin.model.GiftCardSalesOrgan" >
@@ -3196,6 +3211,16 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     	1 = 1 
     	<include refid = "GiftCardSalesOrganCommandWhereStatement"/>
     	<include refid = "commonStatement"/>
+  </select>
+  
+  <select id="selectGiftCardSalesOrganCommand"    parameterType="com.returnp.admin.dto.command.GiftCardSalesOrganCommand" resultType="com.returnp.admin.dto.command.GiftCardSalesOrganCommand" >
+   	select
+       <include refid="GiftCardSalesOrganCommand_Column_List" />
+    from gift_card_sales_organ as A
+    left outer join gift_card_sales_organ as B on (A.parentOrganNo = B.giftCardSalesOrganNo)
+    where 
+    	1 = 1 
+    	<include refid = "GiftCardSalesOrganCommandWhereStatement"/>
   </select>
   
  <!-- ===============================================================================================================    -->
@@ -3463,6 +3488,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
    A.deliveryNumber,
    B.orderName,
    B.orderNumber,
+   B.ordererId,
    B.ordererName,
    B.ordererPhone,
    B.ordererEmail,
@@ -3477,6 +3503,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
  	  <if test="accableStatus != null"> AND A.accableStatus = #{accableStatus,jdbcType=VARCHAR}</if>
  	  <if test="payableStatus != null"> AND A.payableStatus = #{payableStatus,jdbcType=VARCHAR}</if>
  	  <if test="accableStatus != null"> AND A.accableStatus = #{accableStatus,jdbcType=VARCHAR}</if>
+ 	   <if test="ordererId != null"> AND B.ordererId = #{ordererId,jdbcType=VARCHAR}</if>
  	  <if test="giftCardType != null"> AND A.giftCardType = #{giftCardType,jdbcType=VARCHAR}</if>
  	  <if test="deliveryStatus != null"> AND A.deliveryStatus = #{deliveryStatus,jdbcType=VARCHAR}</if>
  	  <if test="giftCardStatus != null"> AND A.giftCardStatus = #{giftCardStatus,jdbcType=VARCHAR}</if>

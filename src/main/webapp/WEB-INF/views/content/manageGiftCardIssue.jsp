@@ -26,6 +26,7 @@
 					<div style="margin-bottom:20px;" >
 						<select id ="giftCardOrderType"  name="giftCardOrderType" style="width:100%;" >
 							<option value= "10">본사</option>
+							<option value= "11">총판</option>
 							<option value= "12">판매점</option>
 						</select> 
 					</div>

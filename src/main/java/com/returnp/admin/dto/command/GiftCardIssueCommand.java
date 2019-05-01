@@ -9,8 +9,15 @@ public class GiftCardIssueCommand extends GiftCardIssue {
 	private String ordererPhone;
 	private String giftCardName;
 	private String ordererEmail;
+	private String ordererId;
 	
 	
+	public String getOrdererId() {
+		return ordererId;
+	}
+	public void setOrdererId(String ordererId) {
+		this.ordererId = ordererId;
+	}
 	public String getOrdererEmail() {
 		return ordererEmail;
 	}

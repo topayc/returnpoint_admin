@@ -5,12 +5,12 @@
 			    {field:'giftCardIssueNo',width:80,align:'center',title : '등록번호',hidden : false},
 			    {field:'giftCardOrderNo',width:70,align:'center',title : '주문 등록 번호', hidden : true},
 			    {field:'orderNumber',width:100,align:'center',title : '주문 번호', hidden : true},
-			    {field:'orderName',width:100,align:'center',title : '주문명', hidden : false},
+			    {field:'orderName',width:280,align:'center',title : '주문명', hidden : false},
 			    {field:'ordererName',width:100,align:'center',title : '주문자', hidden : true},
 			    {field:'ordererPhone',width:100,align:'center',title : '주문자 핸드폰', hidden : true},
 			    {field:'giftCardNo',width:100,align:'center',title : '상품권 번호', hidden : true},
 			    {field:'giftCardName',width:120,align:'center',title : '상품권 이름', hidden : true},
-			    {field:'pinNumber',width:200,align:'center',title : '핀 번호'/*,formatter : addBoldFomatter*/},
+			    {field:'pinNumber',width:240,align:'center',title : '핀 번호'/*,formatter : addBoldFomatter*/},
 			    {field:'giftCardAmount',width:100,align:'center',title : '상품권 금액',formatter : numberFormatter, hidden : true},
 			    {field:'giftCardSalePrice',width:100,align:'center',title : '판매 금액', formatter : numberGreenFormatter},
 			    {field:'giftCardStatus',width:90,align:'center',title : '상태', formatter : giftCardStatusFormatter},
@@ -205,15 +205,16 @@ function initView(){
 			
 			var options = $('#gift_card_issue_list').datagrid("options");
 			
-			cmenu.menu('appendItem', {
-		  		id : "m_3",  // the parent item element
-		  		text:  "<strong>선택 상품권 QR 코드 일괄 생성<strong>",
-		  		//iconCls: 'icon-ok',
-		  		onclick: function(){
-		  			createQrBatch();
-		  		}
-		  	});
-			
+			if (organType == "10"){
+				cmenu.menu('appendItem', {
+			  		id : "m_3",  // the parent item element
+			  		text:  "<strong>선택 상품권 QR 코드 일괄 생성<strong>",
+			  		//iconCls: 'icon-ok',
+			  		onclick: function(){
+			  			createQrBatch();
+			  		}
+			  	});
+			}
 			if (options.singleSelect == true) {
 					cmenu.menu('appendItem', {
 			  			id : "m_3",  // the parent item element
@@ -253,69 +254,69 @@ function initView(){
 			  			}
 			  		});
 			  		
-			  		cmenu.menu('appendItem', {
-				  		separator: true
-				  	});
-			  		
-			  		cmenu.menu('appendItem', {
-			  			id : "m_3",  // the parent item element
-			  			text:  "<strong>상품권상태변경</strong>",
-			  			//iconCls: 'icon-ok',
-			  			onclick: function(){
-			  			}
-			  		});
-			  		
-			  		item = cmenu.menu('findItem', '상품권상태변경');  
-			  		cmenu.menu('appendItem', {
-			  			parent: item.target,  // the parent item element
-			  			//iconCls: 'icon-ok',
-			  			text:  "적립, 결제 정상",
-			  			onclick: function(){
-			  				changeGiftCardStatus('1');
-			  			}
-			  		});
-			  		
-			  		item = cmenu.menu('findItem', '상품권상태변경');  
-			  		cmenu.menu('appendItem', {
-			  			parent: item.target,  // the parent item element
-			  			//iconCls: 'icon-ok',
-			  			text:  "적립, 결제 중지",
-			  			onclick: function(){
-			  				changeGiftCardStatus('2');
-			  			}
-			  		});
-			  		
-			  		item = cmenu.menu('findItem', '상품권상태변경');  
-			  		cmenu.menu('appendItem', {
-			  			parent: item.target,  // the parent item element
-			  			//iconCls: 'icon-ok',
-			  			text:  "적립 불가",
-			  			onclick: function(){
-			  				changeGiftCardStatus('3');
-			  			}
-			  		});
-			  		
-			  		item = cmenu.menu('findItem', '상품권상태변경');  
-			  		cmenu.menu('appendItem', {
-			  			parent: item.target,  // the parent item element
-			  			//iconCls: 'icon-ok',
-			  			text:  "결제 불가",
-			  			onclick: function(){
-			  				changeGiftCardStatus('4');
-			  			}
-			  		});
-			  		
-					item = cmenu.menu('findItem', '상품권상태변경');  
-			  		cmenu.menu('appendItem', {
-			  			parent: item.target,  // the parent item element
-			  			//iconCls: 'icon-ok',
-			  			text:  "사용기간 만료 ",
-			  			onclick: function(){
-			  				changeGiftCardStatus('5');
-			  			}
-			  		});
-			  		
-			  		
+			  	
+			  		if (organType == "10"){
+			  			cmenu.menu('appendItem', {
+					  		separator: true
+					  	});
+				  		cmenu.menu('appendItem', {
+				  			id : "m_3",  // the parent item element
+				  			text:  "<strong>상품권상태변경</strong>",
+				  			//iconCls: 'icon-ok',
+				  			onclick: function(){
+				  			}
+				  		});
+				  		
+				  		item = cmenu.menu('findItem', '상품권상태변경');  
+				  		cmenu.menu('appendItem', {
+				  			parent: item.target,  // the parent item element
+				  			//iconCls: 'icon-ok',
+				  			text:  "적립, 결제 정상",
+				  			onclick: function(){
+				  				changeGiftCardStatus('1');
+				  			}
+				  		});
+				  		
+				  		item = cmenu.menu('findItem', '상품권상태변경');  
+				  		cmenu.menu('appendItem', {
+				  			parent: item.target,  // the parent item element
+				  			//iconCls: 'icon-ok',
+				  			text:  "적립, 결제 중지",
+				  			onclick: function(){
+				  				changeGiftCardStatus('2');
+				  			}
+				  		});
+				  		
+				  		item = cmenu.menu('findItem', '상품권상태변경');  
+				  		cmenu.menu('appendItem', {
+				  			parent: item.target,  // the parent item element
+				  			//iconCls: 'icon-ok',
+				  			text:  "적립 불가",
+				  			onclick: function(){
+				  				changeGiftCardStatus('3');
+				  			}
+				  		});
+				  		
+				  		item = cmenu.menu('findItem', '상품권상태변경');  
+				  		cmenu.menu('appendItem', {
+				  			parent: item.target,  // the parent item element
+				  			//iconCls: 'icon-ok',
+				  			text:  "결제 불가",
+				  			onclick: function(){
+				  				changeGiftCardStatus('4');
+				  			}
+				  		});
+				  		
+						item = cmenu.menu('findItem', '상품권상태변경');  
+				  		cmenu.menu('appendItem', {
+				  			parent: item.target,  // the parent item element
+				  			//iconCls: 'icon-ok',
+				  			text:  "사용기간 만료 ",
+				  			onclick: function(){
+				  				changeGiftCardStatus('5');
+				  			}
+				  		});
+			  		}
 			  	 	cmenu.menu('appendItem', {
 				  		separator: true
 				  	});
@@ -400,6 +401,23 @@ function initView(){
 	    columns:columns
 	    
 	});
+	
+	$('#receiverPhone1').combobox({
+		width: 80,
+		showItemIcon: true,
+		editable: false,
+		panelHeight: 'auto',
+		labelPosition: 'top',
+		multiple:false,
+		required:true,
+	});
+	$('#receiverPhone2').numberbox({width: 130}); 
+	$('#receiverPhone3').numberbox({
+		width: 130,
+		onChange : function(newValue, oldVaue) {
+			//if (newValue.length == 4) {}
+		}
+	}); 
 	
 	$('#add_tid').textbox({width: 130}); 
 	$('.easyui-linkbutton').linkbutton(); 

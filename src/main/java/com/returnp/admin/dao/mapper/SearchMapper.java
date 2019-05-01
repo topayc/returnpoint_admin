@@ -187,4 +187,6 @@ public interface SearchMapper {
 
 	public ArrayList<AffiliateTidCommand> selectAffilaiteTidCommands(AffiliateTidCommand record);
 	
+	public GiftCardSalesOrganCommand selectGiftCardSalesOrganCommand(GiftCardSalesOrganCommand organ);
+	
 }

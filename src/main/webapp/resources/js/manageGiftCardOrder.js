@@ -1,10 +1,10 @@
 		var columns = [[
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-			  {field:'orderNo',width:70,align:'center',title : '등록번호',hidden:true},
+			    {field:'orderNo',width:70,align:'center',title : '등록번호',hidden:true},
 			    {field:'orderNumber',width:100,align:'center',title : '주문 번호'},
 			    {field:'orderName',width:180,align:'center',title : '주문명'},
-			    {field:'ordererName',width:150,align:'center',title : '주문자'},
+			    {field:'ordererName',width:100,align:'center',title : '주문자'},
 			    {field:'orderType',width:90,align:'center',title : '주문자 타입', formatter : orderTypeFormatter},
 			    {field:'orderReason',width:90,align:'center',title : '발주 목적', formatter : orderReasonFormatter},
 			    {field:'bargainType',width:100,align:'center',title : '거래 타입', formatter : bargainTypeFormatter},
@@ -134,8 +134,7 @@ function initView(){
 			//$.messager.progress();
 			var param = makeSearchParam();
 			/* 본사 발주 상품 검색*/
-			param.orderType = "12";
-			param.organCode = organCode;
+			param.orderType = "10";
 			//console.log("검색 쿼리 데이타");
 			//console.log(param);
 			
@@ -209,296 +208,295 @@ function initView(){
 		  	
 		  	var menuArr = [];
 			var selectedOrder = $('#gift_card_order_list').datagrid('getSelected');
-			  	if (organType == "10") {
-			  	cmenu.menu("appendItem", {
-			  		id : "paymentStatusItem",
-			  		text: '결제상태',
-			  		/*	iconCls: 'icon-ok',*/
-			  		onclick: function(){}
-			  	});
-			  	
-			  	item = cmenu.menu('findItem', '결제상태');  
-			  	cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text:  row.paymentStatus == "1" ? roundLabel("입금 결제 확인중", "#04B404") : "입금 결제 확인중",
-			  		iconCls: row.paymentStatus == "1" ? 'icon-ok' : "",
-			  		onclick: function(){
-			  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "1"});
-			  		}
-			  	});
-				cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text:  row.paymentStatus == "2" ? roundLabel("입금 결제 확인 완료", "#04B404") : "입금 결제 확인 완료",
-					 iconCls: row.paymentStatus == "2" ? 'icon-ok' : "",
-			  		onclick: function(){
-			  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "2"});
-			  		}
-			  	});
-				cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text:  row.paymentStatus == "3" ? roundLabel("입금 결제 취소", "#04B404") : "입금 결제 취소",
-			  		iconCls: row.paymentStatus == "3" ? 'icon-ok' : "",
-			  		onclick: function(){
-			  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "3"});
-			  		}
-			  	});
-				cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text:  row.paymentStatus == "4" ? roundLabel("입금 결제 환불 처리중", "#04B404") : "입금 결제 환불 처리중",
-			  		iconCls: row.paymentStatus == "4" ? 'icon-ok' : "",
-			  		onclick: function(){
-			  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "4"});
-			  		}
-			  	});
-				cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text:  row.paymentStatus == "5" ? roundLabel("입금 결제 환불 완료", "#04B404") : "입금 결제 환불 완료",
-			  		iconCls: row.paymentStatus == "5" ? 'icon-ok' : "",
-			  		onclick: function(){
-			  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "5"});
-			  		}
-			  	});
-				
-			  	//------------------------------------------------------
-			  	cmenu.menu('appendItem', {
-			  		separator: true
-			  	});
-			  	//------------------------------------------------------
-				cmenu.menu("appendItem", {
-			  		id : "orderStatus",
-			  		text: '주문상태',
-			  		/*iconCls: 'icon-ok',*/
-			  		onclick: function(){}
-			  	});
-			  	var item = cmenu.menu('findItem', '주문상태');  
-			  	cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text:  row.orderStatus == "1" ? roundLabel("주문 접수", "#04B404") : "주문 접수",
-					iconCls: row.orderStatus == "1" ? 'icon-ok' : "",
-			  		onclick: function(){
-			  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "1"});
-			  		}
-			  	});
-			  	
-			  	cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text: '상품 준비중',
-			  		text:  row.orderStatus == "2" ? roundLabel("상품 준비중", "#04B404") : "상품 준비중",
-					iconCls: row.orderStatus == "2" ? 'icon-ok' : "",
-			  		onclick: function(){
-			  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "2"});
-			  		}
-			  	});
-			  	
-			  	cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text:  row.orderStatus == "3" ? roundLabel("상품 준비 완료", "#04B404") : "상품 준비 완료",
-					iconCls: row.orderStatus == "3" ? 'icon-ok' : "",
-			  		onclick: function(){
-			  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "3"});
-			  		}
-			  	});
-			  	
-			  	cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text:  row.orderStatus == "4" ? roundLabel("배송 준비", "#04B404") : "배송 준비",
-					iconCls: row.orderStatus == "4" ? 'icon-ok' : "",
-			  		onclick: function(){
-			  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "4"});
-			  		}
-			  	});
-			  	
-			  	cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text:  row.orderStatus == "5" ? roundLabel("배송 중", "#04B404") : "배송 중",
-					iconCls: row.orderStatus == "5" ? 'icon-ok' : "",
-			  		onclick: function(){
-			  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "5"});
-			  		}
-			  	});
-			  	
-			  	cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text:  row.orderStatus == "6" ? roundLabel("배송 완료", "#04B404") : "배송 완료",
-					iconCls: row.orderStatus == "6" ? 'icon-ok' : "",
-			  		onclick: function(){
-			  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "6"});
-			  		}
-			  	});
-			  	
-			  	cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text:  row.orderStatus == "7" ? roundLabel("배송 완료", "#04B404") : "주문 처리 완료",
-					iconCls: row.orderStatus == "7" ? 'icon-ok' : "",
-			  		onclick: function(){
-			  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "7"});
-			  		}
-			  	});
-			  	
-			 	cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text:  row.orderStatus == "8" ? roundLabel("주문 취소", "#04B404") : "주문 취소",
-					iconCls: row.orderStatus == "8" ? 'icon-ok' : "",
-			  		onclick: function(){
-			  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "8"});
-			  		}
-			  	});
-			 	
-			 	cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text:  row.orderStatus == "9" ? roundLabel("관리자 주문 취소", "#04B404") : "관리자 주문 취소",
-					iconCls: row.orderStatus == "9" ? 'icon-ok' : "",
-			  		onclick: function(){
-			  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "9"});
-			  		}
-			  	});
-			  	
-			  	
-				//------------------------------------------------------
-			  	cmenu.menu('appendItem', {
-			  		separator: true
-			  	});
-			  
-			  	//------------------------------------------------------
-			  	cmenu.menu("appendItem", {
-			  		id : "orderStatus",
-			  		text: '상품권발행',
-			  		/*iconCls: 'icon-ok',*/
-			  		onclick: function(){}
-			  	});
-			  	
-			  	item = cmenu.menu('findItem', '상품권발행');  
-			  	if (row.paymentStatus == "2" && row.issueStatus == "1"){
-			  		cmenu.menu('appendItem', {
-			  			parent: item.target,  // the parent item element
-			  			text:  "상품권 발행 시작",
-			  			iconCls: 'icon-reload',
-			  			onclick: function(){
-			  				issueGiftCardOrder({orderNo : selectedOrder.orderNo});
-			  			}
-			  		});
-			  	}
-			  	if (row.paymentStatus == "2" && row.issueStatus == "2"){
-			  		cmenu.menu('appendItem', {
-			  			parent: item.target,  // the parent item element
-			  			text:  "진행중인 상품권 발행 중지",
-			  			iconCls: 'icon-undo',
-			  			onclick: function(){
-			  				stopGiftCardOrder({orderNo : selectedOrder.orderNo});
-			  			}
-			  		});
-			  	}
-			  	if (row.issueStatus == "3"){
-			  		cmenu.menu('appendItem', {
-			  			parent: item.target,  // the parent item element
-			  			text:  "상품권 발행 취소",
-			  			iconCls: 'icon-no',
-			  			onclick: function(){
-			  				cancelGiftCardOrder({orderNo : selectedOrder.orderNo});
-			  			}
-			  		});
-			  	}
-			 	
-			  	//------------------------------------------------------
-			  	cmenu.menu('appendItem', {
-			  		separator: true
-			  	});
-			  	//------------------------------------------------------
-			  	cmenu.menu("appendItem", {
-			  		text: '주문 내역 상세 보기',
-			  		/*	iconCls: 'icon-ok',*/
-			  		onclick: function(){
-			  			viewOrderDetail();
-			  			
-			  		}
-			  	});
-			  	
-				//------------------------------------------------------
-			  	cmenu.menu('appendItem', {
-			  		separator: true
-			  	});
-			  
-			  	//------------------------------------------------------
-			  	cmenu.menu("appendItem", {
-			  		id : "listGiftCards",
-			  		text: '해당 주문의 발행 상품권 리스트  ',
-			  		/*iconCls: 'icon-ok',*/
-			  		onclick: function(){
-			  			if (selectedOrder.issueStatus != "3") {
-			  				$.messager.alert('알림', "선택한 주문은 발행이 완료되지 않은 주문 내역입니다");
-			  			}else {
-			  			}
-			  		}
-			  	});
-			  	
-			  	cmenu.menu("appendItem", {
-			  		id : "listGiftCards",
-			  		text: '상품권 리스트 Excel 변환',
-			  		/*iconCls: 'icon-ok',*/
-			  		onclick: function(){
-			  			if (selectedOrder.issueStatus != "3") {
-			  				$.messager.alert('알림', "발행 완료된 주문 및 상품권만 엑셀로 변환할 수 있습니다.");
-			  				
-			  			}else {
-			  				$.messager.confirm('상품권 발생 내역 다운 ' , ' 상품권 발행 리스트를 엑셀로 받으시겠습나까', function(r){
-			  			        if (r){
-			  			        	window.open("/api/giftCardIssue/issueExcelDownload?giftCardOrderNo=" + selectedOrder.orderNo);
-			  			        }
-			  			    });
-			  			}
-			  		}
-			  	});
-			  	
-			  	
-			  	//-----------------------------------------------
-	/*		  	cmenu.menu("appendItem", {
-			  		id : "issueStatus",
-			  		text: ' 발행 상태',
-			  		iconCls: 'icon-ok',
-			  		onclick: function(){alert('New Item')}
-			  	});
-				item = cmenu.menu('findItem', 'issueStatus');  
-			 	cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text: '미발행',
-			  		iconCls: 'icon-excel',
-			  		onclick: function(){
-			  			
-			  		}
-			  	});
-			 	
-			 	cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text: '발행중',
-			  		iconCls: 'icon-excel',
-			  		onclick: function(){
-			  			
-			  		}
-			  	});
-			 	
-			 	cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text: '발행 완료',
-			  		iconCls: 'icon-excel',
-			  		onclick: function(){
-			  			
-			  		}
-			  	});
-			 	
-			 	cmenu.menu('appendItem', {
-			  		parent: item.target,  // the parent item element
-			  		text: '발행 취소 및 삭제',
-			  		iconCls: 'icon-excel',
-			  		onclick: function(){
-			  			
-			  		}
-			  	});*/
-			  	
-			  	cmenu.menu('show', {
-			  		left:e.pageX,
-			  		top:e.pageY
-			  	});
+		  	
+		  	cmenu.menu("appendItem", {
+		  		id : "paymentStatusItem",
+		  		text: '결제상태',
+		  		/*	iconCls: 'icon-ok',*/
+		  		onclick: function(){}
+		  	});
+		  	
+		  	item = cmenu.menu('findItem', '결제상태');  
+		  	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.paymentStatus == "1" ? roundLabel("입금 결제 확인중", "#04B404") : "입금 결제 확인중",
+		  		iconCls: row.paymentStatus == "1" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "1"});
+		  		}
+		  	});
+			cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.paymentStatus == "2" ? roundLabel("입금 결제 확인 완료", "#04B404") : "입금 결제 확인 완료",
+				 iconCls: row.paymentStatus == "2" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "2"});
+		  		}
+		  	});
+			cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.paymentStatus == "3" ? roundLabel("입금 결제 취소", "#04B404") : "입금 결제 취소",
+		  		iconCls: row.paymentStatus == "3" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "3"});
+		  		}
+		  	});
+			cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.paymentStatus == "4" ? roundLabel("입금 결제 환불 처리중", "#04B404") : "입금 결제 환불 처리중",
+		  		iconCls: row.paymentStatus == "4" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "4"});
+		  		}
+		  	});
+			cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.paymentStatus == "5" ? roundLabel("입금 결제 환불 완료", "#04B404") : "입금 결제 환불 완료",
+		  		iconCls: row.paymentStatus == "5" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "5"});
+		  		}
+		  	});
+			
+		  	//------------------------------------------------------
+		  	cmenu.menu('appendItem', {
+		  		separator: true
+		  	});
+		  	//------------------------------------------------------
+			cmenu.menu("appendItem", {
+		  		id : "orderStatus",
+		  		text: '주문상태',
+		  		/*iconCls: 'icon-ok',*/
+		  		onclick: function(){}
+		  	});
+		  	var item = cmenu.menu('findItem', '주문상태');  
+		  	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.orderStatus == "1" ? roundLabel("주문 접수", "#04B404") : "주문 접수",
+				iconCls: row.orderStatus == "1" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "1"});
+		  		}
+		  	});
+		  	
+		  	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text: '상품 준비중',
+		  		text:  row.orderStatus == "2" ? roundLabel("상품 준비중", "#04B404") : "상품 준비중",
+				iconCls: row.orderStatus == "2" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "2"});
+		  		}
+		  	});
+		  	
+		  	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.orderStatus == "3" ? roundLabel("상품 준비 완료", "#04B404") : "상품 준비 완료",
+				iconCls: row.orderStatus == "3" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "3"});
+		  		}
+		  	});
+		  	
+		  	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.orderStatus == "4" ? roundLabel("배송 준비", "#04B404") : "배송 준비",
+				iconCls: row.orderStatus == "4" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "4"});
+		  		}
+		  	});
+		  	
+		  	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.orderStatus == "5" ? roundLabel("배송 중", "#04B404") : "배송 중",
+				iconCls: row.orderStatus == "5" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "5"});
+		  		}
+		  	});
+		  	
+		  	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.orderStatus == "6" ? roundLabel("배송 완료", "#04B404") : "배송 완료",
+				iconCls: row.orderStatus == "6" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "6"});
+		  		}
+		  	});
+		  	
+		  	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.orderStatus == "7" ? roundLabel("배송 완료", "#04B404") : "주문 처리 완료",
+				iconCls: row.orderStatus == "7" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "7"});
+		  		}
+		  	});
+		  	
+		 	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.orderStatus == "8" ? roundLabel("주문 취소", "#04B404") : "주문 취소",
+				iconCls: row.orderStatus == "8" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "8"});
+		  		}
+		  	});
+		 	
+		 	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text:  row.orderStatus == "9" ? roundLabel("관리자 주문 취소", "#04B404") : "관리자 주문 취소",
+				iconCls: row.orderStatus == "9" ? 'icon-ok' : "",
+		  		onclick: function(){
+		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, orderStatus : "9"});
+		  		}
+		  	});
+		  	
+		  	
+			//------------------------------------------------------
+		  	cmenu.menu('appendItem', {
+		  		separator: true
+		  	});
+		  
+		  	//------------------------------------------------------
+		  	cmenu.menu("appendItem", {
+		  		id : "orderStatus",
+		  		text: '상품권발행',
+		  		/*iconCls: 'icon-ok',*/
+		  		onclick: function(){}
+		  	});
+		  	
+		  	item = cmenu.menu('findItem', '상품권발행');  
+		  	if (row.paymentStatus == "2" && row.issueStatus == "1"){
+		  		cmenu.menu('appendItem', {
+		  			parent: item.target,  // the parent item element
+		  			text:  "상품권 발행 시작",
+		  			iconCls: 'icon-reload',
+		  			onclick: function(){
+		  				issueGiftCardOrder({orderNo : selectedOrder.orderNo});
+		  			}
+		  		});
 		  	}
+		  	if (row.paymentStatus == "2" && row.issueStatus == "2"){
+		  		cmenu.menu('appendItem', {
+		  			parent: item.target,  // the parent item element
+		  			text:  "진행중인 상품권 발행 중지",
+		  			iconCls: 'icon-undo',
+		  			onclick: function(){
+		  				stopGiftCardOrder({orderNo : selectedOrder.orderNo});
+		  			}
+		  		});
+		  	}
+		  	if (row.issueStatus == "3"){
+		  		cmenu.menu('appendItem', {
+		  			parent: item.target,  // the parent item element
+		  			text:  "상품권 발행 취소",
+		  			iconCls: 'icon-no',
+		  			onclick: function(){
+		  				cancelGiftCardOrder({orderNo : selectedOrder.orderNo});
+		  			}
+		  		});
+		  	}
+		 	
+		  	//------------------------------------------------------
+		  	cmenu.menu('appendItem', {
+		  		separator: true
+		  	});
+		  	//------------------------------------------------------
+		  	cmenu.menu("appendItem", {
+		  		text: '주문 내역 상세 보기',
+		  		/*	iconCls: 'icon-ok',*/
+		  		onclick: function(){
+		  			viewOrderDetail();
+		  			
+		  		}
+		  	});
+		  	
+			//------------------------------------------------------
+		  	cmenu.menu('appendItem', {
+		  		separator: true
+		  	});
+		  
+		  	//------------------------------------------------------
+		  	cmenu.menu("appendItem", {
+		  		id : "listGiftCards",
+		  		text: '해당 주문의 발행 상품권 리스트  ',
+		  		/*iconCls: 'icon-ok',*/
+		  		onclick: function(){
+		  			if (selectedOrder.issueStatus != "3") {
+		  				$.messager.alert('알림', "선택한 주문은 발행이 완료되지 않은 주문 내역입니다");
+		  			}else {
+		  			}
+		  		}
+		  	});
+		  	
+		  	cmenu.menu("appendItem", {
+		  		id : "listGiftCards",
+		  		text: '상품권 리스트 Excel 변환',
+		  		/*iconCls: 'icon-ok',*/
+		  		onclick: function(){
+		  			if (selectedOrder.issueStatus != "3") {
+		  				$.messager.alert('알림', "발행 완료된 주문 및 상품권만 엑셀로 변환할 수 있습니다.");
+		  				
+		  			}else {
+		  				$.messager.confirm('상품권 발생 내역 다운 ' , ' 상품권 발행 리스트를 엑셀로 받으시겠습나까', function(r){
+		  			        if (r){
+		  			        	window.open("/api/giftCardIssue/issueExcelDownload?giftCardOrderNo=" + selectedOrder.orderNo);
+		  			        }
+		  			    });
+		  			}
+		  		}
+		  	});
+		  	
+		  	
+		  	//-----------------------------------------------
+/*		  	cmenu.menu("appendItem", {
+		  		id : "issueStatus",
+		  		text: ' 발행 상태',
+		  		iconCls: 'icon-ok',
+		  		onclick: function(){alert('New Item')}
+		  	});
+			item = cmenu.menu('findItem', 'issueStatus');  
+		 	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text: '미발행',
+		  		iconCls: 'icon-excel',
+		  		onclick: function(){
+		  			
+		  		}
+		  	});
+		 	
+		 	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text: '발행중',
+		  		iconCls: 'icon-excel',
+		  		onclick: function(){
+		  			
+		  		}
+		  	});
+		 	
+		 	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text: '발행 완료',
+		  		iconCls: 'icon-excel',
+		  		onclick: function(){
+		  			
+		  		}
+		  	});
+		 	
+		 	cmenu.menu('appendItem', {
+		  		parent: item.target,  // the parent item element
+		  		text: '발행 취소 및 삭제',
+		  		iconCls: 'icon-excel',
+		  		onclick: function(){
+		  			
+		  		}
+		  	});*/
+		  	
+		  	cmenu.menu('show', {
+		  		left:e.pageX,
+		  		top:e.pageY
+		  	})
 		  	
 	/*	  	var menus = [  '주문 수정', '주문 삭제','상세 주문내역 보기' ];
 		  	var icons = ['icon-edit','icon-remove','icon-detail'];
@@ -676,6 +674,7 @@ function updateGiftCardOrder(param){
 	});
 }
 
+
 function removeGiftCardOrder(){
 	var node = $('#gift_card_order_list').datagrid('getSelected');
 	if (!node) {
@@ -734,67 +733,7 @@ function viewOrderDetail(){
 					{field:'value',title:'값',width:8, resizable:false}
 					]]
 			});
-			
 			console.log(columns);
-			/* 주문 상세 아이템 리스트*/
-/*			
-			$('#order_item_list').datagrid({
-				singleSelect:true,
-				collapsible:false,
-				border : true,
-				//autoRowHeight: false,
-				fitColumns:true,
-				selectOnCheck : true,
-				checkOnSelect : true,
-				border:false,
-				rownumbers : true,
-			    columns:orderListItemColumns,
-				onRowContextMenu : function(e, index, row){
-					e.preventDefault();
-				  	$(this).datagrid("selectRow", index);
-				  	var cmenu = $('<div/>').appendTo('body');
-				  	cmenu.menu({
-				  		onClick : function(item){
-				  			switch(item.action){
-				  			case "view_gift_list":
-				  				viewGiftList();
-				  				break;
-				  			}
-				  		}
-				  	});
-				  	
-				  	var menus = [ '해당 주문 아이템의 상품권 발행 리스트 보기'];
-				  	var icons = ['icon-more'];
-				  	var actions = ['view_gift_list'];
-				  	
-				  	for(var i=0; i<menus.length; i++){
-				  		cmenu.menu('appendItem', {
-				  			data : row,
-				  			no : row.memberNo,
-				  			text:  "<strong>[" + row.orderItemName + "]</strong>"  + " " + menus[i],
-				  			action: actions[i],
-				  			iconCls: icons[i]
-				  		});
-				  	}
-				  	cmenu.menu('show', {
-				  		left:e.pageX,
-				  		top:e.pageY
-				  	});
-				},
-			});
-			returnp.api.call("selectGiftCardItemsOrders", {orderNumber : order.orderNumber}, function(res){
-				console.log("### 주문 아이템");
-				console.log(res);
-				if (res.resultCode == "100") {
-					setOrderListColumnHeader();
-					$('#order_item_list').datagrid({
-						data : res
-					});
-				}else {
-					$.messager.alert(res.message, res.data);
-				}
-			});*/
-		
 		}
 	});
 	

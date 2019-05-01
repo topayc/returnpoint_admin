@@ -159,6 +159,8 @@ public interface SearchService {
 	public ArrayList<GiftCardSalesOrgan > selectGiftCardSalesOrgans(GiftCardSalesOrgan record);
 	
 	public ArrayList<GiftCardSalesOrganCommand> selectGiftCardSalesOrganCommands(GiftCardSalesOrganCommand record);
+	
+	public GiftCardSalesOrganCommand selectGiftCardSalesOrganCommand(GiftCardSalesOrganCommand organ);
 
 	public ArrayList<GiftCardOrderCommand> selectGiftCardOrderCommands(GiftCardOrderCommand record);
 

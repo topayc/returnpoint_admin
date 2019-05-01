@@ -3,6 +3,7 @@ package com.returnp.admin.web.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.axis.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.returnp.admin.common.AppConstants;
+import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.GiftCardOrderForm;
 import com.returnp.admin.dto.command.GiftCardOrderCommand;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
@@ -31,12 +34,22 @@ public class GiftCardOrderController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/giftCardOrders", method = RequestMethod.GET)
-	public ReturnpBaseResponse selectProducts( SearchCondition searchCondition){
+	public ReturnpBaseResponse selectProducts( SearchCondition searchCondition, HttpSession session){
 		GiftCardOrderCommand order= new GiftCardOrderCommand();
 		if (StringUtils.isEmpty(searchCondition.getSearchKeyword())) {
 			searchCondition.setSearchKeyword(null);
 		}
 		order.valueOf(searchCondition);
+		AdminSession adminSession = (AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION);
+		
+		/*
+		 * 슈퍼 관리자 및 본사가 아닐 경우, 해당 조직 코드의 주문 내역만 조회
+		 * */
+		if (!adminSession.getAdminType().equals(AppConstants.AdminType.SUPER) && 
+				!adminSession.getAdminType().equals(AppConstants.AdminType.HEAD_ORGAN) ) {
+			order.setOrdererId(adminSession.getSaleOrgan().getOrganCode());
+		}
+		
 		ArrayListResponse<GiftCardOrderCommand> res = new ArrayListResponse<GiftCardOrderCommand>();
 		ArrayList<GiftCardOrderCommand> orders = this.searchService.selectGiftCardOrderCommands(order);
 		res.setRows(orders);

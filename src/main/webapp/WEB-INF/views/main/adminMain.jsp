@@ -250,6 +250,13 @@
                             					<span style = "font-weight : bold">상품권 판매 조직 관리</span>
                             				</a> 
                             			</li> -->
+                            			
+                            			<li class = "manage_menu roll_10 roll_11 roll_12"   id = "manageSalesOrganInfo"  class = "10 20 12">
+                            				<a class= "sub_menu"  view_req_name = "manageSalesOrganInfo"  menu_deps= '2' >
+                            					<span style = "font-weight : bold">상품권 조직 정보</span>
+                            				</a> 
+                            			</li>
+                            			
                             		   <li class = "manage_menu roll_1 roll_10"  id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 현황 리포트</span>
@@ -282,7 +289,7 @@
                             				</a> 
                             			</li>
                             			
-                            			<li class = "manage_menu roll_1 roll_10 roll_12"   id = "manageGiftCardIssue" data-options = "iconCls :'icon-info'">
+                            			<li class = "manage_menu roll_1 roll_10 roll_11 roll_12"   id = "manageGiftCardIssue" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardIssue"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 발행 요청</span>
                             				</a> 
@@ -290,17 +297,22 @@
                             			
                             				<li  class = "manage_menu roll_1 roll_10" id = "" data-options = "iconCls :'icon-info'">
 			                            				<a class= "sub_menu"  view_req_name = "manageHeadGiftOrder"  menu_deps= '2' >
-			                            					<span style = "font-weight : bold">본사 발주 관리</span>
+			                            					<span style = "font-weight : bold;color : #FF0000">본사 발주 관리</span>
+			                            				</a> 
+			                            			</li>
+			                            			<li  class = "manage_menu roll_1 roll_10 roll_11" id = "" data-options = "iconCls :'icon-info'">
+			                            				<a class= "sub_menu"  view_req_name = "manageDistGiftOrder"  menu_deps= '2' >
+			                            					<span style = "font-weight : bold;color : #FF0000">총판 발주 관리</span>
 			                            				</a> 
 			                            			</li>
                             						<li class = "manage_menu roll_1 roll_10 roll_12"  id = "" data-options = "iconCls :'icon-info'">
 			                            				<a class= "sub_menu"  view_req_name = "manageSaleOrganGiftOrder"  menu_deps= '2' >
-			                            					<span style = "font-weight : bold">판매점 발주 관리</span>
+			                            					<span style = "font-weight : bold; color : #FF0000">판매점 발주 관리</span>
 			                            				</a> 
 			                            			</li>
 			                            			<li class = "manage_menu roll_1 roll_10 " id = "" data-options = "iconCls :'icon-info'">
 			                            				<a class= "sub_menu"  view_req_name = "manageCommonGiftOrder"  menu_deps= '2' >
-			                            					<span style = "font-weight : bold">일반 발주 관리</span>
+			                            					<span style = "font-weight : bold;color : #FF0000">일반 발주 관리</span>
 			                            				</a> 
 			                            			</li>
 			                            			
@@ -325,7 +337,7 @@
                             					</ul>
                             			</li> -->
                             			
-                            			<li class = "manage_menu roll_1 roll_10"   id = "" data-options = "iconCls :'icon-info'">
+                            			<li class = "manage_menu roll_1 roll_10 roll_11 roll_12"   id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageIssuedGiftCard"  menu_deps= '2' >
                             					<span style = "font-weight : bold">발행 상품권 조회</span>
                             				</a> 
@@ -341,9 +353,9 @@
                             					<span style = "font-weight : bold">발행 상품권 결제 관리</span>
                             				</a> 
                             			</li>
-                            			<li class = "manage_menu roll_1 roll_10 roll_12" id = "" data-options = "iconCls :'icon-info'">
+                            			<li class = "manage_menu roll_1 roll_10 roll_11 roll_12" id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 판매점 정산</span>
+                            					<span style = "font-weight : bold">상품권 판매 정산</span>
                             				</a> 
                             			</li>
 		                        </ul>
@@ -584,7 +596,14 @@
 	<script>
 		var loginType = '${adminType}'
 		var menuCss = ".roll_${adminType}";
-		
+		var organType =  "${organType}";
+		if (organType == null || organType == ""){
+			organType = "10";
+		}
+		var organCode;
+		if (loginType != "1") {
+			organCode = "${organCode}";
+		}
 		$.fn.serializeObject = function () {
 		    "use strict";
 		    var result = {};
