@@ -10,5 +10,13 @@
 	        <if test="affiliateNo != null"> AND affiliateNo = #{affiliateNo,jdbcType=INTEGER}</if>
 	        <if test="tid != null"> AND tid = #{tid,jdbcType=VARCHAR}</if>
 	</delete>
+
+	<delete id="deleteGPoint" parameterType="com.returnp.admin.model.GreenPoint">
+		delete from green_point
+		where 
+			1 = 1 
+			<if test="memberNo != null"> AND memberNo = #{memberNo,jdbcType=INTEGER}</if>
+	        <if test="nodeNo != null"> AND nodeNo = #{nodeNo,jdbcType=INTEGER}</if>
+	</delete>
 </mapper>
  

@@ -389,12 +389,16 @@ function loadAffiliateCreateForm(){
 					
 					$(data.targetElem).dialog({
 						width:650,
+						position : "top",
 						cache : false,
+						fit : false, 
+						top :10,
 					    modal : true,
 					    closable : true,
 					    border : 'thick',
 					    shadow : true,
 					    collapsible : false,
+					    draggable : true,
 					    minimizable : false,
 					    resizable : true,
 					    cls : "c2",
@@ -413,7 +417,7 @@ function loadAffiliateCreateForm(){
 							}
 						}]
 					});
-					$(data.targetElem).dialog('center');
+					$(data.targetElem).dialog('hcenter');
 				
 			});
 }
@@ -700,10 +704,11 @@ function removeAffiliate(){
 		 return;
 	}
 	
-	$.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 해당 내용을 정말로 삭제하시겠습니까?', function(r){
+	$.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 협력업체 정보 및 협력업체 포인트 관련 모든 정보가 삭제됩니다.</br>해당 내용을 정말로 삭제하시겠습니까?', function(r){
         if (r){
         	var param = {
-        		affiliateNo : node.affiliateNo
+        		affiliateNo : node.affiliateNo,
+        		memberNo : node.memberNo
         	}
         	returnp.api.call("deleteAffiliate", param, function(res){
         		if (res.resultCode  == "100") {

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -334,15 +335,36 @@ public class AffiliateController extends ApplicationController {
 	@RequestMapping(value = "/affiliate/delete", method = RequestMethod.POST)
 	public  ReturnpBaseResponse deleteAffiliate( 
 			@RequestParam(value = "affiliateNo", required = true) int  affiliateNo, 
+			@RequestParam(value = "memberNo", required = true) int  memberNo,
 			Model model) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
-		this.affiliateService.deleteByPrimaryKey(affiliateNo);
+		try {
+			Affiliate affiliate = this.affiliateService.selectByPrimaryKey(affiliateNo);
+			
+			/*가맹점 정보 삭제*/
+			this.affiliateService.deleteByPrimaryKey(affiliateNo);
+			
+			/*가맹점 G포인트 삭제*/
+			GreenPoint gPoint = new GreenPoint();
+			gPoint.setMemberNo(memberNo);
+			gPoint.setNodeNo(affiliateNo);
+			this.queryService.deleteGPoint(gPoint);
+			
+			/*가맹점 연결 TID 삭제*/
+			AffiliateTid affiliateTid = new AffiliateTid();
+			affiliateTid.setAffiliateNo(affiliateNo);
+			this.queryService.deleteAffiliateTid(affiliateTid);
 		
-		AffiliateTid affiliateTid = new AffiliateTid();
-		affiliateTid.setAffiliateNo(affiliateNo);
-		this.queryService.deleteAffiliateTid(affiliateTid);
-		this.setSuccessResponse(res, "가맹점과 가맹점의 TID 삭제 완료");
-		return res;
+			this.setSuccessResponse(res, "협력업체 및 관련 정보 삭제 완료");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			if (!TransactionAspectSupport.currentTransactionStatus().isRollbackOnly()) {
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			}
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR,"2078", "서버 에러");
+			return res;
+		}
 	}
 	
 
