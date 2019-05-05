@@ -190,6 +190,7 @@ public class AffiliateController extends ApplicationController {
 			/*슈퍼 관리자에 의하여 가맹점 생성*/
 			if (adminSession.getAdminType() == "1") {
 				affiliate.setRegType("A");
+				affiliate.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 			}
 			
 			/*상품권 본사에 의한 등록*/
@@ -249,11 +250,24 @@ public class AffiliateController extends ApplicationController {
 			}
 		}
 		
-		if (affiliate.getRegType().equals(AppConstants.ReigistType.REGIST_BY_ADMIN)){
+	/*	if (affiliate.getRegType().equals(AppConstants.ReigistType.REGIST_BY_ADMIN)){
 			AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 			affiliate.setRegAdminNo(adminSession.getAdmin().getAdminNo());			
 			address.setRegAdminNo(affiliate.getRegAdminNo());
 			
+		}*/
+		
+		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
+		
+		/*슈퍼 관리자에 의하여 가맹점 생성*/
+		if (adminSession.getAdminType() == "1") {
+			affiliate.setRegType("A");
+			affiliate.setRegAdminNo(adminSession.getAdmin().getAdminNo());
+		}
+		
+		/*상품권 본사에 의한 등록*/
+		if (adminSession.getAdminType() == "10") {
+			affiliate.setRegType("H");
 		}
 		
 		GreenPoint greenPoint = new GreenPoint();

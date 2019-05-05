@@ -312,6 +312,8 @@ function loadBranchCreateForm(){
 			    modal : true,
 			    closable : true,
 			    border : 'thick',
+				height : $( window ).height() - 80,
+				top :20,
 			    shadow : true,
 			    collapsible : false,
 			    minimizable : false,
@@ -330,7 +332,7 @@ function loadBranchCreateForm(){
 					}
 				}]
 			});
-			$(data.targetElem).dialog('center');
+			$(data.targetElem).dialog('hcenter');
 			
 		});
 }
@@ -367,6 +369,8 @@ function loadBranchUpdateForm(){
 			    border : 'thick',
 			    shadow : true,
 			    cls : "c2",
+				height : $( window ).height() - 80,
+				top :20,
 			    collapsible : false,
 			    minimizable : false,
 			    maximizable: false,
@@ -382,7 +386,7 @@ function loadBranchUpdateForm(){
 					}
 				}]
 			});
-			$(data.targetElem).dialog('center');
+			$(data.targetElem).dialog('hcenter');
 			
 			returnp.api.call('getBranchCommand', {branchNo : data.queryOptions.branchNo}, function(res){
 				if (res.resultCode  == "100") {

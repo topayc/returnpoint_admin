@@ -325,6 +325,8 @@ function loadSoleDistCreateForm(){
 			    cache : false,
 			    closable : true,
 			    border : 'thick',
+				height : $( window ).height() - 80,
+				top :20,
 			    shadow : true,
 			    collapsible : false,
 			    minimizable : false,
@@ -342,7 +344,7 @@ function loadSoleDistCreateForm(){
 					}
 				}]
 		});
-		$(data.targetElem).dialog('center');
+			$(data.targetElem).dialog('hcenter');
 		
 	});
 }
@@ -382,6 +384,8 @@ function loadSoleDistModifyForm(){
 			    collapsible : false,
 			    minimizable : false,
 			    cls : "c2",
+			    height : $( window ).height() - 80,
+				top :20,
 			    maximizable: false,
 			    title : "&nbsp; " + data.title,
 			    shadow : false,	
@@ -395,7 +399,7 @@ function loadSoleDistModifyForm(){
 					}
 				}]
 			});
-			$(data.targetElem).dialog('center');
+			$(data.targetElem).dialog('hcenter');
 			
 			returnp.api.call('getSoleDist', {soleDistNo : data.queryOptions.soleDistNo}, function(res){
 				if (res.resultCode  == "100") {

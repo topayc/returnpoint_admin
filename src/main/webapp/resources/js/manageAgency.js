@@ -321,6 +321,8 @@ function loadAgencyCreateForm(){
 			    modal : true,
 			    closable : true,
 			    border : 'thick',
+				height : $( window ).height() - 80,
+				top :20,
 			    shadow : true,
 			    collapsible : false,
 			    minimizable : false,
@@ -340,7 +342,7 @@ function loadAgencyCreateForm(){
 					}
 				}]
 			});
-			$(data.targetElem).dialog('center');
+			$(data.targetElem).dialog('hcenter');
 		});
 }
 
@@ -374,6 +376,8 @@ function loadAgencyModifyForm(){
 			    modal : true,
 			    closable : true,
 			    cls : "c2",
+				height : $( window ).height() - 80,
+				top :20,
 			    border : 'thick',
 			    shadow : true,
 			    collapsible : false,
@@ -392,7 +396,7 @@ function loadAgencyModifyForm(){
 					}
 				}]
 			});
-			$(data.targetElem).dialog('center');
+			$(data.targetElem).dialog('hcenter');
 			
 			returnp.api.call('getAgencyCommand', {agencyNo : data.queryOptions.agencyNo}, function(res){
 				if (res.resultCode  == "100") {

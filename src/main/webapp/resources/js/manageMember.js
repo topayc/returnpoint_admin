@@ -351,7 +351,7 @@ function loadMemberCreateForm(){
 					}
 				}]
 			});
-			$(data.targetElem).dialog('center');
+			$(data.targetElem).dialog('hcenter');
 		});
 }
 

@@ -386,13 +386,13 @@ function loadAffiliateCreateForm(){
 	var queryParam = $.param(data.queryOptions);
 	$(data.targetElem).load("/api/affiliate/form/createForm?" + queryParam,
 			function(response, status, xhr) {
-					
 					$(data.targetElem).dialog({
 						width:650,
 						position : "top",
+						height : $( window ).height() - 80,
+						top :20,
 						cache : false,
 						fit : false, 
-						top :10,
 					    modal : true,
 					    closable : true,
 					    border : 'thick',
@@ -578,6 +578,8 @@ function loadAffiliateModifyForm(actionType){
 				    modal : true,
 				    closable : true,
 				    border : 'thick',
+					height : $( window ).height() - 80,
+					top :20,
 				    shadow : true,
 				    collapsible : false,
 				    minimizable : false,
@@ -596,7 +598,7 @@ function loadAffiliateModifyForm(actionType){
 						}
 					}]
 				});
-				$(data.targetElem).dialog('center');
+				$(data.targetElem).dialog('hcenter');
 				returnp.api.call('getAffiliateCommand', {
 					affiliateNo : data.queryOptions.affiliateNo
 					,memberAddressNo: data.queryOptions.memberAddressNo}, function(res){
