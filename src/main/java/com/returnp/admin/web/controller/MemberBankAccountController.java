@@ -17,13 +17,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.fasterxml.jackson.databind.cfg.SerializerFactoryConfig;
 import com.returnp.admin.code.CodeDefine;
+import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.common.ResponseUtil;
+import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.MemberBankAccountCommand;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.request.SearchCondition;
+import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.service.interfaces.MemberBankAccountService;
 import com.returnp.admin.service.interfaces.SearchService;
 
@@ -97,6 +99,41 @@ public class MemberBankAccountController extends ApplicationController {
 		ResponseUtil.setSuccessResponse(res);
 		return res;
 	}
+
+	@ResponseBody
+	@RequestMapping(value = "/memberBankAccount/create2", method = RequestMethod.POST)
+	public ReturnpBaseResponse  getMemberBankAccount2(
+			@RequestParam int memberNo,
+			@RequestParam String bankName,
+			@RequestParam String  accountOwner,
+			@RequestParam String  bankAccount,
+			HttpSession httpSession, 
+			Model model) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		MemberBankAccount account = new MemberBankAccount();
+		
+		account.setMemberNo(memberNo);
+		account.setAccountOwner(accountOwner);
+		account.setBankAccount(bankAccount);
+		account.setBankName(bankName);
+		account.setIsDefault("N");
+		account.setAccountStatus("Y");
+		
+		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
+		
+		if (adminSession.getAdminType() == "1") {
+			account.setRegType("A");
+			account.setRegAdminNo(adminSession.getAdmin().getAdminNo());
+		}
+		
+		if (adminSession.getAdminType() == "10") {
+			account.setRegType("H");
+		}
+		
+		this.memberBankAccountService.create(account);
+		ResponseUtil.setSuccessResponse(res);
+		return res;
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/memberBankAccount/update", method = RequestMethod.POST)
@@ -109,6 +146,50 @@ public class MemberBankAccountController extends ApplicationController {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.memberBankAccountService.update(memberBankAccountCommand);
 		sessionStatus.setComplete();
+		ResponseUtil.setSuccessResponse(res);
+		return res;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/memberBankAccount/defaultBankAccount", method = RequestMethod.POST)
+	public ReturnpBaseResponse  defaultAccount(
+			@RequestParam int memberBankAccountNo,
+			@RequestParam int memberNo,
+			HttpSession httpSession, 
+			Model model) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		this.memberBankAccountService.defaultBankAccount(memberBankAccountNo,memberNo);
+		ResponseUtil.setSuccessResponse(res);
+		return res;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/memberBankAccount/update2", method = RequestMethod.POST)
+	public ReturnpBaseResponse  updateMemberBankAccount2(
+			@RequestParam int memberBankAccountNo,
+			@RequestParam String bankName,
+			@RequestParam String  accountOwner,
+			@RequestParam String  bankAccount,
+			HttpSession httpSession, 
+			Model model) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		MemberBankAccount account = new MemberBankAccount();
+		account.setMemberBankAccountNo(memberBankAccountNo);
+		account.setAccountOwner(accountOwner);
+		account.setBankAccount(bankAccount);
+		account.setBankName(bankName);
+		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
+		
+		if (adminSession.getAdminType() == "1") {
+			account.setRegType("A");
+			account.setRegAdminNo(adminSession.getAdmin().getAdminNo());
+		}
+		
+		if (adminSession.getAdminType() == "10") {
+			account.setRegType("H");
+		}
+		
+		this.memberBankAccountService.update(account);
 		ResponseUtil.setSuccessResponse(res);
 		return res;
 	}

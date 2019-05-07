@@ -56,6 +56,26 @@
 </div>
 
 
+<div id="bank_add_dlg" style = "padding : 15px;display : none">
+  <div style="margin-top:10px;margin-bottom:20px;margin-left : 10px;">
+		<input  id = "memberBankAccountNo"  name="memberBankAccountNo" style="width:100%"/>
+	</div>
+	
+  <div style="margin-bottom:20px;margin-left : 10px;">
+		<input  id = "bankName"  name="bankName" style="width:100%"/>
+	</div>
+  <div style="margin-bottom:20px;margin-left : 10px;">
+		<input  id = "accountOwner"  name="accountOwner"  style="width:100%"/>
+	</div>
+  <div style="margin-bottom:10px;margin-left : 10px;">
+		<input  id = "bankAccount"  name="bankAccount"  style="width:100%"/>
+	</div>
+</div>
+
+<div id="bank_list_dlg" style = "padding : 15px;display : none">
+   <table id = "bank_list_table" style ="width:100%;height:100%"></table> 
+</div>
+
 
 <div id="add_affiliate_tid_virew" style = "width: 40% ;padding : 15px;display : none">
 	<div>

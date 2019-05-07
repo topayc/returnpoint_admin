@@ -14,7 +14,7 @@
 			    {field:'refundAmount',width:80,align:'center',title : '실 결제 금액', formatter : numberGreenFormatter},
 			    {field:'refundStatus',width:100,align:'center',title : '결제 상태',formatter : refundStatusFormatter},
 			    {field:'bankName',width:100,align:'center',title : '결제 은행'},
-			    {field:'backAccount',width:120,align:'center',title : '결제 계좌'},
+			    {field:'bankAccount',width:120,align:'center',title : '결제 계좌'},
 			    {field:'accountOwner',width:100,align:'center',title : '계좌주'},
 			    {field:'createTime',width:130,align:'center',title : '등록일', formatter : dateFormatter},
 			    {field:'updateTime',width:100,align:'center',title : '수정일', formatter : dateFormatter, hidden : true},

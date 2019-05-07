@@ -10,7 +10,6 @@
 	        <if test="affiliateNo != null"> AND affiliateNo = #{affiliateNo,jdbcType=INTEGER}</if>
 	        <if test="tid != null"> AND tid = #{tid,jdbcType=VARCHAR}</if>
 	</delete>
-
 	<delete id="deleteGPoint" parameterType="com.returnp.admin.model.GreenPoint">
 		delete from green_point
 		where 
@@ -18,5 +17,51 @@
 			<if test="memberNo != null"> AND memberNo = #{memberNo,jdbcType=INTEGER}</if>
 	        <if test="nodeNo != null"> AND nodeNo = #{nodeNo,jdbcType=INTEGER}</if>
 	</delete>
+	
+	 <update id="updateMemberBankAccount" parameterType="com.returnp.admin.model.MemberBankAccount">
+    update member_bank_account
+    <set>
+      <if test="memberNo != null">
+        memberNo = #{memberNo,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null">
+        bankName = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountOwner != null">
+        accountOwner = #{accountOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null">
+        bankAccount = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="accountStatus != null">
+        accountStatus = #{accountStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        isDefault = #{isDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="bankPurpose != null">
+        bankPurpose = #{bankPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="statusMessage != null">
+        statusMessage = #{statusMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="regAdminNo != null">
+        regAdminNo = #{regAdminNo,jdbcType=INTEGER},
+      </if>
+      <if test="regType != null">
+        regType = #{regType,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where 
+    1 = 1 
+      <if test="memberBankAccountNo != null"> AND memberBankAccountNo = #{memberBankAccountNo} </if>
+      <if test="memberNo != null"> AND memberNo =  #{memberNo} </if>
+  </update>
 </mapper>
  

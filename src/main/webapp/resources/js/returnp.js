@@ -163,8 +163,11 @@ $(function () {
         	/* 회원 은행 계좌 */
         	getMemberBankAccounts: { apiCode: 10000, apiPath : '/api/memberBankAccounts' ,  requestMethod: "get"},  
         	createMemberBankAccount: { apiCode: 10000, apiPath : '/api/memberBankAccount/create' ,  requestMethod: "post"},  
+        	createMemberBankAccount2: { apiCode: 10000, apiPath : '/api/memberBankAccount/create2' ,  requestMethod: "post"},  
         	updateMemberBankAccount: { apiCode: 10000, apiPath : '/api/memberBankAccount/update' ,  requestMethod: "post"},  
+        	updateMemberBankAccount2: { apiCode: 10000, apiPath : '/api/memberBankAccount/update2' ,  requestMethod: "post"},  
         	deleteMemberBankAccount: { apiCode: 10000, apiPath : '/api/memberBankAccount/delete' ,  requestMethod: "post"},
+        	defaultBankAccount: { apiCode: 10000, apiPath : '/api/memberBankAccount/defaultBankAccount' ,  requestMethod: "post"},
 
         	/* 포인트 현금 출금  */
         	getPointWithdrawals: { apiCode: 10000, apiPath : '/api/pointWithdrawals' ,  requestMethod: "get"},  

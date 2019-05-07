@@ -460,9 +460,11 @@
                             	 <span  style = "font-weight : bold">사이트 운영 관리</span>
 		                         <ul>
                         			<li data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageBoard" menu_deps= '2' >
-                        				<span style = "font-weight : bold">FAQ, 상담, 공지 게시판 관리</span></a> 
+                        				<span style = "font-weight : bold">게시판 관리</span></a> 
                         			</li>
-                        			
+                        				<li data-options = "iconCls :'icon-info'">
+                            			<a class= "sub_menu"  view_req_name = "manageBanner" menu_deps= '2' ><span style = "font-weight : bold">메인 팝업 관리</span></a> 
+                            		</li>
                         				<li data-options = "iconCls :'icon-info'">
                             			<a class= "sub_menu"  view_req_name = "manageBanner" menu_deps= '2' ><span style = "font-weight : bold">광고 배너 관리</span></a> 
                             		</li>

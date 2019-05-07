@@ -15,4 +15,5 @@ public interface MemberBankAccountService {
 	public void delete(MemberBankAccount memberBankAccount);
 	public void delete(int memberBankAccount);
 	public void update(MemberBankAccount memberBankAccount);
+	public void defaultBankAccount(int memberBankAccountNo, int memberNo);
 }

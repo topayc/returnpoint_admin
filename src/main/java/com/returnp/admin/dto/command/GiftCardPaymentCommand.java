@@ -11,8 +11,16 @@ public class GiftCardPaymentCommand extends GiftCardPayment {
 	private Integer giftCardAmount;
 	private String pinNumber;
 	private String bankName;
-	private String backAccount;
 	private String accountOwner;
+	private String bankAccount;
+
+	
+	public String getBankAccount() {
+		return bankAccount;
+	}
+	public void setBankAccount(String bankAccount) {
+		this.bankAccount = bankAccount;
+	}
 	public String getAffiliateName() {
 		return affiliateName;
 	}
@@ -61,12 +69,7 @@ public class GiftCardPaymentCommand extends GiftCardPayment {
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
-	public String getBackAccount() {
-		return backAccount;
-	}
-	public void setBackAccount(String backAccount) {
-		this.backAccount = backAccount;
-	}
+
 	public String getAccountOwner() {
 		return accountOwner;
 	}

@@ -218,7 +218,16 @@ function issueStatusFormatter(value, row, index) {
 	return result;
 }
 
-
+function defaultAccountFormatter(value, row, index){
+	var result = row.isDefault;
+	if (row.isDefault == "Y") {
+		result = roundLabel("주 계좌", '#B404AE');
+	 
+	} else if (row.isDefault == "N" || row.isDefault == null ||  row.isDefault == ""){
+		result = "-";
+	}
+	return result;
+}
 function issueActionFormatter(value, row, index) {
 	var result = "-"
 	if (row.paymentStatus == "2" && row.issueStatus == "1") {
@@ -232,10 +241,23 @@ function tidActionFormatter(value, row, index) {
 	return result;
 }
 
+
 function tidDelFormatter(value, row, index) {
 	var result = "-"
 	result = '<input  style = ";margin:2px" type = "button" value = "삭제" onclick = "removeTid(' + row.affiliateTidNo + ',this);return false;" id = "affiliateTidNo' + row.affiliateTidNo + '"/>'; 
 	return result;
+}
+
+function bankAccountUpdateActionFormatter(value, row, index) {
+	var result = "-"
+	result = '<input  style = ";margin:2px" type = "button" value = "수정" onclick = "openBankUpdate(' + row.memberBankAccountNo + ',this);return false;" id = "memberBankAccountNo' + row.memberBankAccountNo + '"/>'; 
+	return result;
+}
+
+function bankAccountDeleteActionFormatter(value, row, index) {
+	var result = "-"
+		result = '<input  style = ";margin:2px" type = "button" value = "삭제" onclick = "removeBankAccount(' + row.memberBankAccountNo + ',this);return false;" id = "memberBankAccountNo' + row.memberBankAccountNo + '"/>'; 
+		return result;
 }
 
 function orderColumnKorFormatter(value) {

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.returnp.admin.dao.mapper.QueryMapper;
 import com.returnp.admin.model.AffiliateTid;
 import com.returnp.admin.model.GreenPoint;
+import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.service.interfaces.QueryService;
 
 @Service
@@ -19,5 +20,10 @@ public class QueryServiceImpl implements QueryService {
 	@Override
 	public int deleteGPoint(GreenPoint gPoint) {
 		return this.queryMapper.deleteGPoint(gPoint);
+	}
+	@Override
+	public int updateMemberBankAccount(MemberBankAccount account) {
+		// TODO Auto-generated method stub
+		return this.queryMapper.updateMemberBankAccount(account);
 	}
 }

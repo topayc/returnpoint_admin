@@ -411,8 +411,8 @@ function initView(){
 		multiple:false,
 		required:true,
 	});
-	$('#receiverPhone2').numberbox({width: 130}); 
-	$('#receiverPhone3').numberbox({
+	$('#receiverPhone2').textbox({width: 130}); 
+	$('#receiverPhone3').textbox({
 		width: 130,
 		onChange : function(newValue, oldVaue) {
 			//if (newValue.length == 4) {}
@@ -588,8 +588,8 @@ function openGiftCardByMobilViiew(){
 	});
 	
 	$('#receiverPhone1').combobox("setValue", "010");
-	$('#receiverPhone2').numberbox("clear"); 
-	$('#receiverPhone3').numberbox("clear"); 
+	$('#receiverPhone2').textbox("clear"); 
+	$('#receiverPhone3').textbox("clear"); 
 }
 function createQrBatch(){
 	var selectedRows =  $('#gift_card_issue_list').datagrid('getSelections');
@@ -637,11 +637,17 @@ function createQrBatch(){
 function sendGiftCardByMobile(){
 	var selectedRows =  $('#gift_card_issue_list').datagrid('getSelections');
 	var phone1 = $('#receiverPhone1').combobox("getValue").trim()
-	var phone2 = $('#receiverPhone2').numberbox("getValue").trim(); 
-	var phone3 = $('#receiverPhone3').numberbox("getValue").trim()
+	var phone2 = $('#receiverPhone2').textbox("getValue").trim(); 
+	var phone3 = $('#receiverPhone3').textbox("getValue").trim()
 
 	if (!phone2 || !phone3) {
 		$.messager.alert('알림', "항목이 모두 입력되지 않았습니다");
+		return;
+	}
+	if (!$.isNumeric(phone2) || !$.isNumeric(phone3)) {
+		$.messager.alert('알림', "전화번호는 숫자만 입력이 가능합니다.");
+		$('#receiverPhone3').textbox("clear")
+		$('#receiverPhone2').textbox("clear")
 		return;
 	}
 	var params = {};

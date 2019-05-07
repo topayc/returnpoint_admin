@@ -3542,7 +3542,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="giftCardAmount" jdbcType="INTEGER" property="giftCardAmount" />
     <result column="pinNumber" jdbcType="VARCHAR" property="pinNumber" />
     <result column="bankName" jdbcType="VARCHAR" property="bankName" />
-    <result column="backAccount" jdbcType="VARCHAR" property="backAccount" />
+    <result column="bankAccount" jdbcType="VARCHAR" property="bankAccount" />
     <result column="accountOwner" jdbcType="VARCHAR" property="accountOwner" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />

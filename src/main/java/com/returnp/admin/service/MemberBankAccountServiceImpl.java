@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.dao.mapper.MemberBankAccountMapper;
 import com.returnp.admin.dto.command.MemberBankAccountCommand;
-import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
-import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.service.interfaces.MemberBankAccountService;
+import com.returnp.admin.service.interfaces.QueryService;
 import com.returnp.admin.service.interfaces.SearchService;
 
 @Service
@@ -19,6 +17,7 @@ public class MemberBankAccountServiceImpl implements MemberBankAccountService {
 
 	@Autowired MemberBankAccountMapper memberBankAccountMapper;
 	@Autowired SearchService searchService;
+	@Autowired QueryService queryService;
 
 	@Override
 	public ArrayList<MemberBankAccountCommand> findMemberBankAccountCommands(MemberBankAccount memberBankAccount) {
@@ -42,5 +41,18 @@ public class MemberBankAccountServiceImpl implements MemberBankAccountService {
 	@Override
 	public void  update(MemberBankAccount memberBankAccount) {
 		memberBankAccountMapper.updateByPrimaryKeySelective(memberBankAccount);
+	}
+
+	@Override
+	public void defaultBankAccount(int memberBankAccountNo, int memberNo) {
+		MemberBankAccount account = new MemberBankAccount();
+		account.setMemberNo(memberNo);
+		account.setIsDefault("N");
+		this.queryService.updateMemberBankAccount(account);
+		
+		account = new MemberBankAccount();
+		account.setMemberBankAccountNo(memberBankAccountNo);
+		account.setIsDefault("Y");
+		this.queryService.updateMemberBankAccount(account);
 	}
 }

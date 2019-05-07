@@ -39,6 +39,20 @@
 		{field:'createTime',width:95,align:'center',title : '등록일',formatter : dateFormatter},
 		{field:'updateTime',width:95,align:'center',title : '수정일',formatter : dateFormatter}
 		]];
+	
+	bankListCols = [[
+		{field:'memberBankAccountNo',width:60,align:'center',title : '등록 번호'},
+		{field:'memberNo',width:60,align:'center',title : '회원 번호'},
+		{field:'bankName',width:100,align:'center',title : '은행명',editor:'text'},	
+		{field:'accountOwner',width:70,align:'center',title : '계좌주',editor:'text'},
+		{field:'bankAccount',width:150,align:'center',title : '계좌 번호',editor:'text'},
+		{field:'accountStatus',width:40,align:'center',title : '상태',editor:'text'},
+		{field:'isDefault',width:60,align:'center',title : '주 계좌' /*,editor:{type:'radio',options:{on:'Y',off:'N'}}*/ , formatter : defaultAccountFormatter},
+		{field:'createTime',width:70,align:'center',title : '등록일',formatter : dateFormatter},
+		{field:'updateTime',width:70,align:'center',title : '수정일',formatter : dateFormatter},
+		{field:'noField1',width:40,align:'center',title : '수정',formatter : bankAccountUpdateActionFormatter},
+		{field:'noField2',width:40,align:'center',title : '삭제',formatter : bankAccountDeleteActionFormatter},
+		]];
 initView();
 var exitColumns = ['greenPointAmount', 'redPointAmount', 'recommenderName','greenPointAccStatus','redPointUseStatus' ,'branchNo','recommenderNo','agencyName'];
 if (loginType != 1) {
@@ -201,6 +215,12 @@ function initView(){
 		  			case "addTid":
 		  				openAddTidView();
 		  				break;
+		  			case "add_bank":
+		  				openBankAdd();
+		  				break;
+		  			case "view_bank":
+		  				openBankList();
+		  				break;
 		  			case "more_detail":
 		  				break;
 		  			case "point_acc_view":
@@ -221,9 +241,64 @@ function initView(){
 		  		}
 		  	});
 		  	
-		  	var menus = [  '수정', '삭제','상세 정보','가맹점 TID 보기', '가맹점 TID 추가 ', '포인트 누적 현황' ];
-		  	var icons = ['icon-edit','icon-remove','icon-tip','icon-tip',  'icon-add',  'icon-large-chart'];
-		  	var actions = ['modify','remove','more_detail','viewTids', 'addTid', 'point_acc_view'];
+		  	var menus = [  '수정', '삭제','상세 정보','가맹점 TID 보기', '가맹점 TID 추가 ','계좌 추가','계좌 리스트',   '포인트 누적 현황' ];
+		  	var icons = ['icon-edit','icon-remove','icon-tip','icon-tip',  'icon-add', 'icon-add','icon-add', 'icon-large-chart'];
+		  	var actions = ['modify','remove','more_detail','viewTids', 'addTid','add_bank', 'view_bank',  'point_acc_view'];
+		  	
+		  	for(var i=0; i<menus.length; i++){
+		  		cmenu.menu('appendItem', {
+		  			data : row,
+		  			no : row.memberNo,
+		  			text: /*'[' + row.memberEmail + '] ' +*/ menus[i],
+		  			action: actions[i],
+		  			iconCls: icons[i]
+		  		});
+		  	}
+		  	cmenu.menu('show', {
+		  		left:e.pageX,
+		  		top:e.pageY
+		  	});
+		},
+	    columns:columns,
+	    
+	});
+	
+	/* 노드 데이타그리드   초기화*/
+	$('#bank_list_table').datagrid({
+		title : '은행 계좌]',
+		singleSelect:true,
+		collapsible:false,
+		//autoRowHeight: false,
+		fitColumns:true,
+		selectOnCheck : true,
+		checkOnSelect : true,
+		border:false,
+		rownumbers : true,
+		pagination: true,
+		pagePosition : "top",
+		pageSize : returnpCommon.appInfo.gridPageSize,
+		onSelect : function(){},
+		onLoadSuccess : function(){
+			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);
+		},	
+		onRowContextMenu : function(e, index, row){
+			e.preventDefault();
+		  	$(this).datagrid("selectRow", index);
+		  	/*alert(row.memberBankAccountNo)*/
+		  	var cmenu = $('<div/>').appendTo('body');
+		  	cmenu.menu({
+		  		onClick : function(item){
+		  			switch(item.action){
+		  			case "defaultAccount":
+		  				setDefaultBankAccount(row.memberBankAccountNo);
+		  				break;
+		  			}
+		  		}
+		  	});
+		  	
+		  	var menus = [  '주 계좌 지정'];
+		  	var icons = ['icon-edit'];
+		  	var actions = ['defaultAccount'];
 		  	
 		  	for(var i=0; i<menus.length; i++){
 		  		cmenu.menu('appendItem', {
@@ -291,8 +366,45 @@ function initView(){
 	});
 
 	tidGrid.datagrid('enableCellEditing').datagrid('gotoCell', {
-	  /*  index: 0,
+/*	    index: 0,
 	    field: 'productid'*/
+	});
+	
+	var bankAccountGrid = $('#bank_list_table').datagrid({
+		singleSelect:true,
+		collapsible:false,
+		fitColumns:true,
+		selectOnCheck : false,
+		checkOnSelect : false,
+		border:true,
+		rownumbers : true,
+	    columns:bankListCols
+	});
+
+/*	bankAccountGrid.datagrid('enableCellEditing').datagrid('gotoCell', {
+		    index: 0,
+		    field: 'productid'
+		});*/
+	
+	$('#memberBankAccountNo').textbox({
+		label : roundLabel("등록번호"),
+		readonly : true
+	});
+	
+	$('#bankName').textbox({
+		label : roundLabel("은행명"),
+		prompt: '은행 이름 입력',
+
+	});
+	
+	$('#accountOwner').textbox({
+		label : roundLabel("계좌주"),
+		prompt: '실제 계좌주 입력',
+	});
+	
+	$('#bankAccount').textbox({
+		label : roundLabel("계좌 번호"),
+		prompt: '계좌 번호 입력',
 	});
 }
 
@@ -472,6 +584,266 @@ function removeTid(affiliateTidNo, elem){
 					});
 				});
 			}
+		}
+	});
+}
+function setDefaultBankAccount(memberBankAccountNo){
+	$.messager.confirm({
+		title: '주 계좌 설정',
+		msg: '선택한 계좌를 주 계좌로 설정하시겠습니까?',
+		fn: function(r){
+			if (r){
+				returnp.api.call("defaultBankAccount", {memberBankAccountNo : memberBankAccountNo, memberNo:  $('#node_list').datagrid('getSelected').memberNo}, function(res){
+					console.log(">>setDefaultBankAccount");
+					console.log(res);
+					if (res.resultCode  == "100") {
+						$.messager.alert('알림', res.message);
+					}else {
+						$.messager.alert('오류 발생', res.message);
+					}
+					
+					var node = $('#node_list').datagrid('getSelected');
+					returnp.api.call("getMemberBankAccounts", {memberNo:  $('#node_list').datagrid('getSelected').memberNo}, function(res){
+						if (res.resultCode  == "100") {
+							$('#bank_list_table').datagrid({
+								data : res
+							});
+						}else {
+							$.messager.alert('오류 발생', res.message);
+						}
+					});
+				});
+			}
+		}
+	});
+}
+
+function openBankAdd(){
+	$('#memberBankAccountNo').textbox({prompt : "입력할 필요 없음"});
+	$('#memberBankAccountNo').textbox('disable');
+	$('#bankName').textbox('clear');
+	$('#bankName').textbox('clear');
+	$('#accountOwner').textbox('clear');
+	$('#bankAccount').textbox('clear');
+	
+	var node = $('#node_list').datagrid('getSelected');
+	$('#bank_add_dlg').dialog({
+	    title: " " + node.affiliateName + ' 계좌 추가  ',
+	    width: 500,
+	    height: 350,
+	    closed: false,
+	    cache: false,
+	    modal: true,
+		buttons : [ {
+			text : '확인',
+			iconCls : 'icon-ok',
+			handler : function() {
+				addBankAccount();
+			}
+		}, {
+			text : '취소',
+			handler : function() {
+				$('#bankName').textbox('clear');
+				$('#memberBankAccountNo').textbox('clear');
+				$('#accountOwner').textbox('clear');
+				$('#bankAccount').textbox('clear');
+				$('#bank_add_dlg').dialog('close');
+			}
+		} ]
+	});
+	
+	$('#add_tid').textbox({width : 200});
+	$('#add_tid').textbox("clear");
+}
+
+function openBankUpdate(memberBankAccountNo){
+	var rows = $('#bank_list_table').datagrid('getRows');
+	var selectedRow = null;
+	for (var i = 0; i < rows.length ; i++){
+		if (rows[i].memberBankAccountNo == memberBankAccountNo){
+			selectedRow = rows[i];	
+		}
+	}
+	
+	if (selectedRow == null) {
+		$.messager.alert('알림', "수정하실 항목을 선택해주세요" );
+	}
+	$('#memberBankAccountNo').textbox('enable');
+	$('#memberBankAccountNo').textbox({readonly : true});
+	$('#memberBankAccountNo').textbox('setValue',selectedRow.memberBankAccountNo );
+	$('#bankName').textbox('setValue',selectedRow.bankName );
+	$('#accountOwner').textbox('setValue',selectedRow.accountOwner );
+	$('#bankAccount').textbox('setValue',selectedRow.bankAccount );
+	
+	var node = $('#node_list').datagrid('getSelected');
+	$('#bank_add_dlg').dialog({
+	    title: " " + node.affiliateName + ' 계좌 수정  ',
+	    width: 500,
+	    height: 350,
+	    closed: false,
+	    cache: false,
+	    modal: true,
+		buttons : [ {
+			text : '확인',
+			iconCls : 'icon-ok',
+			handler : function() {
+				updateBankAccount();
+			}
+		}, {
+			text : '취소',
+			handler : function() {
+				$('#bankName').textbox('clear');
+				$('#accountOwner').textbox('clear');
+				$('#bankAccount').textbox('clear');
+				$('#bank_add_dlg').dialog('close');
+			}
+		} ]
+	});
+	
+	$('#add_tid').textbox({width : 200});
+	$('#add_tid').textbox("clear");
+}
+function addBankAccount(){
+	var params = {
+			memberNo:  $('#node_list').datagrid('getSelected').memberNo,
+			bankName : $('#bankName').textbox('getValue').trim(),
+			accountOwner : $('#accountOwner').textbox('getValue').trim(),
+			bankAccount : $('#bankAccount').textbox('getValue').trim()
+	}
+	$.messager.confirm({
+		title: '계좌 등록',
+		msg: '계좌 정보를 등록하시겠습니까?',
+		fn: function(r){
+			if (r){
+				returnp.api.call("createMemberBankAccount2", params, function(res){
+					console.log(res);
+					if (res.resultCode  == "100") {
+						$.messager.alert('알림', res.message);
+					}else {
+						$.messager.alert('오류 발생', res.message);
+					}
+					
+					$('#bankName').textbox('clear');
+					$('#accountOwner').textbox('clear');
+					$('#bankAccount').textbox('clear');
+					$('#bank_add_dlg').dialog('close');
+					
+					var node = $('#node_list').datagrid('getSelected');
+					returnp.api.call("getMemberBankAccounts", {memberNo : node.memberNo}, function(res){
+						if (res.resultCode  == "100") {
+							$('#bank_list_table').datagrid({
+								data : res
+							});
+						}else {
+							$.messager.alert('오류 발생', res.message);
+						}
+					});
+				});
+			}
+		}
+	});
+}
+
+function updateBankAccount(){
+	var params = {
+			memberBankAccountNo: $('#memberBankAccountNo').textbox('getValue').trim(),
+			bankName : $('#bankName').textbox('getValue').trim(),
+			accountOwner : $('#accountOwner').textbox('getValue').trim(),
+			bankAccount : $('#bankAccount').textbox('getValue').trim()
+	}
+	$.messager.confirm({
+		title: '계좌 업데이트',
+		msg: '계좌 정보를 업데이트 하시겠습니까?',
+		fn: function(r){
+			if (r){
+				returnp.api.call("updateMemberBankAccount2", params, function(res){
+					console.log(res);
+					if (res.resultCode  == "100") {
+						$.messager.alert('알림', res.message);
+					}else {
+						$.messager.alert('오류 발생', res.message);
+					}
+					
+					$('#bankName').textbox('clear');
+					$('#memberBankAccountNo').textbox('clear');
+					$('#accountOwner').textbox('clear');
+					$('#bankAccount').textbox('clear');
+					$('#bank_add_dlg').dialog('close');
+					
+					var node = $('#node_list').datagrid('getSelected');
+					returnp.api.call("getMemberBankAccounts", {memberNo : node.memberNo}, function(res){
+						if (res.resultCode  == "100") {
+							$('#bank_list_table').datagrid({
+								data : res
+							});
+						}else {
+							$.messager.alert('오류 발생', res.message);
+						}
+					});
+				});
+			}
+		}
+	});
+}
+
+function removeBankAccount(memberBankAccountNo, elem){
+	$.messager.confirm({
+		title: '계좌 삭제',
+		msg: '계좌 를 삭제하시겠습니까?',
+		fn: function(r){
+			if (r){
+				returnp.api.call("deleteMemberBankAccount", {memberBankAccountNo :memberBankAccountNo }, function(res){
+					console.log(res);
+					if (res.resultCode  == "100") {
+						$.messager.alert('알림', res.message);
+					}else {
+						$.messager.alert('오류 발생', res.message);
+					}
+					var node = $('#node_list').datagrid('getSelected');
+					returnp.api.call("getMemberBankAccounts", {memberNo : node.memberNo}, function(res){
+						if (res.resultCode  == "100") {
+							$('#bank_list_table').datagrid({
+								data : res
+							});
+						}else {
+							$.messager.alert('오류 발생', res.message);
+						}
+					});
+				});
+			}
+		}
+	});
+}
+
+
+
+function openBankList(){
+	var node = $('#node_list').datagrid('getSelected');
+	$('#bank_list_dlg').dialog({
+		title: "> " + node.affiliateName + ' 계좌   ',
+		width: 1000,
+		height: 600,
+		closed: false,
+		cache: false,
+		modal: true,
+		buttons:  [ {
+			text : '확인',
+			iconCls : 'icon-ok',
+			handler : function() {
+				$("#bank_add_dlg").dialog('close');
+			}
+		}],
+		onOpen : function(){
+			returnp.api.call("getMemberBankAccounts", {memberNo : node.memberNo}, function(res){
+				console.log(res);
+				if (res.resultCode  == "100") {
+					$('#bank_list_table').datagrid({
+						data : res
+					});
+				}else {
+					$.messager.alert('오류 발생', res.message);
+				}
+			});
 		}
 	});
 }
