@@ -3,25 +3,25 @@ package com.returnp.admin.model;
 import com.returnp.admin.dto.QueryCondition;
 import java.util.Date;
 
-public class AffiliateTid extends QueryCondition {
-    private Integer affiliateTidNo;
+public class MemberConfig extends QueryCondition {
+    private Integer memberConfigNo;
 
     private Integer memberNo;
 
-    private Integer affiliateNo;
+    private String devicePush;
 
-    private String tid;
+    private String emailReceive;
 
     private Date createTime;
 
     private Date updateTime;
 
-    public Integer getAffiliateTidNo() {
-        return affiliateTidNo;
+    public Integer getMemberConfigNo() {
+        return memberConfigNo;
     }
 
-    public void setAffiliateTidNo(Integer affiliateTidNo) {
-        this.affiliateTidNo = affiliateTidNo;
+    public void setMemberConfigNo(Integer memberConfigNo) {
+        this.memberConfigNo = memberConfigNo;
     }
 
     public Integer getMemberNo() {
@@ -32,20 +32,20 @@ public class AffiliateTid extends QueryCondition {
         this.memberNo = memberNo;
     }
 
-    public Integer getAffiliateNo() {
-        return affiliateNo;
+    public String getDevicePush() {
+        return devicePush;
     }
 
-    public void setAffiliateNo(Integer affiliateNo) {
-        this.affiliateNo = affiliateNo;
+    public void setDevicePush(String devicePush) {
+        this.devicePush = devicePush == null ? null : devicePush.trim();
     }
 
-    public String getTid() {
-        return tid;
+    public String getEmailReceive() {
+        return emailReceive;
     }
 
-    public void setTid(String tid) {
-        this.tid = tid == null ? null : tid.trim();
+    public void setEmailReceive(String emailReceive) {
+        this.emailReceive = emailReceive == null ? null : emailReceive.trim();
     }
 
     public Date getCreateTime() {

@@ -3942,7 +3942,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   AT.affiliateNo, 
   A.affiliateName, 
   A.affiliateEmail, 
-  A.memberNo, 
+  AT.memberNo, 
   AT.tid, 
   AT.createTime, 
   AT.updateTime
@@ -3962,11 +3962,44 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       sql_calc_found_rows 
     <include refid="AffilaiteTidCommand_Column_List" />
     from affiliate_tid as AT
-    inner join Affiliate as A on (AT.affiliateNo= A.AffiliateNo)
+    inner join affiliate as A on (AT.affiliateNo= A.AffiliateNo)
     
     where 
      	 1 = 1 
     	<include refid = "AffilaiteTidCommandWhereStatement"/>
+    	<include refid = "commonStatement"/>
+  </select>
+  
+   <!-- ===============================================================================================================    -->
+  
+  <!-- MemberConfig Mapper   -->
+ 
+   <resultMap id="MemberConfigResultMap" type="com.returnp.admin.model.MemberConfig">
+    <id column="memberConfigNo" jdbcType="INTEGER" property="memberConfigNo" />
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="devicePush" jdbcType="VARCHAR" property="devicePush" />
+    <result column="emailReceive" jdbcType="VARCHAR" property="emailReceive" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+    <sql id="MemberConfig_Column_List">
+memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
+  </sql>
+  
+   <sql id ="MemberConfigWhereStatement">
+      <if test="memberConfigNo != null"> AND memberConfigNo = #{memberConfigNo,jdbcType=INTEGER}</if>
+      <if test="memberNo != null"> AND memberNo = #{memberNo,jdbcType=INTEGER}</if>
+  </sql>
+  
+   <select id="selectMemberConfigs" parameterType="com.returnp.admin.model.MemberConfig" resultMap="MemberConfigResultMap">
+    select 
+      sql_calc_found_rows 
+    <include refid="MemberConfig_Column_List" />
+    from member_config
+    where 
+     	 1 = 1 
+    	<include refid = "MemberConfigWhereStatement"/>
     	<include refid = "commonStatement"/>
   </select>
   

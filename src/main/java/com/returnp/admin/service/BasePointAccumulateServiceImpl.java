@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.returnp.admin.common.AppConstants;
-import com.returnp.admin.common.AppConstants.AccumulateRequestFrom;
 import com.returnp.admin.common.DataMap;
 import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.common.ReturnpException;
@@ -22,6 +21,7 @@ import com.returnp.admin.dao.mapper.PaymentPointbackRecordMapper;
 import com.returnp.admin.dao.mapper.PaymentTransactionMapper;
 import com.returnp.admin.dao.mapper.PointBackMapper;
 import com.returnp.admin.dao.mapper.PolicyMapper;
+import com.returnp.admin.dto.command.AffiliateTidCommand;
 import com.returnp.admin.dto.command.InnerPointBackTarget;
 import com.returnp.admin.dto.command.OuterPointBackTarget;
 import com.returnp.admin.dto.command.PointBackTarget;
@@ -285,13 +285,36 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 	public Affiliate validateAffiliateAuth(String afId) throws ReturnpException {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
-			/* * 존재하는 가맹점인지 검사 */
-			Affiliate affiliate = new Affiliate();
+			/* * 
+			 * 존재하는 가맹점인지 검사 
+			 * 기존의 하나의 TID 만 등록할 수 있는 시스템에서 하나의 가맹점에 다수의 TID 를 등록할 수 있게 
+			 * 변경했기 때문에 하나의 소스는 주석 처리
+			 * */
+		/*	Affiliate affiliate = new Affiliate();
 			affiliate.setAffiliateSerial(afId);
 			ArrayList<Affiliate> affiliates = this.pointBackMapper.findAffiliates(affiliate);
 			
 			if (affiliates == null || affiliates.size() != 1) {
+				ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_OK, "603", 
+						this.messageUtils.getMessage("pointback.message.not_argu_affiliate", new Object[] {afId}));
+				throw new ReturnpException(res);
+			}
+			*/
+			
+			/* 하나의 가맹점에서 다수의 TID 를 등록할 수 있게 변경됨으로써, 인증 로직을 다음과 같이 수정함 */
+			AffiliateTidCommand atidCommand = new AffiliateTidCommand();
+			atidCommand.setTid(afId);
+			
+			ArrayList<AffiliateTidCommand> atidList = this.pointBackMapper.selectAffilaiteTidCommands(atidCommand);
+			if (atidList == null || atidList.size() < 1) {	
 				ResponseUtil.setResponse(res, "10004", 
+						this.messageUtils.getMessage("pointback.message.invalide_tid", new Object[] {afId}));
+				throw new ReturnpException(res);
+			}
+			
+			Affiliate affiliate = this.affiliateMapper.selectByPrimaryKey(atidList.get(0).getAffiliateNo());
+			if (affiliate == null) {
+				ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_OK, "10089", 
 						this.messageUtils.getMessage("pointback.message.not_argu_affiliate", new Object[] {afId}));
 				throw new ReturnpException(res);
 			}
@@ -443,10 +466,12 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 			ArrayList<Member> members = this.pointBackMapper.findMembers(mem);
 			mem = members.get(0);
 	
+			AffiliateTidCommand atidCommand = new AffiliateTidCommand();
+			atidCommand.setTid(dataMap.getStr("af_id"));
+			ArrayList<AffiliateTidCommand> atidList = this.pointBackMapper.selectAffilaiteTidCommands(atidCommand);
+			
 			Affiliate affiliate = new Affiliate();
-			affiliate.setAffiliateSerial(dataMap.getStr("af_id"));
-			ArrayList<Affiliate> affiliates = this.pointBackMapper.findAffiliates(affiliate);
-			affiliate = affiliates.get(0);
+			affiliate = this.affiliateMapper.selectByPrimaryKey(atidList.get(0).getAffiliateNo());
 			
 			pt = new PaymentTransaction();
 			pt.setMemberNo(mem.getMemberNo());
@@ -458,7 +483,8 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 			pt.setNodeName(mem.getMemberName());;
 			pt.setMemberPhone(mem.getMemberPhone());
 			pt.setAffiliateNo(affiliate.getAffiliateNo());
-			pt.setAffiliateSerial(affiliate.getAffiliateSerial());
+			//pt.setAffiliateSerial(affiliate.getAffiliateSerial());
+			pt.setAffiliateSerial(dataMap.getStr("af_id"));
 			//paymentTransaction.setOrgPaymentData(BASE64Util.decodeString(qrOrg));
 			pt.setPaymentApprovalAmount(dataMap.getInt("pam"));
 			pt.setPaymentApprovalNumber(dataMap.getStr("pan"));

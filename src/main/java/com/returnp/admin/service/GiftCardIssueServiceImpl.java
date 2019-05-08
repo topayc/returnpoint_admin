@@ -23,6 +23,7 @@ import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.common.ReturnpException;
 import com.returnp.admin.dao.mapper.DeviceInfoMapper;
 import com.returnp.admin.dao.mapper.GiftCardIssueMapper;
+import com.returnp.admin.dao.mapper.MemberConfigMapper;
 import com.returnp.admin.dao.mapper.MyGiftCardMapper;
 import com.returnp.admin.dao.mapper.SearchMapper;
 import com.returnp.admin.dto.command.GiftCardIssueCommand;
@@ -35,6 +36,7 @@ import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.DeviceInfo;
 import com.returnp.admin.model.GiftCardIssue;
 import com.returnp.admin.model.Member;
+import com.returnp.admin.model.MemberConfig;
 import com.returnp.admin.service.interfaces.AndroidPushService;
 import com.returnp.admin.service.interfaces.GiftCardIssueService;
 import com.returnp.admin.service.interfaces.GiftCardOrderService;
@@ -53,7 +55,8 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 	@Autowired SearchMapper searchMapper;;
 	@Autowired AndroidPushService androidPushService;
 	@Autowired IOSPushService iosPushService;
-	@Autowired MyGiftCardMapper myGiftCardMapper;;
+	@Autowired MyGiftCardMapper myGiftCardMapper;
+	@Autowired MemberConfigMapper memberConfigMapper;;
 	
 	@Override
 	public ReturnpBaseResponse createGiftCardIssue(GiftCardIssue record) {
@@ -397,6 +400,23 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 			ArrayList<DeviceInfo> deviceInfos = this.searchMapper.selectDeviceInfos(deviceInfo);
 			if (deviceInfos.size() != 1) {
 				ResponseUtil.setResponse(res, "3502", "해당 회원의 디바이스 정보가 존재하지 않습니다. </br> 리턴포인트 앱의 업데이트 혹은 앱내의 푸쉬 서비스를 활성화 해주세요");
+				throw new ReturnpException(res);
+			}
+			
+			MemberConfig memberConfig = new MemberConfig();
+			memberConfig.setMemberNo(memebrs.get(0).getMemberNo());
+			ArrayList<MemberConfig> memberConfigs = this.searchService.selectMemberConfigs(memberConfig);
+			
+			if (memberConfigs.size()< 1) {
+				memberConfig.setDevicePush("N");
+				memberConfig.setEmailReceive("N");
+				this.memberConfigMapper.insert(memberConfig);
+			}else {
+				memberConfig = memberConfigs.get(0);
+			}
+			
+			if (memberConfig.getDevicePush().equals("N")) {
+				ResponseUtil.setResponse(res, "3908", "해당 회원은 푸쉬 알림을 허용하지 않았습니다. </br>앱에서 푸쉬 알림을 허용한 후 다시 시도해주세요");
 				throw new ReturnpException(res);
 			}
 			

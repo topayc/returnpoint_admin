@@ -48,6 +48,7 @@ import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.MemberAddress;
 import com.returnp.admin.model.MemberBankAccount;
+import com.returnp.admin.model.MemberConfig;
 import com.returnp.admin.model.MembershipRequest;
 import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.model.PointConversionTransaction;
@@ -188,5 +189,7 @@ public interface SearchMapper {
 	public ArrayList<AffiliateTidCommand> selectAffilaiteTidCommands(AffiliateTidCommand record);
 	
 	public GiftCardSalesOrganCommand selectGiftCardSalesOrganCommand(GiftCardSalesOrganCommand organ);
+
+	public ArrayList<MemberConfig> selectMemberConfigs(MemberConfig memberConfig);
 	
 }

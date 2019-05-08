@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.returnp.admin.dto.command.AffiliateTidCommand;
 import com.returnp.admin.dto.command.GreenPointCommand;
 import com.returnp.admin.dto.command.InnerPointBackTarget;
 import com.returnp.admin.dto.command.MembershipRequestCommand;
@@ -67,4 +68,5 @@ public interface PointBackMapper {
 	public ArrayList<PointConversionTransactionCommand> findPointConversionTransactionCommands(PointConversionTransactionCommand mrCond);
 	public ArrayList<PointConversionTransaction> findPointConversionTransactions(PointConversionTransaction mrCond);
 	public ArrayList<HashMap<String, Object>> selectDirectNodes(HashMap<String, Object> param);
+	public ArrayList<AffiliateTidCommand> selectAffilaiteTidCommands(AffiliateTidCommand record);
 }
