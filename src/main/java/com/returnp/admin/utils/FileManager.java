@@ -21,6 +21,8 @@ public class FileManager {
 		System.out.println(dir + File.separator + fileName);*/
 		
 		mFile.transferTo(new File(dir + File.separator + fileName));
+		System.out.println("#### 저장 파일 경로");
+		System.out.println(dir + File.separator + fileName);
 		return new File(dir + File.separator + fileName);
 	}
 	

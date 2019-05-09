@@ -26,7 +26,28 @@
 		</div>
 	</div>
 	
-	<div title="<strong>조직 생성 파일</strong>"  style="padding:20px;display:none;" id="container"   style="display:none;">
+	<div title="<strong>밴사 결제 내역 파일</strong>"  style="padding:20px;display:none;" id="container"   style="display:none;">
+				<div style = "width:50%" >
+			<ul style ='font-weight: bold';'>
+				<li style ="margin-bottom:5px;font-size:12px">밴사로 받은 결제 취소 내역을 등록하여, 포인트를 회수합니다.</li>
+				<li style ="margin-bottom:5px;font-size:12px">파일은 엑셀만 가능하며, 지정한 형식대로 작성되어야 합니다.</li>
+				<li style ="margin-bottom:5px;font-size:12px">엑셀 파일의 포맷을 보려면 <a href = "#">여기</a>를 클릭하세요</li>
+				<li style ="font-size:12px">등록한 매출 파일은 서버에 저장됩니다.</li>
+			</ul>
+		</div>
+		
+		<div style = "padding:20px 25px;width:50%" >
+		   <form id="uploadVanFileForm"   name = "uploadVanFileForm"  enctype="multipart/form-data" method="post">
+				<div style="margin-bottom:20px">
+		            <input id = "vanFile"  name = "vanFile" type = "text" style="width:70%" accept=".xlsx">
+					<a id = "submit_btn2"  style="width:80px;margin-right : 5px;margin-left:10px" >등록</a>
+					<a id = "reset_btn2"   style="width:80px">리셋</a>		  		
+		        </div>
+					
+				<div style="margin-top : 5px;margin-bottom:30px;text-align:right">
+				 </div>
+			</form>
+		</div>
 	</div>
 	
 </div>
@@ -44,7 +65,7 @@ $('#fileTab').tabs({
 
 $('#salesFile').filebox({
     buttonText: '&nbsp;&nbsp;<strong>매출 파일 선택</strong>&nbsp;&nbsp;',
-    buttonAlign: 'right',
+    buttonAlign: 'left',
     height: '25px'
 });
 
@@ -58,6 +79,27 @@ $('#submit_btn').linkbutton({
 
 /* 리셋 버튼  초기화*/
 $('#reset_btn').linkbutton({
+	onClick : function(){
+		resetForm();
+	}
+});
+
+$('#vanFile').filebox({
+    buttonText: '&nbsp;&nbsp;<strong>밴사 취소 내역 파일</strong>&nbsp;&nbsp;',
+    buttonAlign: 'left',
+    height: '25px'
+});
+
+/* 검색 버튼  초기화*/
+$('#submit_btn2').linkbutton({
+	onClick : function(){
+		uploadSalesFile()
+	},
+	iconCls:'icon-ok'
+});
+
+/* 리셋 버튼  초기화*/
+$('#reset_btn2').linkbutton({
 	onClick : function(){
 		resetForm();
 	}
