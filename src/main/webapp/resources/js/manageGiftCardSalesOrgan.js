@@ -264,12 +264,12 @@ function initView(){
 		required:true,
 	});
 	
-	$('#saleOrganSaleFeeRate').numberbox({
+	$('#saleOrganSaleFeeRate').textbox({
 		label :roundLabel("판매 수수료"),
 		width: 600,
 		min : 0,
 		max : 1,
-		precision:2,
+		precision:7,
 		prompt: '상품권 판매 수수료 - 소숫점 입력'
 	});
 	

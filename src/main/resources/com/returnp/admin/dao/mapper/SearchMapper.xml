@@ -1783,7 +1783,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     sql_calc_found_rows
     <include refid="PaymentTransactionCommand_Column_List" />
     from payment_transaction as PA
-    inner join affiliate as AF on (PA.affiliateSerial= AF.affiliateSerial)
+    inner join affiliate as AF on (PA.affiliateNo= AF.affiliateNo)
     where 
     	1 = 1
     	<include refid = "PaymentTransactionCommand_Where"/>
