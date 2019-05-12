@@ -662,6 +662,7 @@ function issueGiftCardOrder(param){
 }
 
 function updateGiftCardOrder(param){
+	var order = $('#gift_card_order_list').datagrid('getSelected');
 	returnp.api.call("updateGiftCardOrder", param, function(res){
 		if (res.resultCode  == "100") {
 			$.messager.alert('알림', res.message);

@@ -299,6 +299,7 @@
 		$('#affiliateType').combobox({
 			label : roundLabel("협력업체 타입"),
 			multiple:true, 
+			editable : false,
 			panelHeight: 'auto',
 			 onSelect : function(record){
 				/* 오프라인 사업자인 경우 */

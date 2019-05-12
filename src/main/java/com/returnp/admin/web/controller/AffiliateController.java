@@ -368,8 +368,13 @@ public class AffiliateController extends ApplicationController {
 			AffiliateTid affiliateTid = new AffiliateTid();
 			affiliateTid.setAffiliateNo(affiliateNo);
 			this.queryService.deleteAffiliateTid(affiliateTid);
-		
-			this.setSuccessResponse(res, "협력업체 및 관련 정보 삭제 완료");
+			
+			/*회원 정보 업데이트 */
+			Member m = new Member();
+			m.setMemberNo(affiliate.getMemberNo());
+			m.setIsAffiliate("N");
+			this.memberService.updateByPrimaryKeySelective(m);
+			this.setSuccessResponse(res, "협력업체 및 연결 TID 삭제 및 회원 정보 업데이트 완료 ");
 			return res;
 		}catch(Exception e) {
 			e.printStackTrace();

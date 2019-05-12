@@ -29,8 +29,8 @@ public class AndroidPushServiceImpl implements AndroidPushService {
 	
 	@Override
 	public String pushGiftCard(DeviceInfo deviceInfo, GiftCardIssue giftCardIssue,  int myGiftCardNo) throws FirebaseMessagingException {
-		System.out.println("#######################################################");
-		System.out.println("AndroidPushServiceImpl.pushGiftCard");
+		//System.out.println("#######################################################");
+		//System.out.println("AndroidPushServiceImpl.pushGiftCard");
 		Message message = Message.builder()
 			.putData("title", "리턴포인트 상품권 도착")
 			.putData("pinNumber", giftCardIssue.getPinNumber())
@@ -42,8 +42,8 @@ public class AndroidPushServiceImpl implements AndroidPushService {
 			.setToken(deviceInfo.getPushKey())
 			.build();
 		String response = FirebaseMessaging.getInstance().send(message);
-		System.out.println("Push Return Value  : " + response);
-		System.out.println("#######################################################");
+		//System.out.println("Push Return Value  : " + response);
+		//System.out.println("#######################################################");
 		return response;
 	}
 }

@@ -306,8 +306,8 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 			atidCommand.setTid(afId);
 			
 			ArrayList<AffiliateTidCommand> atidList = this.pointBackMapper.selectAffilaiteTidCommands(atidCommand);
-			if (atidList == null || atidList.size() < 1) {	
-				ResponseUtil.setResponse(res, "10004", 
+			if (atidList == null || atidList.size() < 1) {
+				ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_OK, "10088", 
 						this.messageUtils.getMessage("pointback.message.invalide_tid", new Object[] {afId}));
 				throw new ReturnpException(res);
 			}
@@ -315,7 +315,13 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 			Affiliate affiliate = this.affiliateMapper.selectByPrimaryKey(atidList.get(0).getAffiliateNo());
 			if (affiliate == null) {
 				ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_OK, "10089", 
-						this.messageUtils.getMessage("pointback.message.not_argu_affiliate", new Object[] {afId}));
+						this.messageUtils.getMessage("pointback.message.not_connected_tid_affiliate"));
+				throw new ReturnpException(res);
+			}
+			
+			if (!affiliate.getAffiliateType().contains(AppConstants.AffiliateType.COMMON_AFFILIATE)) {
+				ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_OK, "619", 
+						this.messageUtils.getMessage("pointback.message.acc_ok_but_not_accable_affiliate"));
 				throw new ReturnpException(res);
 			}
 			return affiliate;
