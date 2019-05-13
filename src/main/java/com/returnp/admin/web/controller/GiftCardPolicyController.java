@@ -41,6 +41,7 @@ public class GiftCardPolicyController extends ApplicationController{
 	@RequestMapping(value = "/giftCardPolicy/update", method = RequestMethod.POST)
 	public ReturnpBaseResponse updateGiftCardPolicy( GiftCardPolicy giftCardPolicy){
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		giftCardPolicy.setSalesCommissionTarget(giftCardPolicy.getSalesCommissionTarget().trim());
 		this.giftCardPolicyMapper.updateByPrimaryKeySelective(giftCardPolicy);
 		ResponseUtil.setResponse(res, "100", "상품권 정책 업데이트를 완료했습니다");
 		return res;

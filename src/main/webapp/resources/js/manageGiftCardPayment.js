@@ -20,7 +20,6 @@
 			    {field:'updateTime',width:100,align:'center',title : '수정일', formatter : dateFormatter, hidden : true},
 			    ]];
 initView();
-
 /**
  * 뷰 초기화 
  * @returns

@@ -353,7 +353,7 @@
                             					<span style = "font-weight : bold">발행 상품권 결제 관리</span>
                             				</a> 
                             			</li>
-                            			<li class = "manage_menu roll_1 roll_10 roll_11 roll_12" id = "" data-options = "iconCls :'icon-info'">
+                            			<li class = "manage_menu roll_1 roll_10" id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 판매 정산</span>
                             				</a> 
