@@ -219,7 +219,7 @@ function initView(){
 		  	item = cmenu.menu('findItem', '결제상태');  
 		  	cmenu.menu('appendItem', {
 		  		parent: item.target,  // the parent item element
-		  		text:  row.paymentStatus == "1" ? roundLabel("입금 결제 확인중", "#04B404") : "입금 결제 확인중",
+		  		text:  row.paymentStatus == "1" ? roundLabel("입금 결제 확인중", "#04B404") : "결제 확인중",
 		  		iconCls: row.paymentStatus == "1" ? 'icon-ok' : "",
 		  		onclick: function(){
 		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "1"});
@@ -227,7 +227,7 @@ function initView(){
 		  	});
 			cmenu.menu('appendItem', {
 		  		parent: item.target,  // the parent item element
-		  		text:  row.paymentStatus == "2" ? roundLabel("입금 결제 확인 완료", "#04B404") : "입금 결제 확인 완료",
+		  		text:  row.paymentStatus == "2" ? roundLabel("입금 결제 확인 완료", "#04B404") : "결제 확인 완료",
 				 iconCls: row.paymentStatus == "2" ? 'icon-ok' : "",
 		  		onclick: function(){
 		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "2"});
@@ -235,7 +235,7 @@ function initView(){
 		  	});
 			cmenu.menu('appendItem', {
 		  		parent: item.target,  // the parent item element
-		  		text:  row.paymentStatus == "3" ? roundLabel("입금 결제 취소", "#04B404") : "입금 결제 취소",
+		  		text:  row.paymentStatus == "3" ? roundLabel("입금 결제 취소", "#04B404") : "결제 취소",
 		  		iconCls: row.paymentStatus == "3" ? 'icon-ok' : "",
 		  		onclick: function(){
 		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "3"});
@@ -243,7 +243,7 @@ function initView(){
 		  	});
 			cmenu.menu('appendItem', {
 		  		parent: item.target,  // the parent item element
-		  		text:  row.paymentStatus == "4" ? roundLabel("입금 결제 환불 처리중", "#04B404") : "입금 결제 환불 처리중",
+		  		text:  row.paymentStatus == "4" ? roundLabel("입금 결제 환불 처리중", "#04B404") : "결제 환불 처리중",
 		  		iconCls: row.paymentStatus == "4" ? 'icon-ok' : "",
 		  		onclick: function(){
 		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "4"});
@@ -251,7 +251,7 @@ function initView(){
 		  	});
 			cmenu.menu('appendItem', {
 		  		parent: item.target,  // the parent item element
-		  		text:  row.paymentStatus == "5" ? roundLabel("입금 결제 환불 완료", "#04B404") : "입금 결제 환불 완료",
+		  		text:  row.paymentStatus == "5" ? roundLabel("입금 결제 환불 완료", "#04B404") : "결제 환불 완료",
 		  		iconCls: row.paymentStatus == "5" ? 'icon-ok' : "",
 		  		onclick: function(){
 		  			updateGiftCardOrder({orderNo : selectedOrder.orderNo, paymentStatus : "5"});
@@ -521,7 +521,13 @@ function initView(){
 	});
 	setListPager();
 }
-
+function checkChange(order){
+	if (selectedOrder.paymentStatus == "2") {
+		return "선택하신 주문은 결제 완료 상태입니다.</br>다른 상태로 변경할 수 없습니다"
+	}else {
+		return null
+	}	
+}
 function setListPager(){
 	var pager = $('#gift_card_order_list').datagrid().datagrid('getPager');
 	pager.pagination({
