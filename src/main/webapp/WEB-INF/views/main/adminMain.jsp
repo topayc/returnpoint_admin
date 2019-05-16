@@ -194,6 +194,11 @@
 		                            </li> -->
 		                             <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
+		                            		<span style = "font-weight : bold; ">세부 매출 조회</span>
+		                            	</a> 
+		                            </li>
+		                             <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
 		                            		<span style = "font-weight : bold; ">결제 및 매출 관리</span>
 		                            	</a> 
 		                            </li>
@@ -203,13 +208,6 @@
 		                            		<span style = "font-weight : bold; ">중복 결제</span>
 		                            	</a> 
 		                            </li>
-		                            
-		                             
-		                          	 <li data-options = "iconCls :'icon-manage'">
-		                          		<a class= ""  view_req_name = "manageFileUpload" menu_deps= '2' >
-		                          			<span style = "font-weight : bold">세부 매출 조회</span>
-		                          		</a>
-		                          	</li>
 		                          	
 		                         <!--     <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
