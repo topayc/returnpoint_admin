@@ -83,7 +83,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 		 * 기본 결제 번호만으로는 중복이 될 수 있기 때문에 
 		 * 결제 번호에 TID 를 연결하여 TID 별 결제 번호를 생성
 		 *  */
-		dataMap.put("pan", (String)dataMap.get("af_id")+ "_" + (String)dataMap.getDateStr("pan")); 
+		dataMap.put("pan", (String)dataMap.get("af_id")+ "_" + (String)dataMap.getStr("pan")); 
 		
 		try {
 			switch(dataMap.getStr("acc_from").trim()){
@@ -134,7 +134,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 		 * 기본 결제 번호만으로는 중복이 될 수 있기 때문에 
 		 * 결제 번호에 TID 를 연결하여 TID 별 결제 번호를 생성
 		 *  */
-		dataMap.put("pan", (String)dataMap.get("af_id")+ "_" + (String)dataMap.getDateStr("pan"));
+		dataMap.put("pan", (String)dataMap.get("af_id")+ "_" + (String)dataMap.getStr("pan")); 
 		
 		try {
 			switch(dataMap.getStr("acc_from").trim()){
@@ -319,7 +319,8 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 				throw new ReturnpException(res);
 			}
 			
-			if (!affiliate.getAffiliateType().contains(AppConstants.AffiliateType.COMMON_AFFILIATE)) {
+			if (!affiliate.getAffiliateType().contains(AppConstants.AffiliateType.COMMON_AFFILIATE)  && 
+					!affiliate.getAffiliateType().contains(AppConstants.AffiliateType.ONLINE_AFFILIATE)) {
 				ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_OK, "619", 
 						this.messageUtils.getMessage("pointback.message.acc_ok_but_not_accable_affiliate"));
 				throw new ReturnpException(res);

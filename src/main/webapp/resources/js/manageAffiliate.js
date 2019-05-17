@@ -883,7 +883,7 @@ function openAddTidView(){
 	var node = $('#node_list').datagrid('getSelected');
 	$("#aff_type").html(affiliateTypeFormatter(null, {affiliateType : node.affiliateType}, null));
 	var types = node.affiliateType.split(",");
-	if (!types.hasValue("A001") && !types.hasValue("A003") && !types.hasValue("A003")){
+	if (!types.hasValue("A001") && !types.hasValue("A003") && !types.hasValue("A004")){
 		 $.messager.alert('알림','가맹점, 온라인, 무사업자만이 TID 를 등록할 수 있습니다. </br> 제휴점만 있는 경우는 등록할 수 없습니다');
 		 return;
 	}

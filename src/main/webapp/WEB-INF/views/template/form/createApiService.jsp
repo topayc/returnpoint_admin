@@ -87,7 +87,7 @@ function setViewInit(){
 	$('#tId').textbox({
 		label : roundLabel("T ID"),
 		prompt: 'T ID', 
-		editable : false,
+		/* editable : false, */
 /* 		buttonText:'발급',
 		onClickButton :
 			function(e){

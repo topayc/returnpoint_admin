@@ -454,6 +454,33 @@
 		                        </ul>
                             </li>   
                             
+                            <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">게시판 관리</span>
+		                         <ul>
+                          			  <li id = "manageNoticeBoard" data-options = "iconCls :'icon-info'">
+                          			  	<a class= "sub_menu"  view_req_name = "manageNoticeBoard" menu_deps= '2' >
+                          			  	<span style = "font-weight : bold">공지 사항</span>
+                          			  	</a> 
+                          			  </li>
+                            		  <li id = "manageCommonBoard" data-options = "iconCls :'icon-info'">
+                            		  	<a class= "sub_menu"  view_req_name = "manageCommonBoard" menu_deps= '2' >
+                            		  		<span style = "font-weight : bold">일반 문의 </span>
+                            		  	</a> 
+                            		  </li>
+                            		   <li id = "managePartnerBoard" data-options = "iconCls :'icon-info'">
+                            		  	<a class= "sub_menu"  view_req_name = "PartnerBo" menu_deps= '2' >
+                            		  		<span style = "font-weight : bold">제휴 문의 </span>
+                            		  	</a> 
+                            		  </li>
+                            		  
+                            		  <li id = "manageAdBoard" data-options = "iconCls :'icon-info'">
+                            		  	<a class= "sub_menu"  view_req_name = "PartnerBo" menu_deps= '2' >
+                            		  		<span style = "font-weight : bold">광고 문의 </span>
+                            		  	</a> 
+                            		  </li>
+		                        </ul>
+                            </li>  
+                            
                              <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">사이트 운영 관리</span>
 		                         <ul>
