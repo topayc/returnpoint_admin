@@ -579,8 +579,8 @@ function makeFormData(){
 function openGiftCardByMobilViiew(){
 	$('#send_gift_sms_view').dialog({
 	    title: '상품권 모바일 전송 ',
-	    width: 450,
-	    height: 160,
+	    width: 500,
+	    height: 250,
 	    closed: false,
 	    cache: false,
 	    modal: true,
@@ -693,10 +693,9 @@ function sendGiftCardByMobile(){
 			if (res.resultCode  == "100") {
 				$('#send_gift_sms_view').dialog("close");
 				$('#gift_card_issue_list').datagrid('unselectAll');
-				$.messager.alert('알림', res.message);
 				console.log(res);
+				res.message = "<span style = 'color : green; font-weight : bold'>" + res.message + "</span>"
 				var node = null;
-				selectedRows
 				var index = $('#gift_card_issue_list').datagrid('getRowIndex',node);
 				for (var k = 0; k < selectedRows.length ; k++){
 					for (var i = 0; i < res.rows.length ; i++){
@@ -711,8 +710,17 @@ function sendGiftCardByMobile(){
 					}
 				}
 			}else {
-				$.messager.alert('알림', res.message);
+				res.message = "<span style = 'color : red; font-weight : bold'>" + res.message + "</span>"
 			}
+			
+			$.messager.alert({
+				width : 400,
+				title: '상품권 전송 결과',
+				msg: "[RESULT CODE ] : " + res.resultCode + "</br>" + res.message,
+				fn: function(){
+					//...
+				}
+			});
 		}
 	)
 }

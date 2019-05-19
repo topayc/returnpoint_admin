@@ -57,7 +57,12 @@
 		<table id = "issue_overview" style ="width:100%;height : 100%;" > </table>
 		<!-- <table id = "order_item_list"  style ="width:100%;height : 50%; "></table> -->
 </div>
-<div id="send_gift_sms_view" style = "padding : 30px">
+<div id="send_gift_sms_view" style = "padding : 20px">
+   	<div>
+   		<span style = "font-weight : bold"> * 클릭시 '입력되지 않음'이 나올때 새로 고침 후 다시 시도</span></br>
+   		<span style = "font-weight : bold"> * 010 , +82, 82 등 관련 전화번호를 검색합니다. 전송 후 메시지창을 참고</span>
+   	</div>
+   	</br>
    	<select id = "receiverPhone1" style="width:20%" name = "receiverPhone1">
 		<option value="010">010</option>
 		<option value="011">011</option>

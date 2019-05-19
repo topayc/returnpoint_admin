@@ -13,6 +13,7 @@ import java.util.SplittableRandom;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sound.midi.Receiver;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -389,24 +390,94 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 		try {
 			Member m = new Member();
 			m.setMemberPhone(receiverPhone);
-			ArrayList<Member> memebrs = this.searchService.findMembers(m); 
-			if (memebrs.size() != 1) {
-				ResponseUtil.setResponse(res, "3502", "발송 번호의 회원이 존재하지 않습니다.</br>리턴 포인트 회원에게만 발송할 수 있습니다");
+			ArrayList<Member> members = this.searchService.findMembers(m); 
+			String tPhone1  = "+82" + receiverPhone.substring(1);
+			String tPhone2  = "82" +  receiverPhone.substring(1);
+			
+			String realDbPhoneNumber = null;
+			
+			if (members.size() < 1) {
+				m.setMemberPhone(tPhone1);
+				members = this.searchService.findMembers(m);
+				
+				if (members.size() < 1) {
+					m.setMemberPhone(tPhone2);
+					members = this.searchService.findMembers(m);
+					if (members.size() < 1) {
+						ResponseUtil.setResponse(
+							res, "3702", "요청 번호 " + receiverPhone + ", " + tPhone1 +", " +  tPhone2 + " 의 발송 번호의 회원이 존재하지 않습니다.</br>리턴 포인트 회원에게만 발송할 수 있습니다");
+						throw new ReturnpException(res);
+					}else if (members.size() > 1) {
+						ResponseUtil.setResponse(
+							res, "3704", "[요청 번호 " + receiverPhone + "] </br> " +tPhone2+ " 전화번호로 2개 이상의 회원이 등록되어 있습니다</br>관리자에게 문의 바랍니다.");
+						throw new ReturnpException(res);
+					}
+					realDbPhoneNumber = tPhone2;
+				}else if (members.size() > 1) {
+					ResponseUtil.setResponse(
+						res, "3726", "[요청 번호 " +receiverPhone + "]</br> "  + tPhone1+ " 전화번호가 2개 이상의 회원이 등록되어 있습니다</br>관리자에게 문의 바랍니다.");
+					throw new ReturnpException(res);
+				}else {
+					m.setMemberPhone(tPhone2);
+					if (this.searchService.findMembers(m).size()  > 0) {
+						ResponseUtil.setResponse(
+							res, "3789", "[요청 번호 " +receiverPhone + "]</br> "  + tPhone1+ " ," +  tPhone2+ " 가 동시에 등록되어 있습니다</br>관리자에게 문의 바랍니다.");
+						throw new ReturnpException(res);
+					}
+					realDbPhoneNumber = tPhone1;
+				}
+				
+			} else if (members.size() >  1) {
+				ResponseUtil.setResponse(
+					res, "3933", "요청 번호 " + receiverPhone + " 전화번호로 2명 이상의 회원이 등록되어 있습니다</br>관리자에게 문의 바랍니다.");
 				throw new ReturnpException(res);
+			}else {
+				/*
+				 * 010으로 시작하는 일치하는 번호가 1개라도, 
+				 * 82 , +82 로 시작하는 같은 번호가 존재하는 조회 존재할 경우 에러 처리 
+				 * */
+				
+				m.setMemberPhone(tPhone1);
+				if (this.searchService.findMembers(m).size()  > 0) {
+					ResponseUtil.setResponse(res, "3568", "요청 번호 " + receiverPhone + " 외에 "+tPhone1+ " 의 전화번호가 등록되어 있습니다.</br>관리자에게 문의 바랍니다.");
+					throw new ReturnpException(res);
+				}
+				
+				m.setMemberPhone(tPhone2);
+				if (this.searchService.findMembers(m).size()  > 0) {
+					ResponseUtil.setResponse(res, "3569", "요청 번호 " + receiverPhone + " 외에 "+tPhone2+ " 의 전화번호가 등록되어 있습니다.</br>관리자에게 문의 바랍니다.");
+					throw new ReturnpException(res);
+				}
+				
+				realDbPhoneNumber  = receiverPhone;
 			}
 			
+			/*
+			 * 디바이스 정보 확인
+			 * */
 			DeviceInfo deviceInfo = new DeviceInfo();
-			deviceInfo.setMemberNo(memebrs.get(0).getMemberNo());
+			deviceInfo.setMemberNo(members.get(0).getMemberNo());
 			ArrayList<DeviceInfo> deviceInfos = this.searchMapper.selectDeviceInfos(deviceInfo);
 			if (deviceInfos.size() != 1) {
-				ResponseUtil.setResponse(res, "3502", "해당 회원의 디바이스 정보가 존재하지 않습니다. </br> 리턴포인트 앱의 업데이트 혹은 앱내의 푸쉬 서비스를 활성화 해주세요");
+				ResponseUtil.setResponse(res, 
+					"3502", 
+					"해당 회원의 디바이스 정보가 존재하지 않습니다. </br> 다음과 같은 방법으로 진행하세요<br>"+ 
+					"1. 리턴포인트 앱을 새로 받은 후라면 로그아웃 후 재 로그인  </br>" + 
+					"2. 재 로그인 한 후 푸쉬 알림 설정을 ON 으로 변경</br>"+ 
+					"3. 업데이트 받지 않은 앱이라면 앱 업데이트</br"+
+					"위 방법으로 안될 경우 관리자에게 문의해주세요"
+				);
 				throw new ReturnpException(res);
 			}
 			
+			/*
+			 * 푸시 알림 설정 확인
+			 * */
 			MemberConfig memberConfig = new MemberConfig();
-			memberConfig.setMemberNo(memebrs.get(0).getMemberNo());
+			memberConfig.setMemberNo(members.get(0).getMemberNo());
 			ArrayList<MemberConfig> memberConfigs = this.searchService.selectMemberConfigs(memberConfig);
 			
+			/*푸쉬 알림 설정이 존재하지 않는 다면, 기본 OFF 로 인서트*/ 
 			if (memberConfigs.size()< 1) {
 				memberConfig.setDevicePush("N");
 				memberConfig.setEmailReceive("N");
@@ -439,12 +510,12 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 				sendGifts = this.searchService.selectGiftCardIssueCommands(giftCardCommand);
 				
 				if (sendGifts.size() == 1) {
-					sendGifts.get(0).setReceiverPhone(receiverPhone);
+					sendGifts.get(0).setReceiverPhone(realDbPhoneNumber);
 					sendGifts.get(0).setDeliveryStatus("6");
-					sendGifts.get(0).setReceiverPhone(receiverPhone);
+					sendGifts.get(0).setReceiverPhone(realDbPhoneNumber);
 					
 					memberCommand = new MemberCommand();
-					memberCommand.setMemberPhone(receiverPhone);
+					memberCommand.setMemberPhone(realDbPhoneNumber);
 					memberCommands = this.searchService.findMemberCommands(memberCommand);
 				
 					if (memberCommands.size() == 1) {
@@ -474,7 +545,7 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 					returnList.add(sendGifts.get(0));
 					
 				
-					/* 선택한 상품권 푸쉬 발송*/
+					/* 선택한 상품권 푸시 발송*/
 					if (deviceInfo.getOs().equalsIgnoreCase("android")) {
 						pushReturn = androidPushService.pushGiftCard(deviceInfo, sendGifts.get(0), myGiftCardCommand.getMyGiftCardNo());
 					}else  if (deviceInfo.getOs().equalsIgnoreCase("apple")) {
@@ -482,14 +553,14 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 					}
 					
 					if (pushReturn == null) {
-						ResponseUtil.setResponse(res, "3512", receiverPhone + " 으로 상품권 발송을 실패했습니다.");
+						ResponseUtil.setResponse(res, "3512",  receiverPhone + " 으로 상품권 발송 실패");
 						throw new ReturnpException(res);
 					}
 				}
 			}
 			
 			res.setRows(returnList);
-			ResponseUtil.setSuccessResponse(res, "100" , "상품권 모바일 전송 완료");
+			ResponseUtil.setSuccessResponse(res, "100" , receiverPhone + " 으로 상품권 모바일 전송 성공");
 			return res;
 			
 		}catch(ReturnpException e) {
