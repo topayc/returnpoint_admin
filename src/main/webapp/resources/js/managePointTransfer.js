@@ -32,8 +32,16 @@ function initView(){
 	/* 폼 초기화*/
 	$('#searchForm').form();
 	
-	/* 검색어 입력 박스 초기화 */
-	$('#searchKeyword').textbox({ prompt : "검색할 단어를 입력해주세요" });
+    /* 검색어 입력 박스 초기화 */	
+    $('#searchKeyword').textbox({ 
+        prompt : "검색할 단어를 입력해주세요" ,
+        inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
+            keyup:function(e){
+                if(e.keyCode==13)
+                    realodPage();
+            }
+        })
+    });
 	
 	/* 노드 타입 셀렉트 박스  초기화*/
 	$('#searchPointTransferType').combobox({
@@ -88,8 +96,8 @@ function initView(){
 				console.log(res);
 				if (res.resultCode == "100") {
 					$('#node_list').datagrid({
-						data : res.rows,
-						title : '[검색 결과] ' + res.rows.length + " 개의 결과가 검색되었습니다",
+						data : res,
+						title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
 					});
 					setListPager();
 				}else {
@@ -179,24 +187,35 @@ function setListPager(){
             handler:function(){
             	$('#node_list').datagrid('unselectAll');
             	$('#node_list').datagrid('uncheckAll');
-                loadPointTransferCreateForm();
+            	loadMemberCreateForm();
             }
-        }/*,{
+        },{
             iconCls:'icon-edit',
             handler:function(){
-                  loadPointTransferModifyForm();
+            	loadMemberUpdateForm();
             }
         },{
             iconCls:'icon-remove',
             handler:function(){
-            	removePointTransfer();
+            	removeMember();
             }
         },{
-            iconCls:'icon-tip',
+            iconCls:'icon-more',
             handler:function(){
+            	var node = $('#node_list').datagrid('getSelected');
+            	if (!node) {
+            		 $.messager.alert('알림','자세히 보실 항목을  선택해주세요');
+            		 return;
+            	}
             }
-        }*/],
+        }],
         layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
+        onSelectPage:function(page,rows){        	
+        	var opts = $('#node_list').datagrid('options');
+        	opts.pageSize=rows;
+        	opts.pageNumber = page;
+        	realodPage();
+    	}
     }); 
 }
 
@@ -215,6 +234,17 @@ function makeSearchParam(){
 		searchPointTransferType :  $('input[name=searchPointTransferType]').val(),
 		searchKeyword :  $('input[name=searchKeyword]').val()
 	};
+	
+	var opts = $('#node_list').datagrid('options');
+	var total = $('#node_list').datagrid('getData').total;
+	
+	$.extend(param, {
+		pagination : opts.pagination,
+		pageSize : opts.pageSize,
+		page : opts.pageNumber,
+		total : total,
+		offset : (opts.pageNumber-1) * opts.pageSize
+	});
 	//console.log(JSON.stringify(param));
 	return param;
 }

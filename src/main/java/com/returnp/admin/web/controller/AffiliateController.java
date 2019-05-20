@@ -175,7 +175,7 @@ public class AffiliateController extends ApplicationController {
 		
 		Affiliate cond = new Affiliate();
 		cond.setMemberNo(affiliate.getMemberNo());
-		cond.setAffiliateEmail(affiliate.getAffiliateEmail());
+		//cond.setAffiliateEmail(affiliate.getAffiliateEmail());
 		
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		if (this.searchService.findAffiliates(cond).size() > 0) {

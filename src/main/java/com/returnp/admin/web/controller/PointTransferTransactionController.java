@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.zxing.common.StringUtils;
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.dto.command.PointTransferTransactionCommand;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
@@ -60,11 +62,20 @@ public class PointTransferTransactionController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointTransferTransactions/find", method = RequestMethod.GET)
-	public ReturnpBaseResponse  findPointTransferTransactions( PointTransferTransactionCommand commnd) {
+	public ReturnpBaseResponse  findPointTransferTransactions( 
+			@RequestParam(value = "searchKeyword", required = false)  String searchKeyword,
+			@ModelAttribute PointTransferTransactionCommand commnd 
+			) {
+		if (!org.apache.commons.lang3.StringUtils.isBlank(searchKeyword)) {
+			commnd.setPointTransfererName(searchKeyword);
+			commnd.setPointReceiverName(searchKeyword);
+		}
+		System.out.println(">> findPointTransferTransactions");
+		System.out.println(commnd.getPointTransfererName());
 		ArrayList<PointTransferTransactionCommand> list = this.searchService.findPointTransferTransactionCommands(commnd);
 		ArrayListResponse<PointTransferTransactionCommand> res = new ArrayListResponse<PointTransferTransactionCommand>();
 		res.setRows(list);
-		res.setTotal(list.size());
+		res.setTotal(this.searchService.selectTotalRecords());
 		this.setSuccessResponse(res);
 		return res;
 	}

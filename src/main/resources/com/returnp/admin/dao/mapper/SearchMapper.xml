@@ -2527,14 +2527,20 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
  	<if test="pointReceiver != null "> AND pointReceiver = #{pointReceiver} </if>
 	<if test="pointNode  != null "> AND pointNode= #{pointNode} </if>
 	<if test="pointTransferStatus  != null "> AND pointTransferStatus= #{pointTransferStatus} </if>
-	<if test="pointTransfererName  != null "> AND pointTransfererName= #{pointTransfererName} </if>
 	<if test="pointTransfererEmail  != null "> AND pointTransfererEmail= #{pointTransfererEmail} </if>
-	<if test="pointReceiverName  != null "> AND pointReceiverName= #{pointReceiverName} </if>
 	<if test="pointTransferType  != null"> AND pointTransferType= #{pointTransferType} </if>
+	
+	<if test="pointTransfererName != null or pointReceiverName != null ">AND ( 1 = 2 </if>
+     <if test="pointTransfererName != null">OR M.memberName  LIKE CONCAT('%',#{pointTransfererName},'%') </if>
+     <if test="pointReceiverName != null">OR M2.memberName  LIKE CONCAT('%',#{pointReceiverName},'%' ) </if>
+      <if test="pointTransfererName != null or pointReceiverName != null">
+      	)
+      </if>
 	</sql>
 	
  <select id="findPointTransferTransactionCommands" parameterType="com.returnp.admin.dto.command.PointTransferTransactionCommand"  resultMap="PointTransferTransactionCommand_ResultMap" >
     select 
+    	sql_calc_found_rows 
     	<include refid="PointTransferTransactionCommand_Column_List" />
     from point_transfer_transaction as PTT 
     inner join member as M  on (PTT.pointTransferer = M.memberNo)
@@ -2542,6 +2548,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     where 
     	1 = 1
     	<include refid = "PointTransferTransactionCommand_WhereStatement"/>
+    	<include refid = "commonStatement"/>
   </select>
   
     <!-- ===============================================================================================================    -->
