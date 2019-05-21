@@ -844,6 +844,8 @@ function pointTransferNodeType(value, row, index) {
 	case "7":
 		text = "총판";
 		break;
+		default : 
+			text = "-";
 	}
 	return text;
 }

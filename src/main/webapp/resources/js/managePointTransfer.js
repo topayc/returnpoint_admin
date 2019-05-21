@@ -1,19 +1,19 @@
 	columns = [[
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-			    {field:'pointTransferTransactionNo',width:100,align:'center',title : '이체 번호',hidden:false},
+			    {field:'pointTransferTransactionNo',width:70,align:'center',title : '이체 번호',hidden:false},
 			    {field:'pointTransferer',width:100,align:'center',title : '송금자 No',hidden:true},
+			    {field:'pointTransfererEmail',width:150,align:'center',title : '송금자 이메일 '},
 			    {field:'pointTransfererName',width:100,align:'center',title : '송금자'},
-			    {field:'pointTransfererEmail',width:100,align:'center',title : '송금자 이메일 '},
 			    {field:'pointReceiver',width:100,align:'center',title : '수취인 No',hidden:true},
-			    {field:'pointTransferAmount',width:100,align:'center',title : '송금 포인트',formatter : numberBlueFormatter},
-			    {field:'pointNode',width:100,align:'center',title : '포인트 노드', formatter : pointTransferNodeType},
-			    {field:'pointType',width:100,align:'center',title : '포인트 타입', formatter : pointTypeFormatter},
-			    {field:'pointTransferType',width:100,align:'center',title : '송금 유형', formatter : pointTransferType},
-			    {field:'pointTransferStatus',width:100,align:'center',title : '송금 상태', formatter : pointTransferStatus},
 			    {field:'pointReceiverName',width:100,align:'center',title : '수취인'},
-			    {field:'createTime',width:100,align:'center',title : '송금일',formatter : dateFormatter},
-			    {field:'updateTime',width:100,align:'center',title : '수정일',formatter : dateFormatter,hidden:true}
+			    {field:'pointType',width:80,align:'center',title : '송금 포인트 타입', formatter : pointTypeFormatter},
+			    {field:'pointNode',width:80,align:'center',title : '송금 포인트 노드', formatter : pointTransferNodeType},
+			    {field:'pointTransferAmount',width:100,align:'center',title : '송금 포인트',formatter : numberBlueFormatter},
+			    {field:'pointTransferType',width:70,align:'center',title : '송금 유형', formatter : pointTransferType},
+			    {field:'pointTransferStatus',width:100,align:'center',title : '처리 상태', formatter : pointTransferStatus},
+			    {field:'createTime',width:130,align:'center',title : '송금일',formatter : dateFormatter},
+			    {field:'updateTime',width:130,align:'center',title : '수정일',formatter : dateFormatter}
 
 			    ]];
 initView();
@@ -182,7 +182,7 @@ function setListPager(){
 	var pager = $('#node_list').datagrid().datagrid('getPager');
 	pager.pagination({
 		displayMsg : ' {from} to {to} of {total}',
-		buttons:[{
+		buttons:[/*{
             iconCls:'icon-add',
             handler:function(){
             	$('#node_list').datagrid('unselectAll');
@@ -208,7 +208,7 @@ function setListPager(){
             		 return;
             	}
             }
-        }],
+        }*/],
         layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
         onSelectPage:function(page,rows){        	
         	var opts = $('#node_list').datagrid('options');

@@ -462,6 +462,11 @@
                           			  	<span style = "font-weight : bold">공지 사항</span>
                           			  	</a> 
                           			  </li>
+                          			   <li id = "manageNoticeBoard" data-options = "iconCls :'icon-info'">
+                          			  	<a class= "sub_menu"  view_req_name = "manageNoticeBoard" menu_deps= '2' >
+                          			  	<span style = "font-weight : bold">FAQ</span>
+                          			  	</a> 
+                          			  </li>
                             		  <li id = "manageCommonBoard" data-options = "iconCls :'icon-info'">
                             		  	<a class= "sub_menu"  view_req_name = "manageCommonBoard" menu_deps= '2' >
                             		  		<span style = "font-weight : bold">일반 문의 </span>
