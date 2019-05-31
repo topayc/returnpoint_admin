@@ -3,8 +3,7 @@ package com.returnp.admin.dto;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import org.apache.poi.util.SystemOutLogger;
+import java.util.Date;
 
 public class QueryCondition{
 	

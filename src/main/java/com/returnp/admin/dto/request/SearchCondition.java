@@ -177,6 +177,7 @@ public class SearchCondition extends QueryCondition {
 	public void setSearchNodeType(String searchNodeType) {
 		this.searchNodeType = searchNodeType;
 	}
+	
 	public String getSearchDateStart() {
 		return searchDateStart;
 	}

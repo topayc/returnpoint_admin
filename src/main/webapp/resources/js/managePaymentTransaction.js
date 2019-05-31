@@ -40,6 +40,7 @@ function initView(){
 	
 	/* 검색어 입력 박스 초기화 */
 	$('#searchKeyword').textbox({ 
+		width: 200,
 		prompt : "검색할 단어를 입력해주세요" ,
 		inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
 			keyup:function(e){
@@ -58,6 +59,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
+		width: 120
 	});
 
 	$('#searchPaymentTransactionType').combobox({
@@ -68,20 +70,25 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
+		width: 150
 	});
 
 	/* 검색 시작일 갤린더 박스  초기화*/
 	$('#searchDateStart').datetimebox({
 		 prompt : "검색 시작 일자",
-	    showSeconds: false,
+	    showSeconds: true,
 	    labelPosition: 'top',
+	    width: 150,
+	    formatter :  searchDateFomatter
 	});
 	
 	/* 검색 종료일 갤린더 박스  초기화*/
 	$('#searchDateEnd').datetimebox({
 		 prompt : "검색 종료 일자",
-		showSeconds: false,
+		showSeconds: true,
 	    labelPosition: 'top',
+	    width: 150,
+	    formatter :  searchDateFomatter
 	});
 	
 	/* 검색 버튼  초기화*/
@@ -102,6 +109,7 @@ function initView(){
 				}
 			});
 		},
+		width : 70,
 		iconCls:'icon-search'
 	});
 	
@@ -115,7 +123,8 @@ function initView(){
 			$('#searchKeyword').textbox('clear');
 			$('#searchDateStart').datetimebox('clear');
 			$('#searchDateEnd').datetimebox('clear');
-		}
+		},
+		width : 70
 	});
 	
 	

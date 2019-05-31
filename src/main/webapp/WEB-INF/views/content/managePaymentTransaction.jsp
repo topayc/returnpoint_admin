@@ -5,26 +5,26 @@
 		<table id = "node_list" style ="width:100%;height:100%">
 		</table> 
 	</div>
-	<div  data-options="region:'north',split:true"  id = "member_search"  style ="height:150px" title ="회원 검색" >
+	<div  data-options="region:'north',split:true"  id = "member_search"  style ="height:110px" title ="회원 검색" >
 		 <div class="easyui-panel" title="" style="width:100%;padding:10px 15px;">
 	        <form id="searchForm" method="post">
-	            <div style="margin-bottom:10px;margin-left : 10px;width:200px;display:inline-block">
+	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block">
 	                <input  id = "searchDateStart" name="searchDateStart" label="검색 시작일" style="width:100%"/>
 	            </div>
 	            
-	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">
+	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <input id = "searchDateEnd"  name="searchDateEnd" label="검색 종료일" style="width:100%"/>
 	            </div>
-	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">
+	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <select id = "searchPaymentTransactionType" class="easyui-combobox" name="searchPaymentTransactionType" label="결제 타입" style="width:100%">
 	                	 <option value = "0">전체</option>
-	                	<c:forEach var="paymentTransactionType" items="${paymentTransactionTypeList}" varStatus="status">
+	                	<c:forEach var="paymentTransactionType" items="${paymentTransactionTypeList}" varStatus="status">	
 						   <option value="${paymentTransactionType.key}"  >${paymentTransactionType.value}</option>
 						</c:forEach>
 	                </select>	
 	            </div>
 	            
-	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">
+	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <select id = "searchPaymentApprovalStatus" class="easyui-combobox" name="searchPaymentApprovalStatus" label="결제 승인 상태" style="width:100%">
 	                	 <option value = "0">전체</option>
 	                	<c:forEach var="paymentApprovalStatus" items="${paymentApprovalStatusList}" varStatus="status">
@@ -51,7 +51,7 @@
 	                </select>
 	            </div> --%>
 	            
-	            <div style="margin-bottom:10px;margin-left:7px;width:630px;display:inline-block;">
+	            <div style="margin-bottom:10px;margin-left:7px;;display:inline-block;">
 	                <input class="easyui-textbox"  id ="searchKeyword" name="searchKeyword"  style="width:100%">
 	            </div>
 	            

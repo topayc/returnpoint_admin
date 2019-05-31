@@ -1731,7 +1731,6 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="affiliateSerial != null"> AND affiliateSerial = #{affiliateSerial,jdbcType=VARCHAR} </if>
       <if test="paymentApprovalDateTime != null"> AND paymentApprovalDateTime = #{paymentApprovalDateTime,jdbcType=TIMESTAMP} </if>
       <if test="regAdminNo != null"> AND regAdminNo = #{regAdminNo,jdbcType=INTEGER} </if>
-       
        <if test="memberName != null or memberEmail != null  or memberPhone != null ">
       	AND ( 1 = 2 
       </if>
@@ -1755,7 +1754,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="affiliateSerial != null"> AND PA.affiliateSerial = #{affiliateSerial,jdbcType=VARCHAR} </if>
       <if test="paymentApprovalDateTime != null"> AND PA.paymentApprovalDateTime = #{paymentApprovalDateTime,jdbcType=TIMESTAMP} </if>
       <if test="regAdminNo != null"> AND PA.regAdminNo = #{regAdminNo,jdbcType=INTEGER} </if>
-       
+         
        <if test="memberName != null or memberEmail != null  or memberPhone != null || affiliateName != null">
       	AND ( 1 = 2 
       </if>
