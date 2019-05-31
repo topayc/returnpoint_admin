@@ -14,10 +14,12 @@ $('#listSearchKeyword').searchbox({
 	height : 30,
 	iconAlign : 'left',
 	searcher: function(){
-		var keyword = $(this).searchbox("getValue");
-		if (keyword.length == 0 || keyword == '') {
-			$.messager.alert('알림', '1자 이상의 검색어를 입력해주세요');
-			return;
+		if (canNodeListSearchBlank == false) {
+			var keyword = $(this).searchbox("getValue");
+			if (keyword.length == 0 || keyword == '') {
+				$.messager.alert('알림', '1자 이상의 검색어를 입력해주세요');
+				return;
+			}
 		}
 		
 		var param = {

@@ -626,6 +626,7 @@
 		<img src="resources/images/progress_loading.gif"/>
 	</div>
 	<script>
+	    var canNodeListSearchBlank = false;
 		var loginType = '${adminType}'
 		var menuCss = ".roll_${adminType}";
 		var organType =  "${organType}";

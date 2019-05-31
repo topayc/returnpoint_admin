@@ -1153,56 +1153,50 @@ function loadNodeListView(data, callback) {
 	var queryParam = $.param(data.queryOptions);
 	// console.log("/handleNodeListView?" + queryParam);
 
-	$(data.targetElem)
-			.load(
-					"/springSecurity/handleNodeListView?" + queryParam,
-					function(response, status, xhr) {
-						console.log(status);
-
-						$(data.targetElem)
-								.dialog(
-										{
-											width : data.queryOptions['width'] ? data.queryOptions['width']
-													: '55%',
-											height : 650,
-											modal : true,
-											/* cls:'c6', */
-											/* inline:true, */
-											collapsible : false,
-											closable : true,
-											minimizable : false,
-											maximizable : false,
-											title : "&nbsp; " + data.title,
-											shadow : false,
-											buttons : [
-													{
-														text : '확인',
-														iconCls : 'icon-ok',
-														handler : function() {
-															var node = $( '#search_result') .datagrid( 'getSelected');
-															if (!node) {
-																$.messager .alert( '알림', '선택이 필요합니다');
-																return;
-															}
-
-															if (callback
-																	&& typeof callback === "function") {
-																callback(node);
-															}
-															$(data.targetElem)
-																	.dialog( 'close');
-														}
-													},
-													{
-														text : '취소',
-														handler : function() {
-															$(data.targetElem)
-																	.dialog( 'close');
-														}
-													} ]
-										});
-
-					});
+	$(data.targetElem).load( 
+		"/springSecurity/handleNodeListView?" + queryParam,
+		function(response, status, xhr) {
+			console.log(status);
+			
+			$(data.targetElem).dialog({
+				width : data.queryOptions['width'] ? data.queryOptions['width']: '55%',
+				height : 650,
+				modal : true,
+				/* cls:'c6', */
+				/* inline:true, */
+				collapsible : false,
+				closable : false,
+				minimizable : false,
+				maximizable : false,
+				title : "&nbsp; " + data.title,
+				shadow : false,
+				buttons : [
+					{
+						text : '확인',
+						iconCls : 'icon-ok',
+						handler : function() {
+							var node = $( '#search_result') .datagrid( 'getSelected');
+							if (!node) {
+								$.messager .alert( '알림', '선택이 필요합니다');
+								return;
+							}
+	
+							if (callback && typeof callback === "function") {
+								callback(node);
+							}
+							$(data.targetElem).dialog( 'close');
+							canNodeListSearchBlank = false;
+						}
+					},
+					{
+						text : '취소',
+						handler : function() {
+							$(data.targetElem).dialog( 'close');
+							canNodeListSearchBlank = false;
+						}
+					} ]
+			});
+		});
 }
 
 function loadCommonListView(data, callback) {

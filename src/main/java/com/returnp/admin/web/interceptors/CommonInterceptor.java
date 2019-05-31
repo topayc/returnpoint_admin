@@ -49,14 +49,14 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 	    	
 	    	HttpSession session = request.getSession();
 	    	
-	    	logger.debug("------------------------------------- [WEB]Access info ---------------------------------------");
-	    	logger.debug("Secure Mode ("+request.getScheme()+") : " + (request.isSecure()? "Secure Mode" : "Nomal Mode"));
-	    	logger.debug("GET/POST : " + request.getMethod());	  
-	        logger.debug("RequestUrl : " + request.getRequestURL());	       
-	        logger.debug("Referer : " + request.getHeader("REFERER"));	       
-	        logger.debug("QueryString : " + request.getQueryString());
-	        logger.debug("Parameter Size : " + request.getParameterMap().size());
-	        logger.debug("----------------------------------------------------------------------------------------");
+	    	logger.info("------------------------------------- [WEB]Access info ---------------------------------------");
+	    	logger.info("Secure Mode ("+request.getScheme()+") : " + (request.isSecure()? "Secure Mode" : "Nomal Mode"));
+	    	logger.info("GET/POST : " + request.getMethod());	  
+	        logger.info("RequestUrl : " + request.getRequestURL());	       
+	        logger.info("Referer : " + request.getHeader("REFERER"));	       
+	        logger.info("QueryString : " + request.getQueryString());
+	        logger.info("Parameter Size : " + request.getParameterMap().size());
+	        logger.info("----------------------------------------------------------------------------------------");
 	        
 	        boolean showLine = false;
 	        

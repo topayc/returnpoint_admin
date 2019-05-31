@@ -74,6 +74,7 @@ public class AdminController extends ApplicationController{
 		session.setAttribute("adminType", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAdminType());
 		session.setAttribute("adminTypeStr", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAdminTypeStr());
 		session.setAttribute("loginName", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getLoginName());
+		
 		if (!((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAdminType().equals(AppConstants.AdminType.SUPER)){
 			session.setAttribute("organCode",((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getSaleOrgan().getOrganCode());
 			session.setAttribute("organType",((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getSaleOrgan().getOrganType());

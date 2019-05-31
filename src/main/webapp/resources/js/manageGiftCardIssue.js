@@ -43,10 +43,12 @@ $(document).ready(function(){
 		icons : [{
 	        iconCls:'icon-search',
 	        handler: function(e){
-	            var issuerType =  $("#giftCardOrderType").combobox("getValue");
+	            if (organType == '11' || organType == '12') return;
+	        	var issuerType =  $("#giftCardOrderType").combobox("getValue");
 	            var issuerTypeName =  $("#giftCardOrderType").combobox("getText");
 	        	var v = $(e.data.target).textbox('getValue');
-	            loadNodeListView({
+	        	canNodeListSearchBlank = true;
+	        	loadNodeListView({
 	                targetElem : "#dlgForm2",
 	                title : "상품권 " + issuerTypeName + " 검색",
 	                queryOptions : {
@@ -90,7 +92,21 @@ $(document).ready(function(){
 		//height : 25
 	});
 
-	
+	if (organType != '10' && organType != '1') {
+		$('#giftCardOrderType').combobox('setValue',organType )
+		$('#giftCardOrderType').combobox('readonly', true);
+		
+		returnp.api.call("selectGiftCardSalesOrgan", {organCode : organCode}, function(res){
+			console.log(res);
+			if (res.resultCode  == "100") {
+				$("#giftCardSalesOrganNo").val(res.data.giftCardSalesOrganNo);
+                $("#giftCardSalesOrganName").textbox('setValue', res.data.organName);
+                $("#giftCardSalesOrganCode").textbox('setValue', res.data.organCode);;
+			}else {
+				$.messager.alert('오류 발생', res.message);
+			}
+		});
+	}
 	
 	$('#giftCardNo').combobox({
 		label : roundLabel("발행 상품권"),
