@@ -160,7 +160,7 @@ public class PaymentTransactionController extends ApplicationController {
 			vCond.setAffiliateName(searchCondition.getSearchKeyword());
 		}
 		vCond.valueOf(searchCondition);
-		
+		vCond.setOrder("PA.paymentApprovalDateTime desc");
 		
 		ArrayListResponse<PaymentTransactionCommand> res = new ArrayListResponse<PaymentTransactionCommand>();
 		ArrayList<PaymentTransactionCommand> list = this.searchService.findPaymentTransactionCommands(vCond);
