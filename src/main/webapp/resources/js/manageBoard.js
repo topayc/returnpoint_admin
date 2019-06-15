@@ -3,13 +3,13 @@ columns = [[
 	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 	   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 	    {field:'boardNo',width:50,align:'center',title : '번호', hidden : true},
-	    {field:'boardType',width:60,align:'center',title : '게시물 타입', hidden : true},
+	    {field:'boardType',width:50,align:'center',title : '게시물 타입', hidden : true},
 	    {field:'boardName',width:70,align:'center',title : '게시 타입'},
 	    {field:'boardCate',width:70,align:'center',title : '분류' , formatter : categoryFomatter},
-	    {field:'boardTitle',width:280,align:'left',title : '제목', formatter : boardLevelTitleFormatter},
+	    {field:'boardTitle',width:150,align:'left',title : '제목', formatter : boardLevelTitleFormatter},
 	    {field:'boardContent',width:200,align:'left',title : '내용', hidden : true},
-	    {field:'boardWriterName',width:60,align:'center',title : '등록자'},
-	    {field:'boardWriterEmail',width:80,align:'center',title : '등록자 이메일'},
+	    {field:'boardWriterName',width:100,align:'center',title : '등록자'},
+	    {field:'boardWriterEmail',width:100,align:'center',title : '등록자 이메일'},
 	    {field:'boardWriterNo',width:80,align:'center',title : '작성자 No', hidden : true},
 	    {field:'boardWriterType',width:60,align:'center',title : '등록 분류'},
 	    {field:'isPublic',width:50,align:'center',title : '공개 여부'},
@@ -18,7 +18,7 @@ columns = [[
 	    {field:'boardRef',width:50,align:'center',title : 'ref' ,hidden : true },
 	    {field:'boardLevel',width:50,align:'center',title : 'level',hidden : true},
 	    {field:'createTime',width:90,align:'center',title : '등록일',formatter : dateFormatter},
-	    {field:'updateTime',width:90,align:'center',title : '수정일',formatter : dateFormatter}
+	    {field:'updateTime',width:90,align:'center',title : '수정일',formatter : dateFormatter, hidden : true}
 	 ]];
 initView();
 
