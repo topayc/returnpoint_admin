@@ -178,6 +178,8 @@ public class SearchCondition extends QueryCondition {
 		this.searchNodeType = searchNodeType;
 	}
 	
+	
+
 	public String getSearchDateStart() {
 		return searchDateStart;
 	}

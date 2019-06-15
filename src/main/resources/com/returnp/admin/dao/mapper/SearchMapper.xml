@@ -1673,9 +1673,15 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="affiliateNo" jdbcType="INTEGER" property="affiliateNo" />
     <result column="affiliateSerial" jdbcType="VARCHAR" property="affiliateSerial" />
     <result column="affiliateName" jdbcType="VARCHAR" property="affiliateName" />
+    
+    <result column="paymentTransactionRouterNo" jdbcType="INTEGER" property="paymentTransactionRouterNo" />
+    <result column="paymentTransactionRouterType" jdbcType="VARCHAR" property="paymentTransactionRouterType" />
+    <result column="paymentTransactionRouterName" jdbcType="VARCHAR" property="paymentTransactionRouterName" />
+
     <result column="paymentApprovalAmount" jdbcType="INTEGER" property="paymentApprovalAmount" />
     <result column="paymentApprovalNumber" jdbcType="VARCHAR" property="paymentApprovalNumber" />
     <result column="paymentApprovalStatus" jdbcType="CHAR" property="paymentApprovalStatus" />
+    
     <result column="pointBackStatus" jdbcType="VARCHAR" property="pointBackStatus" />
     <result column="paymentTransactionType" jdbcType="VARCHAR" property="paymentTransactionType" />
     <result column="paymentApprovalDateTime" jdbcType="TIMESTAMP" property="paymentApprovalDateTime" />
@@ -1715,7 +1721,10 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     PA.orgPaymentData, 
     PA.regAdminNo, 
     PA.createTime, 
-    PA.updateTime
+    PA.updateTime,
+    PAR.paymentTransactionRouterNo,
+    PAR.paymentTransactionRouterType,
+    PAR.paymentTransactionRouterName
   </sql>
   
   
@@ -1783,6 +1792,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <include refid="PaymentTransactionCommand_Column_List" />
     from payment_transaction as PA
     inner join affiliate as AF on (PA.affiliateNo= AF.affiliateNo)
+    left outer join payment_transaction_router as PAR on (PA.paymentTransactionNo = PAR.paymentTransactionNo)
     where 
     	1 = 1
     	<include refid = "PaymentTransactionCommand_Where"/>

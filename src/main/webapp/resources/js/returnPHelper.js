@@ -730,6 +730,35 @@ function paymentTransactionRegistFormatter(value, row, index) {
 	return text;
 }
 
+function paymentTransactionRouterTypeFormatter(value, row, index) {
+	if (row.paymentTransactionType == "3") {
+		return "-";
+	}
+	var status = row.paymentTransactionRouterType;
+	var result = null;
+
+	if (status == null || status == "") {
+		result = "VAN";
+	}else {
+		result = status;
+	}
+	return result;
+}
+
+function paymentTransactionRouterNameFormatter(value, row, index) {
+	if (row.paymentTransactionType == "3") {
+		return "-";
+	}
+	var status = row.paymentTransactionRouterName;
+	var result = null;
+	if (status == null || status == "") {
+		result = "KICC";
+	}else {
+		result = status;
+	}
+	return result;
+}
+
 function PaymentApprovalStatusFormatter(value, row, index) {
 	var status = row.paymentApprovalStatus;
 	var text;
