@@ -1674,10 +1674,6 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="affiliateSerial" jdbcType="VARCHAR" property="affiliateSerial" />
     <result column="affiliateName" jdbcType="VARCHAR" property="affiliateName" />
     
-    <result column="paymentTransactionRouterNo" jdbcType="INTEGER" property="paymentTransactionRouterNo" />
-    <result column="paymentTransactionRouterType" jdbcType="VARCHAR" property="paymentTransactionRouterType" />
-    <result column="paymentTransactionRouterName" jdbcType="VARCHAR" property="paymentTransactionRouterName" />
-
     <result column="paymentApprovalAmount" jdbcType="INTEGER" property="paymentApprovalAmount" />
     <result column="paymentApprovalNumber" jdbcType="VARCHAR" property="paymentApprovalNumber" />
     <result column="paymentApprovalStatus" jdbcType="CHAR" property="paymentApprovalStatus" />
@@ -1721,10 +1717,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     PA.orgPaymentData, 
     PA.regAdminNo, 
     PA.createTime, 
-    PA.updateTime,
-    PAR.paymentTransactionRouterNo,
-    PAR.paymentTransactionRouterType,
-    PAR.paymentTransactionRouterName
+    PA.updateTime
   </sql>
   
   
@@ -1792,7 +1785,6 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <include refid="PaymentTransactionCommand_Column_List" />
     from payment_transaction as PA
     inner join affiliate as AF on (PA.affiliateNo= AF.affiliateNo)
-    left outer join payment_transaction_router as PAR on (PA.paymentTransactionNo = PAR.paymentTransactionNo)
     where 
     	1 = 1
     	<include refid = "PaymentTransactionCommand_Where"/>
@@ -4017,6 +4009,35 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
      	 1 = 1 
     	<include refid = "MemberConfigWhereStatement"/>
     	<include refid = "commonStatement"/>
+  </select>
+  
+  <!-- ===============================================================================================================    -->
+  <resultMap id="PaymentRouterResultMap" type="com.returnp.admin.model.PaymentRouter">
+    <id column="paymentRouterNo" jdbcType="INTEGER" property="paymentRouterNo" />
+    <result column="paymentRouterType" jdbcType="VARCHAR" property="paymentRouterType" />
+    <result column="paymentRouterCode" jdbcType="VARCHAR" property="paymentRouterCode" />
+    <result column="paymentRouterName" jdbcType="VARCHAR" property="paymentRouterName" />
+  </resultMap>
+  
+    <sql id="PaymentRouter_Column_List">
+    paymentRouterNo, paymentRouterType, paymentRouterCode, paymentRouterName
+  </sql>
+  
+     <sql id ="PaymentRouterWhereStatement">
+      <if test="paymentRouterNo != null"> AND paymentRouterNo = #{paymentRouterNo,jdbcType=INTEGER}</if>
+      <if test="paymentRouterType != null"> AND paymentRouterType = #{paymentRouterType,jdbcType=VARCHAR}</if>
+      <if test="paymentRouterCode != null"> AND paymentRouterCode = #{paymentRouterCode,jdbcType=VARCHAR}</if>
+      <if test="paymentRouterName != null"> AND paymentRouterName = #{paymentRouterName,jdbcType=VARCHAR}</if>
+  </sql>
+  
+    <select id="selectPaymentRouters" parameterType="com.returnp.admin.model.PaymentRouter" resultMap="PaymentRouterResultMap">
+    select 
+      sql_calc_found_rows 
+    <include refid="PaymentRouter_Column_List" />
+    from payment_router
+    where 
+     	 1 = 1 
+    	<include refid = "PaymentRouterWhereStatement"/>
   </select>
   
 </mapper>

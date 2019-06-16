@@ -314,6 +314,9 @@ $(function () {
         	
         	/*push token 등록*/
         	sendPushToken: {apiCode: 10000, apiPath : '/api/device/registToken' , requestMethod: 'post'},
+        	
+        	selectPaymentRouters :  {apiCode: 10000, apiPath : '/api/paymentRouters' , requestMethod: 'get'},
+        	createAffilaitePaymentRouter :  {apiCode: 10000, apiPath : '/api/paymentRouter/affiliatePaymentRouter' , requestMethod: 'post'}
         },
         
         init : function(){

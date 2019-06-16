@@ -428,4 +428,18 @@ public class CodeDefine {
 		list.add(new CodeKeyValuePair("5", "관리가 결제 처리 취소", "Y", "Y" ,""));
 		return list;
 	}
+	
+	public static ArrayList<CodeKeyValuePair> getPaymentRouterTypes() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "VAN", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "PG", "Y", "Y" ,""));
+		return list;
+	}
+	
+	public static ArrayList<CodeKeyValuePair> getPaymentRouters() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("KICC", "KICC", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("AAAA", "AAAA", "Y", "Y" ,""));
+		return list;
+	}
 }	

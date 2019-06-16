@@ -302,5 +302,15 @@ public class AppConstants {
 		public static String ISSUE_CANCEL   = "4";  /* 발행 취소 */
 	}
 	
+	public static class PaymentRouterType{
+		public static String VAN = "1"; /* 밴*/
+		public static String PG = "2"; /* PG*/
+	}
+	
+	public static class PaymentRouter{
+		public static String KICC = "KICC"; /* 밴*/
+		public static String AAAA = "AAAA"; /* PG*/
+	}
+	
 
 }

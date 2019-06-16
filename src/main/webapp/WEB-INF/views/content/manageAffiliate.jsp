@@ -94,6 +94,27 @@
         <a href="javascript:void(0)"  id = "add_tid_btn" class="easyui-linkbutton">확인</a>
         <a href="javascript:void(0)" id  = "cancel_btn" class="cancel_btn" >취소</a>
     </div>
+
+<div id="createPaymentRouterFormDlg" style = "padding : 15px;display : none">
+	<div style="margin-bottom: 20px;">
+		<p>가맹점별 하나의  결제 라우팅을 생성할 수 있습니다</p>
+	</div>
+	<div style="margin-bottom: 20px; margin-left: 10px;">
+		<select id = "paymentRouterType"  name="paymentRouterType" label="결제 라우터 타입" style="width:100%">
+	     <c:forEach var="paymentRouterType" items="${paymentRouterTypes}" varStatus="status">
+			<option value="${paymentRouterType.value}"
+				<c:if test="${paymentRouterType.value == 'VAN'}">selected="selected"</c:if>><strong>${paymentRouterType.value}</strong></option>
+		</c:forEach>
+		</select>
+	</div>
+
+	<div style="margin-bottom: 10px; margin-left: 10px;">
+		<select id = paymentRouter  name="paymentRouter" label="검색(생성) 그룹" style="width:100%">
+		</select>
+	</div>
+
+</div>
+
 <div id="view_affiliate_tids" style = "padding : 15px;display : none">
    <table id = "tid_list" style ="width:100%;height:100%"></table> 
 </div>

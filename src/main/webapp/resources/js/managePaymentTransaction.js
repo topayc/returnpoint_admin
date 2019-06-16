@@ -17,8 +17,6 @@ var columns = [[
 	    {field:'paymentApprovalNumber',width:40,align:'center',title : '승인 번호'},
 	    {field:'paymentApprovalAmount',width:25,align:'center',title : '승인 금액', formatter : numberBlueFormatter},
 	    {field:'paymentApprovalStatus',width:25,align:'center',title : '승인 상태', formatter : PaymentApprovalStatusFormatter},
-	    {field:'paymentTransactionRouterType',width:15,align:'center',title : 'RT', formatter: paymentTransactionRouterTypeFormatter},
-	    {field:'paymentTransactionRouterName',width:20,align:'center',title : 'RN', formatter : paymentTransactionRouterNameFormatter},
 	    {field:'paymentTransactionType',width:25,align:'center',title : '등록 형태', formatter : paymentTransactionRegistFormatter},
 	    {field:'pointBackStatus',width:25,align:'center',title : '적립 상태', formatter : pointBackStatusFormatter},
 	    {field:'paymentApprovalDateTime',width:35,align:'center',title : '승인 일자', formatter : dateFormatter},

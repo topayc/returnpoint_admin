@@ -209,6 +209,9 @@ function initView(){
 		  			case "remove":
 		  				removeAffiliate();
 		  				break;
+		  			case "createPaymentRouterForm":
+		  				createPaymentRouterForm();
+		  				break;
 		  			case "viewTids":
 		  				openTidsListView();
 		  				break;
@@ -241,9 +244,9 @@ function initView(){
 		  		}
 		  	});
 		  	
-		  	var menus = [  '수정', '삭제','상세 정보','가맹점 TID 보기', '가맹점 TID 추가 ','계좌 추가','계좌 리스트',   '포인트 누적 현황' ];
-		  	var icons = ['icon-edit','icon-remove','icon-tip','icon-tip',  'icon-add', 'icon-add','icon-add', 'icon-large-chart'];
-		  	var actions = ['modify','remove','more_detail','viewTids', 'addTid','add_bank', 'view_bank',  'point_acc_view'];
+		  	var menus = [  '수정', '삭제','상세 정보','결제 라우터 등록', '가맹점 TID 보기', '가맹점 TID 추가 ','계좌 추가','계좌 리스트',   '포인트 누적 현황' ];
+		  	var icons = ['icon-edit','icon-remove','icon-tip','icon-tip','icon-add',   'icon-add', 'icon-add','icon-add', 'icon-large-chart'];
+		  	var actions = ['modify','remove','more_detail','createPaymentRouterForm', 'viewTids', 'addTid','add_bank', 'view_bank',  'point_acc_view'];
 		  	
 		  	for(var i=0; i<menus.length; i++){
 		  		cmenu.menu('appendItem', {
@@ -405,6 +408,37 @@ function initView(){
 	$('#bankAccount').textbox({
 		label : roundLabel("계좌 번호"),
 		prompt: '계좌 번호 입력',
+	});
+	
+	$('#paymentRouterType').combobox({
+		label : roundLabel("라우터 타입"),
+		editable: false,
+		panelHeight: 'auto',
+		multiple:false,
+		onSelect : function (record){
+			returnp.api.call("selectPaymentRouters", {paymentRouterType: record.value}, function(res){
+				if (res.resultCode  == "100") {
+    				$('#paymentRouter').combobox("clear");
+    				var data = [];
+    				for (var i = 0; i < res.rows.length ; i ++){
+    					data.push({ paymentRouterValue: res.rows[i].paymentRouterName , paymentRouterText : res.rows[i].paymentRouterName});
+    				}
+					data.push()
+					$('#paymentRouter').combobox('loadData', data);
+					$('#paymentRouter').combobox('select', res.rows[0].paymentRouterName);
+    			}else {
+    				$.messager.alert('오류 발생', res.message);
+    			}
+			});
+		}
+	});
+
+	$('#paymentRouter').combobox({
+		label : roundLabel("라우터"),
+		valueField: 'paymentRouterValue',
+        textField: 'paymentRouterText',
+        panelHeight: 'auto',
+		multiple:false
 	});
 }
 
@@ -844,6 +878,65 @@ function openBankList(){
 					$.messager.alert('오류 발생', res.message);
 				}
 			});
+		}
+	});
+}
+
+function createPaymentRouterForm(){
+	var node = $('#node_list').datagrid('getSelected');	
+	$('#createPaymentRouterFormDlg').dialog({
+		title: "> " + node.affiliateName + ' 결제 라우터 등록 ',
+		width: 400,
+		height: 300,
+		closed: false,
+		cache: false,
+		modal: true,
+		onOpen : function(){
+			$('#paymentRouterType').combobox("select" , "VAN");	
+			returnp.api.call("selectPaymentRouters", {paymentRouterType: "VAN"}, function(res){
+				if (res.resultCode  == "100") {
+    				$('#paymentRouter').combobox("clear");
+    				var data = [];
+    				for (var i = 0; i < res.rows.length ; i ++){
+    					data.push({ paymentRouterValue: res.rows[i].paymentRouterName , paymentRouterText : res.rows[i].paymentRouterName});
+    				}
+					data.push()
+					$('#paymentRouter').combobox('loadData', data);
+					$('#paymentRouter').combobox('select', res.rows[0].paymentRouterName);
+    			}else {
+    				$.messager.alert('오류 발생', res.message);
+    			}
+			});
+		},
+		buttons:  [ {
+			text : '확인',
+			iconCls : 'icon-ok',
+			handler : function() {
+				var paymentRouterType = $('#paymentRouterType').combobox("getValue");	
+				var paymentRouter = $('#paymentRouter').combobox("getValue");	
+				var affiliateNo = $('#node_list').datagrid('getSelected').affiliateNo;
+				
+				createAffilaitePaymentRouter({
+					affiliateNo : affiliateNo, 
+					paymentRouterType : paymentRouterType,
+					paymentRouter : paymentRouter
+				} );
+			}
+		},{
+			text : '취소',
+			handler : function() {
+				$("#createPaymentRouterFormDlg").dialog('close');
+			}
+		}]
+	});
+}
+function createAffilaitePaymentRouter(param){
+	returnp.api.call("createAffilaitePaymentRouter", param, function(res){
+		if (res.resultCode  == "100") {
+			$('#createPaymentRouterFormDlg').dialog('close');
+			$.messager.alert('알림', res.message);
+		}else {
+			$.messager.alert('오류 발생', res.message);
 		}
 	});
 }

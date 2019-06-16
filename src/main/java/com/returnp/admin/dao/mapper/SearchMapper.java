@@ -50,6 +50,7 @@ import com.returnp.admin.model.MemberAddress;
 import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.model.MemberConfig;
 import com.returnp.admin.model.MembershipRequest;
+import com.returnp.admin.model.PaymentRouter;
 import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.model.PointConversionTransaction;
 import com.returnp.admin.model.PointWithdrawal;
@@ -192,4 +193,5 @@ public interface SearchMapper {
 
 	public ArrayList<MemberConfig> selectMemberConfigs(MemberConfig memberConfig);
 	
+	public ArrayList<PaymentRouter> selectPaymentRouters(PaymentRouter paymentRouter);
 }

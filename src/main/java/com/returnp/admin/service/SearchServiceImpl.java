@@ -51,6 +51,7 @@ import com.returnp.admin.model.MemberAddress;
 import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.model.MemberConfig;
 import com.returnp.admin.model.MembershipRequest;
+import com.returnp.admin.model.PaymentRouter;
 import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.model.PointConversionTransaction;
 import com.returnp.admin.model.PointWithdrawal;
@@ -412,7 +413,11 @@ public class SearchServiceImpl implements SearchService{
 	public ArrayList<MemberConfig> selectMemberConfigs(MemberConfig memberConfig) {
 		// TODO Auto-generated method stub
 		return this.searchMapper.selectMemberConfigs(memberConfig);
+	}
+
+	@Override
+	public ArrayList<PaymentRouter> selectPaymentRouters(PaymentRouter paymentRouter) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectPaymentRouters(paymentRouter);
 	};
-	
-	
 }
