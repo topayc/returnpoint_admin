@@ -28,6 +28,7 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.common.ResponseUtil;
+import com.returnp.admin.dao.mapper.AffiliatePaymentRouterMapper;
 import com.returnp.admin.dao.mapper.AffiliateTidMapper;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.AffiliateCommand;
@@ -36,11 +37,13 @@ import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Affiliate;
+import com.returnp.admin.model.AffiliatePaymentRouter;
 import com.returnp.admin.model.AffiliateTid;
 import com.returnp.admin.model.Category;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.MemberAddress;
+import com.returnp.admin.model.PaymentRouter;
 import com.returnp.admin.model.Policy;
 import com.returnp.admin.service.interfaces.AffiliateService;
 import com.returnp.admin.service.interfaces.AgencyService;
@@ -73,6 +76,7 @@ public class AffiliateController extends ApplicationController {
 	@Autowired CategoryService categoryService;
 	@Autowired AffiliateTidMapper affiliateTidMapper;
 	@Autowired QueryService queryService;
+	@Autowired AffiliatePaymentRouterMapper affiliatePaymentRouterMapper;
 	
 	@RequestMapping(value = "/affiliate/form/createForm", method = RequestMethod.GET)
 	public String formAffiliateRequest(
@@ -417,6 +421,59 @@ public class AffiliateController extends ApplicationController {
 		}else {
 			this.affiliateTidMapper.updateByPrimaryKeySelective(affiliateTid);
 			this.setSuccessResponse(res);
+			return res;
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/affiliate/registerAffiliatePaymentRouter", method = RequestMethod.POST)
+	public ReturnpBaseResponse  updateAffiliateTid(
+			
+			@RequestParam(value = "affiliateNo", required = true) int affiliateNo, 
+			@RequestParam(value = "paymentRouterType", required = true) String paymentRouterType, 
+			@RequestParam(value = "paymentRouterName", required = true)String paymentRouterName) {
+		
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		try {
+			PaymentRouter pr = new PaymentRouter();
+			pr.setPaymentRouterName(paymentRouterName.trim());
+			pr.setPaymentRouterType(paymentRouterType.trim());
+			
+			ArrayList<PaymentRouter> prList = this.searchService.selectPaymentRouters(pr);
+			if (prList .size() !=1 ) {
+				ResponseUtil.setResponse(res, "997", "등록되어 있지  않은 결제 라우터 입니다.확인후 다시 시도해주세요");
+				return res;
+			}
+			
+			/*이미 라우터가 등록되어 있는 가맹점인지 검사*/
+			AffiliatePaymentRouter aprCond = new AffiliatePaymentRouter();
+			aprCond.setAffiliateNo(affiliateNo);
+			ArrayList<AffiliatePaymentRouter> afpList = this.searchService.selectAffiliatePaymentRouters(aprCond);
+			
+			AffiliatePaymentRouter apr = new AffiliatePaymentRouter();
+			
+			/* 이미 등록되어 있으며, 등록된 내용을 수정, update */
+			if (afpList.size() == 1 ) {
+				apr.setAffiliatePaymentRouterNo(afpList.get(0).getAffiliatePaymentRouterNo());
+				apr.setAffiliateNo(affiliateNo);
+				apr.setPaymentRouterNo(prList.get(0).getPaymentRouterNo());
+				this.affiliatePaymentRouterMapper.updateByPrimaryKey(apr);
+				ResponseUtil.setResponse(res, "100", "결제라우터가 변경 되었습니다.");
+			}
+			/* 신규 등록 insert*/
+			else  if (afpList.size() == 0) {
+				apr.setAffiliateNo(affiliateNo);
+				apr.setPaymentRouterNo(prList.get(0).getPaymentRouterNo());
+				this.affiliatePaymentRouterMapper.insert(apr);
+				ResponseUtil.setResponse(res, "100", "결제 라우터가 등록되었습니다.");
+			}else {
+				ResponseUtil.setResponse(res, "977", "AffiliatePaymentRouter 등록 오류.");
+			}
+			return res;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			ResponseUtil.setResponse(res, "977", "AffiliatePaymentRouter 등록 오류.");
 			return res;
 		}
 	}

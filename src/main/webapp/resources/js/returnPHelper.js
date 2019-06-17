@@ -730,6 +730,31 @@ function paymentTransactionRegistFormatter(value, row, index) {
 	return text;
 }
 
+function paymentRouterTypeFormatter(value, row, index) {
+	var type = row.paymentRouterType;
+	var result = null;
+
+	if (type == null || type == "") {
+		result = "-";
+	}else {
+		result = type;
+	}
+	return result;
+}
+
+function paymentRouterNameFormatter(value, row, index) {
+	var name = row.paymentRouterName;
+	var result = null;
+
+	if (name == null || name == "") {
+		result = "-";
+	}else {
+		result = name;
+	}
+	return result;
+}
+
+
 function paymentTransactionRouterTypeFormatter(value, row, index) {
 	if (row.paymentTransactionType == "3") {
 		return "-";

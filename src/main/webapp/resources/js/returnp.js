@@ -316,7 +316,7 @@ $(function () {
         	sendPushToken: {apiCode: 10000, apiPath : '/api/device/registToken' , requestMethod: 'post'},
         	
         	selectPaymentRouters :  {apiCode: 10000, apiPath : '/api/paymentRouters' , requestMethod: 'get'},
-        	createAffilaitePaymentRouter :  {apiCode: 10000, apiPath : '/api/paymentRouter/affiliatePaymentRouter' , requestMethod: 'post'}
+        	registerAffiliatePaymentRouter :  {apiCode: 10000, apiPath : '/api/affiliate/registerAffiliatePaymentRouter' , requestMethod: 'post'}
         },
         
         init : function(){

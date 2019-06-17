@@ -36,6 +36,7 @@ import com.returnp.admin.dto.command.SoleDistCommand;
 import com.returnp.admin.model.Admin;
 import com.returnp.admin.model.AdminFile;
 import com.returnp.admin.model.Affiliate;
+import com.returnp.admin.model.AffiliatePaymentRouter;
 import com.returnp.admin.model.Agency;
 import com.returnp.admin.model.Board;
 import com.returnp.admin.model.Branch;
@@ -419,5 +420,11 @@ public class SearchServiceImpl implements SearchService{
 	public ArrayList<PaymentRouter> selectPaymentRouters(PaymentRouter paymentRouter) {
 		// TODO Auto-generated method stub
 		return this.searchMapper.selectPaymentRouters(paymentRouter);
+	}
+
+	@Override
+	public ArrayList<AffiliatePaymentRouter> selectAffiliatePaymentRouters(AffiliatePaymentRouter affiliatePaymentRouter) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectAffiliatePaymentRouters(affiliatePaymentRouter);
 	};
 }

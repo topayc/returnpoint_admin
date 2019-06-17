@@ -1,20 +1,24 @@
 	columns = [[
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-			    {field:'affiliateNo',width:10,align:'center',title : '번호',hidden:false},
-			    {field:'memberName',width:25,align:'center',title : '회원 이름'},
+			    {field:'affiliateNo',width:20,align:'center',title : '번호',hidden:false},
+			    {field:'memberName',width:30,align:'center',title : '회원 이름'},
 			    {field:'affiliateName',width:50,align:'center',title : '가맹점 이름'},
-			    {field:'affiliateCode',width:40,align:'center',title : '가맹점 코드',hidden:false},
-			    {field:'affiliateSerialCount',width:20,align:'center',title : 'T-ID 수'},
+			    {field:'affiliateCode',width:60,align:'center',title : '가맹점 코드',hidden:false},
+			    {field:'paymentRouterNo',width:30,align:'center',title : '라우터 번호', hidden:true },
+			    {field:'paymentRouterCode',width:30,align:'center',title : '라우터 코드', hidden:true},
+			    {field:'paymentRouterType',width:32,align:'center',title : 'RT' , formatter: paymentRouterTypeFormatter },
+			    {field:'paymentRouterName',width:32,align:'center',title : 'RN'  , formatter : paymentRouterNameFormatter },
+			    {field:'affiliateSerialCount',width:20,align:'center',title : 'TID'},
 			  //  {field:'noname',width:30,align:'center',title : 'TID 보기' , formatter : tidActionFormatter, hidden: true},
-			    {field:'affiliateComm',width:35,align:'center',title : 'QR 코드 적립율'},
-			    {field:'giftCardPayRefundRate',width:35,align:'center',title : '상품권 수수료율'},
-			    {field:'affiliateType',width:40,align:'center',title : '협력 업체 분류', formatter : affiliateTypeFormatter},
+			    {field:'affiliateComm',width:35,align:'center',title : 'QR 적립율'},
+			    {field:'giftCardPayRefundRate',width:40,align:'center',title : '상품권 수수료율'},
+			    {field:'affiliateType',width:50,align:'center',title : '협력 업체 분류' , formatter : affiliateTypeFormatter},
 			    {field:'affiliateStatus',width:20,align:'center',title : '상태',formatter : nodeStatusFormatter},
-			    {field:'greenPointAmount',width:30,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
-			    {field:'redPointAmount',width:30,align:'center',title : 'R POINT', formatter : numberRedFormatter},
-			    {field:'agencyName',width:25,align:'center',title : '소속 대리점', hidden:false,formatter : slashFormatter},
-			    {field:'recommenderName',width:20,align:'center',title : '추천인'},
+			    {field:'greenPointAmount',width:40,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
+			    {field:'redPointAmount',width:40,align:'center',title : 'R POINT', formatter : numberRedFormatter},
+			    {field:'agencyName',width:30,align:'center',title : '소속 대리점', hidden:false,formatter : slashFormatter},
+			    {field:'recommenderName',width:30,align:'center',title : '추천인'},
 			    {field:'greenPointAccStatus',width:15,align:'center',title : 'G 적립', formatter : ynFormatter},
 			    {field:'redPointAccStatus',width:15,align:'center',title : 'R 적립', formatter : ynFormatter},
 			    {field:'greenPointUseStatus',width:15,align:'center',title : 'G 사용', formatter : ynFormatter},
@@ -23,7 +27,7 @@
 //			    {field:'affiliateTel',width:40,align:'center',title : '가맹점 전화',hidden:true},
 //			    {field:'affiliatePhone',width:30,align:'center',title : '가맹점 핸드폰',hidden:true},
 			    {field:'createTime',width:40,align:'center',title : '등록일',formatter : dateFormatter},
-			    {field:'updateTime',width:40,align:'center',title : '수정일',formatter : dateFormatter,hidden:false},
+			    {field:'updateTime',width:40,align:'center',title : '수정일',formatter : dateFormatter,hidden:true},
 			    {field:'memberNo',width:15,align:'center',title : 'memberNo',hidden:true},
 			    {field:'branchNo',width:15,align:'center',title : 'barachNo',hidden:true},
 			    {field:'recommenderNo',width:15,align:'center',title : 'recommenderNo',hidden:true}
@@ -244,7 +248,7 @@ function initView(){
 		  		}
 		  	});
 		  	
-		  	var menus = [  '수정', '삭제','상세 정보','결제 라우터 등록', '가맹점 TID 보기', '가맹점 TID 추가 ','계좌 추가','계좌 리스트',   '포인트 누적 현황' ];
+		  	var menus = [  '수정', '삭제','상세 정보','결제 라우터 등록/변경', '가맹점 TID 보기', '가맹점 TID 추가 ','계좌 추가','계좌 리스트',   '포인트 누적 현황' ];
 		  	var icons = ['icon-edit','icon-remove','icon-tip','icon-tip','icon-add',   'icon-add', 'icon-add','icon-add', 'icon-large-chart'];
 		  	var actions = ['modify','remove','more_detail','createPaymentRouterForm', 'viewTids', 'addTid','add_bank', 'view_bank',  'point_acc_view'];
 		  	
@@ -263,7 +267,6 @@ function initView(){
 		  	});
 		},
 	    columns:columns,
-	    
 	});
 	
 	/* 노드 데이타그리드   초기화*/
@@ -321,8 +324,6 @@ function initView(){
 	    
 	});
 	setListPager();
-	
-
 	$('#add_tid_btn').linkbutton({
 		onClick : function(){
 			addAffiliateTid();
@@ -397,7 +398,6 @@ function initView(){
 	$('#bankName').textbox({
 		label : roundLabel("은행명"),
 		prompt: '은행 이름 입력',
-
 	});
 	
 	$('#accountOwner').textbox({
@@ -489,8 +489,6 @@ function setListColumnHeader(nodeType){
 	});
 }
 
-
-
 /**
  * 검색 실행시 필요한 쿼리 데이타 구성 
  * @returns
@@ -518,7 +516,6 @@ function statusFormatter(value,row,index){
 }
 
 function loadAffiliateCreateForm(){
-	
 	var nodeType = $('input[name=searchNodeType]').val();
   	var data = {
         targetElem : "#dlgForm",
@@ -531,41 +528,40 @@ function loadAffiliateCreateForm(){
 	//console.log("loadAffiliateCreateForm");
 	var queryParam = $.param(data.queryOptions);
 	$(data.targetElem).load("/api/affiliate/form/createForm?" + queryParam,
-			function(response, status, xhr) {
-					$(data.targetElem).dialog({
-						width:650,
-						position : "top",
-						height : $( window ).height() - 80,
-						top :20,
-						cache : false,
-						fit : false, 
-					    modal : true,
-					    closable : true,
-					    border : 'thick',
-					    shadow : true,
-					    collapsible : false,
-					    draggable : true,
-					    minimizable : false,
-					    resizable : true,
-					    cls : "c2",
-					    maximizable: false,
-					    title : "&nbsp; " + data.title,
-					    shadow : false,	
-						buttons:[
-							{ text:'확인', iconCls:'icon-ok', handler:function(){
-								var nodeType = $('input[name=searchNodeType]').val();
-								createAffiliate(data);
-							} },
-							{ text:'취소', handler:function(){
-								//console.log("닫을 DIV : " + data.targetElem);	
-								$(data.targetElem).dialog('close');
-								$(data.targetElem).removeAttr('style');
-							}
-						}]
-					});
-					$(data.targetElem).dialog('hcenter');
-				
-			});
+		function(response, status, xhr) {
+		$(data.targetElem).dialog({
+			width:650,
+			position : "top",
+			height : $( window ).height() - 80,
+			top :20,
+			cache : false,
+			fit : false, 
+			modal : true,
+			closable : true,
+			border : 'thick',
+			shadow : true,
+			collapsible : false,
+			draggable : true,
+			minimizable : false,
+			resizable : true,
+			cls : "c2",
+			maximizable: false,
+			title : "&nbsp; " + data.title,
+			shadow : false,	
+			buttons:[
+				{ text:'확인', iconCls:'icon-ok', handler:function(){
+					var nodeType = $('input[name=searchNodeType]').val();
+					createAffiliate(data);
+				} },
+				{ text:'취소', handler:function(){
+					//console.log("닫을 DIV : " + data.targetElem);	
+					$(data.targetElem).dialog('close');
+					$(data.targetElem).removeAttr('style');
+				}
+				}]
+		});
+		$(data.targetElem).dialog('hcenter');
+	});
 }
 
 function updateTid(affiliateTidNo, elem){
@@ -780,10 +776,10 @@ function addBankAccount(){
 
 function updateBankAccount(){
 	var params = {
-			memberBankAccountNo: $('#memberBankAccountNo').textbox('getValue').trim(),
-			bankName : $('#bankName').textbox('getValue').trim(),
-			accountOwner : $('#accountOwner').textbox('getValue').trim(),
-			bankAccount : $('#bankAccount').textbox('getValue').trim()
+		memberBankAccountNo: $('#memberBankAccountNo').textbox('getValue').trim(),
+		bankName : $('#bankName').textbox('getValue').trim(),
+		accountOwner : $('#accountOwner').textbox('getValue').trim(),
+		bankAccount : $('#bankAccount').textbox('getValue').trim()
 	}
 	$.messager.confirm({
 		title: '계좌 업데이트',
@@ -919,7 +915,7 @@ function createPaymentRouterForm(){
 				createAffilaitePaymentRouter({
 					affiliateNo : affiliateNo, 
 					paymentRouterType : paymentRouterType,
-					paymentRouter : paymentRouter
+					paymentRouterName : paymentRouter
 				} );
 			}
 		},{
@@ -931,9 +927,11 @@ function createPaymentRouterForm(){
 	});
 }
 function createAffilaitePaymentRouter(param){
-	returnp.api.call("createAffilaitePaymentRouter", param, function(res){
+	console.log(param);
+	returnp.api.call("registerAffiliatePaymentRouter", param, function(res){
 		if (res.resultCode  == "100") {
 			$('#createPaymentRouterFormDlg').dialog('close');
+			realodPage();
 			$.messager.alert('알림', res.message);
 		}else {
 			$.messager.alert('오류 발생', res.message);
@@ -1037,48 +1035,47 @@ function loadAffiliateModifyForm(actionType){
 		function(response, status, xhr) {
 		console.log("오픈할 DIV : " + data.targetElem);	
 		
-				$(data.targetElem).dialog({
-					width:650,
-					cache : false,
-				    modal : true,
-				    closable : true,
-				    border : 'thick',
-					height : $( window ).height() - 80,
-					top :20,
-				    shadow : true,
-				    collapsible : false,
-				    minimizable : false,
-				    cls : "c2",
-				    maximizable: false,
-				    title : "&nbsp; " + data.title,
-				    shadow : false,	
-					buttons:[
-						{ text:'확인', iconCls:'icon-ok', handler:function(){
-							updateAffiliate(data);
-						} },
-						{ text:'취소', handler:function(){
-							//console.log("닫을 DIV : " + data.targetElem);	
-							$(data.targetElem).dialog('close');
-							$(data.targetElem).removeAttr('style');
-						}
-					}]
-				});
-				$(data.targetElem).dialog('hcenter');
-				returnp.api.call('getAffiliateCommand', {
-					affiliateNo : data.queryOptions.affiliateNo
-					,memberAddressNo: data.queryOptions.memberAddressNo}, function(res){
-						console.log(res.data);
-					if (res.resultCode  == "100") {		
-						$('#createAffiliateForm').form('load',res.data);
-						//$('#memberNo').textbox({disabled : true });
-						$("#affiliateRoad").textbox('setValue', res.data.zipNo + " " + res.data.roadFullAddr+ " " + res.data.addrDetail);
-						modifyModeCallback(res.data.zipNo + " " + res.data.jibunAddr + " " + res.data.addrDetail,res.data.lat,res.data.lng);
-						
-					}else {
-						$.messager.alert('오류 발생', res.message);
-					}
-				});
-			
+		$(data.targetElem).dialog({
+			width:650,
+			cache : false,
+			modal : true,
+			closable : true,
+			border : 'thick',
+			height : $( window ).height() - 80,
+			top :20,
+			shadow : true,
+			collapsible : false,
+			minimizable : false,
+			cls : "c2",
+			maximizable: false,
+			title : "&nbsp; " + data.title,
+			shadow : false,	
+			buttons:[
+				{ text:'확인', iconCls:'icon-ok', handler:function(){
+					updateAffiliate(data);
+				} },
+				{ text:'취소', handler:function(){
+					//console.log("닫을 DIV : " + data.targetElem);	
+					$(data.targetElem).dialog('close');
+					$(data.targetElem).removeAttr('style');
+				}
+				}]
+		});
+		$(data.targetElem).dialog('hcenter');
+		returnp.api.call('getAffiliateCommand', {
+			affiliateNo : data.queryOptions.affiliateNo
+			,memberAddressNo: data.queryOptions.memberAddressNo}, function(res){
+				console.log(res.data);
+				if (res.resultCode  == "100") {		
+					$('#createAffiliateForm').form('load',res.data);
+					//$('#memberNo').textbox({disabled : true });
+					$("#affiliateRoad").textbox('setValue', res.data.zipNo + " " + res.data.roadFullAddr+ " " + res.data.addrDetail);
+					modifyModeCallback(res.data.zipNo + " " + res.data.jibunAddr + " " + res.data.addrDetail,res.data.lat,res.data.lng);
+
+				}else {
+					$.messager.alert('오류 발생', res.message);
+				}
+			});
 		});
 }
 
@@ -1199,19 +1196,19 @@ function loadMap(address) {
         var lat = results[0].geometry.location.lat();		
         var lng = results[0].geometry.location.lng();		 	   	
     	var mapOptions = {
-					center: new google.maps.LatLng(lat, lng),
-                	zoom: 18, 
-                	mapTypeId: google.maps.MapTypeId.ROADMAP
-           	};		 	   
+    		center: new google.maps.LatLng(lat, lng),
+    		zoom: 18, 
+    		mapTypeId: google.maps.MapTypeId.ROADMAP
+    	};		 	   
  	   	var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);	
  	    //style="width:50%; height:100px;"
  	   	//$("#map-canvas").css("width","100%");
  	   	//$("#map-canvas").css("height","100px");
 		marker = new google.maps.Marker({
-		           map: map,
-		           icon: 'resources/images/marker.gif',
-		           position: results[0].geometry.location				
-		       });	
+			map: map,
+			icon: 'resources/images/marker.gif',
+			position: results[0].geometry.location				
+		});	
 		var content = address +"<br/>" + lat + "," +  lng; // 말풍선 안에 들어갈 내용				
 		$("#lat").val(lat);
 		$("#lng").val(lng);				
@@ -1237,17 +1234,17 @@ function loadMap2(address,lat,lng) {
 	}
 	
 	var mapOptions = {
-				center: new google.maps.LatLng(lat, lng),
-               	zoom: 18, 
-               	mapTypeId: google.maps.MapTypeId.ROADMAP
-          	};
+		center: new google.maps.LatLng(lat, lng),
+		zoom: 18, 
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
 	   
 	var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);	     
 	marker = new google.maps.Marker({
-	           map: map,
-	           icon: 'resources/images/marker.gif',
-	           position: new google.maps.LatLng(lat, lng)		
-	       });
+		map: map,
+		icon: 'resources/images/marker.gif',
+		position: new google.maps.LatLng(lat, lng)		
+	});
 	
 	var content = address +"<br/>" + lat + "," +  lng; // 말풍선 안에 들어갈 내용
 	
@@ -1258,7 +1255,6 @@ function loadMap2(address,lat,lng) {
 
 function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn){
 	// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-	
 	$("#roadFullAddr").val(roadFullAddr);
 	$("#roadAddrPart1").val(roadAddrPart1);
 	$("#roadAddrPart2").val(roadAddrPart2);
@@ -1272,7 +1268,6 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 	
 	$("#affiliateAddress").textbox('setValue', zipNo + " " + jibunAddr + " " + addrDetail);
 	$("#affiliateRoad").textbox('setValue', zipNo + " " + roadFullAddr+ " " + addrDetail);
-	
 	loadMap(jibunAddr);
 }
 

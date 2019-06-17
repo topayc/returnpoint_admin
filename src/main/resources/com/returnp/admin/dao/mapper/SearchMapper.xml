@@ -1052,6 +1052,10 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="lng" jdbcType="VARCHAR" property="lng" />
     <result column="recommenderName" jdbcType="VARCHAR" property="recommenderName" />
     <result column="agencyName" jdbcType="VARCHAR" property="agencyName" />
+    <result column="paymentRouterNo" jdbcType="INTEGER" property="paymentRouterNo" />
+    <result column="paymentRouterType" jdbcType="VARCHAR" property="paymentRouterType" />
+    <result column="paymentRouterName" jdbcType="VARCHAR" property="paymentRouterName" />
+    <result column="paymentRouterCode" jdbcType="VARCHAR" property="paymentRouterCode" />
   </resultMap>
   
   <sql id="Affiliate_Column_List">
@@ -1108,7 +1112,11 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     MA.lng,
     M2.memberName as recommenderName,
     AG.agencyName,
-    (select count(*) from affiliate_tid as AT where AF.affiliateNo = AT.affiliateNo) as affiliateSerialCount
+    (select count(*) from affiliate_tid as AT where AF.affiliateNo = AT.affiliateNo) as affiliateSerialCount,
+    APR.paymentRouterNo, 
+    (SELECT paymentRouterType from payment_router WHERE paymentRouterNo = APR.paymentRouterNo) as paymentRouterType,
+    (SELECT paymentRouterName from payment_router WHERE paymentRouterNo = APR.paymentRouterNo) as paymentRouterName,
+    (SELECT paymentRouterCode  from payment_router WHERE paymentRouterNo = APR.paymentRouterNo) as paymentRouterCode
   </sql>
   
     <sql id ="affiliateSearchWhereStatement">
@@ -1194,6 +1202,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     left outer join member_address as MA on (AF.affiliateNo = MA.nodeNo AND MA.nodeType ='5' )
     left outer join member as M2 on (AF.recommenderNo = M2.memberNo)
     left outer join agency as AG on (AF.agencyNo= AG.agencyNo)
+    left outer join affiliate_payment_router as APR on (AF.affiliateNo= APR.affiliateNo)
     where 
       1 = 1
 		<include refid = "affiliateCommandSearchWhereStatement"/>
@@ -4038,6 +4047,32 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
     where 
      	 1 = 1 
     	<include refid = "PaymentRouterWhereStatement"/>
+  </select>
+  
+    <!-- ===============================================================================================================    -->
+  <resultMap id="AffiliatePaymentRouterResultMap" type="com.returnp.admin.model.AffiliatePaymentRouter">
+    <id column="affiliatePaymentRouterNo" jdbcType="INTEGER" property="affiliatePaymentRouterNo" />
+    <result column="affiliateNo" jdbcType="INTEGER" property="affiliateNo" />
+    <result column="paymentRouterNo" jdbcType="INTEGER" property="paymentRouterNo" />
+  </resultMap>
+  
+    <sql id="AffiliatePaymentRouter_Column_List">
+     affiliatePaymentRouterNo, affiliateNo, paymentRouterNo
+  </sql>
+  
+     <sql id ="AffiliatePaymentRouterWhereStatement">
+      <if test="affiliateNo != null"> AND affiliateNo = #{affiliateNo,jdbcType=INTEGER}</if>
+      <if test="affiliatePaymentRouterNo != null"> AND affiliatePaymentRouterNo = #{affiliatePaymentRouterNo,jdbcType=INTEGER}</if>
+  </sql>
+  
+    <select id="selectAffiliatePaymentRouters" parameterType="com.returnp.admin.model.AffiliatePaymentRouter" resultMap="AffiliatePaymentRouterResultMap">
+    select 
+      sql_calc_found_rows 
+    <include refid="AffiliatePaymentRouter_Column_List" />
+    from affiliate_payment_router
+    where 
+     	 1 = 1 
+    	<include refid = "AffiliatePaymentRouterWhereStatement"/>
   </select>
   
 </mapper>

@@ -7,7 +7,7 @@ import com.returnp.admin.model.Affiliate;
 
 @Transactional
 public interface AffiliateService {
-	  int deleteByPrimaryKey(Integer affiliateNo);
+	   int deleteByPrimaryKey(Integer affiliateNo);
 
 	    int insert(Affiliate record);
 
@@ -20,4 +20,6 @@ public interface AffiliateService {
 	    int updateByPrimaryKeySelective(Affiliate record);
 
 	    int updateByPrimaryKey(Affiliate record);
+	    
+
 }

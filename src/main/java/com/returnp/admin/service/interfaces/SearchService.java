@@ -34,6 +34,7 @@ import com.returnp.admin.dto.command.SoleDistCommand;
 import com.returnp.admin.model.Admin;
 import com.returnp.admin.model.AdminFile;
 import com.returnp.admin.model.Affiliate;
+import com.returnp.admin.model.AffiliatePaymentRouter;
 import com.returnp.admin.model.Agency;
 import com.returnp.admin.model.Board;
 import com.returnp.admin.model.Branch;
@@ -183,6 +184,8 @@ public interface SearchService {
 	public ArrayList<MemberConfig> selectMemberConfigs(MemberConfig memberConfig);
 
 	public ArrayList<PaymentRouter> selectPaymentRouters(PaymentRouter paymentRouter);
+
+	public ArrayList<AffiliatePaymentRouter> selectAffiliatePaymentRouters(AffiliatePaymentRouter affiliatePaymentRouter);
 
 	
 }

@@ -28,4 +28,14 @@ public class PaymentRouterController extends ApplicationController {
 		this.setSuccessResponse(slr3);
 		return slr3;
 	} 
+
+	@ResponseBody
+	@RequestMapping(value = "/paymentRouters", method = RequestMethod.POST)
+	public ReturnpBaseResponse createAffilaitePaymentRouter(PaymentRouter router) {
+		ArrayListResponse<PaymentRouter> slr3 = new ArrayListResponse<PaymentRouter>();
+		slr3.setRows(this.searchService.selectPaymentRouters(router));
+		slr3.setTotal(this.searchService.selectTotalRecords());
+		this.setSuccessResponse(slr3);
+		return slr3;
+	} 
 }
