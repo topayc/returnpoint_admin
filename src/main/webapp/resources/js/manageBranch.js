@@ -8,7 +8,7 @@
 			    {field:'branchName',width:40,align:'center',title : '지사 이름'},
 			    {field:'branchStatus',width:40,align:'center',title : '지사 상태',formatter : nodeStatusFormatter},
 			    {field:'greenPointAmount',width:40,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
-			    {field:'redPointAmount',width:40,align:'center',title : 'R PAY', formatter : numberRedFormatter},
+			    {field:'redPointAmount',width:40,align:'center',title : 'R POINT', formatter : numberRedFormatter},
 			    {field:'soleDistName',width:40,align:'center',title : '소속 총판', hidden:false,formatter : slashFormatter},
 			    {field:'recommenderName',width:30,align:'center',title : '추천인', hidden:false,formatter : slashFormatter},
 			    {field:'greenPointAccStatus',width:20,align:'center',title : 'G 적립', formatter : ynFormatter},
