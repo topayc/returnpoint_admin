@@ -115,8 +115,9 @@ public class AppConstants {
 	public static class PaymentTransactionType{
 		public static final String  QR = "1";
 		public static final  String  VAN= "2";
-		public static final  String  ADMIN= "3";
-		public static final  String  SHOPPING_MAL= "4";
+		public static final  String  MANUAL= "3";
+		public static final  String  APP= "4";
+		public static final  String  API= "5";
 	}
 
 	public static class VanPaymentStatus {
@@ -303,13 +304,16 @@ public class AppConstants {
 	}
 	
 	public static class PaymentRouterType{
-		public static String VAN = "1"; /* 밴*/
-		public static String PG = "2"; /* PG*/
+		public static final String  VAN = "VAN";
+		public static final  String  PG= "PG";
+		public static final  String  ADMIN= "ADMIN";
 	}
 	
-	public static class PaymentRouter{
-		public static String KICC = "KICC"; /* 밴*/
-		public static String AAAA = "AAAA"; /* PG*/
+	public static class PaymentRouterName{
+		public static final String  KICC  = "KICC";
+		public static final  String  KFT= "KFT";
+		public static final  String  SAIDA= "SAIDA";
+		public static final  String  ADMIN= "ADMIN";
 	}
 	
 

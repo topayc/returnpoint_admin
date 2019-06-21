@@ -721,7 +721,7 @@ function paymentTransactionRegistFormatter(value, row, index) {
 		text = '<span style = "border-radius: 10px;background-color: red;padding: 5px;color : #ffffff;font-weight : bold">VAN</span>';
 		break;
 	case "3":
-		text = '<span style = "border-radius: 10px;background-color: #01A9DB;padding: 5px;color : #ffffff;font-weight : bold">Admin</span>';
+		text = '<span style = "border-radius: 10px;background-color: #01A9DB;padding: 5px;color : #ffffff;font-weight : bold"> Manual</span>';
 		break;
 	case "4":
 		text = '<span style = "border-radius: 10px;background-color: #01A9DB;padding: 5px;color : #ffffff;font-weight : bold">Online</span>';

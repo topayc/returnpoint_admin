@@ -1162,6 +1162,10 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="affiliateStatus != null and affiliateStatus !=  '0'  and affiliateStatus !=  0">AND affiliateStatus = #{affiliateStatus,jdbcType=VARCHAR} </if>
       <if test="regType != null">AND regType = #{regType,jdbcType=CHAR} </if>
       <if test="regAdminNo != null">AND regAdminNo = #{regAdminNo,jdbcType=INTEGER} </if>
+
+      <if test="paymentRouterType != null"> AND paymentRouterType = #{paymentRouterType,jdbcType=INTEGER} </if>
+      <if test="paymentRouterName != null"> AND paymentRouterName = #{paymentRouterName,jdbcType=INTEGER} </if>
+      <if test="paymentRouterCode != null"> AND paymentRouterCode = #{paymentRouterCode,jdbcType=INTEGER} </if>
       
        <if test="affiliateCode != null or affiliateAddress != null or affiliateTel != null or affiliatePhone != null or affiliateName != null  or affiliateEmail != null or memberName != null or memberPhone != null ">
       	AND ( 1 = 2 
@@ -1694,6 +1698,12 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="regAdminNo" jdbcType="INTEGER" property="regAdminNo" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+
+    <result column="paymentRouterNo" jdbcType="INTEGER" property="paymentRouterNo" />
+    <result column="paymentRouterType" jdbcType="VARCHAR" property="paymentRouterType" />
+    <result column="paymentRouterName" jdbcType="VARCHAR" property="paymentRouterName" />
+    <result column="paymentRouterCode" jdbcType="VARCHAR" property="paymentRouterCode" />
+
   </resultMap>
   
   <sql id="PaymentTransaction_Column_List">
@@ -1726,7 +1736,11 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     PA.orgPaymentData, 
     PA.regAdminNo, 
     PA.createTime, 
-    PA.updateTime
+    PA.updateTime,
+     APR.paymentRouterNo, 
+    (SELECT paymentRouterType from payment_router WHERE paymentRouterNo = APR.paymentRouterNo) as paymentRouterType,
+    (SELECT paymentRouterName from payment_router WHERE paymentRouterNo = APR.paymentRouterNo) as paymentRouterName,
+    (SELECT paymentRouterCode  from payment_router WHERE paymentRouterNo = APR.paymentRouterNo) as paymentRouterCode
   </sql>
   
   
@@ -1766,6 +1780,10 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="paymentApprovalDateTime != null"> AND PA.paymentApprovalDateTime = #{paymentApprovalDateTime,jdbcType=TIMESTAMP} </if>
       <if test="regAdminNo != null"> AND PA.regAdminNo = #{regAdminNo,jdbcType=INTEGER} </if>
          
+      <if test="paymentRouterType != null"> AND paymentRouterType = #{paymentRouterType,jdbcType=VARCHAR} </if>
+      <if test="paymentRouterName != null"> AND paymentRouterName = #{paymentRouterName,jdbcType=VARCHAR} </if>
+      <if test="paymentRouterCode != null"> AND paymentRouterCode = #{paymentRouterCode,jdbcType=VARCHAR} </if>
+
        <if test="memberName != null or memberEmail != null  or memberPhone != null || affiliateName != null">
       	AND ( 1 = 2 
       </if>
@@ -1794,6 +1812,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <include refid="PaymentTransactionCommand_Column_List" />
     from payment_transaction as PA
     inner join affiliate as AF on (PA.affiliateNo= AF.affiliateNo)
+    inner join affiliate_payment_router  as APR on (APR.affiliateNo= AF.affiliateNo)
     where 
     	1 = 1
     	<include refid = "PaymentTransactionCommand_Where"/>

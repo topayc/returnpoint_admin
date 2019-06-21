@@ -82,7 +82,7 @@ public class UploadFileServiceImpl implements UploadFileService {
 				dataMap.put("af_id", pt.getAffiliateSerial().trim());
 				dataMap.put("phoneNumber", pt.getMemberPhone().trim());
 				dataMap.put("memberEmail", pt.getMemberEmail().trim());
-				dataMap.put("acc_from", AppConstants.PaymentTransactionType.ADMIN);
+				dataMap.put("acc_from", AppConstants.PaymentTransactionType.MANUAL);
 				
 				System.out.println("회원이메일 : " + pt.getMemberEmail());
 				System.out.println("회원 전화 번호 : " + pt.getMemberPhone());

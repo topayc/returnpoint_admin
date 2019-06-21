@@ -187,7 +187,7 @@ public class PaymentTransactionController extends ApplicationController {
 			}
 		}
 		
-		if (AppConstants.PaymentTransactionType.ADMIN.equals(transaction.getPaymentTransactionType())) {
+		if (AppConstants.PaymentTransactionType.MANUAL.equals(transaction.getPaymentTransactionType())) {
 			AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 			transaction.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		}
@@ -207,7 +207,7 @@ public class PaymentTransactionController extends ApplicationController {
 			}
 		}
 		
-		if (AppConstants.PaymentTransactionType.ADMIN.equals(transaction.getPaymentTransactionType())) {
+		if (AppConstants.PaymentTransactionType.MANUAL.equals(transaction.getPaymentTransactionType())) {
 			AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 			transaction.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		}

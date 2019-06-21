@@ -86,7 +86,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 		dataMap.put("pan", (String)dataMap.get("af_id")+ "_" + (String)dataMap.getStr("pan")); 
 		
 		try {
-			switch(dataMap.getStr("acc_from").trim()){
+			switch(dataMap.getStr("payment_transaction_type").trim()){
 				case AppConstants.PaymentTransactionType.QR:
 					String decode64Qr = BASE64Util.decodeString(dataMap.getStr("qr_org"));
 					URL url = new URL(decode64Qr);
@@ -99,9 +99,11 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 						res.setResult("error");
 						return res;
 					}
-				case AppConstants.PaymentTransactionType.ADMIN:
+				case AppConstants.PaymentTransactionType.MANUAL:
 					break;
-				case AppConstants.PaymentTransactionType.SHOPPING_MAL:
+				case AppConstants.PaymentTransactionType.APP:
+					break;
+				case AppConstants.PaymentTransactionType.API:
 					break;
 			}
 			
@@ -137,7 +139,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 		dataMap.put("pan", (String)dataMap.get("af_id")+ "_" + (String)dataMap.getStr("pan")); 
 		
 		try {
-			switch(dataMap.getStr("acc_from").trim()){
+			switch(dataMap.getStr("payment_transaction_type").trim()){
 				case AppConstants.PaymentTransactionType.QR:
 					String decode64Qr = BASE64Util.decodeString(dataMap.getStr("qr_org"));
 					URL url = new URL(decode64Qr);
@@ -150,9 +152,11 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 						res.setResult("error");
 						return res;
 					}
-				case AppConstants.PaymentTransactionType.ADMIN:
+				case AppConstants.PaymentTransactionType.MANUAL:
 					break;
-				case AppConstants.PaymentTransactionType.SHOPPING_MAL:
+				case AppConstants.PaymentTransactionType.APP:
+					break;
+				case AppConstants.PaymentTransactionType.API:
 					break;
 			}
 			
@@ -517,7 +521,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 				(dataMap.getStr("pas").equals("1") ? AppConstants.AccumulateStatus.POINTBACK_CANCEL_PROGRESS : AppConstants.AccumulateStatus.POINTBACK_REQ_ERROR) ;
 			pt.setPointBackStatus(pbs);
 			
-			pt.setPaymentTransactionType(dataMap.getStr("acc_from"));
+			pt.setPaymentTransactionType(dataMap.getStr("payment_transaction_type"));
 			pt.setPaymentApprovalDateTime((Date)dataMap.get("pat"));
 			pt.setRegAdminNo(0);
 			this.paymentTransactionMapper.insert(pt);
@@ -1078,7 +1082,7 @@ public class BasePointAccumulateServiceImpl implements BasePointAccumulateServic
 		dataMap.put("phoneNumber", pt.getMemberPhone());
 
 		dataMap.put("memberEmail", pt.getMemberEmail());
-		dataMap.put("acc_from", AppConstants.PaymentTransactionType.ADMIN);
+		dataMap.put("payment_transaction_type", AppConstants.PaymentTransactionType.MANUAL);
 		return dataMap;
 	}
 }

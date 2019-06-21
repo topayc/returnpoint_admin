@@ -110,7 +110,7 @@ public class QRManager {
 		
 		System.out.println("-------------------------------QR Manager KICC QR 파싱 데이타--------------------------------------");
 		System.out.println(qrPText);
-		System.out.println("--------------------------------------------------------------------------------------");
+		System.out.println("----------------------------------------------------------------------------------------------------------");
 		try {
 			qrMap.put("pat", sdf2.format(date));  //승인시간
 			qrMap.put("pan",  qrPText.substring(23, 27) + qrPText.substring(36) + qrPText.substring(12, 16));   // 승인 번호
@@ -187,8 +187,12 @@ public class QRManager {
 		 * pas_str : 승인 상태에 따른 추가된 문자열
 		 * */
 		
+		System.out.println("-------------------------------QR Manager Common QR 파싱 데이타--------------------------------------");
+		System.out.println(qrPText);
+		System.out.println("----------------------------------------------------------------------------------------------------------");
+		
 		try {
-			qrMap.put("van", queryMap.get("v"));  //van 이름  
+			qrMap.put("vanName", queryMap.get("v"));  //van 이름  
 			qrMap.put("seq", queryMap.get("s"));  // 포스별 고유 번호 
 			
 			qrMap.put("pat", sdf2.format(date));  //승인시간

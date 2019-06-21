@@ -40,7 +40,7 @@ public class PaymentTransactionServiceImpl implements PaymentTransactionService 
 		} 
 		
 		/* 관리자에 의한 수동등록아닌 경우 가맹점 유효성 검사  */
-		if (!transaction.getPaymentTransactionType().equals(AppConstants.PaymentTransactionType.ADMIN)) {
+		if (!transaction.getPaymentTransactionType().equals(AppConstants.PaymentTransactionType.MANUAL)) {
 			/*
 			 * 존재하는 가맹점인지 검사
 			 * */
