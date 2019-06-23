@@ -37,6 +37,8 @@
 			<div id = "affiliatePayementContainer">
 				<div style="margin-bottom:12px" id = "affiliateNoContainer"><input id ="affiliateNo"  class="easyui-textbox" name="affiliateNo" style="width:100%" data-options="label:'* 협력 업체(가맹점)  ',labelPosition : 'top'"> </div>
 				<div style="margin-bottom:12px" id = "affiliateSerialContainer"><input id ="affiliateSerial""  class="easyui-textbox" name="affiliateSerial" style="width:100%" data-options="label:'* 협력 업체 TID ',labelPosition : 'top'"> </div>
+				<div style="margin-bottom:12px" id = "affiliateSerialContainer"><input id ="paymentRouterType""  class="easyui-textbox" name="paymentRouterType" style="width:100%" data-options="label:'* 결제라우터 타입 ',labelPosition : 'top'"> </div>
+				<div style="margin-bottom:12px" id = "affiliateSerialContainer"><input id ="paymentRouterName""  class="easyui-textbox" name="paymentRouterName" style="width:100%" data-options="label:'* 결제라우터 명 ',labelPosition : 'top'"> </div>
 			<div style="margin-bottom:12px" ><input id ="paymentApprovalAmount"  class="easyui-textbox" name="paymentApprovalAmount" style="width:100%" data-options="label:'* 결제 금액',labelPosition : 'top'"> </div>
 				<div style="margin-bottom:12px" id = "paymentApprovalNumberContainer">
 				<input id ="paymentApprovalNumber"  class="easyui-textbox" name="paymentApprovalNumber" style="width:83%"  data-options="label:'* 결제 승인 번호',labelPosition : 'top'">
@@ -165,8 +167,11 @@ function setViewInit(){
             			searchNodeType :  "5"
             		}
             	}, function callback(selNode){
+            		console.log(selNode);
             		$(e.data.target).textbox('setValue', selNode.affiliateNo);
             		$('#affiliateSerial').textbox('setValue', selNode.affiliateSerial);
+            		$('#paymentRouterName').textbox('setValue', selNode.paymentRouterName);
+            		$('#paymentRouterType').textbox('setValue', selNode.paymentRouterType);
             	});
 			}
 		}]
@@ -180,6 +185,16 @@ function setViewInit(){
 	});
 	$('#memberPhone').textbox({
 		editable : false
+	});
+	
+	$('#paymentRouterType').textbox({
+		editable : false,
+		prompt: '결제 라우터 타입',
+	});
+	
+	$('#paymentRouterName').textbox({
+		editable : false,
+		prompt: '결제 라우터 명',
 	});
 	$('#affiliateSerial').textbox({
 		editable : false,

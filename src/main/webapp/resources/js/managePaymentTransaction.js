@@ -505,7 +505,6 @@ function updatePaymentTransaction(data){
 
 function createPaymentTransaction(data){
 	var param =makeFormData();
-	console.log("createPaymentTransaction");
 	var valid = true;
 	for (var prop in param){
 		if (param.hasOwnProperty(prop)) {
@@ -594,8 +593,7 @@ function cancelPaymentTransaction(){
 	        			$.messager.alert('알림', res.message);
 	        			realodPage();
 	        		}else {
-	        			//console.log("[오류]");
-	        			//console.log(res);
+	        			console.log(res);
 	        			$.messager.alert('오류 발생', res.message);
 	        		}
 	        	});

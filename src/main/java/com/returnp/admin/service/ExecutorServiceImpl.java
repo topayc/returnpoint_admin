@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.common.ResponseUtil;
+import com.returnp.admin.dto.command.PaymentTransactionCommand;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.service.interfaces.ExecutorService;
@@ -76,7 +77,7 @@ public class ExecutorServiceImpl implements ExecutorService{
 	}
 
 	@Override
-	public ReturnpBaseResponse accumulateRequest(PaymentTransaction transaction) {
+	public ReturnpBaseResponse accumulateRequest(PaymentTransactionCommand transaction) {
 		String runMode = environment.getProperty("run_mode");
 		String remoteCallURL = environment.getProperty(runMode + ".manual_accumulate_point");
 		String key = environment.getProperty("key");
@@ -90,6 +91,8 @@ public class ExecutorServiceImpl implements ExecutorService{
 					"1": AppConstants.PaymentApprovalStatus.PAYMENT_APPROVAL_ERROR) ;
 
 			String[] paramArr = {
+				"paymentRouterName=" + transaction.getPaymentRouterName(),	
+				"paymentRouterType=" + transaction.getPaymentRouterType(),	
 				"pam=" + transaction.getPaymentApprovalAmount(),	
 				"pas=" + URLEncoder.encode(pas,"UTF-8"),
 				"pat=" + URLEncoder.encode(df.format(transaction.getPaymentApprovalDateTime()),"UTF-8"),

@@ -197,7 +197,7 @@ public class PaymentTransactionController extends ApplicationController {
 	@ResponseBody
 	@RequestMapping(value = "/paymentTransaction/newCreate", method = RequestMethod.GET)
 	public  ReturnpBaseResponse createNewPaymentTransaction(
-			PaymentTransaction transaction, BindingResult result, HttpSession httpSession, Model model) {
+			PaymentTransactionCommand transactionCommand, BindingResult result, HttpSession httpSession, Model model) {
 		System.out.println("paymentTransaction/newCreate");
 		
 		if (result.hasErrors()) {
@@ -207,11 +207,11 @@ public class PaymentTransactionController extends ApplicationController {
 			}
 		}
 		
-		if (AppConstants.PaymentTransactionType.MANUAL.equals(transaction.getPaymentTransactionType())) {
+		if (AppConstants.PaymentTransactionType.MANUAL.equals(transactionCommand.getPaymentTransactionType())) {
 			AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
-			transaction.setRegAdminNo(adminSession.getAdmin().getAdminNo());
+			transactionCommand.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		}
-		return this.paymentTransactionService.createNewPaymentTransaction(transaction);
+		return this.paymentTransactionService.createNewPaymentTransaction(transactionCommand);
 	}
 	
 	

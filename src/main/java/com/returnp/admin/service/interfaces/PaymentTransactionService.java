@@ -1,9 +1,8 @@
 package com.returnp.admin.service.interfaces;
 
-import java.util.HashMap;
-
 import org.springframework.transaction.annotation.Transactional;
 
+import com.returnp.admin.dto.command.PaymentTransactionCommand;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.PaymentTransaction;
 
@@ -12,7 +11,7 @@ public interface PaymentTransactionService {
 
 	ReturnpBaseResponse createPaymentTransaction(PaymentTransaction transaction);
 
-	ReturnpBaseResponse createNewPaymentTransaction(PaymentTransaction transaction);
+	ReturnpBaseResponse createNewPaymentTransaction(PaymentTransactionCommand transactionCommand);
 	
 	ReturnpBaseResponse checkPaymentTrasnsaction(PaymentTransaction transaction);
 	

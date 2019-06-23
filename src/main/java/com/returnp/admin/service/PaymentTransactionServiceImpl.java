@@ -1,13 +1,13 @@
 package com.returnp.admin.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dao.mapper.PaymentTransactionMapper;
+import com.returnp.admin.dto.command.PaymentTransactionCommand;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Affiliate;
 import com.returnp.admin.model.Member;
@@ -81,8 +81,8 @@ public class PaymentTransactionServiceImpl implements PaymentTransactionService 
 	}
 	
 	@Override
-	public ReturnpBaseResponse createNewPaymentTransaction(PaymentTransaction transaction) {
-		return this.paymentransactionExecutorService.accumulateRequest(transaction);
+	public ReturnpBaseResponse createNewPaymentTransaction(PaymentTransactionCommand transactionCommand) {
+		return this.paymentransactionExecutorService.accumulateRequest(transactionCommand);
 	}
 
 	
