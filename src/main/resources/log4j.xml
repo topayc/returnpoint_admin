@@ -18,7 +18,7 @@
 		<appender-ref ref="console" />
 	</logger>
 	<logger name="com.returnp.admin.dao.mapper" additivity="false">
-		<level value="debug" />
+		<level value="info" />
 		<appender-ref ref="console" />
 	</logger>
 	<logger name="org.mybatis" additivity="false">
@@ -26,8 +26,7 @@
 		<appender-ref ref="console" />
 	</logger>	
 	<root>
-		<level value="debug" />
+		<level value="info" />
 		<appender-ref ref="console" />
 	</root>
-	
 </log4j:configuration>
