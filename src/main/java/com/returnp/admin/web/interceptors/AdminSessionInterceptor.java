@@ -55,6 +55,7 @@ public class AdminSessionInterceptor extends HandlerInterceptorAdapter {
 					response.sendError(400);
 					return false;
 				} else {
+					System.out.println("--------------------------Redirect sign In");
 					response.sendRedirect("signIn");
 					return false;
 				}

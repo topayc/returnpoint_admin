@@ -41,7 +41,6 @@ import com.returnp.admin.service.interfaces.SearchService;
  * 관리자 백오피스 컨트롤러
  */
 @Controller
-
 /*@SessionAttributes({"nodeData"})*/
 public class AdminController extends ApplicationController{
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
