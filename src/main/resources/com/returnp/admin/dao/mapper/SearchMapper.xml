@@ -1756,6 +1756,16 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="affiliateSerial != null"> AND affiliateSerial = #{affiliateSerial,jdbcType=VARCHAR} </if>
       <if test="paymentApprovalDateTime != null"> AND paymentApprovalDateTime = #{paymentApprovalDateTime,jdbcType=TIMESTAMP} </if>
       <if test="regAdminNo != null"> AND regAdminNo = #{regAdminNo,jdbcType=INTEGER} </if>
+         <if test="paymentRouterType != null"> 
+      		AND (SELECT paymentRouterType from payment_router WHERE paymentRouterNo = PTR.paymentRouterNo) = #{paymentRouterType,jdbcType=VARCHAR} 
+      </if>
+      <if test="paymentRouterName != null"> 
+      		AND (SELECT paymentRouterName from payment_router WHERE paymentRouterNo = PTR.paymentRouterNo) = #{paymentRouterName,jdbcType=VARCHAR} 
+      	</if>
+      <if test="paymentRouterCode != null"> 
+      		AND (SELECT paymentRouterCode from payment_router WHERE paymentRouterNo = PTR.paymentRouterNo) = #{paymentRouterCode,jdbcType=VARCHAR} 
+      	</if>
+      
        <if test="memberName != null or memberEmail != null  or memberPhone != null ">
       	AND ( 1 = 2 
       </if>
