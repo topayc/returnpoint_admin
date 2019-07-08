@@ -9,7 +9,8 @@
 			    {field:'paymentRouterCode',width:30,align:'center',title : '라우터 코드', hidden:true},
 			    {field:'paymentRouterType',width:25,align:'center',title : 'RT' , formatter: paymentRouterTypeFormatter },
 			    {field:'paymentRouterName',width:30,align:'center',title : 'RN'  , formatter : paymentRouterNameFormatter },
-			    {field:'affiliateSerialCount',width:20,align:'center',title : 'TID'},
+			    {field:'affiliateSerialCount',width:20,align:'center',title : 'TID 수'},
+			    {field:'affiliateSerial',width:45,align:'center',title : '주 TID'},
 			  //  {field:'noname',width:30,align:'center',title : 'TID 보기' , formatter : tidActionFormatter, hidden: true},
 			    {field:'affiliateComm',width:35,align:'center',title : 'QR 적립율'},
 			    {field:'giftCardPayRefundRate',width:30,align:'center',title : 'GIFT 요율'},
@@ -85,6 +86,7 @@ function initView(){
 	
 	/* 검색어 입력 박스 초기화 */
 	$('#searchKeyword').textbox({ 
+		width: 200,
 		prompt : "검색할 단어를 입력해주세요" ,
 		inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
 			keyup:function(e){
@@ -103,7 +105,8 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
-		readonly:true
+		readonly:true,
+		width: 140
 	});
 	
 	/* 노드 상태 셀렉트 박스  초기화*/
@@ -115,6 +118,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
+		width: 100
 	});
 	
 	/* 검색어 타입 셀렉트 박스  초기화*/
@@ -126,18 +130,25 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
+		width: 100
+		
 	});
 	
 	/* 검색 시작일 갤린더 박스  초기화*/
 	$('#searchDateStart').datebox({	   
 	    prompt : "검색 시작 일자",
-	    labelPosition: 'top'
+	    labelPosition: 'top',
+	    width: 150,
+	    formatter :  searchDateFomatter
 	});
 	
 	/* 검색 종료일 갤린더 박스  초기화*/
 	$('#searchDateEnd').datebox({	  
 	    prompt : "검색 종료 일자",
+	    showSeconds: true,
 	    labelPosition: 'top',
+	    width: 150,
+	    formatter :  searchDateFomatter
 	});
 	
 	/* 검색 버튼  초기화*/
@@ -165,6 +176,7 @@ function initView(){
 				}
 			});
 		},
+		width : 70,
 		iconCls:'icon-search'
 	});
 	
@@ -177,7 +189,8 @@ function initView(){
 			$('#searchKeyword').textbox('clear');
 			$('#searchDateStart').datebox('clear');
 			$('#searchDateEnd').datebox('clear');
-		}
+		},
+		width : 70
 	});
 	
 	/* 노드 데이타그리드   초기화*/
@@ -466,6 +479,7 @@ function setListPager(){
         },{
             iconCls:'icon-tip',
             handler:function(){
+            	refreshMainTid();
             }
         }],
         layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
@@ -565,8 +579,10 @@ function loadAffiliateCreateForm(){
 }
 
 function updateTid(affiliateTidNo, elem){
+	var node = $('#node_list').datagrid('getSelected');
+	var affiliateNo = node.affiliateNo;
 	var newTid = $(elem).parent().parent().prev().find('div').html();
-	var data = {affiliateTidNo : affiliateTidNo, tid : newTid};
+	var data = {affiliateTidNo : affiliateTidNo, tid : newTid, affiliateNo : affiliateNo};
 	console.log(data);
 	returnp.api.call("updateAffiliateTid", data, function(res){
 		console.log(res);
@@ -575,6 +591,7 @@ function updateTid(affiliateTidNo, elem){
 		}else {
 			$.messager.alert('오류 발생', res.message);
 		}
+		realodPage();
 		var node = $('#node_list').datagrid('getSelected');
 		returnp.api.call("selectAffiliateTids", {affiliateNo : node.affiliateNo}, function(res){
 			if (res.resultCode  == "100") {
@@ -1159,6 +1176,22 @@ function createAffiliate(data){
 		}
 		
 	});
+}
+function refreshMainTid(){
+	$.messager.confirm('주 TID 갱신', /*item.data.memberEmail +*/ '주 TID 를 갱신 하시겠습니까?', function(r){
+        if (r){
+          	returnp.api.call("refreshMainTid", {}, function(res){
+        		if (res.resultCode  == "100") {
+        			$.messager.alert('알림', res.message);
+        			realodPage();
+        		}else {
+        			//console.log("[오류]");
+        			//console.log(res);
+        			$.messager.alert('오류 발생', res.message);
+        		}
+        	});
+        }
+    });
 }
 
 function removeAffiliate(){

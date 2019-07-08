@@ -23,6 +23,9 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
     
     @Value("#{properties['log.list']}")
     private boolean showList;
+
+    @Value("#{properties['log.request']}")
+    private boolean showRequest;
     
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
@@ -48,15 +51,16 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
     	if(debug) {
 	    	
 	    	HttpSession session = request.getSession();
-	    	
-	    	logger.info("------------------------------------- [WEB]Access info ---------------------------------------");
-	    	logger.info("Secure Mode ("+request.getScheme()+") : " + (request.isSecure()? "Secure Mode" : "Nomal Mode"));
-	    	logger.info("GET/POST : " + request.getMethod());	  
-	        logger.info("RequestUrl : " + request.getRequestURL());	       
-	        logger.info("Referer : " + request.getHeader("REFERER"));	       
-	        logger.info("QueryString : " + request.getQueryString());
-	        logger.info("Parameter Size : " + request.getParameterMap().size());
-	        logger.info("----------------------------------------------------------------------------------------");
+	    	if (showRequest) {
+	    		logger.info("------------------------------------- [WEB]Access info ---------------------------------------");
+	    		logger.info("Secure Mode ("+request.getScheme()+") : " + (request.isSecure()? "Secure Mode" : "Nomal Mode"));
+	    		logger.info("GET/POST : " + request.getMethod());	  
+	    		logger.info("RequestUrl : " + request.getRequestURL());	       
+	    		logger.info("Referer : " + request.getHeader("REFERER"));	       
+	    		logger.info("QueryString : " + request.getQueryString());
+	    		logger.info("Parameter Size : " + request.getParameterMap().size());
+	    		logger.info("----------------------------------------------------------------------------------------");
+	    	}
 	        
 	        boolean showLine = false;
 	        

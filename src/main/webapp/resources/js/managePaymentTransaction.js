@@ -17,7 +17,7 @@ var columns = [[
 	    {field:'paymentRouterType',width:18,align:'center',title : 'RT', formatter: paymentRouterTypeFormatter},
 	    {field:'paymentRouterName',width : 18,align:'center',title : 'RN', formatter: paymentRouterNameFormatter},
 	    {field:'paymentRouterCode',width:20,align:'center',title : 'RC', hidden:true},
-	    {field:'affiliateSerial',width:35,align:'center',title : 'T-ID'},
+	    {field:'affiliateSerial',width:35,align:'center',title : 'T-ID', formatter : slashFormatter},
 	    {field:'paymentApprovalNumber',width:45,align:'center',title : '승인 번호'},
 	    {field:'paymentApprovalAmount',width:25,align:'center',title : '승인 금액', formatter : numberBlueFormatter},
 	    {field:'paymentApprovalStatus',width:25,align:'center',title : '승인 상태', formatter : PaymentApprovalStatusFormatter},
@@ -519,7 +519,6 @@ function createPaymentTransaction(data){
 		$.messager.alert('알림', '입력 항목이 모두 입력되지 않았습니다');
 		return;
 	}	
-	
 	returnp.api.call("createNewPaymentTransaction", param, function(res){
 		if (res.resultCode  == "100") {
 			$.messager.alert('알림', res.message);

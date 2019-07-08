@@ -28,6 +28,7 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.common.ResponseUtil;
+import com.returnp.admin.dao.mapper.AffiliateMapper;
 import com.returnp.admin.dao.mapper.AffiliatePaymentRouterMapper;
 import com.returnp.admin.dao.mapper.AffiliateTidMapper;
 import com.returnp.admin.dto.AdminSession;
@@ -77,6 +78,7 @@ public class AffiliateController extends ApplicationController {
 	@Autowired AffiliateTidMapper affiliateTidMapper;
 	@Autowired QueryService queryService;
 	@Autowired AffiliatePaymentRouterMapper affiliatePaymentRouterMapper;
+	@Autowired AffiliateMapper affiliateMapper;
 	
 	@RequestMapping(value = "/affiliate/form/createForm", method = RequestMethod.GET)
 	public String formAffiliateRequest(
@@ -333,9 +335,17 @@ public class AffiliateController extends ApplicationController {
 			return res;
 		}else {
 			this.affiliateTidMapper.insert(affiliateTid);
+	
+			/* 이미 주 affiliateSerial 이 지정되어 있는 지 확인하고, 존재하지 않으면 주 affiliateSerial 로 추가함  */
+			Affiliate affiliate = new Affiliate();
+			affiliate.setAffiliateNo(affiliateTid.getAffiliateNo());
+			affiliate.setAffiliateSerial(affiliateTid.getTid());
+			this.affiliateMapper.updateByPrimaryKeySelective(affiliate);
 			this.setSuccessResponse(res, "TID 추가 완료");
 			return res;
 		}
+		
+	
 	
 	}
 
@@ -420,14 +430,22 @@ public class AffiliateController extends ApplicationController {
 			return res;
 		}else {
 			this.affiliateTidMapper.updateByPrimaryKeySelective(affiliateTid);
+			
+			
+			Affiliate affiliate = new Affiliate();
+			affiliate.setAffiliateNo(affiliateTid.getAffiliateNo());
+			affiliate.setAffiliateSerial(affiliateTid.getTid());
+			this.affiliateMapper.updateByPrimaryKeySelective(affiliate);
+					
 			this.setSuccessResponse(res);
 			return res;
 		}
 	}
+
 	
 	@ResponseBody
 	@RequestMapping(value = "/affiliate/registerAffiliatePaymentRouter", method = RequestMethod.POST)
-	public ReturnpBaseResponse  updateAffiliateTid(
+	public ReturnpBaseResponse  registerAffiliatePaymentRouter(
 			
 			@RequestParam(value = "affiliateNo", required = true) int affiliateNo, 
 			@RequestParam(value = "paymentRouterType", required = true) String paymentRouterType, 

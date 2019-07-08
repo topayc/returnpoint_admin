@@ -33,6 +33,9 @@ public class AdminSessionInterceptor extends HandlerInterceptorAdapter {
     @Value("#{properties['log.list']}")
     private boolean showList;
     
+    @Value("#{properties['log.request']}")
+    private boolean showRequest;
+    
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 		super.afterCompletion(request, response, handler, ex);
@@ -55,7 +58,6 @@ public class AdminSessionInterceptor extends HandlerInterceptorAdapter {
 					response.sendError(400);
 					return false;
 				} else {
-					System.out.println("--------------------------Redirect sign In");
 					response.sendRedirect("signIn");
 					return false;
 				}
@@ -82,16 +84,17 @@ public class AdminSessionInterceptor extends HandlerInterceptorAdapter {
     	if(debug) {
 	    	
 	    	HttpSession session = request.getSession();
-	    	
-	    	logger.info("------------------------------------- [WEB]login info ---------------------------------------");
-	        logger.info("RequestUrl : " + request.getRequestURL());
-	        logger.info("UserIP : " + request.getRemoteAddr());
-	        logger.info("ClientIP : " + getUserIP(request));
-	        logger.info("Referer : " + request.getHeader("REFERER"));
-	        logger.info("User-Agent : " + request.getHeader("User-Agent"));
-	        logger.info("QueryString : " + request.getQueryString());
-	        logger.info("Parameter Size : " + request.getParameterMap().size());
-	        logger.info("----------------------------------------------------------------------------------------");
+	    	if (showRequest) {
+	    		logger.info("------------------------------------- [WEB]login info ---------------------------------------");
+	    		logger.info("RequestUrl : " + request.getRequestURL());
+	    		logger.info("UserIP : " + request.getRemoteAddr());
+	    		logger.info("ClientIP : " + getUserIP(request));
+	    		logger.info("Referer : " + request.getHeader("REFERER"));
+	    		logger.info("User-Agent : " + request.getHeader("User-Agent"));
+	    		logger.info("QueryString : " + request.getQueryString());
+	    		logger.info("Parameter Size : " + request.getParameterMap().size());
+	    		logger.info("----------------------------------------------------------------------------------------");
+	    	}
 	        
 	        boolean showLine = false;
 	        
