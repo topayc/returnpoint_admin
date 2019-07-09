@@ -269,7 +269,6 @@ public class AdminController extends ApplicationController{
 			return RequestForward.SIGN_IN_VIEW;
 		}
 		return RequestRedirect.MAIN_REDIRECT;*/
-			System.out.println("로그인 프로세스 시작");
 		Admin admin = new Admin();
 		admin.setAdminEmail(id);
 		admin.setAdminPassword(password);

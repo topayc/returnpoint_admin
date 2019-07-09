@@ -184,6 +184,7 @@
 		                        </ul>
                             </li>     
                             
+                            
                               <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">결제 및 매출 관리</span>
 		                         <ul>
@@ -192,6 +193,13 @@
 		                            		<span style = "font-weight : bold">원본 결제 내역 관리</span>
 		                            	</a> 
 		                            </li> -->
+		                             
+		                             <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+   										<a class= "sub_menu"  view_req_name = "manageRpointPayment" menu_deps= '2' >
+   											<span style = "font-weight : bold">R.POINT 결제 현황</span>
+   										</a> 
+   									</li>
+   									
 		                             <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
 		                            		<span style = "font-weight : bold; ">세부 매출 조회</span>

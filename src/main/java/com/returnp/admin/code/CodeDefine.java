@@ -435,6 +435,7 @@ public class CodeDefine {
 		list.add(new CodeKeyValuePair("1", "VAN", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("2", "PG", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("3", "ADMIN", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("4", "API", "Y", "Y" ,""));
 		return list;
 	}
 	

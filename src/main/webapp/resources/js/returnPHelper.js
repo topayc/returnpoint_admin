@@ -710,22 +710,21 @@ function authTypeFormatter(value, row, index) {
 	return text;
 }
 
+/**
+ * @param value
+ * @param row
+ * @param index
+ * @returns
+ */
 function paymentTransactionRegistFormatter(value, row, index) {
 	var status = row.paymentTransactionType;
 	var text;
 	switch (status) {
-	case "1":
-		text = '<span style = "border-radius: 10px;background-color: green;padding: 5px;color : #ffffff;font-weight : bold">QR Code</span>';
-		break;
-	case "2":
-		text = '<span style = "border-radius: 10px;background-color: red;padding: 5px;color : #ffffff;font-weight : bold">VAN</span>';
-		break;
-	case "3":
-		text = '<span style = "border-radius: 10px;background-color: #01A9DB;padding: 5px;color : #ffffff;font-weight : bold"> Manual</span>';
-		break;
-	case "4":
-		text = '<span style = "border-radius: 10px;background-color: #01A9DB;padding: 5px;color : #ffffff;font-weight : bold">APP</span>';
-		break;
+		case "1": text = '<span style = "border-radius: 10px;background-color: green;padding: 5px;color : #ffffff;font-weight : bold">QR Code</span>'; break;
+		case "2": text = '<span style = "border-radius: 10px;background-color: red;padding: 5px;color : #ffffff;font-weight : bold">VAN</span>'; break;
+		case "3": text = '<span style = "border-radius: 10px;background-color: #01A9DB;padding: 5px;color : #ffffff;font-weight : bold"> Manual</span>'; break;
+		case "4": text = '<span style = "border-radius: 10px;background-color: #01A9DB;padding: 5px;color : #ffffff;font-weight : bold">APP</span>'; break;
+		case "5": text = '<span style = "border-radius: 10px;background-color: #8A2BE2;padding: 5px;color : #ffffff;font-weight : bold">API&nbsp;</span>'; break;
 	}
 	return text;
 }
