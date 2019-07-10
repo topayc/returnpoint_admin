@@ -257,13 +257,16 @@ function initView(){
 		  					}
 		  				);
 		  				break;
+		  			case "joinCider":
+		  				joinCider();
+		  				break;
 		  			}
 		  		}
 		  	});
 		  	
-		  	var menus = [  '수정', '삭제','상세 정보','결제 라우터 등록/변경', '가맹점 TID 보기', '가맹점 TID 추가 ','계좌 추가','계좌 리스트',   '포인트 누적 현황' ];
-		  	var icons = ['icon-edit','icon-remove','icon-tip','icon-tip','icon-add',   'icon-add', 'icon-add','icon-add', 'icon-large-chart'];
-		  	var actions = ['modify','remove','more_detail','createPaymentRouterForm', 'viewTids', 'addTid','add_bank', 'view_bank',  'point_acc_view'];
+		  	var menus = [  '수정', '삭제','상세 정보','결제 라우터 등록/변경', '가맹점 TID 보기', '가맹점 TID 추가 ','계좌 추가','계좌 리스트', '사이다 페이 가입하기',  '포인트 누적 현황'  ];
+		  	var icons = ['icon-edit','icon-remove','icon-tip','icon-tip','icon-add',   'icon-add', 'icon-add', 'icon-add' , 'icon-add', 'icon-large-chart'];
+		  	var actions = ['modify','remove','more_detail','createPaymentRouterForm', 'viewTids', 'addTid','add_bank', 'view_bank', 'joinCider','point_acc_view'];
 		  	
 		  	for(var i=0; i<menus.length; i++){
 		  		cmenu.menu('appendItem', {
@@ -863,6 +866,26 @@ function removeBankAccount(memberBankAccountNo, elem){
 }
 
 
+function joinCider(){
+	var node = $('#node_list').datagrid('getSelected');
+	$.messager.confirm({
+		title: '사이다 페이 가입 확인',
+		msg: node.affiliateName + ' 협력업체를 사이다 페이 가입시키겠습니까?',
+		fn: function(r){
+			if (r){
+				returnp.api.call("joinCider", {affiliateNo :node.affiliateTidNo }, function(res){
+					if (res.resultCode  == "100") {
+						$.messager.alert('알림', res.message);
+					}else {
+						$.messager.alert('오류 발생', res.message);
+					}
+					
+				});
+			}
+		}
+	});
+	
+}
 
 function openBankList(){
 	var node = $('#node_list').datagrid('getSelected');

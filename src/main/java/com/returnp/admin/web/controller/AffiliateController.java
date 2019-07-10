@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.client.RestTemplate;
 
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.code.CodeGenerator;
@@ -31,6 +32,7 @@ import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.dao.mapper.AffiliateMapper;
 import com.returnp.admin.dao.mapper.AffiliatePaymentRouterMapper;
 import com.returnp.admin.dao.mapper.AffiliateTidMapper;
+import com.returnp.admin.dao.mapper.MemberMapper;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.AffiliateCommand;
 import com.returnp.admin.dto.command.AffiliateTidCommand;
@@ -79,6 +81,7 @@ public class AffiliateController extends ApplicationController {
 	@Autowired QueryService queryService;
 	@Autowired AffiliatePaymentRouterMapper affiliatePaymentRouterMapper;
 	@Autowired AffiliateMapper affiliateMapper;
+	@Autowired MemberMapper memberMapper;
 	
 	@RequestMapping(value = "/affiliate/form/createForm", method = RequestMethod.GET)
 	public String formAffiliateRequest(
@@ -311,6 +314,55 @@ public class AffiliateController extends ApplicationController {
 		res.setData(CodeGenerator.generatorTid(affiliateType));
 		this.setSuccessResponse(res, "T-ID 생성 ");
 		return res;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/affiliate/joinCider", method = RequestMethod.GET)
+	public  ReturnpBaseResponse joinCider(@RequestParam(value = "affiliateNo", required = true) int affiliateNo) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		AffiliateCommand affiliateCommand = new AffiliateCommand();
+		affiliateCommand.setAffiliateNo(affiliateNo);
+		ArrayList<AffiliateCommand> affiliateCommandList = this.searchService.findAffiliateCommands(affiliateCommand);
+		if ( affiliateCommandList.size()  != 1) {
+			ResponseUtil.setResponse(res, "781", "해당 협력업체가 존재하지 않습니다.확인후 다시 시도해주세요");
+			return res;
+		}else {
+			RestTemplate restTemplate = new RestTemplate();
+
+			affiliateCommand= affiliateCommandList.get(0);
+			Member member = this.memberMapper.selectByPrimaryKey(affiliateCommand.getMemberNo());
+			
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("resellerid", "");
+			params.put("seller_type", "");
+			params.put("userid", member.getMemberEmail());
+			params.put("userpwd", ""); // 평문 패스워드 
+			params.put("sellername", affiliateCommand.getAffiliateName());
+			params.put("phone", member.getMemberPhone());
+			params.put("email", "");
+			params.put("homepage", "");
+			params.put("bizkind", "");
+			params.put("wherefrom", "");
+			params.put("zipcode", "");
+			params.put("addr2", "");
+			params.put("usertype", "");
+			params.put("compbank", "");
+			params.put("compbanknum", "");
+			params.put("compbankname", "");
+			params.put("compregno", "");
+			params.put("compname", "");
+			params.put("biztype1", "");
+			params.put("biztype2", "");
+			params.put("comptel", "");
+			params.put("ceo_nm", "");
+			params.put("corp_type", "");
+			params.put("username", "");
+			params.put("joinMemberType", "");
+
+			String ciderRes  = restTemplate.postForObject("https://api.ciderpay.com/oapi/member/regist/seller/v2", params, String.class);
+			ResponseUtil.setResponse(res, "100", "사이다 페이 가입되었습니다.");
+			return res;
+		}
 	}
 	
 	@ResponseBody
