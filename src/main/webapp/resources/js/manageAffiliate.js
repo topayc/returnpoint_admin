@@ -4,7 +4,7 @@
 			    {field:'affiliateNo',width:20,align:'center',title : '번호',hidden:false},
 			    {field:'memberName',width:30,align:'center',title : '회원 이름'},
 			    {field:'memberEmail',width:60,align:'center',title : '이메일'},
-			    {field:'affiliateName',width:50,align:'center',title : '가맹점 이름'},
+			    {field:'affiliateName',width:55,align:'center',title : '가맹점 이름'},
 			    {field:'affiliateCode',width:60,align:'center',title : '가맹점 코드',hidden:false},
 			    {field:'paymentRouterNo',width:30,align:'center',title : '라우터 번호', hidden:true },
 			    {field:'paymentRouterCode',width:30,align:'center',title : '라우터 코드', hidden:true},
