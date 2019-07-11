@@ -90,6 +90,26 @@
    		<a id = "gen_tid"  style = "margin-left: 10px">TID 생성</a>   
    		</div>
 </div>
+
+<div id="biz_info_dlg" style = "padding : 20px;display : none">
+	<div style = "margin-bottom: 20px">
+		<ul style ='font-weight: bold';'>
+			<li style ="margin-bottom:5px;font-size:12px">아래의 사업정보를 입력해주세요</li>
+		</ul>
+	</div>
+   	<form id = "biz_info_form">
+   	<div style="margin-bottom:12px">
+		<input id ="businessNumber"  name="businessNumber" style="width:100%" data-options="labelWidth :100,labelPosition : 'left'"> 
+	</div>
+   	<div style="margin-bottom:12px">
+		<input id ="businessType"  name="businessType" style="width:100%" data-options="labelWidth :100,labelPosition : 'left'"> 
+	</div>
+   	<div style="margin-bottom:12px">
+		<input id ="businessItem"  name="businessItem" style="width:100%" data-options="labelWidth :100,labelPosition : 'left'"> 
+	</div>
+	</form>
+</div>
+
 <div id="dlg-buttons">
         <a href="javascript:void(0)"  id = "add_tid_btn" class="easyui-linkbutton">확인</a>
         <a href="javascript:void(0)" id  = "cancel_btn" class="cancel_btn" >취소</a>

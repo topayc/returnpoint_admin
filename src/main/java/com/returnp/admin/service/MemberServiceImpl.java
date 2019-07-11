@@ -8,11 +8,12 @@ import org.springframework.stereotype.Service;
 
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dao.mapper.MemberMapper;
-import com.returnp.admin.dto.AdminSession;
+import com.returnp.admin.dao.mapper.MemberPlainPasswordMapper;
 import com.returnp.admin.dto.command.MemberCommand;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
+import com.returnp.admin.model.MemberPlainPassword;
 import com.returnp.admin.model.RedPoint;
 import com.returnp.admin.service.interfaces.GreenPointService;
 import com.returnp.admin.service.interfaces.MemberService;
@@ -30,6 +31,7 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired GreenPointService  greenPointService;
 	@Autowired RedPointService redPointService;
 	@Autowired PointCoversionTransactionService pointTransactionService;
+	@Autowired MemberPlainPasswordMapper  memberPlainPasswordMapper;;
 	
 	@Override
 	public int deleteByPrimaryKey(Integer memberNo) {
@@ -67,12 +69,16 @@ public class MemberServiceImpl implements MemberService {
 		if (this.isEmailDuplicated(member.getMemberEmail())) {
 			ReturnpResponseMessageHandler.setErrorResponse(res,"중복된 이메일입니다. 다시 확인해주세요");
 		}else {
+			
+			String  plainPassword = member.getMemberPassword();
+			
 			member.setMemberPassword(Crypto.sha(member.getMemberPassword()));
 			if (StringUtils.isBlank(member.getMemberPassword())) {
 				member.setMemberPassword2(member.getMemberPassword());
 			} else {
 				member.setMemberPassword2(Crypto.sha(member.getMemberPassword2()));
 			}
+			
 			member.setMemberPassword2(Crypto.sha(member.getMemberPassword2()));
 			member.setIsSoleDist("N");
 			member.setIsAffiliate("N");
@@ -87,6 +93,13 @@ public class MemberServiceImpl implements MemberService {
 			member.setGreenPointUseStatus("Y");
 			member.setRedPointUseStatus("Y");
 			this.memberMapper.insert(member);
+			
+			/* CiderPay 연동을 위한 암호 평문 정보 저장* */
+			MemberPlainPassword mpp = new MemberPlainPassword();
+			mpp.setMemberNo(member.getMemberNo());
+			mpp.setPlainPassword(plainPassword);
+			mpp.setHashPassword(Crypto.sha(plainPassword));
+			this.memberPlainPasswordMapper.insert(mpp);
 			
 			/* 일반 회원용 Green Point 생성*/
 			GreenPoint greenPoint = new GreenPoint();
@@ -111,7 +124,7 @@ public class MemberServiceImpl implements MemberService {
 			redPoint.setMemberNo(member.getMemberNo());
 			redPoint.setPointAmount((float)0);
 			this.redPointService.insert(redPoint);
-			
+	
 			ReturnpResponseMessageHandler.setSuccessResponse(res, "생성 완료");
 		}
 		return res;
@@ -121,11 +134,37 @@ public class MemberServiceImpl implements MemberService {
 	public ReturnpBaseResponse updateMember(Member member) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		Member oriMember = this.memberMapper.selectByPrimaryKey(member.getMemberNo());
+		
 		if (oriMember == null) {
 			ReturnpResponseMessageHandler.setRespone(res, "311", "error", "잘못된 회원 정보입니다");
 			return res;
 		}
+		
+		String plainPassword = null;
+		MemberPlainPassword mpp = null;
+		ArrayList<MemberPlainPassword> mpps = null;
+		
 		if (!member.getMemberPassword().equals(oriMember.getMemberPassword())) {
+			
+			/*회원 패스워드 평문 정보 업데이트 */
+			plainPassword = member.getMemberPassword();
+			mpp = new MemberPlainPassword();
+			mpp.setMemberNo(member.getMemberNo());
+			mpps = this.searchService.selectMemberPlainPasswords(mpp);
+			
+			if (mpps.size() != 1) {
+				mpp.setMemberNo(member.getMemberNo());
+				mpp.setPlainPassword(plainPassword);
+				mpp.setHashPassword(Crypto.sha(plainPassword));
+				this.memberPlainPasswordMapper.insert(mpp);
+			}else {
+				mpp = mpps.get(0);
+				mpp.setPlainPassword(plainPassword);
+				mpp.setHashPassword(Crypto.sha(plainPassword));
+				this.memberPlainPasswordMapper.updateByPrimaryKey(mpp);
+			}
+			
+			/*회원 정보 업데이트를 위한 프로퍼티 수정 */
 			member.setMemberPassword(Crypto.sha(member.getMemberPassword()));
 			member.setMemberPassword2(member.getMemberPassword());
 		}

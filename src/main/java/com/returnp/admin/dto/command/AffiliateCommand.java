@@ -55,9 +55,16 @@ public class AffiliateCommand  extends QueryCondition{
     public String paymentRouterType;
     public String paymentRouterName;
     public String paymentRouterCode;
+    public String ciderPayStatus;
     
 
     
+	public String getCiderPayStatus() {
+		return ciderPayStatus;
+	}
+	public void setCiderPayStatus(String ciderPayStatus) {
+		this.ciderPayStatus = ciderPayStatus;
+	}
 	public int getPaymentRouterNo() {
 		return paymentRouterNo;
 	}

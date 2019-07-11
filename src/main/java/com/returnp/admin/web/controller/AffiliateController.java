@@ -10,7 +10,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
@@ -29,10 +33,13 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.common.ResponseUtil;
+import com.returnp.admin.dao.mapper.AffiliateCiderpayMapper;
+import com.returnp.admin.dao.mapper.AffiliateDetailMapper;
 import com.returnp.admin.dao.mapper.AffiliateMapper;
 import com.returnp.admin.dao.mapper.AffiliatePaymentRouterMapper;
 import com.returnp.admin.dao.mapper.AffiliateTidMapper;
 import com.returnp.admin.dao.mapper.MemberMapper;
+import com.returnp.admin.dao.mapper.MemberPlainPasswordMapper;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.AffiliateCommand;
 import com.returnp.admin.dto.command.AffiliateTidCommand;
@@ -40,12 +47,16 @@ import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Affiliate;
+import com.returnp.admin.model.AffiliateCiderpay;
+import com.returnp.admin.model.AffiliateDetail;
 import com.returnp.admin.model.AffiliatePaymentRouter;
 import com.returnp.admin.model.AffiliateTid;
 import com.returnp.admin.model.Category;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.MemberAddress;
+import com.returnp.admin.model.MemberBankAccount;
+import com.returnp.admin.model.MemberPlainPassword;
 import com.returnp.admin.model.PaymentRouter;
 import com.returnp.admin.model.Policy;
 import com.returnp.admin.service.interfaces.AffiliateService;
@@ -66,6 +77,15 @@ import com.returnp.admin.utils.Common;
 @SessionAttributes("affiliateFormInfo")
 public class AffiliateController extends ApplicationController {
 
+	@Value("#{properties['cider.reseller_id']}")
+    private String ciderPayResellerId;
+	
+	@Value("#{properties['cider.seller_type']}")
+    private String ciderPaySellerType;
+	
+	@Value("#{properties['cider.url']}")
+    private String ciderPayUrl;
+	
 	@Autowired MemberService memberSerivice;
 	@Autowired MemberAddressService memberAddressSerivice;
 	@Autowired BranchService branchService;
@@ -82,6 +102,9 @@ public class AffiliateController extends ApplicationController {
 	@Autowired AffiliatePaymentRouterMapper affiliatePaymentRouterMapper;
 	@Autowired AffiliateMapper affiliateMapper;
 	@Autowired MemberMapper memberMapper;
+	@Autowired AffiliateCiderpayMapper affiliateCiderpayMapper;
+	@Autowired MemberPlainPasswordMapper memberPlainPasswordMapper;
+	@Autowired AffiliateDetailMapper affiliateDetailMapper;
 	
 	@RequestMapping(value = "/affiliate/form/createForm", method = RequestMethod.GET)
 	public String formAffiliateRequest(
@@ -241,7 +264,6 @@ public class AffiliateController extends ApplicationController {
 				greenPoint.setNodeTypeName("affiliate");
 				this.greenPointService.insert(greenPoint);
 			}
-			
 			this.setSuccessResponse(res, "생성 완료");
 		}
 		return res;
@@ -317,51 +339,181 @@ public class AffiliateController extends ApplicationController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/affiliate/joinCider", method = RequestMethod.GET)
-	public  ReturnpBaseResponse joinCider(@RequestParam(value = "affiliateNo", required = true) int affiliateNo) {
+	@RequestMapping(value = "/affiliate/getBizInfo", method = RequestMethod.GET)
+	public ReturnpBaseResponse  getBizInfo(
+			@RequestParam(value = "affiliateNo", required = true) int  affiliateNo) {
+		
+		ObjectResponse<AffiliateDetail> res = new ObjectResponse<AffiliateDetail>();
+		AffiliateDetail affiliateDetail = new AffiliateDetail();
+		affiliateDetail.setAffiliateNo(affiliateNo);
+		ArrayList<AffiliateDetail> ads = this.searchService.selectAffiliateDetails(affiliateDetail);
+		if (ads.size() != 1) {
+			ResponseUtil.setResponse(res, "721", "사업장 정보가 존재하지 않습니다.");
+		}else {
+			ResponseUtil.setResponse(res, "100", "조회 성공");
+			res.setData(ads.get(0));
+			this.setSuccessResponse(res);
+		}
+		return res;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/affiliate/createBizInfo", method = RequestMethod.POST)
+	public  ReturnpBaseResponse createBizInfo(AffiliateDetail affiliateDetail) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		
+		if (affiliateDetail.getBusinessNumber().trim().contains("-")) {
+			affiliateDetail.setBusinessNumber(affiliateDetail.getBusinessNumber().trim().replace("-", ""));
+		}
+		
+		AffiliateDetail ad = new AffiliateDetail();
+		ad.setAffiliateNo(affiliateDetail.getAffiliateNo());
+		ArrayList<AffiliateDetail> afds = this.searchService.selectAffiliateDetails(ad);
+		
+		/*
+		 * 사업자 번호가 중복되었는지 조사 
+		 * 차후 작업함 
+		 * */
+		/*AffiliateDetail ad2 = new AffiliateDetail();
+		ad.setBusinessNumber(affiliateDetail.getBusinessNumber());
+		ArrayList<AffiliateDetail> afds2= this.searchService.selectAffiliateDetails(ad2);
+		
+		if (afds2.size() > 1) {
+			ResponseUtil.setResponse(res, "799", "사업자 번호가 중복되었습니다.");
+		}*/
+		
+		
+		if (afds.size() < 1 ) {
+			this.affiliateDetailMapper.insert(affiliateDetail);
+		}else {
+			ad = afds.get(0);
+			ad.setBusinessNumber(affiliateDetail.getBusinessNumber());
+			ad.setBusinessType(affiliateDetail.getBusinessType());
+			ad.setBusinessItem(affiliateDetail.getBusinessItem());
+			this.affiliateDetailMapper.updateByPrimaryKey(ad);
+		}
+		
+		this.setSuccessResponse(res, "사업장 정보 등록 및 변경 성공");
+		return res;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/affiliate/changeCiderPayStatus", method = RequestMethod.GET)
+	public  ReturnpBaseResponse changeCiderPayStatus(
+			@RequestParam(value = "affiliateNo", required = true) int affiliateNo, 
+			@RequestParam(value = "ciderPayStatus", required = true) String  ciderPayStatus
+			) throws ParseException {
+		
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		AffiliateCommand affiliateCommand = new AffiliateCommand();
 		affiliateCommand.setAffiliateNo(affiliateNo);
+		
 		ArrayList<AffiliateCommand> affiliateCommandList = this.searchService.findAffiliateCommands(affiliateCommand);
 		if ( affiliateCommandList.size()  != 1) {
-			ResponseUtil.setResponse(res, "781", "해당 협력업체가 존재하지 않습니다.확인후 다시 시도해주세요");
+			ResponseUtil.setResponse(res, "781", "해당 협력업체가 존재하지 않습니다..</br>확인후 다시 시도해주세요");
 			return res;
 		}else {
-			RestTemplate restTemplate = new RestTemplate();
-
-			affiliateCommand= affiliateCommandList.get(0);
-			Member member = this.memberMapper.selectByPrimaryKey(affiliateCommand.getMemberNo());
 			
-			Map<String, String> params = new HashMap<String, String>();
-			params.put("resellerid", "");
-			params.put("seller_type", "");
-			params.put("userid", member.getMemberEmail());
-			params.put("userpwd", ""); // 평문 패스워드 
-			params.put("sellername", affiliateCommand.getAffiliateName());
-			params.put("phone", member.getMemberPhone());
-			params.put("email", "");
-			params.put("homepage", "");
-			params.put("bizkind", "");
-			params.put("wherefrom", "");
-			params.put("zipcode", "");
-			params.put("addr2", "");
-			params.put("usertype", "");
-			params.put("compbank", "");
-			params.put("compbanknum", "");
-			params.put("compbankname", "");
-			params.put("compregno", "");
-			params.put("compname", "");
-			params.put("biztype1", "");
-			params.put("biztype2", "");
-			params.put("comptel", "");
-			params.put("ceo_nm", "");
-			params.put("corp_type", "");
-			params.put("username", "");
-			params.put("joinMemberType", "");
+			AffiliateCiderpay ciderPay = new AffiliateCiderpay();
+			ciderPay.setAffiliateNo(affiliateNo);
+			ArrayList<AffiliateCiderpay> affiliateCiderPays = this.searchService.selectAffiliateCiderPays(ciderPay);
+			
+			/*사이다 페이 가입이 안되어 있음 */
+			if (affiliateCiderPays.size() == 0) {
+				
+				/*Cider Pay 원격 회원 가입 */
+				affiliateCommand= affiliateCommandList.get(0);
+				Member member = this.memberMapper.selectByPrimaryKey(affiliateCommand.getMemberNo());
+				
+				/*회원 평문 암호 정보 */
+				MemberPlainPassword mpp = new MemberPlainPassword();
+				mpp.setMemberNo(member.getMemberNo());
+				ArrayList<MemberPlainPassword> mpps = this.searchService.selectMemberPlainPasswords(mpp);
+				if (mpps.size() !=1) {
+					ResponseUtil.setResponse(res, "478", "가맹점의 평문 암호정보가 존재하지 않습니다.</br> 관리자에게 문의해주세요 ");
+					return res;
+				}
+				
+				/*회원 은행 정보 */
+				MemberBankAccount mba = new MemberBankAccount();
+				mba.setIsDefault("Y");
+				mba.setMemberNo(affiliateCommand.getMemberNo());
+				ArrayList<MemberBankAccount> mbas = this.searchService.findMemberBankAccounts(mba);
+				
+				if (mbas.size() != 1) {
+					ResponseUtil.setResponse(res, "479", "가맹점의 주 은행 정보가 존재하지 않습니다. </br> 주 은행을 설정한 후 다시 시도해주세요 ");
+					return res;
+				}
+				
+				/*가맹점 세부 정보*/
+				AffiliateDetail affiliateDetail = new AffiliateDetail();
+				affiliateDetail.setAffiliateNo(affiliateCommand.getAffiliateNo());
+				ArrayList<AffiliateDetail> afds = this.searchService.selectAffiliateDetails(affiliateDetail);
+				if (afds.size() != 1) {
+					ResponseUtil.setResponse(res, "474", "해당 가맹점의 사업정보가 존재하지 않습니다. </br>사업정보를 입력한 후 다시 시도해주세요 ");
+					return res;
+				}
+				
+				RestTemplate restTemplate = new RestTemplate();
 
-			String ciderRes  = restTemplate.postForObject("https://api.ciderpay.com/oapi/member/regist/seller/v2", params, String.class);
-			ResponseUtil.setResponse(res, "100", "사이다 페이 가입되었습니다.");
-			return res;
+				System.out.println("사이다 페이 요청 정보-----------------------------------------------------------");
+				System.out.println(this.ciderPayResellerId);
+				System.out.println(this.ciderPaySellerType);
+				System.out.println();
+				
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("resellerid", this.ciderPayResellerId);
+				params.put("seller_type", this.ciderPaySellerType);
+				params.put("userid", member.getMemberEmail());
+				params.put("userpwd", mpp.getPlainPassword()); // 평문 패스워드 
+				params.put("sellername", member.getMemberName());
+				params.put("phone", member.getMemberPhone());
+				params.put("email", member.getMemberEmail());
+				params.put("homepage", "");
+				params.put("bizkind", "도소매");
+				params.put("wherefrom", "");
+				params.put("zipcode", "");
+				params.put("addr2", "");
+				
+				params.put("usertype", "2");
+				params.put("compbank", mbas.get(0).getBankName());
+				params.put("compbanknum", mbas.get(0).getBankAccount());
+				params.put("compbankname", mbas.get(0).getAccountOwner());
+				params.put("compregno", afds.get(0).getBusinessNumber());
+				params.put("compname", affiliateCommand.getAffiliateName());
+				params.put("biztype1", afds.get(0).getBusinessType());
+				params.put("biztype2", afds.get(0).getBusinessItem());
+				params.put("comptel", affiliateCommand.getAffiliatePhone());
+				params.put("ceo_nm", member.getMemberName());
+				params.put("corp_type", "2");
+				params.put("username", "");
+				params.put("joinMemberType", "BUSINESS");
+				
+				String ciderRes  = restTemplate.postForObject(this.ciderPayUrl, params, String.class);
+				System.out.println("사이다 페이 응답-----------------------------------------------------------");
+				System.out.println(ciderRes);
+				System.out.println();
+
+				JSONParser jsonParser = new JSONParser();
+				JSONObject jsonObject = (JSONObject)jsonParser.parse(ciderRes);
+				if ((boolean)jsonObject.get("success") != true){
+					ResponseUtil.setResponse(res, "478", "사이다 페이 가입 실패 ");
+					return res;
+				}
+				
+				/*affiliate_ciderpay insert*/
+				ciderPay.setCiderPayStatus(ciderPayStatus);
+				this.affiliateCiderpayMapper.insert(ciderPay);
+				
+				ResponseUtil.setResponse(res, "100", "수정사항이 잘 적용되었습니다");
+				return res;
+			}else {
+				ciderPay = affiliateCiderPays.get(0);
+				ciderPay.setCiderPayStatus(ciderPayStatus);
+				this.affiliateCiderpayMapper.updateByPrimaryKey(ciderPay);
+				ResponseUtil.setResponse(res, "100", "수정 사항이 잘 적용되었습니다");
+				return res;
+			}
 		}
 	}
 	

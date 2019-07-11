@@ -34,6 +34,8 @@ import com.returnp.admin.dto.command.SoleDistCommand;
 import com.returnp.admin.model.Admin;
 import com.returnp.admin.model.AdminFile;
 import com.returnp.admin.model.Affiliate;
+import com.returnp.admin.model.AffiliateCiderpay;
+import com.returnp.admin.model.AffiliateDetail;
 import com.returnp.admin.model.AffiliatePaymentRouter;
 import com.returnp.admin.model.Agency;
 import com.returnp.admin.model.Board;
@@ -49,6 +51,7 @@ import com.returnp.admin.model.Member;
 import com.returnp.admin.model.MemberAddress;
 import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.model.MemberConfig;
+import com.returnp.admin.model.MemberPlainPassword;
 import com.returnp.admin.model.MembershipRequest;
 import com.returnp.admin.model.PaymentRouter;
 import com.returnp.admin.model.PaymentTransaction;
@@ -186,6 +189,12 @@ public interface SearchService {
 	public ArrayList<PaymentRouter> selectPaymentRouters(PaymentRouter paymentRouter);
 
 	public ArrayList<AffiliatePaymentRouter> selectAffiliatePaymentRouters(AffiliatePaymentRouter affiliatePaymentRouter);
+
+	public ArrayList<AffiliateCiderpay> selectAffiliateCiderPays(AffiliateCiderpay affiliateCiderpay);
+	
+	public ArrayList<MemberPlainPassword> selectMemberPlainPasswords(MemberPlainPassword memberPlainPassword);
+	
+	public ArrayList<AffiliateDetail> selectAffiliateDetails(AffiliateDetail affiliateDetail);
 
 	
 }

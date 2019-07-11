@@ -1056,6 +1056,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="paymentRouterType" jdbcType="VARCHAR" property="paymentRouterType" />
     <result column="paymentRouterName" jdbcType="VARCHAR" property="paymentRouterName" />
     <result column="paymentRouterCode" jdbcType="VARCHAR" property="paymentRouterCode" />
+    <result column="ciderPayStatus" jdbcType="VARCHAR" property="ciderPayStatus" />
   </resultMap>
   
   <sql id="Affiliate_Column_List">
@@ -1116,7 +1117,8 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     APR.paymentRouterNo, 
     (SELECT paymentRouterType from payment_router WHERE paymentRouterNo = APR.paymentRouterNo) as paymentRouterType,
     (SELECT paymentRouterName from payment_router WHERE paymentRouterNo = APR.paymentRouterNo) as paymentRouterName,
-    (SELECT paymentRouterCode  from payment_router WHERE paymentRouterNo = APR.paymentRouterNo) as paymentRouterCode
+    (SELECT paymentRouterCode  from payment_router WHERE paymentRouterNo = APR.paymentRouterNo) as paymentRouterCode,
+    AC.ciderPayStatus
   </sql>
   
     <sql id ="affiliateSearchWhereStatement">
@@ -1166,6 +1168,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="paymentRouterType != null"> AND paymentRouterType = #{paymentRouterType,jdbcType=INTEGER} </if>
       <if test="paymentRouterName != null"> AND paymentRouterName = #{paymentRouterName,jdbcType=INTEGER} </if>
       <if test="paymentRouterCode != null"> AND paymentRouterCode = #{paymentRouterCode,jdbcType=INTEGER} </if>
+      <if test="ciderPayStatus != null"> AND ciderPayStatus = #{ciderPayStatus,jdbcType=INTEGER} </if>
       
        <if test="affiliateCode != null or affiliateAddress != null or affiliateTel != null or affiliatePhone != null or affiliateName != null  or affiliateEmail != null or memberName != null or memberPhone != null ">
       	AND ( 1 = 2 
@@ -1207,6 +1210,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     left outer join member as M2 on (AF.recommenderNo = M2.memberNo)
     left outer join agency as AG on (AF.agencyNo= AG.agencyNo)
     left outer join affiliate_payment_router as APR on (AF.affiliateNo= APR.affiliateNo)
+    left outer join affiliate_ciderpay as AC on (AF.affiliateNo= AC.affiliateNo)
     where 
       1 = 1
 		<include refid = "affiliateCommandSearchWhereStatement"/>
@@ -2843,11 +2847,13 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     MA.regType
   </sql>
 
+
    <sql id ="Member_Bank_Account_WhereStatement">
-   	  <if test="memberBankAccountNo!= null"> AND  MA.memberBankAccountNo = #{memberBankAccountNo,jdbcType=INTEGER}</if>
-   	  <if test="memberNo != null"> AND  MA.memberNo = #{memberNo,jdbcType=INTEGER}</if>
-      <if test="accountOwner != null"> AND MA.accountOwner = #{accountOwner,jdbcType=VARCHAR}</if>
-      <if test="accountStatus != null"> AND MA.accountStatus = #{accountStatus,jdbcType=VARCHAR}</if>
+ 	  <if test="memberBankAccountNo!= null"> AND  memberBankAccountNo = #{memberBankAccountNo,jdbcType=INTEGER}</if>
+   	  <if test="memberNo != null"> AND  memberNo = #{memberNo,jdbcType=INTEGER}</if>
+      <if test="accountOwner != null"> AND accountOwner = #{accountOwner,jdbcType=VARCHAR}</if>
+      <if test="accountStatus != null"> AND accountStatus = #{accountStatus,jdbcType=VARCHAR}</if>
+      <if test="isDefault != null"> AND isDefault = #{isDefault,jdbcType=VARCHAR}</if>
    </sql>
    
     <sql id ="Member_Bank_Account_Command_WhereStatement">
@@ -2855,6 +2861,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
    	  <if test="memberNo != null"> AND  MA.memberNo = #{memberNo,jdbcType=INTEGER}</if>
       <if test="accountOwner != null"> AND MA.accountOwner = #{accountOwner,jdbcType=VARCHAR}</if>
       <if test="accountStatus != null"> AND MA.accountStatus = #{accountStatus,jdbcType=VARCHAR}</if>
+        <if test="isDefault != null"> AND MA.isDefault = #{isDefault,jdbcType=VARCHAR}</if>
       
     	<if test="memberName != null or memberEmail != null or memberPhone != null">
         AND ( 1 = 2 
@@ -4104,5 +4111,100 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
     	<include refid = "AffiliatePaymentRouterWhereStatement"/>
   </select>
   
+    <!-- ===============================================================================================================    -->
+  <!-- AffilaiteciderPay   -->
+  
+    <resultMap id="AffiliateCiderpayResultMap" type="com.returnp.admin.model.AffiliateCiderpay">
+    <id column="affiliateCiderPayNo" jdbcType="INTEGER" property="affiliateCiderPayNo" />
+    <result column="affiliateNo" jdbcType="INTEGER" property="affiliateNo" />
+    <result column="ciderPayStatus" jdbcType="VARCHAR" property="useStatus" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  
+    <sql id="AffiliateCiderpay_Column_List">
+    affiliateCiderPayNo, affiliateNo, ciderPayStatus, updateTime, createTime
+  </sql>
+  
+    <sql id ="AffiliateCiderpayWhereStatement">
+      <if test="affiliateCiderPayNo != null"> AND affiliateCiderPayNo = #{affiliateCiderPayNo,jdbcType=INTEGER}</if>
+      <if test="affiliateNo != null"> AND affiliateNo = #{affiliateNo,jdbcType=INTEGER}</if>
+      <if test="ciderPayStatus != null"> AND ciderPayStatus = #{ciderPayStatus,jdbcType=VARCHAR}</if>
+  </sql>
+  
+  <select id="selectAffiliateCiderPays" parameterType="com.returnp.admin.model.AffiliateCiderpay" resultMap="AffiliateCiderpayResultMap">
+    select 
+    <include refid="AffiliateCiderpay_Column_List" />
+    from affiliate_ciderpay
+    where 
+     	 1 = 1 
+    	<include refid = "AffiliateCiderpayWhereStatement"/>
+  </select>
+  
+      <!-- ===============================================================================================================    -->
+  <!-- MemberPlainPassword   -->
+  
+    <resultMap id="MemberPlainPasswordResultMap" type="com.returnp.admin.model.MemberPlainPassword">
+    <id column="memberPlainPasswordNo" jdbcType="INTEGER" property="memberPlainPasswordNo" />
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="plainPassword" jdbcType="VARCHAR" property="plainPassword" />
+    <result column="hashPassword" jdbcType="VARCHAR" property="hashPassword" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+    <sql id="MemberPlainPassword_Column_List">
+       memberPlainPasswordNo, memberNo, plainPassword, hashPassword, createTime, updateTime
+  </sql>
+  
+    <sql id ="MemberPlainPasswordWhereStatement">
+      <if test="memberPlainPasswordNo != null"> AND memberPlainPasswordNo = #{memberPlainPasswordNo,jdbcType=INTEGER}</if>
+      <if test="memberNo != null"> AND memberNo = #{memberNo,jdbcType=INTEGER}</if>
+  </sql>
+  
+  <select id="selectMemberPlainPasswords" parameterType="com.returnp.admin.model.MemberPlainPassword" resultMap="MemberPlainPasswordResultMap">
+    select 
+    <include refid="MemberPlainPassword_Column_List" />
+    from member_plain_password
+    where 
+     	 1 = 1 
+    	<include refid = "MemberPlainPasswordWhereStatement"/>
+  </select>
+  
+        <!-- ===============================================================================================================    -->
+  <!-- AffiliateDetail   -->
+  
+    <resultMap id="AffiliateDetailResultMap" type="com.returnp.admin.model.AffiliateDetail">
+    <id column="affiliateDetailNo" jdbcType="INTEGER" property="affiliateDetailNo" />
+    <result column="affiliateNo" jdbcType="INTEGER" property="affiliateNo" />
+    <result column="businessNumber" jdbcType="VARCHAR" property="businessNumber" />
+    <result column="businessType" jdbcType="VARCHAR" property="businessType" />
+    <result column="businessItem" jdbcType="VARCHAR" property="businessItem" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+    <sql id="AffiliateDetail_Column_List">
+        affiliateDetailNo, affiliateNo, businessNumber, businessType, businessItem, createTime,updateTime
+  </sql>
+  
+    <sql id ="AffiliateDetailWhereStatement">
+      <if test="affiliateDetailNo != null"> AND affiliateDetailNo = #{affiliateDetailNo,jdbcType=INTEGER}</if>
+      <if test="affiliateNo != null"> AND affiliateNo = #{affiliateNo,jdbcType=INTEGER}</if>
+      <if test="businessNumber != null"> AND businessNumber = #{businessNumber,jdbcType=VARCHAR}</if>
+      <if test="businessType != null"> AND businessType = #{businessType,jdbcType=VARCHAR}</if>
+       <if test="businessItem != null"> AND businessItem = #{businessItem,jdbcType=VARCHAR}</if>
+  </sql>
+  
+  <select id="selectAffiliateDetails" parameterType="com.returnp.admin.model.AffiliateDetail" resultMap="AffiliateDetailResultMap">
+    select 
+    <include refid="AffiliateDetail_Column_List" />
+    from affiliate_detail
+    where 
+     	 1 = 1 
+    	<include refid = "AffiliateDetailWhereStatement"/>
+  </select>
 </mapper>
+
+
  

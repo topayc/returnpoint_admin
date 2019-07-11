@@ -3,6 +3,7 @@
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 			    {field:'affiliateNo',width:20,align:'center',title : '번호',hidden:false},
 			    {field:'memberName',width:30,align:'center',title : '회원 이름'},
+			    {field:'memberEmail',width:60,align:'center',title : '이메일'},
 			    {field:'affiliateName',width:50,align:'center',title : '가맹점 이름'},
 			    {field:'affiliateCode',width:60,align:'center',title : '가맹점 코드',hidden:false},
 			    {field:'paymentRouterNo',width:30,align:'center',title : '라우터 번호', hidden:true },
@@ -14,6 +15,7 @@
 			  //  {field:'noname',width:30,align:'center',title : 'TID 보기' , formatter : tidActionFormatter, hidden: true},
 			    {field:'affiliateComm',width:35,align:'center',title : 'QR 적립율'},
 			    {field:'giftCardPayRefundRate',width:30,align:'center',title : 'GIFT 요율'},
+			    {field:'ciderPayStatus',width:25,align:'center',title : 'CIDER', formatter :ciderPayStatusFormattter },
 			    {field:'affiliateType',width:50,align:'center',title : '협력 업체 분류' , formatter : affiliateTypeFormatter},
 			    {field:'affiliateStatus',width:20,align:'center',title : '상태',formatter : nodeStatusFormatter},
 			    {field:'greenPointAmount',width:40,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
@@ -257,16 +259,33 @@ function initView(){
 		  					}
 		  				);
 		  				break;
-		  			case "joinCider":
-		  				joinCider();
+		  			case "use_ciderpay":
+		  				changeCiderPayStatus("Y");
+		  				break;
+		  			case "stop_ciderpay":
+		  				changeCiderPayStatus("N");
+		  				break;
+		  			case "open_biz_info":
+		  				openBizInfo();
 		  				break;
 		  			}
+		  			
 		  		}
 		  	});
 		  	
-		  	var menus = [  '수정', '삭제','상세 정보','결제 라우터 등록/변경', '가맹점 TID 보기', '가맹점 TID 추가 ','계좌 추가','계좌 리스트', '사이다 페이 가입하기',  '포인트 누적 현황'  ];
+		  	var menus = [  '수정', '삭제','상세 정보','결제 라우터 등록/변경', '가맹점 TID 보기', '가맹점 TID 추가 ','계좌 추가','계좌 리스트' ,'사업장 정보 등록' ,'포인트 누적 현황'  ];
 		  	var icons = ['icon-edit','icon-remove','icon-tip','icon-tip','icon-add',   'icon-add', 'icon-add', 'icon-add' , 'icon-add', 'icon-large-chart'];
-		  	var actions = ['modify','remove','more_detail','createPaymentRouterForm', 'viewTids', 'addTid','add_bank', 'view_bank', 'joinCider','point_acc_view'];
+		  	var actions = ['modify','remove','more_detail','createPaymentRouterForm', 'viewTids', 'addTid','add_bank', 'view_bank', 'open_biz_info', 'point_acc_view'];
+		  	
+		  	if (!row['ciderPayStatus'] || row.ciderPayStatus == null || row.ciderPayStatus == "N" ) {
+		  		menus.push("Cider Pay 사용");
+		  		icons.push('icon-add');
+		  		actions.push("use_ciderpay")
+		  	}else if (row.ciderPayStatus =="Y"){
+		  		menus.push("Cider Pay 중지");
+		  		icons.push('icon-remove');
+		  		actions.push("stop_ciderpay")
+		  	}
 		  	
 		  	for(var i=0; i<menus.length; i++){
 		  		cmenu.menu('appendItem', {
@@ -455,6 +474,19 @@ function initView(){
         textField: 'paymentRouterText',
         panelHeight: 'auto',
 		multiple:false
+	});
+	
+	$('#businessNumber').textbox({
+		label : roundLabel("사업자 번호")
+		
+	});
+	
+	$('#businessType').textbox({
+		label : roundLabel("사업자 업태")
+	});
+	
+	$('#businessItem').textbox({
+		label : roundLabel("사업자 업종")
 	});
 }
 
@@ -866,14 +898,15 @@ function removeBankAccount(memberBankAccountNo, elem){
 }
 
 
-function joinCider(){
+function changeCiderPayStatus(status){
 	var node = $('#node_list').datagrid('getSelected');
+	var title = status == "Y" ?"Cider Pay 결제를 사용하시겠습니까": "Cider Pay 결제를 중지하시겠습니까?"
 	$.messager.confirm({
-		title: '사이다 페이 가입 확인',
-		msg: node.affiliateName + ' 협력업체를 사이다 페이 가입시키겠습니까?',
+		title: '사이다 페이 서비스 ',
+		msg: node.affiliateName + ' 협력업체' + title,
 		fn: function(r){
 			if (r){
-				returnp.api.call("joinCider", {affiliateNo :node.affiliateTidNo }, function(res){
+				returnp.api.call("changeCiderPayStatus", {affiliateNo :node.affiliateNo, ciderPayStatus : status }, function(res){
 					if (res.resultCode  == "100") {
 						$.messager.alert('알림', res.message);
 					}else {
@@ -884,9 +917,7 @@ function joinCider(){
 			}
 		}
 	});
-	
 }
-
 function openBankList(){
 	var node = $('#node_list').datagrid('getSelected');
 	$('#bank_list_dlg').dialog({
@@ -1049,6 +1080,79 @@ function openAddTidView(){
 	$('#add_tid').textbox({width : 200});
 	$('#add_tid').textbox("clear");
 }
+
+function openBizInfo(){
+	var node = $('#node_list').datagrid('getSelected');
+	$('#biz_info_dlg').dialog({
+	    title: " " + node.affiliateName + ' 사업정보 등록/수정 ',
+	    width: 450,
+	    height: 300,
+	    closed: false,
+	    cache: false,
+	    modal: true,
+		buttons : [ {
+			text : '확인',
+			iconCls : 'icon-ok',
+			handler : function() {
+				 createBizInfo();
+			}
+		}, {
+			text : '취소',
+			handler : function() {
+				$('#biz_info_form').dialog('close');
+			}
+		} ]
+	});
+	
+	$('#businessNumber').textbox('clear');
+	$('#businessType').textbox('clear');
+	$('#businessItem').textbox('clear');
+	
+	param = {affiliateNo : node.affiliateNo};
+	returnp.api.call("getBizInfo", param, function(res){
+		if (res.resultCode  == "100") {
+			$('#biz_info_form').form('load',res.data);
+		}else {
+		}
+	});
+}
+
+function createBizInfo(){
+	var node = $('#node_list').datagrid('getSelected');
+	var param = $("#biz_info_form").serializeObject();
+	param.affiliateNo = node.affiliateNo;	
+	console.log(param);
+	var valid = true;
+	var pro = null;
+	for (var prop in param){
+		if (param.hasOwnProperty(prop)) {
+			if (param[prop] == '' || !param[prop]) {
+				valid = false;
+				pro =prop 
+				break;
+			}
+		}
+	}
+
+	if (!valid) {
+		$.messager.alert('알림', pro + ' 항목이 입력되지 않았습니다');
+		return;
+	}
+	returnp.api.call("createBizInfo", param, function(res){
+		if (res.resultCode  == "100") {
+			$.messager.alert('알림', res.message);
+			$('#biz_info_dlg').dialog('close');
+			$('#biz_info_dlg').removeAttr('style');
+			realodPage();
+		}else {
+			$.messager.alert('오류 발생', res.message);
+		}
+	});
+	
+	return param;
+}
+
+
 function loadAffiliateModifyForm(actionType){
 	var node = $('#node_list').datagrid('getSelected');
 	if (!node) {

@@ -36,6 +36,8 @@ import com.returnp.admin.dto.command.SoleDistCommand;
 import com.returnp.admin.model.Admin;
 import com.returnp.admin.model.AdminFile;
 import com.returnp.admin.model.Affiliate;
+import com.returnp.admin.model.AffiliateCiderpay;
+import com.returnp.admin.model.AffiliateDetail;
 import com.returnp.admin.model.AffiliatePaymentRouter;
 import com.returnp.admin.model.Agency;
 import com.returnp.admin.model.Board;
@@ -51,6 +53,7 @@ import com.returnp.admin.model.Member;
 import com.returnp.admin.model.MemberAddress;
 import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.model.MemberConfig;
+import com.returnp.admin.model.MemberPlainPassword;
 import com.returnp.admin.model.MembershipRequest;
 import com.returnp.admin.model.PaymentRouter;
 import com.returnp.admin.model.PaymentTransaction;
@@ -426,5 +429,23 @@ public class SearchServiceImpl implements SearchService{
 	public ArrayList<AffiliatePaymentRouter> selectAffiliatePaymentRouters(AffiliatePaymentRouter affiliatePaymentRouter) {
 		// TODO Auto-generated method stub
 		return this.searchMapper.selectAffiliatePaymentRouters(affiliatePaymentRouter);
+	}
+
+	@Override
+	public ArrayList<AffiliateCiderpay> selectAffiliateCiderPays(AffiliateCiderpay affiliateCiderpay) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectAffiliateCiderPays(affiliateCiderpay);
+	}
+
+	@Override
+	public ArrayList<MemberPlainPassword> selectMemberPlainPasswords(MemberPlainPassword memberPlainPassword) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectMemberPlainPasswords(memberPlainPassword);
+	}
+
+	@Override
+	public ArrayList<AffiliateDetail> selectAffiliateDetails(AffiliateDetail affiliateDetail) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectAffiliateDetails(affiliateDetail);
 	};
 }

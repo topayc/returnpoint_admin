@@ -14,6 +14,7 @@ public class Affiliate extends QueryCondition {
 
     private String affiliateCode;
 
+
     private String affiliateType;
 
     private String affiliateName;

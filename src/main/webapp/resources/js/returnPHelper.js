@@ -3,6 +3,18 @@ function getNumber(str) {
 	return (new Number(str));
 }
 
+function ciderPayStatusFormattter(value, row, index) {
+	var result;
+	if (!row.ciderPayStatus || row.ciderPayStatus == ""){
+		row.ciderPayStatus = "N"
+	}
+	switch (row.ciderPayStatus) {
+	case "Y": result = '<span style = "color : green;font-weight : bold" >' + "사용" + ' </span>'; break;
+	case "N": result = '<span style = "color : red;font-weight : bold" >' + "중지" + ' </span>'; break;
+	}
+	return result;
+}
+
 function giftCardStatusFormatter(value, row, index) {
 	switch (row.giftCardStatus) {
 	case "1": result = '<span style = "color : green;font-weight : bold" >' + "정상" + ' </span>'; break;
