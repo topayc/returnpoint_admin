@@ -430,7 +430,8 @@ public class AffiliateController extends ApplicationController {
 				mpp.setMemberNo(member.getMemberNo());
 				ArrayList<MemberPlainPassword> mpps = this.searchService.selectMemberPlainPasswords(mpp);
 				if (mpps.size() !=1) {
-					ResponseUtil.setResponse(res, "478", "Cider Pay와 연동하기 위해서는 평문 암호가 필요합니다.</br>해당 가맹점의 평문 암호정보가 존재하지 않습니다.</br> 관리자에게 문의해주세요 ");
+					ResponseUtil.setResponse(
+							res, "478", "Cider Pay와 연동하기 위해서는 평문 암호가 필요합니다.</br>해당 가맹점의 평문 암호정보가 존재하지 않습니다.</br> 관리자에게 문의해주세요 ");
 					return res;
 				}
 				
