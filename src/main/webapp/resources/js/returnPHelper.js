@@ -626,9 +626,13 @@ function numberRedFormatter(data) {
 	return '<span style = "color : #F64B1A;font-weight : bold">' + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>'; 
 }
 
-function numberBlueFormatter(data) {
-	data = String(data);
-	return '<span style = "color : #0080FF;font-weight : bold">' + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>'; 
+function numberBlueFormatter(value, row, index) {
+	data = String(row.paymentApprovalAmount);
+	if (row.paymentApprovalStatus == "1"){
+		return '<span style = "color : #0080FF;font-weight : bold">' + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>'; 
+	}else {
+		return '<span style = "color : red;font-weight : bold">' + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>'; 
+	}
 }
 
 function percentFormatter(data) {
@@ -681,22 +685,22 @@ function pointBackStatusFormatter(value, row, index) {
 	var text;
 	switch (status) {
 	case "1":
-		text = '<span style = "color: gray;font-weight : bold">적립 시작</span>';
+		  text = '<span style = "border-radius: 10px;background-color: #bbbbbbc;padding: 5px;color : #ffffff;font-weight : bold">적립 시작</span>'; break;
 		break;
 	case "2":
-		text = '<span style = "color: red;font-weight : bold">적립 진행중</span>';
+		  text = '<span style = "border-radius: 10px;background-color: #999999;padding: 5px;color : #ffffff;font-weight : bold">적립 진행중</span>'; break;
 		break;
 	case "3":
-		text = '<span style = "color: green;font-weight : bold">적립 완료</span>';
+		  text = '<span style = "border-radius: 10px;background-color: #00b33c;padding: 5px;color : #ffffff;font-weight : bold">적립 완료</span>'; break;
 		break;
 	case "4":
-		text = "적립 취소 시작 ";
+		  text = '<span style = "border-radius: 10px;background-color: #bbbbbb;padding: 5px;color : #ffffff;font-weight : bold">적립 취소 시작</span>'; break;;
 		break;
 	case "5":
-		text = "적립 취소 진행중";
+		  text = '<span style = "border-radius: 10px;background-color: #999999c;padding: 5px;color : #ffffff;font-weight : bold">적립 쥐소중</span>'; break;
 		break;
 	case "6":
-		text = '<span style = "color: #FF8000;font-weight : bold">적립 취소</span>';
+		  text = '<span style = "border-radius: 10px;background-color: #ff6600;padding: 5px;color : #ffffff;font-weight : bold">적립 취소</span>'; break;;
 		break;
 	case "7":
 		text = "적립 중지";
@@ -800,13 +804,13 @@ function PaymentApprovalStatusFormatter(value, row, index) {
 	var text;
 	switch (status) {
 	case "1":
-		text = "결제 승인";
+		text = '<span style = "border-radius: 10px;background-color: #00b33c;padding: 5px;color : #ffffff;font-weight : bold">승인</span>'; break;
 		break;
 	case "2":
-		text = "결제 승인 취소";
+		text = '<span style = "border-radius: 10px;background-color: #ff6600;padding: 5px;color : #ffffff;font-weight : bold">취소</span>'; break;
 		break;
 	case "3":
-		text = "결제 오류";
+		text = '<span style = "border-radius: 10px;background-color: red;padding: 5px;color : #ffffff;font-weight : bold">오류</span>'; break;
 		break;
 	}
 	return text;

@@ -32,13 +32,13 @@ public class AndroidPushServiceImpl implements AndroidPushService {
 		//System.out.println("#######################################################");
 		//System.out.println("AndroidPushServiceImpl.pushGiftCard");
 		Message message = Message.builder()
-			.putData("title", "리턴포인트 상품권 도착")
+			.putData("title", "R 포인트상품권 도착")
 			.putData("pinNumber", giftCardIssue.getPinNumber())
 			.putData("link", "")
 			.putData("pushCode", "1")
 			.putData("giftCardIssueNo", String.valueOf(giftCardIssue.getGiftCardIssueNo()))
 			.putData("myGiftCardNo", String.valueOf(myGiftCardNo))
-			.putData("content", "리턴포인트 모바일 상품권이 도착했습니다")
+			.putData("content", "R 포인트 모바일 상품권이 도착했습니다")
 			.setToken(deviceInfo.getPushKey())
 			.build();
 		String response = FirebaseMessaging.getInstance().send(message);

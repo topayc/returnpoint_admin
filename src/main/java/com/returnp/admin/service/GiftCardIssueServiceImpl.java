@@ -405,7 +405,7 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 					members = this.searchService.findMembers(m);
 					if (members.size() < 1) {
 						ResponseUtil.setResponse(
-							res, "3702", "요청 번호 " + receiverPhone + ", " + tPhone1 +", " +  tPhone2 + " 의 발송 번호의 회원이 존재하지 않습니다.</br>리턴 포인트 회원에게만 발송할 수 있습니다");
+							res, "3702", "요청 번호 " + receiverPhone + ", " + tPhone1 +", " +  tPhone2 + " 의 발송 번호의 회원이 존재하지 않습니다.</br>R 포인트 회원에게만 발송할 수 있습니다");
 						throw new ReturnpException(res);
 					}else if (members.size() > 1) {
 						ResponseUtil.setResponse(
@@ -462,7 +462,7 @@ public class GiftCardIssueServiceImpl implements GiftCardIssueService{
 				ResponseUtil.setResponse(res, 
 					"3502", 
 					"해당 회원의 디바이스 정보가 존재하지 않습니다. </br> 다음과 같은 방법으로 진행하세요<br>"+ 
-					"1. 리턴포인트 앱을 새로 받은 후라면 로그아웃 후 재 로그인  </br>" + 
+					"1. R 포인트 앱을 새로 받은 후라면 로그아웃 후 재 로그인  </br>" + 
 					"2. 재 로그인 한 후 푸쉬 알림 설정을 ON 으로 변경</br>"+ 
 					"3. 업데이트 받지 않은 앱이라면 앱 업데이트</br"+
 					"위 방법으로 안될 경우 관리자에게 문의해주세요"

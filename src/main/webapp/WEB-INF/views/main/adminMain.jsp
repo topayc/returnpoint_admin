@@ -97,7 +97,7 @@
 		                            	</a> 
 		                            </li>
 		                             <li data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "managePolicy"  menu_deps= '2' >
-		                            	<span style = "font-weight : bold">리턴포인트 정책</span></a> 
+		                            	<span style = "font-weight : bold">R 포인트 정책</span></a> 
 		                            </li>
 		                        </ul>
                             </li>
