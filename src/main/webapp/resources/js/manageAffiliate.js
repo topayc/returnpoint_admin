@@ -11,7 +11,7 @@
 			    {field:'paymentRouterType',width:25,align:'center',title : 'RT' , formatter: paymentRouterTypeFormatter },
 			    {field:'paymentRouterName',width:30,align:'center',title : 'RN'  , formatter : paymentRouterNameFormatter },
 			    {field:'affiliateSerialCount',width:20,align:'center',title : 'TID 수'},
-			    {field:'affiliateSerial',width:45,align:'center',title : '주 TID'},
+			    {field:'affiliateSerial',width:50,align:'center',title : '주 TID(ID)'},
 			  //  {field:'noname',width:30,align:'center',title : 'TID 보기' , formatter : tidActionFormatter, hidden: true},
 			    {field:'affiliateComm',width:35,align:'center',title : 'QR 적립율'},
 			    {field:'giftCardPayRefundRate',width:30,align:'center',title : 'GIFT 요율'},

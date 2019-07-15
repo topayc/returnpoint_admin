@@ -631,7 +631,7 @@ function numberBlueFormatter(value, row, index) {
 	if (row.paymentApprovalStatus == "1"){
 		return '<span style = "color : #0080FF;font-weight : bold">' + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>'; 
 	}else {
-		return '<span style = "color : red;font-weight : bold">' + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>'; 
+		return '<span style = "color : red;font-weight : bold">-' + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>'; 
 	}
 }
 
@@ -736,7 +736,7 @@ function paymentTransactionRegistFormatter(value, row, index) {
 	var status = row.paymentTransactionType;
 	var text;
 	switch (status) {
-		case "1": text = '<span style = "border-radius: 10px;background-color: green;padding: 5px;color : #ffffff;font-weight : bold">QR Code</span>'; break;
+		case "1": text = '<span style = "border-radius: 10px;background-color: green;padding: 5px;color : #ffffff;font-weight : bold">QR</span>'; break;
 		case "2": text = '<span style = "border-radius: 10px;background-color: red;padding: 5px;color : #ffffff;font-weight : bold">VAN</span>'; break;
 		case "3": text = '<span style = "border-radius: 10px;background-color: #01A9DB;padding: 5px;color : #ffffff;font-weight : bold"> Manual</span>'; break;
 		case "4": text = '<span style = "border-radius: 10px;background-color: #01A9DB;padding: 5px;color : #ffffff;font-weight : bold">APP</span>'; break;
@@ -804,10 +804,10 @@ function PaymentApprovalStatusFormatter(value, row, index) {
 	var text;
 	switch (status) {
 	case "1":
-		text = '<span style = "border-radius: 10px;background-color: #00b33c;padding: 5px;color : #ffffff;font-weight : bold">승인</span>'; break;
+		text = '<span style = "border-radius: 10px;background-color: #00b33c;padding: 5px;color : #ffffff;font-weight : bold">승인 완료</span>'; break;
 		break;
 	case "2":
-		text = '<span style = "border-radius: 10px;background-color: #ff6600;padding: 5px;color : #ffffff;font-weight : bold">취소</span>'; break;
+		text = '<span style = "border-radius: 10px;background-color: #ff6600;padding: 5px;color : #ffffff;font-weight : bold">승인 취소</span>'; break;
 		break;
 	case "3":
 		text = '<span style = "border-radius: 10px;background-color: red;padding: 5px;color : #ffffff;font-weight : bold">오류</span>'; break;

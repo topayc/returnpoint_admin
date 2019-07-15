@@ -146,12 +146,12 @@
 					                    
 			                         <li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
 					                   	<a class= "sub_menu"  view_req_name = "manageGreenPoint"  menu_deps= '2' >
-					                   		<span style = "font-weight : bold">G.POINT 관리</span>
+					                   		<span style = "font-weight : bold">G 포인트 관리</span>
 					                   	</a>
 					                    </li>
 					                   <li id = "manageRedPoint"  data-options = "iconCls :'icon-info'">
 					                   	<a class= "sub_menu"  view_req_name = "manageRedPoint"  menu_deps= '2' >
-					                   		<span style = "font-weight : bold">R.POINT 관리</span>
+					                   		<span style = "font-weight : bold">R 포인트 관리</span>
 					                   	</a> 
 					                   </li> 
 		                        </ul>
@@ -196,7 +196,7 @@
 		                             
 		                             <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageRpointPayment" menu_deps= '2' >
-   											<span style = "font-weight : bold">R.POINT 결제 현황</span>
+   											<span style = "font-weight : bold">R 포인트 결제 현황</span>
    										</a> 
    									</li>
    									
@@ -231,7 +231,7 @@
 		                            
 		                            <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePaymentPointbackRecord" menu_deps= '2' >
-		                            		<span style = "font-weight : bold">결제별 R.POINT 적립내역</span>
+		                            		<span style = "font-weight : bold">결제별 R 포인트 적립 내역</span>
 		                            	</a> 
 		                            </li>
 		                          	<li data-options = "iconCls :'icon-manage'">
@@ -400,16 +400,16 @@
                             </li>
                             
                              <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">G,R 포인트 적립 현황</span>
+                            	 <span  style = "font-weight : bold">G, R 포인트 적립 현황</span>
 		                         <ul>
 		                         	<li id = "manageConvertPointRequest" data-options = "iconCls :'icon-info'">
 		                         		<a class= "sub_menu"  view_req_name = "manageConvertPointRequest"  menu_deps= '2' >
-		                         			<span style = "font-weight : bold">R - G.POINT 적립 요청</span>
+		                         			<span style = "font-weight : bold">R - G  포인트 적립 요청</span>
 		                         		</a> 
 		                         	</li>
                             		<li id = "managePointConversionTransaction" data-options = "iconCls :'icon-info'">
                             			<a class= "sub_menu"  view_req_name = "managePointConversionTransaction"  menu_deps= '2' >
-                            				<span style = "font-weight : bold">R.POINT 자동적립 현황</span>
+                            				<span style = "font-weight : bold">R 포인트 자동적립 현황</span>
                             			</a> 
                             		</li>
 		                        </ul>
@@ -424,7 +424,7 @@
 			                          	</li>
                             			<li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "managePointWithdrawal"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">R.POINT  출금 관리 </span>
+                            					<span style = "font-weight : bold"><!-- <i class="fas fa-registered" style = "font-size: 14px;color:red"></i> --> R 포인트  출금 관리 </span>
                             				</a> 
                             			</li>
 		                        </ul>
@@ -435,7 +435,7 @@
 		                         <ul>
 			                          <li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
 				                          	<a class= "sub_menu"  view_req_name = "manageRedPointUse"  menu_deps= '2' >
-				                          		<span style = "font-weight : bold">R.POINT 사용 관리</span>
+				                          		<span style = "font-weight : bold">R 포인트 사용 관리</span>
 				                          	</a> 
 			                          	</li>
                             			<li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
