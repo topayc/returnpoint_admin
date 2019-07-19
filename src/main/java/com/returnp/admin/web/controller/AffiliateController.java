@@ -1,7 +1,9 @@
 package com.returnp.admin.web.controller;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -58,6 +60,7 @@ import com.returnp.admin.model.MemberAddress;
 import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.model.MemberPlainPassword;
 import com.returnp.admin.model.PaymentRouter;
+import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.model.Policy;
 import com.returnp.admin.service.interfaces.AffiliateService;
 import com.returnp.admin.service.interfaces.AgencyService;
@@ -85,6 +88,12 @@ public class AffiliateController extends ApplicationController {
 	
 	@Value("#{properties['cider.url']}")
     private String ciderPayUrl;
+
+	@Value("#{properties['sales_point.target_info']}")
+	private String salePontTarget;
+
+	@Value("#{properties['sales_point.fee_rate']}")
+	private float salePointFeeRate;
 	
 	@Autowired MemberService memberSerivice;
 	@Autowired MemberAddressService memberAddressSerivice;
@@ -431,7 +440,8 @@ public class AffiliateController extends ApplicationController {
 				ArrayList<MemberPlainPassword> mpps = this.searchService.selectMemberPlainPasswords(mpp);
 				if (mpps.size() !=1) {
 					ResponseUtil.setResponse(
-							res, "478", "Cider Pay와 연동하기 위해서는 평문 암호가 필요합니다.</br>해당 가맹점의 평문 암호정보가 존재하지 않으니  관리자에게 문의해주세요 ");
+						res, 
+						"478", "Cider Pay와 연동하기 위해서는 평문 암호가 필요합니다.</br>해당 가맹점의 평문 암호정보가 존재하지 않으니  관리자에게 문의해주세요 ");
 					return res;
 				}
 				
@@ -699,5 +709,15 @@ public class AffiliateController extends ApplicationController {
 			ResponseUtil.setResponse(res, "977", "AffiliatePaymentRouter 등록 오류.");
 			return res;
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/affiliate/salePontAcc", method = RequestMethod.GET)
+	public ReturnpBaseResponse  salePontAcc( 
+			@RequestParam(value = "year", required = true) String year,
+			@RequestParam(value = "month", required = true) String month,
+			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) {
+			String targetDateStr = year + "-" + month;
+			return this.queryService.salePontAcc(this.salePontTarget, this.salePointFeeRate, targetDateStr);
 	}
 }

@@ -3,6 +3,7 @@ package com.returnp.admin.service.interfaces;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.returnp.admin.dto.command.AffiliateCommand;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Affiliate;
 
 @Transactional
@@ -20,6 +21,8 @@ public interface AffiliateService {
 	    int updateByPrimaryKeySelective(Affiliate record);
 
 	    int updateByPrimaryKey(Affiliate record);
+
+	    ReturnpBaseResponse salePontAcc(String salePontTarget, String targetDateStr);
 	    
 
 }

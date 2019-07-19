@@ -195,6 +195,8 @@ public interface SearchService {
 	public ArrayList<MemberPlainPassword> selectMemberPlainPasswords(MemberPlainPassword memberPlainPassword);
 	
 	public ArrayList<AffiliateDetail> selectAffiliateDetails(AffiliateDetail affiliateDetail);
+	
+	public int selectPaymentTransactionSumForSales(HashMap<String, Object> params);
 
 	
 }

@@ -154,6 +154,11 @@
 					                   		<span style = "font-weight : bold">R 포인트 관리</span>
 					                   	</a> 
 					                   </li> 
+					                   	<li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
+					                   	<a class= "sub_menu"  view_req_name = "manageSalesPoint"  menu_deps= '2' >
+					                   		<span style = "font-weight : bold">포인트 관리 기능 </span>
+					                   	</a>
+					                    </li>
 		                        </ul>
                             </li> 
                             

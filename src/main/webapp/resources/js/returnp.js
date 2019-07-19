@@ -143,6 +143,7 @@ $(function () {
         	changeCiderPayStatus : { apiCode: 10000, apiPath : '/api/affiliate/changeCiderPayStatus' ,  requestMethod: "get"},
         	createBizInfo : { apiCode: 10000, apiPath : '/api/affiliate/createBizInfo' ,  requestMethod: "post"},
         	getBizInfo : { apiCode: 10000, apiPath : '/api/affiliate/getBizInfo' ,  requestMethod: "get"},
+        	salePontAcc : { apiCode: 10000, apiPath : '/api/affiliate/salePontAcc' ,  requestMethod: "get"},
         	
         	/* 영업 관리자 관련*/
         	getSaleManager: { apiCode: 10000, apiPath : '/api/saleManager/get' ,  requestMethod: "get"},  

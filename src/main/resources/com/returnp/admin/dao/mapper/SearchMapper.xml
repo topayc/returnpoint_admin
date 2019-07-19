@@ -4204,6 +4204,11 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
      	 1 = 1 
     	<include refid = "AffiliateDetailWhereStatement"/>
   </select>
+  
+ <select id="selectPaymentTransactionSumForSales" parameterType="HashMap" resultType="int" >
+    select IFNULL(sum(A.paymentApprovalAmount), 0) 
+    from (SELECT * FROM returnp_db.payment_transaction where paymentApprovalStatus = #{paymentApprovalStatus} and affiliateNo = #{affiliateNo} and date_format(paymentApprovalDateTime, "%Y-%m") = #{searchMonth}) as A;
+  </select>
 </mapper>
 
 

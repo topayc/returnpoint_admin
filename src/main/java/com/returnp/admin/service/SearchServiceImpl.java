@@ -447,5 +447,11 @@ public class SearchServiceImpl implements SearchService{
 	public ArrayList<AffiliateDetail> selectAffiliateDetails(AffiliateDetail affiliateDetail) {
 		// TODO Auto-generated method stub
 		return this.searchMapper.selectAffiliateDetails(affiliateDetail);
+	}
+
+	@Override
+	public int selectPaymentTransactionSumForSales(HashMap<String, Object> params) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectPaymentTransactionSumForSales(params);
 	};
 }
