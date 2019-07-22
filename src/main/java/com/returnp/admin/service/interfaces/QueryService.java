@@ -15,7 +15,6 @@ public interface QueryService {
 	
 	int updateMemberBankAccount(MemberBankAccount account);
 
-	ReturnpBaseResponse salePontAcc(String salePontTarget, float salePointFeeRate, String targetDateStr);
 
 	
 }

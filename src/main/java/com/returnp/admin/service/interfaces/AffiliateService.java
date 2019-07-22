@@ -23,6 +23,8 @@ public interface AffiliateService {
 	    int updateByPrimaryKey(Affiliate record);
 
 	    ReturnpBaseResponse salePontAcc(String salePontTarget, String targetDateStr);
+
+		ReturnpBaseResponse salePontAcc(String targetDateStr);
 	    
 
 }

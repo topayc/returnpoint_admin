@@ -88,12 +88,6 @@ public class AffiliateController extends ApplicationController {
 	
 	@Value("#{properties['cider.url']}")
     private String ciderPayUrl;
-
-	@Value("#{properties['sales_point.target_info']}")
-	private String salePontTarget;
-
-	@Value("#{properties['sales_point.fee_rate']}")
-	private float salePointFeeRate;
 	
 	@Autowired MemberService memberSerivice;
 	@Autowired MemberAddressService memberAddressSerivice;
@@ -718,6 +712,6 @@ public class AffiliateController extends ApplicationController {
 			@RequestParam(value = "month", required = true) String month,
 			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) {
 			String targetDateStr = year + "-" + month;
-			return this.queryService.salePontAcc(this.salePontTarget, this.salePointFeeRate, targetDateStr);
+			return this.affiliateService.salePontAcc(targetDateStr);
 	}
 }

@@ -6,8 +6,7 @@
 	        <form id="searchForm" method="post">
 	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <select id = "year" class="easyui-combobox" name="year" label="연도" style="width:100%">
-	                	 <option value = "2018">2018</option>
-	                	 <option value = "2019">2019</option>
+	                	 <option value = "2019" selected="selected">2019</option>
 	                </select>	
 	            </div>
 	            

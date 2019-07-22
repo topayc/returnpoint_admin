@@ -58,6 +58,8 @@
 		<property name="basenames">
 			<list>
 				<value>classpath:/messages/messages</value>
+				<value>classpath:/config</value>
+				<value>classpath:/affiliate_sales</value>
 			</list>
 		</property>
 		<property name="fallbackToSystemLocale" value="false" />
