@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div id="aa" class="easyui-accordion" style="width:100%;">
+<div id="tab"  style="width:100%;padding: 10px;">
     <div title="영업관리자 포인트 지급" data-options="iconCls:'icon-ok'" style="overflow:auto;padding:10px;">
         <div class="easyui-panel" title="" style="width:100%;padding:10px 15px;">
 	        <form id="searchForm" method="post">
@@ -39,9 +39,9 @@
 	        </form>
     	</div>
     </div>
-    <div title="기능1" data-options="iconCls:'icon-ok'" style="padding:10px;">
+<!--     <div title="기능1" data-options="iconCls:'icon-ok'" style="padding:10px;">
     </div>
     <div title="기능2" data-options="iconCls:'icon-ok'">
-    </div>
+    </div> -->
 </div>
 <script src="resources/js/${viewReqName}.js"></script>

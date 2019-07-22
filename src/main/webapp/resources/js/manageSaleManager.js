@@ -25,6 +25,7 @@ initView();
  * @returns
  */
 function initView(){
+	
 	/* 레이아웃 초기화*/
 	$('.easyui-layout').layout();
 	

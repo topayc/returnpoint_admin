@@ -1,8 +1,13 @@
 
 initView();
 function initView(){
-	$('#aa').accordion({
-		animate:true
+	$('#tab').tabs({
+	    border:true,
+	    plain : false,
+	    pill : false,
+	    justified : false,
+	    onSelect:function(title){
+	    }
 	});
 	
 	/* 패널   초기화*/
