@@ -14,7 +14,7 @@
 			    ]];
 		
 initView();
-
+var bbsType1 = "1";
 /**
  * 뷰 초기화 
  * @returns
@@ -165,7 +165,7 @@ function openBoardCreateForm(){
 	});
 	$("#createBoardForm").form("clear");
 	$('#mainBbsNo').val("0");
-	$('#bbsType1').val("1");
+	$('#bbsType1').val(bbsType1);
 	$('#title').textbox("setValue",node.title );
 	$('#content').textbox("setValue",node.content );
 }
@@ -235,7 +235,7 @@ function openBoardUpdateForm(){
 	});
 	$("#createBoardForm").form("clear");
 	$('#mainBbsNo').val(node.mainBbsNo);
-	$('#bbsType1').val("1");
+	$('#bbsType1').val(bbsType1);
 	$('#title').textbox("setValue",node.title );
 	$('#content').textbox("setValue",node.content );
 }
@@ -354,7 +354,7 @@ function reply(){
 }
 
 function realodPage(){
-	var param = {bbsType1 : '1'}
+	var param = {bbsType1 :bbsType1 }
 	returnp.api.call("getMainBbses", param, function(res){
 		console.log(">>>> bbs datas");
 		console.log(res);
