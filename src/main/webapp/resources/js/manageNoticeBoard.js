@@ -313,7 +313,7 @@ function viewBoardContent(){
 			}
 		} ]
 	});
-	$('#board_content').html(node.content );
+	$('#board_content').html(node.content.replace(/(\n|\r\n)/g, '<br>') );
 }
 
 function openReplyForm(){
@@ -344,7 +344,7 @@ function openReplyForm(){
 		} ]
 	});
 	
-	$('#board_content_ori').html(node.content );
+	$('#board_content_ori').html(node.content.replace(/(\n|\r\n)/g, '<br>') );
 	$('#board_reply').textbox("setValue", "");
 
 }
