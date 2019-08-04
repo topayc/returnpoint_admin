@@ -12,7 +12,7 @@ public class ResponseUtil {
 		res.setMessage(message);
 	}
 	
-	public static void setResponse(ReturnpBaseResponse res, String resultCode, String result,String message ){ 
+	public static void setResponse(ReturnpBaseResponse res, String result, String resultCode,String message ){ 
 		res.setResult(result);
 		res.setResultCode(resultCode);	
 		res.setMessage(message);

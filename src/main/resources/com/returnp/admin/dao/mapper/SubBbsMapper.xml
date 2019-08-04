@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.SubBbsMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.SubBbs">
+    <id column="subBbsNo" jdbcType="INTEGER" property="subBbsNo" />
+    <result column="mainBbsNo" jdbcType="INTEGER" property="mainBbsNo" />
+    <result column="writerNo" jdbcType="INTEGER" property="writerNo" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.returnp.admin.model.SubBbs">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    subBbsNo, mainBbsNo, writerNo, createTime, updateTime
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sub_bbs
+    where subBbsNo = #{subBbsNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sub_bbs
+    where subBbsNo = #{subBbsNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.SubBbs">
+    insert into sub_bbs (subBbsNo, mainBbsNo, writerNo, 
+      createTime, updateTime, content
+      )
+    values (#{subBbsNo,jdbcType=INTEGER}, #{mainBbsNo,jdbcType=INTEGER}, #{writerNo,jdbcType=INTEGER}, 
+      NOW(), NOW(), #{content,jdbcType=LONGVARCHAR}
+      )
+      
+             <selectKey keyProperty="subBbsNo" resultType="java.lang.Integer" order ="AFTER">
+		    SELECT LAST_INSERT_ID()
+	 </selectKey>	
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.SubBbs">
+    insert into sub_bbs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="subBbsNo != null">
+        subBbsNo,
+      </if>
+      <if test="mainBbsNo != null">
+        mainBbsNo,
+      </if>
+      <if test="writerNo != null">
+        writerNo,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="subBbsNo != null">
+        #{subBbsNo,jdbcType=INTEGER},
+      </if>
+      <if test="mainBbsNo != null">
+        #{mainBbsNo,jdbcType=INTEGER},
+      </if>
+      <if test="writerNo != null">
+        #{writerNo,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.SubBbs">
+    update sub_bbs
+    <set>
+      <if test="mainBbsNo != null">
+        mainBbsNo = #{mainBbsNo,jdbcType=INTEGER},
+      </if>
+      <if test="writerNo != null">
+        writerNo = #{writerNo,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where subBbsNo = #{subBbsNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.returnp.admin.model.SubBbs">
+    update sub_bbs
+    set mainBbsNo = #{mainBbsNo,jdbcType=INTEGER},
+      writerNo = #{writerNo,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = NOW(),
+      content = #{content,jdbcType=LONGVARCHAR}
+    where subBbsNo = #{subBbsNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.SubBbs">
+    update sub_bbs
+    set mainBbsNo = #{mainBbsNo,jdbcType=INTEGER},
+      writerNo = #{writerNo,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = NOW()
+    where subBbsNo = #{subBbsNo,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -306,6 +306,18 @@ $(function () {
         	updateBoard: {apiCode: 10000, apiPath : '/api/board/update' , requestMethod: 'post'},
         	deleteBoard: {apiCode: 10000, apiPath : '/api/board/delete' , requestMethod: 'post'},
         	deleteReply: {apiCode: 10000, apiPath : '/api/boardReply/delete' , requestMethod: 'post'},
+        	
+        	/*main BBS*/
+        	getMainBbses: {apiCode: 10000, apiPath : '/api/mainBbses' , requestMethod: 'get'},
+        	createMainBbs: {apiCode: 10000, apiPath : '/api/mainBbs/create' , requestMethod: 'post'},
+        	updateMainBbs: {apiCode: 10000, apiPath : '/api/mainBbs/update' , requestMethod: 'post'},
+        	removeMainBbs: {apiCode: 10000, apiPath : '/api/mainBbs/remove' , requestMethod: 'get'},
+        	
+        	/*sub BBS*/
+        	getSubBbses: {apiCode: 10000, apiPath : '/api/subBbses' , requestMethod: 'get'},
+        	createSubBbs: {apiCode: 10000, apiPath : '/api/subBbs/create' , requestMethod: 'post'},
+        	updateSubBbs: {apiCode: 10000, apiPath : '/api/subBbs/update' , requestMethod: 'post'},
+        	removeSubBbs: {apiCode: 10000, apiPath : '/api/subBbs/remove' , requestMethod: 'get'},
 
         	/*파일 업로드*/
         	getAdminFiles: {apiCode: 10000, apiPath : '/api/adminFileUploads' , requestMethod: 'get'},

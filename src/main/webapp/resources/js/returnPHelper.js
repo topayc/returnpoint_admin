@@ -27,6 +27,30 @@ function giftCardStatusFormatter(value, row, index) {
 	return result;
 }
 
+function bbsType1Formatter(value, row, index){
+	switch (row.bbsType1) {
+	case "1": result = '공지 게시판'; break;
+	case "2": result = 'FAQ'; break;
+	case "3": result = '일반 문의'; break;
+	case "4": result = '제휴 문의'; break;
+	case "5": result = '광고 문의'; break;
+	case "20": result = '기타 문의'; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
+
+function bbsType2Formatter(value, row, index){
+	var result = "-";
+	if (row.bbsType1 == '1') {
+		result = "공지"
+	}else {
+		
+	}
+	return result;
+}
+
 function refundeRatePercenFormatter(value, row, index) {
 	return  (row.refundRate * 100) + "%";
 }

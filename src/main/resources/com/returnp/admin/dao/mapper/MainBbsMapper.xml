@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.MainBbsMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.MainBbs">
+    <id column="mainBbsNo" jdbcType="INTEGER" property="mainBbsNo" />
+    <result column="bbsType1" jdbcType="VARCHAR" property="bbsType1" />
+    <result column="bbsType2" jdbcType="VARCHAR" property="bbsType2" />
+    <result column="writerNo" jdbcType="INTEGER" property="writerNo" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="isPublic" jdbcType="VARCHAR" property="isPublic" />
+    <result column="bbsPassword" jdbcType="VARCHAR" property="bbsPassword" />
+    <result column="replyCompleted" jdbcType="VARCHAR" property="replyCompleted" />
+    <result column="viewCount" jdbcType="INTEGER" property="viewCount" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="rerv1" jdbcType="VARCHAR" property="rerv1" />
+    <result column="rerv2" jdbcType="VARCHAR" property="rerv2" />
+    <result column="rerv3" jdbcType="VARCHAR" property="rerv3" />
+    <result column="rerv4" jdbcType="VARCHAR" property="rerv4" />
+    <result column="rerv5" jdbcType="VARCHAR" property="rerv5" />
+    <result column="rerv6" jdbcType="VARCHAR" property="rerv6" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.returnp.admin.model.MainBbs">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mainBbsNo, bbsType1, bbsType2, writerNo, title, isPublic, bbsPassword, replyCompleted, 
+    viewCount, createTime, updateTime, rerv1, rerv2, rerv3, rerv4, rerv5, rerv6
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from main_bbs
+    where mainBbsNo = #{mainBbsNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from main_bbs
+    where mainBbsNo = #{mainBbsNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.MainBbs">
+    insert into main_bbs (mainBbsNo, bbsType1, bbsType2, 
+      writerNo, title, isPublic, 
+      bbsPassword, replyCompleted, viewCount, 
+      createTime, updateTime, rerv1, 
+      rerv2, rerv3, rerv4, 
+      rerv5, rerv6, content
+      )
+    values (#{mainBbsNo,jdbcType=INTEGER}, #{bbsType1,jdbcType=VARCHAR}, #{bbsType2,jdbcType=VARCHAR}, 
+      #{writerNo,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{isPublic,jdbcType=VARCHAR}, 
+      #{bbsPassword,jdbcType=VARCHAR}, #{replyCompleted,jdbcType=VARCHAR}, #{viewCount,jdbcType=INTEGER}, 
+      NOW(), NOW(), #{rerv1,jdbcType=VARCHAR}, 
+      #{rerv2,jdbcType=VARCHAR}, #{rerv3,jdbcType=VARCHAR}, #{rerv4,jdbcType=VARCHAR}, 
+      #{rerv5,jdbcType=VARCHAR}, #{rerv6,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+       <selectKey keyProperty="mainBbsNo" resultType="java.lang.Integer" order ="AFTER">
+		    SELECT LAST_INSERT_ID()
+	 </selectKey>	
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.MainBbs">
+    insert into main_bbs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mainBbsNo != null">
+        mainBbsNo,
+      </if>
+      <if test="bbsType1 != null">
+        bbsType1,
+      </if>
+      <if test="bbsType2 != null">
+        bbsType2,
+      </if>
+      <if test="writerNo != null">
+        writerNo,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="isPublic != null">
+        isPublic,
+      </if>
+      <if test="bbsPassword != null">
+        bbsPassword,
+      </if>
+      <if test="replyCompleted != null">
+        replyCompleted,
+      </if>
+      <if test="viewCount != null">
+        viewCount,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+      <if test="rerv1 != null">
+        rerv1,
+      </if>
+      <if test="rerv2 != null">
+        rerv2,
+      </if>
+      <if test="rerv3 != null">
+        rerv3,
+      </if>
+      <if test="rerv4 != null">
+        rerv4,
+      </if>
+      <if test="rerv5 != null">
+        rerv5,
+      </if>
+      <if test="rerv6 != null">
+        rerv6,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mainBbsNo != null">
+        #{mainBbsNo,jdbcType=INTEGER},
+      </if>
+      <if test="bbsType1 != null">
+        #{bbsType1,jdbcType=VARCHAR},
+      </if>
+      <if test="bbsType2 != null">
+        #{bbsType2,jdbcType=VARCHAR},
+      </if>
+      <if test="writerNo != null">
+        #{writerNo,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublic != null">
+        #{isPublic,jdbcType=VARCHAR},
+      </if>
+      <if test="bbsPassword != null">
+        #{bbsPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="replyCompleted != null">
+        #{replyCompleted,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null">
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rerv1 != null">
+        #{rerv1,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv2 != null">
+        #{rerv2,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv3 != null">
+        #{rerv3,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv4 != null">
+        #{rerv4,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv5 != null">
+        #{rerv5,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv6 != null">
+        #{rerv6,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.MainBbs">
+    update main_bbs
+    <set>
+      <if test="bbsType1 != null">
+        bbsType1 = #{bbsType1,jdbcType=VARCHAR},
+      </if>
+      <if test="bbsType2 != null">
+        bbsType2 = #{bbsType2,jdbcType=VARCHAR},
+      </if>
+      <if test="writerNo != null">
+        writerNo = #{writerNo,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublic != null">
+        isPublic = #{isPublic,jdbcType=VARCHAR},
+      </if>
+      <if test="bbsPassword != null">
+        bbsPassword = #{bbsPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="replyCompleted != null">
+        replyCompleted = #{replyCompleted,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null">
+        viewCount = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rerv1 != null">
+        rerv1 = #{rerv1,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv2 != null">
+        rerv2 = #{rerv2,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv3 != null">
+        rerv3 = #{rerv3,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv4 != null">
+        rerv4 = #{rerv4,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv5 != null">
+        rerv5 = #{rerv5,jdbcType=VARCHAR},
+      </if>
+      <if test="rerv6 != null">
+        rerv6 = #{rerv6,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where mainBbsNo = #{mainBbsNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.returnp.admin.model.MainBbs">
+    update main_bbs
+    set bbsType1 = #{bbsType1,jdbcType=VARCHAR},
+      bbsType2 = #{bbsType2,jdbcType=VARCHAR},
+      writerNo = #{writerNo,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      isPublic = #{isPublic,jdbcType=VARCHAR},
+      bbsPassword = #{bbsPassword,jdbcType=VARCHAR},
+      replyCompleted = #{replyCompleted,jdbcType=VARCHAR},
+      viewCount = #{viewCount,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = NOW(),
+      rerv1 = #{rerv1,jdbcType=VARCHAR},
+      rerv2 = #{rerv2,jdbcType=VARCHAR},
+      rerv3 = #{rerv3,jdbcType=VARCHAR},
+      rerv4 = #{rerv4,jdbcType=VARCHAR},
+      rerv5 = #{rerv5,jdbcType=VARCHAR},
+      rerv6 = #{rerv6,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where mainBbsNo = #{mainBbsNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.MainBbs">
+    update main_bbs
+    set bbsType1 = #{bbsType1,jdbcType=VARCHAR},
+      bbsType2 = #{bbsType2,jdbcType=VARCHAR},
+      writerNo = #{writerNo,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      isPublic = #{isPublic,jdbcType=VARCHAR},
+      bbsPassword = #{bbsPassword,jdbcType=VARCHAR},
+      replyCompleted = #{replyCompleted,jdbcType=VARCHAR},
+      viewCount = #{viewCount,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = NOW(),
+      rerv1 = #{rerv1,jdbcType=VARCHAR},
+      rerv2 = #{rerv2,jdbcType=VARCHAR},
+      rerv3 = #{rerv3,jdbcType=VARCHAR},
+      rerv4 = #{rerv4,jdbcType=VARCHAR},
+      rerv5 = #{rerv5,jdbcType=VARCHAR},
+      rerv6 = #{rerv6,jdbcType=VARCHAR},
+    where mainBbsNo = #{mainBbsNo,jdbcType=INTEGER}
+  </update>
+</mapper>

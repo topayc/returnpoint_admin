@@ -4209,6 +4209,83 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
     select IFNULL(sum(A.paymentApprovalAmount), 0) 
     from (SELECT * FROM returnp_db.payment_transaction where paymentApprovalStatus = #{paymentApprovalStatus} and affiliateNo = #{affiliateNo} and date_format(paymentApprovalDateTime, "%Y-%m") = #{searchMonth}) as A;
   </select>
+  
+       <!-- ===============================================================================================================    -->
+  <!-- MainBBs   -->
+  
+    <resultMap id="MainBbsResultMap" type="com.returnp.admin.model.MainBbs">
+       <id column="mainBbsNo" jdbcType="INTEGER" property="mainBbsNo" />
+	    <result column="bbsType1" jdbcType="VARCHAR" property="bbsType1" />
+	    <result column="bbsType2" jdbcType="VARCHAR" property="bbsType2" />
+	    <result column="writerNo" jdbcType="INTEGER" property="writerNo" />
+	    <result column="title" jdbcType="VARCHAR" property="title" />
+	    <result column="isPublic" jdbcType="VARCHAR" property="isPublic" />
+	    <result column="bbsPassword" jdbcType="VARCHAR" property="bbsPassword" />
+	    <result column="replyCompleted" jdbcType="VARCHAR" property="replyCompleted" />
+	    <result column="viewCount" jdbcType="INTEGER" property="viewCount" />
+	    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+	    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+	    <result column="rerv1" jdbcType="VARCHAR" property="rerv1" />
+	    <result column="rerv2" jdbcType="VARCHAR" property="rerv2" />
+	    <result column="rerv3" jdbcType="VARCHAR" property="rerv3" />
+	    <result column="rerv4" jdbcType="VARCHAR" property="rerv4" />
+	    <result column="rerv5" jdbcType="VARCHAR" property="rerv5" />
+	    <result column="rerv6" jdbcType="VARCHAR" property="rerv6" />
+	    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  
+    <sql id="MainBbs_Column_List">
+          mainBbsNo, bbsType1, bbsType2, writerNo, title, isPublic, bbsPassword, replyCompleted, 
+    viewCount, createTime, updateTime, rerv1, rerv2, rerv3, rerv4, rerv5, rerv6, content
+  </sql>
+  
+    <sql id ="MainBbsWhereStatement">
+      <if test="mainBbsNo != null"> AND mainBbsNo = #{mainBbsNo,jdbcType=INTEGER}</if>
+      <if test="bbsType1 != null"> AND bbsType1 = #{bbsType1,jdbcType=VARCHAR}</if>
+      <if test="bbsType2 != null"> AND bbsType2 = #{bbsType2,jdbcType=VARCHAR}</if>
+      <if test="rerv6 != null"> AND rerv6 = #{rerv6,jdbcType=VARCHAR}</if>
+  </sql>
+  
+    <select id="selectMainBbses" parameterType="com.returnp.admin.model.MainBbs" resultMap="MainBbsResultMap">
+    select 
+    <include refid="MainBbs_Column_List" />
+    from main_bbs
+    where 
+     	 1 = 1 
+    	<include refid = "MainBbsWhereStatement"/>
+  </select>
+  
+         <!-- ===============================================================================================================    -->
+  <!-- SubBBs   -->
+  
+    <resultMap id="SubBbsResultMap" type="com.returnp.admin.model.SubBbs">
+   <id column="subBbsNo" jdbcType="INTEGER" property="subBbsNo" />
+    <result column="mainBbsNo" jdbcType="INTEGER" property="mainBbsNo" />
+    <result column="writerNo" jdbcType="INTEGER" property="writerNo" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+     <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  
+    <sql id="SubBbs_Column_List">
+     subBbsNo, mainBbsNo, writerNo, createTime, updateTime, content
+  </sql>
+  
+    <sql id ="SubBbsWhereStatement">
+      <if test="subBbsNo != null"> AND subBbsNo = #{subBbsNo,jdbcType=INTEGER}</if>
+      <if test="mainBbsNo != null"> AND mainBbsNo = #{mainBbsNo,jdbcType=INTEGER}</if>
+      <if test="writerNo != null"> AND writerNo = #{writerNo,jdbcType=INTEGER}</if>
+  </sql>
+  
+    <select id="selectSubBbses" parameterType="com.returnp.admin.model.SubBbs" resultMap="SubBbsResultMap">
+    select 
+    <include refid="SubBbs_Column_List" />
+    from sub_bbs
+    where 
+     	 1 = 1 
+    	<include refid = "SubBbsWhereStatement"/>
+  </select>
+  
 </mapper>
 
 

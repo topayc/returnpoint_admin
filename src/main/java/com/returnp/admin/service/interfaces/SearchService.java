@@ -47,6 +47,7 @@ import com.returnp.admin.model.GiftCard;
 import com.returnp.admin.model.GiftCardAccHistory;
 import com.returnp.admin.model.GiftCardSalesOrgan;
 import com.returnp.admin.model.GreenPoint;
+import com.returnp.admin.model.MainBbs;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.MemberAddress;
 import com.returnp.admin.model.MemberBankAccount;
@@ -62,6 +63,7 @@ import com.returnp.admin.model.Recommender;
 import com.returnp.admin.model.RedPoint;
 import com.returnp.admin.model.SaleManager;
 import com.returnp.admin.model.SoleDist;
+import com.returnp.admin.model.SubBbs;
 
 @Transactional
 public interface SearchService {
@@ -197,6 +199,10 @@ public interface SearchService {
 	public ArrayList<AffiliateDetail> selectAffiliateDetails(AffiliateDetail affiliateDetail);
 	
 	public int selectPaymentTransactionSumForSales(HashMap<String, Object> params);
+	
+	public ArrayList<MainBbs>  selectMainBbses(MainBbs mainBbs);
+
+	public ArrayList<SubBbs>  selectSubBbses(SubBbs subBbs);
 
 	
 }
