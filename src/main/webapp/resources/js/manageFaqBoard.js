@@ -3,19 +3,19 @@
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 			    {field:'mainBbsNo',width:7,align:'center',title : '번호'},
 			    {field:'bbsType1',width:10,align:'center',title : '분류', formatter : bbsType1Formatter},
-			    {field:'bbsType2',width:10,align:'center',title : '타입', formatter : bbsType2Formatter},
+			    {field:'bbsType2',width:15,align:'center',title : '타입', formatter : bbsType2Formatter},
 			    {field:'title',width:50,align:'left',title : '제목'},
 			    {field:'status',width:10,align:'center',title : '상태', formatter : bbsStatusFormatter},
 			    {field:'writerNo',width:10,align:'center',title : '작성자 번호'},
 			    {field:'rerv2',width:15,align:'center',title : '작성자 이름'},
 			    {field:'rerv6',width:20,align:'center',title : '작성자 이메일'},
 			    {field:'content',width:70,align:'center',title : '내용', hidden : true},
-			    {field:'createTime',width:15,align:'center',title : '등록일', formatter : dateFormatter},
-			    {field:'updateTime',width:15,align:'center',title : '수정일', formatter : dateFormatter},
+			    {field:'createTime',width:17,align:'center',title : '등록일', formatter : dateFormatter},
+			    {field:'updateTime',width:17,align:'center',title : '수정일', formatter : dateFormatter},
 			    ]];
 		
 initView();
-var bbsType1 = "1";
+var bbsType1 = "2";
 /**
  * 뷰 초기화 
  * @returns
@@ -26,7 +26,6 @@ function initView(){
 	
 	/* 패널   초기화*/
 	$('.easyui-panel').panel({ border: false });
-	
 	
 	/* 노드 데이타그리드   초기화*/
 	$('#node_list').datagrid({
@@ -70,7 +69,7 @@ function initView(){
 		  		}
 		  	});
 		  	
-		  	var menus = [ '공지 사항 수정' ,'공지 사항 내용 보기',  /*'공지 사항 답변 달기',*/ '공지 사항 삭제'];
+		  	var menus = [ 'FAQ 수정' ,'FAQ 내용 보기', /*'FAQ 답변 달기',*/'FAQ 삭제'];
 		  	var icons = ['icon-edit' , 'icon-edit', /*'icon-edit',*/ 'icon-remove'];
 		  	var actions = ['modify','viewBoardContent', /*'reply',*/ 'remove'];
 		  	
@@ -91,7 +90,6 @@ function initView(){
 	    columns:columns,
 	    
 	});
-	setListPager();
 	
 	$('#title').textbox({
 		label : "제목",
@@ -104,10 +102,14 @@ function initView(){
 		multiline:true	
 	});
 
-	$('#board_reply').textbox({
+	
+	$('#bbsType2').combobox({
 		labelPosition : 'top',
-		multiline:true	
+		label : "FAQ 세부 타입",
+		panelHeight: 'auto',
+		editable : false
 	});
+	setListPager();
 }
 
 function setListPager(){
@@ -144,15 +146,15 @@ function setListColumnHeader(nodeType){
 }
 
 function openBoardCreateForm(){
-	
 	$('#mainBbsNo').val("0");
 	$('#bbsType1').val(bbsType1);
-	$('#content').textbox("setValue","" );
-	$('#title').textbox("setValue","" );
+	$('#bbsType2').combobox("setValue", "1");
+	$('#content').textbox("setValue", "");
+	$('#title').textbox("setValue", "");
 	
 	$('#board_create_container').dialog({
-	    title: "공지 사항 생성 ",
-	    width: 600,
+	    title: "FAQ  생성 ",
+	    width: 800,
 	    height: 600,
 	    closed: false,
 	    cache: false,
@@ -170,7 +172,7 @@ function openBoardCreateForm(){
 			}
 		} ]
 	});
-	
+
 }
 
 function makeFormData(){
@@ -185,7 +187,6 @@ function createBoard(){
 	for (var prop in param){
 		if (param.hasOwnProperty(prop)) {	
 			if (param[prop] == '') {
-				alert(prop + " : " + param[prop]);
 				valid = false;
 				break;
 			}
@@ -217,14 +218,9 @@ function openBoardUpdateForm(){
 		 return;
 	}
 	
-	$('#mainBbsNo').val(node.mainBbsNo);
-	$('#bbsType1').val(bbsType1);
-	$('#title').textbox("setValue",node.title );
-	$('#content').textbox("setValue",node.content );
-	
 	$('#board_create_container').dialog({
-	    title: "공지 사항 수정 ",
-	    width: 600,
+	    title: "FAQ 수정 ",
+	    width: 800,
 	    height: 600,
 	    closed: false,
 	    cache: false,
@@ -242,7 +238,12 @@ function openBoardUpdateForm(){
 			}
 		} ]
 	});
-	
+	$("#createBoardForm").form("clear");
+	$('#mainBbsNo').val(node.mainBbsNo);
+	$('#bbsType1').val(bbsType1);
+	$('#bbsType2').combobox("setValue", node.bbsType2);
+	$('#title').textbox("setValue",node.title );
+	$('#content').textbox("setValue",node.content );
 }
 
 function updateBoard(){
@@ -282,7 +283,7 @@ function removeBoard(){
 		 return;
 	}
 	
-	$.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 해당 공지사항을 정말 삭제하시겠습니까?', function(r){
+	$.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 해당 FAQ 를  정말 삭제하시겠습니까?', function(r){
         if (r){
         	returnp.api.call("removeMainBbs", {mainBbsNo : node.mainBbsNo}, function(res){
         		//console.log(res);

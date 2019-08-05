@@ -312,6 +312,7 @@ $(function () {
         	createMainBbs: {apiCode: 10000, apiPath : '/api/mainBbs/create' , requestMethod: 'post'},
         	updateMainBbs: {apiCode: 10000, apiPath : '/api/mainBbs/update' , requestMethod: 'post'},
         	removeMainBbs: {apiCode: 10000, apiPath : '/api/mainBbs/remove' , requestMethod: 'get'},
+        	replyBoard: {apiCode: 10000, apiPath : '/api/mainBbs/reply' , requestMethod: 'post'},
         	
         	/*sub BBS*/
         	getSubBbses: {apiCode: 10000, apiPath : '/api/subBbses' , requestMethod: 'get'},

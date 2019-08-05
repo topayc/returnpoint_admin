@@ -316,5 +316,9 @@ public class AppConstants {
 		public static final  String  ADMIN= "ADMIN";
 	}
 	
+	public static class BbsStatus{
+		public static final String  SHOWN  = "1";
+		public static final String  NOT_SHOWN= "2";
+	}
 
 }

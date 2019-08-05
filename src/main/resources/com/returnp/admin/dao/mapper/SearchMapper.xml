@@ -4214,7 +4214,7 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
   <!-- MainBBs   -->
   
     <resultMap id="MainBbsResultMap" type="com.returnp.admin.model.MainBbs">
-       <id column="mainBbsNo" jdbcType="INTEGER" property="mainBbsNo" />
+         <id column="mainBbsNo" jdbcType="INTEGER" property="mainBbsNo" />
 	    <result column="bbsType1" jdbcType="VARCHAR" property="bbsType1" />
 	    <result column="bbsType2" jdbcType="VARCHAR" property="bbsType2" />
 	    <result column="writerNo" jdbcType="INTEGER" property="writerNo" />
@@ -4223,6 +4223,7 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
 	    <result column="bbsPassword" jdbcType="VARCHAR" property="bbsPassword" />
 	    <result column="replyCompleted" jdbcType="VARCHAR" property="replyCompleted" />
 	    <result column="viewCount" jdbcType="INTEGER" property="viewCount" />
+	    <result column="status" jdbcType="VARCHAR" property="status" />
 	    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
 	    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
 	    <result column="rerv1" jdbcType="VARCHAR" property="rerv1" />
@@ -4236,7 +4237,7 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
   
     <sql id="MainBbs_Column_List">
           mainBbsNo, bbsType1, bbsType2, writerNo, title, isPublic, bbsPassword, replyCompleted, 
-    viewCount, createTime, updateTime, rerv1, rerv2, rerv3, rerv4, rerv5, rerv6, content
+    viewCount, status, createTime, updateTime, rerv1, rerv2, rerv3, rerv4, rerv5, rerv6, content
   </sql>
   
     <sql id ="MainBbsWhereStatement">
@@ -4244,6 +4245,7 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
       <if test="bbsType1 != null"> AND bbsType1 = #{bbsType1,jdbcType=VARCHAR}</if>
       <if test="bbsType2 != null"> AND bbsType2 = #{bbsType2,jdbcType=VARCHAR}</if>
       <if test="rerv6 != null"> AND rerv6 = #{rerv6,jdbcType=VARCHAR}</if>
+      <if test="status != null"> AND status = #{status,jdbcType=VARCHAR}</if>
   </sql>
   
     <select id="selectMainBbses" parameterType="com.returnp.admin.model.MainBbs" resultMap="MainBbsResultMap">

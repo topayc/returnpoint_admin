@@ -9,7 +9,7 @@
 			    {field:'pointReceiverName',width:100,align:'center',title : '수취인'},
 			    {field:'pointType',width:80,align:'center',title : '송금 포인트 타입', formatter : pointTypeFormatter},
 			    {field:'pointNode',width:80,align:'center',title : '송금 포인트 노드', formatter : pointTransferNodeType},
-			    {field:'pointTransferAmount',width:100,align:'center',title : '송금 포인트',formatter : numberBlueFormatter},
+			    {field:'pointTransferAmount',width:100,align:'center',title : '송금 포인트'},
 			    {field:'pointTransferType',width:70,align:'center',title : '송금 유형', formatter : pointTransferType},
 			    {field:'pointTransferStatus',width:100,align:'center',title : '처리 상태', formatter : pointTransferStatus},
 			    {field:'createTime',width:130,align:'center',title : '송금일',formatter : dateFormatter},

@@ -2,20 +2,25 @@
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 			    {field:'mainBbsNo',width:7,align:'center',title : '번호'},
-			    {field:'bbsType1',width:10,align:'center',title : '분류', formatter : bbsType1Formatter},
-			    {field:'bbsType2',width:10,align:'center',title : '타입', formatter : bbsType2Formatter},
+			    {field:'bbsType1',width:14,align:'center',title : '분류', formatter : bbsType1Formatter},
+			    {field:'bbsType2',width:18,align:'center',title : '타입', formatter : bbsType2Formatter},
 			    {field:'title',width:50,align:'left',title : '제목'},
-			    {field:'status',width:10,align:'center',title : '상태', formatter : bbsStatusFormatter},
-			    {field:'writerNo',width:10,align:'center',title : '작성자 번호'},
-			    {field:'rerv2',width:15,align:'center',title : '작성자 이름'},
-			    {field:'rerv6',width:20,align:'center',title : '작성자 이메일'},
+			    {field:'replyCompleted',width:12,align:'center',title : '답변 여부'},
+			    {field:'status',width:12,align:'center',title : '상태', formatter : bbsStatusFormatter},
+			    {field:'writerNo',width:12,align:'center',title : '작성자 번호'},
+			    {field:'rerv6',width:20,align:'center',title : '이메일'},
+			    {field:'rerv1',width:20,align:'center',title : '상호명'},
+			    {field:'rerv2',width:17,align:'center',title : '대표자명'},
+			    {field:'rerv3',width:20,align:'center',title : '주소'},
+			    {field:'rerv4',width:20,align:'center',title : '담당자'},
+			    {field:'rerv5',width:17,align:'center',title : '연락처'},
 			    {field:'content',width:70,align:'center',title : '내용', hidden : true},
-			    {field:'createTime',width:15,align:'center',title : '등록일', formatter : dateFormatter},
-			    {field:'updateTime',width:15,align:'center',title : '수정일', formatter : dateFormatter},
+			    {field:'createTime',width:18,align:'center',title : '등록일', formatter : dateFormatter},
+			    {field:'updateTime',width:15,align:'center',title : '수정일', formatter : dateFormatter , hidden : true},
 			    ]];
 		
 initView();
-var bbsType1 = "1";
+var bbsType1 = "4";
 /**
  * 뷰 초기화 
  * @returns
@@ -70,9 +75,9 @@ function initView(){
 		  		}
 		  	});
 		  	
-		  	var menus = [ '공지 사항 수정' ,'공지 사항 내용 보기',  /*'공지 사항 답변 달기',*/ '공지 사항 삭제'];
-		  	var icons = ['icon-edit' , 'icon-edit', /*'icon-edit',*/ 'icon-remove'];
-		  	var actions = ['modify','viewBoardContent', /*'reply',*/ 'remove'];
+		  	var menus = [ /*'수정' ,*/ '내용 보기', '답변 생성 / 수정','삭제'];
+		  	var icons = [ /*'icon-edit' ,*/ 'icon-edit','icon-edit', 'icon-remove'];
+		  	var actions = [ /*'modify',*/ 'viewBoardContent','reply', 'remove'];
 		  	
 		  	for(var i=0; i<menus.length; i++){
 		  		cmenu.menu('appendItem', {
@@ -114,14 +119,14 @@ function setListPager(){
 	var pager = $('#node_list').datagrid().datagrid('getPager');
 	pager.pagination({
 		displayMsg : ' {from} to {to} of {total}',
-		buttons:[{
+		buttons:[/*{
             iconCls:'icon-add',
             handler:function(){
             	$('#node_list').datagrid('unselectAll');
             	$('#node_list').datagrid('uncheckAll');
             	openBoardCreateForm();
             }
-        }],
+        }*/],
         layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
         onSelectPage:function(page,rows){        	
         	var opts = $('#node_list').datagrid('options');
@@ -143,136 +148,10 @@ function setListColumnHeader(nodeType){
 	});
 }
 
-function openBoardCreateForm(){
-	
-	$('#mainBbsNo').val("0");
-	$('#bbsType1').val(bbsType1);
-	$('#content').textbox("setValue","" );
-	$('#title').textbox("setValue","" );
-	
-	$('#board_create_container').dialog({
-	    title: "공지 사항 생성 ",
-	    width: 600,
-	    height: 600,
-	    closed: false,
-	    cache: false,
-	    modal: true,
-		buttons : [ {
-			text : '확인',
-			iconCls : 'icon-ok',
-			handler : function() {
-				createBoard();
-			}
-		}, {
-			text : '취소',
-			handler : function() {
-				$('#board_create_container').dialog('close');
-			}
-		} ]
-	});
-	
-}
 
 function makeFormData(){
-	var param = $("#createBoardForm").serializeObject();
+	var param = $("#board_reply_form").serializeObject();
 	return param;
-}
-
-function createBoard(){
-	var param =makeFormData();
-	
-	var valid = true;
-	for (var prop in param){
-		if (param.hasOwnProperty(prop)) {	
-			if (param[prop] == '') {
-				alert(prop + " : " + param[prop]);
-				valid = false;
-				break;
-			}
-		}
-	}
-	
-    if (!valid) {
-		$.messager.alert('알림', '입력 항목이 모두 입력되지 않았습니다');
-		return;
-	}
-		
-	returnp.api.call("createMainBbs", param, function(res){
-		//console.log(res);
-		if (res.resultCode  == "100") {
-			$.messager.alert('알림', res.message);
-			$('#board_create_container').dialog('close');
-			$('#board_create_container').removeAttr('style');
-			realodPage();
-		}else {
-			$.messager.alert('알림', res.message);
-		}
-	});
-}
-
-function openBoardUpdateForm(){
-	var node = $('#node_list').datagrid('getSelected');
-	if (!node) {
-		 $.messager.alert('알림','수정하실 항목을 선택해주세요');
-		 return;
-	}
-	
-	$('#mainBbsNo').val(node.mainBbsNo);
-	$('#bbsType1').val(bbsType1);
-	$('#title').textbox("setValue",node.title );
-	$('#content').textbox("setValue",node.content );
-	
-	$('#board_create_container').dialog({
-	    title: "공지 사항 수정 ",
-	    width: 600,
-	    height: 600,
-	    closed: false,
-	    cache: false,
-	    modal: true,
-		buttons : [ {
-			text : '확인',
-			iconCls : 'icon-ok',
-			handler : function() {
-				updateBoard();
-			}
-		}, {
-			text : '취소',
-			handler : function() {
-				$('#board_create_container').dialog('close');
-			}
-		} ]
-	});
-	
-}
-
-function updateBoard(){
-	var param =makeFormData();
-	var valid = true;
-	for (var prop in param){
-		if (param.hasOwnProperty(prop)) {
-			if (param[prop] == '') {
-				valid = false;
-				break;
-			}
-		}
-	}
-	
-    if (!valid) {
-		$.messager.alert('알림', '입력 항목이 모두 입력되지 않았습니다');
-		return;
-	}
-		
-	returnp.api.call("updateMainBbs", param, function(res){
-		//console.log(res);
-		if (res.resultCode  == "100") {
-			$.messager.alert('알림', res.message);
-			$('#board_create_container').dialog('close');
-			$('#board_create_container').removeAttr('style');
-			realodPage();
-		}else {
-			$.messager.alert('알림', res.message);
-		}
-	});
 }
 
 function removeBoard(){
@@ -282,7 +161,7 @@ function removeBoard(){
 		 return;
 	}
 	
-	$.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 해당 공지사항을 정말 삭제하시겠습니까?', function(r){
+	$.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 해당 항목을 정말 삭제하시겠습니까?', function(r){
         if (r){
         	returnp.api.call("removeMainBbs", {mainBbsNo : node.mainBbsNo}, function(res){
         		//console.log(res);
@@ -350,12 +229,42 @@ function openReplyForm(){
 	});
 	
 	$('#board_content_ori').html(node.content.replace(/(\n|\r\n)/g, '<br>') );
-	$('#board_reply').textbox("setValue", "");
+	$("#board_reply_form").form("clear");
+	$('#mainBbsNo').val(node.mainBbsNo);
+	$('#content').textbox("setValue", "");
+	
+	if (node.replyCompleted == "Y") {
+		returnp.api.call("getSubBbses", {mainBbsNo : node.mainBbsNo}, function(res){
+			if (res.resultCode  == "100") {
+				console.log(res);
+				$('#content').textbox("setValue", res.rows[0].content);
+			}else {
+				$.messager.alert('알림', res.message);
+			}
+		});
+	}
 
 }
 
 function reply(){
-	
+	var node = $('#node_list').datagrid('getSelected');
+	if (!node) {
+		 $.messager.alert('알림','수정하실 항목을 선택해주세요');
+		 return;
+	}
+	var param = {mainBbsNo : node.mainBbsNo, content : $("#content").textbox("getValue")}
+	console.log(param);
+	returnp.api.call("replyBoard", param, function(res){
+		//console.log(res);
+		if (res.resultCode  == "100") {
+			$.messager.alert('알림', res.message);
+			$('#board_reply_container').dialog('close');
+			$('#board_reply_container').removeAttr('style');
+			realodPage();
+		}else {
+			$.messager.alert('알림', res.message);
+		}
+	});
 }
 
 function realodPage(){

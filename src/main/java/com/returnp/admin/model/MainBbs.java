@@ -22,6 +22,8 @@ public class MainBbs extends QueryCondition {
 
     private Integer viewCount;
 
+    private String status;
+
     private Date createTime;
 
     private Date updateTime;
@@ -110,6 +112,14 @@ public class MainBbs extends QueryCondition {
 
     public void setViewCount(Integer viewCount) {
         this.viewCount = viewCount;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 
     public Date getCreateTime() {

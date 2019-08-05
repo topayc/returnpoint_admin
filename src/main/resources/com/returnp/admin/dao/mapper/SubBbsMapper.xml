@@ -37,8 +37,8 @@
       NOW(), NOW(), #{content,jdbcType=LONGVARCHAR}
       )
       
-             <selectKey keyProperty="subBbsNo" resultType="java.lang.Integer" order ="AFTER">
-		    SELECT LAST_INSERT_ID()
+      <selectKey keyProperty="subBbsNo" resultType="java.lang.Integer" order ="AFTER">
+		  SELECT LAST_INSERT_ID()
 	 </selectKey>	
   </insert>
   <insert id="insertSelective" parameterType="com.returnp.admin.model.SubBbs">

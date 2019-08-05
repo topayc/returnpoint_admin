@@ -11,6 +11,7 @@
     <result column="bbsPassword" jdbcType="VARCHAR" property="bbsPassword" />
     <result column="replyCompleted" jdbcType="VARCHAR" property="replyCompleted" />
     <result column="viewCount" jdbcType="INTEGER" property="viewCount" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="rerv1" jdbcType="VARCHAR" property="rerv1" />
@@ -25,7 +26,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     mainBbsNo, bbsType1, bbsType2, writerNo, title, isPublic, bbsPassword, replyCompleted, 
-    viewCount, createTime, updateTime, rerv1, rerv2, rerv3, rerv4, rerv5, rerv6
+    viewCount, status, createTime, updateTime, rerv1, rerv2, rerv3, rerv4, rerv5, rerv6
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -46,18 +47,18 @@
     insert into main_bbs (mainBbsNo, bbsType1, bbsType2, 
       writerNo, title, isPublic, 
       bbsPassword, replyCompleted, viewCount, 
-      createTime, updateTime, rerv1, 
-      rerv2, rerv3, rerv4, 
-      rerv5, rerv6, content
-      )
+      status, createTime, updateTime, 
+      rerv1, rerv2, rerv3, 
+      rerv4, rerv5, rerv6, 
+      content)
     values (#{mainBbsNo,jdbcType=INTEGER}, #{bbsType1,jdbcType=VARCHAR}, #{bbsType2,jdbcType=VARCHAR}, 
-      #{writerNo,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{isPublic,jdbcType=VARCHAR}, 
-      #{bbsPassword,jdbcType=VARCHAR}, #{replyCompleted,jdbcType=VARCHAR}, #{viewCount,jdbcType=INTEGER}, 
-      NOW(), NOW(), #{rerv1,jdbcType=VARCHAR}, 
-      #{rerv2,jdbcType=VARCHAR}, #{rerv3,jdbcType=VARCHAR}, #{rerv4,jdbcType=VARCHAR}, 
-      #{rerv5,jdbcType=VARCHAR}, #{rerv6,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
-      )
-       <selectKey keyProperty="mainBbsNo" resultType="java.lang.Integer" order ="AFTER">
+      #{writerNo,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 'Y', 
+      #{bbsPassword,jdbcType=VARCHAR}, 'N', 0, 
+      #{status,jdbcType=VARCHAR}, NOW(), NOW(), 
+      #{rerv1,jdbcType=VARCHAR}, #{rerv2,jdbcType=VARCHAR}, #{rerv3,jdbcType=VARCHAR}, 
+      #{rerv4,jdbcType=VARCHAR}, #{rerv5,jdbcType=VARCHAR}, #{rerv6,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
+        <selectKey keyProperty="mainBbsNo" resultType="java.lang.Integer" order ="AFTER">
 		    SELECT LAST_INSERT_ID()
 	 </selectKey>	
   </insert>
@@ -90,6 +91,9 @@
       </if>
       <if test="viewCount != null">
         viewCount,
+      </if>
+      <if test="status != null">
+        status,
       </if>
       <if test="createTime != null">
         createTime,
@@ -147,6 +151,9 @@
       <if test="viewCount != null">
         #{viewCount,jdbcType=INTEGER},
       </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -203,6 +210,9 @@
       <if test="viewCount != null">
         viewCount = #{viewCount,jdbcType=INTEGER},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -243,6 +253,7 @@
       bbsPassword = #{bbsPassword,jdbcType=VARCHAR},
       replyCompleted = #{replyCompleted,jdbcType=VARCHAR},
       viewCount = #{viewCount,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       updateTime = NOW(),
       rerv1 = #{rerv1,jdbcType=VARCHAR},
@@ -264,6 +275,7 @@
       bbsPassword = #{bbsPassword,jdbcType=VARCHAR},
       replyCompleted = #{replyCompleted,jdbcType=VARCHAR},
       viewCount = #{viewCount,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       updateTime = NOW(),
       rerv1 = #{rerv1,jdbcType=VARCHAR},
@@ -271,7 +283,7 @@
       rerv3 = #{rerv3,jdbcType=VARCHAR},
       rerv4 = #{rerv4,jdbcType=VARCHAR},
       rerv5 = #{rerv5,jdbcType=VARCHAR},
-      rerv6 = #{rerv6,jdbcType=VARCHAR},
+      rerv6 = #{rerv6,jdbcType=VARCHAR}
     where mainBbsNo = #{mainBbsNo,jdbcType=INTEGER}
   </update>
 </mapper>

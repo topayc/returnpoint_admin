@@ -56,15 +56,27 @@
 </div>
 <div id="board_create_container"  style = "padding : 15px;display : none">
 	<form id="createBoardForm"  enctype="multipart/form-data" name = "createBoardForm" method="post" >
-	<input  type = "hidden" id = "mainBbsNo"  name="mainBbsNo"  value = "0"/>
-	<input  type = "hidden" id = "bbsType1"  name="bbsType1"  value = "1"/>
-  	<div style="margin-top:10px;margin-bottom:20px;margin-left : 10px;">
-		<input  id = "title"  name="title" style="width:100%"/>
-	</div>
-	
-  	<div style="margin-bottom:20px;margin-left : 10px;">
-		<textarea  id = "content"  name="content" style="width:100%;height: 400px"></textarea> 
-	</div>
+		<input  type = "hidden" id = "mainBbsNo"  name="mainBbsNo"  value = "0"/>
+		<input  type = "hidden" id = "bbsType1"  name="bbsType1"  value = "2"/>
+	  	
+	  	<div style="margin-top:10px;margin-bottom:20px;margin-left : 10px">
+		   	<select id = bbsType2  name="bbsType2"  style="width:100%">
+			     <option value = "1" selected="selected">회원 </option>
+			     <option value = "2">포인트</option>
+			     <option value = "3">적립 및 출금  </option>
+			     <option value = "4">가맹  </option>
+			     <option value = "5">결제</option>
+			     <option value = "5">쇼핑몰</option>
+			     <option value = "10">기타</option>
+		      </select>
+		</div>
+	  	<div style="margin-top:10px;margin-bottom:20px;margin-left : 10px;">
+			<input  id = "title"  name="title" style="width:100%"/>
+		</div>
+		
+	  	<div style="margin-bottom:20px;margin-left : 10px;">
+			<textarea  id = "content"  name="content" style="width:100%;height: 400px"></textarea> 
+		</div>
 	</form>
 </div>
 

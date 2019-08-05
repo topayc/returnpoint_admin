@@ -23,5 +23,6 @@ public interface BbsService {
 	
 	public ReturnpBaseResponse removeMainBbs(MainBbs bbs);
 	public ReturnpBaseResponse removeSubBbs(SubBbs bbs);
+	public ReturnpBaseResponse reply(SubBbs subBbs, HttpSession httpSession);
 	
 }

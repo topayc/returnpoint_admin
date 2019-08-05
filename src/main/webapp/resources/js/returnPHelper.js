@@ -40,13 +40,36 @@ function bbsType1Formatter(value, row, index){
 	return result;
 }
 
+function bbsStatusFormatter(value, row, index){
+	switch (row.status) {
+	case "1": result = '노출'; break;
+	case "2": result = '노출 안됨'; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
 
 function bbsType2Formatter(value, row, index){
 	var result = "-";
 	if (row.bbsType1 == '1') {
 		result = "공지"
-	}else {
-		
+	}else if (row.bbsType1 == '2') {
+		if (row.bbsType2 == "1") { result  = "회원/가입/탈퇴"}
+		if (row.bbsType2 == "2") { result  = "포인트"}
+		if (row.bbsType2 == "3") { result  = "적립 및 출금"}
+		if (row.bbsType2 == "4") { result  = "가맹"}
+		if (row.bbsType2 == "5") { result  = "결제"}
+		if (row.bbsType2 == "6") { result  = "쇼핑몰"}
+		if (row.bbsType2 == "10") { result  = "기타"}
+	}else if (row.bbsType1 == '4') {
+		if (row.bbsType2 == "1") { result  = "일반 회원 문의"}
+		if (row.bbsType2 == "2") { result  = "정회원 문의"}
+		if (row.bbsType2 == "3") { result  = "영업 관리자 문의"}
+		if (row.bbsType2 == "4") { result  = "협력업체 문의"}
+		if (row.bbsType2 == "5") { result  = "대리점 문의"}
+		if (row.bbsType2 == "6") { result  = "지사 문의"}
+		if (row.bbsType2 == "7") { result  = "기타 제휴 "}
 	}
 	return result;
 }

@@ -54,19 +54,6 @@
     	</div>
 	</div> --%>
 </div>
-<div id="board_create_container"  style = "padding : 15px;display : none">
-	<form id="createBoardForm"  enctype="multipart/form-data" name = "createBoardForm" method="post" >
-	<input  type = "hidden" id = "mainBbsNo"  name="mainBbsNo"  value = "0"/>
-	<input  type = "hidden" id = "bbsType1"  name="bbsType1"  value = "1"/>
-  	<div style="margin-top:10px;margin-bottom:20px;margin-left : 10px;">
-		<input  id = "title"  name="title" style="width:100%"/>
-	</div>
-	
-  	<div style="margin-bottom:20px;margin-left : 10px;">
-		<textarea  id = "content"  name="content" style="width:100%;height: 400px"></textarea> 
-	</div>
-	</form>
-</div>
 
 <div id="board_reply_container"  style = "padding : 5px;display : none">
 	<div   style="height:40%;border : 1px soild #888888;padding : 10px;background-color : #eee; color : #000" data-options="border:true"> 
@@ -75,8 +62,9 @@
 	
 	<div   class = "easyui-panel"  style = "margin-top: 10px">
 		<form id="board_reply_form"  enctype="multipart/form-data" name = "board_reply_form" method="post" >
+	  	<input  type = "hidden" id = "mainBbsNo"  name="mainBbsNo"  value = "0"/>
 	  	<div >
-			<textarea  id = "board_reply"  style="width:100%;height: 260px" placeholder = "답글 입력"></textarea> 
+			<textarea  id = "content"  style="width:100%;height: 260px;padding: 10px;" placeholder = "답글 입력"></textarea> 
 		</div>
 		</form>
 	</div>

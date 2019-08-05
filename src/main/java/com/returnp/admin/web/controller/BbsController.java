@@ -18,6 +18,7 @@ import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Board;
 import com.returnp.admin.model.MainBbs;
+import com.returnp.admin.model.SubBbs;
 import com.returnp.admin.service.interfaces.BbsService;
 import com.returnp.admin.service.interfaces.BoardService;
 import com.returnp.admin.service.interfaces.SearchService;
@@ -55,16 +56,19 @@ public class BbsController extends ApplicationController{
 	public ReturnpBaseResponse  removeMainBbs(MainBbs mainBbs) {
 		return this.bbsService.removeMainBbs(mainBbs);
 	}
+
+	@ResponseBody
+	@RequestMapping(value = "/mainBbs/reply", method = RequestMethod.POST)
+	public ReturnpBaseResponse  replyBoard(SubBbs subBbs, HttpSession httpSession) {
+		return this.bbsService.reply(subBbs,httpSession);
+	}
 	
 	/*Sub bbs --------------------------------------------------*/
 	
 	@ResponseBody
 	@RequestMapping(value = "/subBbses", method = RequestMethod.GET)
-	public ReturnpBaseResponse  getSubBbses(Board board) {
-		ObjectResponse<Board> res = new ObjectResponse<Board>();
-		res.setData(this.boardService.getBoard(board));
-		res.setResultCode("100");
-		return res;
+	public ReturnpBaseResponse  getSubBbses(SubBbs subBbs) {
+		return this.bbsService.selectSubBbses(subBbs);
 	}
 
 	@ResponseBody
