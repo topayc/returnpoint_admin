@@ -193,7 +193,7 @@
                           			  </li>
                             		   <li id = "managePartnerBoard" data-options = "iconCls :'icon-info'">
                             		  	<a class= "sub_menu"  view_req_name = "managePartnerBoard" menu_deps= '2' >
-                            		  		<span style = "font-weight : bold">제휴 문의 </span>
+                            		  		<span style = "font-weight : bold">일반 / 제휴 문의 </span>
                             		  	</a> 
                             		  </li>
                             	<!-- 	  <li id = "manageCommonBoard" data-options = "iconCls :'icon-info'">
