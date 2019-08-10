@@ -9,8 +9,8 @@ function ciderPayStatusFormattter(value, row, index) {
 		row.ciderPayStatus = "N"
 	}
 	switch (row.ciderPayStatus) {
-	case "Y": result = '<span style = "color : green;font-weight : bold" >' + "사용" + ' </span>'; break;
-	case "N": result = '<span style = "color : red;font-weight : bold" >' + "중지" + ' </span>'; break;
+	case "Y": result = '<span style = "color : green;font-weight : bold" >' + "사용중" + ' </span>'; break;
+	case "N": result = '<span style = "color : red;font-weight : bold" >' + "사용 안함" + ' </span>'; break;
 	}
 	return result;
 }

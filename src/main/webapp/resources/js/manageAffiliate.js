@@ -15,7 +15,7 @@
 			  //  {field:'noname',width:30,align:'center',title : 'TID 보기' , formatter : tidActionFormatter, hidden: true},
 			    {field:'affiliateComm',width:35,align:'center',title : 'QR 적립율'},
 			    {field:'giftCardPayRefundRate',width:30,align:'center',title : 'GIFT 요율'},
-			    {field:'ciderPayStatus',width:25,align:'center',title : 'CIDER', formatter :ciderPayStatusFormattter },
+			    {field:'ciderPayStatus',width:40,align:'center',title : 'CIDER PAY', formatter :ciderPayStatusFormattter },
 			    {field:'affiliateType',width:50,align:'center',title : '분류' , formatter : affiliateTypeFormatter},
 			    {field:'affiliateStatus',width:15,align:'center',title : '상태',formatter : nodeStatusFormatter},
 			    {field:'greenPointAmount',width:40,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
@@ -39,18 +39,18 @@
 	affiliateTidCols = [[
 		{field:'affiliateTidNo',width:60,align:'center',title : '등록 번호'},
 		{field:'affiliateNo',width:60,align:'center',title : '협력 업체 번호'},
-		{field:'affiliateName',width:100,align:'center',title : '협력 업체 이름'},	
+		{field:'affiliateName',width:100,align:'center',title : '협력 업체 이름'},
 		{field:'tid',width:70,align:'center',title : 'TID',editor:'text'},
 		{field:'noField1',width:40,align:'center',title : '수정',formatter : tidActionFormatter},
 		{field:'noField2',width:40,align:'center',title : '삭제',formatter : tidDelFormatter},
 		{field:'createTime',width:95,align:'center',title : '등록일',formatter : dateFormatter},
 		{field:'updateTime',width:95,align:'center',title : '수정일',formatter : dateFormatter}
 		]];
-	
+
 	bankListCols = [[
 		{field:'memberBankAccountNo',width:60,align:'center',title : '등록 번호'},
 		{field:'memberNo',width:60,align:'center',title : '회원 번호'},
-		{field:'bankName',width:100,align:'center',title : '은행명',editor:'text'},	
+		{field:'bankName',width:100,align:'center',title : '은행명',editor:'text'},
 		{field:'accountOwner',width:70,align:'center',title : '계좌주',editor:'text'},
 		{field:'bankAccount',width:150,align:'center',title : '계좌 번호',editor:'text'},
 		{field:'accountStatus',width:40,align:'center',title : '상태',editor:'text'},
@@ -69,25 +69,25 @@ if (loginType != 1) {
 			$('#node_list').datagrid('hideColumn', columns[0][i].field);
 		}
 	}
-} 
+}
 
 
 /**
- * 뷰 초기화 
+ * 뷰 초기화
  * @returns
  */
 function initView(){
 	/* 레이아웃 초기화*/
 	$('.easyui-layout').layout();
-	
+
 	/* 패널   초기화*/
 	$('.easyui-panel').panel({ border: false });
-	
+
 	/* 폼 초기화*/
 	$('#searchForm').form();
-	
+
 	/* 검색어 입력 박스 초기화 */
-	$('#searchKeyword').textbox({ 
+	$('#searchKeyword').textbox({
 		width: 200,
 		prompt : "검색할 단어를 입력해주세요" ,
 		inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
@@ -97,7 +97,7 @@ function initView(){
 			}
 		})
 	});
-	
+
 	/* 노드 타입 셀렉트 박스  초기화*/
 	$('#searchNodeType').combobox({
 		labelPosition : 'top',
@@ -110,7 +110,7 @@ function initView(){
 		readonly:true,
 		width: 140
 	});
-	
+
 	/* 노드 상태 셀렉트 박스  초기화*/
 	$('#searchNodeStatus').combobox({
 		labelPosition : 'top',
@@ -122,7 +122,7 @@ function initView(){
 		required:true,
 		width: 100
 	});
-	
+
 	/* 검색어 타입 셀렉트 박스  초기화*/
 	$('#searchKeywordType').combobox({
 		labelPosition : 'top',
@@ -133,26 +133,26 @@ function initView(){
 		multiple:false,
 		required:true,
 		width: 100
-		
+
 	});
-	
+
 	/* 검색 시작일 갤린더 박스  초기화*/
-	$('#searchDateStart').datebox({	   
+	$('#searchDateStart').datebox({
 	    prompt : "검색 시작 일자",
 	    labelPosition: 'top',
 	    width: 150,
 	    formatter :  searchDateFomatter
 	});
-	
+
 	/* 검색 종료일 갤린더 박스  초기화*/
-	$('#searchDateEnd').datebox({	  
+	$('#searchDateEnd').datebox({
 	    prompt : "검색 종료 일자",
 	    showSeconds: true,
 	    labelPosition: 'top',
 	    width: 150,
 	    formatter :  searchDateFomatter
 	});
-	
+
 	/* 검색 버튼  초기화*/
 	$('#search_btn').linkbutton({
 		onClick : function(){
@@ -162,9 +162,9 @@ function initView(){
 			console.log(param);
 			//console.log("검색 쿼리 데이타");
 			//console.log(param);
-			
+
 			returnp.api.call("getNodes", param, function(res){
-				
+
 				if (res.resultCode == "100") {
 					/*setListColumnHeader(param.searchNodeType);*/
 					console.log(res);
@@ -181,7 +181,7 @@ function initView(){
 		width : 70,
 		iconCls:'icon-search'
 	});
-	
+
 	/* 리셋 버튼  초기화*/
 	$('#reset_btn').linkbutton({
 		onClick : function(){
@@ -194,7 +194,7 @@ function initView(){
 		},
 		width : 70
 	});
-	
+
 	/* 노드 데이타그리드   초기화*/
 	$('#node_list').datagrid({
 		title : '[검색 결과]',
@@ -212,7 +212,7 @@ function initView(){
 		onSelect : function(){},
 		onLoadSuccess : function(){
 			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);
-		},	
+		},
 		onRowContextMenu : function(e, index, row){
 			e.preventDefault();
 		  	$(this).datagrid("selectRow", index);
@@ -252,7 +252,7 @@ function initView(){
 		  					 return;
 		  				}
 		  				loadPaymentPointbackRecord(
-		  					"Green Point 누적 지급 현황", 
+		  					"Green Point 누적 지급 현황",
 		  					{
 		  						memberNo : node.memberNo,
 		  						nodeType : 5
@@ -269,14 +269,14 @@ function initView(){
 		  				openBizInfo();
 		  				break;
 		  			}
-		  			
+
 		  		}
 		  	});
-		  	
+
 		  	var menus = [  '수정', '삭제','상세 정보','결제 라우터 등록/변경', '가맹점 TID 보기', '가맹점 TID 추가 ','계좌 추가','계좌 리스트' ,'사업장 정보 등록' ,'포인트 누적 현황'  ];
 		  	var icons = ['icon-edit','icon-remove','icon-tip','icon-tip','icon-add',   'icon-add', 'icon-add', 'icon-add' , 'icon-add', 'icon-large-chart'];
 		  	var actions = ['modify','remove','more_detail','createPaymentRouterForm', 'viewTids', 'addTid','add_bank', 'view_bank', 'open_biz_info', 'point_acc_view'];
-		  	
+
 		  	if (!row['ciderPayStatus'] || row.ciderPayStatus == null || row.ciderPayStatus == "N" ) {
 		  		menus.push("Cider Pay 사용");
 		  		icons.push('icon-add');
@@ -286,7 +286,7 @@ function initView(){
 		  		icons.push('icon-remove');
 		  		actions.push("stop_ciderpay")
 		  	}
-		  	
+
 		  	for(var i=0; i<menus.length; i++){
 		  		cmenu.menu('appendItem', {
 		  			data : row,
@@ -303,7 +303,7 @@ function initView(){
 		},
 	    columns:columns,
 	});
-	
+
 	/* 노드 데이타그리드   초기화*/
 	$('#bank_list_table').datagrid({
 		title : '은행 계좌]',
@@ -321,7 +321,7 @@ function initView(){
 		onSelect : function(){},
 		onLoadSuccess : function(){
 			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);
-		},	
+		},
 		onRowContextMenu : function(e, index, row){
 			e.preventDefault();
 		  	$(this).datagrid("selectRow", index);
@@ -336,11 +336,11 @@ function initView(){
 		  			}
 		  		}
 		  	});
-		  	
+
 		  	var menus = [  '주 계좌 지정'];
 		  	var icons = ['icon-edit'];
 		  	var actions = ['defaultAccount'];
-		  	
+
 		  	for(var i=0; i<menus.length; i++){
 		  		cmenu.menu('appendItem', {
 		  			data : row,
@@ -356,7 +356,7 @@ function initView(){
 		  	});
 		},
 	    columns:columns,
-	    
+
 	});
 	setListPager();
 	$('#add_tid_btn').linkbutton({
@@ -364,15 +364,15 @@ function initView(){
 			addAffiliateTid();
 		},
 		iconCls:'icon-ok'
-	}); 
-	
+	});
+
 	/* Tid  생성 버튼*/
 	$('#gen_tid').linkbutton({
 		onClick : function(){
 			var param = {};
 			var node = $('#node_list').datagrid('getSelected');
 			var affTypes = node.affiliateType.split(",");
-			
+
 			if (affTypes.hasValue("A001")) {
 				param.affiliateType = "A001";
 			}else if (affTypes.hasValue("A003")) {
@@ -386,13 +386,13 @@ function initView(){
 		},
 		iconCls:'icon-add'
 	});
-	
+
 	$('#cancel_btn').linkbutton({
 		onClick : function(){
 			$('#add_affiliate_tid_virew').dialog('close')
 		}
-	}); 
-	
+	});
+
 	var tidGrid = $('#tid_list').datagrid({
 		singleSelect:true,
 		collapsible:false,
@@ -408,7 +408,7 @@ function initView(){
 /*	    index: 0,
 	    field: 'productid'*/
 	});
-	
+
 	var bankAccountGrid = $('#bank_list_table').datagrid({
 		singleSelect:true,
 		collapsible:false,
@@ -424,27 +424,27 @@ function initView(){
 		    index: 0,
 		    field: 'productid'
 		});*/
-	
+
 	$('#memberBankAccountNo').textbox({
 		label : roundLabel("등록번호"),
 		readonly : true
 	});
-	
+
 	$('#bankName').textbox({
 		label : roundLabel("은행명"),
 		prompt: '은행 이름 입력',
 	});
-	
+
 	$('#accountOwner').textbox({
 		label : roundLabel("계좌주"),
 		prompt: '실제 계좌주 입력',
 	});
-	
+
 	$('#bankAccount').textbox({
 		label : roundLabel("계좌 번호"),
 		prompt: '계좌 번호 입력',
 	});
-	
+
 	$('#paymentRouterType').combobox({
 		label : roundLabel("라우터 타입"),
 		editable: false,
@@ -475,16 +475,16 @@ function initView(){
         panelHeight: 'auto',
 		multiple:false
 	});
-	
+
 	$('#businessNumber').textbox({
 		label : roundLabel("사업자 번호")
-		
+
 	});
-	
+
 	$('#businessType').textbox({
 		label : roundLabel("사업자 업태")
 	});
-	
+
 	$('#businessItem').textbox({
 		label : roundLabel("사업자 업종")
 	});
@@ -518,13 +518,13 @@ function setListPager(){
             }
         }],
         layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
-        onSelectPage:function(page,rows){        	
+        onSelectPage:function(page,rows){
         	var opts = $('#node_list').datagrid('options');
         	opts.pageSize=rows;
         	opts.pageNumber = page;
         	realodPage();
     	}
-    }); 
+    });
 }
 
 /**
@@ -539,15 +539,15 @@ function setListColumnHeader(nodeType){
 }
 
 /**
- * 검색 실행시 필요한 쿼리 데이타 구성 
+ * 검색 실행시 필요한 쿼리 데이타 구성
  * @returns
  */
-function makeSearchParam(){	
-	
+function makeSearchParam(){
+
 	var param = $('#searchForm').serializeObject();
 	var opts = $('#node_list').datagrid('options');
 	var total = $('#node_list').datagrid('getData').total;
-	
+
 	$.extend(param, {
 		pagination : opts.pagination,
 		pageSize : opts.pageSize,
@@ -555,7 +555,7 @@ function makeSearchParam(){
 		total : total,
 		offset : (opts.pageNumber-1) * opts.pageSize
 	});
-	
+
 	return param;
 }
 
@@ -573,7 +573,7 @@ function loadAffiliateCreateForm(){
           	action : "create",
          }
      }
-  	
+
 	//console.log("loadAffiliateCreateForm");
 	var queryParam = $.param(data.queryOptions);
 	$(data.targetElem).load("/api/affiliate/form/createForm?" + queryParam,
@@ -584,7 +584,7 @@ function loadAffiliateCreateForm(){
 			height : $( window ).height() - 80,
 			top :20,
 			cache : false,
-			fit : false, 
+			fit : false,
 			modal : true,
 			closable : true,
 			border : 'thick',
@@ -596,14 +596,14 @@ function loadAffiliateCreateForm(){
 			cls : "c2",
 			maximizable: false,
 			title : "&nbsp; " + data.title,
-			shadow : false,	
+			shadow : false,
 			buttons:[
 				{ text:'확인', iconCls:'icon-ok', handler:function(){
 					var nodeType = $('input[name=searchNodeType]').val();
 					createAffiliate(data);
 				} },
 				{ text:'취소', handler:function(){
-					//console.log("닫을 DIV : " + data.targetElem);	
+					//console.log("닫을 DIV : " + data.targetElem);
 					$(data.targetElem).dialog('close');
 					$(data.targetElem).removeAttr('style');
 				}
@@ -654,7 +654,7 @@ function removeTid(affiliateTidNo, elem){
 						$.messager.alert('오류 발생', res.message);
 					}
 					var node = $('#node_list').datagrid('getSelected');
-					
+
 					returnp.api.call("selectAffiliateTids", {affiliateNo : node.affiliateNo}, function(res){
 						if (res.resultCode  == "100") {
 							$('#tid_list').datagrid({
@@ -683,7 +683,7 @@ function setDefaultBankAccount(memberBankAccountNo){
 					}else {
 						$.messager.alert('오류 발생', res.message);
 					}
-					
+
 					var node = $('#node_list').datagrid('getSelected');
 					returnp.api.call("getMemberBankAccounts", {memberNo:  $('#node_list').datagrid('getSelected').memberNo}, function(res){
 						if (res.resultCode  == "100") {
@@ -707,7 +707,7 @@ function openBankAdd(){
 	$('#bankName').textbox('clear');
 	$('#accountOwner').textbox('clear');
 	$('#bankAccount').textbox('clear');
-	
+
 	var node = $('#node_list').datagrid('getSelected');
 	$('#bank_add_dlg').dialog({
 	    title: " " + node.affiliateName + ' 계좌 추가  ',
@@ -733,7 +733,7 @@ function openBankAdd(){
 			}
 		} ]
 	});
-	
+
 	$('#add_tid').textbox({width : 200});
 	$('#add_tid').textbox("clear");
 }
@@ -743,10 +743,10 @@ function openBankUpdate(memberBankAccountNo){
 	var selectedRow = null;
 	for (var i = 0; i < rows.length ; i++){
 		if (rows[i].memberBankAccountNo == memberBankAccountNo){
-			selectedRow = rows[i];	
+			selectedRow = rows[i];
 		}
 	}
-	
+
 	if (selectedRow == null) {
 		$.messager.alert('알림', "수정하실 항목을 선택해주세요" );
 	}
@@ -756,7 +756,7 @@ function openBankUpdate(memberBankAccountNo){
 	$('#bankName').textbox('setValue',selectedRow.bankName );
 	$('#accountOwner').textbox('setValue',selectedRow.accountOwner );
 	$('#bankAccount').textbox('setValue',selectedRow.bankAccount );
-	
+
 	var node = $('#node_list').datagrid('getSelected');
 	$('#bank_add_dlg').dialog({
 	    title: " " + node.affiliateName + ' 계좌 수정  ',
@@ -781,7 +781,7 @@ function openBankUpdate(memberBankAccountNo){
 			}
 		} ]
 	});
-	
+
 	$('#add_tid').textbox({width : 200});
 	$('#add_tid').textbox("clear");
 }
@@ -804,12 +804,12 @@ function addBankAccount(){
 					}else {
 						$.messager.alert('오류 발생', res.message);
 					}
-					
+
 					$('#bankName').textbox('clear');
 					$('#accountOwner').textbox('clear');
 					$('#bankAccount').textbox('clear');
 					$('#bank_add_dlg').dialog('close');
-					
+
 					var node = $('#node_list').datagrid('getSelected');
 					returnp.api.call("getMemberBankAccounts", {memberNo : node.memberNo}, function(res){
 						if (res.resultCode  == "100") {
@@ -845,13 +845,13 @@ function updateBankAccount(){
 					}else {
 						$.messager.alert('오류 발생', res.message);
 					}
-					
+
 					$('#bankName').textbox('clear');
 					$('#memberBankAccountNo').textbox('clear');
 					$('#accountOwner').textbox('clear');
 					$('#bankAccount').textbox('clear');
 					$('#bank_add_dlg').dialog('close');
-					
+
 					var node = $('#node_list').datagrid('getSelected');
 					returnp.api.call("getMemberBankAccounts", {memberNo : node.memberNo}, function(res){
 						if (res.resultCode  == "100") {
@@ -912,7 +912,7 @@ function changeCiderPayStatus(status){
 					}else {
 						$.messager.alert('오류 발생', res.message);
 					}
-					
+
 				});
 			}
 		}
@@ -950,7 +950,7 @@ function openBankList(){
 }
 
 function createPaymentRouterForm(){
-	var node = $('#node_list').datagrid('getSelected');	
+	var node = $('#node_list').datagrid('getSelected');
 	$('#createPaymentRouterFormDlg').dialog({
 		title: "> " + node.affiliateName + ' 결제 라우터 등록 ',
 		width: 400,
@@ -959,7 +959,7 @@ function createPaymentRouterForm(){
 		cache: false,
 		modal: true,
 		onOpen : function(){
-			$('#paymentRouterType').combobox("select" , "VAN");	
+			$('#paymentRouterType').combobox("select" , "VAN");
 			returnp.api.call("selectPaymentRouters", {paymentRouterType: "VAN"}, function(res){
 				if (res.resultCode  == "100") {
     				$('#paymentRouter').combobox("clear");
@@ -979,12 +979,12 @@ function createPaymentRouterForm(){
 			text : '확인',
 			iconCls : 'icon-ok',
 			handler : function() {
-				var paymentRouterType = $('#paymentRouterType').combobox("getValue");	
-				var paymentRouter = $('#paymentRouter').combobox("getValue");	
+				var paymentRouterType = $('#paymentRouterType').combobox("getValue");
+				var paymentRouter = $('#paymentRouter').combobox("getValue");
 				var affiliateNo = $('#node_list').datagrid('getSelected').affiliateNo;
-				
+
 				createAffilaitePaymentRouter({
-					affiliateNo : affiliateNo, 
+					affiliateNo : affiliateNo,
 					paymentRouterType : paymentRouterType,
 					paymentRouterName : paymentRouter
 				} );
@@ -1049,13 +1049,13 @@ function openAddTidView(){
 		 $.messager.alert('알림','가맹점, 온라인, 무사업자만이 TID 를 등록할 수 있습니다. </br> 제휴점만 있는 경우는 등록할 수 없습니다');
 		 return;
 	}
-	
+
 	if (types.hasValue("A001") ||  types.hasValue("A004")){
 		$('#gen_tid').linkbutton('disable');
 	}else {
 		$('#gen_tid').linkbutton('enable');
 	}
-	
+
 	$('#add_affiliate_tid_virew').dialog({
 	    title: " " + node.affiliateName + ' TID 추가  ',
 	    width: 600,
@@ -1076,7 +1076,7 @@ function openAddTidView(){
 			}
 		} ]
 	});
-	
+
 	$('#add_tid').textbox({width : 200});
 	$('#add_tid').textbox("clear");
 }
@@ -1103,11 +1103,11 @@ function openBizInfo(){
 			}
 		} ]
 	});
-	
+
 	$('#businessNumber').textbox('clear');
 	$('#businessType').textbox('clear');
 	$('#businessItem').textbox('clear');
-	
+
 	param = {affiliateNo : node.affiliateNo};
 	returnp.api.call("getBizInfo", param, function(res){
 		if (res.resultCode  == "100") {
@@ -1120,7 +1120,7 @@ function openBizInfo(){
 function createBizInfo(){
 	var node = $('#node_list').datagrid('getSelected');
 	var param = $("#biz_info_form").serializeObject();
-	param.affiliateNo = node.affiliateNo;	
+	param.affiliateNo = node.affiliateNo;
 	console.log(param);
 	var valid = true;
 	var pro = null;
@@ -1128,7 +1128,7 @@ function createBizInfo(){
 		if (param.hasOwnProperty(prop)) {
 			if (param[prop] == '' || !param[prop]) {
 				valid = false;
-				pro =prop 
+				pro =prop
 				break;
 			}
 		}
@@ -1148,7 +1148,7 @@ function createBizInfo(){
 			$.messager.alert('오류 발생', res.message);
 		}
 	});
-	
+
 	return param;
 }
 
@@ -1159,7 +1159,7 @@ function loadAffiliateModifyForm(actionType){
 		 $.messager.alert('알림','수정하실 노드를 선택해주세요');
 		 return;
 	}
-	
+
 	var data = {
 		targetElem : "#dlgForm",
         title : node.affiliateName + " 수정",
@@ -1169,16 +1169,16 @@ function loadAffiliateModifyForm(actionType){
         	memberAddressNo : node.memberAddressNo
         }
      }
-	
+
 	//console.log("loadAffiliateModifyForm");
 	var queryParam = $.param(data.queryOptions);
 	data.targetElem = data.targetElem || "#dlgForm";
 	var queryParam = $.param(data.queryOptions);
-	
+
 	$(data.targetElem).load("/api/affiliate/form/createForm?" + queryParam,
 		function(response, status, xhr) {
-		console.log("오픈할 DIV : " + data.targetElem);	
-		
+		console.log("오픈할 DIV : " + data.targetElem);
+
 		$(data.targetElem).dialog({
 			width:650,
 			cache : false,
@@ -1193,13 +1193,13 @@ function loadAffiliateModifyForm(actionType){
 			cls : "c2",
 			maximizable: false,
 			title : "&nbsp; " + data.title,
-			shadow : false,	
+			shadow : false,
 			buttons:[
 				{ text:'확인', iconCls:'icon-ok', handler:function(){
 					updateAffiliate(data);
 				} },
 				{ text:'취소', handler:function(){
-					//console.log("닫을 DIV : " + data.targetElem);	
+					//console.log("닫을 DIV : " + data.targetElem);
 					$(data.targetElem).dialog('close');
 					$(data.targetElem).removeAttr('style');
 				}
@@ -1210,7 +1210,7 @@ function loadAffiliateModifyForm(actionType){
 			affiliateNo : data.queryOptions.affiliateNo
 			,memberAddressNo: data.queryOptions.memberAddressNo}, function(res){
 				console.log(res.data);
-				if (res.resultCode  == "100") {		
+				if (res.resultCode  == "100") {
 					$('#createAffiliateForm').form('load',res.data);
 					//$('#memberNo').textbox({disabled : true });
 					$("#affiliateRoad").textbox('setValue', res.data.zipNo + " " + res.data.roadFullAddr+ " " + res.data.addrDetail);
@@ -1231,7 +1231,7 @@ function makeFormData(){
 function updateAffiliate(data){
 	var param =makeFormData();
 	if (param['affiliateType'] &&  typeof param['affiliateType'] != 'string'){
-		param['affiliateType']  = param['affiliateType'].join(","); 
+		param['affiliateType']  = param['affiliateType'].join(",");
 	}
 	returnp.api.call("updateAffiliate", param, function(res){
 		if (res.resultCode  == "100") {
@@ -1239,7 +1239,7 @@ function updateAffiliate(data){
 			$(data.targetElem).dialog('close');
 			$(data.targetElem).removeAttr('style');
 			realodPage();
-			
+
 		}else {
 			$.messager.alert('오류 발생', res.message);
 		}
@@ -1252,7 +1252,7 @@ function addAffiliateTid(){
 	param.affiliateNo = node.affiliateNo;
 	param.tid = $('#add_tid').textbox("getValue");
 	console.log(param);
-	
+
 	returnp.api.call("addAffiliateTid", param, function(res){
 		$('#add_affiliate_tid_virew').dialog('close')
 		if (res.resultCode  == "100") {
@@ -1263,35 +1263,35 @@ function addAffiliateTid(){
 		}
 	});
 }
-	
 
-function createAffiliate(data){	
+
+function createAffiliate(data){
 	console.log(">>> createAffiliate 호출됨");
 	var param =makeFormData();
 	if (param['affiliateType'] &&  typeof param['affiliateType'] != 'string'){
-		param['affiliateType']  = param['affiliateType'].join(","); 
+		param['affiliateType']  = param['affiliateType'].join(",");
 	}
 	console.log(param);
 	//console.log("createAffiliate");
 	//console.log(param);
-		
+
 	var valid = true;
 /*	var pro = null;
 	for (var prop in param){
 		if (param.hasOwnProperty(prop)) {
 			if (param[prop] == '') {
 				valid = false;
-				pro =prop 
+				pro =prop
 				break;
 			}
 		}
 	}*/
-	
+
 	if (!valid) {
 		$.messager.alert('알림', pro + ' 항목이 모두 입력되지 않았습니다');
 		return;
 	}
-		
+
 	returnp.api.call("createAffiliate", param, function(res){
 		if (res.resultCode  == "100") {
 			$.messager.alert('알림', res.message);
@@ -1301,7 +1301,7 @@ function createAffiliate(data){
 		}else {
 			$.messager.alert('오류 발생', res.message);
 		}
-		
+
 	});
 }
 function refreshMainTid(){
@@ -1327,7 +1327,7 @@ function removeAffiliate(){
 		 $.messager.alert('알림','삭제하실 항목을 선택해주세요');
 		 return;
 	}
-	
+
 	$.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 협력업체 정보 및 협력업체 포인트 관련 모든 정보가 삭제됩니다.</br>해당 내용을 정말로 삭제하시겠습니까?', function(r){
         if (r){
         	var param = {
@@ -1349,32 +1349,32 @@ function removeAffiliate(){
 }
 
 function loadMap(address) {
-	
-   var geocoder = new google.maps.Geocoder();		
-   geocoder.geocode( { 'address': address}, function(results, status) {		    	
-      if (status == google.maps.GeocoderStatus.OK) {		
-        var lat = results[0].geometry.location.lat();		
-        var lng = results[0].geometry.location.lng();		 	   	
+
+   var geocoder = new google.maps.Geocoder();
+   geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var lat = results[0].geometry.location.lat();
+        var lng = results[0].geometry.location.lng();
     	var mapOptions = {
     		center: new google.maps.LatLng(lat, lng),
-    		zoom: 18, 
+    		zoom: 18,
     		mapTypeId: google.maps.MapTypeId.ROADMAP
-    	};		 	   
- 	   	var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);	
+    	};
+ 	   	var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
  	    //style="width:50%; height:100px;"
  	   	//$("#map-canvas").css("width","100%");
  	   	//$("#map-canvas").css("height","100px");
 		marker = new google.maps.Marker({
 			map: map,
 			icon: 'resources/images/marker.gif',
-			position: results[0].geometry.location				
-		});	
-		var content = address +"<br/>" + lat + "," +  lng; // 말풍선 안에 들어갈 내용				
+			position: results[0].geometry.location
+		});
+		var content = address +"<br/>" + lat + "," +  lng; // 말풍선 안에 들어갈 내용
 		$("#lat").val(lat);
-		$("#lng").val(lng);				
+		$("#lng").val(lng);
 		// 마커를 클릭했을 때의 이벤트.
 		var infowindow = new google.maps.InfoWindow({ content: content});
-		google.maps.event.addListener(marker, "click", function() {infowindow.open(map,marker);});	
+		google.maps.event.addListener(marker, "click", function() {infowindow.open(map,marker);});
       	} else {
         	alert("Geocode was not successful for the following reason: " + status);
       	}
@@ -1382,32 +1382,32 @@ function loadMap(address) {
     });
 
 }
-	
+
 function loadMap2(address,lat,lng) {
-	
+
 	$("#lat").val(lat);
-	$("#lng").val(lng);	
-	
+	$("#lng").val(lng);
+
 	if(address !=''){
 		//$("#map-canvas").css("width","100%");
  	   	//$("#map-canvas").css("height","100px");
 	}
-	
+
 	var mapOptions = {
 		center: new google.maps.LatLng(lat, lng),
-		zoom: 18, 
+		zoom: 18,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
-	   
-	var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);	     
+
+	var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
 	marker = new google.maps.Marker({
 		map: map,
 		icon: 'resources/images/marker.gif',
-		position: new google.maps.LatLng(lat, lng)		
+		position: new google.maps.LatLng(lat, lng)
 	});
-	
+
 	var content = address +"<br/>" + lat + "," +  lng; // 말풍선 안에 들어갈 내용
-	
+
 	// 마커를 클릭했을 때의 이벤트.
 	var infowindow = new google.maps.InfoWindow({ content: content});
 	google.maps.event.addListener(marker, "click", function() {infowindow.open(map,marker);});
@@ -1425,18 +1425,18 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 	$("#admCd").val(admCd);
 	$("#rnMgtSn").val(rnMgtSn);
 	$("#bdMgtSn").val(bdMgtSn);
-	
+
 	$("#affiliateAddress").textbox('setValue', zipNo + " " + jibunAddr + " " + addrDetail);
 	$("#affiliateRoad").textbox('setValue', zipNo + " " + roadFullAddr+ " " + addrDetail);
 	loadMap(jibunAddr);
 }
 
-function modifyModeCallback(jibunAddr,lat,lng){	
+function modifyModeCallback(jibunAddr,lat,lng){
 	loadMap(jibunAddr,lat,lng);
 }
 
 function realodPage(){
-	
+
 	$('#search_btn').click();
 }
 

@@ -183,17 +183,17 @@
 		                         <ul>
                           			  <li id = "manageNoticeBoard" data-options = "iconCls :'icon-info'">
                           			  	<a class= "sub_menu"  view_req_name = "manageNoticeBoard" menu_deps= '2' >
-                          			  	<span style = "font-weight : bold">공지 사항</span>
+                          			  	<span style = "font-weight : bold">공지 관리</span>
                           			  	</a> 
                           			  </li>
                           			   <li id = "manageNoticeBoard" data-options = "iconCls :'icon-info'">
                           			  	<a class= "sub_menu"  view_req_name = "manageFaqBoard" menu_deps= '2' >
-                          			  	<span style = "font-weight : bold">FAQ</span>
+                          			  	<span style = "font-weight : bold">FAQ 관리</span>
                           			  	</a> 
                           			  </li>
                             		   <li id = "managePartnerBoard" data-options = "iconCls :'icon-info'">
                             		  	<a class= "sub_menu"  view_req_name = "managePartnerBoard" menu_deps= '2' >
-                            		  		<span style = "font-weight : bold">일반 / 제휴 문의 </span>
+                            		  		<span style = "font-weight : bold">일반 / 제휴 문의 관리</span>
                             		  	</a> 
                             		  </li>
                             	<!-- 	  <li id = "manageCommonBoard" data-options = "iconCls :'icon-info'">
@@ -340,22 +340,22 @@
                             			
                             				<li  class = "manage_menu roll_1 roll_10" id = "" data-options = "iconCls :'icon-info'">
 			                            				<a class= "sub_menu"  view_req_name = "manageHeadGiftOrder"  menu_deps= '2' >
-			                            					<span style = "font-weight : bold;color : #FF0000">본사 발주 관리</span>
+			                            					<span style = "font-weight : bold;">본사 발주 관리</span>
 			                            				</a> 
 			                            			</li>
 			                            			<li  class = "manage_menu roll_1 roll_10 roll_11" id = "" data-options = "iconCls :'icon-info'">
 			                            				<a class= "sub_menu"  view_req_name = "manageDistGiftOrder"  menu_deps= '2' >
-			                            					<span style = "font-weight : bold;color : #FF0000">총판 발주 관리</span>
+			                            					<span style = "font-weight : bold;">총판 발주 관리</span>
 			                            				</a> 
 			                            			</li>
                             						<li class = "manage_menu roll_1 roll_10 roll_12"  id = "" data-options = "iconCls :'icon-info'">
 			                            				<a class= "sub_menu"  view_req_name = "manageSaleOrganGiftOrder"  menu_deps= '2' >
-			                            					<span style = "font-weight : bold; color : #FF0000">판매점 발주 관리</span>
+			                            					<span style = "font-weight : bold;">판매점 발주 관리</span>
 			                            				</a> 
 			                            			</li>
 			                            			<li class = "manage_menu roll_1 roll_10 " id = "" data-options = "iconCls :'icon-info'">
 			                            				<a class= "sub_menu"  view_req_name = "manageCommonGiftOrder"  menu_deps= '2' >
-			                            					<span style = "font-weight : bold;color : #FF0000">일반 발주 관리</span>
+			                            					<span style = "font-weight : bold;">일반 발주 관리</span>
 			                            				</a> 
 			                            			</li>
 			                            			
