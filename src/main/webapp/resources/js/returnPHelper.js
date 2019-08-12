@@ -69,7 +69,7 @@ function bbsType2Formatter(value, row, index){
 		if (row.bbsType2 == "4") { result  = "협력업체 문의"}
 		if (row.bbsType2 == "5") { result  = "대리점 문의"}
 		if (row.bbsType2 == "6") { result  = "지사 문의"}
-		if (row.bbsType2 == "7") { result  = "기타 제휴 "}
+		if (row.bbsType2 == "7") { result  = "기타 일반 문의 "}
 	}
 	return result;
 }

@@ -12,7 +12,7 @@ columns = [[
 	    {field:'recommenderName',width:30,align:'center',title : '추천인', hidden:false,formatter : slashFormatter},
 	    {field:'recommenderEmail',width:60,align:'center',title : '추천인 이메일', hidden:true, formatter : slashFormatter},
 	    {field:'country',width:20,align:'center',title : '국가', formatter : slashFormatter},
-	    {field:'joinRoute',width:30,align:'center',title : '가입 경로'},
+	    {field:'joinRoute',width:40,align:'center',title : '가입 경로'},
 	    {field:'greenPointAmount',width:40,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
 	    {field:'redPointAmount',width:40,align:'center',title : 'R POINT', formatter : numberRedFormatter},
 	    {field:'memberAuthType',width:30,align:'center',title : '인증방법', formatter : authTypeFormatter,  hidden: true},
