@@ -76,6 +76,16 @@ function initView(){
 		width: 170
 	});
 	
+	$('#searchDateType').combobox({
+		labelPosition : 'top',
+		showItemIcon: true,
+		editable: false,
+		panelHeight: 'auto',
+		labelPosition: 'top',
+		multiple:false,
+		required:true,
+		width: 120
+	});
 	$('#searchPaymentTransactionType').combobox({
 		labelPosition : 'top',
 		showItemIcon: true,
@@ -123,9 +133,18 @@ function initView(){
 				}
 			});
 		},
-		width : 70,
-		iconCls:'icon-search'
+		width : 50,
+	/*	iconCls:'icon-search'*/
 	});
+	
+	/* 검색 버튼  초기화*/
+	$('#search_graph_btn').linkbutton({
+		onClick : function(){
+		},
+		width : 50,
+	/*	iconCls:'icon-search'*/
+	});
+	
 	
 	/* 리셋 버튼  초기화*/
 	$('#reset_btn').linkbutton({
@@ -138,7 +157,7 @@ function initView(){
 			$('#searchDateStart').datetimebox('clear');
 			$('#searchDateEnd').datetimebox('clear');
 		},
-		width : 70
+		width : 50,
 	});
 	
 	

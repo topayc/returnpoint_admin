@@ -5,9 +5,17 @@
 		<table id = "node_list" style ="width:100%;height:100%">
 		</table> 
 	</div>
-	<div  data-options="region:'north',split:true"  id = "member_search"  style ="height:110px" title ="회원 검색" >
+	<div  data-options="region:'north',split:true"  id = "member_search"  style ="height:150px" title ="결제 검색" >
 		 <div class="easyui-panel" title="" style="width:100%;padding:10px 15px;">
 	        <form id="searchForm" method="post">
+	       <!--         <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
+	                <select id = "searchDateType" class="easyui-combobox" name="searchDateType" label="검색 기간 타입 " style="width:100%">
+	                	 <option value = "day">일별 검색</option>
+	                	 <option value = "month">월별 검색</option>
+	                	 <option value = "year">연별 검색</option>
+	                </select>	
+	            </div> -->
+	            
 	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block">
 	                <input  id = "searchDateStart" name="searchDateStart" label="검색 시작일" style="width:100%"/>
 	            </div>
@@ -65,9 +73,10 @@
 	                <input class="easyui-textbox"  id ="searchKeyword" name="searchKeyword"  style="width:100%">
 	            </div>
 	            
-	            <div style="padding:5px 0;display:inline-block;">
-		            <a href="javascript:void(0)" id = "search_btn"  style="width:80px;margin-right : 5px;margin-left:10px">검색</a>
-		            <a href="javascript:void(0)" id = "reset_btn"   style="width:80px">리셋</a>
+	            <div style="padding:5px 0;;">
+		            <a href="javascript:void(0)" id = "search_btn"  style="width:60px;margin-left: 10px;margin-right : 5px">리스트</a>
+		            <!--  <a href="javascript:void(0)" id = "search_graph_btn"  style="width:60px;margin-right : 5px;">그래프</a> -->
+		            <a href="javascript:void(0)" id = "reset_btn"   style="width:60px">리셋</a>
 	       	 	</div>
 	        </form>
     	</div>
