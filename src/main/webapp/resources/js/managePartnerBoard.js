@@ -208,7 +208,7 @@ function openReplyForm(){
 	}
 
 	$('#board_reply_container').dialog({
-	    title: "[ " + node.content + " ] 에 대한 답변 달기 ",
+	    title: "[ " + node.title + " ] 에 대한 답변 달기 ",
 	    width: 800,
 	    height: 600,
 	    closed: false,

@@ -134,11 +134,11 @@ public class CodeDefine {
 	
 	public static ArrayList<CodeKeyValuePair> getPaymentTransactionTypes(){
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
-		list.add(new CodeKeyValuePair("1", "QR CODE 매출 등록", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("2", "VAN 매출 등록", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("3", "관리자 수동 매출 등록", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("4", "결제 앱 연동 매출", "Y", "Y" ,""));
-		list.add(new CodeKeyValuePair("4", "API 호출 결제", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("1", "QR CODE", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "VAN", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("3", "관리자", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("4", "결제 앱", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("5", "API", "Y", "Y" ,""));
 		return list;
 	}
 	

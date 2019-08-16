@@ -1,6 +1,8 @@
 package com.returnp.admin.web.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -102,6 +104,18 @@ public class AdminController extends ApplicationController{
 		model.addAttribute("conversionStatusList", CodeDefine.getConversionStatuses());
 		model.addAttribute("paymentApprovalStatusList", CodeDefine.getPaymentApprovalStatuses());
 		model.addAttribute("paymentTransactionTypeList", CodeDefine.getPaymentTransactionTypes());
+		
+		ArrayList<Affiliate> affiliateList = null;
+		if (viewReqName.equals("managePaymentTransaction")) {
+			affiliateList = this.searchMapper.findAffiliates(new Affiliate());
+			Collections.sort(affiliateList, new Comparator<Affiliate>() {
+				@Override
+				public int compare(Affiliate o1, Affiliate o2) {
+					return o1.getAffiliateName().compareTo(o2.getAffiliateName());
+				}
+			});
+			model.addAttribute("affiliateList", affiliateList);
+		}
 		
 		model.addAttribute("pointTypes", CodeDefine.getPointTypes());
 		

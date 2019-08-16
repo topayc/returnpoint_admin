@@ -66,6 +66,16 @@ function initView(){
 		width: 120
 	});
 
+	$('#searchAffiliate').combobox({
+		labelPosition : 'top',
+		showItemIcon: true,
+		editable: false,
+		labelPosition: 'top',
+		multiple:false,
+		required:true,
+		width: 170
+	});
+	
 	$('#searchPaymentTransactionType').combobox({
 		labelPosition : 'top',
 		showItemIcon: true,
@@ -74,7 +84,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
-		width: 150
+		width: 120
 	});
 
 	/* 검색 시작일 갤린더 박스  초기화*/

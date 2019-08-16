@@ -179,8 +179,15 @@
                             </li>   
                             
                                     <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">게시판 관리</span>
+                            	 <span  style = "font-weight : bold">사이트 관리</span>
 		                         <ul>
+                          			  
+                          			  	<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+   										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
+   											<span style = "font-weight : bold">가맹점 카테고리 관리</span>
+   										</a> 
+   									</li>
+   									
                           			  <li id = "manageNoticeBoard" data-options = "iconCls :'icon-info'">
                           			  	<a class= "sub_menu"  view_req_name = "manageNoticeBoard" menu_deps= '2' >
                           			  	<span style = "font-weight : bold">공지 관리</span>
@@ -210,7 +217,7 @@
 		                        </ul>
                             </li>  
                             
-                               <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
+                          <!--      <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">카테고리 관리</span>
 		                         <ul>
    									<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
@@ -219,7 +226,39 @@
    										</a> 
    									</li>
 		                        </ul>
-                            </li>     
+                            </li>     --> 
+                            
+                         <!--    <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">통계 및 리포트 관리</span>
+		                         <ul>
+   									<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+   										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
+   											<span style = "font-weight : bold">매출 리포트</span>
+   										</a> 
+   									</li>
+   									<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+   										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
+   											<span style = "font-weight : bold">G 포인트 리포트</span>
+   									</a> 
+   									
+   									<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+   										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
+   											<span style = "font-weight : bold">회원 리포트</span>
+   									</a> 
+   									
+   									<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+   										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
+   											<span style = "font-weight : bold">상품권 판매 및 결제 리포트</span>
+   									</a> 
+   									
+   									<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+   										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
+   											<span style = "font-weight : bold">R 포인트 출금 리포트</span>
+   									</a> 
+   									</li>
+		                        </ul>
+                            </li>    -->  
+                            
                             
                             
                               <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
@@ -528,16 +567,6 @@
 		                        </ul>
                             </li>  -->
                             
-                             <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">통계 관리</span>
-		                         <ul>
-                          			  <li data-options = "iconCls :'icon-info'">
-	                          			  <a class= "sub_menu"  view_req_name = "managePosPayment" menu_deps= '2' >
-	                          			  	<span style = "font-weight : bold">리포트 생성 </span>
-	                          			  </a> 
-                          			  </li>
-		                        </ul>
-                            </li>                               
                                                  
                         </ul>
                     </li>
