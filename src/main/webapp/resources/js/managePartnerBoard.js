@@ -7,32 +7,32 @@
 			    {field:'title',width:50,align:'left',title : '제목'},
 			    {field:'replyCompleted',width:12,align:'center',title : '답변 여부'},
 			    {field:'status',width:12,align:'center',title : '상태', formatter : bbsStatusFormatter},
-			    {field:'writerNo',width:12,align:'center',title : '작성자 번호'},
-			    {field:'rerv6',width:20,align:'center',title : '이메일'},
+			    {field:'writerNo',width:12,align:'center',title : '회원 번호'},
+			    {field:'rerv6',width:30,align:'center',title : '이메일'},
 			    {field:'rerv1',width:20,align:'center',title : '상호명'},
 			    {field:'rerv2',width:17,align:'center',title : '대표자명'},
-			    {field:'rerv3',width:20,align:'center',title : '주소'},
+			    {field:'rerv3',width:40,align:'center',title : '주소'},
 			    {field:'rerv4',width:20,align:'center',title : '담당자'},
 			    {field:'rerv5',width:17,align:'center',title : '연락처'},
 			    {field:'content',width:70,align:'center',title : '내용', hidden : true},
 			    {field:'createTime',width:18,align:'center',title : '등록일', formatter : dateFormatter},
 			    {field:'updateTime',width:15,align:'center',title : '수정일', formatter : dateFormatter , hidden : true},
 			    ]];
-		
+
 initView();
 var bbsType1 = "4";
 /**
- * 뷰 초기화 
+ * 뷰 초기화
  * @returns
  */
 function initView(){
 	/* 레이아웃 초기화*/
 	$('.easyui-layout').layout();
-	
+
 	/* 패널   초기화*/
 	$('.easyui-panel').panel({ border: false });
-	
-	
+
+
 	/* 노드 데이타그리드   초기화*/
 	$('#node_list').datagrid({
 		title : '[검색 결과]',
@@ -50,7 +50,7 @@ function initView(){
 		onSelect : function(){},
 		onLoadSuccess : function(){
 			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);
-		},	
+		},
 		onRowContextMenu : function(e, index, row){
 			e.preventDefault();
 		  	$(this).datagrid("selectRow", index);
@@ -67,18 +67,18 @@ function initView(){
 		  			case "viewBoardContent":
 		  				viewBoardContent();
 		  				break;
-		  			
+
 		  			case "reply":
 		  				openReplyForm();
 		  				break;
 		  			}
 		  		}
 		  	});
-		  	
+
 		  	var menus = [ /*'수정' ,*/ '내용 보기', '답변 생성 / 수정','삭제'];
 		  	var icons = [ /*'icon-edit' ,*/ 'icon-edit','icon-edit', 'icon-remove'];
 		  	var actions = [ /*'modify',*/ 'viewBoardContent','reply', 'remove'];
-		  	
+
 		  	for(var i=0; i<menus.length; i++){
 		  		cmenu.menu('appendItem', {
 		  			data : row,
@@ -90,28 +90,28 @@ function initView(){
 		  	cmenu.menu('show', {
 		  		left:e.pageX,
 		  		top:e.pageY
-		  		
+
 		  	});
 		},
 	    columns:columns,
-	    
+
 	});
 	setListPager();
-	
+
 	$('#title').textbox({
 		label : "제목",
 		labelPosition : 'top'
 	});
-	
+
 	$('#content').textbox({
 		label : "내용",
 		labelPosition : 'top',
-		multiline:true	
+		multiline:true
 	});
 
 	$('#board_reply').textbox({
 		labelPosition : 'top',
-		multiline:true	
+		multiline:true
 	});
 }
 
@@ -128,13 +128,13 @@ function setListPager(){
             }
         }*/],
         layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
-        onSelectPage:function(page,rows){        	
+        onSelectPage:function(page,rows){
         	var opts = $('#node_list').datagrid('options');
         	opts.pageSize=rows;
         	opts.pageNumber = page;
         	realodPage();
     	}
-    }); 
+    });
 }
 
 /**
@@ -160,7 +160,7 @@ function removeBoard(){
 		 $.messager.alert('알림','삭제하실 항목을 선택해주세요');
 		 return;
 	}
-	
+
 	$.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 해당 항목을 정말 삭제하시겠습니까?', function(r){
         if (r){
         	returnp.api.call("removeMainBbs", {mainBbsNo : node.mainBbsNo}, function(res){
@@ -206,7 +206,7 @@ function openReplyForm(){
 		 $.messager.alert('알림','수정하실 항목을 선택해주세요');
 		 return;
 	}
-	
+
 	$('#board_reply_container').dialog({
 	    title: "[ " + node.content + " ] 에 대한 답변 달기 ",
 	    width: 800,
@@ -227,12 +227,12 @@ function openReplyForm(){
 			}
 		} ]
 	});
-	
+
 	$('#board_content_ori').html(node.content.replace(/(\n|\r\n)/g, '<br>') );
 	$("#board_reply_form").form("clear");
 	$('#mainBbsNo').val(node.mainBbsNo);
 	$('#content').textbox("setValue", "");
-	
+
 	if (node.replyCompleted == "Y") {
 		returnp.api.call("getSubBbses", {mainBbsNo : node.mainBbsNo}, function(res){
 			if (res.resultCode  == "100") {

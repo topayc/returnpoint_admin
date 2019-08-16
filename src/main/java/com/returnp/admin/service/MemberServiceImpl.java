@@ -87,6 +87,7 @@ public class MemberServiceImpl implements MemberService {
 			member.setIsAgency("N");
 			member.setIsBranch("N");
 			member.setIsSaleManager("Y");
+			member.setJoinRoute("ADMIN");
 			
 			member.setGreenPointAccStatus("Y");
 			member.setRedPointAccStatus("Y");

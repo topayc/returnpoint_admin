@@ -682,6 +682,16 @@ function numberBlueFormatter(value, row, index) {
 	}
 }
 
+function paymentApprovalAmountFormatter(value, row, index){
+	var amount = Number(row.paymentApprovalAmount);
+	var data = String(amount);
+	if (amount >=  0){
+		return '<span style = "color : #0080FF;font-weight : bold">' + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>'; 
+	}else if (amount < 0){
+		return '<span style = "color : red;font-weight : bold">' + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>'; 
+	} 
+}
+
 function percentFormatter(data) {
 	data = parseFloat(data) * 100;
 	return '<span style = "color : #FF0000;font-weight : bold">' + data + " %" + '</span>';
