@@ -70,13 +70,16 @@
 	            </div>
 	            
 	            <div style="padding:5px 0;display:inline-block;">
-		            <a href="javascript:void(0)" id = "search_btn"  style="width:60px;margin-left: 10px;margin-right : 5px">리스트</a>
+		            <a href="javascript:void(0)" id = "search_daily_btn"  style="width:60px;margin-left: 10px;">조회</a>
+		      <!--       <a href="javascript:void(0)" id = "search_monthly_btn"  style="width:60px;margin-left: 2px;">월별</a>
+		            <a href="javascript:void(0)" id = "search_year_btn"  style="width:60px;margin-left: 2px;">연별</a> -->
 		            <!--  <a href="javascript:void(0)" id = "search_graph_btn"  style="width:60px;margin-right : 5px;">그래프</a> -->
-		            <a href="javascript:void(0)" id = "reset_btn"   style="width:60px">리셋</a>
+		            <a href="javascript:void(0)" id = "reset_btn"   style="width:60px;margin-left: 2px;">리셋</a>
 	       	 	</div>
 	       	 	 <div style="padding:0px 0;">
-		            <a href="javascript:void(0)" id = "search_year_btn"  style=";margin-left: 10px;">전제 연별 조회</a>
-		            <a href="javascript:void(0)" id = "search_month_btn"  style="margin-left: 2px;">전체 월별 조회</a>
+		            <a href="javascript:void(0)" id = "search_total_year_btn"  style=";margin-left: 10px;">전체 연별 조회</a>
+		            <a href="javascript:void(0)" id = "search_total_month_btn"  style="margin-left: 2px;">전체 월별 조회</a>
+		            <a href="javascript:void(0)" id = "search_graph_btn"  style="margin-left: 2px;">그래프 보기</a>
 	       	 	</div>
 	        </form>
     	</div>

@@ -146,11 +146,10 @@ function initView(){
 	$('#search_graph_btn').linkbutton({
 		onClick : function(){
 		},
-		width : 50,
 	/*	iconCls:'icon-search'*/
 	});
 	
-	$('#search_year_btn').linkbutton({
+	$('#search_total_year_btn').linkbutton({
 		onClick : function(){
 			var param = {searchType  : "year"}
 			returnp.api.call("selectSalesReports", param, function(res){
@@ -175,7 +174,7 @@ function initView(){
 	/*	iconCls:'icon-search'*/
 	});
 	
-	$('#search_month_btn').linkbutton({
+	$('#search_total_month_btn').linkbutton({
 		onClick : function(){
 			var param = {searchType  : "month"}
 			returnp.api.call("selectSalesReports", param, function(res){
@@ -197,6 +196,24 @@ function initView(){
 					$.messager.alert('오류 발생', message);
 				}
 			});
+		},
+	/*	iconCls:'icon-search'*/
+	});
+	
+	$('#search_daily_btn').linkbutton({
+		onClick : function(){
+		},
+	/*	iconCls:'icon-search'*/
+	});
+	
+	$('#search_monthly_btn').linkbutton({
+		onClick : function(){
+		},
+	/*	iconCls:'icon-search'*/
+	});
+	
+	$('#search_year_btn').linkbutton({
+		onClick : function(){
 		},
 	/*	iconCls:'icon-search'*/
 	});
@@ -480,7 +497,13 @@ function setListPager(){
         	var opts = $('#node_list').datagrid('options');
         	opts.pageSize=rows;
         	opts.pageNumber = page;
-        	realodPage();
+        	
+        	var node = $('#summary_table').datagrid('getSelected');
+        	if (!node) {
+        		 $.messager.alert('알림','선택이 필요합니다.');
+        		 return;
+        	}
+        	selectPaymentTransactions(1, node);
     	}
     }); 
 }
