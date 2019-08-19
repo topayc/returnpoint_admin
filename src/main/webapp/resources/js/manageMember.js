@@ -8,7 +8,7 @@ columns = [[
 	    {field:'memberPassword',width:30,align:'center',title : '비밀번호', hidden: true},
 	    {field:'memberPassword2',width:30,align:'center',title : '비밀번호2', hidden: true},
 	    {field:'memberPhone',width:40,align:'center',title : '핸드폰'},
-	    {field:'memberStatus',width:30,align:'center',title : '상태',formatter : nodeStatusFormatter},
+	    {field:'memberStatus',width:30,align:'center',title : '상태',formatter : memberStatusFormatter},
 	    {field:'joinRoute',width:50,align:'center',title : '가입 경로'},
 	    {field:'country',width:20,align:'center',title : '국가', formatter : slashFormatter},
 	    {field:'recommenderName',width:30,align:'center',title : '추천인', hidden:false,formatter : slashFormatter},

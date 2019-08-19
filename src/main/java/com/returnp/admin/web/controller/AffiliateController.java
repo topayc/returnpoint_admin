@@ -119,7 +119,7 @@ public class AffiliateController extends ApplicationController {
 		model.addAttribute("registTypes", CodeDefine.getRegistTypes());
 		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatuses());
 		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypest());
-		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatuses());
+		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatuses2());
 		model.addAttribute("authTypes", CodeDefine.getAuthTypes());
 		model.addAttribute("affiliateTypes", CodeDefine.getAffiliateTypes());
 		

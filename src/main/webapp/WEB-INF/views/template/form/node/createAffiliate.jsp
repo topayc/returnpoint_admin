@@ -389,14 +389,14 @@
             	}
             }
 		});
-		
+			
 		$('#affiliateStatus').combobox({
 			showItemIcon: true,
-			readonly : true,
             panelHeight: 'auto',
             label : roundLabel("협력업체 상태"),
             multiple:false,
-            required:true
+            required:true,
+            editable : false
 		});
 		
 		$('#regType').combobox({

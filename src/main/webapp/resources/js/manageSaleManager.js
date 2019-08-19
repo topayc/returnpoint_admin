@@ -4,7 +4,7 @@
 			    {field:'saleManagerNo',width:20,align:'center',title : '번호',hidden:false},
 			    {field:'saleManagerCode',width:40,align:'center',title : '관리자 코드'},
 			    {field:'saleManagerName',width:40,align:'center',title : '관리자 이름'},
-			    {field:'saleManagerStatus',width:40,align:'center',title : '관리자  상태'},
+			    {field:'saleManagerStatus',width:40,align:'center',title : '관리자  상태',formatter :  saleManagerStatusFormatter},
 			    {field:'greenPointAmount',width:30,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
 			    {field:'redPointAmount',width:30,align:'center',title : 'R POINT', formatter : numberRedFormatter},
 			    {field:'greenPointAccStatus',width:20,align:'center',title : 'G 적립', formatter : ynFormatter},

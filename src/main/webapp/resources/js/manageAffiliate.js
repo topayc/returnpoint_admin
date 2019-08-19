@@ -7,7 +7,7 @@
 			    {field:'affiliateName',width:55,align:'center',title : '가맹점 이름'},
 			    {field:'affiliateCode',width:60,align:'center',title : '가맹점 코드',hidden:false},
 			    {field:'affiliateType',width:50,align:'center',title : '분류' , formatter : affiliateTypeFormatter},
-			    {field:'affiliateStatus',width:30,align:'center',title : '상태',formatter : nodeStatusFormatter},
+			    {field:'affiliateStatus',width:30,align:'center',title : '상태',formatter : affiliateStatusFormatter},
 			    {field:'paymentRouterNo',width:30,align:'center',title : '라우터 번호', hidden:true },
 			    {field:'paymentRouterCode',width:30,align:'center',title : '라우터 코드', hidden:true},
 			    {field:'paymentRouterType',width:25,align:'center',title : 'RT' , formatter: paymentRouterTypeFormatter },

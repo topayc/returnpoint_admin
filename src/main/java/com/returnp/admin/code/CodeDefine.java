@@ -64,6 +64,14 @@ public class CodeDefine {
 		return list;
 	}
 	
+	public static ArrayList<CodeKeyValuePair> getNodeStatuses2() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "정상 ", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "중지 ", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("3", "탈퇴", "Y", "Y" ,""));
+		return list;
+	}
+	
 	public static ArrayList<CodeKeyValuePair> getNodeStatuses() {
 		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
 		list.add(new CodeKeyValuePair("1", "정상 ", "Y", "Y" ,""));

@@ -5,7 +5,7 @@
 			    {field:'memberName',width:25,align:'center',title : '회원 이름'},
 			    {field:'agencyCode',width:40,align:'center',title : '대리점 코드'},
 			    {field:'agencyName',width:40,align:'center',title : '대리점 이름'},
-			    {field:'agencyStatus',width:20,align:'center',title : '대리점  상태', formatter : nodeStatusFormatter},
+			    {field:'agencyStatus',width:20,align:'center',title : '대리점  상태', formatter : agencyStatusFormatter},
 			    {field:'greenPointAmount',width:30,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
 			    {field:'redPointAmount',width:30,align:'center',title : 'R POINT', formatter : numberRedFormatter},
 			    {field:'branchName',width:40,align:'center',title : '소속 지사', hidden:false,formatter : slashFormatter},
@@ -106,7 +106,7 @@ function initView(){
 			
 			returnp.api.call("getNodes", param, function(res){
 				//console.log("node datas");
-				//console.log(res);
+				console.log(res);
 				if (res.resultCode == "100") {
 					setListColumnHeader(param.searchNodeType);
 					$('#node_list').datagrid({

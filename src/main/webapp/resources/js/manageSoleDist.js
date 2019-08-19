@@ -5,7 +5,7 @@
 			    {field:'memberName',width:20,align:'center',title : '회원 이름'},
 			    {field:'soleDistCode',width:30,align:'center',title : '총판 코드'},
 			    {field:'soleDistName',width:30,align:'center',title : '총판 이름'},
-			    {field:'soleDistStatus',width:20,align:'center',title : '총판 상태', formatter : nodeStatusFormatter},
+			    {field:'soleDistStatus',width:20,align:'center',title : '총판 상태', formatter : soleDistStatusFormatter},
 			    {field:'greenPointAmount',width:30,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
 			    {field:'redPointAmount',width:30,align:'center',title : 'R POINT', formatter : numberRedFormatter},
 			    {field:'greenPointAccStatus',width:20,align:'center',title : 'G 적립', formatter : ynFormatter},
@@ -103,7 +103,7 @@ function initView(){
 			
 			returnp.api.call("getNodes", param, function(res){
 				//console.log("node datas");
-				//console.log(res);
+				console.log(res);
 				if (res.resultCode == "100") {
 					setListColumnHeader(param.searchNodeType);
 					$('#node_list').datagrid({

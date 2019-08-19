@@ -5,7 +5,7 @@
 			    {field:'recommenderCode',width:40,align:'center',title : '코드'},
 			    {field:'recommenderName',width:30,align:'center',title : '정회원 이름'},
 			    {field:'recommenderEmail',width:50,align:'center',title : '정회원 이메일'},
-			    {field:'recommenderStatus',width:30,align:'center',title : '정회원 상태', formatter : nodeStatusFormatter},
+			    {field:'recommenderStatus',width:30,align:'center',title : '정회원 상태', formatter : recommenderStausFormatter},
 			    {field:'greenPointAmount',width:30,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
 			    {field:'redPointAmount',width:30,align:'center',title : 'R POINT', formatter : numberRedFormatter},
 			    {field:'greenPointAccStatus',width:20,align:'center',title : 'G 적립', formatter : ynFormatter},

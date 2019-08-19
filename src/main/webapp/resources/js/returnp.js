@@ -328,7 +328,8 @@ $(function () {
         	uploadSalesFile: {apiCode: 10000, apiPath : '/api/upload/salesFile' , requestMethod: 'post'},
 
         	/*리포트 */
-        	affilaiteSaleReport: {apiCode: 10000, apiPath : '/api/report/affilaiteSaleReport' , requestMethod: 'get'},
+        	selectSalesReports: {apiCode: 10000, apiPath : '/api/report/saleseReports' , requestMethod: 'get'},
+        	loadPaymentTransaction: {apiCode: 10000, apiPath : '/api/report/loadPaymentTransactions' , requestMethod: 'get'},
         	
         	/*push token 등록*/
         	sendPushToken: {apiCode: 10000, apiPath : '/api/device/registToken' , requestMethod: 'post'},

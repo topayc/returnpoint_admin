@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.ReportMapper">
+  	
+   <select id="selectSalesReports" parameterType="HashMap" resultType="HashMap">
+		SELECT
+			<if test = "searchType != null and searchType  =='year'" >  date_format(paymentApprovalDateTime, '%Y') as searchDate , </if>
+			<if test = "searchType != null and searchType  =='month'" >  date_format(paymentApprovalDateTime, '%Y-%m') as searchDate, </if>
+			sum(paymentApprovalAmount) as salesSum
+		from payment_transaction group by searchDate;
+	</select>
+  
+  <select id="reportPaymentTransactions" parameterType="HashMap"  resultType="HashMap" >
+    select 
+    sql_calc_found_rows
+    PA.paymentTransactionNo, 
+  	PA.memberNo, 
+  	PA.memberName, 
+  	PA.memberPhone, 
+  	PA.memberEmail, 
+  	PA.nodeType, 
+  	PA.nodeNo, 
+    PA.nodeEmail, 
+    PA.nodeName, 
+    PA.nodePhone, 
+    PA.affiliateNo, 
+    PA.affiliateSerial, 
+    AF.affiliateName, 
+    PA.paymentApprovalAmount, 
+    PA.paymentApprovalNumber, 
+    PA.paymentApprovalStatus, 
+    PA.pointBackStatus, 
+    PA.paymentTransactionType, 
+    PA.paymentApprovalDateTime, 
+    PA.orgPaymentData, 
+    PA.regAdminNo, 
+    PA.createTime, 
+    PA.updateTime,
+	PTR.paymentRouterNo, 
+    (SELECT paymentRouterType from payment_router WHERE paymentRouterNo = PTR.paymentRouterNo) as paymentRouterType,
+    (SELECT paymentRouterName from payment_router WHERE paymentRouterNo = PTR.paymentRouterNo) as paymentRouterName,
+    (SELECT paymentRouterCode  from payment_router WHERE paymentRouterNo = PTR.paymentRouterNo) as paymentRouterCode
+    from payment_transaction as PA
+    inner join affiliate as AF on (PA.affiliateNo= AF.affiliateNo)
+    inner join payment_transaction_router as PTR on (PA.paymentTransactionNo = PTR.paymentTransactionNo)
+    where 
+    	1 = 1
+    	 <if test="searchDateStart != null and searchDateEnd != null"> AND PA.paymentApprovalDateTime  BETWEEN #{searchDateStart} AND #{searchDateEnd}</if>
+     <choose>
+   	<when test="order !=null">
+		order by ${order} 
+	</when>
+	<otherwise>
+		order by createTime desc
+	</otherwise>
+	</choose>
+	<if test="pagination">
+		limit ${pageSize} offset ${offset}
+	</if>
+  </select>
+  
+</mapper>
+
+
+ 

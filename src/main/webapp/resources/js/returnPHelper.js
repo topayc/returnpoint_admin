@@ -1005,18 +1005,55 @@ function nodeTypeFormatter(value, row, index) {
 	return text;
 }
 
-function nodeStatusFormatter(value, row, index) {
-	var nodeType = searchFormData.nodeType;
-	var arr = {
-		'1' : 'memberStatus',
-		'2' : 'recommenderStatus',
-		'3' : 'branchStatus',
-		'4' : 'agencyStatus',
-		'5' : 'affiliateStatus',
-		'6' : 'saleManagerStatus',
-		'7' : 'soleDistStatus'
+function soleDistStatusFormatter(value, row, index) {
+	var status = row.affiliateStatus;
+	return checkNodeStatus(status);
+}
+
+function branchStatusFormatter(value, row, index) {
+	var status = row.branchStatus;
+	return checkNodeStatus(status);
+}
+
+function agencyStatusFormatter(value, row, index) {
+	var status = row.agencyStatus;
+	return checkNodeStatus(status);
+}
+
+function affiliateStatusFormatter(value, row, index) {
+	var status = row.affiliateStatus;
+	return checkNodeStatus(status);
+}
+
+
+
+function saleManagerStatusFormatter (value, row, index) {
+	var status = row.saleManagerStatus;
+	return checkNodeStatus(status);
+}
+
+function recommenderStausFormatter (value, row, index) {
+	var status = row.recommenderStatus;
+	return checkNodeStatus(status);
+}
+
+function checkNodeStatus(status){
+	switch (status) {
+	case "1":
+		text = '<span style = "border-radius: 10px; border: 1px solid green; padding: 2px;font-size : 12px; color : green; font;font-weight : bold">정상</span>'; break;
+		break;
+	case "2":
+		text = '<span style = "border-radius: 10px; border: 1px solid #B404AE;padding: 2px;font-size : 12px;color : #B404AE;font-weight : bold">중지</span>'; break;
+		break;
+	case "3":
+		text = '<span style = "border-radius: 10px; border: 1px solid red;padding: 2px;font-size : 12px;color : red;font-weight : bold">탈퇴</span>'; break;
+		break;
 	}
-	var status = row[arr[nodeType]];
+	return text;
+}
+
+function memberStatusFormatter(value, row, index) {
+	var status = row.memberStatus
 	var text;
 	switch (status) {
 	case "1":
@@ -1149,7 +1186,6 @@ function loadNodeForm(data) {
 					/* inline:true, */
 					closable : true,
 					border : 'thick',
-					shadow : true,
 					collapsible : false,
 					minimizable : false,
 					maximizable : false,

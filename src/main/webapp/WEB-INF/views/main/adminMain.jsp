@@ -228,15 +228,15 @@
 		                        </ul>
                             </li>     --> 
                             
-                         <!--    <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
+                            <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">통계 및 리포트 관리</span>
 		                         <ul>
-   									<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
-   										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
+   									<li id = "manageSalesReport" data-options = "iconCls :'icon-info'">
+   										<a class= "sub_menu"  view_req_name = "manageSalesReport" menu_deps= '2' >
    											<span style = "font-weight : bold">매출 리포트</span>
    										</a> 
    									</li>
-   									<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+   						<!-- 			<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
    											<span style = "font-weight : bold">G 포인트 리포트</span>
    									</a> 
@@ -255,9 +255,9 @@
    										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
    											<span style = "font-weight : bold">R 포인트 출금 리포트</span>
    									</a> 
-   									</li>
+   									</li> -->
 		                        </ul>
-                            </li>    -->  
+                            </li>     
                             
                             
                             

@@ -6,7 +6,7 @@
 			    {field:'branchCode',width:50,align:'center',title : '지사 코드'},
 			    {field:'branchEmail',width:50,align:'center',title : '지사 이메일'},
 			    {field:'branchName',width:40,align:'center',title : '지사 이름'},
-			    {field:'branchStatus',width:40,align:'center',title : '지사 상태',formatter : nodeStatusFormatter},
+			    {field:'branchStatus',width:40,align:'center',title : '지사 상태',formatter : branchStatusFormatter},
 			    {field:'greenPointAmount',width:40,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
 			    {field:'redPointAmount',width:40,align:'center',title : 'R POINT', formatter : numberRedFormatter},
 			    {field:'soleDistName',width:40,align:'center',title : '소속 총판', hidden:false,formatter : slashFormatter},
