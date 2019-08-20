@@ -124,6 +124,10 @@ function initView(){
 	
 	$('#search_total_year_btn').linkbutton({
 		onClick : function(){
+			$('#node_list').datagrid('loadData', []);
+			var dgPanel = $('#node_list').datagrid('getPanel');
+			dgPanel.panel('setTitle', "");
+			
 			var param = {searchType  : "year"}
 			returnp.api.call("selectSalesReports", param, function(res){
 				if (res.resultCode == "100") {
@@ -149,6 +153,10 @@ function initView(){
 	
 	$('#search_total_daily_btn').linkbutton({
 		onClick : function(){
+			$('#node_list').datagrid('loadData', []);
+			var dgPanel = $('#node_list').datagrid('getPanel');
+			dgPanel.panel('setTitle', "");
+			
 			var param = {searchType  : "daily"}
 			returnp.api.call("selectSalesReports", param, function(res){
 				console.log(res);
@@ -174,6 +182,10 @@ function initView(){
 	});
 	$('#search_total_month_btn').linkbutton({
 		onClick : function(){
+			$('#node_list').datagrid('loadData', []);
+			var dgPanel = $('#node_list').datagrid('getPanel');
+			dgPanel.panel('setTitle', "");
+			
 			var param = {searchType  : "month"}
 			returnp.api.call("selectSalesReports", param, function(res){
 				console.log(res);
@@ -200,6 +212,10 @@ function initView(){
 	
 	$('#search_daily_btn').linkbutton({
 		onClick : function(){
+			$('#node_list').datagrid('loadData', []);
+			var dgPanel = $('#node_list').datagrid('getPanel');
+			dgPanel.panel('setTitle', "");
+			
 			var param = makeSearchParam();
 			if ((param.searchDateStart == '' &&  param.searchDateEnd == "") || (param.searchDateStart != '' &&  param.searchDateEnd != "") ){
 			}else {
