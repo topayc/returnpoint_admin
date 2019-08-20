@@ -361,7 +361,7 @@
                             				</a> 
                             			</li>
                             			
-                            			<li class = "manage_menu roll_1 roll_10"  id = "manageAffiliate"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageAffiliate"  node = "5"  menu_deps= '2' >
+                            			<li class = "manage_menu roll_1"  id = "manageAffiliate"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageAffiliate"  node = "5"  menu_deps= '2' >
 		                        		<span style = "font-weight : bold">상품권 제휴점 관리</span></a> 
 		                        		</li>
 		                        	

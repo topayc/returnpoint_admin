@@ -329,6 +329,7 @@ $(function () {
 
         	/*리포트 */
         	selectSalesReports: {apiCode: 10000, apiPath : '/api/report/saleseReports' , requestMethod: 'get'},
+        	selectPeriodSalesReports: {apiCode: 10000, apiPath : '/api/report/selectPeriodSalesReports' , requestMethod: 'get'},
         	loadPaymentTransaction: {apiCode: 10000, apiPath : '/api/report/loadPaymentTransactions' , requestMethod: 'get'},
         	
         	/*push token 등록*/

@@ -9,7 +9,7 @@
 		 <div class="easyui-panel" title="" style="width:100%;padding:10px 15px;">
 	        <form id="searchForm" method="post">
 
-	            <div style="margin-bottom:10px;margin-left:7px;width:630px;display:inline-block;">
+	            <div style="margin-bottom:10px;margin-left:7px;width:300px;display:inline-block;">
 	                <input class="easyui-textbox"  id ="searchKeyword" name="searchKeyword"  style="width:100%">
 	            </div>
 	            

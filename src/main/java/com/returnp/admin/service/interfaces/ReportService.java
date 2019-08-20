@@ -11,5 +11,7 @@ public interface ReportService {
 	public ReturnpBaseResponse selectSalesReports(HashMap<String, Object> dbParams);
 
 	public ReturnpBaseResponse reportPaymentTransactions(HashMap<String, Object> dbParams);
+
+	public ReturnpBaseResponse selectPeriodSalesReports(HashMap<String, Object> dbParams);
 }
 	

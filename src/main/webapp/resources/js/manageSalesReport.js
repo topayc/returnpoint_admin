@@ -1,8 +1,8 @@
 
 var summary_columns = [[
-	    {field:'searchDate',width:10,align:'center',title : '검색 기준 연/월',formatter : addBoldFomatter},
-	    {field:'salesSum',width:20,align:'center',title : '검색 기준 연/월별 소계', formatter  : numberGreenFormatter},
-	    {field:'ss',width:60,align:'center',title : '비고'},
+	    {field:'searchDate',width:10,align:'center',title : '검색 기준 연/월/일',formatter : addBoldFomatter},
+	    {field:'salesSum',width:20,align:'center',title : '검색 기준별 소계', formatter  : numberGreenFormatter},
+	    {field:'ss1',width:40,align:'center',title : '비고'},
 	 ]];
 
 
@@ -69,7 +69,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
-		width: 120
+		width: 100
 	});
 
 	$('#searchAffiliate').combobox({
@@ -100,7 +100,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
-		width: 120
+		width: 100
 	});
 
 	/* 검색 시작일 갤린더 박스  초기화*/
@@ -121,33 +121,6 @@ function initView(){
 	    formatter :  searchDateFomatter
 	});
 	
-	/* 검색 버튼  초기화*/
-	$('#search_btn').linkbutton({
-		onClick : function(){
-			var param = makeSearchParam();
-			returnp.api.call("getPaymentTransactionCommands", param, function(res){
-				console.log(res);
-				if (res.resultCode == "100") {
-					$('#node_list').datagrid({
-						data : res,
-						title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
-					});
-					setListPager();
-				}else {
-					$.messager.alert('오류 발생', message);
-				}
-			});
-		},
-		width : 50,
-	/*	iconCls:'icon-search'*/
-	});
-	
-	/* 검색 버튼  초기화*/
-	$('#search_graph_btn').linkbutton({
-		onClick : function(){
-		},
-	/*	iconCls:'icon-search'*/
-	});
 	
 	$('#search_total_year_btn').linkbutton({
 		onClick : function(){
@@ -174,6 +147,31 @@ function initView(){
 	/*	iconCls:'icon-search'*/
 	});
 	
+	$('#search_total_daily_btn').linkbutton({
+		onClick : function(){
+			var param = {searchType  : "daily"}
+			returnp.api.call("selectSalesReports", param, function(res){
+				console.log(res);
+				if (res.resultCode == "100") {
+					$('#summary_table').datagrid({
+						data : res,
+						title : '[일별 매출 총계] ' ,
+					});
+					var totalAmount = 0
+					for (var i = 0; i < res.rows.length; i++) {
+						totalAmount += parseInt(res.rows[i].salesSum);
+					}
+					$('#summary_table').datagrid({
+						title : '[일별 매출 총계]  : ' + numberGreenFormatter(totalAmount),
+					});
+					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", salesSum : totalAmount });
+				}else {
+					$.messager.alert('오류 발생', message);
+				}
+			});
+		},
+		/*	iconCls:'icon-search'*/
+	});
 	$('#search_total_month_btn').linkbutton({
 		onClick : function(){
 			var param = {searchType  : "month"}
@@ -202,6 +200,38 @@ function initView(){
 	
 	$('#search_daily_btn').linkbutton({
 		onClick : function(){
+			var param = makeSearchParam();
+			if ((param.searchDateStart == '' &&  param.searchDateEnd == "") || (param.searchDateStart != '' &&  param.searchDateEnd != "") ){
+			}else {
+				$.messager.alert('알림', "검색 시작일 혹은 검색 종료일을 설정해주세요");
+				return;
+			} 
+			var oriDateEnd;
+			if (param.searchDateStart != '' &&  param.searchDateEnd != "") {
+				oriDateEnd = param.searchDateEnd;
+				var dateArr = param.searchDateEnd.split('-');
+				var searchDateEnd = new Date(dateArr[0], dateArr[1], dateArr[2]);
+				param.searchDateEnd = searchDateEnd.getFullYear() + "-" + searchDateEnd.getMonth() + "-" + (searchDateEnd.getDate() + 1)
+			}
+
+			returnp.api.call("selectPeriodSalesReports", param, function(res){
+				console.log(res);
+				if (res.resultCode == "100") {
+					$('#summary_table').datagrid({
+						data : res
+					});
+					var totalAmount = 0
+                    for (var i = 0; i < res.rows.length; i++) {
+                        totalAmount += parseInt(res.rows[i].salesSum);
+                    }
+					$('#summary_table').datagrid({
+						title : '[' + param.searchDateStart + " ~ " + oriDateEnd + ' 매출 총계] '  + numberGreenFormatter(totalAmount),
+					});
+					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", salesSum : totalAmount });
+				}else {
+					$.messager.alert('오류 발생', message);
+				}
+			});
 		},
 	/*	iconCls:'icon-search'*/
 	});
@@ -222,13 +252,7 @@ function initView(){
 	/* 리셋 버튼  초기화*/
 	$('#reset_btn').linkbutton({
 		onClick : function(){
-			//$('#searchForm').form('clear');
-			$('#searchPaymentApprovalStatus').combobox('select', 0);
-			$('#paymentType').combobox('select', 0);
-			$('#keywordType').combobox('select', 0);
-			$('#searchKeyword').textbox('clear');
-			$('#searchDateStart').datetimebox('clear');
-			$('#searchDateEnd').datetimebox('clear');
+			$('#searchForm').form('reset');
 		},
 		width : 50,
 	});
@@ -363,6 +387,7 @@ function initView(){
 		},
 	    columns: columns
 	});
+	setListPager();
 }
 
 $.extend($.fn.datagrid.methods, {
@@ -426,8 +451,7 @@ $.extend($.fn.datagrid.methods, {
 function selectPaymentTransactions(index, row){
 	//var param = {searchDateStart : row.searchDate, searchDateEnd : row.searchDate};
 	if (row.searchDate == '총계') {return;}
-	var param = {searchDateStart : "2018-01-01 00:00:00" , searchDateEnd : '2018-12-30 00:00:00'};
-	
+	var param = {searchDate : row.searchDate};
 	var opts = $('#node_list').datagrid('options');
 	var total = $('#node_list').datagrid('getData').total;
 	
@@ -455,8 +479,8 @@ function selectPaymentTransactions(index, row){
 function setListPager(){
 	var pager = $('#node_list').datagrid().datagrid('getPager');
 	pager.pagination({
-		displayMsg : ' {from} to {to} of {total}',
-		buttons:[{
+		/*displayMsg : ' {from} to {to} of {total}',*/
+/*		buttons:[{
             iconCls:'icon-add',
             handler:function(){
             	$('#node_list').datagrid('unselectAll');
@@ -491,8 +515,8 @@ function setListPager(){
 	  				{paymentTransactionNo : node.paymentTransactionNo}
 	  			);
             }
-        }],
-        layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
+        }],*/
+        layout:['list','sep','first','prev','sep','links','sep','next','last','sep' /*,'refresh','info'*/ ],
         onSelectPage:function(page,rows){        	
         	var opts = $('#node_list').datagrid('options');
         	opts.pageSize=rows;

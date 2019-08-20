@@ -35,6 +35,24 @@ public class ReportServiceImpl implements ReportService{
 			return res;
 		}
 	}
+
+	@Override
+	public ReturnpBaseResponse selectPeriodSalesReports(HashMap<String, Object> dbParams) {
+		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
+		try {
+			ArrayList<HashMap<String, Object>> sales = this.reportMapper.selectPeriodSalesReports(dbParams);
+			res.setRows(sales);
+			res.setTotal(sales.size());
+			ResponseUtil.setSuccessResponse(res, "100" , "조회 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "조회 에러 ");
+			return res;
+		}
+	}
+	
 	@Override
 	public ReturnpBaseResponse reportPaymentTransactions(HashMap<String, Object> dbParams) {
 		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();

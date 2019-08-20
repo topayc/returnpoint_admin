@@ -6,8 +6,24 @@
 		SELECT
 			<if test = "searchType != null and searchType  =='year'" >  date_format(paymentApprovalDateTime, '%Y') as searchDate , </if>
 			<if test = "searchType != null and searchType  =='month'" >  date_format(paymentApprovalDateTime, '%Y-%m') as searchDate, </if>
+			<if test = "searchType != null and searchType  =='daily'" >  date_format(paymentApprovalDateTime, '%Y-%m-%d') as searchDate, </if>
 			sum(paymentApprovalAmount) as salesSum
 		from payment_transaction group by searchDate;
+	</select>
+	
+	 <select id="selectPeriodSalesReports" parameterType="HashMap" resultType="HashMap">
+	select 
+		date_format(A.paymentApprovalDateTime, '%Y-%m-%d') as searchDate,
+   	 	sum(A.paymentApprovalAmount) as salesSum
+	from 
+		(
+		 select * from payment_transaction where 1= 1
+			<if test = "searchDateStart != null and searchDateEnd != null  "> and (paymentApprovalDateTime between #{searchDateStart} and #{searchDateEnd})</if>
+			<if test = "searchAffiliate != null">and affiliateNo = #{searchAffiliate}</if>
+			<if test = "searchPaymentTransactionType != null">and paymentTransactionType = #{searchPaymentTransactionType}</if>
+			<if test = "searchPaymentApprovalStatus != null">and paymentApprovalStatus = #{searchPaymentApprovalStatus}</if>
+			) as A
+	group by searchDate;
 	</select>
   
   <select id="reportPaymentTransactions" parameterType="HashMap"  resultType="HashMap" >
@@ -45,7 +61,7 @@
     inner join payment_transaction_router as PTR on (PA.paymentTransactionNo = PTR.paymentTransactionNo)
     where 
     	1 = 1
-    	 <if test="searchDateStart != null and searchDateEnd != null"> AND PA.paymentApprovalDateTime  BETWEEN #{searchDateStart} AND #{searchDateEnd}</if>
+    	 <if test="searchDate != null "> AND PA.paymentApprovalDateTime  LIKE CONCAT(#{searchDate},'%') </if>
      <choose>
    	<when test="order !=null">
 		order by ${order} 

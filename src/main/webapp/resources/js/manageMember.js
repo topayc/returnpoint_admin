@@ -51,6 +51,7 @@ function initView(){
 	
 	/* 검색어 입력 박스 초기화 */
 	$('#searchKeyword').textbox({ 
+		width: 200,
 		prompt : "검색할 단어를 입력해주세요" ,
 		inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
 			keyup:function(e){
@@ -70,6 +71,7 @@ function initView(){
 		multiple:false,
 		required:true,
 		readonly:true,
+		 width: 120
 	});
 	
 	/* 노드 상태 셀렉트 박스  초기화*/
@@ -81,6 +83,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
+		 width: 120
 	});
 	
 	/* 검색어 타입 셀렉트 박스  초기화*/
@@ -92,18 +95,21 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
+		 width: 120
 	});
 
 	/* 검색 시작일 갤린더 박스  초기화*/
 	$('#searchDateStart').datebox({	   
 	    prompt : "검색 시작 일자",
-	    labelPosition: 'top'
+	    labelPosition: 'top',
+	    width: 150
 	});
 	
 	/* 검색 종료일 갤린더 박스  초기화*/
 	$('#searchDateEnd').datebox({	  
 	    prompt : "검색 종료 일자",
 	    labelPosition: 'top',
+	    width: 150,
 	});
 	
 	/* 검색 버튼  초기화*/

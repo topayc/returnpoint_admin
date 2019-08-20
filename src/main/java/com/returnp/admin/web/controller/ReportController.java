@@ -1,6 +1,7 @@
 package com.returnp.admin.web.controller;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,29 @@ public class ReportController extends ApplicationController{
 	@ResponseBody
 	@RequestMapping(value = "/report/saleseReports", method = RequestMethod.GET)
 	public ReturnpBaseResponse  selectSalesReports(@RequestParam HashMap<String, Object> dbParams) {
+		for (Map.Entry<String, Object> entry : dbParams.entrySet()) {
+			String key   = entry.getKey();
+			String  value =  (String)entry.getValue();
+			if (value.equals("") || value.equals("0")) {
+				dbParams.put(key, null);
+			}
+			System.out.println(key + " : " + dbParams.get(key));
+		}
 		return this.reportService.selectSalesReports(dbParams);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/report/selectPeriodSalesReports", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectPeriodSalesReports(@RequestParam HashMap<String, Object> dbParams) {
+		for (Map.Entry<String, Object> entry : dbParams.entrySet()) {
+			String key   = entry.getKey();
+			String  value =  (String)entry.getValue();
+			if (value.equals("") || value.equals("0")) {
+				dbParams.put(key, null);
+			}
+			System.out.println(key + " : " + dbParams.get(key));
+		}
+		return this.reportService.selectPeriodSalesReports(dbParams);
 	}
 
 	@ResponseBody

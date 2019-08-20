@@ -5,14 +5,14 @@
 		<table id = "node_list" style ="width:100%;height:100%">
 		</table> 
 	</div>
-		<div  data-options="region:'north',split:true"  id = "member_search"  style ="height:120px" title ="검색 조건" >
+		<div  data-options="region:'north',split:true"  id = "member_search"  style ="height:110px" title ="검색 조건" >
 		 <div class="easyui-panel" title="" style="width:100%;padding:10px 15px;">
 	        <form id="searchForm" >
-	             <div style="margin-bottom:10px;margin-left : 10px;width:200px;display:inline-block">
+	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block">
 	                <input class="easyui-datetimebox"   id = "searchDateStart" name="searchDateStart" label="검색 시작일" style="width:100%"/>
 	            </div>
 	            
-	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">
+	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <input class="easyui-datetimebox"   id = "searchDateEnd"  name="searchDateEnd" label="검색 종료일" style="width:100%"/>
 	            </div>
 	             
@@ -34,7 +34,7 @@
 	                </select>
 	            </div> --%>
 
-	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">
+	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <select id = "searchNodeStatus" class="easyui-combobox" name="searchNodeStatus" label="상태" style="width:100%">
 	                	 <option value="0">전체</option>
 	                	<c:forEach var="statusType" items="${nodeStatusList}" varStatus="status">
@@ -42,8 +42,6 @@
 						</c:forEach>
 	                </select>
 	            </div>
-	            
-	            
 	            
 	          <%--   <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">
 	                <select id = "orderType" class="easyui-combobox" name="orderType" label="정렬 순서" style="width:100%">
@@ -55,7 +53,7 @@
 	            
 	            
 	            
-	            <div style="margin-bottom:10px;margin-left:7px;width:630px;display:inline-block;">
+	            <div style="margin-bottom:10px;margin-left:7px;display:inline-block;">
 	                <input class="easyui-textbox"  id ="searchKeyword" name="searchKeyword"  style="width:100%">
 	            </div>
 	            
