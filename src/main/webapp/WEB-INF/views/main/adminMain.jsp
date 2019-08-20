@@ -233,7 +233,7 @@
 		                         <ul>
    									<li id = "manageSalesReport" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageSalesReport" menu_deps= '2' >
-   											<span style = "font-weight : bold">매출 리포트</span>
+   											<span style = "font-weight : bold">매출 통계 및 조회</span>
    										</a> 
    									</li>
    						<!-- 			<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
