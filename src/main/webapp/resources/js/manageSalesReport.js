@@ -125,8 +125,7 @@ function initView(){
 	$('#search_total_year_btn').linkbutton({
 		onClick : function(){
 			$('#node_list').datagrid('loadData', []);
-			var dgPanel = $('#node_list').datagrid('getPanel');
-			dgPanel.panel('setTitle', "");
+			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "year"}
 			returnp.api.call("selectSalesReports", param, function(res){
@@ -154,8 +153,7 @@ function initView(){
 	$('#search_total_daily_btn').linkbutton({
 		onClick : function(){
 			$('#node_list').datagrid('loadData', []);
-			var dgPanel = $('#node_list').datagrid('getPanel');
-			dgPanel.panel('setTitle', "");
+			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "daily"}
 			returnp.api.call("selectSalesReports", param, function(res){
@@ -183,8 +181,7 @@ function initView(){
 	$('#search_total_month_btn').linkbutton({
 		onClick : function(){
 			$('#node_list').datagrid('loadData', []);
-			var dgPanel = $('#node_list').datagrid('getPanel');
-			dgPanel.panel('setTitle', "");
+			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "month"}
 			returnp.api.call("selectSalesReports", param, function(res){
@@ -213,8 +210,7 @@ function initView(){
 	$('#search_daily_btn').linkbutton({
 		onClick : function(){
 			$('#node_list').datagrid('loadData', []);
-			var dgPanel = $('#node_list').datagrid('getPanel');
-			dgPanel.panel('setTitle', "");
+			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = makeSearchParam();
 			if ((param.searchDateStart == '' &&  param.searchDateEnd == "") || (param.searchDateStart != '' &&  param.searchDateEnd != "") ){
@@ -295,6 +291,8 @@ function initView(){
 		pagePosition : "top",
 		pageSize : returnpCommon.appInfo.gridPageSize,
 		onSelect : function(index,row){
+			$('#node_list').datagrid('loadData', []);
+			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			selectPaymentTransactions(index, row);
 		},
 		onLoadSuccess : function(){
@@ -470,14 +468,24 @@ function selectPaymentTransactions(index, row){
 	var param = {searchDate : row.searchDate};
 	var opts = $('#node_list').datagrid('options');
 	var total = $('#node_list').datagrid('getData').total;
-	
-	$.extend(param, {
-		pagination : opts.pagination,
-		pageSize : opts.pageSize,
-		page : opts.pageNumber,
-		total : total,
-		offset : (opts.pageNumber-1) * opts.pageSize
-	});
+	if (index == 'pager' ){
+		$.extend(param, {
+			pagination : opts.pagination,
+			pageSize : opts.pageSize,
+			page : opts.pageNumber,
+			total : total,
+			offset : (opts.pageNumber-1) * opts.pageSize
+		});
+	}else {
+		opts.pageNumber = 1;
+		$.extend(param, {
+			pagination : opts.pagination,
+			pageSize : opts.pageSize,
+			page : opts.pageNumber,
+			total : total,
+			offset : (opts.pageNumber-1) * opts.pageSize
+		});
+	}
 	returnp.api.call("loadPaymentTransaction", param, function(res){
 		console.log(res);
 		if (res.resultCode == "100") {
@@ -543,7 +551,7 @@ function setListPager(){
         		 $.messager.alert('알림','선택이 필요합니다.');
         		 return;
         	}
-        	selectPaymentTransactions(1, node);
+        	selectPaymentTransactions("pager", node);
     	}
     }); 
 }
