@@ -486,6 +486,8 @@ function selectPaymentTransactions(index, row){
 			offset : (opts.pageNumber-1) * opts.pageSize
 		});
 	}
+	
+	$.extend(param, $('#searchForm').serializeObject());
 	returnp.api.call("loadPaymentTransaction", param, function(res){
 		console.log(res);
 		if (res.resultCode == "100") {

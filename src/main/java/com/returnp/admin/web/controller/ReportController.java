@@ -38,34 +38,35 @@ public class ReportController extends ApplicationController{
 	@ResponseBody
 	@RequestMapping(value = "/report/saleseReports", method = RequestMethod.GET)
 	public ReturnpBaseResponse  selectSalesReports(@RequestParam HashMap<String, Object> dbParams) {
-		for (Map.Entry<String, Object> entry : dbParams.entrySet()) {
-			String key   = entry.getKey();
-			String  value =  (String)entry.getValue();
-			if (value.equals("") || value.equals("0")) {
-				dbParams.put(key, null);
-			}
-			System.out.println(key + " : " + dbParams.get(key));
-		}
+		this.checkParameter(dbParams);
 		return this.reportService.selectSalesReports(dbParams);
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/report/selectPeriodSalesReports", method = RequestMethod.GET)
 	public ReturnpBaseResponse  selectPeriodSalesReports(@RequestParam HashMap<String, Object> dbParams) {
-		for (Map.Entry<String, Object> entry : dbParams.entrySet()) {
-			String key   = entry.getKey();
-			String  value =  (String)entry.getValue();
-			if (value.equals("") || value.equals("0")) {
-				dbParams.put(key, null);
-			}
-			System.out.println(key + " : " + dbParams.get(key));
-		}
+		this.checkParameter(dbParams);
 		return this.reportService.selectPeriodSalesReports(dbParams);
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/report/loadPaymentTransactions", method = RequestMethod.GET)
 	public ReturnpBaseResponse  loadPaymentTransactions(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
 		return this.reportService.reportPaymentTransactions(dbParams);
+	}
+	
+	private HashMap<String, Object> checkParameter(HashMap<String, Object> params){
+		for (Map.Entry<String, Object> entry : params.entrySet()) {
+			String key   = entry.getKey();
+			String  value =  (String)entry.getValue();
+			if (!key.equals("offset") && !key.equals("page") && !key.equals("pageSize") && !key.equals("pagination") && !key.equals("total")) {
+				if (value.equals("") || value.equals("0")) {
+					params.put(key, null);
+				}
+			}
+			System.out.println(key + ":" +  params.get(key));
+		}
+		return params;
 	}
 }

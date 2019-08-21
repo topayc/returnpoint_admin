@@ -56,12 +56,16 @@
     (SELECT paymentRouterType from payment_router WHERE paymentRouterNo = PTR.paymentRouterNo) as paymentRouterType,
     (SELECT paymentRouterName from payment_router WHERE paymentRouterNo = PTR.paymentRouterNo) as paymentRouterName,
     (SELECT paymentRouterCode  from payment_router WHERE paymentRouterNo = PTR.paymentRouterNo) as paymentRouterCode
+   
     from payment_transaction as PA
     inner join affiliate as AF on (PA.affiliateNo= AF.affiliateNo)
     inner join payment_transaction_router as PTR on (PA.paymentTransactionNo = PTR.paymentTransactionNo)
     where 
     	1 = 1
     	 <if test="searchDate != null "> AND PA.paymentApprovalDateTime  LIKE CONCAT(#{searchDate},'%') </if>
+    	 <if test="searchPaymentTransactionType != null "> AND PA.paymentTransactionType   = #{searchPaymentTransactionType} </if>
+    	 <if test="searchPaymentApprovalStatus != null "> AND PA.paymentApprovalStatus = #{searchPaymentApprovalStatus} </if>
+    	 <if test="searchAffiliate != null "> AND PA.affiliateNo = #{searchAffiliate} </if>
      <choose>
    	<when test="order !=null">
 		order by ${order} 

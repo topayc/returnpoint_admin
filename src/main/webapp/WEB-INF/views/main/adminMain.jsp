@@ -437,7 +437,7 @@
                             			</li>
                             			<li class = "manage_menu roll_1 roll_10" id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">상품권 판매 정산</span>
+                            					<span style = "font-weight : bold">상품권 매출 통계 및 정산</span>
                             				</a> 
                             			</li>
 		                        </ul>
