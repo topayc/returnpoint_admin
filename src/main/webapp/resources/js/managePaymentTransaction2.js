@@ -2,8 +2,8 @@ var columns = [[
 	
 	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 	   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-	    {field:'paymentTransactionNo',width:15,align:'center',title : '등록 번호',hidden:false},
-	    {field:'memberName',width:20,align:'center',title : '결제 회원'},
+	    {field:'paymentTransactionNo',width:18,align:'center',title : '등록 번호',hidden:false},
+	    {field:'memberName',width:25,align:'center',title : '결제 회원'},
 	    {field:'nodeType',width:20,align:'center',title : '노드',formatter : nodeTypeFormatter ,hidden :  true},
 	    {field:'memberEmail',width:40,align:'center',title : '회원 이메일',hidden : true},
 	    {field:'memberPhone',width:30,align:'center',title : '결제 회원 핸드폰'},
@@ -17,13 +17,13 @@ var columns = [[
 	    {field:'paymentRouterType',width:18,align:'center',title : 'RT', formatter: paymentRouterTypeFormatter},
 	    {field:'paymentRouterName',width : 18,align:'center',title : 'RN', formatter: paymentRouterNameFormatter},
 	    {field:'paymentRouterCode',width:20,align:'center',title : 'RC', hidden:true},
-	    {field:'affiliateSerial',width:35,align:'center',title : 'T-ID', formatter : slashFormatter},
-	    {field:'paymentApprovalNumber',width:45,align:'center',title : '승인 번호'},
-	    {field:'paymentApprovalAmount',width:25,align:'center',title : '승인 금액', formatter : numberBlueFormatter},
+	    {field:'affiliateSerial',width:35,align:'center',title : 'T-ID(ID)', formatter : slashFormatter},
+	    {field:'paymentApprovalNumber',width:60,align:'center',title : '승인/취소 번호'},
+	    {field:'paymentApprovalAmount',width:36,align:'center',title : '승인/취소 금액', formatter : paymentApprovalAmountFormatter},
 	    {field:'paymentApprovalStatus',width:25,align:'center',title : '승인 상태', formatter : PaymentApprovalStatusFormatter},
-	    {field:'paymentTransactionType',width:25,align:'center',title : '등록 형태', formatter : paymentTransactionRegistFormatter},
 	    {field:'pointBackStatus',width:25,align:'center',title : '적립 상태', formatter : pointBackStatusFormatter},
-	    {field:'paymentApprovalDateTime',width:35,align:'center',title : '승인 일자', formatter : dateFormatter},
+	    {field:'paymentTransactionType',width:20,align:'center',title : '등록 형태', formatter : paymentTransactionRegistFormatter},
+	    {field:'paymentApprovalDateTime',width:38,align:'center',title : '승인 일자', formatter : dateFormatter},
 	    {field:'createTime',width:35,align:'center',title : '등록일',formatter : dateFormatter,hidden : false},
 	    {field:'regAdminNo',width:15,align:'center',title : '등록자', formatter : registAdminFormatter},
 	    {field:'updateTime',width:40,align:'center',title : '수정일',formatter : dateFormatter, hidden : true}
@@ -66,6 +66,26 @@ function initView(){
 		width: 120
 	});
 
+	$('#searchAffiliate').combobox({
+		labelPosition : 'top',
+		showItemIcon: true,
+		editable: false,
+		labelPosition: 'top',
+		multiple:false,
+		required:true,
+		width: 170
+	});
+	
+	$('#searchDateType').combobox({
+		labelPosition : 'top',
+		showItemIcon: true,
+		editable: false,
+		panelHeight: 'auto',
+		labelPosition: 'top',
+		multiple:false,
+		required:true,
+		width: 120
+	});
 	$('#searchPaymentTransactionType').combobox({
 		labelPosition : 'top',
 		showItemIcon: true,
@@ -74,7 +94,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
-		width: 150
+		width: 120
 	});
 
 	/* 검색 시작일 갤린더 박스  초기화*/
@@ -99,8 +119,8 @@ function initView(){
 	$('#search_btn').linkbutton({
 		onClick : function(){
 			var param = makeSearchParam();
-			returnp.api.call("selectRpointPayments", param, function(res){
-				console.log("selectRpointPayments");
+			returnp.api.call("getPaymentTransactionCommands", param, function(res){
+				console.log("getPaymentTransactions");
 				console.log(res);
 				if (res.resultCode == "100") {
 					$('#node_list').datagrid({
@@ -113,9 +133,18 @@ function initView(){
 				}
 			});
 		},
-		width : 70,
-		iconCls:'icon-search'
+		width : 50,
+	/*	iconCls:'icon-search'*/
 	});
+	
+	/* 검색 버튼  초기화*/
+	$('#search_graph_btn').linkbutton({
+		onClick : function(){
+		},
+		width : 50,
+	/*	iconCls:'icon-search'*/
+	});
+	
 	
 	/* 리셋 버튼  초기화*/
 	$('#reset_btn').linkbutton({
@@ -128,7 +157,7 @@ function initView(){
 			$('#searchDateStart').datetimebox('clear');
 			$('#searchDateEnd').datetimebox('clear');
 		},
-		width : 70
+		width : 50,
 	});
 	
 	

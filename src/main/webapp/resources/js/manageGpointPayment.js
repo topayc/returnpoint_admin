@@ -1,8 +1,10 @@
 
 var summary_columns = [[
 	    {field:'searchDate',width:20,align:'center',title : '검색 기준 연/월/일',formatter : addBoldFomatter},
-	    {field:'payCase',width:10,align:'center',title : '매출 건수 ', formatter : addBoldFomatter},
-	    {field:'salesSum',width:20,align:'center',title : '기준별 소계', formatter  : numberGreenFormatter},
+	    {field:'payCase',width:10,align:'center',title : '결제 건수 소계 ', formatter : addBoldFomatter},
+	    {field:'paySum',width:20,align:'center',title : '결제 금액 소계', formatter  : numberRedFormatter},
+	    {field:'realPaySum',width:20,align:'center',title : '실 결제 금액 소계', formatter  : numberBlueFormatter2},
+	    {field:'gpointPaySum',width:20,align:'center',title : 'G POINT 결제 금액 소계', formatter  : numberGreenFormatter},
 	    {field:'ss1',width:40,align:'center',title : '비고'},
 	 ]];
 
@@ -10,30 +12,27 @@ var summary_columns = [[
 var columns = [[
 	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 	   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-	    {field:'paymentTransactionNo',width:18,align:'center',title : '등록 번호',hidden:false},
-	    {field:'memberName',width:25,align:'center',title : '결제 회원'},
-	    {field:'nodeType',width:20,align:'center',title : '노드',formatter : nodeTypeFormatter ,hidden :  true},
-	    {field:'memberEmail',width:40,align:'center',title : '회원 이메일',hidden : true},
-	    {field:'memberPhone',width:30,align:'center',title : '결제 회원 핸드폰'},
-	    {field:'nodeNo',width:20,align:'center',title : '대상 번호', hidden : true},
-	    {field:'nodeName',width:30,align:'center',title : '노드 이름',hidden : true},
-	    {field:'nodeEmail',width:45,align:'left',title : '노드 이메일',hidden : true},
+	    {field:'gpointPaymentNo',width:18,align:'center',title : '번호',hidden:false},
 	    {field:'memberNo',width:20,align:'center',title : '회원 번호', hidden : true},
+	    {field:'memberName',width:25,align:'center',title : '결제 회원'},
+	    {field:'memberEmail',width:40,align:'center',title : '회원 이메일',hidden : true},
+	    {field:'memberPhone',width:30,align:'center',title : '핸드폰'},
 	    {field:'affiliateNo',width:30,align:'center',title : '협력업체 번호', hidden : true},
 	    {field:'affiliateName',width:40,align:'center',title : '협력업체', hidden : false},
-	    {field:'paymentRouterNo',width:20,align:'center',title : '결제 라우터 번호', hidden : true},
+/*	    {field:'paymentRouterNo',width:20,align:'center',title : '결제 라우터 번호', hidden : true},
 	    {field:'paymentRouterType',width:18,align:'center',title : 'RT', formatter: paymentRouterTypeFormatter},
 	    {field:'paymentRouterName',width : 18,align:'center',title : 'RN', formatter: paymentRouterNameFormatter},
-	    {field:'paymentRouterCode',width:20,align:'center',title : 'RC', hidden:true},
+	    {field:'paymentRouterCode',width:20,align:'center',title : 'RC', hidden:true},*/
 	    {field:'affiliateSerial',width:35,align:'center',title : 'T-ID(ID)', formatter : slashFormatter},
-	    {field:'paymentApprovalNumber',width:60,align:'center',title : '승인/취소 번호'},
-	    {field:'paymentApprovalAmount',width:36,align:'center',title : '승인/취소 금액', formatter : paymentApprovalAmountFormatter},
+	    {field:'paymentApprovalNumber',width:50,align:'center',title : '승인/취소 번호'},
+	    {field:'paymentMethod',width:30,align:'center',title : '결제 수단', formatter : paymentMethodFormatter},
+	    {field:'paymentApprovalAmount',width:40,align:'center',title : '승인 금액', formatter : numberRedFormatter},
+	    {field:'realPaymentAmount',width:40,align:'center',title : '실 결제 금액 ',  formatter  : numberBlueFormatter2},
+	    {field:'gpointPaymentAmount',width:40,align:'center',title : 'G 포인트 결제', formatter  : numberGreenFormatter},
 	    {field:'paymentApprovalStatus',width:25,align:'center',title : '승인 상태', formatter : PaymentApprovalStatusFormatter},
-	    {field:'pointBackStatus',width:25,align:'center',title : '적립 상태', formatter : pointBackStatusFormatter},
 	    {field:'paymentTransactionType',width:20,align:'center',title : '등록 형태', formatter : paymentTransactionRegistFormatter},
 	    {field:'paymentApprovalDateTime',width:38,align:'center',title : '승인 일자', formatter : dateFormatter},
 	    {field:'createTime',width:35,align:'center',title : '등록일',formatter : dateFormatter,hidden : false},
-	    {field:'regAdminNo',width:15,align:'center',title : '등록자', formatter : registAdminFormatter},
 	    {field:'updateTime',width:40,align:'center',title : '수정일',formatter : dateFormatter, hidden : true}
 	 ]]
 /**
@@ -101,7 +100,17 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
-		width: 100
+		width: 110
+	});
+	$('#searchPaymentMethod').combobox({
+		labelPosition : 'top',
+		showItemIcon: true,
+		editable: false,
+		panelHeight: 'auto',
+		labelPosition: 'top',
+		multiple:false,
+		required:true,
+		width: 110
 	});
 
 	/* 검색 시작일 갤린더 박스  초기화*/
@@ -129,7 +138,7 @@ function initView(){
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "year"}
-			returnp.api.call("selectSalesReports", param, function(res){
+			returnp.api.call("reportGpointPayments", param, function(res){
 				if (res.resultCode == "100") {
 					$('#summary_table').datagrid({
 						data : res.rows,
@@ -137,14 +146,18 @@ function initView(){
 					});
 					var totalAmount = 0
                     var totalPayCase = 0;
+					var totalRealPay= 0;
+					var totalgpointPay = 0;
 					for (var i = 0; i < res.rows.length; i++) {
-                        totalAmount += parseInt(res.rows[i].salesSum);
+                        totalAmount += parseInt(res.rows[i].paySum);
                         totalPayCase+=parseInt(res.rows[i].payCase);
+                        totalRealPay+=parseInt(res.rows[i].realPaySum);
+                        totalgpointPay+=parseInt(res.rows[i].gpointPaySum);
                     }
 					$('#summary_table').datagrid({
-						title : '[연도별 매출 총계]  : ' +numberGreenFormatter(totalAmount),
+						title : '[연도별 G POINT 결제 총계]  : ' +numberGreenFormatter(totalAmount),
 					});
-					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", salesSum : totalAmount, payCase : totalPayCase });
+					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", paySum : totalAmount, payCase : totalPayCase, realPaySum : totalRealPay,  gpointPaySum :totalgpointPay });
 					setListPager2();
 				}else {
 					$.messager.alert('오류 발생', res.message);
@@ -160,7 +173,7 @@ function initView(){
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "daily"}
-			returnp.api.call("selectSalesReports", param, function(res){
+			returnp.api.call("reportGpointPayments", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
 					$('#summary_table').datagrid({
@@ -169,14 +182,18 @@ function initView(){
 					});
 					var totalAmount = 0
                     var totalPayCase = 0;
+					var totalRealPay= 0;
+					var totalgpointPay = 0;
 					for (var i = 0; i < res.rows.length; i++) {
-                        totalAmount += parseInt(res.rows[i].salesSum);
+                        totalAmount += parseInt(res.rows[i].paySum);
                         totalPayCase+=parseInt(res.rows[i].payCase);
+                        totalRealPay+=parseInt(res.rows[i].realPaySum);
+                        totalgpointPay+=parseInt(res.rows[i].gpointPaySum);
                     }
 					$('#summary_table').datagrid({
-						title : '[연도별 매출 총계]  : ' +numberGreenFormatter(totalAmount),
+						title : '[일별 G POINT 결제 총계]  : ' +numberGreenFormatter(totalAmount),
 					});
-					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", salesSum : totalAmount, payCase : totalPayCase });
+					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", paySum : totalAmount, payCase : totalPayCase, realPaySum : totalRealPay,  gpointPaySum :totalgpointPay });
 					setListPager2();
 				}else {
 					$.messager.alert('오류 발생', message);
@@ -191,7 +208,7 @@ function initView(){
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "month"}
-			returnp.api.call("selectSalesReports", param, function(res){
+			returnp.api.call("reportGpointPayments", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
 					$('#summary_table').datagrid({
@@ -200,14 +217,18 @@ function initView(){
 					});
 					var totalAmount = 0
                     var totalPayCase = 0;
+					var totalRealPay= 0;
+					var totalgpointPay = 0;
 					for (var i = 0; i < res.rows.length; i++) {
-                        totalAmount += parseInt(res.rows[i].salesSum);
+                        totalAmount += parseInt(res.rows[i].paySum);
                         totalPayCase+=parseInt(res.rows[i].payCase);
+                        totalRealPay+=parseInt(res.rows[i].realPaySum);
+                        totalgpointPay+=parseInt(res.rows[i].gpointPaySum);
                     }
 					$('#summary_table').datagrid({
-						title : '[연도별 매출 총계]  : ' +numberGreenFormatter(totalAmount),
+						title : '[월별 G POINT 결제 총계]  : ' +numberGreenFormatter(totalAmount),
 					});
-					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", salesSum : totalAmount, payCase : totalPayCase });
+					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", paySum : totalAmount, payCase : totalPayCase, realPaySum : totalRealPay,  gpointPaySum :totalgpointPay });
 					setListPager2();
 				}else {
 					$.messager.alert('오류 발생', message);
@@ -236,29 +257,33 @@ function initView(){
 				param.searchDateEnd = searchDateEnd.getFullYear() + "-" + searchDateEnd.getMonth() + "-" + (searchDateEnd.getDate() + 1)
 			}
 
-			returnp.api.call("selectPeriodSalesReports", param, function(res){
+			returnp.api.call("reportRpointPayments", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
 					$('#summary_table').datagrid({
 						data : res
 					});
-					var totalAmount = 0
+					var totalAmount = 0;
 					var totalPayCase = 0;
+					var totalRealPay= 0;
+					var totalgpointPay = 0;
                     for (var i = 0; i < res.rows.length; i++) {
                         totalAmount += parseInt(res.rows[i].salesSum);
                         totalPayCase+=parseInt(res.rows[i].payCase);
+                        totalRealPay+=parseInt(res.rows[i].realPaySum);
+                        totalgpointPay+=parseInt(res.rows[i].gpointPaySum);
                     }
 					var shStr = "";
 					if (param.searchDateStart != ''  ) {
 						shStr = '[' + param.searchDateStart + " ~ "+  oriDateEnd + "] 매출 총계 :";
 					}else {
-						shStr = "[전체 기간 매출 총계] : "
+						shStr = "[전체 기간 G POINT 결제 총계] : "
 					}
 					
 					$('#summary_table').datagrid({
 						title : shStr + numberGreenFormatter(totalAmount),
 					});
-					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", salesSum : totalAmount, payCase : totalPayCase });
+					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", paySum : totalAmount, payCase : totalPayCase, realPaySum : totalRealPay,  gpointPaySum :totalgpointPay });
 					setListPager2();
 				}else {
 					$.messager.alert('오류 발생', message);
@@ -314,7 +339,7 @@ function initView(){
 		onSelect : function(index,row){
 			$('#node_list').datagrid('loadData', []);
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
-			selectPaymentTransactions(index, row);
+			selectGpointPayments(index, row);
 		},
 		onLoadSuccess : function(){
 			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);
@@ -484,7 +509,7 @@ $.extend($.fn.datagrid.methods, {
     }
 });
 
-function selectPaymentTransactions(index, row){
+function selectGpointPayments(index, row){
 	//var param = {searchDateStart : row.searchDate, searchDateEnd : row.searchDate};
 	if (row.searchDate == '총계') {return;}
 	var param = {searchDate : row.searchDate};
@@ -510,7 +535,7 @@ function selectPaymentTransactions(index, row){
 	}
 	
 	$.extend(param, $('#searchForm').serializeObject());
-	returnp.api.call("loadPaymentTransaction", param, function(res){
+	returnp.api.call("selectGpointPayments", param, function(res){
 		console.log(res);
 		if (res.resultCode == "100") {
 			$('#node_list').datagrid({

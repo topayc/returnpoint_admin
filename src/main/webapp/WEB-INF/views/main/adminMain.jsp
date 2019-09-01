@@ -162,29 +162,13 @@
 		                        </ul>
                             </li> 
                             
-                              <li class = "manage_menu roll_1 roll_10" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">푸시 및 발송 서비스</span>
-		                         <ul>
-   									<li id = "manageGiftCardSalesOrgan"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageGiftCardSalesOrgan"  node = "5"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold">디바이스 PUSH </span>
-		                        	</li>
-		                        	<li id = "manageGiftCardSalesOrgan"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageGiftCardSalesOrgan"  node = "5"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold">SMS/MMS </span></a> 
-		                        	</li>
-		                        	
-		                        	<li id = "manageGiftCardSalesOrgan"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageGiftCardSalesOrgan"  node = "5"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold">EMAIL</span></a> 
-		                        	</li>
-		                        </ul>
-                            </li>   
-                            
                                     <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">사이트 관리</span>
 		                         <ul>
                           			  
                           			  	<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
-   											<span style = "font-weight : bold">가맹점 카테고리 관리</span>
+   											<span style = "font-weight : bold">가맹점 카테고리</span>
    										</a> 
    									</li>
    									
@@ -229,52 +213,55 @@
                             </li>     --> 
                             
                             <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">통계 및 리포트 관리</span>
+                            	 <span  style = "font-weight : bold">통계 및 리포트</span>
 		                         <ul>
    									<li id = "manageSalesReport" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageSalesReport" menu_deps= '2' >
-   											<span style = "font-weight : bold">매출 통계 및 조회</span>
+   											<span style = "font-weight : bold">매출(적립) 통계</span>
    										</a> 
    									</li>
-   						<!-- 			<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
-   										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
-   											<span style = "font-weight : bold">G 포인트 리포트</span>
-   									</a> 
-   									
-   									<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
-   										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
-   											<span style = "font-weight : bold">회원 리포트</span>
-   									</a> 
-   									
-   									<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
-   										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
-   											<span style = "font-weight : bold">상품권 판매 및 결제 리포트</span>
-   									</a> 
-   									
-   									<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
-   										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
-   											<span style = "font-weight : bold">R 포인트 출금 리포트</span>
-   									</a> 
-   									</li> -->
+   									<li id = "manageSalesReport" data-options = "iconCls :'icon-info'">
+   										<a class= "sub_menu"  view_req_name = "manageMemberReport" menu_deps= '2' >
+   											<span style = "font-weight : bold">회원 통계</span>
+   										</a> 
+   									</li>
+   									<li id = "manageSalesReport" data-options = "iconCls :'icon-info'">
+   										<a class= "sub_menu"  view_req_name = "managePointReport" menu_deps= '2' >
+   											<span style = "font-weight : bold">G 포인트 통계</span>
+   										</a> 
+   									</li>
+   									<li id = "manageSalesReport" data-options = "iconCls :'icon-info'">
+   										<a class= "sub_menu"  view_req_name = "manageGiftReport" menu_deps= '2' >
+   											<span style = "font-weight : bold">상품권 통계</span>
+   										</a> 
+   									</li>
 		                        </ul>
                             </li>     
-                            
+                               <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">포인트 결제 관리</span>
+		                         <ul>
+   								<!-- 	<li id = "manageSalesReport" data-options = "iconCls :'icon-info'">
+   										<a class= "sub_menu"  view_req_name = "" menu_deps= '2' >
+   											<span style = "font-weight : bold">R 포인트 결제 관리</span>
+   										</a> 
+   									</li> -->
+   									<li id = "manageGpointPayment" data-options = "iconCls :'icon-info'">
+   										<a class= "sub_menu"  view_req_name = "manageGpointPayment" menu_deps= '2' >
+   											<span style = "font-weight : bold">G 포인트 결제 관리</span>
+   										</a> 
+   									</li>
+		                        </ul>
+                            </li>    
                             
                             
                               <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">결제 및 매출 관리</span>
+                            	 <span  style = "font-weight : bold">매출 관리 및 조회</span>
 		                         <ul>
 		                           <!--  <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
 		                            		<span style = "font-weight : bold">원본 결제 내역 관리</span>
 		                            	</a> 
 		                            </li> -->
-		                             
-		                             <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
-   										<a class= "sub_menu"  view_req_name = "manageRpointPayment" menu_deps= '2' >
-   											<span style = "font-weight : bold">R 포인트 결제 현황</span>
-   										</a> 
-   									</li>
    									
 		                             <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
@@ -442,6 +429,22 @@
                             			</li>
 		                        </ul>
                             </li> 
+                            
+                               <li class = "manage_menu roll_1 roll_10" data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">Push & Mailing</span>
+		                         <ul>
+   									<li id = "managePush"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "managePush"  node = "5"  menu_deps= '2' >
+		                        		<span style = "font-weight : bold">디바이스 PUSH </span>
+		                        	</li>
+		                        	<li id = "manageSms"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageSms"  node = "5"  menu_deps= '2' >
+		                        		<span style = "font-weight : bold">SMS/MMS </span></a> 
+		                        	</li>
+		                        	
+		                        	<li id = "manageEmailing"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageEmailing"  node = "5"  menu_deps= '2' >
+		                        		<span style = "font-weight : bold">EMAIL</span></a> 
+		                        	</li>
+		                        </ul>
+                            </li>  
                             
                             <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">외부 연동 관리</span>

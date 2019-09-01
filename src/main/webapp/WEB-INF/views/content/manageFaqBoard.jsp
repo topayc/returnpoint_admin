@@ -63,10 +63,11 @@
 		   	<select id = bbsType2  name="bbsType2"  style="width:100%">
 			     <option value = "1" selected="selected">회원 </option>
 			     <option value = "2">포인트</option>
-			     <option value = "3">적립 및 출금  </option>
-			     <option value = "4">가맹  </option>
-			     <option value = "5">결제</option>
-			     <option value = "5">쇼핑몰</option>
+			     <option value = "3">적립 </option>
+			     <option value = "4">사용  </option>
+			     <option value = "5">상품권</option>
+			     <option value = "6">쇼핑몰</option>
+			     <option value = "7">가맹</option>
 			     <option value = "10">기타</option>
 		      </select>
 		</div>

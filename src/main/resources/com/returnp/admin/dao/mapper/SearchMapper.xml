@@ -4288,6 +4288,62 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
     	<include refid = "SubBbsWhereStatement"/>
   </select>
   
+  <!-- 검색 조건에 따른 G point 결제 내역 가져오기 -->
+	<select id="selectGpointPayments" parameterType="HashMap" resultType="HashMap">
+		SELECT 
+		gpointPaymentNo,
+		memberNo,
+		memberName,
+		memberEmail,
+		memberPhone,
+		affiliateNo,
+		affiliateSerial,
+		affiliateName,
+		paymentApprovalAmount,
+		paymentApprovalNumber,
+		paymentApprovalStatus,
+		paymentMethod,
+		paymentTransactionType,
+		paymentApprovalDateTime,
+		realPaymentAmount,
+		gpointPaymentAmount,
+		createTime,
+		updateTime
+		
+		FROM gpoint_payment 
+		
+		where 
+    	  1 = 1
+    	 <if test="searchDate != null "> AND paymentApprovalDateTime  LIKE CONCAT(#{searchDate},'%') </if>
+    	 <if test="searchPaymentTransactionType != null "> AND paymentTransactionType   = #{searchPaymentTransactionType} </if>
+    	 <if test="searchPaymentApprovalStatus != null "> AND paymentApprovalStatus = #{searchPaymentApprovalStatus} </if>
+    	 <if test="searchAffiliate != null "> AND affiliateNo = #{searchAffiliate} </if>
+     	<choose>
+   			<when test="order !=null">
+				order by ${order} 
+			</when>
+		<otherwise>
+			order by createTime desc
+		</otherwise>
+		</choose>
+		<if test="pagination">
+			limit ${pageSize} offset ${offset}
+		</if>
+		<!-- 
+			where 1 = 1
+			<if test="gpointPaymentNo != null"> AND GP.gpointPaymentNo = #{gpointPaymentNo,jdbcType=INTEGER}</if>
+			<if test="affiliateNo != null"> AND GP.affiliateNo = #{affiliateNo,jdbcType=INTEGER}</if>
+	        <if test="affiliateSerial != null"> AND affiliateSerial = #{affiliateSerial,jdbcType=VARCHAR}</if>
+	         
+	         <if test="memberName != null or memberEmail != null  or memberPhone != null || affiliateName != null"> AND ( 1 = 2 </if>
+		     <if test="memberName != null">  OR M.memberName  LIKE CONCAT('%',#{memberName},'%') </if>
+		     <if test="memberEmail != null"> OR M.memberEmail  LIKE CONCAT('%',#{memberEmail},'%') </if>
+		     <if test="memberPhone != null"> OR M.memberPhone  LIKE CONCAT('%',#{memberPhone},'%') </if>
+		     <if test="affiliateName != null"> OR A.affiliateName  LIKE CONCAT('%',#{affiliateName},'%') </if>
+		     <if test="memberName != null or memberEmail != null  or memberPhone != null  || affiliateName != null"> ) </if> 
+		 -->
+	</select>
+	
 </mapper>
 
 

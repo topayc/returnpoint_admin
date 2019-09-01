@@ -143,6 +143,11 @@ function initView(){
 		  				loadPointWithdrawalCreateForm();
 		  				break;
 		  			case "modify":
+		  				var node = $('#node_list').datagrid('getSelected');
+		            	if (node.withdrawalStatus == "2" || node.withdrawalStatus == "3" || node.withdrawalStatus == "4" || node.withdrawalStatus == "5") {
+		            		$.messager.alert('알립', "해당 항목은 상태를 변경할 수 없습니다.");
+		            		return;
+		            	}
 		                  loadPointWithdrawalModifyForm();
 		  				break;
 		  			case "remove":
@@ -189,7 +194,12 @@ function setListPager(){
         },{
             iconCls:'icon-edit',
             handler:function(){
-                  loadPointWithdrawalModifyForm();
+            	var node = $('#node_list').datagrid('getSelected');
+            	if (node.withdrawalStatus == "2" || node.withdrawalStatus == "3" || node.withdrawalStatus == "4" || node.withdrawalStatus == "5") {
+            		$.messager.alert('알립', "해당 항목은 상태를 변경할 수 없습니다.");
+            		return;
+            	}
+            	loadPointWithdrawalModifyForm();
             }
         },{
             iconCls:'icon-remove',
@@ -347,7 +357,7 @@ function loadPointWithdrawalModifyForm(){
 					if (res.resultCode  == "100") {		
 						if (res.rows.length > 0) {
 							$('#createPointWithdrawalForm').form('load',res.rows[0]);
-							$('#memberNo').textbox({disabled : true });
+							$('#memberNo').textbox({readonly : true });
 							$('#regType').combobox('select',res.rows[0].regType);
 						}
 					}else {

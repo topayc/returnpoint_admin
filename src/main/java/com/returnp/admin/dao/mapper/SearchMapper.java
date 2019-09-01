@@ -214,4 +214,6 @@ public interface SearchMapper {
 	public ArrayList<MainBbs>  selectMainBbses(MainBbs mainBbs);
 
 	public ArrayList<SubBbs>  selectSubBbses(SubBbs subBbs);
+	
+	public ArrayList<HashMap<String, Object>> selectGpointPayments(HashMap<String, Object> dbParams);
 }

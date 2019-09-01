@@ -19,12 +19,14 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.common.ResponseUtil;
+import com.returnp.admin.dao.mapper.RedPointMapper;
 import com.returnp.admin.dto.command.PointWithdrawalCommand;
 import com.returnp.admin.dto.command.RedPointCommand;
+import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.request.SearchCondition;
-import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.model.Policy;
+import com.returnp.admin.model.RedPoint;
 import com.returnp.admin.service.interfaces.PointWithdrawalService;
 import com.returnp.admin.service.interfaces.SearchService;
 
@@ -35,6 +37,7 @@ public class PointWithdrawalController extends ApplicationController {
 
 	@Autowired PointWithdrawalService pointWithdrawalService;
 	@Autowired SearchService searchService;
+	@Autowired RedPointMapper redPointMapper;;
 	
 	@RequestMapping(value = "/pointWithdrawal/form/createForm", method = RequestMethod.GET)
 	public String form(
@@ -118,6 +121,18 @@ public class PointWithdrawalController extends ApplicationController {
 			Model model) {
 		ReturnpBaseResponse res= new ReturnpBaseResponse();
 		this.pointWithdrawalService.update(pointWithdrawalCommand);
+		
+		/*출금 취소 인 경우 포인트 증가*/
+		ArrayList<RedPoint> redPoints = null;
+		RedPointCommand redPointCommand = new RedPointCommand();
+		RedPoint redPoint ;
+		if (pointWithdrawalCommand.getWithdrawalStatus().trim().equals("4") || pointWithdrawalCommand.getWithdrawalStatus().trim().equals("5")) {
+			redPointCommand.setMemberNo(pointWithdrawalCommand.getMemberNo());;
+			redPoints = this.searchService.findRedPoints(redPointCommand);
+			redPoint = redPoints.get(0);
+			redPoint.setPointAmount(redPoint.getPointAmount() + pointWithdrawalCommand.getWithdrawalAmount());
+			this.redPointMapper.updateByPrimaryKey(redPoint);
+		}
 		sessionStatus.setComplete();
 		ResponseUtil.setSuccessResponse(res);
 		return res;

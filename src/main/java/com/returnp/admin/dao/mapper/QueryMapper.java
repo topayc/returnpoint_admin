@@ -1,6 +1,7 @@
 package com.returnp.admin.dao.mapper;
 
-import org.apache.ibatis.annotations.Param;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.returnp.admin.model.AffiliateTid;
 import com.returnp.admin.model.GreenPoint;

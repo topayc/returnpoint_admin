@@ -1,6 +1,8 @@
 package com.returnp.admin.service;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -49,8 +51,6 @@ public class QueryServiceImpl implements QueryService {
 	}
 	@Override
 	public int updateMemberBankAccount(MemberBankAccount account) {
-		// TODO Auto-generated method stub
 		return this.queryMapper.updateMemberBankAccount(account);
 	}
-
 }

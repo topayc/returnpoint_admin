@@ -55,12 +55,13 @@ function bbsType2Formatter(value, row, index){
 	if (row.bbsType1 == '1') {
 		result = "공지"
 	}else if (row.bbsType1 == '2') {
-		if (row.bbsType2 == "1") { result  = "회원/가입/탈퇴"}
+		if (row.bbsType2 == "1") { result  = "회원 정보"}
 		if (row.bbsType2 == "2") { result  = "포인트"}
-		if (row.bbsType2 == "3") { result  = "적립 및 출금"}
-		if (row.bbsType2 == "4") { result  = "가맹"}
-		if (row.bbsType2 == "5") { result  = "결제"}
+		if (row.bbsType2 == "3") { result  = "적립"}
+		if (row.bbsType2 == "4") { result  = "사용"}
+		if (row.bbsType2 == "5") { result  = "상품권"}
 		if (row.bbsType2 == "6") { result  = "쇼핑몰"}
+		if (row.bbsType2 == "7") { result  = "가맹"}
 		if (row.bbsType2 == "10") { result  = "기타"}
 	}else if (row.bbsType1 == '4') {
 		if (row.bbsType2 == "1") { result  = "일반 회원 문의"}
@@ -650,7 +651,9 @@ function numberFormatter(data) {
 }
 
 function numberGreenFormatter(data) {
+	console.log(data);
 	data = String(data);
+	
 	return '<span style = "color : #049931;font-weight : bold">' + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>'; 
 }
 function addBoldFomatter(data) { 
@@ -672,6 +675,21 @@ function numberRedFormatter(data) {
 	data = String(data);
 	return '<span style = "color : #F64B1A;font-weight : bold">' + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>'; 
 }
+
+function paymentMethodFormatter(data){
+	data = String(data);
+	if (data == "1") {
+		return "<strong> 신용카드 </strong>";
+	} else if (data == "2"){
+		return "<strong> 현급 결제 </strong>";
+	}
+}
+
+function numberBlueFormatter2(data) {
+	data = String(data);
+	return '<span style = "color : #0080FF;font-weight : bold">' + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>'; 
+}
+
 
 function numberBlueFormatter(value, row, index) {
 	data = String(row.paymentApprovalAmount);
@@ -742,22 +760,22 @@ function pointBackStatusFormatter(value, row, index) {
 	var text;
 	switch (status) {
 	case "1":
-		  text = '<span style = "border-radius: 10px;background-color: #bbbbbbc;padding: 5px;color : #ffffff;font-weight : bold">적립 시작</span>'; break;
+		  text = '<span style = "border-radius: 10px;background-color: #bbbbbbc;padding: 5px;color : #ffffff;font-weight : bold">시작</span>'; break;
 		break;
 	case "2":
-		  text = '<span style = "border-radius: 10px;background-color: #999999;padding: 5px;color : #ffffff;font-weight : bold">적립 진행중</span>'; break;
+		  text = '<span style = "border-radius: 10px;background-color: #999999;padding: 5px;color : #ffffff;font-weight : bold">진행중</span>'; break;
 		break;
 	case "3":
-		  text = '<span style = "border-radius: 10px;background-color: #00b33c;padding: 5px;color : #ffffff;font-weight : bold">적립 완료</span>'; break;
+		  text = '<span style = "border-radius: 10px;background-color: #00b33c;padding: 5px;color : #ffffff;font-weight : bold">완료</span>'; break;
 		break;
 	case "4":
-		  text = '<span style = "border-radius: 10px;background-color: #bbbbbb;padding: 5px;color : #ffffff;font-weight : bold">적립 취소 시작</span>'; break;;
+		  text = '<span style = "border-radius: 10px;background-color: #bbbbbb;padding: 5px;color : #ffffff;font-weight : bold">취소 시작</span>'; break;;
 		break;
 	case "5":
-		  text = '<span style = "border-radius: 10px;background-color: #999999c;padding: 5px;color : #ffffff;font-weight : bold">적립 쥐소중</span>'; break;
+		  text = '<span style = "border-radius: 10px;background-color: #999999c;padding: 5px;color : #ffffff;font-weight : bold">쥐소중</span>'; break;
 		break;
 	case "6":
-		  text = '<span style = "border-radius: 10px;background-color: #ff6600;padding: 5px;color : #ffffff;font-weight : bold">적립 취소</span>'; break;;
+		  text = '<span style = "border-radius: 10px;background-color: #ff6600;padding: 5px;color : #ffffff;font-weight : bold">취소</span>'; break;;
 		break;
 	case "7":
 		text = "적립 중지";
@@ -861,10 +879,10 @@ function PaymentApprovalStatusFormatter(value, row, index) {
 	var text;
 	switch (status) {
 	case "1":
-		text = '<span style = "border-radius: 10px;background-color: #00b33c;padding: 5px;color : #ffffff;font-weight : bold">승인 완료</span>'; break;
+		text = '<span style = "border-radius: 10px;background-color: #00b33c;padding: 5px;color : #ffffff;font-weight : bold">승인</span>'; break;
 		break;
 	case "2":
-		text = '<span style = "border-radius: 10px;background-color: #ff6600;padding: 5px;color : #ffffff;font-weight : bold">승인 취소</span>'; break;
+		text = '<span style = "border-radius: 10px;background-color: #ff6600;padding: 5px;color : #ffffff;font-weight : bold">취소</span>'; break;
 		break;
 	case "3":
 		text = '<span style = "border-radius: 10px;background-color: red;padding: 5px;color : #ffffff;font-weight : bold">오류</span>'; break;

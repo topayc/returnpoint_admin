@@ -18,46 +18,25 @@ import com.returnp.admin.service.interfaces.SearchService;
 
 @Controller
 @RequestMapping("/api")
-public class ReportController extends ApplicationController{
+public class GpointPaymentController extends ApplicationController{
 	
 	@Autowired MainService mainService;
 	@Autowired SearchService searchService;
 	
-	/**
-	 * 협력 업체별 적립 금액 총액 
-	 * @return
-	 */
 	@ResponseBody
-	@RequestMapping(value = "/report/affilaiteSaleReport", method = RequestMethod.GET)
-	public ReturnpBaseResponse  affilaiteSaleReport() {
-		
-		ArrayListResponse<HashMap<String, Object>> slr = new ArrayListResponse<HashMap<String, Object>>();
-		ArrayList<HashMap<String, Object>> affialiteSaleReports = this.searchService.selectAffiliteSaleReport();
-		this.setSuccessResponse(slr);
-		slr.setRows(affialiteSaleReports);
-		slr.setTotal(affialiteSaleReports.size());
-		return slr;
+	@RequestMapping(value = "/gpointPayment/report", method = RequestMethod.GET)
+	public ReturnpBaseResponse  gpointPaymentReports(@RequestParam HashMap<String, Object> dbParams) {
+		System.out.println("gpointPaymentReports");
+		this.checkParameter(dbParams);
+		return this.mainService.reportGpointPayments(dbParams);
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/report/saleseReports", method = RequestMethod.GET)
-	public ReturnpBaseResponse  selectSalesReports(@RequestParam HashMap<String, Object> dbParams) {
+	@RequestMapping(value = "/gpointPayments", method = RequestMethod.GET)
+	public ReturnpBaseResponse  gpointPayments(@RequestParam HashMap<String, Object> dbParams) {
+		System.out.println("gpointPayments");
 		this.checkParameter(dbParams);
-		return this.mainService.selectSalesReports(dbParams);
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/report/selectPeriodSalesReports", method = RequestMethod.GET)
-	public ReturnpBaseResponse  selectPeriodSalesReports(@RequestParam HashMap<String, Object> dbParams) {
-		this.checkParameter(dbParams);
-		return this.mainService.selectPeriodSalesReports(dbParams);
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/report/loadPaymentTransactions", method = RequestMethod.GET)
-	public ReturnpBaseResponse  loadPaymentTransactions(@RequestParam HashMap<String, Object> dbParams) {
-		this.checkParameter(dbParams);
-		return this.mainService.reportPaymentTransactions(dbParams);
+		return this.mainService.selectGpointPayments(dbParams);
 	}
 	
 	private HashMap<String, Object> checkParameter(HashMap<String, Object> params){

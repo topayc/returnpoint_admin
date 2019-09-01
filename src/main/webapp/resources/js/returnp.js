@@ -337,7 +337,10 @@ $(function () {
         	sendPushToken: {apiCode: 10000, apiPath : '/api/device/registToken' , requestMethod: 'post'},
         	
         	selectPaymentRouters :  {apiCode: 10000, apiPath : '/api/paymentRouters' , requestMethod: 'get'},
-        	registerAffiliatePaymentRouter :  {apiCode: 10000, apiPath : '/api/affiliate/registerAffiliatePaymentRouter' , requestMethod: 'post'}
+        	registerAffiliatePaymentRouter :  {apiCode: 10000, apiPath : '/api/affiliate/registerAffiliatePaymentRouter' , requestMethod: 'post'},
+
+        	selectGpointPayments:  {apiCode: 10000, apiPath : '/api/gpointPayments' , requestMethod: 'get'},
+        	reportGpointPayments:  {apiCode: 10000, apiPath : '/api/gpointPayment/report' , requestMethod: 'get'}
         },
         
         init : function(){

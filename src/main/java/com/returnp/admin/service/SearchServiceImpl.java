@@ -467,5 +467,11 @@ public class SearchServiceImpl implements SearchService{
 	public ArrayList<SubBbs> selectSubBbses(SubBbs subBbs) {
 		// TODO Auto-generated method stub
 		return this.searchMapper.selectSubBbses(subBbs);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectGpointPayments(HashMap<String, Object> dbParams) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectGpointPayments(dbParams);
 	};
 }

@@ -63,5 +63,6 @@
       <if test="memberBankAccountNo != null"> AND memberBankAccountNo = #{memberBankAccountNo} </if>
       <if test="memberNo != null"> AND memberNo =  #{memberNo} </if>
   </update>
+  
 </mapper>
  
