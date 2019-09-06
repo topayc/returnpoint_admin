@@ -340,6 +340,7 @@ $(function () {
         	registerAffiliatePaymentRouter :  {apiCode: 10000, apiPath : '/api/affiliate/registerAffiliatePaymentRouter' , requestMethod: 'post'},
 
         	selectGpointPayments:  {apiCode: 10000, apiPath : '/api/gpointPayments' , requestMethod: 'get'},
+        	reportPeriodGpointPayments:  {apiCode: 10000, apiPath : '/api/gpointPayment/reportPeriodGpointPayments' , requestMethod: 'get'},
         	reportGpointPayments:  {apiCode: 10000, apiPath : '/api/gpointPayment/report' , requestMethod: 'get'}
         },
         

@@ -453,4 +453,11 @@ public class CodeDefine {
 		list.add(new CodeKeyValuePair("AAAA", "AAAA", "Y", "Y" ,""));
 		return list;
 	}
+	
+	public static ArrayList<CodeKeyValuePair> getPaymentMethods() {
+		ArrayList<CodeKeyValuePair> list = new ArrayList<CodeKeyValuePair>();
+		list.add(new CodeKeyValuePair("1", "CREDIT", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("2", "CASH", "Y", "Y" ,""));
+		return list;
+	}
 }	

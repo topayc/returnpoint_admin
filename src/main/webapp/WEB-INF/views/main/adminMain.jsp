@@ -28,6 +28,7 @@
   <script type="text/javascript" src="resources/js/lib/easyui/jquery.portal.js"></script>
   <script type="text/javascript" src="resources/js/lib/easyui/jquery.texteditor.js"></script>
   <script type="text/javascript" src="resources/js/lib/easyui/datagrid-cellediting.js"></script>
+<script type="text/javascript" src="resources/js/lib/easyui/datagrid-export.js"></script>
 <!-- <script type="text/javascript" src="resources/js/lib/easyui/datagrid-cellediting.js"></script> -->
   <script type="text/javascript" src="resources/js/returnp.js"></script>
   <script type="text/javascript" src="resources/js/returnpCommon.js"></script>
@@ -217,7 +218,7 @@
 		                         <ul>
    									<li id = "manageSalesReport" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageSalesReport" menu_deps= '2' >
-   											<span style = "font-weight : bold">매출(적립) 통계</span>
+   											<span style = "font-weight : bold">매출 및 적립 통계</span>
    										</a> 
    									</li>
    									<li id = "manageSalesReport" data-options = "iconCls :'icon-info'">
@@ -310,7 +311,121 @@
 		                          	</li>
 				                </ul>
                             </li> 
+                 
                             
+                               <li class = "manage_menu roll_1 roll_10" data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">푸시 및 메일링 서비스</span>
+		                         <ul>
+   									<li id = "managePush"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "managePush"  node = "5"  menu_deps= '2' >
+		                        		<span style = "font-weight : bold">디바이스 PUSH </span>
+		                        	</li>
+		                        	<li id = "manageSms"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageSms"  node = "5"  menu_deps= '2' >
+		                        		<span style = "font-weight : bold">SMS/MMS </span></a> 
+		                        	</li>
+		                        	
+		                        	<li id = "manageEmailing"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageEmailing"  node = "5"  menu_deps= '2' >
+		                        		<span style = "font-weight : bold">EMAIL</span></a> 
+		                        	</li>
+		                        </ul>
+                            </li>  
+                            
+                            
+                             <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">정회원 신청 관리</span>
+		                         <ul>
+		                         	<li id = "manageMembershipRequest"  data-options = "iconCls :'icon-info'">
+		                         		<a class= "sub_menu"  view_req_name = "manageMembershipRequest"  menu_deps= '2' >
+		                         			<span style = "font-weight : bold">정회원 신청 관리</span>
+		                         		</a> 
+		                         	</li>
+		                        </ul>
+                            </li>
+                            
+                             <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">G, R 포인트 적립 현황</span>
+		                         <ul>
+		                         	<li id = "manageConvertPointRequest" data-options = "iconCls :'icon-info'">
+		                         		<a class= "sub_menu"  view_req_name = "manageConvertPointRequest"  menu_deps= '2' >
+		                         			<span style = "font-weight : bold">R - G  포인트 적립 요청</span>
+		                         		</a> 
+		                         	</li>
+                            		<li id = "managePointConversionTransaction" data-options = "iconCls :'icon-info'">
+                            			<a class= "sub_menu"  view_req_name = "managePointConversionTransaction"  menu_deps= '2' >
+                            				<span style = "font-weight : bold">R 포인트 자동적립 현황</span>
+                            			</a> 
+                            		</li>
+		                        </ul>
+                            </li>
+                             <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">포인트 출금 관리</span>
+		                         <ul>
+			                          <li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
+				                          	<a class= "sub_menu"  view_req_name = "manageMemberBanckAccount"  menu_deps= '2' >
+				                          		<span style = "font-weight : bold">은행 계좌 관리</span>
+				                          	</a> 
+			                          	</li>
+                            			<li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = "managePointWithdrawal"  menu_deps= '2' >
+                            					<span style = "font-weight : bold"><!-- <i class="fas fa-registered" style = "font-size: 14px;color:red"></i> --> R 포인트  출금 관리 </span>
+                            				</a> 
+                            			</li>
+		                        </ul>
+                            </li>  
+                            
+                             <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">포인트 사용 관리</span>
+		                         <ul>
+			                          <li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
+				                          	<a class= "sub_menu"  view_req_name = "manageRedPointUse"  menu_deps= '2' >
+				                          		<span style = "font-weight : bold">R 포인트 사용 관리</span>
+				                          	</a> 
+			                          	</li>
+                            			<li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
+                            				<a class= "sub_menu"  view_req_name = "managePointTransfer"  menu_deps= '2' >
+                            					<span style = "font-weight : bold">포인트 이체(선물) 관리</span>
+                            				</a> 
+                            			</li>
+		                        </ul>
+                            </li>   
+                            
+                             <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">외부 연동 관리</span>
+		                         <ul>
+		                         	 <li id="manageApiService" data-options = "iconCls :'icon-info'">
+                        			 	<a class= "sub_menu"  view_req_name = "manageApiService"  menu_deps= '2' >
+                        			 		<span style = "font-weight : bold">연동 API 관리</span>
+                        			 	</a> 
+                        			 </li>
+		                        </ul>
+                            </li>
+                            <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">특수 조직 관리</span>
+		                         <ul>
+		                         	<li id = "manageMembershipRequest"  data-options = "iconCls :'icon-info'">
+		                         		<a class= "sub_menu"  view_req_name = "manageMarketer"  menu_deps= '2' >
+		                         			<span style = "font-weight : bold">마케팅 코드, ID 관리</span>
+		                         		</a> 
+		                         	</li>
+		                        </ul>
+                            </li>
+                            
+                             <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
+                            	 <span  style = "font-weight : bold">자료 파일 관리</span>
+		                         <ul>
+                          			  <li id = "manageNodeFileUpload" data-options = "iconCls :'icon-info'">
+                          			  	<a class= "sub_menu"  view_req_name = "manageUploadFile" menu_deps= '2' >
+                          			  	<span style = "font-weight : bold">노드 파일 업로드/관리</span>
+                          			  	</a> 
+                          			  </li>
+                            		  <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+                            		  	<a class= "sub_menu"  view_req_name = "managePosPayment" menu_deps= '2' >
+                            		  		<span style = "font-weight : bold">VAN 결제 내역 파일 </span>
+                            		  	</a> 
+                            		  </li>
+		                        </ul>
+                            </li>   
+                            
+                                       
                              <li class = "manage_menu roll_1 roll_10 roll_11 roll_12" data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">상품권 관리</span>
 		                         <ul>
@@ -429,117 +544,6 @@
                             			</li>
 		                        </ul>
                             </li> 
-                            
-                               <li class = "manage_menu roll_1 roll_10" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">Push & Mailing</span>
-		                         <ul>
-   									<li id = "managePush"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "managePush"  node = "5"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold">디바이스 PUSH </span>
-		                        	</li>
-		                        	<li id = "manageSms"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageSms"  node = "5"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold">SMS/MMS </span></a> 
-		                        	</li>
-		                        	
-		                        	<li id = "manageEmailing"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageEmailing"  node = "5"  menu_deps= '2' >
-		                        		<span style = "font-weight : bold">EMAIL</span></a> 
-		                        	</li>
-		                        </ul>
-                            </li>  
-                            
-                            <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">외부 연동 관리</span>
-		                         <ul>
-		                         	 <li id="manageApiService" data-options = "iconCls :'icon-info'">
-                        			 	<a class= "sub_menu"  view_req_name = "manageApiService"  menu_deps= '2' >
-                        			 		<span style = "font-weight : bold">연동 API 관리</span>
-                        			 	</a> 
-                        			 </li>
-		                        </ul>
-                            </li>
-                            <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">특수 조직 관리</span>
-		                         <ul>
-		                         	<li id = "manageMembershipRequest"  data-options = "iconCls :'icon-info'">
-		                         		<a class= "sub_menu"  view_req_name = "manageMarketer"  menu_deps= '2' >
-		                         			<span style = "font-weight : bold">마케팅 코드, ID 관리</span>
-		                         		</a> 
-		                         	</li>
-		                        </ul>
-                            </li>
-                            
-                             <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">정회원 신청 관리</span>
-		                         <ul>
-		                         	<li id = "manageMembershipRequest"  data-options = "iconCls :'icon-info'">
-		                         		<a class= "sub_menu"  view_req_name = "manageMembershipRequest"  menu_deps= '2' >
-		                         			<span style = "font-weight : bold">정회원 신청 관리</span>
-		                         		</a> 
-		                         	</li>
-		                        </ul>
-                            </li>
-                            
-                             <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">G, R 포인트 적립 현황</span>
-		                         <ul>
-		                         	<li id = "manageConvertPointRequest" data-options = "iconCls :'icon-info'">
-		                         		<a class= "sub_menu"  view_req_name = "manageConvertPointRequest"  menu_deps= '2' >
-		                         			<span style = "font-weight : bold">R - G  포인트 적립 요청</span>
-		                         		</a> 
-		                         	</li>
-                            		<li id = "managePointConversionTransaction" data-options = "iconCls :'icon-info'">
-                            			<a class= "sub_menu"  view_req_name = "managePointConversionTransaction"  menu_deps= '2' >
-                            				<span style = "font-weight : bold">R 포인트 자동적립 현황</span>
-                            			</a> 
-                            		</li>
-		                        </ul>
-                            </li>
-                             <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">포인트 출금 관리</span>
-		                         <ul>
-			                          <li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
-				                          	<a class= "sub_menu"  view_req_name = "manageMemberBanckAccount"  menu_deps= '2' >
-				                          		<span style = "font-weight : bold">은행 계좌 관리</span>
-				                          	</a> 
-			                          	</li>
-                            			<li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
-                            				<a class= "sub_menu"  view_req_name = "managePointWithdrawal"  menu_deps= '2' >
-                            					<span style = "font-weight : bold"><!-- <i class="fas fa-registered" style = "font-size: 14px;color:red"></i> --> R 포인트  출금 관리 </span>
-                            				</a> 
-                            			</li>
-		                        </ul>
-                            </li>  
-                            
-                             <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">포인트 사용 관리</span>
-		                         <ul>
-			                          <li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
-				                          	<a class= "sub_menu"  view_req_name = "manageRedPointUse"  menu_deps= '2' >
-				                          		<span style = "font-weight : bold">R 포인트 사용 관리</span>
-				                          	</a> 
-			                          	</li>
-                            			<li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
-                            				<a class= "sub_menu"  view_req_name = "managePointTransfer"  menu_deps= '2' >
-                            					<span style = "font-weight : bold">포인트 이체(선물) 관리</span>
-                            				</a> 
-                            			</li>
-		                        </ul>
-                            </li>   
-                            
-                             <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">자료 파일 관리</span>
-		                         <ul>
-                          			  <li id = "manageNodeFileUpload" data-options = "iconCls :'icon-info'">
-                          			  	<a class= "sub_menu"  view_req_name = "manageUploadFile" menu_deps= '2' >
-                          			  	<span style = "font-weight : bold">노드 파일 업로드/관리</span>
-                          			  	</a> 
-                          			  </li>
-                            		  <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
-                            		  	<a class= "sub_menu"  view_req_name = "managePosPayment" menu_deps= '2' >
-                            		  		<span style = "font-weight : bold">VAN 결제 내역 파일 </span>
-                            		  	</a> 
-                            		  </li>
-		                        </ul>
-                            </li>   
                             
                    <!--           <li class = "manage_menu roll_1" data-options = "iconCls :'icon-info'">
                             	 <span  style = "font-weight : bold">사이트 운영 관리</span>

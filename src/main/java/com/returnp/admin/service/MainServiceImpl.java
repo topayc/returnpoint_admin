@@ -88,6 +88,23 @@ public class MainServiceImpl implements MainService{
 	}
 	
 	@Override
+	public ReturnpBaseResponse reportPeriodGpointPayments(HashMap<String, Object> dbParams) {
+		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
+		try {
+			ArrayList<HashMap<String, Object>> sales = this.mainMapper.selectPeriodGpointPaymentReports(dbParams);
+			res.setRows(sales);
+			res.setTotal(sales.size());
+			ResponseUtil.setSuccessResponse(res, "100" , "조회 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "조회 에러 ");
+			return res;
+		}
+	}
+
+	@Override
 	public ReturnpBaseResponse selectGpointPayments(HashMap<String, Object> dbParams) {
 		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
 		try {
@@ -132,6 +149,7 @@ public class MainServiceImpl implements MainService{
 			return res;
 		}
 	}
+
 
 
 

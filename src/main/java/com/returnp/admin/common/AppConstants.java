@@ -320,5 +320,10 @@ public class AppConstants {
 		public static final String  SHOWN  = "1";
 		public static final String  NOT_SHOWN= "2";
 	}
+	
+	public static class PaymentMethod{
+		public static final String  CREDIT  = "1";
+		public static final String  CASH= "2";
+	}
 
 }

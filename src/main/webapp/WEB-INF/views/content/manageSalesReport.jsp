@@ -87,12 +87,12 @@
     	</div>
 	</div>
 	
-		<div  data-options="region:'center',split:true"  style = "height:45%"> 
+		<div  data-options="region:'center',split:true"  style = "height:50%"> 
 		<table id = "summary_table" style ="width:100%;height:100%">
 		</table> 
 	</div>
 	
-	<div  data-options="region:'south',split:true"  style = "height:55%"> 
+	<div  data-options="region:'south',split:true"  style = "height:50%"> 
 		<table id = "node_list" style ="width:100%;height:100%">
 		</table> 
 	</div>

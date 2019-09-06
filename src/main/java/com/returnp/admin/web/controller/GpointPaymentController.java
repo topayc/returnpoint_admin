@@ -30,6 +30,14 @@ public class GpointPaymentController extends ApplicationController{
 		this.checkParameter(dbParams);
 		return this.mainService.reportGpointPayments(dbParams);
 	}
+
+	@ResponseBody
+	@RequestMapping(value = "/gpointPayment/reportPeriodGpointPayments", method = RequestMethod.GET)
+	public ReturnpBaseResponse  reportPeriodGpointPayments(@RequestParam HashMap<String, Object> dbParams) {
+		System.out.println("gpointPaymentReports");
+		this.checkParameter(dbParams);
+		return this.mainService.reportPeriodGpointPayments(dbParams);
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/gpointPayments", method = RequestMethod.GET)

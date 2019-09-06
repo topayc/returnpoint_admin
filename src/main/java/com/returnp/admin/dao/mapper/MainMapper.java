@@ -10,9 +10,11 @@ public interface MainMapper {
 	public ArrayList<HashMap<String, Object>>selectPeriodSalesReports(HashMap<String, Object> dbParams);
 	public ArrayList<HashMap<String, Object>> reportPaymentTransactions(HashMap<String, Object> dbParams);
 	
-	public ArrayList<HashMap<String, Object>>selectPeriodGpointPaymentReports(HashMap<String, Object> dbParams);
 
+	public ArrayList<HashMap<String, Object>>selectPeriodGpointPaymentReports(HashMap<String, Object> dbParams);
 	public ArrayList<HashMap<String, Object>>reportGpointPayments(HashMap<String, Object> dbParams);
+	public ArrayList<HashMap<String, Object>>selectGpointPayments(HashMap<String, Object> dbParams);
+
 	public int insertGpointPayment(HashMap<String, Object> dbParams);
 	public int updateGpointPayment(HashMap<String, Object> dbParams);
 }

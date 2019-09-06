@@ -41,7 +41,7 @@
 	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <select id = "searchPaymentMethod" class="easyui-combobox" name="searchPaymentMethod" label="결제 수단" style="width:100%">
 	                	 <option value = "0">전체</option>
-	                	<c:forEach var="paymentMethod" items="${paymentMethodList}" varStatus="status">	
+	                <c:forEach var="paymentMethod" items="${paymentMethods}" varStatus="status">	
 						   <option value="${paymentMethod.key}"  >${paymentMethod.value}</option>
 						</c:forEach>
 	                </select>	
@@ -96,12 +96,12 @@
     	</div>
 	</div>
 	
-		<div  data-options="region:'center',split:true"  style = "height:45%"> 
+		<div  data-options="region:'center',split:true"  style = "height:50%"> 
 		<table id = "summary_table" style ="width:100%;height:100%">
 		</table> 
 	</div>
 	
-	<div  data-options="region:'south',split:true"  style = "height:55%"> 
+	<div  data-options="region:'south',split:true"  style = "height:50%"> 
 		<table id = "node_list" style ="width:100%;height:100%">
 		</table> 
 	</div>

@@ -106,7 +106,7 @@ public class AdminController extends ApplicationController{
 		model.addAttribute("paymentTransactionTypeList", CodeDefine.getPaymentTransactionTypes());
 		
 		ArrayList<Affiliate> affiliateList = null;
-		if (viewReqName.equals("managePaymentTransaction") || viewReqName.equals("manageSalesReport")) {
+		if (viewReqName.equals("managePaymentTransaction") || viewReqName.equals("manageSalesReport") ||  viewReqName.equals("manageGpointPayment")) {
 			affiliateList = this.searchMapper.findAffiliates(new Affiliate());
 			Collections.sort(affiliateList, new Comparator<Affiliate>() {
 				@Override
@@ -139,6 +139,7 @@ public class AdminController extends ApplicationController{
 			model.addAttribute("orderReasonTypes", CodeDefine.getOrderReasons());
 		}
 		
+		model.addAttribute("paymentMethods", CodeDefine.getPaymentMethods());
 		return RequestForward.CONTENT_VIEW;
 	}
 

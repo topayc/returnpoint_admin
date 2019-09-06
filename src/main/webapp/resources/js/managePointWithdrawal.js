@@ -1,10 +1,10 @@
 	columns = [[
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-			    {field:'pointWithdrawalNo',width:20,align:'center',title : '출금 번호',hidden:false},
-			    {field:'memberNo',width:20,align:'center',title : '회원 번호', hidden: false},
+			    {field:'pointWithdrawalNo',width:30,align:'center',title : '출금 번호',hidden:false},
+			    {field:'memberNo',width:30,align:'center',title : '회원 번호', hidden: false},
 			    {field:'memberName',width:30,align:'center',title : '회원 이름'},
-			    {field:'memberEmail',width:40,align:'center',title : '회원 이메일'},
+			    {field:'memberEmail',width:60,align:'center',title : '회원 이메일'},
 			    {field:'memberPhone',width:40,align:'center',title : '회원 모바일'},
 			    {field:'memberBankAccountNo',width:40,align:'center',title : '은행 번호',hidden:true},
 			    {field:'bankName',width:40,align:'center',title : '은행 명'},
@@ -12,7 +12,7 @@
 			    {field:'bankAccount',width:40,align:'center',title : '계좌 번호'},
 			    {field:'withdrawalAmount',width:40,align:'center',title : '출금 금액', formatter : numberBoldFormatter},
 			    {field:'withdrawalStatus',width:50,align:'center',title : '출금 상태', formatter : withdrawalStatusFormatter},
-			    {field:'withdrawalPointType',width:20,align:'center',title : '타입'},
+			    {field:'withdrawalPointType',width:15,align:'center',title : '타입'},
 			    {field:'withdrawalMessage',width:50,align:'center',title : '출금 메시지', hidden: true},
 			    {field:'createTime',width:50,align:'center',title : '등록일',formatter : dateFormatter},
 			    {field:'updateTime',width:50,align:'center',title : '출금일',formatter : dateFormatter}
@@ -35,6 +35,7 @@ function initView(){
 	
 	/* 검색어 입력 박스 초기화 */
 	$('#searchKeyword').textbox({ 
+		width: 200,
 		prompt : "검색할 단어를 입력해주세요" ,
 		inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
 			keyup:function(e){
@@ -53,9 +54,10 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
+		width: 120
 	});
 	
-	/* 검색어 타입 셀렉트 박스  초기화*/
+/*	 검색어 타입 셀렉트 박스  초기화
 	$('#searchKeywordType').combobox({
 		labelPosition : 'top',
 		showItemIcon: true,
@@ -64,18 +66,21 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
-	});
+		width: 100
+	});*/
 	
 	/* 검색 시작일 갤린더 박스  초기화*/
 	$('#searchDateStart').datebox({	   
 	    prompt : "검색 시작 일자",
-	    labelPosition: 'top'
+	    labelPosition: 'top',
+	    width: 150
 	});
 	
 	/* 검색 종료일 갤린더 박스  초기화*/
 	$('#searchDateEnd').datebox({	  
 	    prompt : "검색 종료 일자",
 	    labelPosition: 'top',
+	    width: 150
 	});
 	
 	/* 검색 버튼  초기화*/
@@ -99,11 +104,13 @@ function initView(){
 				}
 			});
 		},
+		width:60,
 		iconCls:'icon-search'
 	});
 	
 	/* 리셋 버튼  초기화*/
 	$('#reset_btn').linkbutton({
+		width:60,
 		onClick : function(){
 			$('#searchForm').form('clear');
 			$('#searchWithdrawalStatus').combobox('select', 0);
@@ -144,7 +151,7 @@ function initView(){
 		  				break;
 		  			case "modify":
 		  				var node = $('#node_list').datagrid('getSelected');
-		            	if (node.withdrawalStatus == "2" || node.withdrawalStatus == "3" || node.withdrawalStatus == "4" || node.withdrawalStatus == "5") {
+		            	if (node.withdrawalStatus == "2" ||  node.withdrawalStatus == "4" || node.withdrawalStatus == "5") {
 		            		$.messager.alert('알립', "해당 항목은 상태를 변경할 수 없습니다.");
 		            		return;
 		            	}
@@ -186,29 +193,23 @@ function setListPager(){
 		displayMsg : ' {from} to {to} of {total}',
 		buttons:[{
             iconCls:'icon-add',
+            text : "출금정보 생성",
             handler:function(){
             	$('#node_list').datagrid('unselectAll');
             	$('#node_list').datagrid('uncheckAll');
                 loadPointWithdrawalCreateForm();
             }
         },{
-            iconCls:'icon-edit',
+            iconCls:'icon-add',
+            text : "엑셀 변환",
             handler:function(){
-            	var node = $('#node_list').datagrid('getSelected');
-            	if (node.withdrawalStatus == "2" || node.withdrawalStatus == "3" || node.withdrawalStatus == "4" || node.withdrawalStatus == "5") {
-            		$.messager.alert('알립', "해당 항목은 상태를 변경할 수 없습니다.");
-            		return;
-            	}
-            	loadPointWithdrawalModifyForm();
+            	gridToExcel('#node_list','point_withdrawl.xls');
             }
         },{
-            iconCls:'icon-remove',
+            iconCls:'icon-add',
+            text : "프린트",
             handler:function(){
-            	removePointWithdrawal();
-            }
-        },{
-            iconCls:'icon-tip',
-            handler:function(){
+            	printGrid('#node_list');
             }
         }],
         layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
@@ -231,7 +232,6 @@ function setListColumnHeader(nodeType){
 		columns : columns
 	});
 }
-
 
 
 /**

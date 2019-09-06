@@ -69,7 +69,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
-		width: 100
+		width: 110
 	});
 
 	$('#searchAffiliate').combobox({
@@ -257,7 +257,7 @@ function initView(){
 				param.searchDateEnd = searchDateEnd.getFullYear() + "-" + searchDateEnd.getMonth() + "-" + (searchDateEnd.getDate() + 1)
 			}
 
-			returnp.api.call("reportRpointPayments", param, function(res){
+			returnp.api.call("reportPeriodGpointPayments", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
 					$('#summary_table').datagrid({
@@ -268,7 +268,7 @@ function initView(){
 					var totalRealPay= 0;
 					var totalgpointPay = 0;
                     for (var i = 0; i < res.rows.length; i++) {
-                        totalAmount += parseInt(res.rows[i].salesSum);
+                        totalAmount += parseInt(res.rows[i].paySum);
                         totalPayCase+=parseInt(res.rows[i].payCase);
                         totalRealPay+=parseInt(res.rows[i].realPaySum);
                         totalgpointPay+=parseInt(res.rows[i].gpointPaySum);
