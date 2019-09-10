@@ -550,6 +550,108 @@ function setListPager2(){
             iconCls:'icon-large-chart',
             text  : "<span style = 'font-weight: 600'>차트 보기</span>",
             handler:function(){
+            	var rows = $('#summary_table').datagrid("getRows");
+            	if (rows.length == 0) return;
+            	console.log(rows);
+            	var cartes = [];
+            	var saleCounts = [] 
+            	var paySumDatas = [];
+            	var payAppDatas = [];
+            	var payCancelDatas = [];
+            	for (var i = 0; rows.length; i++){
+            		if (i  == rows.length - 1) break;
+            		cartes.push(rows[i].searchDate);
+            		saleCounts.push(rows[i].payCase);
+            		paySumDatas.push(rows[i].salesSum);
+            		payAppDatas.push(rows[i].salesApprovalSum);
+            		payCancelDatas.push(-rows[i].salesCancelSum);
+            	}
+            	
+            	
+            	$('#chart_container').dialog({
+            		title: "chart",
+            		width: 1300,
+            		height: 700,
+            		closed: false,
+            		cache: false,
+            		modal: true,
+            		buttons:  [ {
+            			text : '확인',
+            			iconCls : 'icon-ok',
+            			handler : function() {
+            				$("#chart_container").dialog('close');
+            			}
+            		}]
+            	});
+            	
+            	
+            	Highcharts.chart('chart_container', {
+            		chart : {
+            			zoomType : "x",
+            			
+            		},
+            		title: {
+            	        text: ''
+            	    },
+            	    subtitle: {
+            	        text: ''
+            	    },
+            	    tooltip: {
+            	        shared: true,
+            	        crosshairs: true
+            	    },
+            	    xAxis: {
+                        categories: cartes,
+                        
+                    },
+            	    yAxis: {
+            	        title: {
+            	            text: '금액'
+            	        }
+            	    },
+            	    legend: {
+            	        layout: 'vertical',
+            	        align: 'right',
+            	        verticalAlign: 'middle'
+            	    },
+            	    plotOptions: {
+            	        series: {
+            	            label: {
+            	                connectorAllowed: false
+            	            },
+            	        }
+            	    },
+
+            	    series: [/*{
+            	        name: '결제 건수',
+            	        saleCounts
+            	    },*/ {
+            	        name: '최종 결제 금액',
+            	        data:paySumDatas
+            	    }, {
+            	        name: '결제 승인 금액',
+            	        data: payAppDatas
+            	    }, {
+            	        name: '결제 취소 금액',
+            	        data:payCancelDatas
+            	    }],
+
+            	    responsive: {
+            	        rules: [{
+            	            condition: {
+            	                maxWidth: 500
+            	            },
+            	            chartOptions: {
+            	                legend: {
+            	                    layout: 'horizontal',
+            	                    align: 'center',
+            	                    verticalAlign: 'bottom'
+            	                }
+            	            }
+            	        }]
+            	    }
+
+            	});
             }
         }],
         layout:[ ],

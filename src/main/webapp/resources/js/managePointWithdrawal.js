@@ -151,10 +151,10 @@ function initView(){
 		  				break;
 		  			case "modify":
 		  				var node = $('#node_list').datagrid('getSelected');
-		            	if (node.withdrawalStatus == "2" ||  node.withdrawalStatus == "4" || node.withdrawalStatus == "5") {
+		            /*	if (node.withdrawalStatus == "2" ||  node.withdrawalStatus == "4" || node.withdrawalStatus == "5") {
 		            		$.messager.alert('알립', "해당 항목은 상태를 변경할 수 없습니다.");
 		            		return;
-		            	}
+		            	}*/
 		                  loadPointWithdrawalModifyForm();
 		  				break;
 		  			case "remove":

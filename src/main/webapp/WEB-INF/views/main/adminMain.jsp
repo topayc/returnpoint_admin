@@ -34,6 +34,15 @@
   <script type="text/javascript" src="resources/js/returnpCommon.js"></script>
   <script type="text/javascript" src="resources/js/returnPHelper.js"></script>
   <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB-bv2uR929DOUO8vqMTkjLI_E6QCDofb4"></script>		
+  
+<!-- chart -->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/boost.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<link rel="stylesheet" type="text/css" href="https://www.highcharts.com/media/com_demo/css/highslide.css" />
 </head>
 <style>
 
@@ -674,6 +683,7 @@
     <div id = "progress_loading">
 		<img src="resources/images/progress_loading.gif"/>
 	</div>
+	<div id="chart_container"></div>
 	<script>
 	    var canNodeListSearchBlank = false;
 		var loginType = '${adminType}'
