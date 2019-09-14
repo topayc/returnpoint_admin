@@ -223,13 +223,13 @@ public class AffiliateController extends ApplicationController {
 			AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 			
 			/*슈퍼 관리자에 의하여 가맹점 생성*/
-			if (adminSession.getAdminType() == "1") {
+			if (adminSession.getAuthType() == "1") {
 				affiliate.setRegType("A");
 				affiliate.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 			}
 			
 			/*상품권 본사에 의한 등록*/
-			if (adminSession.getAdminType() == "10") {
+			if (adminSession.getAuthType() == "10") {
 				affiliate.setRegType("H");
 			}
 			
@@ -294,13 +294,13 @@ public class AffiliateController extends ApplicationController {
 		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 		
 		/*슈퍼 관리자에 의하여 가맹점 생성*/
-		if (adminSession.getAdminType() == "1") {
+		if (adminSession.getAuthType() == "1") {
 			affiliate.setRegType("A");
 			affiliate.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		}
 		
 		/*상품권 본사에 의한 등록*/
-		if (adminSession.getAdminType() == "10") {
+		if (adminSession.getAuthType() == "10") {
 			affiliate.setRegType("H");
 		}
 		

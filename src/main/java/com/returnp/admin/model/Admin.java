@@ -7,50 +7,45 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.returnp.admin.dto.QueryCondition;
 
-public class Admin extends QueryCondition implements UserDetails {
-	   
-	private static final long serialVersionUID = 1L;
-
+public class Admin extends QueryCondition implements UserDetails{
+    
+	 private List<AdminRole> authorities;
 	private Integer adminNo;
-	
-	private String adminName;
+
+    private String adminName;
 
     private String adminEmail;
 
     private String adminPassword;
-    
-    private List<AdminRole> authorities;
+
+    private String authType;
+
+    private String level;
+
+    private String levelCode;
+
+    private String initAuthMenu;
 
     private Integer regAdminNo;
 
     private Date createTime;
 
     private Date updateTime;
-    
-    private String adminType;
 
-    public String getAdminType() {
-		return adminType;
-	}
-
-	public void setAdminType(String adminType) {
-		this.adminType = adminType;
-	}
-
-	public String getAdminName() {
-		return adminName;
-	}
-
-	public void setAdminName(String adminName) {
-		this.adminName = adminName;
-	}
-
-	public Integer getAdminNo() {
+    public Integer getAdminNo() {
         return adminNo;
     }
 
     public void setAdminNo(Integer adminNo) {
         this.adminNo = adminNo;
+    }
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName == null ? null : adminName.trim();
     }
 
     public String getAdminEmail() {
@@ -69,7 +64,39 @@ public class Admin extends QueryCondition implements UserDetails {
         this.adminPassword = adminPassword == null ? null : adminPassword.trim();
     }
 
-	public Integer getRegAdminNo() {
+    public String getAuthType() {
+        return authType;
+    }
+
+    public void setAuthType(String authType) {
+        this.authType = authType == null ? null : authType.trim();
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level == null ? null : level.trim();
+    }
+
+    public String getLevelCode() {
+        return levelCode;
+    }
+
+    public void setLevelCode(String levelCode) {
+        this.levelCode = levelCode == null ? null : levelCode.trim();
+    }
+
+    public String getInitAuthMenu() {
+        return initAuthMenu;
+    }
+
+    public void setInitAuthMenu(String initAuthMenu) {
+        this.initAuthMenu = initAuthMenu == null ? null : initAuthMenu.trim();
+    }
+
+    public Integer getRegAdminNo() {
         return regAdminNo;
     }
 
@@ -92,8 +119,8 @@ public class Admin extends QueryCondition implements UserDetails {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-
-	@Override
+    
+    @Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
 		return adminPassword;

@@ -11,7 +11,6 @@
     <result column="organBusinessNumber" jdbcType="VARCHAR" property="organBusinessNumber" />
     <result column="saleOrganSaleFeeRate" jdbcType="REAL" property="saleOrganSaleFeeRate" />
     <result column="organStatus" jdbcType="VARCHAR" property="organStatus" />
-    <result column="organType" jdbcType="VARCHAR" property="organType" />
     <result column="organPhone" jdbcType="VARCHAR" property="organPhone" />
     <result column="organEmail" jdbcType="VARCHAR" property="organEmail" />
     <result column="organTel" jdbcType="VARCHAR" property="organTel" />
@@ -19,14 +18,18 @@
     <result column="organBankName" jdbcType="VARCHAR" property="organBankName" />
     <result column="organBankAccount" jdbcType="VARCHAR" property="organBankAccount" />
     <result column="organBankAccountOwner" jdbcType="VARCHAR" property="organBankAccountOwner" />
+    <result column="authType" jdbcType="VARCHAR" property="authType" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="levelCode" jdbcType="VARCHAR" property="levelCode" />
+    <result column="initAuthMenu" jdbcType="VARCHAR" property="initAuthMenu" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
     giftCardSalesOrganNo, parentOrganNo, organCode, organPassword, organOwner, organName, 
-    organBusinessNumber, saleOrganSaleFeeRate, organStatus, organType, organPhone, organEmail, 
-    organTel, organAddr, organBankName, organBankAccount, organBankAccountOwner, createTime, 
-    updateTime
+    organBusinessNumber, saleOrganSaleFeeRate, organStatus, organPhone, organEmail, organTel, 
+    organAddr, organBankName, organBankAccount, organBankAccountOwner, authType, level, 
+    levelCode, initAuthMenu, createTime, updateTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -42,19 +45,23 @@
     insert into gift_card_sales_organ (giftCardSalesOrganNo, parentOrganNo, 
       organCode, organPassword, organOwner, 
       organName, organBusinessNumber, saleOrganSaleFeeRate, 
-      organStatus, organType, organPhone, 
-      organEmail, organTel, organAddr, 
-      organBankName, organBankAccount, organBankAccountOwner, 
-      createTime, updateTime)
+      organStatus, organPhone, organEmail, 
+      organTel, organAddr, organBankName, 
+      organBankAccount, organBankAccountOwner, 
+      authType, level, levelCode, 
+      initAuthMenu, createTime, updateTime
+      )
     values (#{giftCardSalesOrganNo,jdbcType=INTEGER}, #{parentOrganNo,jdbcType=INTEGER}, 
       #{organCode,jdbcType=VARCHAR}, #{organPassword,jdbcType=VARCHAR}, #{organOwner,jdbcType=VARCHAR}, 
       #{organName,jdbcType=VARCHAR}, #{organBusinessNumber,jdbcType=VARCHAR}, #{saleOrganSaleFeeRate,jdbcType=REAL}, 
-      #{organStatus,jdbcType=VARCHAR}, #{organType,jdbcType=VARCHAR}, #{organPhone,jdbcType=VARCHAR}, 
-      #{organEmail,jdbcType=VARCHAR}, #{organTel,jdbcType=VARCHAR}, #{organAddr,jdbcType=VARCHAR}, 
-      #{organBankName,jdbcType=VARCHAR}, #{organBankAccount,jdbcType=VARCHAR}, #{organBankAccountOwner,jdbcType=VARCHAR}, 
-      NOW(), NOW())
+      #{organStatus,jdbcType=VARCHAR}, #{organPhone,jdbcType=VARCHAR}, #{organEmail,jdbcType=VARCHAR}, 
+      #{organTel,jdbcType=VARCHAR}, #{organAddr,jdbcType=VARCHAR}, #{organBankName,jdbcType=VARCHAR}, 
+      #{organBankAccount,jdbcType=VARCHAR}, #{organBankAccountOwner,jdbcType=VARCHAR}, 
+      #{authType,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{levelCode,jdbcType=VARCHAR}, 
+      NOW(), NOW()
+      )
       
-          <selectKey keyProperty="giftCardSalesOrganNo" resultType="java.lang.Integer" order ="AFTER">
+        <selectKey keyProperty="giftCardSalesOrganNo" resultType="java.lang.Integer" order ="AFTER">
 		    SELECT LAST_INSERT_ID()
 	 </selectKey>	
   </insert>
@@ -88,9 +95,6 @@
       <if test="organStatus != null">
         organStatus,
       </if>
-      <if test="organType != null">
-        organType,
-      </if>
       <if test="organPhone != null">
         organPhone,
       </if>
@@ -111,6 +115,18 @@
       </if>
       <if test="organBankAccountOwner != null">
         organBankAccountOwner,
+      </if>
+      <if test="authType != null">
+        authType,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="levelCode != null">
+        levelCode,
+      </if>
+      <if test="initAuthMenu != null">
+        initAuthMenu,
       </if>
       <if test="createTime != null">
         createTime,
@@ -147,9 +163,6 @@
       <if test="organStatus != null">
         #{organStatus,jdbcType=VARCHAR},
       </if>
-      <if test="organType != null">
-        #{organType,jdbcType=VARCHAR},
-      </if>
       <if test="organPhone != null">
         #{organPhone,jdbcType=VARCHAR},
       </if>
@@ -170,6 +183,18 @@
       </if>
       <if test="organBankAccountOwner != null">
         #{organBankAccountOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null">
+        #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="levelCode != null">
+        #{levelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="initAuthMenu != null">
+        #{initAuthMenu,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -206,9 +231,6 @@
       <if test="organStatus != null">
         organStatus = #{organStatus,jdbcType=VARCHAR},
       </if>
-      <if test="organType != null">
-        organType = #{organType,jdbcType=VARCHAR},
-      </if>
       <if test="organPhone != null">
         organPhone = #{organPhone,jdbcType=VARCHAR},
       </if>
@@ -230,6 +252,18 @@
       <if test="organBankAccountOwner != null">
         organBankAccountOwner = #{organBankAccountOwner,jdbcType=VARCHAR},
       </if>
+      <if test="authType != null">
+        authType = #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="levelCode != null">
+        levelCode = #{levelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="initAuthMenu != null">
+        initAuthMenu = #{initAuthMenu,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -249,7 +283,6 @@
       organBusinessNumber = #{organBusinessNumber,jdbcType=VARCHAR},
       saleOrganSaleFeeRate = #{saleOrganSaleFeeRate,jdbcType=REAL},
       organStatus = #{organStatus,jdbcType=VARCHAR},
-      organType = #{organType,jdbcType=VARCHAR},
       organPhone = #{organPhone,jdbcType=VARCHAR},
       organEmail = #{organEmail,jdbcType=VARCHAR},
       organTel = #{organTel,jdbcType=VARCHAR},
@@ -257,6 +290,10 @@
       organBankName = #{organBankName,jdbcType=VARCHAR},
       organBankAccount = #{organBankAccount,jdbcType=VARCHAR},
       organBankAccountOwner = #{organBankAccountOwner,jdbcType=VARCHAR},
+      authType = #{authType,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      levelCode = #{levelCode,jdbcType=VARCHAR},
+      initAuthMenu = #{initAuthMenu,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       updateTime = NOW()
     where giftCardSalesOrganNo = #{giftCardSalesOrganNo,jdbcType=INTEGER}

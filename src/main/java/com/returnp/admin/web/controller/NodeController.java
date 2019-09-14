@@ -248,7 +248,7 @@ public class NodeController extends ApplicationController{
 			
 		case "10": // 상품권 본사 검색
 			GiftCardSalesOrgan organ = new GiftCardSalesOrgan();
-			organ.setOrganType("10");
+			organ.setAuthType("10");
 			
 			if (StringUtils.isEmpty(nodeSearch.getSearchKeyword())) {
 				nodeSearch.setSearchKeyword(null);
@@ -265,7 +265,7 @@ public class NodeController extends ApplicationController{
 			
 		case "11":  //상품권 총판 검색
 			GiftCardSalesOrgan organ2 = new GiftCardSalesOrgan();
-			organ2.setOrganType("11");
+			organ2.setAuthType("11");
 			
 			if (StringUtils.isEmpty(nodeSearch.getSearchKeyword())) {
 				nodeSearch.setSearchKeyword(null);
@@ -281,7 +281,7 @@ public class NodeController extends ApplicationController{
 			return slr9;
 		case "12":  //상품권 판매점 검색
 			GiftCardSalesOrgan organ3 = new GiftCardSalesOrgan();
-			organ3.setOrganType("12");
+			organ3.setAuthType("12");
 			
 			if (StringUtils.isEmpty(nodeSearch.getSearchKeyword())) {
 				nodeSearch.setSearchKeyword(null);

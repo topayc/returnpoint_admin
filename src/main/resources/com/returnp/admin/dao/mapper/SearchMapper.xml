@@ -22,16 +22,21 @@
   <!-- Admin Mapper   -->
   
     <resultMap id="AdminResultMap" type="com.returnp.admin.model.Admin">
-    <id column="adminNo" jdbcType="INTEGER" property="adminNo" />
+   <id column="adminNo" jdbcType="INTEGER" property="adminNo" />
     <result column="adminName" jdbcType="VARCHAR" property="adminName" />
     <result column="adminEmail" jdbcType="VARCHAR" property="adminEmail" />
     <result column="adminPassword" jdbcType="VARCHAR" property="adminPassword" />
+    <result column="authType" jdbcType="VARCHAR" property="authType" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="levelCode" jdbcType="VARCHAR" property="levelCode" />
+    <result column="initAuthMenu" jdbcType="VARCHAR" property="initAuthMenu" />
     <result column="regAdminNo" jdbcType="INTEGER" property="regAdminNo" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Admin_Column_List">
-    adminNo, adminName, adminEmail, adminPassword, regAdminNo, createTime, updateTime
+   adminNo, adminName, adminEmail, adminPassword, authType, level, levelCode, initAuthMenu, 
+    regAdminNo, createTime, updateTime
   </sql>
   
     <sql id ="adminWhereStatement">
@@ -3133,7 +3138,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
  <!-- ===============================================================================================================    -->
  <!-- GiftCardSalesOrgan Mapper   -->
 <resultMap id="GiftCardSalesOrganResultMap" type="com.returnp.admin.model.GiftCardSalesOrgan">
-  <id column="giftCardSalesOrganNo" jdbcType="INTEGER" property="giftCardSalesOrganNo" />
+     <id column="giftCardSalesOrganNo" jdbcType="INTEGER" property="giftCardSalesOrganNo" />
     <result column="parentOrganNo" jdbcType="INTEGER" property="parentOrganNo" />
     <result column="organCode" jdbcType="VARCHAR" property="organCode" />
     <result column="organPassword" jdbcType="VARCHAR" property="organPassword" />
@@ -3142,7 +3147,6 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="organBusinessNumber" jdbcType="VARCHAR" property="organBusinessNumber" />
     <result column="saleOrganSaleFeeRate" jdbcType="REAL" property="saleOrganSaleFeeRate" />
     <result column="organStatus" jdbcType="VARCHAR" property="organStatus" />
-    <result column="organType" jdbcType="VARCHAR" property="organType" />
     <result column="organPhone" jdbcType="VARCHAR" property="organPhone" />
     <result column="organEmail" jdbcType="VARCHAR" property="organEmail" />
     <result column="organTel" jdbcType="VARCHAR" property="organTel" />
@@ -3150,6 +3154,10 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="organBankName" jdbcType="VARCHAR" property="organBankName" />
     <result column="organBankAccount" jdbcType="VARCHAR" property="organBankAccount" />
     <result column="organBankAccountOwner" jdbcType="VARCHAR" property="organBankAccountOwner" />
+    <result column="authType" jdbcType="VARCHAR" property="authType" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="levelCode" jdbcType="VARCHAR" property="levelCode" />
+    <result column="initAuthMenu" jdbcType="VARCHAR" property="initAuthMenu" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -3158,14 +3166,12 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <id column="giftCardSalesOrganNo" jdbcType="INTEGER" property="giftCardSalesOrganNo" />
     <result column="parentOrganNo" jdbcType="INTEGER" property="parentOrganNo" />
     <result column="organCode" jdbcType="VARCHAR" property="organCode" />
-    <result column="organOwner" jdbcType="VARCHAR" property="organOwner" />
-    <result column="parentOrganName" jdbcType="VARCHAR" property="parentOrganName" />
     <result column="organPassword" jdbcType="VARCHAR" property="organPassword" />
+    <result column="organOwner" jdbcType="VARCHAR" property="organOwner" />
     <result column="organName" jdbcType="VARCHAR" property="organName" />
     <result column="organBusinessNumber" jdbcType="VARCHAR" property="organBusinessNumber" />
     <result column="saleOrganSaleFeeRate" jdbcType="REAL" property="saleOrganSaleFeeRate" />
     <result column="organStatus" jdbcType="VARCHAR" property="organStatus" />
-    <result column="organType" jdbcType="VARCHAR" property="organType" />
     <result column="organPhone" jdbcType="VARCHAR" property="organPhone" />
     <result column="organEmail" jdbcType="VARCHAR" property="organEmail" />
     <result column="organTel" jdbcType="VARCHAR" property="organTel" />
@@ -3173,15 +3179,20 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="organBankName" jdbcType="VARCHAR" property="organBankName" />
     <result column="organBankAccount" jdbcType="VARCHAR" property="organBankAccount" />
     <result column="organBankAccountOwner" jdbcType="VARCHAR" property="organBankAccountOwner" />
+    <result column="authType" jdbcType="VARCHAR" property="authType" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="levelCode" jdbcType="VARCHAR" property="levelCode" />
+    <result column="initAuthMenu" jdbcType="VARCHAR" property="initAuthMenu" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="parentOrganName" jdbcType="VARCHAR" property="parentOrganName" />
   </resultMap>
   
   <sql id="GiftCardSalesOrgan_Column_List">
-   giftCardSalesOrganNo, parentOrganNo, organCode, organPassword, organOwner, organName, 
-    organBusinessNumber, saleOrganSaleFeeRate, organStatus, organType, organPhone, organEmail, 
-    organTel, organAddr, organBankName, organBankAccount, organBankAccountOwner, createTime, 
-    updateTime
+    giftCardSalesOrganNo, parentOrganNo, organCode, organPassword, organOwner, organName, 
+    organBusinessNumber, saleOrganSaleFeeRate, organStatus, organPhone, organEmail, organTel, 
+    organAddr, organBankName, organBankAccount, organBankAccountOwner, authType, level, 
+    levelCode, initAuthMenu, createTime, updateTime
   </sql>
 
   <sql id="GiftCardSalesOrganCommand_Column_List">
@@ -3189,13 +3200,16 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     A.parentOrganNo,
     A.organCode, 
     A.organOwner, 
+    A.level,
+    A.levelCode,
+    A.initAuthMenu,
     A.organPassword,
     B.organName as parentOrganName,  
     A.organName, 
     A.organBusinessNumber, 
     A.saleOrganSaleFeeRate, 
     A.organStatus, 
-    A.organType, 
+    A.authType, 
     A.organPhone, 
     A.organEmail, 
     A.organTel, 
@@ -3210,7 +3224,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
   <sql id ="GiftCardSalesOrganWhereStatement">
 	 <if test="giftCardSalesOrganNo != null"> AND giftCardSalesOrganNo = #{giftCardSalesOrganNo,jdbcType=INTEGER}</if>
 	 <if test="organBusinessNumber != null"> AND organBusinessNumber = #{organBusinessNumber,jdbcType=VARCHAR}</if>
-	 <if test="organType != null"> AND organType = #{organType,jdbcType=VARCHAR}</if>
+	 <if test="authType != null"> AND authType = #{authType,jdbcType=VARCHAR}</if>
 	 <if test="organStatus != null"> AND organStatus = #{organStatus,jdbcType=VARCHAR}</if>
 	 
 	 
@@ -3229,7 +3243,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
 	 <if test="giftCardSalesOrganNo != null"> AND A.giftCardSalesOrganNo = #{giftCardSalesOrganNo,jdbcType=INTEGER}</if>
 	 <if test="parentOrganName != null"> AND B.parentOrganName = #{parentOrganName,jdbcType=VARCHAR}</if>
 	 <if test="organBusinessNumber != null"> AND A.organBusinessNumber = #{organBusinessNumber,jdbcType=VARCHAR}</if>
-	 <if test="organType != null"> AND A.organType = #{organType,jdbcType=VARCHAR}</if>
+	 <if test="authType != null"> AND A.authType = #{authType,jdbcType=VARCHAR}</if>
 	 <if test="organStatus != null"> AND A.organStatus = #{organStatus,jdbcType=VARCHAR}</if>
 	 
 	    <if test="organCode != null or organName != null or organOwner != null ">

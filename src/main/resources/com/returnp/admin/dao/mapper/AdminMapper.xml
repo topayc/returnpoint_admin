@@ -6,12 +6,17 @@
     <result column="adminName" jdbcType="VARCHAR" property="adminName" />
     <result column="adminEmail" jdbcType="VARCHAR" property="adminEmail" />
     <result column="adminPassword" jdbcType="VARCHAR" property="adminPassword" />
+    <result column="authType" jdbcType="VARCHAR" property="authType" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="levelCode" jdbcType="VARCHAR" property="levelCode" />
+    <result column="initAuthMenu" jdbcType="VARCHAR" property="initAuthMenu" />
     <result column="regAdminNo" jdbcType="INTEGER" property="regAdminNo" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    adminNo, adminName, adminEmail, adminPassword, regAdminNo, createTime, updateTime
+    adminNo, adminName, adminEmail, adminPassword, authType, level, levelCode, initAuthMenu, 
+    regAdminNo, createTime, updateTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -25,12 +30,15 @@
   </delete>
   <insert id="insert" parameterType="com.returnp.admin.model.Admin">
     insert into admin (adminNo, adminName, adminEmail, 
-      adminPassword, regAdminNo, createTime, 
-      updateTime)
+      adminPassword, authType, level, 
+      levelCode, initAuthMenu, regAdminNo, 
+      createTime, updateTime)
     values (#{adminNo,jdbcType=INTEGER}, #{adminName,jdbcType=VARCHAR}, #{adminEmail,jdbcType=VARCHAR}, 
-      #{adminPassword,jdbcType=VARCHAR}, #{regAdminNo,jdbcType=INTEGER}, NOW(), NOW())
- 
-     <selectKey keyProperty="adminNo" resultType="java.lang.Integer" order ="AFTER">
+      #{adminPassword,jdbcType=VARCHAR}, #{authType,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
+      #{levelCode,jdbcType=VARCHAR}, #{initAuthMenu,jdbcType=VARCHAR}, #{regAdminNo,jdbcType=INTEGER}, 
+      NOW(), NOW())
+      
+        <selectKey keyProperty="adminNo" resultType="java.lang.Integer" order ="AFTER">
 		    SELECT LAST_INSERT_ID()
 	 </selectKey>	
   </insert>
@@ -48,6 +56,18 @@
       </if>
       <if test="adminPassword != null">
         adminPassword,
+      </if>
+      <if test="authType != null">
+        authType,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="levelCode != null">
+        levelCode,
+      </if>
+      <if test="initAuthMenu != null">
+        initAuthMenu,
       </if>
       <if test="regAdminNo != null">
         regAdminNo,
@@ -72,6 +92,18 @@
       <if test="adminPassword != null">
         #{adminPassword,jdbcType=VARCHAR},
       </if>
+      <if test="authType != null">
+        #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="levelCode != null">
+        #{levelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="initAuthMenu != null">
+        #{initAuthMenu,jdbcType=VARCHAR},
+      </if>
       <if test="regAdminNo != null">
         #{regAdminNo,jdbcType=INTEGER},
       </if>
@@ -95,6 +127,18 @@
       <if test="adminPassword != null">
         adminPassword = #{adminPassword,jdbcType=VARCHAR},
       </if>
+      <if test="authType != null">
+        authType = #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="levelCode != null">
+        levelCode = #{levelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="initAuthMenu != null">
+        initAuthMenu = #{initAuthMenu,jdbcType=VARCHAR},
+      </if>
       <if test="regAdminNo != null">
         regAdminNo = #{regAdminNo,jdbcType=INTEGER},
       </if>
@@ -112,6 +156,10 @@
     set adminName = #{adminName,jdbcType=VARCHAR},
       adminEmail = #{adminEmail,jdbcType=VARCHAR},
       adminPassword = #{adminPassword,jdbcType=VARCHAR},
+      authType = #{authType,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      levelCode = #{levelCode,jdbcType=VARCHAR},
+      initAuthMenu = #{initAuthMenu,jdbcType=VARCHAR},
       regAdminNo = #{regAdminNo,jdbcType=INTEGER},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       updateTime = NOW()

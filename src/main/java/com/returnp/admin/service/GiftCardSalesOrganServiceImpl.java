@@ -30,12 +30,12 @@ public class GiftCardSalesOrganServiceImpl implements GiftCardSalesOrganService 
 			SimpleDateFormat format = new SimpleDateFormat("yy");
 			Date d = new Date();
 			String organSuffix = null;
-			switch(record.getOrganType()) {
+			switch(record.getAuthType()) {
 			case "10": organSuffix = "H"; break;
 			case "11": organSuffix = "D"; break;
 			case "12": organSuffix = "S"; break;
 			}
-			String code =  record.getOrganType() + format.format(d)   + String.format("%04d", record.getGiftCardSalesOrganNo());
+			String code =  record.getAuthType() + format.format(d)   + String.format("%04d", record.getGiftCardSalesOrganNo());
 			record.setOrganCode(code);
 			
 			int updateRow = this.organMapper.updateByPrimaryKey(record);

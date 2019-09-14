@@ -22,8 +22,6 @@ public class GiftCardSalesOrgan extends QueryCondition {
 
     private String organStatus;
 
-    private String organType;
-
     private String organPhone;
 
     private String organEmail;
@@ -37,6 +35,14 @@ public class GiftCardSalesOrgan extends QueryCondition {
     private String organBankAccount;
 
     private String organBankAccountOwner;
+
+    private String authType;
+
+    private String level;
+
+    private String levelCode;
+
+    private String initAuthMenu;
 
     private Date createTime;
 
@@ -114,14 +120,6 @@ public class GiftCardSalesOrgan extends QueryCondition {
         this.organStatus = organStatus == null ? null : organStatus.trim();
     }
 
-    public String getOrganType() {
-        return organType;
-    }
-
-    public void setOrganType(String organType) {
-        this.organType = organType == null ? null : organType.trim();
-    }
-
     public String getOrganPhone() {
         return organPhone;
     }
@@ -176,6 +174,38 @@ public class GiftCardSalesOrgan extends QueryCondition {
 
     public void setOrganBankAccountOwner(String organBankAccountOwner) {
         this.organBankAccountOwner = organBankAccountOwner == null ? null : organBankAccountOwner.trim();
+    }
+
+    public String getAuthType() {
+        return authType;
+    }
+
+    public void setAuthType(String authType) {
+        this.authType = authType == null ? null : authType.trim();
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level == null ? null : level.trim();
+    }
+
+    public String getLevelCode() {
+        return levelCode;
+    }
+
+    public void setLevelCode(String levelCode) {
+        this.levelCode = levelCode == null ? null : levelCode.trim();
+    }
+
+    public String getInitAuthMenu() {
+        return initAuthMenu;
+    }
+
+    public void setInitAuthMenu(String initAuthMenu) {
+        this.initAuthMenu = initAuthMenu == null ? null : initAuthMenu.trim();
     }
 
     public Date getCreateTime() {

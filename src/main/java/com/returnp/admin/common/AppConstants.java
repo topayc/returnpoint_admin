@@ -4,7 +4,7 @@ public class AppConstants {
 	public static String ADMIN_SESSION = "adminSession";
 
 	public static class AdminType {
-		public static  final String SUPER = "1";   /*전체 시스템 관리자*/
+		public static  final String TOP_HAPPY = "1";   /*전체 시스템 관리자*/
 		public static  final String HEAD_ORGAN= "10";    /*상품권 본사*/
 		public static  final String DIST_ORGAN = "11";  /*상품권 총판*/ 
 		public static  final String SALES_ORGAN = "12";  /*상품권 판매점 */ 

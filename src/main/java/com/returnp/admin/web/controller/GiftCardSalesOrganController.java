@@ -57,7 +57,7 @@ public class GiftCardSalesOrganController extends ApplicationController{
 			searchCondition.setSearchKeyword(null);
 		}
 		organ.valueOf(searchCondition);
-		organ.setOrder("organType asc");
+		organ.setOrder("authType asc");
 		ArrayListResponse<GiftCardSalesOrganCommand> res = new ArrayListResponse<GiftCardSalesOrganCommand>();
 		ArrayList<GiftCardSalesOrganCommand> organs = this.searchService.selectGiftCardSalesOrganCommands(organ);
 		res.setRows(organs);

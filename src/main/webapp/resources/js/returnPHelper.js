@@ -420,7 +420,7 @@ function organAccountInfoFormatter(value, row, index) {
 }
 
 function organTypeFormatter(value, row, index) {
-	switch (row.organType) {
+	switch (row.authType) {
 	case "10": result = '<span style = "border-radius: 10px;background-color: #B40486;padding: 5px;color : #ffffff;font-weight : bold">본 사</span>'; break;
 	case "11": result = '<span style = "border-radius: 10px;background-color: green;padding: 5px;color : #ffffff;font-weight : bold">총 판</span>'; break;
 	case "12": result = '<span style = "border-radius: 10px;background-color: #C2722E;padding: 5px;color : #ffffff;font-weight : bold">판매점</span>'; break;

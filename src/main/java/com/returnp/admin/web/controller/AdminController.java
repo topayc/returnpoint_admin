@@ -72,13 +72,16 @@ public class AdminController extends ApplicationController{
 	 */
 	@RequestMapping(value = AccessPoint.ROOT, method = RequestMethod.GET)
 	public String adminMainView(HttpSession session, Locale locale, Model model) {
-		session.setAttribute("adminType", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAdminType());
-		session.setAttribute("adminTypeStr", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAdminTypeStr());
-		session.setAttribute("loginName", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getLoginName());
-		
-		if (!((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAdminType().equals(AppConstants.AdminType.SUPER)){
+		session.setAttribute("admin", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)));
+
+		session.setAttribute("adminType", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAuthType());
+		session.setAttribute("adminTypeStr", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAuthTypeStr());
+		session.setAttribute("loginName", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAdminName());
+		session.setAttribute("initAuthMenu", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getInitAuthMenu());
+		session.setAttribute("admin", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)));
+		if (!((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAuthType().equals(AppConstants.AdminType.TOP_HAPPY)){
 			session.setAttribute("organCode",((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getSaleOrgan().getOrganCode());
-			session.setAttribute("organType",((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getSaleOrgan().getOrganType());
+			session.setAttribute("organType",((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getSaleOrgan().getAuthType());
 		}
 		return RequestForward.MAIN_VIEW;
 	}
@@ -284,6 +287,7 @@ public class AdminController extends ApplicationController{
 			return RequestForward.SIGN_IN_VIEW;
 		}
 		return RequestRedirect.MAIN_REDIRECT;*/
+		
 		Admin admin = new Admin();
 		admin.setAdminEmail(id);
 		admin.setAdminPassword(password);
@@ -296,7 +300,7 @@ public class AdminController extends ApplicationController{
 		
 		if (admins.size() == 1) {
 			adminSession.setAdmin(admins.get(0));
-			adminSession.setAdminType(AppConstants.AdminType.SUPER);
+			adminSession.setAuthType(admins.get(0).getAuthType());
 			httpSession.setAttribute(AppConstants.ADMIN_SESSION, adminSession);
 			return RequestRedirect.MAIN_REDIRECT;
 			
@@ -308,7 +312,7 @@ public class AdminController extends ApplicationController{
 			
 			if (organs.size() == 1) {
 				adminSession.setSaleOrgan(organs.get(0));
-				adminSession.setAdminType(organs.get(0).getOrganType());
+				adminSession.setAuthType(organs.get(0).getAuthType());
 				httpSession.setAttribute(AppConstants.ADMIN_SESSION, adminSession);
 				return RequestRedirect.MAIN_REDIRECT;
 			}else {

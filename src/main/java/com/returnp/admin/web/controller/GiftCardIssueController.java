@@ -74,8 +74,8 @@ public class GiftCardIssueController extends ApplicationController{
 		 * 슈퍼 관리자 및 본사가 아닐 경우, 해당 조직 코드의 주문 내역만 조회
 		 * */
 		AdminSession adminSession = (AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION);
-		if (!adminSession.getAdminType().equals(AppConstants.AdminType.SUPER) && 
-				!adminSession.getAdminType().equals(AppConstants.AdminType.HEAD_ORGAN) ) {
+		if (!adminSession.getAuthType().equals(AppConstants.AdminType.TOP_HAPPY) && 
+				!adminSession.getAuthType().equals(AppConstants.AdminType.HEAD_ORGAN) ) {
 			giftCardIssue.setOrdererId(adminSession.getSaleOrgan().getOrganCode());
 		}
 		

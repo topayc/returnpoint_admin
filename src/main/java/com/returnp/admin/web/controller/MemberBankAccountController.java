@@ -121,12 +121,12 @@ public class MemberBankAccountController extends ApplicationController {
 		
 		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 		
-		if (adminSession.getAdminType() == "1") {
+		if (adminSession.getAuthType() == "1") {
 			account.setRegType("A");
 			account.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		}
 		
-		if (adminSession.getAdminType() == "10") {
+		if (adminSession.getAuthType() == "10") {
 			account.setRegType("H");
 		}
 		
@@ -180,12 +180,12 @@ public class MemberBankAccountController extends ApplicationController {
 		account.setBankName(bankName);
 		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 		
-		if (adminSession.getAdminType() == "1") {
+		if (adminSession.getAuthType() == "1") {
 			account.setRegType("A");
 			account.setRegAdminNo(adminSession.getAdmin().getAdminNo());
 		}
 		
-		if (adminSession.getAdminType() == "10") {
+		if (adminSession.getAuthType() == "10") {
 			account.setRegType("H");
 		}
 		
