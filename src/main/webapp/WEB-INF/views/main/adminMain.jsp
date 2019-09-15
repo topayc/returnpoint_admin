@@ -98,73 +98,73 @@
                         	<span is = "site_admin" class="sub_menu " menu_deps= '1'  style = "font-weight : bold">운영자 패널</span>
                         </span>
                         <ul>
-                            <li class = "m1 manage" id = "dashBoard"  data-options = "iconCls :'icon-info'">
-                            	<span  style = "font-weight : bold">대쉬 보드</span>
+                            <li class = "A manage" id = "dashBoard"  data-options = "iconCls :'icon-info'">
+                            	<span  class = "A manage" style = "font-weight : bold">대쉬 보드</span>
                             	<ul>
-		                            <li id = "dashBoard"  data-options = "iconCls :'icon-info'">
+		                            <li class = "A_1 manage"  id = "dashBoard"  data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "dashBoard"  menu_deps= '2' >
 		                            		<span style = "font-weight : bold">대쉬 보드</span>
 		                            	</a> 
 		                            </li>
-		                             <li data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "managePolicy"  menu_deps= '2' >
+		                             <li class = "A_2 manage" data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "managePolicy"  menu_deps= '2' >
 		                            	<span style = "font-weight : bold">R 포인트 정책</span></a> 
 		                            </li>
 		                        </ul>
                             </li>
                             
-                             <li class = "m2 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">조직 관리</span>
+                             <li class = "B manage"  data-options = "iconCls :'icon-info'">
+                            	 <span  class = "B manage" style = "font-weight : bold">조직 관리</span>
 		                         <ul>
-			                         <li id = "manageSoleDist"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageSoleDist"  node = "7"  menu_deps= '2' >
+			                         <li class = "B_1 manage"  id = "manageSoleDist"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageSoleDist"  node = "7"  menu_deps= '2' >
 	                        		<span style = "font-weight : bold">총판(7)</span></a> 
 		                        	</li>
 		                        	
-		                        	<li id= "manageBranch"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageBranch"  node = "3"  menu_deps= '2' >
+		                        	<li class = "B_2 manage" id= "manageBranch"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageBranch"  node = "3"  menu_deps= '2' >
 		                        		<span style = "font-weight : bold">지사(3)</span></a> 
 		                        	</li>
 		                        	
-		                        	<li id = "manageAgency"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageAgency"  node = "4"  menu_deps= '2' >
+		                        	<li class = "B_3 manage"  id = "manageAgency"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageAgency"  node = "4"  menu_deps= '2' >
 		                        		<span style = "font-weight : bold">대리점(4)</span></a> 
 		                        	</li>
 		
-		                        	<li id = "manageAffiliate"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageAffiliate"  node = "5"  menu_deps= '2' >
+		                        	<li class = "B_4 manage" id = "manageAffiliate"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageAffiliate"  node = "5"  menu_deps= '2' >
 		                        		<span style = "font-weight : bold">협력업체(5)</span></a> 
 		                        	</li>
 		
 		
-		                        	<li id = "manageMember" data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageMember"  node = "1"  menu_deps= '2' >
+		                        	<li class = "B_6 manage"  id = "manageMember" data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageMember"  node = "1"  menu_deps= '2' >
 		                        		<span style = "font-weight : bold">일반회원(1)</span></a> 
 		                        	</li>
 
-		                        	<li id = "manageRecommender"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageRecommender"  node = "2"  menu_deps= '2' >
+		                        	<li class = "B_7 manage"  id = "manageRecommender"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageRecommender"  node = "2"  menu_deps= '2' >
 		                        		<span style = "font-weight : bold;">정회원(2) </span></a> 
 		                        	</li>
-		                        	<li id = "manageSaleManager"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageSaleManager"  node = "6"  menu_deps= '2' >
+		                        	<li class = "B_8 manage" id = "manageSaleManager"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageSaleManager"  node = "6"  menu_deps= '2' >
 		                        		<span style = "font-weight : bold;"> 영업 관리자(6)</span></a> 
 		                        	</li>
 		                        </ul>
                             </li>
                             
-                                <li class = "m3 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">포인트 관리</span>
+                                <li class = "C manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "C manage"  style = "font-weight : bold">포인트 관리</span>
 		                         <ul>
-		                         	<li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
+		                         	<li class = "C_1 manage" id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
 					                   	<a class= "sub_menu"  view_req_name = "manageTotalGreenPoint"  menu_deps= '2' >
 					                   		<span style = "font-weight : bold">통합 포인트 조회</span>
 					                   	</a>
 					                    </li>
 					                    
-			                         <li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
+			                         <li class = "C_2 manage" id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
 					                   	<a class= "sub_menu"  view_req_name = "manageGreenPoint"  menu_deps= '2' >
 					                   		<span style = "font-weight : bold">G 포인트 관리</span>
 					                   	</a>
 					                    </li>
-					                   <li id = "manageRedPoint"  data-options = "iconCls :'icon-info'">
+					                   <li class = "C_3 manage" id = "manageRedPoint"  data-options = "iconCls :'icon-info'">
 					                   	<a class= "sub_menu"  view_req_name = "manageRedPoint"  menu_deps= '2' >
 					                   		<span style = "font-weight : bold">R 포인트 관리</span>
 					                   	</a> 
 					                   </li> 
-					                   	<li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
+					                   	<li class = "C_4 manage" id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
 					                   	<a class= "sub_menu"  view_req_name = "manageSalesPoint"  menu_deps= '2' >
 					                   		<span style = "font-weight : bold">포인트 관리 기능 </span>
 					                   	</a>
@@ -172,26 +172,26 @@
 		                        </ul>
                             </li> 
                             
-                              <li class = "m4 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">사이트 관리</span>
+                              <li class = "D manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "D manage" style = "font-weight : bold">사이트 관리</span>
 		                         <ul>
-                          			  	<li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+                          			  	<li class = "D_1 manage"  id = "managePosPayment" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
    											<span style = "font-weight : bold">가맹점 카테고리</span>
    										</a> 
    									</li>
    									
-                          			  <li id = "manageNoticeBoard" data-options = "iconCls :'icon-info'">
+                          			  <li class = "D_2 manage"  id = "manageNoticeBoard" data-options = "iconCls :'icon-info'">
                           			  	<a class= "sub_menu"  view_req_name = "manageNoticeBoard" menu_deps= '2' >
                           			  	<span style = "font-weight : bold">공지 관리</span>
                           			  	</a> 
                           			  </li>
-                          			   <li id = "manageNoticeBoard" data-options = "iconCls :'icon-info'">
+                          			   <li class = "D_3 manage" id = "manageNoticeBoard" data-options = "iconCls :'icon-info'">
                           			  	<a class= "sub_menu"  view_req_name = "manageFaqBoard" menu_deps= '2' >
                           			  	<span style = "font-weight : bold">FAQ 관리</span>
                           			  	</a> 
                           			  </li>
-                            		   <li id = "managePartnerBoard" data-options = "iconCls :'icon-info'">
+                            		   <li class = "D_4 manage" id = "managePartnerBoard" data-options = "iconCls :'icon-info'">
                             		  	<a class= "sub_menu"  view_req_name = "managePartnerBoard" menu_deps= '2' >
                             		  		<span style = "font-weight : bold">일반 / 제휴 문의 관리</span>
                             		  	</a> 
@@ -199,40 +199,35 @@
                             		  </ul>
                             		  </li>
                             
-                            <li class = "m6 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">통계 및 리포트</span>
+                            <li class = "E manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "E manage"  style = "font-weight : bold">통계 및 리포트</span>
 		                         <ul>
-   									<li id = "manageSalesReport" data-options = "iconCls :'icon-info'">
+   									<li class = "E_1 manage" id = "manageSalesReport" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageSalesReport" menu_deps= '2' >
    											<span style = "font-weight : bold">매출 및 적립 통계</span>
    										</a> 
    									</li>
-   									<li id = "manageSalesReport" data-options = "iconCls :'icon-info'">
+   									<li class = "E_2 manage" id = "manageSalesReport" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageMemberReport" menu_deps= '2' >
    											<span style = "font-weight : bold">회원 통계</span>
    										</a> 
    									</li>
-   									<li id = "manageSalesReport" data-options = "iconCls :'icon-info'">
+   									<li class = "E_3 manage" id = "manageSalesReport" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "managePointReport" menu_deps= '2' >
    											<span style = "font-weight : bold">G 포인트 통계</span>
    										</a> 
    									</li>
-   									<li id = "manageSalesReport" data-options = "iconCls :'icon-info'">
+   									<li class = "E_4 manage" id = "manageSalesReport" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageGiftReport" menu_deps= '2' >
    											<span style = "font-weight : bold">상품권 통계</span>
    										</a> 
    									</li>
 		                        </ul>
                             </li>     
-                               <li class = "m7 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">포인트 결제 관리</span>
+                               <li class = "F manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "F manage" style = "font-weight : bold">포인트 결제 관리</span>
 		                         <ul>
-   								<!-- 	<li id = "manageSalesReport" data-options = "iconCls :'icon-info'">
-   										<a class= "sub_menu"  view_req_name = "" menu_deps= '2' >
-   											<span style = "font-weight : bold">R 포인트 결제 관리</span>
-   										</a> 
-   									</li> -->
-   									<li id = "manageGpointPayment" data-options = "iconCls :'icon-info'">
+   									<li class = "F_1 manage" id = "manageGpointPayment" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageGpointPayment" menu_deps= '2' >
    											<span style = "font-weight : bold">G 포인트 결제 관리</span>
    										</a> 
@@ -241,49 +236,43 @@
                             </li>    
                             
                             
-                              <li class = "m8 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">매출 관리 및 조회</span>
+                              <li class = "G manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "G manage" style = "font-weight : bold">매출 관리 및 조회</span>
 		                         <ul>
-		                           <!--  <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
-		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
-		                            		<span style = "font-weight : bold">원본 결제 내역 관리</span>
-		                            	</a> 
-		                            </li> -->
-   									
-		                             <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+		                             <li  class = "G_1 manage" id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
 		                            		<span style = "font-weight : bold; ">세부 매출 조회</span>
 		                            	</a> 
 		                            </li>
-		                             <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+		                             <li class = "G_2 manage"  id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePaymentTransaction" menu_deps= '2' >
 		                            		<span style = "font-weight : bold; ">결제 및 매출 관리</span>
 		                            	</a> 
 		                            </li>
 
-		                            <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+		                            <li class = "G_3 manage"  id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "manageOverlapPaymentTransaction" menu_deps= '2' >
 		                            		<span style = "font-weight : bold; ">중복 결제</span>
 		                            	</a> 
 		                            </li>
-		                            <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+		                            <li class = "G_4 manage"  id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "manageAffiliateSale" menu_deps= '2' >
 		                            		<span style = "font-weight : bold">협력업체별 매출 조회</span>
 		                            	</a> 
 		                            </li>
 		                            
-		                            <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+		                            <li class = "G_5 manage"  id = "managePosPayment" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePaymentPointbackRecord" menu_deps= '2' >
 		                            		<span style = "font-weight : bold">결제별 R 포인트 적립 내역</span>
 		                            	</a> 
 		                            </li>
-		                          	<li data-options = "iconCls :'icon-manage'">
+		                          	<li class = "G_6 manage"  data-options = "iconCls :'icon-manage'">
 		                          		<a class= "sub_menu"  view_req_name = "manualPosPaymentRegister" menu_deps= '2' >
 		                          			<span style = "font-weight : bold">매출 수동 등록</span>
 		                          		</a>
 		                          	</li>
 		                          	 
-		                          	 <li data-options = "iconCls :'icon-manage'">
+		                          	 <li class = "G_7 manage"  data-options = "iconCls :'icon-manage'">
 		                          		<a class= "sub_menu"  view_req_name = "manageFileUpload" menu_deps= '2' >
 		                          			<span style = "font-weight : bold">매출 파일 등록 </span>
 		                          		</a>
@@ -292,27 +281,27 @@
                             </li> 
                  
                             
-                               <li class = "m9 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">푸시 및 메일링 서비스</span>
+                               <li class = "H manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "H manage"  style = "font-weight : bold">푸시 및 메일링 서비스</span>
 		                         <ul>
-   									<li id = "managePush"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "managePush"  node = "5"  menu_deps= '2' >
+   									<li class = "H_1 manage" id = "managePush"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "managePush"  node = "5"  menu_deps= '2' >
 		                        		<span style = "font-weight : bold">디바이스 PUSH </span>
 		                        	</li>
-		                        	<li id = "manageSms"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageSms"  node = "5"  menu_deps= '2' >
+		                        	<li class = "H_2 manage" id = "manageSms"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageSms"  node = "5"  menu_deps= '2' >
 		                        		<span style = "font-weight : bold">SMS/MMS </span></a> 
 		                        	</li>
 		                        	
-		                        	<li id = "manageEmailing"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageEmailing"  node = "5"  menu_deps= '2' >
+		                        	<li class = "H_3 manage" id = "manageEmailing"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageEmailing"  node = "5"  menu_deps= '2' >
 		                        		<span style = "font-weight : bold">EMAIL</span></a> 
 		                        	</li>
 		                        </ul>
                             </li>  
                             
                             
-                             <li class = "m10 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">정회원 신청 관리</span>
+                             <li class = "I manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "I manage"  style = "font-weight : bold">정회원 신청 관리</span>
 		                         <ul>
-		                         	<li id = "manageMembershipRequest"  data-options = "iconCls :'icon-info'">
+		                         	<li class = "I_1 manage" id = "manageMembershipRequest"  data-options = "iconCls :'icon-info'">
 		                         		<a class= "sub_menu"  view_req_name = "manageMembershipRequest"  menu_deps= '2' >
 		                         			<span style = "font-weight : bold">정회원 신청 관리</span>
 		                         		</a> 
@@ -320,30 +309,30 @@
 		                        </ul>
                             </li>
                             
-                             <li class = "m11 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">G, R 포인트 적립 현황</span>
+                             <li class = "J manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "J manage" style = "font-weight : bold">G, R 포인트 적립 현황</span>
 		                         <ul>
-		                         	<li id = "manageConvertPointRequest" data-options = "iconCls :'icon-info'">
+		                         	<li class = "J_1 manage" id = "manageConvertPointRequest" data-options = "iconCls :'icon-info'">
 		                         		<a class= "sub_menu"  view_req_name = "manageConvertPointRequest"  menu_deps= '2' >
 		                         			<span style = "font-weight : bold">R - G  포인트 적립 요청</span>
 		                         		</a> 
 		                         	</li>
-                            		<li id = "managePointConversionTransaction" data-options = "iconCls :'icon-info'">
+                            		<li class = "J_2 manage" id = "managePointConversionTransaction" data-options = "iconCls :'icon-info'">
                             			<a class= "sub_menu"  view_req_name = "managePointConversionTransaction"  menu_deps= '2' >
                             				<span style = "font-weight : bold">R 포인트 자동적립 현황</span>
                             			</a> 
                             		</li>
 		                        </ul>
                             </li>
-                             <li class = "m12 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">포인트 출금 관리</span>
+                             <li class = "K manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "K manage" style = "font-weight : bold">포인트 출금 관리</span>
 		                         <ul>
-			                          <li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
+			                          <li class = "K_1 manage" id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
 				                          	<a class= "sub_menu"  view_req_name = "manageMemberBanckAccount"  menu_deps= '2' >
 				                          		<span style = "font-weight : bold">은행 계좌 관리</span>
 				                          	</a> 
 			                          	</li>
-                            			<li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
+                            			<li class = "K_2 manage" id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "managePointWithdrawal"  menu_deps= '2' >
                             					<span style = "font-weight : bold"><!-- <i class="fas fa-registered" style = "font-size: 14px;color:red"></i> --> R 포인트  출금 관리 </span>
                             				</a> 
@@ -351,15 +340,15 @@
 		                        </ul>
                             </li>  
                             
-                             <li class = "m13 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">포인트 사용 관리</span>
+                             <li class = "L manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "L manage" style = "font-weight : bold">포인트 사용 관리</span>
 		                         <ul>
-			                          <li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
+			                          <li class = "L_1 manage" id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
 				                          	<a class= "sub_menu"  view_req_name = "manageRedPointUse"  menu_deps= '2' >
 				                          		<span style = "font-weight : bold">R 포인트 사용 관리</span>
 				                          	</a> 
 			                          	</li>
-                            			<li id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
+                            			<li class = "L_2 manage "id = "manageGreenPoint" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "managePointTransfer"  menu_deps= '2' >
                             					<span style = "font-weight : bold">포인트 이체(선물) 관리</span>
                             				</a> 
@@ -367,20 +356,20 @@
 		                        </ul>
                             </li>   
                             
-                             <li class = "m14 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">외부 연동 관리</span>
+                             <li class = "M manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "M manage" style = "font-weight : bold">외부 연동 관리</span>
 		                         <ul>
-		                         	 <li id="manageApiService" data-options = "iconCls :'icon-info'">
+		                         	 <li class = "M_1 manage" id="manageApiService" data-options = "iconCls :'icon-info'">
                         			 	<a class= "sub_menu"  view_req_name = "manageApiService"  menu_deps= '2' >
                         			 		<span style = "font-weight : bold">연동 API 관리</span>
                         			 	</a> 
                         			 </li>
 		                        </ul>
                             </li>
-                            <li class = "m15 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">특수 조직 관리</span>
+                            <li class = "N manage" data-options = "iconCls :'icon-info'">
+                            	 <span class = "N manage"  style = "font-weight : bold">특수 조직 관리</span>
 		                         <ul>
-		                         	<li id = "manageMembershipRequest"  data-options = "iconCls :'icon-info'">
+		                         	<li class = "N_1 manage" id = "manageMembershipRequest"  data-options = "iconCls :'icon-info'">
 		                         		<a class= "sub_menu"  view_req_name = "manageMarketer"  menu_deps= '2' >
 		                         			<span style = "font-weight : bold">마케팅 코드, ID 관리</span>
 		                         		</a> 
@@ -388,15 +377,15 @@
 		                        </ul>
                             </li>
                             
-                             <li class = "m16 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">자료 파일 관리</span>
+                             <li class = "O manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "O manage"  style = "font-weight : bold">자료 파일 관리</span>
 		                         <ul>
-                          			  <li id = "manageNodeFileUpload" data-options = "iconCls :'icon-info'">
+                          			  <li class = "O_1 manage"  id = "manageNodeFileUpload" data-options = "iconCls :'icon-info'">
                           			  	<a class= "sub_menu"  view_req_name = "manageUploadFile" menu_deps= '2' >
                           			  	<span style = "font-weight : bold">노드 파일 업로드/관리</span>
                           			  	</a> 
                           			  </li>
-                            		  <li id = "managePosPayment" data-options = "iconCls :'icon-info'">
+                            		  <li class = "O_2 manage"  id = "managePosPayment" data-options = "iconCls :'icon-info'">
                             		  	<a class= "sub_menu"  view_req_name = "managePosPayment" menu_deps= '2' >
                             		  		<span style = "font-weight : bold">VAN 결제 내역 파일 </span>
                             		  	</a> 
@@ -405,91 +394,91 @@
                             </li>   
                             
                                        
-                             <li class = "m17 manage" data-options = "iconCls :'icon-info'">
-                            	 <span  style = "font-weight : bold">상품권 관리</span>
+                             <li class = "P manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "P manage"  style = "font-weight : bold">상품권 관리</span>
 		                         <ul>
-                            			<li class = ""   id = "manageSalesOrganInfo"  class = "10 20 12">
+                            			<li class = "P_1"   id = "manageSalesOrganInfo"  class = "10 20 12">
                             				<a class= "sub_menu"  view_req_name = "manageSalesOrganInfo"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 조직 정보</span>
                             				</a> 
                             			</li>
                             			
-                            		   <li class = ""  id = "" data-options = "iconCls :'icon-info'">
+                            		   <li class = "P_2 manage"  id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 현황 리포트</span>
                             				</a> 
                             			</li>
-                            			<li class = ""  id = "" data-options = "iconCls :'icon-info'">
+                            			<li class = "P_3 manage"  id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 관련 통합 조회</span>
                             				</a> 
                             			</li>
-                            			<li class = ""   id = "manageGiftCardPolicy" data-options = "iconCls :'icon-info'">
+                            			<li class = "P_4 manage"   id = "manageGiftCardPolicy" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardPolicy"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 정책 관리</span>
                             				</a> 
                             			</li>
                             			
-                            			<li class = ""   id = "manageGiftCardSalesOrgan" data-options = "iconCls :'icon-info'">
+                            			<li class = "P_5 manage"  id = "manageGiftCardSalesOrgan" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardSalesOrgan"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 판매 조직 관리</span>
                             				</a> 
                             			</li>
                             			
-                            			<li class = ""  id = "manageAffiliate"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageAffiliate"  node = "5"  menu_deps= '2' >
+                            			<li class = "P_6 manage"  id = "manageAffiliate"  data-options = "iconCls :'icon-info'"><a class= "sub_menu"  view_req_name = "manageAffiliate"  node = "5"  menu_deps= '2' >
 		                        		<span style = "font-weight : bold">상품권 제휴점 관리</span></a> 
 		                        		</li>
 		                        	
-                            			<li class = ""   id = "manageGiftCard" data-options = "iconCls :'icon-info'">
+                            			<li class = "P_7 manage"   id = "manageGiftCard" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCard"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 상품 관리</span>
                             				</a> 
                             			</li>
                             			
-                            			<li class = ""   id = "manageGiftCardIssue" data-options = "iconCls :'icon-info'">
+                            			<li class = "P_8 manage"   id = "manageGiftCardIssue" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardIssue"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 발행 요청</span>
                             				</a> 
                             			</li>
                             			
-                            				<li  class = "" id = "" data-options = "iconCls :'icon-info'">
+                            				<li  class = "P_9 manage" id = "" data-options = "iconCls :'icon-info'">
 			                            				<a class= "sub_menu"  view_req_name = "manageHeadGiftOrder"  menu_deps= '2' >
 			                            					<span style = "font-weight : bold;">본사 발주 관리</span>
 			                            				</a> 
 			                            			</li>
-			                            			<li  class = "" id = "" data-options = "iconCls :'icon-info'">
+			                            			<li  class = "P_10 manage" id = "" data-options = "iconCls :'icon-info'">
 			                            				<a class= "sub_menu"  view_req_name = "manageDistGiftOrder"  menu_deps= '2' >
 			                            					<span style = "font-weight : bold;">총판 발주 관리</span>
 			                            				</a> 
 			                            			</li>
-                            						<li class = ""  id = "" data-options = "iconCls :'icon-info'">
+                            						<li class = "P_11 manage" id = "" data-options = "iconCls :'icon-info'">
 			                            				<a class= "sub_menu"  view_req_name = "manageSaleOrganGiftOrder"  menu_deps= '2' >
 			                            					<span style = "font-weight : bold;">판매점 발주 관리</span>
 			                            				</a> 
 			                            			</li>
-			                            			<li class = "" id = "" data-options = "iconCls :'icon-info'">
+			                            			<li class = "P_12 manage" id = "" data-options = "iconCls :'icon-info'">
 			                            				<a class= "sub_menu"  view_req_name = "manageCommonGiftOrder"  menu_deps= '2' >
 			                            					<span style = "font-weight : bold;">일반 발주 관리</span>
 			                            				</a> 
 			                            			</li>
                             			
-                            			<li class = ""   id = "" data-options = "iconCls :'icon-info'">
+                            			<li class = "P_13 manage"  id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageIssuedGiftCard"  menu_deps= '2' >
                             					<span style = "font-weight : bold">발행 상품권 조회</span>
                             				</a> 
                             			</li>
                             			
-										<li class = ""  id = "" data-options = "iconCls :'icon-info'">
+										<li class = "P_14 manage" id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardAccHistory"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 적립 내역 </span>
                             				</a> 
                             			</li>
-                            			<li class = ""  id = "" data-options = "iconCls :'icon-info'">
+                            			<li class = "P_15 manage"  id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
                             					<span style = "font-weight : bold">발행 상품권 결제 관리</span>
                             				</a> 
                             			</li>
-                            			<li class = "" id = "" data-options = "iconCls :'icon-info'">
+                            			<li class = "P_16 manage"  id = "" data-options = "iconCls :'icon-info'">
                             				<a class= "sub_menu"  view_req_name = "manageGiftCardPayment"  menu_deps= '2' >
                             					<span style = "font-weight : bold">상품권 매출 통계 및 정산</span>
                             				</a> 
@@ -500,7 +489,7 @@
                         </ul>
                     </li>
                     
-                    <li class = "m18 manage">
+                    <li class = "Q manage">
                         <span>
                         	<span class="sub_menu" menu_deps= '1'  style = "font-weight : bold">시스템 관리자 패널</span>
                         </span>
@@ -598,7 +587,13 @@
 	</div>
 	<div id="chart_container"></div>
 	<script>
-	    var canNodeListSearchBlank = false;
+	  	Array.prototype.hasValue = function(value) {
+			var i;
+			for (i=0; i<this.length; i++) { if (this[i] === value) return true; }
+			return false;
+	 	}
+	  	
+		var canNodeListSearchBlank = false;
 		var loginType = '${authType}'
 		var initMenu = "${initAuthMenu}";
 		var organType =  "${authType}";
@@ -617,11 +612,13 @@
 			var initMenuArr = initMenu.split(",");
 			var menus = []
 			for (var i = 0; i < initMenuArr.length ; i++){
+				var menuItem = initMenuArr[i].split("_");
+				$("." + menuItem[0]).addClass(initMenuArr[i])
 				menus.push("." + initMenuArr[i]);
 			}
 			var menuSel = menus.join(",");
 			$(".manage").not(menuSel).remove();
-		
+			console.log(menuSel);
 		}
 		$.fn.serializeObject = function () {
 		    "use strict";
@@ -667,11 +664,6 @@
 	</script>
     <script>
    		var isAjax = false;
-    	Array.prototype.hasValue = function(value) {
-    		var i;
-    		for (i=0; i<this.length; i++) { if (this[i] === value) return true; }
-    		return false;
-     	}
     
     	var selectedMenu = {};
 	    var appNavigation = {deps1 : "",deps2 : "",deps3 :""};
