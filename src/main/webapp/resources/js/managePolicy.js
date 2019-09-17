@@ -34,6 +34,10 @@ function initView(){
 		tools : "#rpay_withdraw_panel_tool"
 	});
 	
+	$('#payAccPanel').panel({
+		tools : "#payAccPanel_tool"
+	});
+	
 	$('#rate').textbox({
 		readonly : true,
 		value : 1

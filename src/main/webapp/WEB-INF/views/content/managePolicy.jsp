@@ -164,10 +164,16 @@
         			</div> 
         		</div>
         		<div style="width:33%; display: inline-block;height: 100%">
-        			<div class="easyui-panel" id="etc_config2" title = "기타"  style = "height: 100%">
-        				<div id="etc_tool2">
-							<a href="javascript:void(0)" class="icon-save" style = "margin-right : 5px" onclick="javascript:alert('save')"></a>
-					    <!--     <a href="javascript:void(0)" class="icon-help " style = "margin-right : 5px" onclick="javascript:alert('help')"></a> -->
+        			<div class="easyui-panel" id="payAccPanel" title = "결제 및 적립 "  style = "height: 100%;padding: 5px 20px">
+        				<div style = "width: 100%;margin-bottom:20px"></div>
+        				<form id = "policyForm6">
+	        				<div style = "width: 100%;">
+								<input class="easyui-textbox" id ="maxGpointAccLImit"  name="maxGpointAccLImit"  data-options="label:'* 결제 적립 한도',labelPosition : 'top'" style="width:100%;"> 
+							</div>
+						</form>
+        				
+        				<div id="payAccPanel_tool">
+							<a href="javascript:void(0)" class="icon-save" style = "margin-right : 5px" onclick="javascript:createPolicy()"></a>
 				    	</div>
         			</div> 
         		</div>
