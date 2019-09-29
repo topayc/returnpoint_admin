@@ -392,6 +392,7 @@ function loadBranchUpdateForm(){
 				if (res.resultCode  == "100") {
 					console.log(res);
 					$('#createBranchForm').form('load',res.data);
+					$("#orgMemberNo").val(res.data.memberNo)
 					$('#memberEmail').textbox({ disabled : true });
 					$('#soleDistName').textbox('setValue', res.data.soleDistName);
             		$('#soleDistEmail').textbox('setValue', res.data.soleDistEmail);
@@ -406,6 +407,7 @@ function loadBranchUpdateForm(){
 
 function makeFormData(){
 	var param = {
+			orgMemberNo : $('#orgMemberNo').val(),	
 			branchEmail : $('input[name=branchEmail]').val(),	
 			branchName : $('input[name=branchName]').val(),	
 			branchAddress : $('input[name=branchAddress]').val(),	

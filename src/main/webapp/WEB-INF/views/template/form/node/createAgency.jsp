@@ -3,6 +3,7 @@
 <div style ="padding:5px;margin: 20px">
 	<div style = "padding:10px;padding-top:5px;padding-bottom:5px" >
 	   <form id="createAgencyForm"  enctype="multipart/form-data" name = "createForm" method="post" action = "<c:url value='/createAbmsProject'/>">
+			<input type = "hidden" id = "orgMemberNo" value = "">
 			<div style="margin-bottom:30px"><input id ="memberNo"  name="memberNo" style="width:100%" data-options="label:'회원 검색 ',labelWidth :140,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:30px"><input id ="agencyName"  name="agencyName" style="width:100%" data-options="label:'대리점 이름 ',labelWidth :140,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:30px"><input id ="agencyEmail"  name="agencyEmail" style="width:100%" data-options="label:'대리점 이메일 ',labelWidth :140,labelPosition : 'left'"> </div>

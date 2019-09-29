@@ -175,9 +175,16 @@
                               <li class = "D manage" data-options = "iconCls :'icon-info'">
                             	 <span  class = "D manage" style = "font-weight : bold">사이트 관리</span>
 		                         <ul>
-                          			  	<li class = "D_1 manage"  id = "managePosPayment" data-options = "iconCls :'icon-info'">
+                          			
+                          		     <li class = "D_5 manage"  id = "manageAffilaiteContent" data-options = "iconCls :'icon-info'">
+   										<a class= "sub_menu"  view_req_name = "manageAffiliateContent" menu_deps= '2' >
+   											<span style = "font-weight : bold">협력업체 정보 관리 </span>
+   										</a> 
+   									</li>
+   									
+                          			 <li class = "D_1 manage"  id = "managePosPayment" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageCategory" menu_deps= '2' >
-   											<span style = "font-weight : bold">가맹점 카테고리</span>
+   											<span style = "font-weight : bold">카테고리 관리</span>
    										</a> 
    									</li>
    									
@@ -197,8 +204,8 @@
                             		  	</a> 
                             		  </li>
                             		  </ul>
-                            		  </li>
-                            
+                            </li>
+                      
                             <li class = "E manage" data-options = "iconCls :'icon-info'">
                             	 <span  class = "E manage"  style = "font-weight : bold">통계 및 리포트</span>
 		                         <ul>

@@ -1,5 +1,6 @@
 package com.returnp.admin.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -144,6 +145,7 @@ public class BranchController extends ApplicationController{
 	@ResponseBody
 	@RequestMapping(value = "/branch/update", method = RequestMethod.POST)
 	public  ReturnpBaseResponse updateBranch( 
+			int orgMemberNo,
 			@ModelAttribute("branchFormInfo") Branch branch,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
@@ -160,6 +162,21 @@ public class BranchController extends ApplicationController{
 		
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.branchService.updateByPrimaryKey(branch);
+		
+		GreenPoint greenPoint  = null;
+		ArrayList<GreenPoint> greenPoints  = null;
+
+		if (orgMemberNo != branch.getMemberNo()) {
+		/*해당 지사의 소유주 자체가 변경됨 , 관련 지사 포인트의 소유주 변경*/	
+			greenPoint = new GreenPoint();
+			greenPoint.setMemberNo(orgMemberNo);
+			greenPoint.setNodeType(AppConstants.NodeType.BRANCH);
+			greenPoints = this.searchService.findGreenPoints(greenPoint);
+			greenPoint = greenPoints.get(0);
+			greenPoint.setMemberNo(branch.getMemberNo());
+			this.greenPointService.updateByPrimaryKey(greenPoint);
+		}
+		
 		this.setSuccessResponse(res, "수정 완료");
 		sessionStatus.setComplete();
 		return res;

@@ -402,7 +402,8 @@ function loadAgencyModifyForm(){
 				if (res.resultCode  == "100") {
 					console.log(res);
 					$('#createAgencyForm').form('load',res.data);
-					$('#memberNo').textbox({disabled : true });
+					$("#orgMemberNo").val(res.data.memberNo)
+					/*$('#memberNo').textbox({disabled : true });*/
 					$('#regType').combobox('select',res.data.regType);
 				}else {
 					$.messager.alert('오류 발생', res.message);
@@ -415,6 +416,7 @@ function loadAgencyModifyForm(){
 
 function makeFormData(){
 	var param = {
+			orgMemberNo : $('#orgMemberNo').val(),	
 			memberNo : $('input[name=memberNo]').val(),	
 			branchNo : $('input[name=branchNo]').val(),	
 			recommenderNo : $('input[name=recommenderNo]').val(),	

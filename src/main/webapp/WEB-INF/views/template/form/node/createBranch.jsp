@@ -3,6 +3,7 @@
 <div id="createBranchForm" style ="padding:5px;margin: 20px">
 	<div style = "padding:10px;padding-top:5px;padding-bottom:5px" >
 	   <form id="createForm"  enctype="multipart/form-data" name = "createForm" method="post" action = "<c:url value='/createAbmsProject'/>">
+				<input type = "hidden" id = "orgMemberNo" value = "">
 			<div style="margin-bottom:20px"><input id ="memberNo"  name="memberNo" style="width:100%" data-options="label:'회원 검색 ',labelWidth :140,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:20px"><input id ="branchEmail"  name="branchEmail" style="width:100%" data-options="label:'지사 이메일 ',labelWidth :140,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:20px"><input id ="branchName"  name="branchName" style="width:100%" data-options="label:'지사 이름 ',labelWidth :140,labelPosition : 'left'"> </div>
@@ -44,7 +45,7 @@
 		$('#memberNo').textbox({
 			label : roundLabel("회원 검색"),
 			prompt: '참조할 회원 검색 ',
-			editable : false,
+			editable : false, 
 			icons:[{
 				iconCls:'icon-search',
 				handler: function(e){
@@ -70,7 +71,7 @@
 		$('#soleDistNo').textbox({
 			label : roundLabel("총판 검색"),
 			prompt: '참조할 총판 검색 ',
-			editable : false,
+			/* editable : false, */
 			icons:[{
 				iconCls:'icon-search',
 				handler: function(e){

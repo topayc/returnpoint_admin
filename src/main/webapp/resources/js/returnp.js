@@ -126,7 +126,7 @@ $(function () {
         	getAgencyCommand: { apiCode: 10000, apiPath : '/api/agency/getAgencyCommand' ,  requestMethod: "get"},  
         	createAgency: { apiCode: 10000, apiPath : '/api/agency/create' ,  requestMethod: "post"},  
         	updateAgency: { apiCode: 10000, apiPath : '/api/agency/update' ,  requestMethod: "post"},
-        	deleteAgency: { apiCode: 10000, apiPath : '/api/agency/update' ,  requestMethod: "post"},
+        	deleteAgency: { apiCode: 10000, apiPath : '/api/agency/delete' ,  requestMethod: "post"},
         	
         	/* 협력 업체(가맹점) 관련*/
         	getAffiliate: { apiCode: 10000, apiPath : '/api/affiliate/get' ,  requestMethod: "get"},  

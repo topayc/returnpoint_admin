@@ -1,5 +1,6 @@
 package com.returnp.admin.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -22,8 +23,8 @@ import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.AgencyCommand;
-import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Agency;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
@@ -146,6 +147,7 @@ public class AgencyController extends ApplicationController{
 	@ResponseBody
 	@RequestMapping(value = "/agency/update", method = RequestMethod.POST)
 	public  ReturnpBaseResponse updateAgencyr( 
+			int orgMemberNo,
 			@ModelAttribute("agencyFormInfo") Agency agency,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
@@ -162,6 +164,21 @@ public class AgencyController extends ApplicationController{
 		
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		this.agencyService.updateByPrimaryKey(agency);
+		
+		GreenPoint greenPoint  = null;
+		ArrayList<GreenPoint> greenPoints  = null;
+
+		if (orgMemberNo != agency.getMemberNo()) {
+		/*해당 대리점의 소유주 자체가 변경됨 , 관련 대리점 포인트의 소유주 변경*/	
+			greenPoint = new GreenPoint();
+			greenPoint.setMemberNo(orgMemberNo);
+			greenPoint.setNodeType(AppConstants.NodeType.AGENCY);
+			greenPoints = this.searchService.findGreenPoints(greenPoint);
+			greenPoint = greenPoints.get(0);
+			greenPoint.setMemberNo(agency.getMemberNo());
+			this.greenPointService.updateByPrimaryKey(greenPoint);
+		}
+		
 		this.setSuccessResponse(res, "수정 완료");
 		sessionStatus.setComplete();
 		return res;
