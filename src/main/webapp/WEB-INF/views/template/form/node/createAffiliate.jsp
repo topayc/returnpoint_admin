@@ -21,6 +21,7 @@
 			<input type="text" id="lat"  name="lat" />
 			<input type="text" id="lng"  name="lng" />
 			</div>
+			<input type = "hidden" id = "orgMemberNo" value = "">
 			<div style="margin-bottom:8px"><input id ="memberNo"  name="memberNo" style="width:100%" data-options="label:'회원 검색 ',labelWidth :140,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:8px"><input id ="affiliateName"  name="affiliateName" style="width:100%" data-options="label:'협력업체 이름 ',labelWidth :140,labelPosition : 'left'"> </div>
 			<div style="margin-bottom:8px"><input id ="affiliateEmail"  name="affiliateEmail" style="width:100%" data-options="label:'협력업체 이메일 ',labelWidth :140,labelPosition : 'left'"> </div>

@@ -25,9 +25,11 @@ import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.AgencyCommand;
 import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.model.Affiliate;
 import com.returnp.admin.model.Agency;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
+import com.returnp.admin.service.interfaces.AffiliateService;
 import com.returnp.admin.service.interfaces.AgencyService;
 import com.returnp.admin.service.interfaces.BranchService;
 import com.returnp.admin.service.interfaces.GreenPointService;
@@ -43,6 +45,7 @@ public class AgencyController extends ApplicationController{
 	
 	@Autowired MemberService memberSerivice;
 	@Autowired BranchService branchService;
+	@Autowired AffiliateService affilaiteService;
 	@Autowired AgencyService agencyService;
 	@Autowired SearchService searchService;
 	@Autowired MemberService memberService;
@@ -59,7 +62,7 @@ public class AgencyController extends ApplicationController{
 		model.addAttribute("registTypes", CodeDefine.getRegistTypes());
 		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatuses());
 		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypest());
-		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatuses());
+		model.addAttribute("nodeStatuses", CodeDefine.getStructureStatus());
 		model.addAttribute("authTypes", CodeDefine.getAuthTypes());
 	
 		if (action.equals("create")) {
@@ -163,20 +166,65 @@ public class AgencyController extends ApplicationController{
 		}
 		
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
-		this.agencyService.updateByPrimaryKey(agency);
-		
 		GreenPoint greenPoint  = null;
 		ArrayList<GreenPoint> greenPoints  = null;
-
-		if (orgMemberNo != agency.getMemberNo()) {
-		/*해당 대리점의 소유주 자체가 변경됨 , 관련 대리점 포인트의 소유주 변경*/	
-			greenPoint = new GreenPoint();
-			greenPoint.setMemberNo(orgMemberNo);
-			greenPoint.setNodeType(AppConstants.NodeType.AGENCY);
-			greenPoints = this.searchService.findGreenPoints(greenPoint);
-			greenPoint = greenPoints.get(0);
-			greenPoint.setMemberNo(agency.getMemberNo());
-			this.greenPointService.updateByPrimaryKey(greenPoint);
+		ArrayList<Affiliate> affilaites= null;
+		
+		if (orgMemberNo == agency.getMemberNo()) {
+			this.agencyService.updateByPrimaryKey(agency);
+		}else {
+			
+			Agency cond = new Agency();
+			cond.setMemberNo(agency.getMemberNo());
+			
+			if (this.searchService.findAgencies(cond).size() > 0) {
+				this.setErrorResponse(res,"이미 대리점으로 등록되어 있는 회원입니다.");
+				return res;
+			}else {
+				/*기존 대리점 이전 탈퇴로 변경
+				Agency orgAgency=  this.agencyService.selectByPrimaryKey(agency.getAgencyNo());
+				orgAgency.setAgencyStatus(AppConstants.StructureStatus.TRANSFER_STOP);
+				this.agencyService.updateByPrimaryKey(orgAgency);
+				*/
+				
+				/*기존 대리점 삭제*/
+				this.agencyService.deleteByPrimaryKey(agency.getAgencyNo());
+				
+				/*이전 받는 대리점 생성*/
+				int aNo = agency.getAgencyNo();
+				agency.setAgencyNo(null);
+				this.agencyService.insert(agency);
+				
+				/* 소속 가맹점의 의 참조 대리점 일괄 변경*/
+				Affiliate affiliateCond = new Affiliate();
+				affiliateCond.setAgencyNo(aNo);
+				affilaites = this.searchService.findAffiliates(affiliateCond);
+				if (affilaites.size() > 0) {
+					for (Affiliate affiliate :affilaites) {
+						affiliate.setAgencyNo(agency.getAgencyNo());
+						this.affilaiteService.updateByPrimaryKey(affiliate);
+					}
+				}
+				
+				/*이전 받는  대리점의 대리점 G 포인트 생성*/
+				greenPoint = new GreenPoint();
+				greenPoint.setMemberNo(agency.getMemberNo());
+				greenPoint.setNodeType(AppConstants.NodeType.AGENCY);
+				
+				greenPoints = this.searchService.findGreenPoints(greenPoint);
+				if (greenPoints == null || greenPoints.size() < 1 ) {
+					greenPoint.setNodeNo(agency.getMemberNo());
+					greenPoint.setPointAmount((float)0);
+					greenPoint.setNodeTypeName("agency");
+					this.greenPointService.insert(greenPoint);
+				}
+				
+				/*Member Table update*/
+				Member member = new Member();
+				member.setMemberNo(agency.getMemberNo());
+				member.setIsAgency("Y");
+				this.memberService.updateByPrimaryKeySelective(member );
+			}
 		}
 		
 		this.setSuccessResponse(res, "수정 완료");

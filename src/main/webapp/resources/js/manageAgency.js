@@ -353,6 +353,16 @@ function loadAgencyModifyForm(){
 		 return;
 	}
 	
+	if (node.agencyStatus == "3") {
+		 $.messager.alert('알림','해당 대리점은 탈퇴한 대리점으로 상태를 변경할 수 없습니다');
+		 return;
+	}
+
+	if (node.agencyStatus == "4") {
+		 $.messager.alert('알림','해당 대리점은 이전된 상태로 상태를 변경할 수 없습니다');
+		 return;
+	}
+	
 	var data = {
         targetElem : "#dlgForm",
         title : "[" +node.agencyName + "] " + " 대리점 수정",

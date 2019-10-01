@@ -23,11 +23,13 @@ import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.BranchCommand;
-import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.dto.reponse.ObjectResponse;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.model.Agency;
 import com.returnp.admin.model.Branch;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
+import com.returnp.admin.service.interfaces.AgencyService;
 import com.returnp.admin.service.interfaces.BranchService;
 import com.returnp.admin.service.interfaces.GreenPointService;
 import com.returnp.admin.service.interfaces.MemberService;
@@ -44,6 +46,7 @@ public class BranchController extends ApplicationController{
 	@Autowired BranchService branchService;
 	@Autowired SearchService searchService;;
 	@Autowired MemberService memberService;
+	@Autowired AgencyService  agencyService;
 	@Autowired GreenPointService  greenPointService;
 	@Autowired RedPointService redPointService;
 	@Autowired PointCoversionTransactionService pointTransactionService;
@@ -57,7 +60,7 @@ public class BranchController extends ApplicationController{
 		model.addAttribute("registTypes", CodeDefine.getRegistTypes());
 		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatuses());
 		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypest());
-		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatuses());
+		model.addAttribute("nodeStatuses", CodeDefine.getStructureStatus());
 		model.addAttribute("authTypes", CodeDefine.getAuthTypes());
 	
 		if (action.equals("create")) {
@@ -161,20 +164,64 @@ public class BranchController extends ApplicationController{
 		}
 		
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
-		this.branchService.updateByPrimaryKey(branch);
-		
+
 		GreenPoint greenPoint  = null;
 		ArrayList<GreenPoint> greenPoints  = null;
-
-		if (orgMemberNo != branch.getMemberNo()) {
-		/*해당 지사의 소유주 자체가 변경됨 , 관련 지사 포인트의 소유주 변경*/	
-			greenPoint = new GreenPoint();
-			greenPoint.setMemberNo(orgMemberNo);
-			greenPoint.setNodeType(AppConstants.NodeType.BRANCH);
-			greenPoints = this.searchService.findGreenPoints(greenPoint);
-			greenPoint = greenPoints.get(0);
-			greenPoint.setMemberNo(branch.getMemberNo());
-			this.greenPointService.updateByPrimaryKey(greenPoint);
+		ArrayList<Branch> branches = null;
+		ArrayList<Agency> agencyList= null;
+		if (orgMemberNo == branch.getMemberNo()) {
+			this.branchService.updateByPrimaryKey(branch);
+		}else {
+			Branch cond = new Branch();
+			cond.setMemberNo(branch.getMemberNo());
+			
+			if (this.searchService.findBranches(cond).size() > 0) {
+				this.setErrorResponse(res,"이미 지사로 등록되어 있는 회원입니다.");
+				return res;
+			}else {
+				/*기존 브랜치 이전 탈퇴로 변경*/
+			/*	Branch orgBranch =  this.branchService.selectByPrimaryKey(branch.getBranchNo());
+				orgBranch.setBranchStatus(AppConstants.StructureStatus.TRANSFER_STOP);
+				this.branchService.updateByPrimaryKey(orgBranch);*/
+				
+				/*기존 브랜치 삭제*/
+				this.branchService.deleteByPrimaryKey(branch.getBranchNo());
+				
+				int bNo = branch.getBranchNo();
+				
+				/*이전 받는 지사 생성*/
+				branch.setBranchNo(null);
+				this.branchService.insert(branch);
+				
+				/* 소속 대리점의 참조 지점 일괄 변경*/
+				Agency agencyCond = new Agency();
+				agencyCond.setBranchNo(bNo);
+				agencyList = this.searchService.findAgencies(agencyCond);
+				if (agencyList.size() > 0) {
+					for (Agency agency : agencyList) {
+						agency.setBranchNo(branch.getBranchNo());
+						this.agencyService.updateByPrimaryKey(agency);
+					}
+				}
+				/*이전 받는 지사의 지사 G 포인트 생성*/
+				greenPoint = new GreenPoint();
+				greenPoint.setMemberNo(branch.getMemberNo());
+				greenPoint.setNodeType(AppConstants.NodeType.BRANCH);
+				
+				greenPoints = this.searchService.findGreenPoints(greenPoint);
+				if (greenPoints == null || greenPoints.size() < 1 ) {
+					greenPoint.setNodeNo(branch.getMemberNo());
+					greenPoint.setPointAmount((float)0);
+					greenPoint.setNodeTypeName("branch");
+					this.greenPointService.insert(greenPoint);
+				}
+				
+				/*Member Table update*/
+				Member member = new Member();
+				member.setMemberNo(branch.getMemberNo());
+				member.setIsBranch("Y");
+				this.memberService.updateByPrimaryKeySelective(member );
+			}
 		}
 		
 		this.setSuccessResponse(res, "수정 완료");

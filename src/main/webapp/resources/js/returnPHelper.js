@@ -1066,6 +1066,9 @@ function checkNodeStatus(status){
 	case "3":
 		text = '<span style = "border-radius: 10px; border: 1px solid red;padding: 2px;font-size : 12px;color : red;font-weight : bold">탈퇴</span>'; break;
 		break;
+	case "4":
+		text = '<span style = "border-radius: 10px; border: 1px solid red;padding: 2px;font-size : 12px;color : red;font-weight : bold">이전</span>'; break;
+		break;
 	}
 	return text;
 }

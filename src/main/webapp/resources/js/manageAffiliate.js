@@ -6,7 +6,8 @@
 			    {field:'memberEmail',width:60,align:'center',title : '이메일'},
 			    {field:'affiliateName',width:55,align:'center',title : '가맹점 이름'},
 			    {field:'affiliateCode',width:60,align:'center',title : '가맹점 코드',hidden:false},
-			    {field:'affiliateType',width:50,align:'center',title : '분류' , formatter : affiliateTypeFormatter},
+			    {field:'agencyName',width:40,align:'center',title : '대리점', hidden:false,formatter : slashFormatter},
+			    {field:'affiliateType',width:45,align:'center',title : '분류' , formatter : affiliateTypeFormatter},
 			    {field:'affiliateStatus',width:30,align:'center',title : '상태',formatter : affiliateStatusFormatter},
 			    {field:'paymentRouterNo',width:30,align:'center',title : '라우터 번호', hidden:true },
 			    {field:'paymentRouterCode',width:30,align:'center',title : '라우터 코드', hidden:true},
@@ -20,7 +21,6 @@
 			    {field:'ciderPayStatus',width:40,align:'center',title : 'CIDER PAY', formatter :ciderPayStatusFormattter },
 			    {field:'greenPointAmount',width:40,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
 			    {field:'redPointAmount',width:40,align:'center',title : 'R POINT', formatter : numberRedFormatter},
-			    {field:'agencyName',width:30,align:'center',title : '대리점', hidden:false,formatter : slashFormatter},
 			    {field:'recommenderName',width:30,align:'center',title : '추천인'},
 			    {field:'greenPointAccStatus',width:15,align:'center',title : 'G 적립', formatter : ynFormatter},
 			    {field:'redPointAccStatus',width:15,align:'center',title : 'R 적립', formatter : ynFormatter},
@@ -61,10 +61,10 @@
 		{field:'noField2',width:40,align:'center',title : '삭제',formatter : bankAccountDeleteActionFormatter},
 		]];
 initView();
-var exitColumns = ['greenPointAmount', 'redPointAmount', 'recommenderName','greenPointAccStatus','redPointUseStatus' ,'branchNo','recommenderNo','agencyName'];
+var exitColumns = ['greenPointAmount', 'redPointAmount', 'recommenderName','greenPointAccStatus','redPointUseStatus' ,'branchNo','recommenderNo' /*,'agencyName' */];
 if (loginType != 1) {
 	for (var i = 0; i < columns[0].length ; i++){
-		console.log(columns[0][i].field);
+		/*console.log(columns[0][i].field);*/
 		if (exitColumns.hasValue(columns[0][i].field)) {
 			$('#node_list').datagrid('hideColumn', columns[0][i].field);
 		}
@@ -1212,6 +1212,7 @@ function loadAffiliateModifyForm(actionType){
 				console.log(res.data);
 				if (res.resultCode  == "100") {
 					$('#createAffiliateForm').form('load',res.data);
+					$("#orgMemberNo").val(res.data.memberNo)
 					//$('#memberNo').textbox({disabled : true });
 					$("#affiliateRoad").textbox('setValue', res.data.zipNo + " " + res.data.roadFullAddr+ " " + res.data.addrDetail);
 					modifyModeCallback(res.data.zipNo + " " + res.data.jibunAddr + " " + res.data.addrDetail,res.data.lat,res.data.lng);
@@ -1225,6 +1226,7 @@ function loadAffiliateModifyForm(actionType){
 
 function makeFormData(){
 	var param = $("#createAffiliateForm").serializeObject();
+	param.orgMemberNo = $("#orgMemberNo").val();
 	return param;
 }
 

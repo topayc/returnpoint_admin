@@ -147,6 +147,13 @@ public class AppConstants {
 		public static String USE  = "Y";
 		public static String NOT_USE = "N";
 	}
+	
+	public static class StructureStatus{
+		public static String NORMAP = "1";
+		public static String TEMP_STOP= "2";
+		public static String SECESSION = "3";
+		public static String  TRANSFER_STOP= "4";
+	}
 
 	public static class CodeGoup {
 		public static String NODE_TYPE = "CD00001";

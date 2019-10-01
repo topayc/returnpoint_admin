@@ -107,7 +107,7 @@ function initView(){
 			
 			returnp.api.call("getNodes", param, function(res){
 				//console.log("node datas");
-				//console.log(res);
+				console.log(res);
 				if (res.resultCode == "100") {
 					setListColumnHeader(param.searchNodeType);
 					$('#node_list').datagrid({
@@ -344,6 +344,15 @@ function loadBranchUpdateForm(){
 		 return;
 	}
 	
+	if (node.branchStatus == "3") {
+		 $.messager.alert('알림','해당 지사는 탈퇴한 지사로 상태를 변경할 수 없습니다');
+		 return;
+	}
+
+	if (node.branchStatus == "4") {
+		 $.messager.alert('알림','해당 지사는 이전된 상태로 상태를 변경할 수 없습니다');
+		 return;
+	}
 	var data = {
 		targetElem : "#dlgForm",
         title : "[" +node.branchName + "] " + "지사 수정",

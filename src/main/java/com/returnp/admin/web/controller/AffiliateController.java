@@ -119,7 +119,7 @@ public class AffiliateController extends ApplicationController {
 		model.addAttribute("registTypes", CodeDefine.getRegistTypes());
 		model.addAttribute("paymentStatuses", CodeDefine.getPaymentStatuses());
 		model.addAttribute("paymentTypes", CodeDefine.getPaymentTypest());
-		model.addAttribute("nodeStatuses", CodeDefine.getNodeStatuses2());
+		model.addAttribute("nodeStatuses", CodeDefine.getStructureStatus());
 		model.addAttribute("authTypes", CodeDefine.getAuthTypes());
 		model.addAttribute("affiliateTypes", CodeDefine.getAffiliateTypes());
 		
@@ -275,6 +275,7 @@ public class AffiliateController extends ApplicationController {
 	@ResponseBody
 	@RequestMapping(value = "/affiliate/update", method = RequestMethod.POST)
 	public  ReturnpBaseResponse updateAffiliate( 
+			int orgMemberNo,
 			@ModelAttribute("affiliateFormInfo") Affiliate affiliate, @ModelAttribute("memberAddressInfo") MemberAddress address,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
@@ -304,29 +305,57 @@ public class AffiliateController extends ApplicationController {
 			affiliate.setRegType("H");
 		}
 		
-		GreenPoint greenPoint = new GreenPoint();
-		greenPoint.setMemberNo(affiliate.getMemberNo());
-		greenPoint.setNodeType(AppConstants.NodeType.AFFILIATE);
-		
-		/* 
-		 * 수정인 경우, 가맹점의 멤버를 수정할 수 있기 때문세 해당 멤버번호와 Affilaite 타입의 그린포인트가 없을 경우 
-		 * 그린 포인트를 생성함 
-		*/ 
-		ArrayList<GreenPoint> greenPoints = this.searchService.findGreenPoints(greenPoint);
-		if (greenPoints.size() == 0 || greenPoints == null) {
-			greenPoint.setNodeNo(affiliate.getAffiliateNo());
-			greenPoint.setPointAmount((float)0);
-			greenPoint.setNodeTypeName("affiliate");
-			this.greenPointService.insert(greenPoint);
-		}
-		
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
-		this.affiliateService.updateByPrimaryKey(affiliate);
 		
-		address.setNodeType("5");
-		address.setMemberNo(affiliate.getMemberNo());
-		
-		this.memberAddressSerivice.updateByPrimaryKey(address);
+		if (orgMemberNo == affiliate.getMemberNo()) {
+			this.affiliateService.updateByPrimaryKey(affiliate);
+			address.setNodeType("5");
+			address.setMemberNo(affiliate.getMemberNo());
+			this.memberAddressSerivice.updateByPrimaryKey(address);
+		}else {
+			Affiliate affCond = new Affiliate();
+			affCond.setMemberNo(affiliate.getMemberNo());
+			
+			if (this.searchService.findAffiliates(affCond).size()  > 0 ) {
+				this.setErrorResponse(res,"이미 협력업체로 등록되어 있는 회원입니다.");
+				return res;
+			}else {
+				/*기존 협력업체와 협력업체의 주소 삭제*/
+				this.affiliateService.deleteByPrimaryKey(affiliate.getAffiliateNo());
+				this.memberAddressSerivice.deleteByPrimaryKey(address.getMemberAddressNo());
+				
+				/*협력업체 생성*/
+				affiliate.setAffiliateNo(null);
+				this.affiliateService.insert(affiliate);
+				
+				/*협력업체 주소 정보 생성*/
+				address.setMemberAddressNo(null);
+				address.setNodeNo(affiliate.getAffiliateNo());
+				address.setNodeType("5");
+				address.setMemberNo(affiliate.getMemberNo());
+				address.setRegAdminNo(affiliate.getRegAdminNo());
+				this.memberAddressSerivice.insert(address);
+				
+				GreenPoint greenPoint = new GreenPoint();
+				greenPoint.setMemberNo(affiliate.getMemberNo());
+				greenPoint.setNodeType(AppConstants.NodeType.AFFILIATE);	
+				
+				ArrayList<GreenPoint> greenPoints = this.searchService.findGreenPoints(greenPoint);
+				if (greenPoints.size() == 0 || greenPoints == null) {
+					greenPoint.setNodeNo(affiliate.getAffiliateNo());
+					greenPoint.setPointAmount((float)0);
+					greenPoint.setNodeTypeName("affiliate");
+					this.greenPointService.insert(greenPoint);
+				}
+				
+				/*Member Table update*/
+				Member member = new Member();
+				member.setMemberNo(affiliate.getMemberNo());
+				member .setIsAffiliate("Y");
+				this.memberService.updateByPrimaryKeySelective(member );
+			}
+		}
+
 		this.setSuccessResponse(res, "수정 완료");
 		sessionStatus.setComplete();
 		return res;
