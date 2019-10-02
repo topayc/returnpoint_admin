@@ -20,9 +20,11 @@
     	</div>
 	</div>
 	
-	<div  data-options="region:'center',split:true"  title = "협력업체 세부 정보" > 
-		<div class="easyui-panel"   style ="width:100%;height:100%">
-		</div> 
+	<div  data-options="region:'center',split:true,border:true"  > 
+		<div class="easyui-layout" data-options="fit:true,split:true,border:false" >
+                <div data-options="region:'west',split:true,collapsible:false" style="width:50%" title= "세부 정보 입력"></div>
+                <div data-options="region:'center'"  title = "미리보기"></div>
+            </div>
 	</div>
 </div>
 

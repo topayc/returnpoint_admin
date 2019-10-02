@@ -9,8 +9,8 @@ function ciderPayStatusFormattter(value, row, index) {
 		row.ciderPayStatus = "N"
 	}
 	switch (row.ciderPayStatus) {
-	case "Y": result = '<span style = "color : green;font-weight : bold" >' + "사용중" + ' </span>'; break;
-	case "N": result = '<span style = "color : red;font-weight : bold" >' + "사용 안함" + ' </span>'; break;
+	case "Y": result = '<span style = "color : green;font-weight : bold" >' + "Y" + ' </span>'; break;
+	case "N": result = '<span style = "color : red;font-weight : bold" >' + "N" + ' </span>'; break;
 	}
 	return result;
 }
@@ -1570,8 +1570,8 @@ function loadPaymentPointbackRecord(title, params) {
 										'findPaymentPointbackRecords2',
 										queryParam,
 										function(res) {
+											console.log(res)
 											if (res.resultCode == "100") {
-												// console.log(res)
 												$('#list_search_result') .datagrid({ data : res.rows })
 												var totalAmount = 0
 												for (var i = 0; i < res.rows.length; i++) {

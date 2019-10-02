@@ -29,7 +29,7 @@
 
 <script>
 var columns = [[
-		{field:'paymentPointbackRecordNo',width:60,align:'center',title : '번호',hidden:true},
+		{field:'paymentPointbackRecordNo',width:60,align:'center',title : '적립 번호',hidden:false},
 		{field:'paymentTransactionNo',width:70,align:'center',title : '참조 결제번호',hidden:false},
 		{field:'memberNo',width:60,align:'center',title : '회원 번호',hidden:true},
 		{field:'memberEmail',width:150,align:'center',title : '이메일'},
