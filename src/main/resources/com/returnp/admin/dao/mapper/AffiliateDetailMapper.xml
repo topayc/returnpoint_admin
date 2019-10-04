@@ -5,14 +5,23 @@
     <id column="affiliateDetailNo" jdbcType="INTEGER" property="affiliateDetailNo" />
     <result column="affiliateNo" jdbcType="INTEGER" property="affiliateNo" />
     <result column="businessNumber" jdbcType="VARCHAR" property="businessNumber" />
-    <result column="businessType" jdbcType="VARCHAR" property="businessType" />
     <result column="businessItem" jdbcType="VARCHAR" property="businessItem" />
+    <result column="buisnessName" jdbcType="VARCHAR" property="buisnessName" />
+    <result column="businessType" jdbcType="VARCHAR" property="businessType" />
+    <result column="overview" jdbcType="VARCHAR" property="overview" />
+    <result column="afffiliateNotice" jdbcType="VARCHAR" property="afffiliateNotice" />
+    <result column="holiday" jdbcType="VARCHAR" property="holiday" />
+    <result column="openingHours" jdbcType="VARCHAR" property="openingHours" />
+    <result column="commonWeb" jdbcType="VARCHAR" property="commonWeb" />
+    <result column="uflatCardWeb" jdbcType="VARCHAR" property="uflatCardWeb" />
+    <result column="etc" jdbcType="VARCHAR" property="etc" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    affiliateDetailNo, affiliateNo, businessNumber, businessType, businessItem, createTime, 
-    updateTime
+    affiliateDetailNo, affiliateNo, businessNumber, businessItem, buisnessName, businessType, 
+    overview, afffiliateNotice, holiday, openingHours, commonWeb, uflatCardWeb, etc, 
+    createTime, updateTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -26,13 +35,17 @@
   </delete>
   <insert id="insert" parameterType="com.returnp.admin.model.AffiliateDetail">
     insert into affiliate_detail (affiliateDetailNo, affiliateNo, businessNumber, 
-      businessType, businessItem, createTime, 
-      updateTime)
+      businessItem, buisnessName, businessType, 
+      overview, afffiliateNotice, holiday, 
+      openingHours, commonWeb, uflatCardWeb, 
+      etc, createTime, updateTime
+      )
     values (#{affiliateDetailNo,jdbcType=INTEGER}, #{affiliateNo,jdbcType=INTEGER}, #{businessNumber,jdbcType=VARCHAR}, 
-      #{businessType,jdbcType=VARCHAR}, #{businessItem,jdbcType=VARCHAR}, NOW(), NOW())
-         <selectKey keyProperty="affiliateDetailNo" resultType="java.lang.Integer" order ="AFTER">
-		    SELECT LAST_INSERT_ID()
-	 </selectKey>	
+      #{businessItem,jdbcType=VARCHAR}, #{buisnessName,jdbcType=VARCHAR}, #{businessType,jdbcType=VARCHAR}, 
+      #{overview,jdbcType=VARCHAR}, #{afffiliateNotice,jdbcType=VARCHAR}, #{holiday,jdbcType=VARCHAR}, 
+      #{openingHours,jdbcType=VARCHAR}, #{commonWeb,jdbcType=VARCHAR}, #{uflatCardWeb,jdbcType=VARCHAR}, 
+      #{etc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.returnp.admin.model.AffiliateDetail">
     insert into affiliate_detail
@@ -46,11 +59,35 @@
       <if test="businessNumber != null">
         businessNumber,
       </if>
+      <if test="businessItem != null">
+        businessItem,
+      </if>
+      <if test="buisnessName != null">
+        buisnessName,
+      </if>
       <if test="businessType != null">
         businessType,
       </if>
-      <if test="businessItem != null">
-        businessItem,
+      <if test="overview != null">
+        overview,
+      </if>
+      <if test="afffiliateNotice != null">
+        afffiliateNotice,
+      </if>
+      <if test="holiday != null">
+        holiday,
+      </if>
+      <if test="openingHours != null">
+        openingHours,
+      </if>
+      <if test="commonWeb != null">
+        commonWeb,
+      </if>
+      <if test="uflatCardWeb != null">
+        uflatCardWeb,
+      </if>
+      <if test="etc != null">
+        etc,
       </if>
       <if test="createTime != null">
         createTime,
@@ -69,11 +106,35 @@
       <if test="businessNumber != null">
         #{businessNumber,jdbcType=VARCHAR},
       </if>
+      <if test="businessItem != null">
+        #{businessItem,jdbcType=VARCHAR},
+      </if>
+      <if test="buisnessName != null">
+        #{buisnessName,jdbcType=VARCHAR},
+      </if>
       <if test="businessType != null">
         #{businessType,jdbcType=VARCHAR},
       </if>
-      <if test="businessItem != null">
-        #{businessItem,jdbcType=VARCHAR},
+      <if test="overview != null">
+        #{overview,jdbcType=VARCHAR},
+      </if>
+      <if test="afffiliateNotice != null">
+        #{afffiliateNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="holiday != null">
+        #{holiday,jdbcType=VARCHAR},
+      </if>
+      <if test="openingHours != null">
+        #{openingHours,jdbcType=VARCHAR},
+      </if>
+      <if test="commonWeb != null">
+        #{commonWeb,jdbcType=VARCHAR},
+      </if>
+      <if test="uflatCardWeb != null">
+        #{uflatCardWeb,jdbcType=VARCHAR},
+      </if>
+      <if test="etc != null">
+        #{etc,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -92,11 +153,35 @@
       <if test="businessNumber != null">
         businessNumber = #{businessNumber,jdbcType=VARCHAR},
       </if>
+      <if test="businessItem != null">
+        businessItem = #{businessItem,jdbcType=VARCHAR},
+      </if>
+      <if test="buisnessName != null">
+        buisnessName = #{buisnessName,jdbcType=VARCHAR},
+      </if>
       <if test="businessType != null">
         businessType = #{businessType,jdbcType=VARCHAR},
       </if>
-      <if test="businessItem != null">
-        businessItem = #{businessItem,jdbcType=VARCHAR},
+      <if test="overview != null">
+        overview = #{overview,jdbcType=VARCHAR},
+      </if>
+      <if test="afffiliateNotice != null">
+        afffiliateNotice = #{afffiliateNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="holiday != null">
+        holiday = #{holiday,jdbcType=VARCHAR},
+      </if>
+      <if test="openingHours != null">
+        openingHours = #{openingHours,jdbcType=VARCHAR},
+      </if>
+      <if test="commonWeb != null">
+        commonWeb = #{commonWeb,jdbcType=VARCHAR},
+      </if>
+      <if test="uflatCardWeb != null">
+        uflatCardWeb = #{uflatCardWeb,jdbcType=VARCHAR},
+      </if>
+      <if test="etc != null">
+        etc = #{etc,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
@@ -111,10 +196,18 @@
     update affiliate_detail
     set affiliateNo = #{affiliateNo,jdbcType=INTEGER},
       businessNumber = #{businessNumber,jdbcType=VARCHAR},
-      businessType = #{businessType,jdbcType=VARCHAR},
       businessItem = #{businessItem,jdbcType=VARCHAR},
+      buisnessName = #{buisnessName,jdbcType=VARCHAR},
+      businessType = #{businessType,jdbcType=VARCHAR},
+      overview = #{overview,jdbcType=VARCHAR},
+      afffiliateNotice = #{afffiliateNotice,jdbcType=VARCHAR},
+      holiday = #{holiday,jdbcType=VARCHAR},
+      openingHours = #{openingHours,jdbcType=VARCHAR},
+      commonWeb = #{commonWeb,jdbcType=VARCHAR},
+      uflatCardWeb = #{uflatCardWeb,jdbcType=VARCHAR},
+      etc = #{etc,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=TIMESTAMP},
-      updateTime = NOW()
+      updateTime = #{updateTime,jdbcType=TIMESTAMP}
     where affiliateDetailNo = #{affiliateDetailNo,jdbcType=INTEGER}
   </update>
 </mapper>

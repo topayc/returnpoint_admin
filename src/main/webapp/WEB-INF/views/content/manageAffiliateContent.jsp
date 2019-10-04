@@ -22,8 +22,16 @@
 	
 	<div  data-options="region:'center',split:true,border:true"  > 
 		<div class="easyui-layout" data-options="fit:true,split:true,border:false" >
-                <div data-options="region:'west',split:true,collapsible:false" style="width:50%" title= "세부 정보 입력"></div>
-                <div data-options="region:'center'"  title = "미리보기"></div>
+                <div data-options="region:'west',split:true,collapsible:false" style="width:60%" title= "세부 정보 입력">
+                
+                
+                
+                </div>
+                <div data-options="region:'center'"  title = "미리보기">
+                	<div style = "padding:5px;height:98%;background-color : #ccc">
+             		   	<iframe  style ="border : no" width = "100%" height = "100%" src = "https://www.returnp.com"></iframe>
+                	</div>
+                </div>
             </div>
 	</div>
 </div>
