@@ -341,7 +341,11 @@ $(function () {
 
         	selectGpointPayments:  {apiCode: 10000, apiPath : '/api/gpointPayments' , requestMethod: 'get'},
         	reportPeriodGpointPayments:  {apiCode: 10000, apiPath : '/api/gpointPayment/reportPeriodGpointPayments' , requestMethod: 'get'},
-        	reportGpointPayments:  {apiCode: 10000, apiPath : '/api/gpointPayment/report' , requestMethod: 'get'}
+        	reportGpointPayments:  {apiCode: 10000, apiPath : '/api/gpointPayment/report' , requestMethod: 'get'},
+
+        	selectAffiliateDetails:  {apiCode: 10000, apiPath : '/api/affiliateDetails' , requestMethod: 'get'},
+        	updateAffiliateDetail:  {apiCode: 10000, apiPath : '/api//affiliateDetail/update' , requestMethod: 'post'},
+        	deleteAffiliateDetail:  {apiCode: 10000, apiPath : '/api/affiliateDetail/delete' , requestMethod: 'post'},
         },
         
         init : function(){

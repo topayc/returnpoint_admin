@@ -4187,39 +4187,6 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
     	<include refid = "MemberPlainPasswordWhereStatement"/>
   </select>
   
-        <!-- ===============================================================================================================    -->
-  <!-- AffiliateDetail   -->
-  
-    <resultMap id="AffiliateDetailResultMap" type="com.returnp.admin.model.AffiliateDetail">
-    <id column="affiliateDetailNo" jdbcType="INTEGER" property="affiliateDetailNo" />
-    <result column="affiliateNo" jdbcType="INTEGER" property="affiliateNo" />
-    <result column="businessNumber" jdbcType="VARCHAR" property="businessNumber" />
-    <result column="businessType" jdbcType="VARCHAR" property="businessType" />
-    <result column="businessItem" jdbcType="VARCHAR" property="businessItem" />
-    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  
-    <sql id="AffiliateDetail_Column_List">
-        affiliateDetailNo, affiliateNo, businessNumber, businessType, businessItem, createTime,updateTime
-  </sql>
-  
-    <sql id ="AffiliateDetailWhereStatement">
-      <if test="affiliateDetailNo != null"> AND affiliateDetailNo = #{affiliateDetailNo,jdbcType=INTEGER}</if>
-      <if test="affiliateNo != null"> AND affiliateNo = #{affiliateNo,jdbcType=INTEGER}</if>
-      <if test="businessNumber != null"> AND businessNumber = #{businessNumber,jdbcType=VARCHAR}</if>
-      <if test="businessType != null"> AND businessType = #{businessType,jdbcType=VARCHAR}</if>
-       <if test="businessItem != null"> AND businessItem = #{businessItem,jdbcType=VARCHAR}</if>
-  </sql>
-  
-  <select id="selectAffiliateDetails" parameterType="com.returnp.admin.model.AffiliateDetail" resultMap="AffiliateDetailResultMap">
-    select 
-    <include refid="AffiliateDetail_Column_List" />
-    from affiliate_detail
-    where 
-     	 1 = 1 
-    	<include refid = "AffiliateDetailWhereStatement"/>
-  </select>
   
  <select id="selectPaymentTransactionSumForSales" parameterType="HashMap" resultType="int" >
     select IFNULL(sum(A.paymentApprovalAmount), 0) 
@@ -4360,6 +4327,56 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
 		 -->
 	</select>
 	
+	
+       <!-- ===============================================================================================================    -->
+  <!-- AffiliateDetail   -->
+  
+    <resultMap id="AffiliateDetailResultMap" type="com.returnp.admin.model.AffiliateDetail">
+          <id column="affiliateDetailNo" jdbcType="INTEGER" property="affiliateDetailNo" />
+    <result column="affiliateNo" jdbcType="INTEGER" property="affiliateNo" />
+    <result column="businessNumber" jdbcType="VARCHAR" property="businessNumber" />
+    <result column="businessItem" jdbcType="VARCHAR" property="businessItem" />
+    <result column="buisnessName" jdbcType="VARCHAR" property="buisnessName" />
+    <result column="businessType" jdbcType="VARCHAR" property="businessType" />
+    <result column="overview" jdbcType="VARCHAR" property="overview" />
+    <result column="afffiliateNotice" jdbcType="VARCHAR" property="afffiliateNotice" />
+    <result column="holiday" jdbcType="VARCHAR" property="holiday" />
+    <result column="openingHours" jdbcType="VARCHAR" property="openingHours" />
+    <result column="commonWeb" jdbcType="VARCHAR" property="commonWeb" />
+    <result column="etcLink" jdbcType="VARCHAR" property="etcLink" />
+    <result column="affiliateNews" jdbcType="VARCHAR" property="affiliateNews" />
+    <result column="etc" jdbcType="VARCHAR" property="etc" />
+    <result column="affiliateMainImage1" jdbcType="VARCHAR" property="affiliateMainImage1" />
+    <result column="affiliateMainImage2" jdbcType="VARCHAR" property="affiliateMainImage2" />
+    <result column="affiliateMainImage3" jdbcType="VARCHAR" property="affiliateMainImage3" />
+    <result column="affiliateMainImage4" jdbcType="VARCHAR" property="affiliateMainImage4" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  
+    <sql id="AffiliateDetail_Column_List">
+      affiliateDetailNo, affiliateNo, businessNumber, businessItem, buisnessName, businessType, 
+    overview, afffiliateNotice, holiday, openingHours, commonWeb, etcLink, affiliateNews, 
+    etc, affiliateMainImage1, affiliateMainImage2, affiliateMainImage3, affiliateMainImage4, 
+    createTime, updateTime
+  </sql>
+  
+    <sql id ="AffiliateDetailWhereStatement">
+      <if test="affiliateDetailNo != null"> AND affiliateDetailNo = #{affiliateDetailNo,jdbcType=INTEGER}</if>
+      <if test="affiliateNo != null"> AND affiliateNo = #{affiliateNo,jdbcType=INTEGER}</if>
+      <if test="businessNumber != null"> AND businessNumber = #{businessNumber,jdbcType=VARCHAR}</if>
+  </sql>
+  
+    <select id="selectAffiliateDetails" parameterType="com.returnp.admin.model.AffiliateDetail" resultMap="AffiliateDetailResultMap">
+    select 
+    <include refid="AffiliateDetail_Column_List" />
+    from affiliate_detail
+    where 
+     	 1 = 1 
+    	<include refid = "AffiliateDetailWhereStatement"/>
+  </select>
+  
+  
 </mapper>
 
 

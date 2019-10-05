@@ -3,6 +3,8 @@ package com.returnp.admin.model;
 import com.returnp.admin.dto.QueryCondition;
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class AffiliateDetail extends QueryCondition {
     private Integer affiliateDetailNo;
 
@@ -26,15 +28,63 @@ public class AffiliateDetail extends QueryCondition {
 
     private String commonWeb;
 
-    private String uflatCardWeb;
+    private String etcLink;
+
+    private String affiliateNews;
 
     private String etc;
+
+    private String affiliateMainImage1;
+
+    private String affiliateMainImage2;
+
+    private String affiliateMainImage3;
+
+    private String affiliateMainImage4;
 
     private Date createTime;
 
     private Date updateTime;
+    
+    private MultipartFile amImage1;
+    private MultipartFile amImage2;
+    private MultipartFile amImage3;
+    private MultipartFile amImage4;
 
-    public Integer getAffiliateDetailNo() {
+    
+    public MultipartFile getAmImage1() {
+		return amImage1;
+	}
+
+	public void setAmImage1(MultipartFile amImage1) {
+		this.amImage1 = amImage1;
+	}
+
+	public MultipartFile getAmImage2() {
+		return amImage2;
+	}
+
+	public void setAmImage2(MultipartFile amImage2) {
+		this.amImage2 = amImage2;
+	}
+
+	public MultipartFile getAmImage3() {
+		return amImage3;
+	}
+
+	public void setAmImage3(MultipartFile amImage3) {
+		this.amImage3 = amImage3;
+	}
+
+	public MultipartFile getAmImage4() {
+		return amImage4;
+	}
+
+	public void setAmImage4(MultipartFile amImage4) {
+		this.amImage4 = amImage4;
+	}
+
+	public Integer getAffiliateDetailNo() {
         return affiliateDetailNo;
     }
 
@@ -122,12 +172,20 @@ public class AffiliateDetail extends QueryCondition {
         this.commonWeb = commonWeb == null ? null : commonWeb.trim();
     }
 
-    public String getUflatCardWeb() {
-        return uflatCardWeb;
+    public String getEtcLink() {
+        return etcLink;
     }
 
-    public void setUflatCardWeb(String uflatCardWeb) {
-        this.uflatCardWeb = uflatCardWeb == null ? null : uflatCardWeb.trim();
+    public void setEtcLink(String etcLink) {
+        this.etcLink = etcLink == null ? null : etcLink.trim();
+    }
+
+    public String getAffiliateNews() {
+        return affiliateNews;
+    }
+
+    public void setAffiliateNews(String affiliateNews) {
+        this.affiliateNews = affiliateNews == null ? null : affiliateNews.trim();
     }
 
     public String getEtc() {
@@ -136,6 +194,38 @@ public class AffiliateDetail extends QueryCondition {
 
     public void setEtc(String etc) {
         this.etc = etc == null ? null : etc.trim();
+    }
+
+    public String getAffiliateMainImage1() {
+        return affiliateMainImage1;
+    }
+
+    public void setAffiliateMainImage1(String affiliateMainImage1) {
+        this.affiliateMainImage1 = affiliateMainImage1 == null ? null : affiliateMainImage1.trim();
+    }
+
+    public String getAffiliateMainImage2() {
+        return affiliateMainImage2;
+    }
+
+    public void setAffiliateMainImage2(String affiliateMainImage2) {
+        this.affiliateMainImage2 = affiliateMainImage2 == null ? null : affiliateMainImage2.trim();
+    }
+
+    public String getAffiliateMainImage3() {
+        return affiliateMainImage3;
+    }
+
+    public void setAffiliateMainImage3(String affiliateMainImage3) {
+        this.affiliateMainImage3 = affiliateMainImage3 == null ? null : affiliateMainImage3.trim();
+    }
+
+    public String getAffiliateMainImage4() {
+        return affiliateMainImage4;
+    }
+
+    public void setAffiliateMainImage4(String affiliateMainImage4) {
+        this.affiliateMainImage4 = affiliateMainImage4 == null ? null : affiliateMainImage4.trim();
     }
 
     public Date getCreateTime() {
