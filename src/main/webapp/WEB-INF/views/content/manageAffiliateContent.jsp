@@ -4,10 +4,12 @@
 
 .textbox-label{font-weight : 600;font-size : 12px}
 
-#_easyui_textbox_input9, #_easyui_textbox_input10,#_easyui_textbox_input11{
+.validatebox-readonly{
 	background-color : #333;
 	color : #fff;
 }
+
+
 </style>
 <div class="easyui-layout" data-options="fit:true,border:false,split:true">
 	<div  data-options="region:'north',split:true"  id = "member_search"  style ="height:100px" title ="정보 등록 가맹점 검색" >
@@ -34,14 +36,14 @@
 		<div class="easyui-layout" data-options="fit:true,split:true,border:false" >
                 <div data-options="region:'west',split:true,collapsible:false" style="width:60%;padding: 20px 50px 40px 50px;background-color : #eee" title= "세부 정보 입력">
                 	<form id="registerAffiliateDetailForm"  enctype="multipart/form-data" name = "registerAffiliateDetailForm" method="post" >
-					  		<div style="margin-bottom:10px;display:inline-block;width: 49%">
-	                		<input class="easyui-textbox"  name = "affiliateNo" id = "affiliateNo" style="width:100%" data-options="readonly : true,label:'협력 업체 번호(입력 불필요)'"  value = "0"/>
+					  		<div style="margin-bottom:10px;display:inline-block;width: 15%">
+	                		<input class="easyui-textbox"  name = "affiliateNo" id = "affiliateNo" style="width:100%" data-options="readonly : true,label:'협력 업체 번호'"  value = "0"/>
 					  	</div>
-					  	<div style="margin-bottom:10px;display:inline-block;width: 50%">
-	                		<input class="easyui-textbox"  name = "affiliateDetailNo" id = "affiliateDetailNo" style="width:100%" data-options="readonly : true,label:'등록번호(입력 불필요)'"  value = "0"/>
+					  	<div style="margin-bottom:10px;display:inline-block;width: 15%">
+	                		<input class="easyui-textbox"  name = "affiliateDetailNo" id = "affiliateDetailNo" style="width:100%" data-options="readonly : true,label:'등록번호'"  value = "0"/>
 					  	</div>
-					  	<div style="margin-bottom:10px;">
-					  		<input class="easyui-textbox" id ="buisnessName"  name="buisnessName" style="width:100%" data-options="label:'상호명 '"> 
+					  	<div style="margin-bottom:10px;display:inline-block;width: 69%">
+					  		<input class="easyui-textbox" id ="buisnessName"  name="buisnessName" style="width:100%" data-options="readonly : true,label:'상호명 '"> 
 					  	</div>
 					  	<div style="margin-bottom:10px;" >
 					  		<input class="easyui-textbox" id ="businessNumber"  name="businessNumber" style="width:100%" data-options="label:'사업자 번호 '"> 

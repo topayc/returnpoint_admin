@@ -101,6 +101,7 @@ function initView(){
 		prompt:"123-12-131243"
 	});
 
+
 	$('#submit_btn').linkbutton({
 		onClick : function(){
 			$("#registerAffiliateDetailForm").submit();
