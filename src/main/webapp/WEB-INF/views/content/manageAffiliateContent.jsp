@@ -36,13 +36,13 @@
 		<div class="easyui-layout" data-options="fit:true,split:true,border:false" >
                 <div data-options="region:'west',split:true,collapsible:false" style="width:60%;padding: 20px 50px 40px 50px;background-color : #eee" title= "세부 정보 입력">
                 	<form id="registerAffiliateDetailForm"  enctype="multipart/form-data" name = "registerAffiliateDetailForm" method="post" >
-					  		<div style="margin-bottom:10px;display:inline-block;width: 15%">
+					  		<div style="margin-bottom:10px;display:inline-block;width: 30%">
 	                		<input class="easyui-textbox"  name = "affiliateNo" id = "affiliateNo" style="width:100%" data-options="readonly : true,label:'협력 업체 번호'"  value = "0"/>
 					  	</div>
-					  	<div style="margin-bottom:10px;display:inline-block;width: 15%">
+					  	<div style="margin-bottom:10px;display:inline-block;width: 30%">
 	                		<input class="easyui-textbox"  name = "affiliateDetailNo" id = "affiliateDetailNo" style="width:100%" data-options="readonly : true,label:'등록번호'"  value = "0"/>
 					  	</div>
-					  	<div style="margin-bottom:10px;display:inline-block;width: 69%">
+					  	<div style="margin-bottom:10px;display:inline-block;width: 38%">
 					  		<input class="easyui-textbox" id ="buisnessName"  name="buisnessName" style="width:100%" data-options="readonly : true,label:'상호명 '"> 
 					  	</div>
 					  	<div style="margin-bottom:10px;" >
@@ -65,7 +65,7 @@
 					  		<input class="easyui-textbox" id ="commonWeb"  name="commonWeb" style="width:100%" data-options="label:'웹 사이트 '"> 
 					  		</div>
 					  	<div style="margin-bottom:10px">
-					  		<input class="easyui-textbox" id ="etcLink"  name="etcLink" style="width:100%" data-options="label:'기타 링크'" > 
+					  		<input class="easyui-textbox" id ="etcLink"  name="etcLink" style="width:100%" data-options="label:'기타 링크&nbsp[입력예]&nbsp;YouTube:https://www.youtube.com'" > 
 					  	</div>
 					  	
 					  	<div style="margin-bottom:10px">
