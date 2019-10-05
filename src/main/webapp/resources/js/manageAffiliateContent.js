@@ -53,6 +53,7 @@ function initView(){
 						$('#affiliateNo').textbox("setValue", affiliateNo);
 						$('#buisnessName').textbox("setValue", buisnessName);
 						$.messager.alert("알림","해당 업체의 정보가 등록되어 있지 않습니다</br>등록을 하시려면 아래 정보를 기입후 확인버튼을 눌러주세요");
+						$('#preview').attr('src', "");
 					}
 				}else {
 					$.messager.alert("알립", res.message);
