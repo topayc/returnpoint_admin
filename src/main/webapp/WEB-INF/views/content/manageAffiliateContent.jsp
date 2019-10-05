@@ -65,7 +65,7 @@
 					  		<input class="easyui-textbox" id ="commonWeb"  name="commonWeb" style="width:100%" data-options="label:'웹 사이트 '"> 
 					  		</div>
 					  	<div style="margin-bottom:10px">
-					  		<input class="easyui-textbox" id ="etcLink"  name="etcLink" style="width:100%" data-options="label:'기타 링크&nbsp[입력예]&nbsp;YouTube:https://www.youtube.com'" > 
+					  		<input class="easyui-textbox" id ="etcLink"  name="etcLink" style="width:100%" data-options="label:'기타 링크&nbsp[입력예]&nbsp;YouTube@https://www.youtube.com'" > 
 					  	</div>
 					  	
 					  	<div style="margin-bottom:10px">

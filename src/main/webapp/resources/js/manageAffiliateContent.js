@@ -69,6 +69,7 @@ function initView(){
 		onClick : function(){
 			$('#searchForm').form('reset');
 			$('#registerAffiliateDetailForm').form('reset');
+			$('#preview').attr('src', "");
 		},
 		width : 70
 	});
@@ -91,7 +92,7 @@ function initView(){
 	});
 
 	$("#etcLink").textbox({
-		prompt:"(입력 예제)  youTube:https://www.youTube.com"
+		prompt:"(입력 예제)  youTube@https://www.youTube.com"
 	});
 	
 	$("#commonWeb").textbox({
