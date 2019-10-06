@@ -46,14 +46,13 @@ function initView(){
 				if (res.resultCode == "100") {
 					if (res.rows.length > 0) {
 						$('#registerAffiliateDetailForm').form('load',res.rows[0]);
-						$('#preview').attr('src', "");
-						$('#preview').attr('src', "https://www.returnp.com");
+						reloadPreview(true,res.rows[0].affiliateNo )
 					}else {
 						$('#registerAffiliateDetailForm').form('reset');
 						$('#affiliateNo').textbox("setValue", affiliateNo);
 						$('#buisnessName').textbox("setValue", buisnessName);
 						$.messager.alert("알림","해당 업체의 정보가 등록되어 있지 않습니다</br>등록을 하시려면 아래 정보를 기입후 확인버튼을 눌러주세요");
-						$('#preview').attr('src', "");
+						reloadPreview(false);
 					}
 				}else {
 					$.messager.alert("알립", res.message);
@@ -69,7 +68,7 @@ function initView(){
 		onClick : function(){
 			$('#searchForm').form('reset');
 			$('#registerAffiliateDetailForm').form('reset');
-			$('#preview').attr('src', "");
+			reloadPreview(false);
 		},
 		width : 70
 	});
@@ -123,8 +122,7 @@ function initView(){
 	    	$.messager.alert("알림", res.message);
 	    	if (res.resultCode == "100") {
 	    		$('#registerAffiliateDetailForm').form('load',res.data);
-	    		$('#preview').attr('src', "");
-				$('#preview').attr('src', "https://www.returnp.com");
+	    		reloadPreview(true,data.affiliateNo )
 	    	}else {
 	    	}
 	    }
@@ -163,7 +161,17 @@ function initView(){
 	});
 }
 
-
+function reloadPreview(act,affiliateNo){
+	if (act == false){
+		$('#preview').attr('src', "");
+		return;
+	}else {
+		$('#preview').attr('src', "");
+		/*$('#preview').attr('src', "http://192.168.123.164:9090/m/affiliate/affiliateDetail.do?affiliateNo=" + affiliateNo);*/
+		$('#preview').attr('src', "https://www.returnp.com/m/affiliate/affiliateDetail.do?affiliateNo=" + affiliateNo);
+	}
+	
+}
 $(function(){
 	initView();
 /*	$('#node_list').datagrid().datagrid('enableCellEditing');
