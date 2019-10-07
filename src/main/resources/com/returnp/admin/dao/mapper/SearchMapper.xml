@@ -1027,6 +1027,10 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <result column="giftCardPayRefundRate" jdbcType="REAL" property="giftCardPayRefundRate" />
     <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
     <result column="agencyNo" jdbcType="INTEGER" property="agencyNo" />
+    <result column="category1No" jdbcType="INTEGER" property="category1No" />
+    <result column="category2No" jdbcType="INTEGER" property="category2No" />
+    <result column="category1NoName" jdbcType="VARCHAR" property="category1NoName" />
+    <result column="category2NoName" jdbcType="VARCHAR" property="category2NoName" />
     <result column="recommenderNo" jdbcType="INTEGER" property="recommenderNo" />
     <result column="affiliateStatus" jdbcType="VARCHAR" property="affiliateStatus" />
     <result column="regType" jdbcType="CHAR" property="regType" />
@@ -1125,7 +1129,11 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     (SELECT paymentRouterType from payment_router WHERE paymentRouterNo = APR.paymentRouterNo) as paymentRouterType,
     (SELECT paymentRouterName from payment_router WHERE paymentRouterNo = APR.paymentRouterNo) as paymentRouterName,
     (SELECT paymentRouterCode  from payment_router WHERE paymentRouterNo = APR.paymentRouterNo) as paymentRouterCode,
-    AC.ciderPayStatus
+    AC.ciderPayStatus,
+    ACF.category1No,
+    ACF.category2No,
+    (SELECT categoryName from category WHERE categoryNo = ACF.category1No) as category1NoName,
+    (SELECT categoryName from category WHERE categoryNo = ACF.category2No) as category2NoName
   </sql>
   
     <sql id ="affiliateSearchWhereStatement">
@@ -1217,7 +1225,8 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     left outer join member as M2 on (AF.recommenderNo = M2.memberNo)
     left outer join agency as AG on (AF.agencyNo= AG.agencyNo)
     left outer join affiliate_payment_router as APR on (AF.affiliateNo= APR.affiliateNo)
-    left outer join affiliate_ciderpay as AC on (AF.affiliateNo= AC.affiliateNo)
+    left outer join affiliate_category as ACF on (AF.affiliateNo = ACF.affiliateNo)
+    left outer join affiliate_ciderpay as AC on (AF.affiliateNo = AC.affiliateNo)
     where 
       1 = 1
 		<include refid = "affiliateCommandSearchWhereStatement"/>
@@ -4375,6 +4384,39 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
      	 1 = 1 
     	<include refid = "AffiliateDetailWhereStatement"/>
   </select>
+  
+  	
+       <!-- ===============================================================================================================    -->
+  <!-- AffiliateCategory   -->
+  
+    <resultMap id="AffiliateCategoryResultMap" type="com.returnp.admin.model.AffiliateCategory">
+  <id column="affiliateCategoryNo" jdbcType="INTEGER" property="affiliateCategoryNo" />
+    <result column="affiliateNo" jdbcType="INTEGER" property="affiliateNo" />
+    <result column="category1No" jdbcType="INTEGER" property="category1No" />
+    <result column="category2No" jdbcType="INTEGER" property="category2No" />
+  </resultMap>
+  
+    <sql id="AffiliateCategory_Column_List">
+		  affiliateCategoryNo, affiliateNo, category1No, category2No
+  </sql>
+  
+    <sql id ="AffiliateCategoryWhereStatement">
+      <if test="affiliateCategoryNo != null"> AND affiliateCategoryNo = #{affiliateCategoryNo,jdbcType=INTEGER}</if>
+      <if test="affiliateNo != null"> AND affiliateNo = #{affiliateNo,jdbcType=INTEGER}</if>
+      <if test="category1No != null"> AND category1No = #{category1No,jdbcType=INTEGER}</if>
+      <if test="category2No != null"> AND category2No = #{category1No,jdbcType=INTEGER}</if>
+  </sql>
+  
+    <select id="selectAffiliateCategories" parameterType="com.returnp.admin.model.AffiliateCategory" resultMap="AffiliateCategoryResultMap">
+    select 
+    <include refid="AffiliateCategory_Column_List" />
+    from affiliate_category
+    where 
+     	 1 = 1 
+    	<include refid = "AffiliateCategoryWhereStatement"/>
+  </select>
+  
+  
   
   
 </mapper>

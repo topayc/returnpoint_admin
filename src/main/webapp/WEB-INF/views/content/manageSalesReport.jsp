@@ -46,6 +46,10 @@
 						</c:forEach>
 	                </select>	
 	            </div>
+	            
+	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
+	                <input class="easyui-textbox"  id ="searchKeyword" name="searchKeyword"  style="width:100%" label="이름/아이디">
+	            </div>
 
 			<%-- 	<div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">
 	                <select id = "paymentType" class="easyui-combobox" name="paymentType" label="결제 유형" style="width:100%">

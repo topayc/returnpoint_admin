@@ -125,6 +125,13 @@ function initView(){
 	});
 	
 	
+	/* 검색어 입력 박스 초기화 */
+	$('#searchKeyword').textbox({
+		width: 200,
+		prompt : "이름 / 아이디 " ,
+		  labelPosition: 'top'
+	});
+	
 	$('#search_total_year_btn').linkbutton({
 		onClick : function(){
 			$('#node_list').datagrid('loadData', []);
@@ -133,6 +140,11 @@ function initView(){
 			var param = {searchType  : "year"}
 			returnp.api.call("selectSalesReports", param, function(res){
 				if (res.resultCode == "100") {
+					
+					if (res.rows.length < 1) {
+						$.messager.alert('알림', "검색 결과가 없습니다.");
+					}
+					
 					$('#summary_table').datagrid({
 						data : res.rows,
 						title : '[연도별 매출 총계] ',
@@ -169,6 +181,11 @@ function initView(){
 			returnp.api.call("selectSalesReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
+					
+					if (res.rows.length < 1) {
+						$.messager.alert('알림', "검색 결과가 없습니다.");
+					}
+					
 					$('#summary_table').datagrid({
 						data : res,
 						title : '[일별 매출 총계] ' ,
@@ -204,6 +221,11 @@ function initView(){
 			returnp.api.call("selectSalesReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
+					
+					if (res.rows.length < 1) {
+						$.messager.alert('알림', "검색 결과가 없습니다.");
+					}
+					
 					$('#summary_table').datagrid({
 						data : res,
 						title : '[월별 매출 총계] ' ,
@@ -249,10 +271,16 @@ function initView(){
 				var searchDateEnd = new Date(dateArr[0], dateArr[1], dateArr[2]);
 				param.searchDateEnd = searchDateEnd.getFullYear() + "-" + searchDateEnd.getMonth() + "-" + (searchDateEnd.getDate() + 1)
 			}
-
+			console.log("매출 조회 파라메터");
+			console.log(param);
 			returnp.api.call("selectPeriodSalesReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
+					
+					if (res.rows.length < 1) {
+						$.messager.alert('알림', "검색 결과가 없습니다.");
+					}
+					
 					$('#summary_table').datagrid({
 						data : res
 					});

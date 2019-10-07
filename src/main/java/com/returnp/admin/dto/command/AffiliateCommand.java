@@ -57,8 +57,37 @@ public class AffiliateCommand  extends QueryCondition{
     public String paymentRouterCode;
     public String ciderPayStatus;
     
+    public Integer category1No;
+    public String category1NoName;
 
+    public Integer category2No;
+    public String category2NoName;
     
+    
+	public String getCategory1NoName() {
+		return category1NoName;
+	}
+	public void setCategory1NoName(String category1NoName) {
+		this.category1NoName = category1NoName;
+	}
+	public String getCategory2NoName() {
+		return category2NoName;
+	}
+	public void setCategory2NoName(String category2NoName) {
+		this.category2NoName = category2NoName;
+	}
+	public Integer getCategory1No() {
+		return category1No;
+	}
+	public void setCategory1No(Integer category1No) {
+		this.category1No = category1No;
+	}
+	public Integer getCategory2No() {
+		return category2No;
+	}
+	public void setCategory2No(Integer category2No) {
+		this.category2No = category2No;
+	}
 	public String getCiderPayStatus() {
 		return ciderPayStatus;
 	}

@@ -36,11 +36,11 @@
 		<div class="easyui-layout" data-options="fit:true,split:true,border:false" >
                 <div data-options="region:'west',split:true,collapsible:false" style="width:60%;padding: 20px 50px 40px 50px;background-color : #eee" title= "세부 정보 입력">
                 	<form id="registerAffiliateDetailForm"  enctype="multipart/form-data" name = "registerAffiliateDetailForm" method="post" >
-					  		<div style="margin-bottom:10px;display:inline-block;width: 30%">
-	                		<input class="easyui-textbox"  name = "affiliateNo" id = "affiliateNo" style="width:100%" data-options="readonly : true,label:'협력 업체 번호'"  value = "0"/>
-					  	</div>
 					  	<div style="margin-bottom:10px;display:inline-block;width: 30%">
 	                		<input class="easyui-textbox"  name = "affiliateDetailNo" id = "affiliateDetailNo" style="width:100%" data-options="readonly : true,label:'등록번호'"  value = "0"/>
+					  	</div>
+					  		<div style="margin-bottom:10px;display:inline-block;width: 30%">
+	                		<input class="easyui-textbox"  name = "affiliateNo" id = "affiliateNo" style="width:100%" data-options="readonly : true,label:'협력 업체 번호'"  value = "0"/>
 					  	</div>
 					  	<div style="margin-bottom:10px;display:inline-block;width: 38%">
 					  		<input class="easyui-textbox" id ="buisnessName"  name="buisnessName" style="width:100%" data-options="readonly : true,label:'상호명 '"> 
@@ -102,7 +102,7 @@
                 
                 
                 </div>
-                <div data-options="region:'center'"  title = "미리보기">
+                <div data-options="region:'center'"  title = "Preview">
                 	<div style = "padding:5px;height:98%;background-color : #ccc">
              		   	<iframe  id = "preview" style ="border : no" width = "100%" height = "100%" ></iframe>
                 	</div>

@@ -33,6 +33,9 @@
 			<if test = "searchAffiliate != null">and affiliateNo = #{searchAffiliate}</if>
 			<if test = "searchPaymentTransactionType != null">and paymentTransactionType = #{searchPaymentTransactionType}</if>
 			<if test = "searchPaymentApprovalStatus != null">and paymentApprovalStatus = #{searchPaymentApprovalStatus}</if>
+			<if test="searchKeyword != null ">
+      			AND ( memberName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR memberEmail LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) ) 
+		     </if>
 			) as A
 	group by searchDate;
 	</select>
@@ -77,6 +80,9 @@
     	 <if test="searchPaymentTransactionType != null "> AND PA.paymentTransactionType   = #{searchPaymentTransactionType} </if>
     	 <if test="searchPaymentApprovalStatus != null "> AND PA.paymentApprovalStatus = #{searchPaymentApprovalStatus} </if>
     	 <if test="searchAffiliate != null "> AND PA.affiliateNo = #{searchAffiliate} </if>
+    	 <if test="searchKeyword != null ">
+      			AND ( memberName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR memberEmail LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) ) 
+		     </if>
      <choose>
    	<when test="order !=null">
 		order by ${order} 

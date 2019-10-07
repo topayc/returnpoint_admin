@@ -7,6 +7,8 @@
 			    {field:'affiliateName',width:55,align:'center',title : '가맹점 이름'},
 			    {field:'affiliateCode',width:60,align:'center',title : '가맹점 코드',hidden:false},
 			    {field:'affiliateType',width:45,align:'center',title : '분류' , formatter : affiliateTypeFormatter},
+			    {field:'category1NoName',width:45,align:'center',title : 'Cate 1', formatter : slashFormatter},
+			    {field:'category2NoName',width:45,align:'center',title : 'Cate 2',formatter : slashFormatter},
 			    {field:'affiliateStatus',width:30,align:'center',title : '상태',formatter : affiliateStatusFormatter},
 			    {field:'paymentRouterNo',width:30,align:'center',title : '라우터 번호', hidden:true },
 			    {field:'paymentRouterCode',width:30,align:'center',title : '라우터 코드', hidden:true},
@@ -1211,8 +1213,31 @@ function loadAffiliateModifyForm(actionType){
 			,memberAddressNo: data.queryOptions.memberAddressNo}, function(res){
 				console.log(res.data);
 				if (res.resultCode  == "100") {
-					$('#createAffiliateForm').form('load',res.data);
+					if (!res.data.category1No) {
+						res.data.category1No = "0";
+						res.data.category2No = "0";
+					}
+				
+					
 					$("#orgMemberNo").val(res.data.memberNo)
+					$('#createAffiliateForm').form('load',res.data);
+					if (res.data.category != "0"){
+						returnp.api.call("getCategories", {categoryLevel : 2, parentCategoryNo :  res.data.category1No}, function(res2){
+							if (res2.resultCode  == "100") {
+								$('#category2No').combobox('clear');
+								var data = [];
+								for (var i = 0; i < res2.rows.length; i++){
+									data.push({categoryNo:res2.rows[i].categoryNo ,categoryName : res2.rows[i].categoryName});
+								}
+								$('#category2No').combobox('loadData', data);
+								$('#category2No').combobox('select', res.data.category2No);
+							}else {
+								//console.log("[오류]");
+								//console.log(res);
+							}
+						});
+					}
+					
 					//$('#memberNo').textbox({disabled : true });
 					$("#affiliateRoad").textbox('setValue', res.data.zipNo + " " + res.data.roadFullAddr+ " " + res.data.addrDetail);
 					modifyModeCallback(res.data.zipNo + " " + res.data.jibunAddr + " " + res.data.addrDetail,res.data.lat,res.data.lng);

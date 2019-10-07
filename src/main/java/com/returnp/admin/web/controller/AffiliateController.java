@@ -1,9 +1,7 @@
 package com.returnp.admin.web.controller;
 
 import java.lang.reflect.InvocationTargetException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -35,6 +33,7 @@ import com.returnp.admin.code.CodeDefine;
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.common.ResponseUtil;
+import com.returnp.admin.dao.mapper.AffiliateCategoryMapper;
 import com.returnp.admin.dao.mapper.AffiliateCiderpayMapper;
 import com.returnp.admin.dao.mapper.AffiliateDetailMapper;
 import com.returnp.admin.dao.mapper.AffiliateMapper;
@@ -49,6 +48,7 @@ import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Affiliate;
+import com.returnp.admin.model.AffiliateCategory;
 import com.returnp.admin.model.AffiliateCiderpay;
 import com.returnp.admin.model.AffiliateDetail;
 import com.returnp.admin.model.AffiliatePaymentRouter;
@@ -60,7 +60,6 @@ import com.returnp.admin.model.MemberAddress;
 import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.model.MemberPlainPassword;
 import com.returnp.admin.model.PaymentRouter;
-import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.model.Policy;
 import com.returnp.admin.service.interfaces.AffiliateService;
 import com.returnp.admin.service.interfaces.AgencyService;
@@ -108,6 +107,7 @@ public class AffiliateController extends ApplicationController {
 	@Autowired AffiliateCiderpayMapper affiliateCiderpayMapper;
 	@Autowired MemberPlainPasswordMapper memberPlainPasswordMapper;
 	@Autowired AffiliateDetailMapper affiliateDetailMapper;
+	@Autowired AffiliateCategoryMapper affiliateCategoryMapper;
 	
 	@RequestMapping(value = "/affiliate/form/createForm", method = RequestMethod.GET)
 	public String formAffiliateRequest(
@@ -134,9 +134,17 @@ public class AffiliateController extends ApplicationController {
 		model.addAttribute("categories1",this.searchService.findCategories(catetoryCond));
 	
 		if (action.equals("create")) {
+			model.addAttribute("action","create");
 		}else if (action.equals("modify")){
+			model.addAttribute("action","modify");
 			model.addAttribute("affiliateFormInfo", this.affiliateService.selectByPrimaryKey(affiliateNo));
 			model.addAttribute("memberAddressInfo", this.memberAddressSerivice.selectByPrimaryKey(memberAddressNo));
+			AffiliateCategory affiliateCategroy = new AffiliateCategory();
+			affiliateCategroy.setAffiliateNo(affiliateNo);
+			ArrayList<AffiliateCategory> cates = this.searchService.selectAffiliateCategories(affiliateCategroy);
+			if (cates.size() > 0) {
+				model.addAttribute("affiliateCategory" , cates.get(0));
+			}
 		}
 		return "template/form/node/createAffiliate";
 	}
@@ -200,7 +208,7 @@ public class AffiliateController extends ApplicationController {
 	@ResponseBody
 	@RequestMapping(value = "/affiliate/create", method = RequestMethod.POST)
 	public  ReturnpBaseResponse createAffiliate(
-			Affiliate affiliate, MemberAddress address, BindingResult result, HttpSession httpSession, Model model) {
+			Affiliate affiliate, MemberAddress address, BindingResult result, HttpSession httpSession, AffiliateCategory affiliateCategory, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
 			for (ObjectError error : list) {
@@ -267,7 +275,16 @@ public class AffiliateController extends ApplicationController {
 				greenPoint.setNodeTypeName("affiliate");
 				this.greenPointService.insert(greenPoint);
 			}
-			this.setSuccessResponse(res, "생성 완료");
+			
+			String message = "협력업체 생성 완료</br>";
+			
+			/*협력 업체 카테고리 정보 생성*/
+			if (affiliateCategory.getCategory1No() != 0 && affiliateCategory.getCategory2No() != 0) {
+				this.affiliateCategoryMapper.insert(affiliateCategory);
+			}else {
+				message += "카테고리 정보 부족으로 카테고리 등록없이  </br> 협력업체 정보만 생성 완료됨. </br>차후 카테고리 정보를 등록해 주세요";
+			}
+			this.setSuccessResponse(res, message);
 		}
 		return res;
 	}
@@ -276,7 +293,7 @@ public class AffiliateController extends ApplicationController {
 	@RequestMapping(value = "/affiliate/update", method = RequestMethod.POST)
 	public  ReturnpBaseResponse updateAffiliate( 
 			int orgMemberNo,
-			@ModelAttribute("affiliateFormInfo") Affiliate affiliate, @ModelAttribute("memberAddressInfo") MemberAddress address,
+			@ModelAttribute("affiliateFormInfo") Affiliate affiliate, @ModelAttribute("memberAddressInfo") MemberAddress address,AffiliateCategory affiliateCategory,
 			SessionStatus sessionStatus, BindingResult result, HttpSession httpSession, Model model) {
 		if (result.hasErrors()) {
 			List<ObjectError> list = result.getAllErrors();
@@ -312,6 +329,27 @@ public class AffiliateController extends ApplicationController {
 			address.setNodeType("5");
 			address.setMemberNo(affiliate.getMemberNo());
 			this.memberAddressSerivice.updateByPrimaryKey(address);
+			
+			/*카테고리 정보 업데이트*/
+			AffiliateCategory cateCond= new AffiliateCategory();
+			cateCond.setAffiliateNo(affiliate.getAffiliateNo());
+			ArrayList<AffiliateCategory> cates = this.searchService.selectAffiliateCategories(cateCond);
+			
+			if (cates.size() > 0) {
+				/*카테고리 내용중 1개라도 변경되었으면 업데이트 함 */
+				if (affiliateCategory.getCategory1No() != cates.get(0).getCategory1No()  || affiliateCategory.getCategory2No() != cates.get(0).getCategory2No()) {
+					cates.get(0).setCategory1No(affiliateCategory.getCategory1No());
+					cates.get(0).setCategory2No(affiliateCategory.getCategory2No());
+					this.affiliateCategoryMapper.updateByPrimaryKey(cates.get(0));
+				}
+			}else {
+				/*협력업체 생성시 카테고리 정보를 입력하지 않은 상태기 때문에 insert*/
+				if (affiliateCategory.getCategory1No() != 0 && affiliateCategory.getCategory2No() != 0) {
+					affiliateCategory.setAffiliateNo(affiliate.getAffiliateNo());
+					this.affiliateCategoryMapper.insert(affiliateCategory);
+				}
+			}
+			
 		}else {
 			Affiliate affCond = new Affiliate();
 			affCond.setMemberNo(affiliate.getMemberNo());
@@ -353,6 +391,12 @@ public class AffiliateController extends ApplicationController {
 				member.setMemberNo(affiliate.getMemberNo());
 				member .setIsAffiliate("Y");
 				this.memberService.updateByPrimaryKeySelective(member );
+				
+				/*카테고리 정보 생성*/
+				if (affiliateCategory.getCategory1No() != 0 && affiliateCategory.getCategory2No() != 0) {
+					affiliateCategory.setAffiliateNo(affiliate.getAffiliateNo());
+					this.affiliateCategoryMapper.insert(affiliateCategory);
+				}
 			}
 		}
 
@@ -627,6 +671,14 @@ public class AffiliateController extends ApplicationController {
 			m.setIsAffiliate("N");
 			this.memberService.updateByPrimaryKeySelective(m);
 			this.setSuccessResponse(res, "협력업체 및 연결 TID 삭제 및 회원 정보 업데이트 완료 ");
+			
+			/*카테고리 정보 삭제*/
+			AffiliateCategory cateCond = new AffiliateCategory();
+			cateCond.setAffiliateNo(affiliateNo);
+			ArrayList<AffiliateCategory> cates = this.searchService.selectAffiliateCategories(cateCond);
+			if (cates.size() > 0) {
+				this.affiliateCategoryMapper.deleteByPrimaryKey(cates.get(0).getAffiliateCategoryNo());
+			}
 			return res;
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -34,6 +34,7 @@ import com.returnp.admin.dto.request.SearchCondition;
 import com.returnp.admin.model.Admin;
 import com.returnp.admin.model.AdminFile;
 import com.returnp.admin.model.Affiliate;
+import com.returnp.admin.model.AffiliateCategory;
 import com.returnp.admin.model.AffiliateCiderpay;
 import com.returnp.admin.model.AffiliateDetail;
 import com.returnp.admin.model.AffiliatePaymentRouter;
@@ -216,4 +217,6 @@ public interface SearchMapper {
 	public ArrayList<SubBbs>  selectSubBbses(SubBbs subBbs);
 	
 	public ArrayList<HashMap<String, Object>> selectGpointPayments(HashMap<String, Object> dbParams);
+	
+	public ArrayList<AffiliateCategory>  selectAffiliateCategories(AffiliateCategory affiliateCategory);
 }

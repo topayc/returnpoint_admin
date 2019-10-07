@@ -36,6 +36,7 @@ import com.returnp.admin.dto.command.SoleDistCommand;
 import com.returnp.admin.model.Admin;
 import com.returnp.admin.model.AdminFile;
 import com.returnp.admin.model.Affiliate;
+import com.returnp.admin.model.AffiliateCategory;
 import com.returnp.admin.model.AffiliateCiderpay;
 import com.returnp.admin.model.AffiliateDetail;
 import com.returnp.admin.model.AffiliatePaymentRouter;
@@ -473,5 +474,11 @@ public class SearchServiceImpl implements SearchService{
 	public ArrayList<HashMap<String, Object>> selectGpointPayments(HashMap<String, Object> dbParams) {
 		// TODO Auto-generated method stub
 		return this.searchMapper.selectGpointPayments(dbParams);
+	}
+
+	@Override
+	public ArrayList<AffiliateCategory> selectAffiliateCategories(AffiliateCategory affiliateCategory) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectAffiliateCategories(affiliateCategory);
 	};
 }
