@@ -327,7 +327,8 @@ function setListPager(){
 	var pager = $('#node_list').datagrid().datagrid('getPager');
 	pager.pagination({
 		displayMsg : ' {from} to {to} of {total}',
-		buttons:[{
+		buttons:[
+			{
             iconCls:'icon-add',
             handler:function(){
             	$('#node_list').datagrid('unselectAll');
@@ -361,6 +362,12 @@ function setListPager(){
 	  				"결제 내역에 따른 Green 포인트 지급 현황", 
 	  				{paymentTransactionNo : node.paymentTransactionNo}
 	  			);
+            }
+        },	{
+            iconCls:'icon-add',
+            text : "엑셀 변환",
+            handler:function(){
+            	gridToExcel('#node_list','payment_transaction.xls');
             }
         }],
         layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],

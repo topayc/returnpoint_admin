@@ -93,7 +93,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
-		width: 120
+		width: 80
 	});
 	$('#searchPaymentTransactionType').combobox({
 		labelPosition : 'top',
@@ -108,26 +108,38 @@ function initView(){
 
 	/* 검색 시작일 갤린더 박스  초기화*/
 	$('#searchDateStart').datetimebox({
-		 prompt : "검색 시작 일자",
+		 prompt : "검색 시작일",
 	    showSeconds: true,
 	    labelPosition: 'top',
-	    width: 150,
+	    width: 120,
 	    formatter :  searchDateFomatter
 	});
 	
 	/* 검색 종료일 갤린더 박스  초기화*/
 	$('#searchDateEnd').datetimebox({
-		 prompt : "검색 종료 일자",
+		 prompt : "검색 종료일",
 		showSeconds: true,
 	    labelPosition: 'top',
-	    width: 150,
+	    width: 120,
 	    formatter :  searchDateFomatter
 	});
 	
 	
+	$('#searchAccLowLimit').textbox({
+		width: 100,
+		prompt : "최소 금액" ,
+		labelPosition: 'top'
+	});
+
+	$('#searchAccMaxLimit').textbox({
+		width: 100,
+		prompt : "최대 금액 " ,
+		labelPosition: 'top'
+	});
+	
 	/* 검색어 입력 박스 초기화 */
 	$('#searchKeyword').textbox({
-		width: 200,
+		width: 150,
 		prompt : "이름 / 아이디 " ,
 		  labelPosition: 'top'
 	});
@@ -259,6 +271,21 @@ function initView(){
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = makeSearchParam();
+			console.log(param)
+			if ( param.searchAccLowLimit != ''){
+				if (!$.isNumeric(param.searchAccLowLimit)) {
+					$.messager.alert('알림', "최소 금액 검색은 숫자만 입력해야 합니다.");
+					return;
+				}
+			}
+			
+			if (param.searchAccMaxLimit != ''){
+				if (!$.isNumeric(param.searchAccMaxLimit)) {
+					$.messager.alert('알림', "최대 금액 검색은 숫자만 입력해야 합니다.");
+					return;
+				}
+			}
+			
 			if ((param.searchDateStart == '' &&  param.searchDateEnd == "") || (param.searchDateStart != '' &&  param.searchDateEnd != "") ){
 			}else {
 				$.messager.alert('알림', "검색 시작일 혹은 검색 종료일을 설정해주세요");
@@ -690,7 +717,14 @@ function setListPager(){
 	var pager = $('#node_list').datagrid().datagrid('getPager');
 	pager.pagination({
 		/*displayMsg : ' {from} to {to} of {total}',*/
-		buttons:[{
+		buttons:[
+			{
+	            iconCls:'icon-add',
+	            text : "엑셀 변환",
+	            handler:function(){
+	            	gridToExcel('#node_list','payment_transactionl.xls');
+	            }
+	        },{
             iconCls:'icon-chart',
             handler:function(){
             	$('#node_list').datagrid('unselectAll');

@@ -47,31 +47,19 @@
 	                </select>	
 	            </div>
 	            
+	                <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
+	                <input class="easyui-textbox"  id ="searchAccLowLimit" name="searchAccLowLimit"  style="width:100%" label="최소 금액">
+	            </div>
+	            
+	            &nbsp;~
+	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
+	                <input class="easyui-textbox"  id ="searchAccMaxLimit" name="searchAccMaxLimit"  style="width:100%" label="최대 금액">
+	            </div>
+	            
 	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <input class="easyui-textbox"  id ="searchKeyword" name="searchKeyword"  style="width:100%" label="이름/아이디">
 	            </div>
 
-			<%-- 	<div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">
-	                <select id = "paymentType" class="easyui-combobox" name="paymentType" label="결제 유형" style="width:100%">
-	                	 <option value="0">전체</option>
-	                	<c:forEach var="paymentType" items="${paymentTypeList}" varStatus="status">
-						   <option value="${paymentType.key}"  >${paymentType.value}</option>
-						</c:forEach>
-	                </select>
-	            </div> --%>
-	            	            
-	            <%--  <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">
-	                <select id = "keywordType" class="easyui-combobox" name="keywordType" label="검색 유형" style="width:100%">
-	                	 <option value="0">전체</option>
-	                	<c:forEach var="keywordType" items="${keywordTypeList}" varStatus="status">
-						   <option value="${keywordType.key}" <c:if test="${keywordType.key == nodeSearch.keywordType}">selected="selected"</c:if> >${keywordType.value}</option>
-						</c:forEach>
-	                </select>
-	            </div> --%>
-	            
-	          <!--   <div style="margin-bottom:10px;margin-left:7px;;display:inline-block;">
-	                <input class="easyui-textbox"  id ="searchKeyword" name="searchKeyword"  style="width:100%">
-	            </div> -->
 	            
 	            <div style="padding:5px 0;display:inline-block;">
 		            <a href="javascript:void(0)" id = "search_daily_btn"  style="width:60px;margin-left: 10px;">검색</a>
