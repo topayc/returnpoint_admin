@@ -138,6 +138,7 @@ public class AdminController extends ApplicationController{
 		model.addAttribute("saleOrganStatusList", CodeDefine.getOrganStatuses());
 
 		model.addAttribute("paymentRouterTypes", CodeDefine.getPaymentRouterTypes());
+		model.addAttribute("withdrawalStatuses", CodeDefine.getWithdrawalStatuses());
 		
 		if (viewReqName.equals("manageGiftCardIssue")) {
 			model.addAttribute("giftCards", this.serachService.selectGiftCards(new GiftCard()));

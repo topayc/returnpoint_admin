@@ -346,6 +346,10 @@ $(function () {
         	selectAffiliateDetails:  {apiCode: 10000, apiPath : '/api/affiliateDetails' , requestMethod: 'get'},
         	updateAffiliateDetail:  {apiCode: 10000, apiPath : '/api//affiliateDetail/update' , requestMethod: 'post'},
         	deleteAffiliateDetail:  {apiCode: 10000, apiPath : '/api/affiliateDetail/delete' , requestMethod: 'post'},
+        	
+        	selectPointWithdrawalReports: {apiCode: 10000, apiPath : '/api/report/selectPointWithdrawalReports' , requestMethod: 'get'},
+        	selectTotalPointWithdrawalReports: {apiCode: 10000, apiPath : '/api/report/selectTotalPointWithdrawalReports' , requestMethod: 'get'},
+         	loadPointWithdrawals: {apiCode: 10000, apiPath : '/api/report/loadPointWithdrawals' , requestMethod: 'get'},
         },
         
         init : function(){

@@ -21,5 +21,11 @@ public interface MainService {
 	public ReturnpBaseResponse updateGpointPayment(HashMap<String, Object> dbParams);
 
 	public ReturnpBaseResponse reportPeriodGpointPayments(HashMap<String, Object> dbParams);
+
+	public ReturnpBaseResponse selectPointWithdrawalReports(HashMap<String, Object> dbParams);
+
+	public ReturnpBaseResponse reportPointWithdrawals(HashMap<String, Object> dbParams);
+
+	public ReturnpBaseResponse selectTotalPointWithdrawalReports(HashMap<String, Object> dbParams);
 }
 	

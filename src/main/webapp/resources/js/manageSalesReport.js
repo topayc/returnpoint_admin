@@ -72,7 +72,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
-		width: 100
+		width: 130
 	});
 
 	$('#searchAffiliate').combobox({
@@ -111,7 +111,7 @@ function initView(){
 		 prompt : "검색 시작일",
 	    showSeconds: true,
 	    labelPosition: 'top',
-	    width: 120,
+	    width: 140,
 	    formatter :  searchDateFomatter
 	});
 	
@@ -120,26 +120,26 @@ function initView(){
 		 prompt : "검색 종료일",
 		showSeconds: true,
 	    labelPosition: 'top',
-	    width: 120,
+	    width: 140,
 	    formatter :  searchDateFomatter
 	});
 	
 	
 	$('#searchAccLowLimit').textbox({
-		width: 100,
+		width: 120,
 		prompt : "최소 금액" ,
 		labelPosition: 'top'
 	});
 
 	$('#searchAccMaxLimit').textbox({
-		width: 100,
+		width: 120,
 		prompt : "최대 금액 " ,
 		labelPosition: 'top'
 	});
 	
 	/* 검색어 입력 박스 초기화 */
 	$('#searchKeyword').textbox({
-		width: 150,
+		width: 180,
 		prompt : "이름 / 아이디 " ,
 		  labelPosition: 'top'
 	});
@@ -213,7 +213,7 @@ function initView(){
                         totalCancelAmount+=parseInt(res.rows[i].salesCancelSum);
                     }
 					$('#summary_table').datagrid({
-						title : '[연도별 매출 총계]  : ' +numberGreenFormatter(totalAmount),
+						title : '[일별 매출 총계]  : ' +numberGreenFormatter(totalAmount),
 					});
 					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", salesSum : totalAmount, payCase : totalPayCase , salesApprovalSum :  totalAppovalAmount, salesCancelSum :totalCancelAmount });
 					setListPager2();
@@ -253,7 +253,7 @@ function initView(){
                         totalCancelAmount+=parseInt(res.rows[i].salesCancelSum);
                     }
 					$('#summary_table').datagrid({
-						title : '[연도별 매출 총계]  : ' +numberGreenFormatter(totalAmount),
+						title : '[월별 매출 총계]  : ' +numberGreenFormatter(totalAmount),
 					});
 					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", salesSum : totalAmount, payCase : totalPayCase , salesApprovalSum :  totalAppovalAmount, salesCancelSum :totalCancelAmount });
 					setListPager2();
@@ -265,7 +265,7 @@ function initView(){
 	/*	iconCls:'icon-search'*/
 	});
 	
-	$('#search_daily_btn').linkbutton({
+	$('#search_btn').linkbutton({
 		onClick : function(){
 			$('#node_list').datagrid('loadData', []);
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
@@ -341,17 +341,6 @@ function initView(){
 	/*	iconCls:'icon-search'*/
 	});
 	
-	$('#search_monthly_btn').linkbutton({
-		onClick : function(){
-		},
-	/*	iconCls:'icon-search'*/
-	});
-	
-	$('#search_year_btn').linkbutton({
-		onClick : function(){
-		},
-	/*	iconCls:'icon-search'*/
-	});
 	
 	
 	/* 리셋 버튼  초기화*/
@@ -425,11 +414,6 @@ function initView(){
 		  	cmenu.menu({
 		  		onClick : function(item){
 		  			switch(item.action){
-		  			case "create":
-		  				break;
-		  			case "modify":
-		  				loadPaymentTransactionModifyForm();
-		  				break;
 		  			case "cancel":
 		  				cancelPaymentTransaction();
 		  				break;	

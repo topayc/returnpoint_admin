@@ -60,6 +60,29 @@ public class ReportController extends ApplicationController{
 		return this.mainService.reportPaymentTransactions(dbParams);
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value = "/report/selectPointWithdrawalReports", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectPointWithdrawalReports(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
+		return this.mainService.selectPointWithdrawalReports(dbParams);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/report/loadPointWithdrawals", method = RequestMethod.GET)
+	public ReturnpBaseResponse  loadPointWithdrawals(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
+		return this.mainService.reportPointWithdrawals(dbParams);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/report/selectTotalPointWithdrawalReports", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectTotalSalesReports(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
+		
+		return this.mainService.selectTotalPointWithdrawalReports(dbParams);
+	}
+
 	private HashMap<String, Object> checkParameter(HashMap<String, Object> params){
 		for (Map.Entry<String, Object> entry : params.entrySet()) {
 			String key   = entry.getKey();
@@ -69,7 +92,7 @@ public class ReportController extends ApplicationController{
 					params.put(key, null);
 				}
 			}
-			System.out.println(key + ":" +  params.get(key));
+/*	System.out.println(key + ":" +  params.get(key));*/
 		}
 		return params;
 	}

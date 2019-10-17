@@ -19,41 +19,32 @@
 	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <input id = "searchDateEnd"  name="searchDateEnd" label="검색 종료일" style="width:100%"/>
 	            </div>
-	             
+	            
 	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
-	                <select id = "searchAffiliate" class="easyui-combobox" name="searchAffiliate" label="조회 업체 " style="width:100%">
+	                <select id = "searchWithdrawalStatus" class="easyui-combobox" name="searchWithdrawalStatus" label="출금 상태" style="width:100%">
 	                	 <option value = "0">전체</option>
-	                	<c:forEach var="affiliate" items="${affiliateList}" varStatus="status">	
-						   <option value="${affiliate.affiliateNo}"  >${affiliate.affiliateName}</option>
+	                	<c:forEach var="withdrawalStatus" items="${withdrawalStatuses}" varStatus="status">	
+						   <option value="${withdrawalStatus.key}"  >${withdrawalStatus.value}</option>
 						</c:forEach>
 	                </select>	
 	            </div>
 	            
-	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
-	                <select id = "searchPaymentTransactionType" class="easyui-combobox" name="searchPaymentTransactionType" label="결제 타입" style="width:100%">
+	                 <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
+	                <select id = "searchWithdrawalDateType" class="easyui-combobox" name="searchWithdrawalDateType" label="출금일 기준" style="width:100%">
 	                	 <option value = "0">전체</option>
-	                	<c:forEach var="paymentTransactionType" items="${paymentTransactionTypeList}" varStatus="status">	
-						   <option value="${paymentTransactionType.key}"  >${paymentTransactionType.value}</option>
-						</c:forEach>
+	                	 <option value = "1">출금 등록일 기준</option>
+	                	 <option value = "2">줄금 완료일 기준</option>
 	                </select>	
 	            </div>
 	            
-	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
-	                <select id = "searchPaymentApprovalStatus" class="easyui-combobox" name="searchPaymentApprovalStatus" label="결제 승인 상태" style="width:100%">
-	                	 <option value = "0">전체</option>
-	                	<c:forEach var="paymentApprovalStatus" items="${paymentApprovalStatusList}" varStatus="status">
-						   <option value="${paymentApprovalStatus.key}"  >${paymentApprovalStatus.value}</option>
-						</c:forEach>
-	                </select>	
-	            </div>
 	            
 	                <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
-	                <input class="easyui-textbox"  id ="searchAccLowLimit" name="searchAccLowLimit"  style="width:100%" label="최소 금액">
+	                <input class="easyui-textbox"  id ="searchWithdrawalLowLimit" name="searchWithdrawalLowLimit"  style="width:100%" label="최소 출금 금액">
 	            </div>
 	            
 	            &nbsp;~
 	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
-	                <input class="easyui-textbox"  id ="searchAccMaxLimit" name="searchAccMaxLimit"  style="width:100%" label="최대 금액">
+	                <input class="easyui-textbox"  id ="searchWithdrawalMaxLimit" name="searchWithdrawalMaxLimit"  style="width:100%" label="최대 출금 금액">
 	            </div>
 	            
 	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
@@ -64,8 +55,8 @@
 	            <div style="padding:5px 0; ">
 		            <a href="javascript:void(0)" id = "search_btn"  style="width:60px;margin-left: 10px;">검색</a>
 		            <a href="javascript:void(0)" id = "reset_btn"   style="width:60px;margin-left: 2px;">리셋</a>
-		                
-		              <a href="javascript:void(0)" id = "search_total_daily_btn"  style=";margin-left: 15px;">전체 일별 조회</a>
+		             
+		             <a href="javascript:void(0)" id = "search_total_daily_btn"  style=";margin-left: 15px;">전체 일별 조회</a>
 		            <a href="javascript:void(0)" id = "search_total_month_btn"  style="margin-left: 3px;">전체 월별 조회</a>
 		            <a href="javascript:void(0)" id = "search_total_year_btn"  style=";margin-left: 3px;">전체 연별 조회</a>
 		            <!-- <a href="javascript:void(0)" id = "search_graph_btn"  style="margin-left: 2px;">그래프 보기</a> -->

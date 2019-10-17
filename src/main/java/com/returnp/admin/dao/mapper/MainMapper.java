@@ -17,4 +17,9 @@ public interface MainMapper {
 
 	public int insertGpointPayment(HashMap<String, Object> dbParams);
 	public int updateGpointPayment(HashMap<String, Object> dbParams);
+
+	public ArrayList<HashMap<String, Object>> selectPointWithdrawalReports(HashMap<String, Object> dbParams);
+	public ArrayList<HashMap<String, Object>> reportPointWithdrawals(HashMap<String, Object> dbParams);
+
+	public ArrayList<HashMap<String, Object>> selectTotalPointWithdrawalReports(HashMap<String, Object> dbParams);
 }
