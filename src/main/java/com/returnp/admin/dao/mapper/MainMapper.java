@@ -22,4 +22,10 @@ public interface MainMapper {
 	public ArrayList<HashMap<String, Object>> reportPointWithdrawals(HashMap<String, Object> dbParams);
 
 	public ArrayList<HashMap<String, Object>> selectTotalPointWithdrawalReports(HashMap<String, Object> dbParams);
+
+	public ArrayList<HashMap<String, Object>> selectPointConversionReports(HashMap<String, Object> dbParams);
+
+	public ArrayList<HashMap<String, Object>> selectPeriodPointConversionReports(HashMap<String, Object> dbParams);
+
+	public ArrayList<HashMap<String, Object>> loadPointConversions(HashMap<String, Object> dbParams);
 }

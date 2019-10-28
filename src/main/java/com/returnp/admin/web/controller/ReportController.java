@@ -83,6 +83,29 @@ public class ReportController extends ApplicationController{
 		return this.mainService.selectTotalPointWithdrawalReports(dbParams);
 	}
 
+	
+	@ResponseBody
+	@RequestMapping(value = "/report/pointConversionReports", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectPointConversionReports(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
+		return this.mainService.selectPointConversionReports(dbParams);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/report/periodPointConversionReports", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectPeriodPointConversionReports(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
+		return this.mainService.selectPeriodPointConversionReports(dbParams);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/report/loadPointConversionTransactions", method = RequestMethod.GET)
+	public ReturnpBaseResponse  loadPointConversions(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
+		return this.mainService.loadPointConversions(dbParams);
+	}
+	
+	
 	private HashMap<String, Object> checkParameter(HashMap<String, Object> params){
 		for (Map.Entry<String, Object> entry : params.entrySet()) {
 			String key   = entry.getKey();

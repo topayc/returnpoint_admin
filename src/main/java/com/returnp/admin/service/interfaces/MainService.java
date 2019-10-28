@@ -27,5 +27,11 @@ public interface MainService {
 	public ReturnpBaseResponse reportPointWithdrawals(HashMap<String, Object> dbParams);
 
 	public ReturnpBaseResponse selectTotalPointWithdrawalReports(HashMap<String, Object> dbParams);
+
+	public ReturnpBaseResponse selectPointConversionReports(HashMap<String, Object> dbParams);
+
+	public ReturnpBaseResponse selectPeriodPointConversionReports(HashMap<String, Object> dbParams);
+
+	public ReturnpBaseResponse loadPointConversions(HashMap<String, Object> dbParams);
 }
 	

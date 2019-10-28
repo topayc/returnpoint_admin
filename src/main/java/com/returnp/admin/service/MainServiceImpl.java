@@ -201,6 +201,57 @@ public class MainServiceImpl implements MainService{
 		}
 	}
 
+	@Override
+	public ReturnpBaseResponse selectPointConversionReports(HashMap<String, Object> dbParams) {
+		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
+		try {
+			ArrayList<HashMap<String, Object>> sales = this.mainMapper.selectPointConversionReports(dbParams);
+			res.setRows(sales);
+			res.setTotal(sales.size());
+			ResponseUtil.setSuccessResponse(res, "100" , "조회 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "조회 에러 ");
+			return res;
+		}
+	}
+
+	@Override
+	public ReturnpBaseResponse selectPeriodPointConversionReports(HashMap<String, Object> dbParams) {
+		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
+		try {
+			ArrayList<HashMap<String, Object>> sales = this.mainMapper.selectPeriodPointConversionReports(dbParams);
+			res.setRows(sales);
+			res.setTotal(sales.size());
+			ResponseUtil.setSuccessResponse(res, "100" , "조회 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "조회 에러 ");
+			return res;
+		}
+	}
+
+	@Override
+	public ReturnpBaseResponse loadPointConversions(HashMap<String, Object> dbParams) {
+		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
+		try {
+			ArrayList<HashMap<String, Object>> ptReports = this.mainMapper.loadPointConversions(dbParams);
+			res.setRows(ptReports);
+			res.setTotal(	this.searchService.selectTotalRecords());
+			ResponseUtil.setSuccessResponse(res, "100" , "조회 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "조회 에러 ");
+			return res;
+		}
+	}
+
 
 
 

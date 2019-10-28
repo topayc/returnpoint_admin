@@ -333,6 +333,10 @@ $(function () {
         	selectPeriodSalesReports: {apiCode: 10000, apiPath : '/api/report/selectPeriodSalesReports' , requestMethod: 'get'},
         	loadPaymentTransaction: {apiCode: 10000, apiPath : '/api/report/loadPaymentTransactions' , requestMethod: 'get'},
         	
+        	selectPointConversionReports: {apiCode: 10000, apiPath : '/api/report/pointConversionReports' , requestMethod: 'get'},
+        	selectPeriodPointConversionReports: {apiCode: 10000, apiPath : '/api/report/periodPointConversionReports' , requestMethod: 'get'},
+        	loadPointConversions: {apiCode: 10000, apiPath : '/api/report/loadPointConversionTransactions' , requestMethod: 'get'},
+        	
         	/*push token 등록*/
         	sendPushToken: {apiCode: 10000, apiPath : '/api/device/registToken' , requestMethod: 'post'},
         	
