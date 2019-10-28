@@ -1537,7 +1537,7 @@ function loadPaymentPointbackRecord(title, params) {
 					function(response, status, xhr) {
 
 						$('#dlgForm').dialog({
-							width : 1200,
+							width : 1400,
 							cache : false,
 							modal : true,
 							closable : true,

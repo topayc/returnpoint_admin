@@ -6,7 +6,10 @@ import com.returnp.admin.model.PaymentPointbackRecord;
 
 public class PaymentPointbackRecordCommand extends PaymentPointbackRecord {
 	
-    private String memberName;
+    private String paymenterName; 
+    private String paymenterEmail; 
+    private String paymenterPhone; 
+	private String memberName;
     private String memberPhone;
     private String memberEmail;
     private Float paymentApprovalAmount;
@@ -15,6 +18,24 @@ public class PaymentPointbackRecordCommand extends PaymentPointbackRecord {
     private Date paymentApprovalDateTime;
     
     
+	public String getPaymenterEmail() {
+		return paymenterEmail;
+	}
+	public void setPaymenterEmail(String paymenterEmail) {
+		this.paymenterEmail = paymenterEmail;
+	}
+	public String getPaymenterPhone() {
+		return paymenterPhone;
+	}
+	public void setPaymenterPhone(String paymenterPhone) {
+		this.paymenterPhone = paymenterPhone;
+	}
+	public String getPaymenterName() {
+		return paymenterName;
+	}
+	public void setPaymenterName(String paymenterName) {
+		this.paymenterName = paymenterName;
+	}
 	public String getAffiliateName() {
 		return affiliateName;
 	}

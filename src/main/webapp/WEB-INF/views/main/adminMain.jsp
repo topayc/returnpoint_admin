@@ -291,7 +291,37 @@
 		                          	</li>
 				                </ul>
                             </li> 
-                 
+                 				
+                 				                  <li class = "R manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "R manage" style = "font-weight : bold">결제 영수증 매출 관리</span>
+		                         <ul>
+		                            
+		                             <li  class = "R_2 manage" id = "" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "" menu_deps= '2' >
+		                            		<span style = "font-weight : bold; ">결제 영수증 적립 관리</span>
+		                            	</a> 
+		                            </li>
+		                             
+				                </ul>
+                            </li> 
+                            
+                              <li class = "S manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "S manage" style = "font-weight : bold">영수증 적립 코드 관리</span>
+		                         <ul>
+		                            <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "" menu_deps= '2' >
+		                            		<span style = "font-weight : bold; ">포인트 적립 코드 생성</span>
+		                            	</a> 
+		                            </li>
+		                            
+		                             <li  class = "S_2 manage" id = "" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "" menu_deps= '2' >
+		                            		<span style = "font-weight : bold; ">포인트 적립 코드 관리</span>
+		                            	</a> 
+		                            </li>
+		                             
+				                </ul>
+                            </li> 
                             
                                <li class = "H manage" data-options = "iconCls :'icon-info'">
                             	 <span  class = "H manage"  style = "font-weight : bold">푸시 및 메일링 서비스</span>

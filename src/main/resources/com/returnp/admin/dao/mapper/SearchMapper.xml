@@ -2379,6 +2379,9 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     <result column="paymentApprovalAmount" jdbcType="REAL" property="paymentApprovalAmount" />
     <result column="affiliateSerial" jdbcType="VARCHAR" property="affiliateSerial" />
     <result column="memberPhone" jdbcType="VARCHAR" property="memberPhone" />
+    <result column="paymenterName" jdbcType="VARCHAR" property="paymenterName" />
+    <result column="paymenterEmail" jdbcType="VARCHAR" property="paymenterEmail" />
+    <result column="paymenterPhone" jdbcType="VARCHAR" property="paymenterPhone" />
     <result column="paymentApprovalDateTime" jdbcType="TIMESTAMP" property="paymentApprovalDateTime" />
   </resultMap>
   <sql id="PaymentPointbackRecordCommand_Column_List">
@@ -2396,6 +2399,9 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     M.memberEmail,
     AF.affiliateName,
    <!--  VPT.memerName as paymetMemberName, -->
+    VPT.memberName as paymenterName, 
+    VPT.memberEmail as paymenterEmail,
+    VPT.memberPhone as paymenterPhone,
     VPT.paymentApprovalAmount,
     VPT.affiliateSerial,
     VPT.paymentApprovalDateTime
@@ -2432,7 +2438,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
 	where
     	1 = 1
 		<include refid = "PaymentPointbackRecordCommand_WhereStatement"/>
-		<include refid = "commonStatement"/>
+	order by paymentPointbackRecordNo asc;
   </select>
   
  
