@@ -43,10 +43,12 @@
 	                <input class="easyui-textbox"  id ="searchKeyword" name="searchKeyword"  style="width:100%" label="이름/아이디">
 	            </div>
 
-	            
-	            <div style="padding:5px 0; ">
+	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 		            <a href="javascript:void(0)" id = "search_btn"  style="width:60px;margin-left: 10px;">검색</a>
 		            <a href="javascript:void(0)" id = "reset_btn"   style="width:60px;margin-left: 2px;">리셋</a>
+	       	 	</div>
+	       	 	
+	            <div style="padding:5px 0; ">
 		                
 		              <a href="javascript:void(0)" id = "search_total_daily_btn"  style=";margin-left: 15px;">전체 일별 조회</a>
 		            <a href="javascript:void(0)" id = "search_total_month_btn"  style="margin-left: 3px;">전체 월별 조회</a>
