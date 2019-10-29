@@ -1,9 +1,9 @@
 
 var summary_columns = [[
 	    {field:'searchDate',width:20,align:'center',title : '검색 기준 연/월/일',formatter : addBoldFomatter},
-	    {field:'totalCount',width:10,align:'center',title : '전환 건수 ', formatter : addBoldFomatter},
-	    {field:'totalConversionTotalPoint',width:20,align:'center',title : '전환 G 포인트 소계', formatter  : numberGreenFormatter},
-	    {field:'totalConversionAccPoint',width:20,align:'center',title : '전환 R 포인트 소계', formatter  : numberBlueFormatter2},
+	    {field:'totalCount',width:10,align:'center',title : '전환 건수 ', formatter : numberFormatter},
+	    {field:'totalConversionTotalPoint',width:20,align:'right',title : '전환 G 포인트 소계', formatter  : numberGreenFormatter},
+	    {field:'totalConversionAccPoint',width:20,align:'right',title : '전환 R 포인트 소계', formatter  : numberRedFormatter},
 	    {field:'ss1',width:40,align:'center',title : '비고'},
 	 ]];
 
@@ -40,12 +40,6 @@ function initView(){
 	$('#searchKeyword').textbox({ 
 		width: 200,
 		prompt : "검색할 단어를 입력해주세요" ,
-		inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
-			keyup:function(e){
-				if(e.keyCode==13)
-					realodPage();
-			}
-		})
 	});
 	
 	
@@ -112,6 +106,7 @@ function initView(){
 	
 	$('#search_total_year_btn').linkbutton({
 		onClick : function(){
+			$('#searchForm').form('reset');
 			$('#node_list').datagrid('loadData', []);
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
@@ -122,26 +117,7 @@ function initView(){
 					if (res.rows.length < 1) {
 						$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
-					
-					$('#summary_table').datagrid({
-						data : res.rows,
-						title : '[연도별 전환 총계] ',
-					});
-					var totalAmount = 0
-                    var totalPayCase = 0;
-					var totalAppovalAmount = 0; 
-					var totalCancelAmount = 0; 
-					for (var i = 0; i < res.rows.length; i++) {
-                        totalAmount += parseInt(res.rows[i].salesSum);
-                        totalPayCase+=parseInt(res.rows[i].payCase);
-                        totalAppovalAmount+=parseInt(res.rows[i].salesApprovalSum);
-                        totalCancelAmount+=parseInt(res.rows[i].salesCancelSum);
-                    }
-					$('#summary_table').datagrid({
-						title : '[연도별 매출 총계]  : ' +numberGreenFormatter(totalAmount),
-					});
-					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", salesSum : totalAmount, payCase : totalPayCase , salesApprovalSum :  totalAppovalAmount, salesCancelSum :totalCancelAmount });
-					setListPager2();
+					setSummary(res, '연도별 전환 총계');
 				}else {
 					$.messager.alert('오류 발생', res.message);
 				}
@@ -152,6 +128,7 @@ function initView(){
 	
 	$('#search_total_daily_btn').linkbutton({
 		onClick : function(){
+			$('#searchForm').form('reset');
 			$('#node_list').datagrid('loadData', []);
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
@@ -159,30 +136,11 @@ function initView(){
 			returnp.api.call("selectPointConversionReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
-					
 					if (res.rows.length < 1) {
 						$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
 					
-					$('#summary_table').datagrid({
-						data : res,
-						title : '[일별 매출 총계] ' ,
-					});
-					var totalAmount = 0
-                    var totalPayCase = 0;
-					var totalAppovalAmount = 0; 
-					var totalCancelAmount = 0; 
-					for (var i = 0; i < res.rows.length; i++) {
-                        totalAmount += parseInt(res.rows[i].salesSum);
-                        totalPayCase+=parseInt(res.rows[i].payCase);
-                        totalAppovalAmount+=parseInt(res.rows[i].salesApprovalSum);
-                        totalCancelAmount+=parseInt(res.rows[i].salesCancelSum);
-                    }
-					$('#summary_table').datagrid({
-						title : '[일별 매출 총계]  : ' +numberGreenFormatter(totalAmount),
-					});
-					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", salesSum : totalAmount, payCase : totalPayCase , salesApprovalSum :  totalAppovalAmount, salesCancelSum :totalCancelAmount });
-					setListPager2();
+					setSummary(res, '일별 전환 총계');
 				}else {
 					$.messager.alert('오류 발생', message);
 				}
@@ -192,6 +150,7 @@ function initView(){
 	});
 	$('#search_total_month_btn').linkbutton({
 		onClick : function(){
+			$('#searchForm').form('reset');
 			$('#node_list').datagrid('loadData', []);
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
@@ -204,25 +163,7 @@ function initView(){
 						$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
 					
-					$('#summary_table').datagrid({
-						data : res,
-						title : '[월별 매출 총계] ' ,
-					});
-					var totalAmount = 0
-                    var totalPayCase = 0;
-					var totalAppovalAmount = 0; 
-					var totalCancelAmount = 0; 
-					for (var i = 0; i < res.rows.length; i++) {
-                        totalAmount += parseInt(res.rows[i].salesSum);
-                        totalPayCase+=parseInt(res.rows[i].payCase);
-                        totalAppovalAmount+=parseInt(res.rows[i].salesApprovalSum);
-                        totalCancelAmount+=parseInt(res.rows[i].salesCancelSum);
-                    }
-					$('#summary_table').datagrid({
-						title : '[월별 매출 총계]  : ' +numberGreenFormatter(totalAmount),
-					});
-					$('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", salesSum : totalAmount, payCase : totalPayCase , salesApprovalSum :  totalAppovalAmount, salesCancelSum :totalCancelAmount });
-					setListPager2();
+					setSummary(res, '월별 전환 총계');
 				}else {
 					$.messager.alert('오류 발생', message);
 				}
@@ -237,8 +178,8 @@ function initView(){
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = makeSearchParam();
-			console.log(param)
-			
+			console.log("파라메터");
+			console.log(param);
 			if ((param.searchDateStart == '' &&  param.searchDateEnd == "") || (param.searchDateStart != '' &&  param.searchDateEnd != "") ){
 			}else {
 				$.messager.alert('알림', "검색 시작일 혹은 검색 종료일을 설정해주세요");
@@ -251,7 +192,6 @@ function initView(){
 				var searchDateEnd = new Date(dateArr[0], dateArr[1], dateArr[2]);
 				param.searchDateEnd = searchDateEnd.getFullYear() + "-" + searchDateEnd.getMonth() + "-" + (searchDateEnd.getDate() + 1)
 			}
-			console.log(param);
 			returnp.api.call("selectPeriodPointConversionReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
@@ -263,28 +203,13 @@ function initView(){
 					$('#summary_table').datagrid({
 						data : res
 					});
-					var totalAmount = 0
-					var totalPayCase = 0;
-					 var totalAppovalAmount = 0; 
-					 var totalCancelAmount = 0; 
-                    for (var i = 0; i < res.rows.length; i++) {
-                        totalAmount += parseInt(res.rows[i].salesSum);
-                        totalPayCase+=parseInt(res.rows[i].payCase);
-                        totalAppovalAmount+=parseInt(res.rows[i].salesApprovalSum);
-                        totalCancelAmount+=parseInt(res.rows[i].salesCancelSum);
-                    }
 					var shStr = "";
 					if (param.searchDateStart != ''  ) {
 						shStr = '[' + param.searchDateStart + " ~ "+  oriDateEnd + "] 매출 총계 :";
 					}else {
 						shStr = "[전체 기간 매출 총계] : "
 					}
-					
-					$('#summary_table').datagrid({
-						title : shStr + numberGreenFormatter(totalAmount),
-					});
-					  $('#summary_table') .datagrid( 'appendRow', { searchDate : "총계", salesSum : totalAmount, payCase : totalPayCase , salesApprovalSum :  totalAppovalAmount, salesCancelSum :totalCancelAmount });
-					setListPager2();
+					setSummary(res, shStr);
 				}else {
 					$.messager.alert('오류 발생', message);
 				}
@@ -292,8 +217,6 @@ function initView(){
 		},
 	/*	iconCls:'icon-search'*/
 	});
-	
-	
 	
 	/* 리셋 버튼  초기화*/
 	$('#reset_btn').linkbutton({
@@ -322,7 +245,7 @@ function initView(){
 		onSelect : function(index,row){
 			$('#node_list').datagrid('loadData', []);
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
-			selectPaymentTransactions(index, row);
+			loadPointConversions(index, row);
 		},
 		onLoadSuccess : function(){
 			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);
@@ -550,6 +473,27 @@ function setListPager(){
     }); 
 }
 
+function setSummary(res, str){
+	$('#summary_table').datagrid({
+		data : res,
+		title : '['+str+ '] ' ,
+	});
+	var totalCount = 0;
+	var totalConversionTotalPoint = 0
+	var totalConversionAccPoint = 0; 
+	for (var i = 0; i < res.rows.length; i++) {
+		totalCount+=parseInt(res.rows[i].totalCount);
+		totalConversionTotalPoint += parseFloat(res.rows[i].totalConversionTotalPoint);
+        totalConversionAccPoint+=parseFloat(res.rows[i].totalConversionAccPoint);
+    }
+	$('#summary_table').datagrid({
+		title : '[' +str+ ']  : ' +numberGreenFormatter(totalConversionAccPoint),
+	});
+	$('#summary_table') .datagrid( 
+		'appendRow', 
+		{ searchDate : "총계", totalCount : totalCount, totalConversionTotalPoint : totalConversionTotalPoint , totalConversionAccPoint :  totalConversionAccPoint });
+	setListPager2();
+}
 /**
  * 검색 실행시 필요한 쿼리 데이타 구성 
  * @returns
@@ -561,7 +505,6 @@ function makeSearchParam(){
 	var total = $('#node_list').datagrid('getData').total;
 	
 	$.extend(param, {
-		searchNodeType : 10,
 		pagination : opts.pagination,
 		pageSize : opts.pageSize,
 		page : opts.pageNumber,

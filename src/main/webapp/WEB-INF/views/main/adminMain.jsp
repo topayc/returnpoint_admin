@@ -292,7 +292,7 @@
 				                </ul>
                             </li> 
                  				
-                 				                  <li class = "R manage" data-options = "iconCls :'icon-info'">
+                 			<li class = "R manage" data-options = "iconCls :'icon-info'">
                             	 <span  class = "R manage" style = "font-weight : bold">결제 영수증 매출 관리</span>
 		                         <ul>
 		                            
@@ -301,14 +301,8 @@
 		                            		<span style = "font-weight : bold; ">결제 영수증 적립 관리</span>
 		                            	</a> 
 		                            </li>
-		                             
-				                </ul>
-                            </li> 
-                            
-                              <li class = "S manage" data-options = "iconCls :'icon-info'">
-                            	 <span  class = "S manage" style = "font-weight : bold">영수증 적립 코드 관리</span>
-		                         <ul>
-		                            <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
+		                            
+		                                <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "" menu_deps= '2' >
 		                            		<span style = "font-weight : bold; ">포인트 적립 코드 생성</span>
 		                            	</a> 
@@ -319,7 +313,6 @@
 		                            		<span style = "font-weight : bold; ">포인트 적립 코드 관리</span>
 		                            	</a> 
 		                            </li>
-		                             
 				                </ul>
                             </li> 
                             
@@ -356,20 +349,20 @@
 		                         <ul>
 		                         	<li class = "J_1 manage" id = "manageConvertPointRequest" data-options = "iconCls :'icon-info'">
 		                         		<a class= "sub_menu"  view_req_name = "manageConvertPointRequest"  menu_deps= '2' >
-		                         			<span style = "font-weight : bold">R-G  포인트 적립 요청 관리</span>
+		                         			<span style = "font-weight : bold">R-G  포인트 적립요청 관리</span>
 		                         		</a> 
 		                         	</li>
                             		<li class = "J_2 manage" id = "managePointConversionTransaction" data-options = "iconCls :'icon-info'">
                             			<a class= "sub_menu"  view_req_name = "managePointConversionTransaction"  menu_deps= '2' >
-                            				<span style = "font-weight : bold">R 포인트 전환 관리</span>
+                            				<span style = "font-weight : bold">R 포인트  자동전환 관리</span>
                             			</a> 
                             		</li>
                             		
-                            			<li class = "J_2 manage" id = "managePointConversionTransaction2" data-options = "iconCls :'icon-info'">
+                           		 <!-- 	<li class = "J_2 manage" id = "managePointConversionTransaction2" data-options = "iconCls :'icon-info'">
                             			<a class= "sub_menu"  view_req_name = "managePointConversionTransaction2"  menu_deps= '2' >
                             				<span style = "font-weight : bold">기존 R 포인트 전환 관리</span>
                             			</a> 
-                            		</li>
+                            		</li> -->
                             		
 		                        </ul>
                             </li>
