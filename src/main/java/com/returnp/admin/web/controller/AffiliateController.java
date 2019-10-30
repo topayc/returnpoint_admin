@@ -41,6 +41,7 @@ import com.returnp.admin.dao.mapper.AffiliatePaymentRouterMapper;
 import com.returnp.admin.dao.mapper.AffiliateTidMapper;
 import com.returnp.admin.dao.mapper.MemberMapper;
 import com.returnp.admin.dao.mapper.MemberPlainPasswordMapper;
+import com.returnp.admin.dao.mapper.PaymentTransactionMapper;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.command.AffiliateCommand;
 import com.returnp.admin.dto.command.AffiliateTidCommand;
@@ -60,6 +61,7 @@ import com.returnp.admin.model.MemberAddress;
 import com.returnp.admin.model.MemberBankAccount;
 import com.returnp.admin.model.MemberPlainPassword;
 import com.returnp.admin.model.PaymentRouter;
+import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.model.Policy;
 import com.returnp.admin.service.interfaces.AffiliateService;
 import com.returnp.admin.service.interfaces.AgencyService;
@@ -108,6 +110,7 @@ public class AffiliateController extends ApplicationController {
 	@Autowired MemberPlainPasswordMapper memberPlainPasswordMapper;
 	@Autowired AffiliateDetailMapper affiliateDetailMapper;
 	@Autowired AffiliateCategoryMapper affiliateCategoryMapper;
+	@Autowired PaymentTransactionMapper paymentTransactionMapper;;
 	
 	@RequestMapping(value = "/affiliate/form/createForm", method = RequestMethod.GET)
 	public String formAffiliateRequest(
@@ -358,13 +361,28 @@ public class AffiliateController extends ApplicationController {
 				this.setErrorResponse(res,"이미 협력업체로 등록되어 있는 회원입니다.");
 				return res;
 			}else {
+				/*
+				 * 협력업체의 이전은 기본적으로 기존 협력 업체 정보및 관련 정보를 삭제 한 후 
+				 * 같은 정보로 새로운 협력업체를 생성함
+				 * */
+				
 				/*기존 협력업체와 협력업체의 주소 삭제*/
+				Integer orgAffilaiteNo = affiliate.getAffiliateNo();
 				this.affiliateService.deleteByPrimaryKey(affiliate.getAffiliateNo());
 				this.memberAddressSerivice.deleteByPrimaryKey(address.getMemberAddressNo());
 				
 				/*협력업체 생성*/
 				affiliate.setAffiliateNo(null);
 				this.affiliateService.insert(affiliate);
+				
+				/*기존 가맹점의 결제 트랜잭션 정보중 가맹점 번호를 변경된 가맹점 번호로  변경 */
+				PaymentTransaction paymentTransacton = new PaymentTransaction();
+				paymentTransacton.setAffiliateNo(orgAffilaiteNo);
+				ArrayList<PaymentTransaction> pts = this.searchService.findPaymentTransactions(paymentTransacton);
+				for (PaymentTransaction pt : pts) {
+					pt.setAffiliateNo(affiliate.getAffiliateNo());
+					this.paymentTransactionMapper.updateByPrimaryKeySelective(pt);
+				}
 				
 				/*협력업체 주소 정보 생성*/
 				address.setMemberAddressNo(null);

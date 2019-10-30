@@ -907,7 +907,7 @@ function conversionStatusFormatter(value, row, index) {
 		text = '<span style = "color : #F64B1A;font-weight : bold">전환 중지</span>';
 		break;
 	case "3":
-		text = '<span style = "color : #F64B1A;font-weight : bold">전환 완료</span>';
+		text = '<span style = "color : green;font-weight : bold">전환 완료</span>';
 		break;
 	default:
 		text = "-";
