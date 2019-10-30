@@ -540,21 +540,25 @@ function setListPager2(){
             handler:function(){
             	var rows = $('#summary_table').datagrid("getRows");
             	if (rows.length == 0) return;
-            	console.log(rows);
-            	var cartes = [];
-            	var saleCounts = [] 
-            	var paySumDatas = [];
-            	var payAppDatas = [];
-            	var payCancelDatas = [];
+              	var cartes = [];
+            	var withdrawalCase = [] 
+            	var withdrawalSum = [];
+            	var completeWithdrawalAmountSum = [];
+            	var ingWithdrawalAmountSum = [];
+            	var holdWithdrawalAmountSum = [];
+            	var userCancelWithdrawalAmountSum = [];
+            	var adminCancelWithdrawalAmountSum = [];
             	for (var i = 0; rows.length; i++){
             		if (i  == rows.length - 1) break;
             		cartes.push(rows[i].searchDate);
-            		saleCounts.push(rows[i].payCase);
-            		paySumDatas.push(rows[i].salesSum);
-            		payAppDatas.push(rows[i].salesApprovalSum);
-            		payCancelDatas.push(-rows[i].salesCancelSum);
+            		withdrawalCase.push(rows[i].withdrawalCase);
+            		withdrawalSum.push(rows[i].withdrawalSum);
+            		completeWithdrawalAmountSum.push(rows[i].completeWithdrawalAmountSum);
+            		ingWithdrawalAmountSum.push(rows[i].ingWithdrawalAmountSum);
+            		holdWithdrawalAmountSum.push(rows[i].holdWithdrawalAmountSum);
+            		userCancelWithdrawalAmountSum.push(rows[i].userCancelWithdrawalAmountSum);
+            		adminCancelWithdrawalAmountSum.push(rows[i].adminCancelWithdrawalAmountSum);
             	}
-            	
             	
             	$('#chart_container').dialog({
             		title: "chart",
@@ -610,19 +614,35 @@ function setListPager2(){
             	        }
             	    },
 
+
             	    series: [/*{
-            	        name: '결제 건수',
+            	        name: '출금 건수',
             	        saleCounts
             	    },*/ {
-            	        name: '최종 결제 금액',
-            	        data:paySumDatas
+            	        name: '총 출금 요청 금액',
+            	        data:withdrawalSum
             	    }, {
-            	        name: '결제 승인 금액',
-            	        data: payAppDatas
-            	    }, {
-            	        name: '결제 취소 금액',
-            	        data:payCancelDatas
-            	    }],
+            	        name: '출금 완료',
+            	        data: completeWithdrawalAmountSum
+            	    }
+            	    , {
+            	        name: '출금 처리중',
+            	        data:ingWithdrawalAmountSum
+            	    }
+            	    , {
+            	    	name: '출금  보류',
+            	    	data:holdWithdrawalAmountSum
+            	    }
+            	    , {
+            	    	name: '사용자 출금 취소',
+            	    	data:userCancelWithdrawalAmountSum
+            	    }
+            	    , {
+            	    	name: '관리자 출금 취소',
+            	    	data:adminCancelWithdrawalAmountSum
+            	    }
+            	    
+            	    ],
 
             	    responsive: {
             	        rules: [{
