@@ -3,7 +3,7 @@ var summary_columns = [[
 	    {field:'searchDate',width:20,align:'center',title : '검색 기준 연/월/일',formatter : addBoldFomatter},
 	    {field:'totalCount',width:10,align:'center',title : '발행 건수 ', formatter : numberFormatter},
 	    {field:'totalPayAmount',width:20,align:'center',title : '포인트 쿠폰 발행 기준 금액 소계', formatter : numberFormatter},
-	    {field:'totalaccPointAmount',width:20,align:'center',title : '포인트 쿠폰 적립 금액 소계', formatter : numberFormatter},
+	    {field:'totalAccPointAmount',width:20,align:'center',title : '포인트 쿠폰 적립 금액 소계', formatter : numberFormatter},
 	    {field:'ss1',width:40,align:'center',title : '비고'},
 	 ]];
 
@@ -342,6 +342,17 @@ function initView(){
 	  			onclick: function(){
 	  			}
 	  		});
+			
+			item = cmenu.menu('findItem', '적립권 전송 상태 변경');  
+			cmenu.menu('appendItem', {
+				parent: item.target,  // the parent item element
+				//iconCls: 'icon-ok',
+				text:  row.deliveryStatus == "N" ? roundLabel("미 전송", "#04B404") : "미 전송",
+						onclick: function(){
+							changePointCouponStatus({pointCouponNo : row.pointCouponNo, deliveryStatus : "N"});
+						}
+			});
+
 			item = cmenu.menu('findItem', '적립권 전송 상태 변경');  
 			cmenu.menu('appendItem', {
 	  			parent: item.target,  // the parent item element
@@ -349,16 +360,6 @@ function initView(){
 	  			text:  row.deliveryStatus == "Y" ? roundLabel("전송 완료", "#04B404") : "전송 완료",
 	  			onclick: function(){
 	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, deliveryStatus : "Y"});
-	  			}
-	  		});
-			
-			item = cmenu.menu('findItem', '적립권 전송 상태 변경');  
-			cmenu.menu('appendItem', {
-	  			parent: item.target,  // the parent item element
-	  			//iconCls: 'icon-ok',
-	  			text:  row.deliveryStatus == "N" ? roundLabel("미 전송", "#04B404") : "미 전송",
-	  			onclick: function(){
-	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, deliveryStatus : "N"});
 	  			}
 	  		});
 			
@@ -454,17 +455,15 @@ function setListPager2(){
             	if (rows.length == 0) return;
             	console.log(rows);
             	var cartes = [];
-            	var saleCounts = [] 
-            	var paySumDatas = [];
-            	var payAppDatas = [];
-            	var payCancelDatas = [];
+            	var totalCount = [] 
+            	var totalPayAmount = [];
+            	var totalAccPointAmount = [];
             	for (var i = 0; rows.length; i++){
             		if (i  == rows.length - 1) break;
             		cartes.push(rows[i].searchDate);
-            		saleCounts.push(rows[i].payCase);
-            		paySumDatas.push(rows[i].salesSum);
-            		payAppDatas.push(rows[i].salesApprovalSum);
-            		payCancelDatas.push(-rows[i].salesCancelSum);
+            		totalCount.push(rows[i].totalCount);
+            		totalPayAmount.push(rows[i].totalPayAmount);
+            		totalAccPointAmount.push(rows[i].totalAccPointAmount);
             	}
             	
             	
@@ -522,18 +521,15 @@ function setListPager2(){
             	        }
             	    },
 
-            	    series: [/*{
-            	        name: '결제 건수',
-            	        saleCounts
-            	    },*/ {
-            	        name: '최종 결제 금액',
-            	        data:paySumDatas
+            	    series: [{
+            	        name: '발행 건수',
+            	        data:totalCount 
             	    }, {
-            	        name: '결제 승인 금액',
-            	        data: payAppDatas
+            	        name: '기준 금액 총계',
+            	        data:totalPayAmount
             	    }, {
-            	        name: '결제 취소 금액',
-            	        data:payCancelDatas
+            	        name: '적립 금액총계',
+            	        data: totalAccPointAmount
             	    }],
 
             	    responsive: {
@@ -639,18 +635,18 @@ function setSummary(res, str){
 	});
 	var totalCount = 0;
 	var totalPayAmount = 0
-	var totalaccPointAmount = 0; 
+	var totalAccPointAmount = 0; 
 	for (var i = 0; i < res.rows.length; i++) {
 		totalCount+=parseInt(res.rows[i].totalCount);
 		totalPayAmount += parseFloat(res.rows[i].totalPayAmount);
-		totalaccPointAmount+=parseFloat(res.rows[i].totalaccPointAmount);
+		totalAccPointAmount+=parseFloat(res.rows[i].totalAccPointAmount);
     }
 	$('#summary_table').datagrid({
-		title : '[' +str+ ']  : ' +numberGreenFormatter(totalaccPointAmount + "  /   " + totalPayAmount ),
+		title : '[' +str+ ']  : ' +numberGreenFormatter(totalAccPointAmount + "  /   " + totalPayAmount ),
 	});
 	$('#summary_table') .datagrid( 
 		'appendRow', 
-		{ searchDate : "총계", totalCount : totalCount, totalPayAmount : totalPayAmount , totalaccPointAmount :  totalaccPointAmount });
+		{ searchDate : "총계", totalCount : totalCount, totalPayAmount : totalPayAmount , totalAccPointAmount :  totalAccPointAmount });
 	setListPager2();
 }
 /**
