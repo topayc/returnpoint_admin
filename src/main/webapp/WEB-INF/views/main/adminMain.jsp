@@ -305,7 +305,7 @@
 		                            </li>
 		                            
 		                             <li  class = "R_2 manage" id = "" data-options = "iconCls :'icon-info'">
-		                            	<a class= "sub_menu"  view_req_name = "" menu_deps= '2' >
+		                            	<a class= "sub_menu"  view_req_name = "manageIssuedPointCoupon" menu_deps= '2' >
 		                            		<span style = "font-weight : bold; ">포인트 적립 코드 관리</span>
 		                            	</a> 
 		                            </li>

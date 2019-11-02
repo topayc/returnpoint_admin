@@ -41,8 +41,7 @@
 						</select> 
 					</div>
 					<div style="margin-bottom:20px;" ><input id ="accPointAmount"  name="accPointAmount" style="width:100%;"> </div>
-					<div style="margin-bottom:20px;" ><input id ="qty"  name="qty" style="width:100%;"> </div>
-					<input type = "hidden" name = "orderReason" id = "orderReason"/>
+					<div style="margin-bottom:20px;" ><input id ="qty"  name="qty" style="width:100%;" value = "1"> </div>
 					<div style="margin-top:10px;padding:5px 0;align: right">
 						<a href="javascript:void(0)" id = "create_btn"  style="width:60px;margin-right : 5px">발행</a>
 						<a href="javascript:void(0)" id = "reset_btn"   style="width:60px">리셋</a>

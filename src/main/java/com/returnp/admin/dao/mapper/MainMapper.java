@@ -28,4 +28,9 @@ public interface MainMapper {
 	public ArrayList<HashMap<String, Object>> selectPeriodPointConversionReports(HashMap<String, Object> dbParams);
 
 	public ArrayList<HashMap<String, Object>> loadPointConversions(HashMap<String, Object> dbParams);
+
+	/* 포인트 쿠폰 */
+	public ArrayList<HashMap<String, Object>> selectPointCouponReports(HashMap<String, Object> dbParams);
+	public ArrayList<HashMap<String, Object>> selectPeriodPointCouponReports(HashMap<String, Object> dbParams);
+	public ArrayList<HashMap<String, Object>> loadPointCoupons(HashMap<String, Object> dbParams);
 }

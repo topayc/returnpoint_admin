@@ -75,7 +75,7 @@ $(document).ready(function(){
 	
 	$('#create_btn').linkbutton({
 		onClick : function(){
-			orderGiftCard()
+			createPointCoupon()
 		},
 		iconCls:'icon-ok'
 	});
@@ -87,6 +87,38 @@ $(document).ready(function(){
 		}
 	});
 });
+
+function createPointCoupon(){
+	var valid = true;
+	var fieldName = '';
+	var params = makeFormData();	
+	
+	for (var prop in params){
+		if (params.hasOwnProperty(prop)) {
+			if (!params[prop] ||  params[prop] == '') {
+				valid = false;
+				fieldName = prop;
+				/*console.log(fieldName);*/
+				break;
+			}
+		}
+	}
+	
+	if (!valid ) {
+		$.messager.alert('알림', "<strong><span style = 'color : #FF3232'> " + fieldName + "</span></strong> 항목이 입력되지 않았습니다");
+		return;
+	}
+	returnp.api.call("createPointCoupon", params, function(res){
+		$('#create_btn').linkbutton('enable');
+		$('#reset_btn').linkbutton('enable')
+
+		if (res.resultCode  == "100") {
+			$.messager.confirm( '알림', res.message, function(r){  resetForm()});
+		}else {
+			$.messager.alert('오류 발생', res.message);
+		}
+	});
+}
 
 function makeFormData(){
 	var param = $("#pointCouponCreate").serializeObject();

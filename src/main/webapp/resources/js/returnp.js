@@ -354,6 +354,13 @@ $(function () {
         	selectPointWithdrawalReports: {apiCode: 10000, apiPath : '/api/report/selectPointWithdrawalReports' , requestMethod: 'get'},
         	selectTotalPointWithdrawalReports: {apiCode: 10000, apiPath : '/api/report/selectTotalPointWithdrawalReports' , requestMethod: 'get'},
          	loadPointWithdrawals: {apiCode: 10000, apiPath : '/api/report/loadPointWithdrawals' , requestMethod: 'get'},
+         	
+         	/*PontCoupon*/
+         	createPointCoupon: {apiCode: 10000, apiPath : '/api/pointCoupon/create' , requestMethod: 'post'},
+         	changePointCouponStatus: {apiCode: 10000, apiPath : '/api/pointCoupon/change' , requestMethod: 'get'},
+         	selectPointCouponReports: {apiCode: 10000, apiPath : '/api/pointCoupon/pointCouponReports' , requestMethod: 'get'},
+         	selectPeriodPointCouponReports: {apiCode: 10000, apiPath : '/api/pointCoupon/periodPointCouponReports' , requestMethod: 'get'},
+         	loadPointCoupons: {apiCode: 10000, apiPath : '/api/pointCoupon/pointCoupons' , requestMethod: 'get'},
         },
         
         init : function(){

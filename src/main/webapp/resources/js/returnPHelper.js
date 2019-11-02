@@ -3,6 +3,34 @@ function getNumber(str) {
 	return (new Number(str));
 }
 
+function pointCouponTypeFormatter(data){
+	switch (data) {
+	case "1": result = '<span style = "color : green;font-weight : bold" >' + "영수증 적립" + ' </span>'; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
+function pointCouponUseStatusFormatter (data){
+	switch (data) {
+	case "1": result = '<span style = "color : green;font-weight : bold" >' + "사용 가능" + ' </span>'; break;
+	case "2": result = '<span style = "color : red;font-weight : bold" >' + "사용 중지" + ' </span>'; break;
+	case "3": result = '<span style = "color : blue;font-weight : bold" >' + "사용 완료" + ' </span>'; break;
+	case "4": result = '<span style = "color : #B57611;font-weight : bold" >' + "등록 해제" + ' </span>'; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
+function pointCouponDeliveryStatusFormatter (data){
+	switch (data) {
+	case "Y": result = '<span style = "color : green;font-weight : bold" >' + "전달 완료" + ' </span>'; break;
+	case "N": result = '<span style = "color : red;font-weight : bold" >' + "미 전달" + ' </span>'; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
 function ciderPayStatusFormattter(value, row, index) {
 	var result;
 	if (!row.ciderPayStatus || row.ciderPayStatus == ""){
