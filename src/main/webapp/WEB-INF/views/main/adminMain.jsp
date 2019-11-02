@@ -312,7 +312,7 @@
 		                            
 		                             <li  class = "R_3 manage" id = "" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePointCouponTransaction" menu_deps= '2' >
-		                            		<span style = "font-weight : bold; ">영수증 포인트 적립 관리</span>
+		                            		<span style = "font-weight : bold; ">적립 쿠폰 적립 관리</span>
 		                            	</a> 
 		                            </li>
 		                            
