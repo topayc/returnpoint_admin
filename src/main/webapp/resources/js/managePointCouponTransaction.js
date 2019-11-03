@@ -97,7 +97,7 @@ function initView(){
 				if (res.resultCode == "100") {
 					
 					if (res.rows.length < 1) {
-						$.messager.alert('알림', "검색 결과가 없습니다.");
+						//$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
 					setSummary(res, '연도별 포인트쿠폰 적립 총계');
 				}else {
@@ -119,7 +119,7 @@ function initView(){
 				console.log(res);
 				if (res.resultCode == "100") {
 					if (res.rows.length < 1) {
-						$.messager.alert('알림', "검색 결과가 없습니다.");
+						//$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
 					
 					setSummary(res, '일별 포인트쿠폰 적립 총계');
@@ -142,7 +142,7 @@ function initView(){
 				if (res.resultCode == "100") {
 					
 					if (res.rows.length < 1) {
-						$.messager.alert('알림', "검색 결과가 없습니다.");
+						//$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
 					
 					setSummary(res, '월별 포인트쿠폰 적립 총계');
@@ -178,7 +178,7 @@ function initView(){
 				if (res.resultCode == "100") {
 					
 					if (res.rows.length < 1) {
-						$.messager.alert('알림', "검색 결과가 없습니다.");
+						//$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
 					
 					$('#summary_table').datagrid({

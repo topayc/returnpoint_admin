@@ -24,8 +24,8 @@ function pointCouponUseStatusFormatter (data){
 
 function pointCouponDeliveryStatusFormatter (data){
 	switch (data) {
-	case "Y": result = '<span style = "color : green;font-weight : bold" >' + "전달 완료" + ' </span>'; break;
-	case "N": result = '<span style = "color : red;font-weight : bold" >' + "미 전달" + ' </span>'; break;
+	case "Y": result = '<span style = "color : green;font-weight : bold" >' + "전시됨" + ' </span>'; break;
+	case "N": result = '<span style = "color : red;font-weight : bold" >' + "미전시" + ' </span>'; break;
 	default: result = "-"; break;
 	}
 	return result;

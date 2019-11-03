@@ -18,7 +18,7 @@ columns = [[
 	    {field:'accPointAmount',width:30,align:'center',title : '적립 금액', formatter : numberFormatter},
 	    {field:'couponType',width:40,align:'center',title : '타입',  formatter : pointCouponTypeFormatter},
 	    {field:'useStatus',width:30,align:'center',title : '사용 상태', formatter : pointCouponUseStatusFormatter},
-	    {field:'deliveryStatus',width:30,align:'center',title : '전달 상태', formatter : pointCouponDeliveryStatusFormatter},
+	    {field:'deliveryStatus',width:30,align:'center',title : '전시상태', formatter : pointCouponDeliveryStatusFormatter},
 	    {field:'publisher',width:30,align:'center',title : '발행자'},
 	    {field:'useStartTime',width:40,align:'center',title : '사용 시작일', formatter : dateFormatter},
 	    {field:'useEndTime',width:40,align:'center',title : '사용 종료일', formatter : dateFormatter},
@@ -107,7 +107,7 @@ function initView(){
 				if (res.resultCode == "100") {
 					
 					if (res.rows.length < 1) {
-						$.messager.alert('알림', "검색 결과가 없습니다.");
+						//$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
 					setSummary(res, '연도별 포인트 쿠폰 총계');
 				}else {
@@ -129,7 +129,7 @@ function initView(){
 				console.log(res);
 				if (res.resultCode == "100") {
 					if (res.rows.length < 1) {
-						$.messager.alert('알림', "검색 결과가 없습니다.");
+						//$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
 					
 					setSummary(res, '일별 포인트 쿠폰 총계');
@@ -152,7 +152,7 @@ function initView(){
 				if (res.resultCode == "100") {
 					
 					if (res.rows.length < 1) {
-						$.messager.alert('알림', "검색 결과가 없습니다.");
+						//$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
 					
 					setSummary(res, '월별 포인트 쿠폰 총계');
@@ -188,7 +188,7 @@ function initView(){
 				if (res.resultCode == "100") {
 					
 					if (res.rows.length < 1) {
-						$.messager.alert('알림', "검색 결과가 없습니다.");
+						/*$.messager.alert('알림', "검색 결과가 없습니다.");*/
 					}
 					
 					$('#summary_table').datagrid({
