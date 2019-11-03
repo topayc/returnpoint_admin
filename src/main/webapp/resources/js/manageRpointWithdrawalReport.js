@@ -962,6 +962,7 @@ function realodPage(){
 
 $(function(){
 	initView();
+	$('#search_btn').click();
 /*	$('#node_list').datagrid().datagrid('enableCellEditing');
 	setListPager();
 	realodPage();*/

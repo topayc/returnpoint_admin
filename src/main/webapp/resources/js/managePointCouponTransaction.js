@@ -2,6 +2,7 @@
 var summary_columns = [[
 	    {field:'searchDate',width:20,align:'center',title : '검색 기준 연/월/일',formatter : addBoldFomatter},
 	    {field:'totalCount',width:10,align:'center',title : '적립 건수 ', formatter : numberFormatter},
+	    {field:'totalPayAmount',width:10,align:'center',title : '적립 기준 금액 소계 ', formatter : numberFormatter},
 	    {field:'totalPayAmount',width:20,align:'center',title : '적립 소계', formatter : numberFormatter},
 	    {field:'ss1',width:40,align:'center',title : '비고'},
 	 ]];
@@ -65,17 +66,8 @@ function initView(){
 	    formatter :  searchDateFomatter
 	});
 	
-	$('#searchCouponType').combobox({
-		labelPosition : 'top',
-		showItemIcon: true,
-		editable: false,
-		panelHeight: 'auto',
-		labelPosition: 'top',
-		multiple:false,
-		required:true,
-	});
 
-	$('#searchUseStatus').combobox({
+	$('#searchPointbackStatus').combobox({
 		labelPosition : 'top',
 		showItemIcon: true,
 		editable: false,
@@ -86,16 +78,6 @@ function initView(){
 		width : 100
 	});
 	
-	$('#searchDeliveryStatus').combobox({
-		labelPosition : 'top',
-		showItemIcon: true,
-		editable: false,
-		panelHeight: 'auto',
-		labelPosition: 'top',
-		multiple:false,
-		required:true,
-		width : 100
-	});
 	
 	/* 검색어 입력 박스 초기화 */
 	$('#searchKeyword').textbox({ 
@@ -111,13 +93,13 @@ function initView(){
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "year"}
-			returnp.api.call("selectPointCouponReports", param, function(res){
+			returnp.api.call("selectPointCouponTransactionReports", param, function(res){
 				if (res.resultCode == "100") {
 					
 					if (res.rows.length < 1) {
 						$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
-					setSummary(res, '연도별 포인트 쿠폰 총계');
+					setSummary(res, '연도별 포인트쿠폰 적립 총계');
 				}else {
 					$.messager.alert('오류 발생', res.message);
 				}
@@ -133,14 +115,14 @@ function initView(){
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "daily"}
-			returnp.api.call("selectPointCouponReports", param, function(res){
+			returnp.api.call("selectPointCouponTransactionReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
 					if (res.rows.length < 1) {
 						$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
 					
-					setSummary(res, '일별 포인트 쿠폰 총계');
+					setSummary(res, '일별 포인트쿠폰 적립 총계');
 				}else {
 					$.messager.alert('오류 발생', message);
 				}
@@ -155,7 +137,7 @@ function initView(){
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "month"}
-			returnp.api.call("selectPointCouponReports", param, function(res){
+			returnp.api.call("selectPointCouponTransactionReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
 					
@@ -163,7 +145,7 @@ function initView(){
 						$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
 					
-					setSummary(res, '월별 포인트 쿠폰 총계');
+					setSummary(res, '월별 포인트쿠폰 적립 총계');
 				}else {
 					$.messager.alert('오류 발생', message);
 				}
@@ -191,7 +173,7 @@ function initView(){
 				var searchDateEnd = new Date(dateArr[0], dateArr[1], dateArr[2]);
 				param.searchDateEnd = searchDateEnd.getFullYear() + "-" + searchDateEnd.getMonth() + "-" + (searchDateEnd.getDate() + 1)
 			}
-			returnp.api.call("selectPeriodPointCouponReports", param, function(res){
+			returnp.api.call("selectPeriodPointCouponTransactionReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
 					
@@ -204,9 +186,9 @@ function initView(){
 					});
 					var shStr = "";
 					if (param.searchDateStart != ''  ) {
-						shStr = '[' + param.searchDateStart + " ~ "+  oriDateEnd + "] 포인트 쿠폰 총계 :";
+						shStr = '[' + param.searchDateStart + " ~ "+  oriDateEnd + "] 포인트쿠폰 적립 총계 :";
 					}else {
-						shStr = "[전체 기간 포인트 쿠폰 총계] : "
+						shStr = "[전체 기간 포인트쿠폰 적립 총계] : "
 					}
 					setSummary(res, shStr);
 				}else {
@@ -244,7 +226,7 @@ function initView(){
 		onSelect : function(index,row){
 			$('#node_list').datagrid('loadData', []);
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
-			loadPointCoupons(index, row);
+			loadPointCouponTransactions(index, row);
 		},
 		onLoadSuccess : function(){
 			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);
@@ -285,95 +267,13 @@ function initView(){
 			var item = null;
 			cmenu.menu('appendItem', {
 	  			id : "pc_1",  // the parent item element
-	  			text:  "<strong>적립 번호 클립보드 복사</strong>",
+	  			text:  "<strong>포인트 적립 취소 </strong>",
 	  			//iconCls: 'icon-ok',
 	  			onclick: function(){
-	  				copyClipboard(row.couponNumber);
+	  				cancelPointCouponTransacton(row.pointCouponTransactionNo);
 	  			}
 	  		});
 			
-			 cmenu.menu('appendItem', { separator: true });
-			 
-			cmenu.menu('appendItem', {
-	  			id : "pc_2",  // the parent item element
-	  			text:  "<strong>적립권 사용 상태 변경</strong>",
-	  			//iconCls: 'icon-ok',
-	  			onclick: function(){
-	  			}
-	  		});
-			item = cmenu.menu('findItem', '적립권 사용 상태 변경');  
-			cmenu.menu('appendItem', {
-	  			parent: item.target,  // the parent item element
-	  			//iconCls: 'icon-ok',
-	  			text:  row.useStatus == "1" ? roundLabel("사용 가능", "#04B404") : "사용 가능",
-	  			onclick: function(){
-	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, useStatus : "1"});
-	  			}
-	  		});
-			
-			item = cmenu.menu('findItem', '적립권 사용 상태 변경');  
-			cmenu.menu('appendItem', {
-	  			parent: item.target,  // the parent item element
-	  			//iconCls: 'icon-ok',
-	  			text:  row.useStatus == "2" ? roundLabel("사용 중지", "#04B404") : "사용 중지",
-	  			onclick: function(){
-	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, useStatus : "2"});
-	  			}
-	  		});
-			
-			item = cmenu.menu('findItem', '적립권 사용 상태 변경');  
-			cmenu.menu('appendItem', {
-	  			parent: item.target,  // the parent item element
-	  			//iconCls: 'icon-ok',
-	  			text:  row.useStatus == "3" ? roundLabel("사용 완료", "#04B404") : "사용 완료",
-	  			onclick: function(){
-	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, useStatus : "3"});
-	  			}
-	  		});
-			
-			item = cmenu.menu('findItem', '적립권 사용 상태 변경');  
-			cmenu.menu('appendItem', {
-	  			parent: item.target,  // the parent item element
-	  			//iconCls: 'icon-ok',
-	  			text:  row.useStatus == "4" ? roundLabel("등록 해제", "#04B404") : "등록 해제",
-	  			onclick: function(){
-	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, useStatus : "4"});
-	  			}
-	  		});
-			
-			cmenu.menu('appendItem', { separator: true });
-			
-			cmenu.menu('appendItem', {
-	  			id : "pc_2",  // the parent item element
-	  			text:  "<strong>적립권 전송 상태 변경</strong>",
-	  			//iconCls: 'icon-ok',
-	  			onclick: function(){
-	  			}
-	  		});
-			item = cmenu.menu('findItem', '적립권 전송 상태 변경');  
-			cmenu.menu('appendItem', {
-	  			parent: item.target,  // the parent item element
-	  			//iconCls: 'icon-ok',
-	  			text:  row.deliveryStatus == "Y" ? roundLabel("전송 완료", "#04B404") : "전송 완료",
-	  			onclick: function(){
-	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, deliveryStatus : "Y"});
-	  			}
-	  		});
-			
-			item = cmenu.menu('findItem', '적립권 전송 상태 변경');  
-			cmenu.menu('appendItem', {
-	  			parent: item.target,  // the parent item element
-	  			//iconCls: 'icon-ok',
-	  			text:  row.deliveryStatus == "N" ? roundLabel("미 전송", "#04B404") : "미 전송",
-	  			onclick: function(){
-	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, deliveryStatus : "N"});
-	  			}
-	  		});
-			
-			cmenu.menu('show', {
-		  		left:e.pageX,
-		  		top:e.pageY
-		  	})
 		},
 	    columns: columns
 	});
@@ -381,8 +281,10 @@ function initView(){
 	setListPager();
 }
 
-var cur_index; 
-var cur_row;
+function cancelPointCouponTransacton(pctNo){
+	
+}
+
 function loadPointConversions(index, row){
 	//var param = {searchDateStart : row.searchDate, searchDateEnd : row.searchDate};
 	if (row.searchDate == '총계') {return;}
@@ -425,30 +327,6 @@ function loadPointConversions(index, row){
 	});
 }
 
-function copyClipboard(data){
-	 var t = document.createElement("textarea");
-	  document.body.appendChild(t);
-	  t.value = data;
-	  t.select();
-	  document.execCommand('copy');
-	  document.body.removeChild(t);
-}
-
-function changePointCouponStatus(param){
-	returnp.api.call("changePointCouponStatus", param, function(res){
-		console.log(res);
-		if (res.resultCode == "100") {
-        	var node = $('#summary_table').datagrid('getSelected');
-        	if (!node) {
-        		 $.messager.alert('알림','선택이 필요합니다.');
-        		 return;
-        	}
-        	loadPointCoupons("pager", node);
-		}else {
-			$.messager.alert('오류 발생', message);
-		}
-	});
-}
 
 function setListPager2(){
 	var pager = $('#summary_table').datagrid().datagrid('getPager');
@@ -595,12 +473,12 @@ function setListPager(){
         		 $.messager.alert('알림','선택이 필요합니다.');
         		 return;
         	}
-        	loadPointCoupons("pager", node);
+        	loadPointCouponTransactions("pager", node);
     	}
     }); 
 }
 
-function loadPointCoupons(index, row){
+function loadPointCouponTransactions(index, row){
 	//var param = {searchDateStart : row.searchDate, searchDateEnd : row.searchDate};
 	if (typeof row.searchDate == 'undefined' || row.searchDate == '총계') {return;}
 	var param = {searchDate : row.searchDate};
@@ -626,7 +504,7 @@ function loadPointCoupons(index, row){
 	}
 	
 	$.extend(param, $('#searchForm').serializeObject());
-	returnp.api.call("loadPointCoupons", param, function(res){
+	returnp.api.call("loadPointCouponTransactions", param, function(res){
 		console.log(res);
 		if (res.resultCode == "100") {
 			$('#node_list').datagrid({
@@ -688,6 +566,7 @@ function realodPage(){
 
 $(function(){
 	initView();
+	realodPage();
 /*	$('#node_list').datagrid().datagrid('enableCellEditing');
 	setListPager();
 	realodPage();*/

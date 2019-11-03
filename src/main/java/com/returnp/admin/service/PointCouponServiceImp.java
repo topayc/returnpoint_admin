@@ -143,6 +143,62 @@ public class PointCouponServiceImp implements PointCouponService{
 		}
 	}
 	
+	
+	////포인트 적립 트랜 잭션 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	public ReturnpBaseResponse selectPointCouponTransactionReports(HashMap<String, Object> dbParams) {
+		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
+		try {
+			ArrayList<HashMap<String, Object>> pcrs = this.mainMapper.selectPointCouponTransactionReports(dbParams);
+			res.setRows(pcrs);
+			res.setTotal(pcrs.size());
+			ResponseUtil.setSuccessResponse(res, "100" , "조회 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "조회 에러 ");
+			return res;
+		}
+	}
+	
+	
+	
+	@Override
+	public ReturnpBaseResponse selectPeriodPointCouponTransactionReportsReports(HashMap<String, Object> dbParams) {
+		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
+		try {
+			ArrayList<HashMap<String, Object>> pcrs = this.mainMapper.selectPeriodPointCouponTransactionReportsReports(dbParams);
+			res.setRows(pcrs);
+			res.setTotal(	this.searchService.selectTotalRecords());
+			ResponseUtil.setSuccessResponse(res, "100" , "조회 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "조회 에러 ");
+			return res;
+		}
+	}
+
+	@Override
+	public ReturnpBaseResponse loadPointCouponTransactions(HashMap<String, Object> dbParams) {
+		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
+		try {
+			ArrayList<HashMap<String, Object>> pcrs = this.mainMapper.loadPointCouponTransactions(dbParams);
+			res.setRows(pcrs);
+			res.setTotal(	this.searchService.selectTotalRecords());
+			ResponseUtil.setSuccessResponse(res, "100" , "조회 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "조회 에러 ");
+			return res;
+		}
+	}
+	
 	@Override
 	public ReturnpBaseResponse createPointCouponTransaction(PointCouponTransaction pointCouponTransaction) {
 		// TODO Auto-generated method stub

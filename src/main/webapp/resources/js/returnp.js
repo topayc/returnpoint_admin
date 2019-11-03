@@ -361,6 +361,11 @@ $(function () {
          	selectPointCouponReports: {apiCode: 10000, apiPath : '/api/pointCoupon/pointCouponReports' , requestMethod: 'get'},
          	selectPeriodPointCouponReports: {apiCode: 10000, apiPath : '/api/pointCoupon/periodPointCouponReports' , requestMethod: 'get'},
          	loadPointCoupons: {apiCode: 10000, apiPath : '/api/pointCoupon/pointCoupons' , requestMethod: 'get'},
+         	
+         	/*PointCouponTransacton*/
+        	selectPointCouponTransactionReports: {apiCode: 10000, apiPath : '/api/pointCoupon/pointCouponTransactionReports' , requestMethod: 'get'},
+         	selectPeriodPointCouponTransactionReports: {apiCode: 10000, apiPath : '/api/pointCoupon/periodpointCouponTransactionReports' , requestMethod: 'get'},
+         	loadPointCouponTransactions: {apiCode: 10000, apiPath : '/api/pointCoupon/pointCouponTransactions' , requestMethod: 'get'},
         },
         
         init : function(){

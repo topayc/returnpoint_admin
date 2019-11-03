@@ -208,5 +208,6 @@ public interface SearchService {
 	public ArrayList<AffiliateDetail> selectAffiliateDetails(AffiliateDetail affiliateDetail);
 	
 	public ArrayList<AffiliateCategory>  selectAffiliateCategories(AffiliateCategory affiliateCategory);
+
 	
 }

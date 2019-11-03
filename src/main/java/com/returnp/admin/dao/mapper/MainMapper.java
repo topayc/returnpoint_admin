@@ -33,4 +33,10 @@ public interface MainMapper {
 	public ArrayList<HashMap<String, Object>> selectPointCouponReports(HashMap<String, Object> dbParams);
 	public ArrayList<HashMap<String, Object>> selectPeriodPointCouponReports(HashMap<String, Object> dbParams);
 	public ArrayList<HashMap<String, Object>> loadPointCoupons(HashMap<String, Object> dbParams);
+
+	/* 포인트 쿠폰 트랜잭션 */
+	public ArrayList<HashMap<String, Object>> selectPointCouponTransactionReports(HashMap<String, Object> dbParams);
+	public ArrayList<HashMap<String, Object>> selectPeriodPointCouponTransactionReportsReports(
+			HashMap<String, Object> dbParams);
+	public ArrayList<HashMap<String, Object>> loadPointCouponTransactions(HashMap<String, Object> dbParams);
 }

@@ -77,6 +77,31 @@ public class PointCouponController extends ApplicationController{
 		return this.pointCouponService.loadPointCoupons(dbParams);
 	}
 	
+	
+	//// 포인트 적립 트랜 잭션 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@ResponseBody
+	@RequestMapping(value = "/pointCoupon/pointCouponTransactionReports", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectPointCouponTransactionReports(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
+		return this.pointCouponService.selectPointCouponTransactionReports(dbParams);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/pointCoupon/periodpointCouponTransactionReports", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectPeriodPointCouponTransactonReports(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
+		return this.pointCouponService.selectPeriodPointCouponTransactionReportsReports(dbParams);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/pointCoupon/pointCouponTransactions", method = RequestMethod.GET)
+	public ReturnpBaseResponse  loadPointCouponTransactions(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
+		return this.pointCouponService.loadPointCouponTransactions(dbParams);
+	}
+	
+	
 	private HashMap<String, Object> checkParameter(HashMap<String, Object> params){
 		for (Map.Entry<String, Object> entry : params.entrySet()) {
 			String key   = entry.getKey();

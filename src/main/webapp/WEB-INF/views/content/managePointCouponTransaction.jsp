@@ -19,30 +19,15 @@
 	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <input id = "searchDateEnd"  name="searchDateEnd" label="검색 종료일" style="width:100%"/>
 	            </div>
-	             
-	          <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
-	                <select id = "searchCouponType" class="easyui-combobox" name="searchCouponType" label="배송 상태" style="width:100%">
-	                	 <option value = "1">영수증 적립</option>
-	                </select>
-	            </div>
 
 	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
-	                <select id = searchUseStatus class="easyui-combobox" name="searchUseStatus" label="상태" style="width:100%">
+	                <select id = searchPointbackStatus class="easyui-combobox" name="searchPointbackStatus" label="적립 상태" style="width:100%">
 	                	<option value="0">전체</option>
-	                	 <option value = "1">사용 가능</option>
-	                	 <option value = "2">사용 중지</option>
-	                	 <option value = "3">사용 완료</option>
-	                	 <option value = "4">등록 해제</option>
+	                	 <option value = "3">적립 완료</option>
+	                	 <option value = "6">적립 취소</option>
 	                </select>
 	            </div>
 	            
-	          <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
-	                <select id = "searchDeliveryStatus" class="easyui-combobox" name="searchDeliveryStatus" label="배송 상태" style="width:100%">
-	                	 <option value="0">전체</option>
-	                	 <option value = "1">전송 완료</option>
-	                	 <option value = "2">미 전송</option>
-	                </select>
-	            </div>
 
    				<div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <input class="easyui-textbox"  id ="searchKeyword" name="searchKeyword"  style="width:100%" label="이름/아이디">

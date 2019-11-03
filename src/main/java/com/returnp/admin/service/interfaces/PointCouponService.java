@@ -24,4 +24,7 @@ public interface PointCouponService {
 	public ReturnpBaseResponse selectPointCouponReports(HashMap<String, Object> dbParams);
 	public ReturnpBaseResponse selectPeriodPointCouponReports(HashMap<String, Object> dbParams);
 	public ReturnpBaseResponse loadPointCoupons(HashMap<String, Object> dbParams);
+	public ReturnpBaseResponse loadPointCouponTransactions(HashMap<String, Object> dbParams);
+	public ReturnpBaseResponse selectPeriodPointCouponTransactionReportsReports(HashMap<String, Object> dbParams);
+	public ReturnpBaseResponse selectPointCouponTransactionReports(HashMap<String, Object> dbParams);
 }
