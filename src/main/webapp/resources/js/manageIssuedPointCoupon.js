@@ -277,7 +277,7 @@ function initView(){
 			var item = null;
 			cmenu.menu('appendItem', {
 	  			id : "pc_1",  // the parent item element
-	  			text:  "<strong>적립 번호 클립보드 복사</strong>",
+	  			text:  "<strong>적립코드 클립보드로 복사</strong>",
 	  			//iconCls: 'icon-ok',
 	  			onclick: function(){
 	  				copyClipboard(row.couponNumber);

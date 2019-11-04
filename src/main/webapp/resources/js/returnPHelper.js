@@ -783,6 +783,8 @@ function dateFormatter(data) {
 			+ formatDate(seconds);
 }
 
+
+
 function pointBackStatusFormatter(value, row, index) {
 	var status = row.pointBackStatus;
 	var text;

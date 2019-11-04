@@ -30,7 +30,7 @@ public class PointCouponController extends ApplicationController{
 	
 	@ResponseBody
 	@RequestMapping(value = "/pointCoupon/create", method = RequestMethod.POST)
-	public ReturnpBaseResponse createGiftCard(PointCoupon pointCoupon, int qty, HttpSession httpSession){
+	public ReturnpBaseResponse createPointCoupon(PointCoupon pointCoupon, int qty, HttpSession httpSession){
 		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 		ReturnpBaseResponse res = null;
 		if (adminSession == null) {

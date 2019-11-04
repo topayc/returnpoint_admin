@@ -39,7 +39,7 @@ public class PointCouponServiceImp implements PointCouponService{
 		try {
 			char[] PIN_CHARACTERS  = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 			SplittableRandom splittableRandom = null;
-			char[] pinCharArrs = new char[16];
+			char[] pinCharArrs = new char[20];
 			AdminSession adminSession = (AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION);
 			float accRate = pointCoupon.getAccPointRate() / 100;
 			for (int i = 0; i <issueCount; i++) {
