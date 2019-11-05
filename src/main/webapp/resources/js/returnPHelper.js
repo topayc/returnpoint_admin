@@ -13,10 +13,10 @@ function pointCouponTypeFormatter(data){
 
 function pointCouponUseStatusFormatter (data){
 	switch (data) {
-	case "1": result = '<span style = "color : green;font-weight : bold" >' + roundLabel("사용가능", '#04B404') + ' </span>'; break;
-	case "2": result = '<span style = "color : red;font-weight : bold" >' + "사용중지" + ' </span>'; break;
-	case "3": result = '<span style = "color : blue;font-weight : bold" >' + "사용완료" + ' </span>'; break;
-	case "4": result = '<span style = "color : #B57611;font-weight : bold" >' + "등록해제" + ' </span>'; break;
+	case "1": result = '<span style = "font-weight : bold" >' + roundLabel("사용가능", '#04B404') + ' </span>'; break;
+	case "2": result = '<span style = "font-weight : bold" >' + roundLabel("사용중지", '#FF4000') + ' </span>'; break;
+	case "3": result = '<span style = "font-weight : bold" >' + roundLabel("사용완료", '#01A9DB') + ' </span>'; break;
+	case "4": result = '<span style = "font-weight : bold" >' + roundLabel("등록해제", '#585858') + ' </span>'; break;
 	default: result = "-"; break;
 	}
 	return result;

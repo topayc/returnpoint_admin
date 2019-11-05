@@ -11,11 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.returnp.admin.common.AppConstants;
+import com.returnp.admin.common.ResponseUtil;
+import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 
 public class AdminSessionInterceptor extends HandlerInterceptorAdapter {
 	
@@ -56,6 +59,12 @@ public class AdminSessionInterceptor extends HandlerInterceptorAdapter {
 			if (request.getSession().getAttribute(AppConstants.ADMIN_SESSION) == null) {
 				if (isAjaxRequest(request)) {
 					response.sendError(400);
+					ObjectMapper mapper = new ObjectMapper();
+					ReturnpBaseResponse res = new ReturnpBaseResponse();
+					ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_OK, "20101", "관리자 세션이 없습니다. </br> 다시 로그인해주세요");
+					response.setContentType("application/json");
+					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+					response.getWriter().write(mapper.writeValueAsString(res));
 					return false;
 				} else {
 					response.sendRedirect("signIn");

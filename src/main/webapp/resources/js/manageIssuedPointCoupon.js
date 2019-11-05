@@ -2,8 +2,8 @@
 var summary_columns = [[
 	    {field:'searchDate',width:20,align:'center',title : '검색 기준 연/월/일',formatter : addBoldFomatter},
 	    {field:'totalCount',width:10,align:'center',title : '발행 건수 ', formatter : numberFormatter},
-	    {field:'totalPayAmount',width:20,align:'center',title : '포인트 쿠폰 발행 기준 금액 소계', formatter : numberFormatter},
-	    {field:'totalAccPointAmount',width:20,align:'center',title : '포인트 쿠폰 적립 금액 소계', formatter : numberFormatter},
+	    {field:'totalPayAmount',width:20,align:'center',title : '포인트 적립코드 기준 금액', formatter : numberFormatter},
+	    {field:'totalAccPointAmount',width:20,align:'center',title : '포인트 적립코드 적립금액', formatter : numberFormatter},
 	    {field:'ss1',width:40,align:'center',title : '비고'},
 	 ]];
 
