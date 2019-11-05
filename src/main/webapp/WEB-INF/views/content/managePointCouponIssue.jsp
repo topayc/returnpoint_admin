@@ -41,6 +41,13 @@
 						</select> 
 					</div>
 					<div style="margin-bottom:20px;" ><input id ="accPointAmount"  name="accPointAmount" style="width:100%;"> </div>
+					<div style="margin-bottom:20px;" >
+						<select id ="accTargetRange"  name="accTargetRange" style="width:100%;" >
+							<option value= "1">본인만 적립</option>
+							<option value= "2">본인 + 1대 </option>
+							<option value= "3">본인 + 1대 + 2대 </option>
+						</select> 
+					</div>
 					<div style="margin-bottom:20px;" ><input id ="qty"  name="qty" style="width:100%;" value = "1"> </div>
 					<div style="margin-top:10px;padding:5px 0;align: right">
 						<a href="javascript:void(0)" id = "create_btn"  style="width:60px;margin-right : 5px">발행</a>

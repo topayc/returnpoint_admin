@@ -51,7 +51,7 @@ public class PointCouponServiceImp implements PointCouponService{
 				}
 				pointCoupon.setPointCouponNo(null);
 				pointCoupon.setAccPointRate(accRate);
-				pointCoupon.setCouponNumber("RP"+ String.valueOf(pinCharArrs));
+				pointCoupon.setCouponNumber("PC"+ String.valueOf(pinCharArrs));
 				pointCoupon.setCouponType("1");
 				pointCoupon.setUseStatus("1");
 				pointCoupon.setDeliveryStatus("N");

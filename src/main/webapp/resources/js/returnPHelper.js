@@ -13,15 +13,24 @@ function pointCouponTypeFormatter(data){
 
 function pointCouponUseStatusFormatter (data){
 	switch (data) {
-	case "1": result = '<span style = "color : green;font-weight : bold" >' + "사용 가능" + ' </span>'; break;
-	case "2": result = '<span style = "color : red;font-weight : bold" >' + "사용 중지" + ' </span>'; break;
-	case "3": result = '<span style = "color : blue;font-weight : bold" >' + "사용 완료" + ' </span>'; break;
-	case "4": result = '<span style = "color : #B57611;font-weight : bold" >' + "등록 해제" + ' </span>'; break;
+	case "1": result = '<span style = "color : green;font-weight : bold" >' + roundLabel("사용가능", '#04B404') + ' </span>'; break;
+	case "2": result = '<span style = "color : red;font-weight : bold" >' + "사용중지" + ' </span>'; break;
+	case "3": result = '<span style = "color : blue;font-weight : bold" >' + "사용완료" + ' </span>'; break;
+	case "4": result = '<span style = "color : #B57611;font-weight : bold" >' + "등록해제" + ' </span>'; break;
 	default: result = "-"; break;
 	}
 	return result;
 }
 
+function accTargetRangeFormatter(value){
+	switch (value) {
+	case "1": result = "&nbsp;"+roundLabel("본인", '#0080FF'); break;
+	case "2": result = "&nbsp;"+roundLabel("본인", '#0080FF') + "&nbsp;"+ roundLabel("1대", '#FF00FF');break;
+	case "3": result = "&nbsp;"+roundLabel("본인", '#0080FF') + "&nbsp;"+ roundLabel("1대", '#FF00FF') + "&nbsp;"+ roundLabel("2대", '#FE2E2E'); break;
+	default: result = "-"; break;
+	}
+	return result;
+}
 function pointCouponDeliveryStatusFormatter (data){
 	switch (data) {
 	case "Y": result = '<span style = "color : green;font-weight : bold" >' + "전시됨" + ' </span>'; break;

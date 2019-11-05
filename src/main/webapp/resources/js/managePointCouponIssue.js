@@ -44,6 +44,20 @@ $(document).ready(function(){
 		//height : 25
 	});
 
+	$('#accTargetRange').combobox({
+		label : roundLabel("적립 대상"),
+		labelWidth : 100,
+		showItemIcon: true,
+		editable: false,
+		width: 600,
+		panelHeight: 'auto',
+		labelPosition: 'left',
+		multiple:false,
+		onSelect : function(record){
+		}
+	//height : 25
+	});
+
 
 
 	$('#accPointAmount').numberbox({
