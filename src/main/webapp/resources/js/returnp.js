@@ -366,6 +366,9 @@ $(function () {
         	selectPointCouponTransactionReports: {apiCode: 10000, apiPath : '/api/pointCoupon/pointCouponTransactionReports' , requestMethod: 'get'},
          	selectPeriodPointCouponTransactionReports: {apiCode: 10000, apiPath : '/api/pointCoupon/periodpointCouponTransactionReports' , requestMethod: 'get'},
          	loadPointCouponTransactions: {apiCode: 10000, apiPath : '/api/pointCoupon/pointCouponTransactions' , requestMethod: 'get'},
+         	deletePointCoupon: {apiCode: 10000, apiPath : '/api/pointCoupon/deletePointCoupon' , requestMethod: 'post'},
+         	/*PointCouponPointbackRecord*/
+         	selectPointCouponPointbackRecords: {apiCode: 10000, apiPath : '/api/pointCoupon/pointCouponPointbackRecords' , requestMethod: 'get'},
         },
         
         init : function(){

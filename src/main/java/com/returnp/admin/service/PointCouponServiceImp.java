@@ -17,6 +17,7 @@ import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.common.ReturnpException;
 import com.returnp.admin.dao.mapper.MainMapper;
 import com.returnp.admin.dao.mapper.PointCouponMapper;
+import com.returnp.admin.dao.mapper.PointCouponTransactionMapper;
 import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
@@ -30,6 +31,7 @@ import com.returnp.admin.service.interfaces.SearchService;
 public class PointCouponServiceImp implements PointCouponService{
 	
 	@Autowired PointCouponMapper pointCouponMapper;
+	@Autowired PointCouponTransactionMapper pointCouponTransactionMapper;
 	@Autowired MainMapper mainMapper;
 	@Autowired SearchService searchService;;
 	
@@ -138,7 +140,7 @@ public class PointCouponServiceImp implements PointCouponService{
 		}catch(Exception e) {
 			e.printStackTrace();
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "조회 에러 ");
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "서버 에러 ");
 			return res;
 		}
 	}
@@ -200,6 +202,63 @@ public class PointCouponServiceImp implements PointCouponService{
 	}
 	
 	@Override
+	public ReturnpBaseResponse selectPointCouponPointbackRecords(HashMap<String, Object> param) {
+		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
+		try {
+			ArrayList<HashMap<String, Object>> pcrs = this.searchService.selectPointCouponPointbackRecords(param);
+			res.setRows(pcrs);
+			res.setTotal(	this.searchService.selectTotalRecords());
+			ResponseUtil.setSuccessResponse(res, "100" , "조회 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "조회 에러 ");
+			return res;
+		}
+	}
+	
+	@Override
+	public ReturnpBaseResponse deletePointCoupon(HashMap<String, Object> param) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		
+		try {
+			if (!param.containsKey("pointCouponNo")  || !param.containsKey("couponNumber")) {
+				ResponseUtil.setResponse(res, "1030", "잘못된 요청 - 필수 파라메터가 없습니다");
+				throw new ReturnpException(res);
+			}
+			
+			PointCoupon coupon = this.pointCouponMapper.selectByPrimaryKey(Integer.parseInt((String)param.get("pointCouponNo")));
+			if (coupon == null || !coupon.getCouponNumber().equals((String)param.get("couponNumber"))) {
+				ResponseUtil.setResponse(res, "1020", "잘못된 요청 - 잘못된 포인트 적립코드 고유 번호입니다");
+				throw new ReturnpException(res);
+			}
+			
+			ArrayList<HashMap<String, Object>> trans = this.searchService.selectPointCouponTransactions(param);
+			if (trans.size() > 0) {
+				ResponseUtil.setResponse(res, "1027", "해당 적립 코드는 이미 적립 처리가 완료된 코드입니다. 삭제할 수 없습니다");
+				throw new ReturnpException(res);
+			}
+			
+			this.pointCouponMapper.deleteByPrimaryKey(Integer.parseInt((String)param.get("pointCouponNo")));
+			ResponseUtil.setSuccessResponse(res, "100" , "삭제 성공");
+			return res;
+		}catch(ReturnpException e) {
+			e.printStackTrace();
+			if (!TransactionAspectSupport.currentTransactionStatus().isRollbackOnly()) {
+				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			}
+			res = e.getBaseResponse();
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "서버 에러 ");
+			return res;
+		}
+	}
+	
+	@Override
 	public ReturnpBaseResponse createPointCouponTransaction(PointCouponTransaction pointCouponTransaction) {
 		// TODO Auto-generated method stub
 		return null;
@@ -216,4 +275,8 @@ public class PointCouponServiceImp implements PointCouponService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+	
 }

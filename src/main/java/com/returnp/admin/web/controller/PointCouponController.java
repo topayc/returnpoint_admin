@@ -100,7 +100,23 @@ public class PointCouponController extends ApplicationController{
 		this.checkParameter(dbParams);
 		return this.pointCouponService.loadPointCouponTransactions(dbParams);
 	}
+
+	@ResponseBody
+	@RequestMapping(value = "/pointCoupon/deletePointCoupon", method = RequestMethod.POST)
+	public ReturnpBaseResponse  deletePointCoupon(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
+		return this.pointCouponService.deletePointCoupon(dbParams);
+	}
 	
+	
+	//// 쿠폰 포인트 세부 적립 리스트  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@ResponseBody
+	@RequestMapping(value = "/pointCoupon/pointCouponPointbackRecords", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectPointCouponPointbackRecords(@RequestParam HashMap<String, Object> param) {
+		this.checkParameter(param);
+		return this.pointCouponService.selectPointCouponPointbackRecords(param);
+	}
 	
 	private HashMap<String, Object> checkParameter(HashMap<String, Object> params){
 		for (Map.Entry<String, Object> entry : params.entrySet()) {

@@ -8,7 +8,7 @@ public class PointCouponTransaction extends QueryCondition {
 
     private Integer memberNo;
 
-    private String pointCouponNo;
+    private Integer pointCouponNo;
 
     private String pointBackStatus;
 
@@ -32,12 +32,12 @@ public class PointCouponTransaction extends QueryCondition {
         this.memberNo = memberNo;
     }
 
-    public String getPointCouponNo() {
+    public Integer getPointCouponNo() {
         return pointCouponNo;
     }
 
-    public void setPointCouponNo(String pointCouponNo) {
-        this.pointCouponNo = pointCouponNo == null ? null : pointCouponNo.trim();
+    public void setPointCouponNo(Integer pointCouponNo) {
+        this.pointCouponNo = pointCouponNo;
     }
 
     public String getPointBackStatus() {

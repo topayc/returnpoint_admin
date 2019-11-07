@@ -59,7 +59,9 @@
 		</table> 
 	</div>
 </div>
-
+	<div id = "pointback_record_dlg" style ="padding:5px;background-color : rgb(237, 237, 237)" class="modal_dialog" > 
+		</br><table id = "pointback_record_list" style ="width:100%;height:100%"></table>
+	</div>
 <script>
 var searchFormData = {
 		nodeType :  '${searchCondition.searchNodeType}'

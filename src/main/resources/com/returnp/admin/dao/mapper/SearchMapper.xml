@@ -4423,8 +4423,55 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
     	<include refid = "AffiliateCategoryWhereStatement"/>
   </select>
   
-  
-  
+       <!-- ===============================================================================================================    -->
+  	<select id="selectPointCouponTransactions" parameterType="HashMap" resultType="HashMap">
+  		select
+			A.pointCouponTransactionNo,
+			A.memberNo,
+			A.pointBackStatus,
+			B.* 
+		from point_coupon_transaction as A
+		inner join point_coupon as B on (A.pointCouponNo= B.pointCouponNo)
+		
+		where 1 = 1
+		   <if test="pointCouponTransactionNo != null"> AND pointCouponTransactionNo = #{pointCouponTransactionNo,jdbcType=INTEGER}</if>
+		   <if test="pointCouponNo != null"> AND B.pointCouponNo = #{pointCouponNo,jdbcType=INTEGER}</if>
+		   <if test="couponNumber != null"> AND couponNumber = #{couponNumber,jdbcType=VARCHAR}</if>
+	   </select>
+      
+       <!-- ===============================================================================================================    -->
+  	<select id="selectPointCouponPointbackRecords" parameterType="HashMap" resultType="HashMap">
+  		select
+			sql_calc_found_rows 
+			M.memberNo as registerMemberNo,
+			M.memberName as registerMemberName,
+			M.memberEmail as registerMemberEmail,
+			M.memberPhone as registerMemberPhone,
+			PCPR.pointCouponPointbackRecordNo, 
+			PCPR.memberNo, 
+			PCPR.pointCouponTransactionNo, 
+			PCPR.nodeNo, 
+			PCPR.nodeType, 
+		    PCPR.accRate, 
+		    PCPR.accPoint, 
+		    PCPR.createTime, 
+			PC.payAmount,
+			PC.couponType,
+			M1.memberNo,
+			M1.memberName,
+			M1.memberEmail,
+			M1.memberPhone
+		from point_coupon_transaction as PCT
+		inner join member as M on (PCT.memberNo = M.memberNo)
+		inner join point_coupon as PC on (PCT.pointCouponNo= PC.pointCouponNo)
+		inner join point_coupon_pointback_record as PCPR on (PCT.pointCouponTransactionNo= PCPR.pointCouponTransactionNo)
+		inner join member as M1 on (PCPR.memberNo= M1.memberNo)
+		
+		where 1 = 1
+		   <if test="pointCouponTransactionNo != null"> AND PCPR.pointCouponTransactionNo = #{pointCouponTransactionNo,jdbcType=INTEGER}</if>
+		   <if test="pointCouponPointbackRecordNo != null"> AND PCPR.pointCouponPointbackRecordNo = #{pointCouponPointbackRecordNo,jdbcType=INTEGER}</if>
+		   <if test="memberNo != null"> AND memberNo = #{memberNo,jdbcType=INTEGER}</if>
+	   </select>
   
 </mapper>
 

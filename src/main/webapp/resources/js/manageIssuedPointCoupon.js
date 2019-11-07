@@ -364,6 +364,15 @@ function initView(){
 	  			}
 	  		});
 			
+			cmenu.menu('appendItem', {
+	  			id : "pc_1",  // the parent item element
+	  			text:  "<strong>적립 코드 삭제</strong>",
+	  			//iconCls: 'icon-ok',
+	  			onclick: function(){
+	  				deletePointCoupon(row.pointCouponNo, row.couponNumber);
+	  			}
+	  		});
+			
 			cmenu.menu('show', {
 		  		left:e.pageX,
 		  		top:e.pageY
@@ -375,48 +384,24 @@ function initView(){
 	setListPager();
 }
 
-var cur_index; 
-var cur_row;
-function loadPointConversions(index, row){
-	//var param = {searchDateStart : row.searchDate, searchDateEnd : row.searchDate};
-	if (row.searchDate == '총계') {return;}
-	cur_index = index;
-	cur_row = row;
-	var param = {searchDate : row.searchDate};
-	var opts = $('#node_list').datagrid('options');
-	var total = $('#node_list').datagrid('getData').total;
-	if (index == 'pager' ){
-		$.extend(param, {
-			pagination : opts.pagination,
-			pageSize : opts.pageSize,
-			page : opts.pageNumber,
-			total : total,
-			offset : (opts.pageNumber-1) * opts.pageSize
-		});
-	}else {
-		opts.pageNumber = 1;
-		$.extend(param, {
-			pagination : opts.pagination,
-			pageSize : opts.pageSize,
-			page : opts.pageNumber,
-			total : total,
-			offset : (opts.pageNumber-1) * opts.pageSize
-		});
-	}
-	
-	$.extend(param, $('#searchForm').serializeObject());
-	returnp.api.call("loadPointConversions", param, function(res){
-		console.log(res);
-		if (res.resultCode == "100") {
-			$('#node_list').datagrid({
-				data : res,
-				title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
-			});
-			setListPager();
-		}else {
-			$.messager.alert('오류 발생', message);
-		}
-	});
+function deletePointCoupon(pointCouponNo, couponNumber){
+	$.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 해당 적립 코드를 삭제하시겠습니까?', function(r){
+        if (r){
+        	var param = {
+        			pointCouponNo : pointCouponNo,
+        			couponNumber : couponNumber
+        	}
+        	returnp.api.call("deletePointCoupon", param, function(res){
+        		if (res.resultCode  == "100") {
+        			$.messager.alert('알림', res.message);
+        			var node = $('#summary_table').datagrid('getSelected');
+                	loadPointCoupons("pager", node);
+        		}else {
+        			$.messager.alert('알림', res.message);
+        		}
+        	});
+        }
+    });
 }
 
 function copyClipboard(data){
@@ -433,10 +418,6 @@ function changePointCouponStatus(param){
 		console.log(res);
 		if (res.resultCode == "100") {
         	var node = $('#summary_table').datagrid('getSelected');
-        	if (!node) {
-        		 $.messager.alert('알림','선택이 필요합니다.');
-        		 return;
-        	}
         	loadPointCoupons("pager", node);
 		}else {
 			$.messager.alert('오류 발생', message);

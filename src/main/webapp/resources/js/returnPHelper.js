@@ -1569,60 +1569,55 @@ function loadPaymentPointbackRecord(title, params) {
 	// console.log("loadPaymentPointbackRecord");
 	// console.log(params);
 	var queryParam = $.param(params);
-	$("#dlgForm")
-			.load(
-					"/api/paymentPointbackRecord/template/paymentPointbackRecordList?"
-							+ queryParam,
-					function(response, status, xhr) {
+	$("#dlgForm").load(
+			"/api/paymentPointbackRecord/template/paymentPointbackRecordList?" + queryParam,
+			function(response, status, xhr) {
+				$('#dlgForm').dialog({
+					width : 1400,
+					cache : false,
+					modal : true,
+					closable : true,
+					border : 'thick',
+					constrain : true,
+					shadow : true,
+					collapsible : false,
+					minimizable : false,
+					maximizable : false,
+					title : "&nbsp; " + title,
+					shadow : false,
+					buttons : [ {
+						text : '확인',
+						iconCls : 'icon-ok',
+						handler : function() {
+							$('#dlgForm').dialog('close');
+							$('#dlgForm').removeAttr('style');
+						}
+					} /*
+					 * , { text:'취소', handler:function(){
+					 * $('#dlgForm').dialog('close');
+					 * $('#dlgForm').removeAttr('style'); } }
+					 */
+					]
+				});
 
-						$('#dlgForm').dialog({
-							width : 1400,
-							cache : false,
-							modal : true,
-							closable : true,
-							border : 'thick',
-							constrain : true,
-							shadow : true,
-							collapsible : false,
-							minimizable : false,
-							maximizable : false,
-							title : "&nbsp; " + title,
-							shadow : false,
-							buttons : [ {
-								text : '확인',
-								iconCls : 'icon-ok',
-								handler : function() {
-									$('#dlgForm').dialog('close');
-									$('#dlgForm').removeAttr('style');
-								}
-							} /*
-								 * , { text:'취소', handler:function(){
-								 * $('#dlgForm').dialog('close');
-								 * $('#dlgForm').removeAttr('style'); } }
-								 */
-							]
-						});
-
-						$('#dlgForm').dialog('center');
-						returnp.api
-								.call(
-										'findPaymentPointbackRecords2',
-										queryParam,
-										function(res) {
-											console.log(res)
-											if (res.resultCode == "100") {
-												$('#list_search_result') .datagrid({ data : res.rows })
-												var totalAmount = 0
-												for (var i = 0; i < res.rows.length; i++) {
-													totalAmount += parseInt(res.rows[i].pointbackAmount);
-												}
-												$('#list_search_result')
-														.datagrid( 'appendRow', { paymentTransactionNo : "소계", pointbackAmount : totalAmount });
-											} else {
-												$.messager.alert('오류 발생', res.message);
-											}
-										});
+				$('#dlgForm').dialog('center');
+				returnp.api .call(
+					'findPaymentPointbackRecords2',
+					queryParam,
+					function(res) {
+						console.log(res)
+						if (res.resultCode == "100") {
+							$('#list_search_result') .datagrid({ data : res.rows })
+							var totalAmount = 0
+							for (var i = 0; i < res.rows.length; i++) {
+								totalAmount += parseInt(res.rows[i].pointbackAmount);
+							}
+							$('#list_search_result') .datagrid( 'appendRow', { paymentTransactionNo : "소계", pointbackAmount : totalAmount });
+						} else {
+							$.messager.alert('오류 발생', res.message);
+						}
 					});
+			});
 }
 
 $.fn.datebox.defaults.formatter = function(date) {

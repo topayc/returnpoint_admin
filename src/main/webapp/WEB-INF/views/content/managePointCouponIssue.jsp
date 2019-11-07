@@ -29,7 +29,7 @@
 						<select id ="accPointRate"  name="accPointRate" style="width:100%;" >
 							<option value= "100">100%</option>
 							<option value= "90">90%</option>
-							<option value= "80">80%</option>
+							<option value= "80" selected  = "selected" >80%</option>
 							<option value= "70">70%</option>
 							<option value= "60">60%</option>
 							<option value= "50">50%</option>
@@ -44,7 +44,7 @@
 					<div style="margin-bottom:20px;" >
 						<select id ="accTargetRange"  name="accTargetRange" style="width:100%;" >
 							<option value= "1">본인만 적립</option>
-							<option value= "2">본인 + 1대 </option>
+							<option value= "2" selected  = "selected">본인 + 1대 </option>
 							<option value= "3">본인 + 1대 + 2대 </option>
 						</select> 
 					</div>

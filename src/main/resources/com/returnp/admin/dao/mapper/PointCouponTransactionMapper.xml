@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.returnp.admin.model.PointCouponTransaction">
     <id column="pointCouponTransactionNo" jdbcType="INTEGER" property="pointCouponTransactionNo" />
     <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
-    <result column="pointCouponNo" jdbcType="VARCHAR" property="pointCouponNo" />
+    <result column="pointCouponNo" jdbcType="INTEGER" property="pointCouponNo" />
     <result column="pointBackStatus" jdbcType="VARCHAR" property="pointBackStatus" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
@@ -27,7 +27,7 @@
       pointCouponNo, pointBackStatus, createTime, 
       updateTime)
     values (#{pointCouponTransactionNo,jdbcType=INTEGER}, #{memberNo,jdbcType=INTEGER}, 
-      #{pointCouponNo,jdbcType=VARCHAR}, #{pointBackStatus,jdbcType=VARCHAR}, NOW(), NOW())
+      #{pointCouponNo,jdbcType=INTEGER}, #{pointBackStatus,jdbcType=VARCHAR}, NOW(), NOW())
       
             <selectKey keyProperty="pointCouponTransactionNo" resultType="java.lang.Integer" order ="AFTER">
 		    SELECT LAST_INSERT_ID()
@@ -63,7 +63,7 @@
         #{memberNo,jdbcType=INTEGER},
       </if>
       <if test="pointCouponNo != null">
-        #{pointCouponNo,jdbcType=VARCHAR},
+        #{pointCouponNo,jdbcType=INTEGER},
       </if>
       <if test="pointBackStatus != null">
         #{pointBackStatus,jdbcType=VARCHAR},
@@ -83,7 +83,7 @@
         memberNo = #{memberNo,jdbcType=INTEGER},
       </if>
       <if test="pointCouponNo != null">
-        pointCouponNo = #{pointCouponNo,jdbcType=VARCHAR},
+        pointCouponNo = #{pointCouponNo,jdbcType=INTEGER},
       </if>
       <if test="pointBackStatus != null">
         pointBackStatus = #{pointBackStatus,jdbcType=VARCHAR},
@@ -100,7 +100,7 @@
   <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.PointCouponTransaction">
     update point_coupon_transaction
     set memberNo = #{memberNo,jdbcType=INTEGER},
-      pointCouponNo = #{pointCouponNo,jdbcType=VARCHAR},
+      pointCouponNo = #{pointCouponNo,jdbcType=INTEGER},
       pointBackStatus = #{pointBackStatus,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       updateTime = NOW()

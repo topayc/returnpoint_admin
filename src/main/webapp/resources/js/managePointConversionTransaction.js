@@ -1,4 +1,3 @@
-
 var summary_columns = [[
 	    {field:'searchDate',width:20,align:'center',title : '검색 기준 연/월/일',formatter : addBoldFomatter},
 	    {field:'totalCount',width:10,align:'center',title : '전환 건수 ', formatter : numberFormatter},

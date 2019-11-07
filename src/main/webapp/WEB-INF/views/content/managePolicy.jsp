@@ -72,7 +72,7 @@
         <div data-options="region:'center',border : false, iconCls:'icon-ok'" style = "width : 100%">
         	<div style = "width : 100%;height : 50%;" style = "height: 100%">
         		<div style="width:33%; display: inline-block;height: 100%">
-        			<div class="easyui-panel" id="blue_point_config"  title = "R POINT"  style = "height: 100%; padding: 5px 20px;">
+        			<div class="easyui-panel" id="blue_point_config"  title = "G POINT"  style = "height: 100%; padding: 5px 20px;">
 	        			 <div style = "width: 100%;margin-bottom:20px"></div>
 	        			 <form id = "policyForm2">
 	        			<div style = "width: 100%;">
@@ -87,15 +87,15 @@
 						<input type = "hidden" id =pointTransRate  name="pointTransRate""> 
 						
 						<div style = "width: 100%;margin-top : 20px">
-							<input id ="pointTransLimit"  class="easyui-textbox" name="pointTransLimit"  data-options="label:'* R PAY 전환 비율 ',labelPosition : 'top'" style="width:100%;"> 
+							<input id ="pointTransLimit"  class="easyui-textbox" name="pointTransLimit"  data-options="label:'* R POINT 전환 비율 ',labelPosition : 'top'" style="width:100%;"> 
 						</div>	
 						
 						<div style = "width: 100%;margin-top : 20px">
-							<input id ="gPointMovingMinLimit"  class="easyui-textbox" name="gPointMovingMinLimit"  data-options="label:'* R POINT 이체 최저 포인트 ',labelPosition : 'top'" style="width:100%;"> 
+							<input id ="gPointMovingMinLimit"  class="easyui-textbox" name="gPointMovingMinLimit"  data-options="label:'* G POINT 이체 최저 포인트 ',labelPosition : 'top'" style="width:100%;"> 
 						</div>	
 						
 						<div style = "width: 100%;margin-top : 20px">
-							<input id ="gPointMovingMaxLimit"  class="easyui-textbox" name="gPointMovingMaxLimit"  data-options="label:'* R POINT 이체 최대 포인트 ',labelPosition : 'top'" style="width:100%;"> 
+							<input id ="gPointMovingMaxLimit"  class="easyui-textbox" name="gPointMovingMaxLimit"  data-options="label:'* G POINT 이체 최대 포인트 ',labelPosition : 'top'" style="width:100%;"> 
 						</div>	
 						
 						</form>
@@ -111,15 +111,15 @@
         				<div style = "width: 100%;margin-bottom:20px"></div>
         				<form id = "policyForm3">
         				<div style = "width: 100%;">
-							<input class="easyui-textbox" id ="redPointAccRate"  name="redPointAccRate"  data-options="label:'* R PAY 자동 적립율',labelPosition : 'top'" style="width:100%;"> 
+							<input class="easyui-textbox" id ="redPointAccRate"  name="redPointAccRate"  data-options="label:'* R POINT 자동 적립율',labelPosition : 'top'" style="width:100%;"> 
 						</div>
 						
 						<div style = "width: 100%;margin-top : 20px">
-							<input id ="rPointMovingMinLimit"  class="easyui-textbox" name="rPointMovingMinLimit"  data-options="label:'* R PAY 이체 최저 포인트 ',labelPosition : 'top'" style="width:100%;"> 
+							<input id ="rPointMovingMinLimit"  class="easyui-textbox" name="rPointMovingMinLimit"  data-options="label:'* R POINT 이체 최저 포인트 ',labelPosition : 'top'" style="width:100%;"> 
 						</div>	
 						
 						<div style = "width: 100%;margin-top : 20px">
-							<input id ="rPointMovingMaxLimit"  class="easyui-textbox" name="rPointMovingMaxLimit"  data-options="label:'* R PAY 이체 최대 포인트 ',labelPosition : 'top'" style="width:100%;"> 
+							<input id ="rPointMovingMaxLimit"  class="easyui-textbox" name="rPointMovingMaxLimit"  data-options="label:'* R POINT이체 최대 포인트 ',labelPosition : 'top'" style="width:100%;"> 
 						</div>	
 						
         				</form>
@@ -151,10 +151,10 @@
         				<div style = "width: 100%;margin-bottom:20px"></div>
         				<form id = "policyForm5">
 	        				<div style = "width: 100%;">
-								<input class="easyui-textbox" id ="rPayWithdrawalMinLimit"  name="rPayWithdrawalMinLimit"  data-options="label:'* R PAY 최저 출금 금액',labelPosition : 'top'" style="width:100%;"> 
+								<input class="easyui-textbox" id ="rPayWithdrawalMinLimit"  name="rPayWithdrawalMinLimit"  data-options="label:'* R POINT 최저 출금 금액',labelPosition : 'top'" style="width:100%;"> 
 							</div>
 	        				<div style = "width: 100%;margin-top : 20px">
-								<input class="easyui-textbox" id ="rPayWithdrawalMaxLimit"  name="rPayWithdrawalMaxLimit"  data-options="label:'* R PAY 일일 출금 한도',labelPosition : 'top'" style="width:100%;"> 
+								<input class="easyui-textbox" id ="rPayWithdrawalMaxLimit"  name="rPayWithdrawalMaxLimit"  data-options="label:'* R POINT 일일 출금 한도',labelPosition : 'top'" style="width:100%;"> 
 							</div>
 						</form>
         				<div id="rpay_withdraw_panel_tool">

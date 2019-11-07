@@ -8,14 +8,14 @@ var summary_columns = [[
 	 ]];
 
 
-columns = [[
+var columns = [[
 	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 	   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 	    {field:'pointCouponTransactionNo',width:15,align:'center',title : '번호',hidden:false},
 	    {field:'pointCouponNo',width:15,align:'center',title : '번호',hidden:true},
 	    {field:'couponNumber',width:90,align:'center',title : '쿠폰 번호', formatter : addBoldFomatter},
 	    {field:'memberName',width:50,align:'center',title : '적립자 이름'},
-	    {field:'memberEmail',width:50,align:'center',title : '적립자 이메일'},
+	    {field:'memberEmail',width:60,align:'center',title : '적립자 이메일'},
 	    {field:'memberPhone',width:40,align:'center',title : '적립자 핸드폰'},
 	    {field:'payAmount',width:40,align:'center',title : '기준 금액', formatter : numberFormatter},
 	    {field:'accPointRate',width:25,align:'center',title : '적립율', formatter : percentFormatter},
@@ -30,6 +30,25 @@ columns = [[
 	    {field:'useEndTime',width:40,align:'center',title : '사용 종료일', formatter : dateFormatter},
 	    {field:'createTime',width:40,align:'center',title : '등록일',formatter : dateFormatter}
 	    ]];
+var pointback_record_columns = [[
+	  {field:'pointCouponPointbackRecordNo',width:50,align:'center',title : '번호',hidden:false},
+	  {field:'pointCouponTransactionNo',width:50,align:'center',title : '참조 번호',hidden:false},
+	  {field:'registerMemberNo',width:60,align:'center',title : '회원 번호',hidden:true},
+	  {field:'registerMemberName',width:70,align:'center',title : '등록자 이름',hidden:false},
+	  {field:'registerMemberEmail',width:100,align:'center',title : '등록자 이메일',hidden: true},
+	  {field:'registerMemberPhone',width:80,align:'center',title : '등록자 핸드폰',hidden:false},
+	  {field:'memberNo',width:100,align:'center',title : '수취자 회원 번호',hidden  : true},
+	  {field:'memberName',width:100,align:'center',title : '수취자 이름'},
+	  {field:'memberEmail',width:150,align:'center',title : '수취자 이메일'},
+	  {field:'memberPhone',width:100,align:'center',title : '수취자 핸드폰'},
+	  {field:'payAmount',width:90,align:'center',title : '기준 금액', formatter : numberBoldFormatter},
+	  {field:'accRate',width:70,align:'center',title : '적립율'},
+	  {field:'accPoint',width:100,align:'center',title : '지급 G 포인트', formatter : numberGreenFormatter},
+	  {field:'couponType',width:100,align:'center',title : '적립 타입',formatter : pointCouponTypeFormatter},
+	  {field:'nodeNo',width:70,align:'center',title : 'nodeNo',hidden:true},
+	  {field:'createTime',width:120,align:'center',title : '등록일', formatter : dateFormatter},
+	  {field:'updateTime',width:120,align:'center',hidden:true, title : '수정일', formatter : dateFormatter},
+	  ]]
 /**
  * 뷰 초기화 
  * @returns
@@ -259,75 +278,143 @@ function initView(){
 		onLoadSuccess : function(){
 			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);
 		},	
-		onRowContextMenu : function(e, index, row){
-			e.preventDefault();
-		  	$(this).datagrid("selectRow", index);
-			var cmenu = $('<div/>').appendTo('body');
-			cmenu.menu({
-		  		itemHeight : 27
-		  	});
-			var item = null;
-			cmenu.menu('appendItem', {
-	  			id : "pc_1",  // the parent item element
-	  			text:  "<strong>포인트 적립 취소 </strong>",
-	  			//iconCls: 'icon-ok',
-	  			onclick: function(){
-	  				cancelPointCouponTransacton(row.pointCouponTransactionNo);
-	  			}
-	  		});
-			
-		},
+		 onRowContextMenu : function(e, index, row){
+			 e.preventDefault();
+			 $(this).datagrid("selectRow", index);
+			 var cmenu = $('<div/>').appendTo('body');
+			 cmenu.menu({
+				 itemHeight : 27
+			 });
+
+			 var item = null;
+			 cmenu.menu('appendItem', {
+				 id : "pct_1",  
+				 text:  "<strong>세부 적립 리스트 보기</strong>",
+				 iconCls: 'icon-redo',
+				 onclick: function(){
+					 viewPointbackList();
+				 }
+			 });
+
+			 cmenu.menu('appendItem', {
+				 id : "pct_2",  
+				 text:  "<strong>적립 하기 </strong>",
+				 iconCls: 'icon-ok',
+				 onclick: function(){
+					 accPointCoupon();
+				 }
+			 });
+
+			 cmenu.menu('appendItem', {
+				 id : "pct_3",  // the parent item element
+				 text:  "<strong>적립 취소 하기 </strong>",
+				 iconCls: 'icon-cancel',
+				 onclick: function(){
+					 cancelPointCoupon();
+				 }
+			 });
+
+			 cmenu.menu('show', {
+				 left:e.pageX,
+				 top:e.pageY
+			 })
+		 },
 	    columns: columns
 	});
 	setListPager2();
 	setListPager();
 }
 
-function cancelPointCouponTransacton(pctNo){
-	
+
+function viewPointbackList(){
+  var node = $('#node_list').datagrid('getSelected');
+  if (!node) {
+     $.messager.alert('알림','세부 적립 리스트를 보실 적립 항목을 선택해 주세요');
+     return;
+  }
+  
+  $('#pointback_record_dlg').dialog({
+    width : 1400,
+    height : 400,
+    cache : false,
+    modal : true,
+    closable : true,
+    border : 'thick',
+    constrain : true,
+    shadow : true,
+    collapsible : false,
+    minimizable : false,
+    maximizable : false,
+    title : "&nbsp; " + "세부 적립 정보",
+    shadow : false,
+    onOpen : function(){
+    	$('#pointback_record_list').datagrid({
+    		singleSelect:true,
+    		collapsible:false,
+    		fitColumns:true,
+    		selectOnCheck : true,
+    		checkOnSelect : true,
+    		border:false,
+    		rownumbers : true,
+    		pagination: false,
+    		onLoadSuccess : function(){
+    		},  
+    		columns: pointback_record_columns
+    	});
+    
+    	  
+    	var param = {pointCouponTransactionNo : node.pointCouponTransactionNo};
+    	returnp.api .call( 'selectPointCouponPointbackRecords', param, function(res) {
+    		console.log(res)
+    		if (res.resultCode == "100") {
+    			$('#pointback_record_list').datagrid('loadData', []);
+    			$('#pointback_record_list') .datagrid({ data : res.rows })
+    			var totalAccPoint= 0
+    			for (var i = 0; i < res.rows.length; i++) {
+    				totalAccPoint += parseInt(res.rows[i].accPoint);
+    			}
+    			$('#pointback_record_list') .datagrid( 'appendRow', { pointCouponPointbackRecordNo : "소계", accPoint : totalAccPoint });
+    		} else {
+    			$.messager.alert('오류 발생', res.message);
+    		}
+    	});
+    },  
+    buttons : [ {
+      text : '확인',
+      iconCls : 'icon-ok',
+      handler : function() {
+        $('#pointback_record_dlg').dialog('close');
+        $('#pointback_record_dlg').removeAttr('style');
+      }
+    } /*
+     * , { text:'취소', handler:function(){
+     * $('#dlgForm').dialog('close');
+     * $('#dlgForm').removeAttr('style'); } }
+     */
+    ]
+  });
+  
+
 }
 
-function loadPointConversions(index, row){
-	//var param = {searchDateStart : row.searchDate, searchDateEnd : row.searchDate};
-	if (row.searchDate == '총계') {return;}
-	cur_index = index;
-	cur_row = row;
-	var param = {searchDate : row.searchDate};
-	var opts = $('#node_list').datagrid('options');
-	var total = $('#node_list').datagrid('getData').total;
-	if (index == 'pager' ){
-		$.extend(param, {
-			pagination : opts.pagination,
-			pageSize : opts.pageSize,
-			page : opts.pageNumber,
-			total : total,
-			offset : (opts.pageNumber-1) * opts.pageSize
-		});
-	}else {
-		opts.pageNumber = 1;
-		$.extend(param, {
-			pagination : opts.pagination,
-			pageSize : opts.pageSize,
-			page : opts.pageNumber,
-			total : total,
-			offset : (opts.pageNumber-1) * opts.pageSize
-		});
-	}
-	
-	$.extend(param, $('#searchForm').serializeObject());
-	returnp.api.call("loadPointConversions", param, function(res){
-		console.log(res);
-		if (res.resultCode == "100") {
-			$('#node_list').datagrid({
-				data : res,
-				title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
-			});
-			setListPager();
-		}else {
-			$.messager.alert('오류 발생', message);
-		}
-	});
+function accPointCoupon(){
+  var node = $('#node_list').datagrid('getSelected');
+  if (!node) {
+     $.messager.alert('알림','적립을 실행할 항목을 선택해 주세요');
+     return;
+  }
+  var param = {pointCouponTransactionNo :  node.pointCouponTransactionNo, status : "0"};
 }
+
+function cancelPointCoupon(){
+  var node = $('#node_list').datagrid('getSelected');
+  if (!node) {
+     $.messager.alert('알림','적립을 취소할 항목을 선택해 주세요');
+     return;
+  }
+  var param = {pointCouponTransactionNo :  node.pointCouponTransactionNo, status : "1"};
+}
+
 
 
 function setListPager2(){

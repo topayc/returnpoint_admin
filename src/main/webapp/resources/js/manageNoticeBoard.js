@@ -152,7 +152,7 @@ function openBoardCreateForm(){
 	
 	$('#board_create_container').dialog({
 	    title: "공지 사항 생성 ",
-	    width: 600,
+	    width: 400,
 	    height: 600,
 	    closed: false,
 	    cache: false,
@@ -224,7 +224,7 @@ function openBoardUpdateForm(){
 	
 	$('#board_create_container').dialog({
 	    title: "공지 사항 수정 ",
-	    width: 600,
+	    width: 400,
 	    height: 600,
 	    closed: false,
 	    cache: false,

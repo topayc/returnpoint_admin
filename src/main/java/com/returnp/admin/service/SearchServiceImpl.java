@@ -60,6 +60,7 @@ import com.returnp.admin.model.MembershipRequest;
 import com.returnp.admin.model.PaymentRouter;
 import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.model.PointConversionTransaction;
+import com.returnp.admin.model.PointCouponTransaction;
 import com.returnp.admin.model.PointWithdrawal;
 import com.returnp.admin.model.Policy;
 import com.returnp.admin.model.Recommender;
@@ -480,5 +481,17 @@ public class SearchServiceImpl implements SearchService{
 	public ArrayList<AffiliateCategory> selectAffiliateCategories(AffiliateCategory affiliateCategory) {
 		// TODO Auto-generated method stub
 		return this.searchMapper.selectAffiliateCategories(affiliateCategory);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectPointCouponPointbackRecords(HashMap<String, Object> dbParams) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectPointCouponPointbackRecords(dbParams);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectPointCouponTransactions(HashMap<String, Object> dbParams) {
+		// TODO Auto-generated method stub
+		return this.searchMapper.selectPointCouponTransactions(dbParams);
 	};
 }
