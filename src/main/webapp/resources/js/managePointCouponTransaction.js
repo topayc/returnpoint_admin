@@ -31,8 +31,8 @@ var columns = [[
 	    {field:'createTime',width:40,align:'center',title : '등록일',formatter : dateFormatter}
 	    ]];
 var pointback_record_columns = [[
-	  {field:'pointCouponPointbackRecordNo',width:50,align:'center',title : '번호',hidden:false},
-	  {field:'pointCouponTransactionNo',width:50,align:'center',title : '참조 번호',hidden:false},
+	  {field:'pointCouponPointbackRecordNo',width:50,align:'center',title : '번호',hidden: true},
+	  {field:'pointCouponTransactionNo',width:50,align:'center',title : '참조 번호',hidden:true},
 	  {field:'registerMemberNo',width:60,align:'center',title : '회원 번호',hidden:true},
 	  {field:'registerMemberName',width:70,align:'center',title : '등록자 이름',hidden:false},
 	  {field:'registerMemberEmail',width:100,align:'center',title : '등록자 이메일',hidden: true},

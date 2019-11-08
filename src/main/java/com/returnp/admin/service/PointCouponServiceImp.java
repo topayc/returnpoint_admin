@@ -74,10 +74,50 @@ public class PointCouponServiceImp implements PointCouponService{
 	public ReturnpBaseResponse chanagePointCoupon(PointCoupon pointCoupon) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
-			if (this.pointCouponMapper.selectByPrimaryKey(pointCoupon.getPointCouponNo()) == null){
+			if (pointCoupon.getPointCouponNo() == null  || pointCoupon.getCouponNumber() == null) {
+				ResponseUtil.setResponse(res, "1032", "잘못된 요청 - 필수 파라메터가 없습니다");
+				throw new ReturnpException(res);
+			}
+			
+			PointCoupon coupon = this.pointCouponMapper.selectByPrimaryKey(pointCoupon.getPointCouponNo());
+				
+			if (coupon == null ||  !coupon.getCouponNumber().equals(pointCoupon.getCouponNumber())){
 				ResponseUtil.setResponse(res, "1008", "잘못된 요청 - 해당 포인트 쿠폰이 존재하지 않습니다");
 				throw new ReturnpException(res);
 			}
+			
+			HashMap<String, Object> dbParamMap = new HashMap<String, Object>();
+			dbParamMap.put("pointCouponNo", pointCoupon.getPointCouponNo());
+			dbParamMap.put("couponNumber", pointCoupon.getCouponNumber());
+			ArrayList<HashMap<String, Object>> trans = this.searchService.selectPointCouponTransactions(dbParamMap);
+			
+			if (trans.size() > 0) {
+				if (pointCoupon.getUseStatus() != null && !pointCoupon.getUseStatus().equals("3")) {
+					ResponseUtil.setResponse(res, "1065", "잘못된 요청 - 이미 적립이 완료된 코드로 ' 적립 코드 상태' 를 변경할 수 없습니다 ");
+					throw new ReturnpException(res);
+				}
+				if (pointCoupon.getDeliveryStatus()!= null) {
+					ResponseUtil.setResponse(res, "1066", "잘못된 요청 - 이미 적립이 완료된 코드로 ' 전시 상태' 를 변경할 수 없습니다 ");
+					throw new ReturnpException(res);
+				}
+			}else {
+				if (pointCoupon.getUseStatus() != null && pointCoupon.getUseStatus().equals("3")) {
+					ResponseUtil.setResponse(
+						res, 
+						"10651", 
+						"잘못된 요청 - 적립이 되지 않는 유효한 코드 입니다. .</br>임의로 사용 완료로 변경할 수 없습니다.</br>사용완료 상태는 사용자가 적립코드를 등록했을때 자동으로 변경됩니다. ");
+					throw new ReturnpException(res);
+				}
+				
+		/*		if (pointCoupon.getDeliveryStatus()!= null && pointCoupon.getDeliveryStatus().equals("Y")) {
+					ResponseUtil.setResponse(
+						res,
+						"1066", 
+						"잘못된 요청 - 적립이 되지 않는 유효한 코드 입니다. 임의로 전시상태를 변경할 수 없습니다.</br>사용완료 상태는 사용자가 적립코드를 등록했을때 자동으로 변경됩니다.");
+					throw new ReturnpException(res);
+				}*/
+			}
+		
 			this.pointCouponMapper.updateByPrimaryKeySelective(pointCoupon);
 			ResponseUtil.setSuccessResponse(res, "100" , "포인트 쿠폰 상태 변경 완료");
 			return res;

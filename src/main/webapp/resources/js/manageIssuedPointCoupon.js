@@ -300,7 +300,7 @@ function initView(){
 	  			//iconCls: 'icon-ok',
 	  			text:  row.useStatus == "1" ? roundLabel("사용 가능", "#04B404") : "사용 가능",
 	  			onclick: function(){
-	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, useStatus : "1"});
+	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, useStatus : "1",couponNumber : row.couponNumber});
 	  			}
 	  		});
 			
@@ -310,7 +310,7 @@ function initView(){
 	  			//iconCls: 'icon-ok',
 	  			text:  row.useStatus == "2" ? roundLabel("사용 중지", "#04B404") : "사용 중지",
 	  			onclick: function(){
-	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, useStatus : "2"});
+	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, useStatus : "2",couponNumber : row.couponNumber});
 	  			}
 	  		});
 			
@@ -320,7 +320,7 @@ function initView(){
 	  			//iconCls: 'icon-ok',
 	  			text:  row.useStatus == "3" ? roundLabel("사용 완료", "#04B404") : "사용 완료",
 	  			onclick: function(){
-	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, useStatus : "3"});
+	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, useStatus : "3",couponNumber : row.couponNumber});
 	  			}
 	  		});
 			
@@ -330,7 +330,7 @@ function initView(){
 	  			//iconCls: 'icon-ok',
 	  			text:  row.useStatus == "4" ? roundLabel("등록 해제", "#04B404") : "등록 해제",
 	  			onclick: function(){
-	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, useStatus : "4"});
+	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, useStatus : "4",couponNumber : row.couponNumber});
 	  			}
 	  		});
 			
@@ -350,7 +350,7 @@ function initView(){
 				//iconCls: 'icon-ok',
 				text:  row.deliveryStatus == "N" ? roundLabel("미 전송", "#04B404") : "미 전송",
 						onclick: function(){
-							changePointCouponStatus({pointCouponNo : row.pointCouponNo, deliveryStatus : "N"});
+							changePointCouponStatus({pointCouponNo : row.pointCouponNo, deliveryStatus : "N",couponNumber : row.couponNumber});
 						}
 			});
 
@@ -360,7 +360,7 @@ function initView(){
 	  			//iconCls: 'icon-ok',
 	  			text:  row.deliveryStatus == "Y" ? roundLabel("전송 완료", "#04B404") : "전송 완료",
 	  			onclick: function(){
-	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, deliveryStatus : "Y"});
+	  				changePointCouponStatus({pointCouponNo : row.pointCouponNo, deliveryStatus : "Y", couponNumber : row.couponNumber});
 	  			}
 	  		});
 			
@@ -420,7 +420,7 @@ function changePointCouponStatus(param){
         	var node = $('#summary_table').datagrid('getSelected');
         	loadPointCoupons("pager", node);
 		}else {
-			$.messager.alert('오류 발생', message);
+			$.messager.alert('알림', res.message);
 		}
 	});
 }
@@ -605,7 +605,7 @@ function loadPointCoupons(index, row){
 			});
 			setListPager();
 		}else {
-			$.messager.alert('오류 발생', message);
+			$.messager.alert('알림', res.message);
 		}
 	});
 }
