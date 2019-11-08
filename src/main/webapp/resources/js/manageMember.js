@@ -271,6 +271,12 @@ function setListPager(){
             		 return;
             	}
             }
+        },	{
+            iconCls:'icon-add',
+            text : "엑셀 변환",
+            handler:function(){
+            	gridToExcel('#node_list','member.xls');
+            }
         }],
         layout:['list','sep','first','prev','sep','links','sep','next','last','sep','refresh','info'],
         onSelectPage:function(page,rows){        	
