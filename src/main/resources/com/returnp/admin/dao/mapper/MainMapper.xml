@@ -28,24 +28,28 @@
    	 		sum(A.paymentApprovalAmount) as salesSum
 	from 
 		(
-		 select * from payment_transaction where 1= 1
-			<if test = "searchDateStart != null and searchDateEnd != null  "> and (paymentApprovalDateTime between #{searchDateStart} and #{searchDateEnd})</if>
-			<if test = "searchAffiliate != null">and affiliateNo = #{searchAffiliate}</if>
-			<if test = "searchPaymentTransactionType != null">and paymentTransactionType = #{searchPaymentTransactionType}</if>
-			<if test = "searchPaymentApprovalStatus != null">and paymentApprovalStatus = #{searchPaymentApprovalStatus}</if>
+		 select PT.*, PTR.paymentRouterNo from payment_transaction as PT
+		 inner join payment_transaction_router as PTR on (PT.paymentTransactionNo = PTR.paymentTransactionNo)
+		 
+		 where 1= 1
+			<if test = "searchDateStart != null and searchDateEnd != null  "> and (PT.paymentApprovalDateTime between #{searchDateStart} and #{searchDateEnd})</if>
+			<if test = "searchAffiliate != null">and PT.affiliateNo = #{searchAffiliate}</if>
+			<if test = "searchPaymentTransactionType != null">and PT.paymentTransactionType = #{searchPaymentTransactionType}</if>
+			<if test = "searchPaymentApprovalStatus != null">and PT.paymentApprovalStatus = #{searchPaymentApprovalStatus}</if>
+			<if test = "searchPaymentRouterNo != null">and PTR.paymentRouterNo = #{searchPaymentRouterNo}</if>
 			
 			<if test = "searchAccLowLimit != null and searchAccMaxLimit != null">
-				and (paymentApprovalAmount 	<![CDATA[ >=]]> #{searchAccLowLimit} and paymentApprovalAmount <![CDATA[ <=]]> #{searchAccMaxLimit})
+				and (PT.paymentApprovalAmount 	<![CDATA[ >=]]> #{searchAccLowLimit} and paymentApprovalAmount <![CDATA[ <=]]> #{searchAccMaxLimit})
 			</if>
 			<if test = "searchAccLowLimit != null and searchAccMaxLimit == null">
-				and (paymentApprovalAmount 	<![CDATA[ >=]]> #{searchAccLowLimit})
+				and (PT.paymentApprovalAmount 	<![CDATA[ >=]]> #{searchAccLowLimit})
 			</if>
 			<if test = "searchAccLowLimit == null and searchAccMaxLimit != null">
-				and (paymentApprovalAmount 	<![CDATA[ <=]]> #{searchAccMaxLimit})
+				and (PT.paymentApprovalAmount 	<![CDATA[ <=]]> #{searchAccMaxLimit})
 			</if>
 			
 			<if test="searchKeyword != null ">
-      			AND ( memberName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR memberEmail LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) ) 
+      			AND ( PT.memberName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR PT.memberEmail LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) ) 
 		     </if>
 			) as A
 	group by searchDate;
@@ -91,18 +95,19 @@
     	 <if test="searchPaymentTransactionType != null "> AND PA.paymentTransactionType   = #{searchPaymentTransactionType} </if>
     	 <if test="searchPaymentApprovalStatus != null "> AND PA.paymentApprovalStatus = #{searchPaymentApprovalStatus} </if>
     	 <if test="searchAffiliate != null "> AND PA.affiliateNo = #{searchAffiliate} </if>
-    		<if test = "searchAccLowLimit != null and searchAccMaxLimit != null">
-				and (paymentApprovalAmount 	<![CDATA[ >=]]> #{searchAccLowLimit} and paymentApprovalAmount <![CDATA[ <=]]> #{searchAccMaxLimit})
-			</if>
-			<if test = "searchAccLowLimit != null and searchAccMaxLimit == null">
-				and (paymentApprovalAmount 	<![CDATA[ >=]]> #{searchAccLowLimit})
-			</if>
-			<if test = "searchAccLowLimit == null and searchAccMaxLimit != null">
-				and (paymentApprovalAmount 	<![CDATA[ <=]]> #{searchAccMaxLimit})
-			</if>
+    	 <if test = "searchPaymentRouterNo != null">and PTR.paymentRouterNo = #{searchPaymentRouterNo}</if>
+    	 <if test = "searchAccLowLimit != null and searchAccMaxLimit != null">
+			and (paymentApprovalAmount 	<![CDATA[ >=]]> #{searchAccLowLimit} and paymentApprovalAmount <![CDATA[ <=]]> #{searchAccMaxLimit})
+		 </if>
+		 <if test = "searchAccLowLimit != null and searchAccMaxLimit == null">
+			and (paymentApprovalAmount 	<![CDATA[ >=]]> #{searchAccLowLimit})
+		 </if>
+		 <if test = "searchAccLowLimit == null and searchAccMaxLimit != null">
+			and (paymentApprovalAmount 	<![CDATA[ <=]]> #{searchAccMaxLimit})
+		 </if>
     	 <if test="searchKeyword != null ">
-      			AND ( memberName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR memberEmail LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) ) 
-		     </if>
+      		AND ( memberName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR memberEmail LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) ) 
+	     </if>
      <choose>
    	<when test="order !=null">
 		order by ${order} 

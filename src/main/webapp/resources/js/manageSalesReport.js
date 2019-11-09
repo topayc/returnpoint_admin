@@ -106,6 +106,17 @@ function initView(){
 		width: 100
 	});
 
+	$('#searchPaymentRouterNo').combobox({
+		labelPosition : 'top',
+		showItemIcon: true,
+		editable: false,
+		panelHeight: 'auto',
+		labelPosition: 'top',
+		multiple:false,
+		required:true,
+		width: 100
+	});
+
 	/* 검색 시작일 갤린더 박스  초기화*/
 	$('#searchDateStart').datetimebox({
 		 prompt : "검색 시작일",
