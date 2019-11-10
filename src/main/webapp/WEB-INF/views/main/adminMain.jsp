@@ -206,6 +206,13 @@
                             		  		<span style = "font-weight : bold">일반 / 제휴 문의 관리</span>
                             		  	</a> 
                             		  </li>
+                            		  
+                            		    <li class = "D_5 manage" id = "manageAffiliationRequest" data-options = "iconCls :'icon-info'">
+                            		  	<a class= "sub_menu"  view_req_name = "manageAffiliationRequest" menu_deps= '2' >
+                            		  		<span style = "font-weight : bold">가맹 신청 게시판</span>
+                            		  	</a> 
+                            		  </li>
+                            		  
                             		  </ul>
                             </li>
                       
