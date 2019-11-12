@@ -1,17 +1,17 @@
 		columns = [[
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-			    {field:'mainBbsNo',width:7,align:'center',title : '번호'},
-			    {field:'bbsType1',width:14,align:'center',title : '분류', formatter : bbsType1Formatter},
-			    {field:'bbsType2',width:18,align:'center',title : '타입', formatter : bbsType2Formatter},
-			    {field:'title',width:50,align:'left',title : '제목'},
-			    {field:'replyCompleted',width:12,align:'center',title : '답변 여부'},
+			    {field:'mainBbsNo',width:10,align:'center',title : '글번호'},
+			    {field:'bbsType1',width:17,align:'center',title : '게시판 분류', formatter : bbsType1Formatter},
+			    {field:'bbsType2',width:18,align:'center',title : '문의 타입', formatter : bbsType2Formatter},
+			    {field:'title',width:55,align:'left',title : '제목', formatter :addBoldFomatter},
+			    {field:'replyCompleted',width:16,align:'center',title : '답변 상태', formatter : replyOkFormatter},
 			    {field:'status',width:12,align:'center',title : '상태', formatter : bbsStatusFormatter},
 			    {field:'writerNo',width:12,align:'center',title : '회원 번호'},
 			    {field:'rerv6',width:30,align:'center',title : '이메일'},
 			    {field:'rerv1',width:20,align:'center',title : '상호명'},
 			    {field:'rerv2',width:17,align:'center',title : '대표자명'},
-			    {field:'rerv3',width:40,align:'center',title : '주소'},
+			    {field:'rerv3',width:40,align:'left',title : '주소'},
 			    {field:'rerv4',width:20,align:'center',title : '담당자'},
 			    {field:'rerv5',width:17,align:'center',title : '연락처'},
 			    {field:'content',width:70,align:'center',title : '내용', hidden : true},
@@ -223,7 +223,7 @@ function openReplyForm(){
 		}, {
 			text : '취소',
 			handler : function() {
-				$('#board_replay_container').dialog('close');
+				$('#board_reply_container').dialog('close');
 			}
 		} ]
 	});
@@ -253,7 +253,10 @@ function reply(){
 		 return;
 	}
 	var param = {mainBbsNo : node.mainBbsNo, content : $("#content").textbox("getValue")}
-	console.log(param);
+	if (param.content.trim() == "" || param.content.trim().length < 1) {
+		 $.messager.alert('알림','답변을 입력해 주세요');
+		 return;
+	}
 	returnp.api.call("replyBoard", param, function(res){
 		//console.log(res);
 		if (res.resultCode  == "100") {

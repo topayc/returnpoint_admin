@@ -11,6 +11,15 @@ function pointCouponTypeFormatter(data){
 	return result;
 }
 
+function replyOkFormatter (data){
+	switch (data) {
+	case "Y": result = '<span style = "font-weight : bold" >' + roundLabel("답변완료", '#009933') + ' </span>'; break;
+	case "N": result = '<span style = "font-weight : bold" >' + roundLabel("미답변", '#DC143C') + ' </span>'; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
 function pointCouponUseStatusFormatter (data){
 	switch (data) {
 	case "1": result = '<span style = "font-weight : bold" >' + roundLabel("사용가능", '#04B404') + ' </span>'; break;
@@ -79,8 +88,8 @@ function bbsType1Formatter(value, row, index){
 
 function bbsStatusFormatter(value, row, index){
 	switch (row.status) {
-	case "1": result = '노출'; break;
-	case "2": result = '노출 안됨'; break;
+	case "1": result = '<span style = "color : green;font-weight : bold" >' +  roundLabel("전시됨", '#009933') + ' </span>'; break;
+	case "2": rsult = '<span style = "color : red;font-weight : bold" >' +  roundLabel("사용가능", '#DC143C') + ' </span>'; break;
 	default: result = "-"; break;
 	}
 	return result;

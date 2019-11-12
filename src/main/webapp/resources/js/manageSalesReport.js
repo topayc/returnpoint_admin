@@ -2,9 +2,9 @@
 var summary_columns = [[
 	    {field:'searchDate',width:20,align:'center',title : '검색 기준 연/월/일',formatter : addBoldFomatter},
 	    {field:'payCase',width:10,align:'center',title : '매출 건수 ', formatter : addBoldFomatter},
-	    {field:'salesSum',width:20,align:'center',title : '결제 금액 소계', formatter  : numberGreenFormatter},
-	    {field:'salesApprovalSum',width:20,align:'center',title : '결제 승인 소계', formatter  : numberBlueFormatter2},
-	    {field:'salesCancelSum',width:20,align:'center',title : '결제 취소 소계', formatter  : numberRedFormatter},
+	    {field:'salesSum',width:15,align:'center',title : '결제 금액 소계', formatter  : numberGreenFormatter},
+	    {field:'salesApprovalSum',width:15,align:'center',title : '결제 승인 소계', formatter  : numberBlueFormatter2},
+	    {field:'salesCancelSum',width:15,align:'center',title : '결제 취소 소계', formatter  : numberRedFormatter},
 	    {field:'ss1',width:40,align:'center',title : '비고'},
 	 ]];
 
