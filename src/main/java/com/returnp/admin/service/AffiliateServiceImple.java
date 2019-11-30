@@ -267,6 +267,7 @@ public class AffiliateServiceImple implements AffiliateService {
             if (tags.size() < 1) {
             	ResponseUtil.setResponse(res, "896", "해당 협력업체는 태그가 등록되어 있지 않습니다. 등록해주시기 바랍니다");
             }else {
+            	ResponseUtil.setResponse(res, "100", "처리 완료");
             	res.setData(this.searchService.findAffiliateTags(affiliateTag).get(0));
             }
             return res;
@@ -281,17 +282,24 @@ public class AffiliateServiceImple implements AffiliateService {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
         try {
         	 ArrayList<AffiliateTag> tags = this.searchService.findAffiliateTags(affiliateTag);
-        	 
-        	 /* 신규 태그 등록 */
+        	 String message = null;
+        	
+        	 /*
+        	  *  신규 태그 등록 
+        	 */
         	 if (tags.size() < 1) {
         		 this.affiliateTagMapper.insert(affiliateTag);
+        		 message = "태그 신규 등록 완료";
         	 }
-        	 /*기존 태그 업데이트*/
+        	 /*
+        	  * 기존 태그 업데이트
+        	 */
         	 else if (tags.size() == 1) {
-        		 affiliateTag.setAffiliateNo(tags.get(0).getAffiliateNo());
+        		 affiliateTag.setAffiliateTagNo(tags.get(0).getAffiliateTagNo());
         		 this.affiliateTagMapper.updateByPrimaryKey(affiliateTag);
+        		 message = "태그 수정 완료";
         	 }
-        	 ResponseUtil.setResponse(res, "100", "처리가 완료되었습니다");
+        	 ResponseUtil.setResponse(res, "100", message);
         	return res;
             
         }catch(Exception e) {

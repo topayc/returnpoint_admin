@@ -117,6 +117,7 @@
 			<li style ="margin-bottom:5px;font-size:12px">가맹점 카테고리 정보외에 기타 업종 세분 혹은 특이 정보를 입력해주세요</li>
 			<li style ="margin-bottom:5px;font-size:12px">가맹점 태그는 복수 입력이 가능합니다.</li>
 			<li style ="margin-bottom:5px;font-size:12px;font-weight:bold; color : red">가맹점 태그는 복수 태그 입력시 쉼표(,) 로 구분해주세요</li>
+			<li style ="margin-bottom:5px;font-size:12px;font-weight:bold;color : green ">ex)&nbsp;&nbsp;배달, 치킨,건물청소,최고의서비스</li>
 		</ul>
 	</div>
    	<form id = "affiliate_tag_form">

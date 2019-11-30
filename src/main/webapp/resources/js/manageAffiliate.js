@@ -1386,6 +1386,7 @@ function removeAffiliate(){
 }
 
 function createAffiliateTagForm(){
+	$('#affiliate_tag_form').form('reset');
 	var node = $('#node_list').datagrid('getSelected');
 	if (!node) {
 		 $.messager.alert('알림','태깅할 협력업체를 선택해주세요');
@@ -1403,6 +1404,8 @@ function createAffiliateTagForm(){
 			iconCls : 'icon-ok',
 			handler : function() {
 				createAffiliateTag();
+				$('#affiliate_tag_form').form('reset');
+				$('#affiliate_tag_dlg').dialog('close');
 			}
 		}, {
 			text : '취소',
@@ -1410,18 +1413,20 @@ function createAffiliateTagForm(){
 				$('#affiliate_tag_form').form('reset');
 				$('#affiliate_tag_dlg').dialog('close');
 			}
-		} ]
+		} ],
+		onOpen : function(){
+		   	var param = { affiliateNo : node.affiliateNo };
+		   	returnp.api.call("getAffiliateTag", param, function(res){
+		   		if (res.resultCode  == "100") {
+		   			console.log(res);
+		   			$("#affiliateTag").textbox("setValue", res.data.affiliateTag);
+		   		
+		   		}else {
+		   			$.messager.alert('알림', res.message);
+		   		}
+		   	});
+		}
 	});
-	
-   	var param = { affiliateNo : node.affiliateNo }
-   	returnp.api.call("getAffiliateTag", param, function(res){
-   		if (res.resultCode  == "100") {
-   			$("#affiliateTag").textbox("setValue", res.affiliateTag);
-   		
-   		}else {
-   			$.messager.alert('알림', res.message);
-   		}
-   	});
 }
 
 function createAffiliateTag(){
@@ -1431,8 +1436,8 @@ function createAffiliateTag(){
 			 affiliateTag : $("#affiliateTag").textbox('getValue').trim()
 	}
 	
-	if (params.affiliateTag.length < 1) {
-		$.messager.alert('알림', "태그는 최소 1자 이상 입력하셔야 합니다.");
+	if (params.affiliateTag.length < 1 || params.affiliateTag.length > 60) {
+		$.messager.alert('알림', "태그는 최소 1자 이상 , 60자 이하로 입력이 가능합니다.");
 		return;
 	}
 	returnp.api.call("createAffiliateTag", params, function(res){
