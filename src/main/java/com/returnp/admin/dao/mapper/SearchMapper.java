@@ -38,6 +38,7 @@ import com.returnp.admin.model.AffiliateCategory;
 import com.returnp.admin.model.AffiliateCiderpay;
 import com.returnp.admin.model.AffiliateDetail;
 import com.returnp.admin.model.AffiliatePaymentRouter;
+import com.returnp.admin.model.AffiliateTag;
 import com.returnp.admin.model.Agency;
 import com.returnp.admin.model.Board;
 import com.returnp.admin.model.Branch;
@@ -59,7 +60,6 @@ import com.returnp.admin.model.MembershipRequest;
 import com.returnp.admin.model.PaymentRouter;
 import com.returnp.admin.model.PaymentTransaction;
 import com.returnp.admin.model.PointConversionTransaction;
-import com.returnp.admin.model.PointCouponTransaction;
 import com.returnp.admin.model.PointWithdrawal;
 import com.returnp.admin.model.Policy;
 import com.returnp.admin.model.Recommender;
@@ -224,4 +224,6 @@ public interface SearchMapper {
 	public ArrayList<HashMap<String, Object>> selectPointCouponPointbackRecords(HashMap<String, Object> dbParams);
 
 	public ArrayList<HashMap<String, Object>> selectPointCouponTransactions( HashMap<String, Object> dbParams);
+
+	public ArrayList<AffiliateTag> findAffiliateTags(AffiliateTag tag);
 }

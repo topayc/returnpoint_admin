@@ -4472,6 +4472,33 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
 		   <if test="pointCouponPointbackRecordNo != null"> AND PCPR.pointCouponPointbackRecordNo = #{pointCouponPointbackRecordNo,jdbcType=INTEGER}</if>
 		   <if test="memberNo != null"> AND memberNo = #{memberNo,jdbcType=INTEGER}</if>
 	   </select>
+	
+	  <!-- ===============================================================================================================    -->
+  <!-- AffiliateTagMapper   -->
+  
+    <resultMap id="AffiliateTagResultMap" type="com.returnp.admin.model.AffiliateTag">
+    <id column="affiliateTagNo" jdbcType="INTEGER" property="affiliateTagNo" />
+    <result column="affiliateNo" jdbcType="INTEGER" property="affiliateNo" />
+    <result column="affiliateTag" jdbcType="VARCHAR" property="affiliateTag" />
+    <result column="affiliateTagStatus" jdbcType="VARCHAR" property="affiliateTagStatus" />
+  </resultMap>
+  <sql id="Affiliate_Tag_Column_List">
+		 affiliateTagNo, affiliateNo, affiliateTag, affiliateTagStatus
+  </sql>
+  
+    <sql id ="AffiliateTagWhereStatement">
+      <if test="affiliateTagNo != null"> AND affiliateTagNo =  #{affiliateTagNo} </if>
+      <if test="affiliateNo != null"> AND affiliateNo =  #{affiliateNo} </if>
+	</sql>
+	
+  <select id="findAffiliateTags" parameterType="com.returnp.admin.model.AffiliateTag"  resultMap="AffiliateTagResultMap" >
+    select 
+    <include refid="Affiliate_Tag_Column_List" />
+    from affiliate_tag
+    where 
+    	1 = 1
+		<include refid = "AffiliateTagWhereStatement"/>
+  </select>
   
 </mapper>
 

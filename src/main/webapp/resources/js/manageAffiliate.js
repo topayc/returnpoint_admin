@@ -1416,8 +1416,8 @@ function createAffiliateTagForm(){
    	var param = { affiliateNo : node.affiliateNo }
    	returnp.api.call("getAffiliateTag", param, function(res){
    		if (res.resultCode  == "100") {
-   			$.messager.alert('알림', res.message);
-   			realodPage();
+   			$("#affiliateTag").textbox("setValue", res.affiliateTag);
+   		
    		}else {
    			$.messager.alert('알림', res.message);
    		}
@@ -1431,6 +1431,10 @@ function createAffiliateTag(){
 			 affiliateTag : $("#affiliateTag").textbox('getValue').trim()
 	}
 	
+	if (params.affiliateTag.length < 1) {
+		$.messager.alert('알림', "태그는 최소 1자 이상 입력하셔야 합니다.");
+		return;
+	}
 	returnp.api.call("createAffiliateTag", params, function(res){
 		console.log(res);
 		if (res.resultCode  == "100") {

@@ -40,6 +40,7 @@ import com.returnp.admin.model.AffiliateCategory;
 import com.returnp.admin.model.AffiliateCiderpay;
 import com.returnp.admin.model.AffiliateDetail;
 import com.returnp.admin.model.AffiliatePaymentRouter;
+import com.returnp.admin.model.AffiliateTag;
 import com.returnp.admin.model.Agency;
 import com.returnp.admin.model.Board;
 import com.returnp.admin.model.Branch;
@@ -493,5 +494,10 @@ public class SearchServiceImpl implements SearchService{
 	public ArrayList<HashMap<String, Object>> selectPointCouponTransactions(HashMap<String, Object> dbParams) {
 		// TODO Auto-generated method stub
 		return this.searchMapper.selectPointCouponTransactions(dbParams);
+	}
+
+	@Override
+	public ArrayList<AffiliateTag> findAffiliateTags(AffiliateTag tag) {
+		return this.searchMapper.findAffiliateTags(tag);
 	};
 }

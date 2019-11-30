@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.returnp.admin.dto.command.AffiliateCommand;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Affiliate;
+import com.returnp.admin.model.AffiliateTag;
 
 @Transactional
 public interface AffiliateService {
@@ -25,6 +26,10 @@ public interface AffiliateService {
 	    ReturnpBaseResponse salePontAcc(String salePontTarget, String targetDateStr);
 
 		ReturnpBaseResponse salePontAcc(String targetDateStr);
+
+		ReturnpBaseResponse selectAffiliateTag(AffiliateTag affiliateTag);
+
+		ReturnpBaseResponse createAffiliateTag(AffiliateTag affiliateTag);
 	    
 
 }

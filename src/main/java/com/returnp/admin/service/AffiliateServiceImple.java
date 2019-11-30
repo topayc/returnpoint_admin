@@ -19,11 +19,14 @@ import com.returnp.admin.common.AppConstants;
 import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.common.ReturnpException;
 import com.returnp.admin.dao.mapper.AffiliateMapper;
+import com.returnp.admin.dao.mapper.AffiliateTagMapper;
 import com.returnp.admin.dao.mapper.GreenPointMapper;
 import com.returnp.admin.dao.mapper.QueryMapper;
 import com.returnp.admin.dto.command.AffiliateCommand;
+import com.returnp.admin.dto.reponse.ObjectResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.Affiliate;
+import com.returnp.admin.model.AffiliateTag;
 import com.returnp.admin.model.GreenPoint;
 import com.returnp.admin.model.Member;
 import com.returnp.admin.model.PaymentTransaction;
@@ -54,6 +57,7 @@ public class AffiliateServiceImple implements AffiliateService {
 	@Autowired QueryMapper queryMapper;
 	@Autowired GreenPointMapper greenPointMapper;
 	@Autowired MessageUtils messageUtils;
+	@Autowired AffiliateTagMapper affiliateTagMapper;;
 
 	@Override
 	public int deleteByPrimaryKey(Integer affiliateNo) {
@@ -253,6 +257,47 @@ public class AffiliateServiceImple implements AffiliateService {
 	        	ResponseUtil.setResponse(res, "500", "단말기 영업자 포인트 지급 작업 오류.");
 	            return res;
 	        }
+	}
+
+	@Override
+	public ReturnpBaseResponse selectAffiliateTag(AffiliateTag affiliateTag) {
+		ObjectResponse<AffiliateTag> res = new ObjectResponse<AffiliateTag>();
+        try {
+            ArrayList<AffiliateTag> tags = this.searchService.findAffiliateTags(affiliateTag);
+            if (tags.size() < 1) {
+            	ResponseUtil.setResponse(res, "896", "해당 협력업체는 태그가 등록되어 있지 않습니다. 등록해주시기 바랍니다");
+            }else {
+            	res.setData(this.searchService.findAffiliateTags(affiliateTag).get(0));
+            }
+            return res;
+        }catch(Exception e) {
+            e.printStackTrace();
+            return res;
+        }
+	}
+
+	@Override
+	public ReturnpBaseResponse createAffiliateTag(AffiliateTag affiliateTag) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+        try {
+        	 ArrayList<AffiliateTag> tags = this.searchService.findAffiliateTags(affiliateTag);
+        	 
+        	 /* 신규 태그 등록 */
+        	 if (tags.size() < 1) {
+        		 this.affiliateTagMapper.insert(affiliateTag);
+        	 }
+        	 /*기존 태그 업데이트*/
+        	 else if (tags.size() == 1) {
+        		 affiliateTag.setAffiliateNo(tags.get(0).getAffiliateNo());
+        		 this.affiliateTagMapper.updateByPrimaryKey(affiliateTag);
+        	 }
+        	 ResponseUtil.setResponse(res, "100", "처리가 완료되었습니다");
+        	return res;
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+            return res;
+        }
 	}
 
 }

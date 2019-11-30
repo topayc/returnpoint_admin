@@ -53,6 +53,7 @@ import com.returnp.admin.model.AffiliateCategory;
 import com.returnp.admin.model.AffiliateCiderpay;
 import com.returnp.admin.model.AffiliateDetail;
 import com.returnp.admin.model.AffiliatePaymentRouter;
+import com.returnp.admin.model.AffiliateTag;
 import com.returnp.admin.model.AffiliateTid;
 import com.returnp.admin.model.Category;
 import com.returnp.admin.model.GreenPoint;
@@ -813,4 +814,17 @@ public class AffiliateController extends ApplicationController {
 			String targetDateStr = year + "-" + month;
 			return this.affiliateService.salePontAcc(targetDateStr);
 	}
+
+	@ResponseBody
+	@RequestMapping(value = "/affiliate/getAffiliateTag", method = RequestMethod.GET)
+	public ReturnpBaseResponse  getAffiliateTag(AffiliateTag affiliateTag) {
+		return this.affiliateService.selectAffiliateTag(affiliateTag);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/affiliate/createAffiliateTag", method = RequestMethod.POST)
+	public ReturnpBaseResponse  createAffiliateTag(AffiliateTag affiliateTag) {
+		return this.affiliateService.createAffiliateTag(affiliateTag);
+	}
+
 }

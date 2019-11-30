@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.AffiliateTagMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.AffiliateTag">
+    <id column="affiliateTagNo" jdbcType="INTEGER" property="affiliateTagNo" />
+    <result column="affiliateNo" jdbcType="INTEGER" property="affiliateNo" />
+    <result column="affiliateTag" jdbcType="VARCHAR" property="affiliateTag" />
+    <result column="affiliateTagStatus" jdbcType="VARCHAR" property="affiliateTagStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    affiliateTagNo, affiliateNo, affiliateTag, affiliateTagStatus
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from affiliate_tag
+    where affiliateTagNo = #{affiliateTagNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from affiliate_tag
+    where affiliateTagNo = #{affiliateTagNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.AffiliateTag">
+    insert into affiliate_tag (affiliateTagNo, affiliateNo, affiliateTag, 
+      affiliateTagStatus)
+    values (#{affiliateTagNo,jdbcType=INTEGER}, #{affiliateNo,jdbcType=INTEGER}, #{affiliateTag,jdbcType=VARCHAR}, 
+      #{affiliateTagStatus,jdbcType=VARCHAR})
+       <selectKey keyProperty="affiliateTagNo" resultType="java.lang.Integer" order ="AFTER">
+		    SELECT LAST_INSERT_ID()
+	 </selectKey>	
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.AffiliateTag">
+    insert into affiliate_tag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="affiliateTagNo != null">
+        affiliateTagNo,
+      </if>
+      <if test="affiliateNo != null">
+        affiliateNo,
+      </if>
+      <if test="affiliateTag != null">
+        affiliateTag,
+      </if>
+      <if test="affiliateTagStatus != null">
+        affiliateTagStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="affiliateTagNo != null">
+        #{affiliateTagNo,jdbcType=INTEGER},
+      </if>
+      <if test="affiliateNo != null">
+        #{affiliateNo,jdbcType=INTEGER},
+      </if>
+      <if test="affiliateTag != null">
+        #{affiliateTag,jdbcType=VARCHAR},
+      </if>
+      <if test="affiliateTagStatus != null">
+        #{affiliateTagStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.AffiliateTag">
+    update affiliate_tag
+    <set>
+      <if test="affiliateNo != null">
+        affiliateNo = #{affiliateNo,jdbcType=INTEGER},
+      </if>
+      <if test="affiliateTag != null">
+        affiliateTag = #{affiliateTag,jdbcType=VARCHAR},
+      </if>
+      <if test="affiliateTagStatus != null">
+        affiliateTagStatus = #{affiliateTagStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where affiliateTagNo = #{affiliateTagNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.AffiliateTag">
+    update affiliate_tag
+    set affiliateNo = #{affiliateNo,jdbcType=INTEGER},
+      affiliateTag = #{affiliateTag,jdbcType=VARCHAR},
+      affiliateTagStatus = #{affiliateTagStatus,jdbcType=VARCHAR}
+    where affiliateTagNo = #{affiliateTagNo,jdbcType=INTEGER}
+  </update>
+</mapper>
