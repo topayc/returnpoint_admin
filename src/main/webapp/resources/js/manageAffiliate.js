@@ -270,14 +270,17 @@ function initView(){
 		  			case "open_biz_info":
 		  				openBizInfo();
 		  				break;
+		  			case "createAffiliateTag":
+		  				createAffiliateTagForm();
+		  				break;
 		  			}
 
 		  		}
 		  	});
 
-		  	var menus = [  '수정', '삭제','상세 정보','결제 라우터 등록/변경', '가맹점 TID 보기', '가맹점 TID 추가 ','계좌 추가','계좌 리스트' ,'사업장 정보 등록' ,'포인트 누적 현황'  ];
-		  	var icons = ['icon-edit','icon-remove','icon-tip','icon-tip','icon-add',   'icon-add', 'icon-add', 'icon-add' , 'icon-add', 'icon-large-chart'];
-		  	var actions = ['modify','remove','more_detail','createPaymentRouterForm', 'viewTids', 'addTid','add_bank', 'view_bank', 'open_biz_info', 'point_acc_view'];
+		  	var menus = [  '수정', '삭제','상세 정보','가맹점 태그 등록', '결제 라우터 등록/변경', '가맹점 TID 보기', '가맹점 TID 추가 ','계좌 추가','계좌 리스트' ,'사업장 정보 등록' ,'포인트 누적 현황'  ];
+		  	var icons = ['icon-edit','icon-remove','icon-tip','icon-add', 'icon-tip','icon-add',   'icon-add', 'icon-add', 'icon-add' , 'icon-add', 'icon-large-chart'];
+		  	var actions = ['modify','remove','more_detail','createAffiliateTag', 'createPaymentRouterForm', 'viewTids', 'addTid','add_bank', 'view_bank', 'open_biz_info', 'point_acc_view'];
 
 		  	if (!row['ciderPayStatus'] || row.ciderPayStatus == null || row.ciderPayStatus == "N" ) {
 		  		menus.push("Cider Pay 사용");
@@ -490,6 +493,13 @@ function initView(){
 	$('#businessItem').textbox({
 		label : roundLabel("사업자 업종")
 	});
+	
+	$('#affiliate_tag_form').form();
+
+	$('#affiliateTag').textbox({
+	//	label : roundLabel("태그")
+	});
+	
 }
 
 function setListPager(){
@@ -1375,6 +1385,62 @@ function removeAffiliate(){
     });
 }
 
+function createAffiliateTagForm(){
+	var node = $('#node_list').datagrid('getSelected');
+	if (!node) {
+		 $.messager.alert('알림','태깅할 협력업체를 선택해주세요');
+		 return;
+	}
+	$('#affiliate_tag_dlg').dialog({
+	    title: " " + node.affiliateName + ' 태그 등록  ',
+	    width: 700,
+	    height: 350,
+	    closed: false,
+	    cache: false,
+	    modal: true,
+		buttons : [ {
+			text : '확인',
+			iconCls : 'icon-ok',
+			handler : function() {
+				createAffiliateTag();
+			}
+		}, {
+			text : '취소',
+			handler : function() {
+				$('#affiliate_tag_form').form('reset');
+				$('#affiliate_tag_dlg').dialog('close');
+			}
+		} ]
+	});
+	
+   	var param = { affiliateNo : node.affiliateNo }
+   	returnp.api.call("getAffiliateTag", param, function(res){
+   		if (res.resultCode  == "100") {
+   			$.messager.alert('알림', res.message);
+   			realodPage();
+   		}else {
+   			$.messager.alert('알림', res.message);
+   		}
+   	});
+}
+
+function createAffiliateTag(){
+	var node = $('#node_list').datagrid('getSelected');
+	var params = {
+			 affiliateNo : node.affiliateNo,
+			 affiliateTag : $("#affiliateTag").textbox('getValue').trim()
+	}
+	
+	returnp.api.call("createAffiliateTag", params, function(res){
+		console.log(res);
+		if (res.resultCode  == "100") {
+			$.messager.alert('알림', res.message);
+		}else {
+			$.messager.alert('오류 발생', res.message);
+		}
+	});
+}
+
 function loadMap(address) {
 
    var geocoder = new google.maps.Geocoder();
@@ -1461,6 +1527,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 function modifyModeCallback(jibunAddr,lat,lng){
 	loadMap(jibunAddr,lat,lng);
 }
+
 
 function realodPage(){
 

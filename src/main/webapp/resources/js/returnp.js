@@ -144,6 +144,9 @@ $(function () {
         	createBizInfo : { apiCode: 10000, apiPath : '/api/affiliate/createBizInfo' ,  requestMethod: "post"},
         	getBizInfo : { apiCode: 10000, apiPath : '/api/affiliate/getBizInfo' ,  requestMethod: "get"},
         	salePontAcc : { apiCode: 10000, apiPath : '/api/affiliate/salePontAcc' ,  requestMethod: "get"},
+        	getAffiliateTag : { apiCode: 10000, apiPath : '/api/affiliate/getAffiliateTag' ,  requestMethod: "get"},
+        	createAffiliateTag : { apiCode: 10000, apiPath : '/api/affiliate/createAffiliateTag' ,  requestMethod: "get"},
+        	
         	
         	/* 영업 관리자 관련*/
         	getSaleManager: { apiCode: 10000, apiPath : '/api/saleManager/get' ,  requestMethod: "get"},  

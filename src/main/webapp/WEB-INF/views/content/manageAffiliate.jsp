@@ -77,6 +77,7 @@
 </div>
 
 
+
 <div id="add_affiliate_tid_virew" style = "width: 40% ;padding : 15px;display : none">
 	<div>
 			<ul style ='font-weight: bold';'>
@@ -106,6 +107,21 @@
 	</div>
    	<div style="margin-bottom:12px">
 		<input id ="businessItem"  name="businessItem" style="width:100%" data-options="labelWidth :100,labelPosition : 'left'"> 
+	</div>
+	</form>
+</div>
+
+<div id="affiliate_tag_dlg" style = "padding : 20px;display : none">
+	<div style = "margin-bottom: 20px">
+		<ul style ='font-weight: bold';'>
+			<li style ="margin-bottom:5px;font-size:12px">가맹점 카테고리 정보외에 기타 업종 세분 혹은 특이 정보를 입력해주세요</li>
+			<li style ="margin-bottom:5px;font-size:12px">가맹점 태그는 복수 입력이 가능합니다.</li>
+			<li style ="margin-bottom:5px;font-size:12px">가맹점 태그는 복수 태그 입력시 쉬표(,) 로 구분해주세요</li>
+		</ul>
+	</div>
+   	<form id = "affiliate_tag_form">
+   	<div style="margin:20px;margin-top:40px">
+		<input id ="affiliateTag"  name="affiliateTag" style="width:100%" data-options="labelWidth :50,labelPosition : 'left'"> 
 	</div>
 	</form>
 </div>
