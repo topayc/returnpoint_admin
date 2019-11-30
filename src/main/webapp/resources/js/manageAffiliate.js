@@ -278,7 +278,7 @@ function initView(){
 		  		}
 		  	});
 
-		  	var menus = [  '수정', '삭제','상세 정보','가맹점 태그 등록', '결제 라우터 등록/변경', '가맹점 TID 보기', '가맹점 TID 추가 ','계좌 추가','계좌 리스트' ,'사업장 정보 등록' ,'포인트 누적 현황'  ];
+		  	var menus = [  '수정', '삭제','상세 정보','가맹점 태그 등록/수정', '결제 라우터 등록/변경', '가맹점 TID 보기', '가맹점 TID 추가 ','계좌 추가','계좌 리스트' ,'사업장 정보 등록' ,'포인트 누적 현황'  ];
 		  	var icons = ['icon-edit','icon-remove','icon-tip','icon-add', 'icon-tip','icon-add',   'icon-add', 'icon-add', 'icon-add' , 'icon-add', 'icon-large-chart'];
 		  	var actions = ['modify','remove','more_detail','createAffiliateTag', 'createPaymentRouterForm', 'viewTids', 'addTid','add_bank', 'view_bank', 'open_biz_info', 'point_acc_view'];
 

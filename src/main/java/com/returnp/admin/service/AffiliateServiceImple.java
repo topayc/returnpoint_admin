@@ -284,18 +284,16 @@ public class AffiliateServiceImple implements AffiliateService {
         	 ArrayList<AffiliateTag> tags = this.searchService.findAffiliateTags(affiliateTag);
         	 String message = null;
         	
-        	 /*
-        	  *  신규 태그 등록 
-        	 */
+        	 /* 신규 태그 등록 */
         	 if (tags.size() < 1) {
+        		 affiliateTag.setAffiliateTagStatus("Y");
         		 this.affiliateTagMapper.insert(affiliateTag);
         		 message = "태그 신규 등록 완료";
         	 }
-        	 /*
-        	  * 기존 태그 업데이트
-        	 */
+        	 /* 기존 태그 업데이트 */
         	 else if (tags.size() == 1) {
         		 affiliateTag.setAffiliateTagNo(tags.get(0).getAffiliateTagNo());
+        		 affiliateTag.setAffiliateTagStatus(tags.get(0).getAffiliateTagStatus());
         		 this.affiliateTagMapper.updateByPrimaryKey(affiliateTag);
         		 message = "태그 수정 완료";
         	 }
