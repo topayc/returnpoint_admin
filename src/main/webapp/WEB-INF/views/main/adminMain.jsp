@@ -324,7 +324,7 @@
 		                            </li>
 									 <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePointCodeTransaction" menu_deps= '2' >
-		                            		<span style = "font-weight : bold; ">포인트코드 트랜잭션  </span>
+		                            		<span style = "font-weight : bold; ">포인트코드 적립 트랜잭션  </span>
 		                            	</a> 
 		                            </li>
 		                            		                            
