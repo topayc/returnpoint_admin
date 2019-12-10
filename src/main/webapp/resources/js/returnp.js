@@ -372,6 +372,13 @@ $(function () {
          	deletePointCoupon: {apiCode: 10000, apiPath : '/api/pointCoupon/deletePointCoupon' , requestMethod: 'post'},
          	/*PointCouponPointbackRecord*/
          	selectPointCouponPointbackRecords: {apiCode: 10000, apiPath : '/api/pointCoupon/pointCouponPointbackRecords' , requestMethod: 'get'},
+         	
+         	/*PointCode*/
+        	selectPointCodeReports: {apiCode: 10000, apiPath : '/api/pointCode/pointCodeReports' , requestMethod: 'get'},
+        	selectPeriodPointCodeReports: {apiCode: 10000, apiPath : '/api/pointCode/periodPointCodeReports' , requestMethod: 'get'},
+         	loadPointCodes: {apiCode: 10000, apiPath : '/api/pointCode/loadPointCodes' , requestMethod: 'get'},
+         	deletePointCode: {apiCode: 10000, apiPath : '/api/pointCode/deletePointCode' , requestMethod: 'post'},
+         	/*PointCouponPointbackRecord*/
         },
         
         init : function(){

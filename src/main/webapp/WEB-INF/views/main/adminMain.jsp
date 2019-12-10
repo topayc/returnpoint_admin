@@ -302,6 +302,35 @@
 				                </ul>
                             </li> 
                  				
+                 			 <li class = "S manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "S manage" style = "font-weight : bold">영수증 적립 자체 관리 ver 2</span>
+		                         <ul>
+		                             <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "managePointCouponIssue" menu_deps= '2' >
+		                            		<span style = "font-weight : bold; ">포인트코드 생성</span>
+		                            	</a> 
+		                            </li>
+		                            
+		                            <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "managePointCodeIssueRequest" menu_deps= '2' >
+		                            		<span style = "font-weight : bold; ">포인트코드 발급요청 관리</span>
+		                            	</a> 
+		                            </li>
+		                            
+		                            <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "manageIssuedPointCode" menu_deps= '2' >
+		                            		<span style = "font-weight : bold; ">포인트코드 발급 관리 </span>
+		                            	</a> 
+		                            </li>
+									 <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
+		                            	<a class= "sub_menu"  view_req_name = "managePointCodeTransaction" menu_deps= '2' >
+		                            		<span style = "font-weight : bold; ">포인트코드 트랜잭션  </span>
+		                            	</a> 
+		                            </li>
+		                            		                            
+				                </ul>
+                            </li> 
+                            
                  			<li class = "R manage" data-options = "iconCls :'icon-info'">
                             	 <span  class = "R manage" style = "font-weight : bold">결제 영수증 매출 관리</span>
 		                         <ul>
