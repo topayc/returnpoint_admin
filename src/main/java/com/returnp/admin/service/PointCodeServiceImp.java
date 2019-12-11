@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.common.ReturnpException;
 import com.returnp.admin.dao.mapper.MainMapper;
@@ -111,6 +112,20 @@ public class PointCodeServiceImp implements PointCodeService{
 	public ReturnpBaseResponse issuePointCode(PointCodeIssue pointCodeIssue) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
+			
+			/*관련 포인트 발급 요청 테이블 업데이트*/
+			PointCodeIssueRequest req = this.pointCodeIssueRequestMapper.selectByPrimaryKey(pointCodeIssue.getPointCodeIssueRequestNo());
+			if (req == null) {
+				ResponseUtil.setResponse(res, "1008", "잘못된 요청 - 포인트 코드 요청 정보가 존재하지 않습니다..");
+				throw new ReturnpException(res);
+			}
+			
+			/*발급상태로 변경*/
+			req.setIssueStatus("1");
+			this.pointCodeIssueRequestMapper.updateByPrimaryKey(req);
+			
+			/*포인트 코드 발급 및 insert*/
+			pointCodeIssue.setPointCode(CodeGenerator.genPointCode());
 			pointCodeIssue.setUseStatus("1");
 			this.pointCodeIssueMapper.insert(pointCodeIssue);
 			ResponseUtil.setSuccessResponse(res, "100" , "발급 성공");

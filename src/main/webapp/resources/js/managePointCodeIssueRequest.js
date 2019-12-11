@@ -390,7 +390,7 @@ function initView(){
 			 cmenu.menu('appendItem', { separator: true });
 			 cmenu.menu('appendItem', {
 				 id : "pc_2",  // the parent item element
-				 text:  "적립 코드 발급",
+				 text:  "포인트 코드 발급",
 				 //iconCls: 'icon-ok',
 				 onclick: function(){
 					 if (row.depositStatus !=  "3") {
