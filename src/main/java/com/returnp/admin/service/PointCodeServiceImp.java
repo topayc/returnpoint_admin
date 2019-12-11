@@ -112,11 +112,10 @@ public class PointCodeServiceImp implements PointCodeService{
 	public ReturnpBaseResponse issuePointCode(PointCodeIssue pointCodeIssue) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		try {
-			
 			/*관련 포인트 발급 요청 테이블 업데이트*/
 			PointCodeIssueRequest req = this.pointCodeIssueRequestMapper.selectByPrimaryKey(pointCodeIssue.getPointCodeIssueRequestNo());
 			if (req == null) {
-				ResponseUtil.setResponse(res, "1008", "잘못된 요청 - 포인트 코드 요청 정보가 존재하지 않습니다..");
+				ResponseUtil.setResponse(res, "2089", "잘못된 요청 - 포인트 코드 요청 정보가 존재하지 않아 포인트 적립 코드를 발행할 수 없습니다.");
 				throw new ReturnpException(res);
 			}
 			
