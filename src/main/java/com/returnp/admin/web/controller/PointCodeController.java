@@ -98,6 +98,19 @@ public class PointCodeController extends ApplicationController{
 		return this.pointCodeService.loadPointCodeIssues(params);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/pointCodeIssue/change", method = RequestMethod.GET)
+	public ReturnpBaseResponse changePointCodeIssueStatus(PointCodeIssue pointCodeIssue, HttpSession httpSession){
+		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
+		ReturnpBaseResponse res = null;
+		if (adminSession == null) {
+			res = new ReturnpBaseResponse();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "1098", "관리자 세션이 없습니다. 관리자 로그인을 해주세요");
+			return res;
+		}else {
+			return this.pointCodeService.chanagePointCodeIssueStatus(pointCodeIssue);
+		}
+	}
 	
 	private HashMap<String, Object> checkParameter(HashMap<String, Object> params){
 		for (Map.Entry<String, Object> entry : params.entrySet()) {

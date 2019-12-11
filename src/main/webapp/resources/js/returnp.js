@@ -389,7 +389,6 @@ $(function () {
          	deletePointCodeIssue: {apiCode: 10000, apiPath : '/api/pointCodeIssue/delete' , requestMethod: 'post'},
          	changePointCodeIssueStatus: {apiCode: 10000, apiPath : '/api/pointCodeIssue/change' , requestMethod: 'get'},
          	
-         	issuePointCode: {apiCode: 10000, apiPath : '/api/pointCodeIssueRequest/issuePointCode' , requestMethod: 'post'},
         },
         
         init : function(){

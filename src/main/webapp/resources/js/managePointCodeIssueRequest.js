@@ -24,6 +24,7 @@ var columns = [[
 	    {field:'status',width:30,align:'center',title : '상태',  formatter : pointCodeIssuerequestStatusFormatter},
 	    {field:'depositAmount',width:35,align:'center',title : '입금 금액',  formatter : numberFormatter},
 	    {field:'depositStatus',width:45,align:'center',title : '입금 상태',  formatter : depositStatusFormatter},
+	    {field:'issueStatus',width:40,align:'center',title : '코드 상태', formatter : issueStatusFormatter},
 	    {field:'uploadFile',width:55,align:'center',title : '업로드 파일'},
 	    {field:'publisher',width:30,align:'center',title : '발행자'},
 /*	    {field:'useStartTime',width:40,align:'center',title : '사용 시작일', formatter : dateFormatter},

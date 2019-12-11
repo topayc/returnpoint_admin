@@ -1,7 +1,10 @@
 package com.returnp.admin.code;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.SplittableRandom;
 import java.util.UUID;
 
 import com.returnp.admin.utils.Util;
@@ -84,4 +87,18 @@ public class CodeGenerator {
 		  }
 		  return token;
 	  }*/
+	  
+	  public static String genPointCode() {
+		  char[] PIN_CHARACTERS  = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+		  SplittableRandom splittableRandom = null;
+		  char[] pinCharArrs = new char[20];
+		  Collections.shuffle(Arrays.asList(PIN_CHARACTERS));
+		  splittableRandom = new SplittableRandom();
+		  
+		  for (int k = 0; k < pinCharArrs.length; k++) {
+			  int elementIndex = splittableRandom.nextInt(PIN_CHARACTERS.length);
+			  pinCharArrs[k] = PIN_CHARACTERS[elementIndex];
+		  }
+		  return String.valueOf(pinCharArrs);
+	  }
 }

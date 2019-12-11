@@ -10,6 +10,8 @@ public class PointCodeIssueRequest extends QueryCondition {
 
     private String issueType;
 
+    private String issueStatus;
+
     private Integer payAmount;
 
     private Float accPointRate;
@@ -58,6 +60,14 @@ public class PointCodeIssueRequest extends QueryCondition {
 
     public void setIssueType(String issueType) {
         this.issueType = issueType == null ? null : issueType.trim();
+    }
+
+    public String getIssueStatus() {
+        return issueStatus;
+    }
+
+    public void setIssueStatus(String issueStatus) {
+        this.issueStatus = issueStatus == null ? null : issueStatus.trim();
     }
 
     public Integer getPayAmount() {

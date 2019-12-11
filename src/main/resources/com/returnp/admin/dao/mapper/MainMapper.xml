@@ -736,9 +736,9 @@
 	  	<!-- point_code_issue-->
 	   <select id="selectPointCodeIssueReports" parameterType="HashMap" resultType="HashMap">
 	   	SELECT
-			<if test = "searchType != null and searchType  =='year'" >  date_format(createTime, '%Y') as searchDate , </if>
-			<if test = "searchType != null and searchType  =='month'" >  date_format(createTime, '%Y-%m') as searchDate, </if>
-			<if test = "searchType != null and searchType  =='daily'" >  date_format(createTime, '%Y-%m-%d') as searchDate, </if>
+			<if test = "searchType != null and searchType  =='year'" >  date_format(A.createTime, '%Y') as searchDate , </if>
+			<if test = "searchType != null and searchType  =='month'" >  date_format(A.createTime, '%Y-%m') as searchDate, </if>
+			<if test = "searchType != null and searchType  =='daily'" >  date_format(A.createTime, '%Y-%m-%d') as searchDate, </if>
 			
 			count(issueType) as totalCount,
 			sum(payAmount) as totalPayAmount,
@@ -748,7 +748,7 @@
 		group by searchDate;
 	   </select>
 	   
-	   <select id=" selectPeriodPointCodeIssueReports" parameterType="HashMap" resultType="HashMap">
+	   <select id="selectPeriodPointCodeIssueReports" parameterType="HashMap" resultType="HashMap">
 	    select 
 			date_format(createTime, '%Y-%m-%d') as searchDate,
    	 		count(payAmount) as totalCount,

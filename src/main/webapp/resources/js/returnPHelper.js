@@ -20,6 +20,15 @@ function replyOkFormatter (data){
 	return result;
 }
 
+function issueStatusFormatter(value){
+	switch (value) {
+	case "1": result = '<span style = "font-weight : bold" >' + roundLabel("발행됨", '#04B404') + ' </span>'; break;
+	case "2": result = '<span style = "font-weight : bold" >' + roundLabel("미발행", '#FF4000') + ' </span>'; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
 function pointCodeIssueUseStatusFormatter(value){
 	switch (value) {
 	case "1": result = '<span style = "font-weight : bold" >' + roundLabel("사용 가능", '#04B404') + ' </span>'; break;

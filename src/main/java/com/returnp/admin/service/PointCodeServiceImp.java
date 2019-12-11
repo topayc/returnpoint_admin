@@ -179,4 +179,30 @@ public class PointCodeServiceImp implements PointCodeService{
 		}
 	}
 
+	@Override
+	public ReturnpBaseResponse chanagePointCodeIssueStatus(PointCodeIssue pointCodeIssue) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		try {
+			PointCodeIssue pc = this.pointCodeIssueMapper.selectByPrimaryKey(pointCodeIssue.getPointCodeIssueNo());
+			if (pc == null){
+				ResponseUtil.setResponse(res, "1008", "잘못된 요청 - 해당 포인트 코드가 존재하지 않습니다..");
+				throw new ReturnpException(res);
+			}
+		
+			this.pointCodeIssueMapper.updateByPrimaryKeySelective(pointCodeIssue);
+			ResponseUtil.setSuccessResponse(res, "100" , "포인트 코드  상태 변경 완료");
+			return res;
+		}catch(ReturnpException e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			return e.getBaseResponse();
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "포인트 코드 상태 변경 변경 실패");
+			return res;
+		}
+	}
+
+
 }
