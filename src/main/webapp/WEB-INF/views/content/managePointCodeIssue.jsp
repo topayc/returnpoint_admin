@@ -61,6 +61,11 @@
 		</table> 
 	</div>
 </div>
+	<div id="receipt_view" class="easyui-dialog" title="영수증 " style="width:550px;height:600px;">
+    	<img id = "receipt_img"  width = "500" height = "500" src = ""/>
+	</div>
+
+
 	<div id = "pointback_record_dlg" style ="padding:5px;background-color : rgb(237, 237, 237)" class="modal_dialog" > 
 		</br><table id = "pointback_record_list" style ="width:100%;height:100%"></table>
 	</div>

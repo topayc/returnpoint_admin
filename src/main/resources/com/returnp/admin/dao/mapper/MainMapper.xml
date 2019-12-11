@@ -690,35 +690,31 @@
 	   <select id="loadPointCodeIssueRequests" parameterType="HashMap" resultType="HashMap">
 	    select 
    		sql_calc_found_rows
-  		A.pointCode,
-  		A.useStatus,
-  		
-  		B.pointCodeIssueRequestNo, 
-  		B.memberNo, 
-  		B.issueType, 
-  		B.payAmount, 
-  		B.accPointRate, 
-  		B.accPointAmount, 
-    	B.accTargetRange, 
-    	B.depositAmount, 
-    	B.depositStatus, 
-    	B.uploadFile, 
-    	B.status, 
-    	B.publisher, 
-    	B.useStartTime, 
-    	B.useEndTime, 
+  		A.pointCodeIssueRequestNo, 
+  		A.memberNo, 
+  		A.issueType, 
+  		A.payAmount, 
+  		A.accPointRate, 
+  		A.accPointAmount, 
+    	A.accTargetRange, 
+    	A.depositAmount, 
+    	A.depositStatus, 
+    	A.uploadFile, 
+    	A.status, 
+    	A.publisher, 
+    	A.useStartTime, 
+    	A.useEndTime, 
     	
-    	C.memberName,
-   		C.memberEmail,
-   		C.memberPhone
+    	B.memberName,
+   		B.memberEmail,
+   		B.memberPhone
    
-	   	from point_code_issue as A
-		inner join point_code_issue_request  as B on (A.pointCodeIssueRequestNo= B.pointCodeIssueRequestNo)
-		inner join member as C on (A.memberNo= C.memberNo)
+	   	from point_code_issue_request as A
+		inner join member as B on (A.memberNo= B.memberNo)
 	    where 
 	    	1 = 1
 	    	<if test="searchDate != null "> AND A.createTime LIKE CONCAT(#{searchDate},'%') </if>
-			<if test = "searchUseStatus!= null">and useStatus = #{searchUseStatus!=}</if>
+			<if test = "searchStatus!= null">and status = #{searchStatus!=!=}</if>
 			<if test="searchKeyword != null ">
       				AND ( memberName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR memberEmail LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) ) 
 		   	  </if>
@@ -752,7 +748,7 @@
 		group by searchDate;
 	   </select>
 	   
-	   <select id="selectPeriodPointCodeIssueReports" parameterType="HashMap" resultType="HashMap">
+	   <select id=" selectPeriodPointCodeIssueReports" parameterType="HashMap" resultType="HashMap">
 	    select 
 			date_format(createTime, '%Y-%m-%d') as searchDate,
    	 		count(payAmount) as totalCount,
@@ -772,7 +768,56 @@
 			) as A
 		group by searchDate;
 	    </select>
+	    
+	   <select id="loadPointCodeIssues" parameterType="HashMap" resultType="HashMap">
+	    select 
+   		sql_calc_found_rows
+  		A.pointCode,
+  		A.useStatus,
+  		
+  		B.pointCodeIssueRequestNo, 
+  		B.memberNo, 
+  		B.issueType, 
+  		B.payAmount, 
+  		B.accPointRate, 
+  		B.accPointAmount, 
+    	B.accTargetRange, 
+    	B.depositAmount, 
+    	B.depositStatus, 
+    	B.uploadFile, 
+    	B.status, 
+    	B.publisher, 
+    	B.useStartTime, 
+    	B.useEndTime, 
+    	
+    	C.memberName,
+   		C.memberEmail,
+   		C.memberPhone
+   
+	   	from point_code_issue as A
+		inner join point_code_issue_request  as B on (A.pointCodeIssueRequestNo= B.pointCodeIssueRequestNo)
+		inner join member as C on (A.memberNo= C.memberNo)
+	    where 
+	    	1 = 1
+	    	<if test="searchDate != null "> AND A.createTime LIKE CONCAT(#{searchDate},'%') </if>
+			<if test = "searchUseStatus!= null">and useStatus = #{searchUseStatus!=}</if>
+			<if test="searchKeyword != null ">
+      				AND ( 
+      					memberName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR 
+      					memberEmail LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR
+      					pointCode LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' )
+      				) 
+		   	  </if>
+	     <choose>
+	   	<when test="order !=null">
+			order by ${order} 
+		</when>
+		<otherwise>
+			order by createTime desc
+		</otherwise>
+		</choose>
+		<if test="pagination">
+			limit ${pageSize} offset ${offset}
+		</if>
+	   </select>
 </mapper>
-
-
- 

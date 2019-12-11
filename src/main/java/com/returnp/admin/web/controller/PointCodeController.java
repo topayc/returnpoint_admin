@@ -92,6 +92,13 @@ public class PointCodeController extends ApplicationController{
 		return this.pointCodeService.selectPeriodPointCodeIssueReports(dbParams);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/pointCodeIssue/get", method = RequestMethod.POST)
+	public ReturnpBaseResponse  loadPointCodeIssues(@RequestParam HashMap<String, Object> params) {
+		return this.pointCodeService.loadPointCodeIssues(params);
+	}
+	
+	
 	private HashMap<String, Object> checkParameter(HashMap<String, Object> params){
 		for (Map.Entry<String, Object> entry : params.entrySet()) {
 			String key   = entry.getKey();

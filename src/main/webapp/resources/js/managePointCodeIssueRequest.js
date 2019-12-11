@@ -377,7 +377,16 @@ function initView(){
 			 });
 			 
 			 cmenu.menu('appendItem', { separator: true });
+			 cmenu.menu('appendItem', {
+				 id : "pc_10",  // the parent item element
+				 text:  "영수증 보기 ",
+				 //iconCls: 'icon-ok',
+				 onclick: function(){
+					 viewFile(row.uploadFile);
+				 }
+			 });
 			 
+			 cmenu.menu('appendItem', { separator: true });
 			 cmenu.menu('appendItem', {
 				 id : "pc_2",  // the parent item element
 				 text:  "적립 코드 발급",
@@ -400,6 +409,33 @@ function initView(){
 	setListPager2();
 	setListPager();
 }
+
+function viewFile(path){
+	/*	var url = "/api/giftCardIssue/downQrCode?giftCardIssueNo=" + giftCardIssueNo + "&type=" + type;
+		var w = window.open(path, "QR Code", "width=550, height=550, left=100, top=100"); 
+		w.document.title = title;*/
+		$('#receipt_img').attr("src", "");
+		$('#receipt_img').attr("src", "https://www.returnp.com/cloud/images/receipt/" +path );
+		$("#receipt_view").dialog({
+			title : type == "영수증",
+			modal : true,
+			closable : true,
+			border : 'thick',
+			shadow : true,
+			collapsible : false,
+			minimizable : false,
+			maximizable : false,
+			shadow : false,
+			buttons : [ {
+				text : '확인',
+				iconCls : 'icon-ok',
+				handler : function(){
+					$("#qr_code_view").dialog('close');
+					$('#qr_code_no').attr("src", "");
+				}
+			} ]
+		});
+	}
 
 function loadPointCodeIssueRequests(index, row){
 	//var param = {searchDateStart : row.searchDate, searchDateEnd : row.searchDate};

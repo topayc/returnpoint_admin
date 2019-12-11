@@ -33,4 +33,6 @@ public interface PointCodeService {
 
 	ReturnpBaseResponse loadPointCodeIssueRequests(HashMap<String, Object> params);
 
+	ReturnpBaseResponse loadPointCodeIssues(HashMap<String, Object> params);
+
 }

@@ -162,4 +162,21 @@ public class PointCodeServiceImp implements PointCodeService{
 		}
 	}
 
+	@Override
+	public ReturnpBaseResponse loadPointCodeIssues(HashMap<String, Object> params) {
+		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
+		try {
+			ArrayList<HashMap<String, Object>> pointCodeIssues = this.mainMapper.loadPointCodeIssues(params);
+			res.setRows(pointCodeIssues);
+			res.setTotal(	this.searchService.selectTotalRecords());
+			ResponseUtil.setSuccessResponse(res, "100" , "조회 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "서버 에러 ");
+			return res;
+		}
+	}
+
 }

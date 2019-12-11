@@ -49,4 +49,6 @@ public interface MainMapper {
 	public ArrayList<HashMap<String, Object>> selectPeriodPointCodeIssueReports(HashMap<String, Object> dbParams);
 
 	public ArrayList<HashMap<String, Object>> loadPointCodeIssueRequests(HashMap<String, Object> params);
+
+	public ArrayList<HashMap<String, Object>> loadPointCodeIssues(HashMap<String, Object> params);
 }

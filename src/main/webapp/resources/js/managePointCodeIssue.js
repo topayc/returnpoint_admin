@@ -16,7 +16,7 @@ var columns = [[
 	    {field:'memberNo',width:15,align:'center',title : '회원 번호',hidden:true},
 	    {field:'memberName',width:50,align:'center',title : '회원 이름'},
 	    {field:'memberEmail',width:60,align:'center',title : '회원 이메일'},
-	    {field:'pointCode',width:60,align:'center',title : '포인트코드'},
+	    {field:'pointCode',width:80,align:'center',title : '포인트코드'},
 	    {field:'issueType',width:40,align:'center',title : '발행 타입'},
 	    {field:'useStatus',width:40,align:'center',title : '사용 상태', formatter : pointCodeIssueUseStatusFormatter},
 	    {field:'payAmount',width:40,align:'center',title : '기준 금액', formatter : numberFormatter},
@@ -317,7 +317,29 @@ function initView(){
 							 changePointCodeIssueStatus({pointCodeIssuetNo : row.pointCodeIssueNo, useStatus : "4"});
 						 }
 			 });
-
+			 
+			 cmenu.menu('appendItem', { separator: true });
+			 cmenu.menu('appendItem', {
+				 id : "pc_10",  // the parent item element
+				 text:  "영수증 보기 ",
+				 //iconCls: 'icon-ok',
+				 onclick: function(){
+					 viewFile(row.uploadFile);
+				 }
+			 });
+			 
+			 if (row.useStatus == 3) {
+				 cmenu.menu('appendItem', { separator: true });
+				 cmenu.menu('appendItem', {
+					 id : "pc_10",  // the parent item element
+					 text:  "이 적립코드의 적립 내역 보기",
+					 //iconCls: 'icon-ok',
+					 onclick: function(){
+						 viewFile(row.uploadFile);
+					 }
+				 });
+			 }
+			 
 			 cmenu.menu('show', {
 				 left:e.pageX,
 				 top:e.pageY
@@ -329,8 +351,67 @@ function initView(){
 	setListPager();
 }
 
+function viewFile(path){
+		$('#receipt_img').attr("src", "");
+		$('#receipt_img').attr("src", "https://www.returnp.com/cloud/images/receipt/" +path );
+		$("#receipt_view").dialog({
+			title : type == "영수증",
+			modal : true,
+			closable : true,
+			border : 'thick',
+			shadow : true,
+			collapsible : false,
+			minimizable : false,
+			maximizable : false,
+			shadow : false,
+			buttons : [ {
+				text : '확인',
+				iconCls : 'icon-ok',
+				handler : function(){
+					$("#qr_code_view").dialog('close');
+					$('#qr_code_no').attr("src", "");
+				}
+			} ]
+		});
+	}
+
 function loadPointCodeIssues(index, row){
+	if (typeof row.searchDate == 'undefined' || row.searchDate == '총계') {return;}
+	var param = {searchDate : row.searchDate};
+	var opts = $('#node_list').datagrid('options');
+	var total = $('#node_list').datagrid('getData').total;
+	if (index == 'pager' ){
+		$.extend(param, {
+			pagination : opts.pagination,
+			pageSize : opts.pageSize,
+			page : opts.pageNumber,
+			total : total,
+			offset : (opts.pageNumber-1) * opts.pageSize
+		});
+	}else {
+		opts.pageNumber = 1;
+		$.extend(param, {
+			pagination : opts.pagination,
+			pageSize : opts.pageSize,
+			page : opts.pageNumber,
+			total : total,
+			offset : (opts.pageNumber-1) * opts.pageSize
+		});
+	}
 	
+	$.extend(param, $('#searchForm').serializeObject());
+	returnp.api.call("loadPointCodeIssues", param, function(res){
+		console.log(res);
+		if (res.resultCode == "100") {
+			$('#node_list').datagrid({
+				data : res,
+				title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
+			});
+			setListPager();
+		}else {
+			$.messager.alert('알림', res.message);
+		}
+	});
 }
 
 function changePointCodeIssueStatus(options){
