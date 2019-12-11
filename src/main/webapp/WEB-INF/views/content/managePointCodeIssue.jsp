@@ -20,22 +20,14 @@
 	                <input id = "searchDateEnd"  name="searchDateEnd" label="검색 종료일" style="width:100%"/>
 	            </div>
 
-				     <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
-	                <select id = "searchDepositStatus" class="easyui-combobox" name="searchDepositStatus" label="입급 상태" style="width:100%">
-	                	 	<option value="0">전체</option>
-						   <option value="1">입금 확인중</option>
-						   <option value="2">입금 확인 요청중</option>
-						   <option value="3">입금 완료</option>
-	                </select>
-	            </div>
 	            
 	                 <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
-	                <select id = "searchStatus" class="easyui-combobox" name="searchStatus" label="상태" style="width:100%">
+	                <select id = "searchUseStatus" class="easyui-combobox" name="searchUseStatus" label="코드 사용 상태" style="width:100%">
 	                	 	<option value="0">전체</option>
-						   <option value="1">정상</option>
-						   <option value="2">중지</option>
-						   <option value="3">등록 해제</option>
-						   <option value="3">처리 불가</option>
+						   <option value="1">사용 가능</option>
+						   <option value="2">사용 중지</option>
+						   <option value="3">사용 완료</option>
+						   <option value="4">등록 취소 </option>
 	                </select>
 	            </div>
 	            

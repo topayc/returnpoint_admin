@@ -40,7 +40,13 @@ public interface MainMapper {
 			HashMap<String, Object> dbParams);
 	public ArrayList<HashMap<String, Object>> loadPointCouponTransactions(HashMap<String, Object> dbParams);
 
-	public ArrayList<HashMap<String, Object>> selectPointCodeReports(HashMap<String, Object> dbParams);
+	public ArrayList<HashMap<String, Object>> selectPointCodeIssueRequestReports(HashMap<String, Object> dbParams);
 
-	public ArrayList<HashMap<String, Object>> selectPeriodPointCodeReports(HashMap<String, Object> dbParams);
+	public ArrayList<HashMap<String, Object>> selectPeriodPointCodeIssueRequestReports(HashMap<String, Object> dbParams);
+
+	public ArrayList<HashMap<String, Object>> selectPointCodeIssueReports(HashMap<String, Object> dbParams);
+
+	public ArrayList<HashMap<String, Object>> selectPeriodPointCodeIssueReports(HashMap<String, Object> dbParams);
+
+	public ArrayList<HashMap<String, Object>> loadPointCodeIssueRequests(HashMap<String, Object> params);
 }

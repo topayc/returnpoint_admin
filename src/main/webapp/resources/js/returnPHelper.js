@@ -20,6 +20,38 @@ function replyOkFormatter (data){
 	return result;
 }
 
+function pointCodeIssueUseStatusFormatter(value){
+	switch (value) {
+	case "1": result = '<span style = "font-weight : bold" >' + roundLabel("사용 가능", '#04B404') + ' </span>'; break;
+	case "2": result = '<span style = "font-weight : bold" >' + roundLabel("사용 중지", '#FF4000') + ' </span>'; break;
+	case "3": result = '<span style = "font-weight : bold" >' + roundLabel("사용 완료", '#01A9DB') + ' </span>'; break;
+	case "3": result = '<span style = "font-weight : bold" >' + roundLabel("등록 취소", '#01A9DB') + ' </span>'; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+function pointCodeIssuerequestStatusFormatter(value){
+	switch (value) {
+	case "1": result = '<span style = "font-weight : bold" >' + roundLabel("정상", '#04B404') + ' </span>'; break;
+	case "2": result = '<span style = "font-weight : bold" >' + roundLabel("중지", '#FF4000') + ' </span>'; break;
+	case "3": result = '<span style = "font-weight : bold" >' + roundLabel("등록해제", '#01A9DB') + ' </span>'; break;
+	case "3": result = '<span style = "font-weight : bold" >' + roundLabel("처리불가", '#01A9DB') + ' </span>'; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
+function depositStatusFormatter(value){
+	switch (value) {
+	case "1": result = '<span style = "font-weight : bold" >' + roundLabel("입금 확인중", '#04B404') + ' </span>'; break;
+	case "2": result = '<span style = "font-weight : bold" >' + roundLabel("입금 확인 요청중", '#FF4000') + ' </span>'; break;
+	case "3": result = '<span style = "font-weight : bold" >' + roundLabel("입금 완료", '#01A9DB') + ' </span>'; break;
+	case "4": result = '<span style = "font-weight : bold" >' + roundLabel("입금 취소 ", '#585858') + ' </span>'; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
 function pointCouponUseStatusFormatter (data){
 	switch (data) {
 	case "1": result = '<span style = "font-weight : bold" >' + roundLabel("사용가능", '#04B404') + ' </span>'; break;

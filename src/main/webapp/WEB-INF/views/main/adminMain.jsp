@@ -318,7 +318,7 @@
 		                            </li>
 		                            
 		                            <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
-		                            	<a class= "sub_menu"  view_req_name = "manageIssuedPointCode" menu_deps= '2' >
+		                            	<a class= "sub_menu"  view_req_name = "managePointCodeIssue" menu_deps= '2' >
 		                            		<span style = "font-weight : bold; ">포인트코드 발급 관리 </span>
 		                            	</a> 
 		                            </li>

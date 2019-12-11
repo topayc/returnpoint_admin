@@ -373,12 +373,23 @@ $(function () {
          	/*PointCouponPointbackRecord*/
          	selectPointCouponPointbackRecords: {apiCode: 10000, apiPath : '/api/pointCoupon/pointCouponPointbackRecords' , requestMethod: 'get'},
          	
-         	/*PointCode*/
-        	selectPointCodeReports: {apiCode: 10000, apiPath : '/api/pointCode/pointCodeReports' , requestMethod: 'get'},
-        	selectPeriodPointCodeReports: {apiCode: 10000, apiPath : '/api/pointCode/periodPointCodeReports' , requestMethod: 'get'},
-         	loadPointCodes: {apiCode: 10000, apiPath : '/api/pointCode/loadPointCodes' , requestMethod: 'get'},
-         	deletePointCode: {apiCode: 10000, apiPath : '/api/pointCode/deletePointCode' , requestMethod: 'post'},
-         	/*PointCouponPointbackRecord*/
+         	/*PointCodeIssueRequest*/
+        	selectPointCodeIssueRequestReports: {apiCode: 10000, apiPath : '/api/pointCodeIssueRequest/reports' , requestMethod: 'get'},
+        	selectPeriodPointCodeIssueRequestReports: {apiCode: 10000, apiPath : '/api/pointCodeIssueRequest/periodReports' , requestMethod: 'get'},
+         	loadPointCodeIssueRequests: {apiCode: 10000, apiPath : '/api/pointCodeIssueRequest/get' , requestMethod: 'get'},
+         	deletePointCodeIssueRequest: {apiCode: 10000, apiPath : '/api/pointCodeIssueRequest/delete' , requestMethod: 'post'},
+         	changePointCodeIssueRequestStatus: {apiCode: 10000, apiPath : '/api/pointCodeIssueRequest/change' , requestMethod: 'get'},
+         	
+         	issuePointCode: {apiCode: 10000, apiPath : '/api/pointCodeIssueRequest/issuePointCode' , requestMethod: 'post'},
+
+        	/*PointCodeIssue*/
+        	selectPointCodeIssueReports: {apiCode: 10000, apiPath : '/api/pointCodeIssue/reports' , requestMethod: 'get'},
+        	selectPeriodPointCodeIssueReports: {apiCode: 10000, apiPath : '/api/pointCodeIssue/periodReports' , requestMethod: 'get'},
+         	loadPointCodeIssues: {apiCode: 10000, apiPath : '/api/pointCodeIssue/get' , requestMethod: 'get'},
+         	deletePointCodeIssue: {apiCode: 10000, apiPath : '/api/pointCodeIssue/delete' , requestMethod: 'post'},
+         	changePointCodeIssueStatus: {apiCode: 10000, apiPath : '/api/pointCodeIssue/change' , requestMethod: 'get'},
+         	
+         	issuePointCode: {apiCode: 10000, apiPath : '/api/pointCodeIssueRequest/issuePointCode' , requestMethod: 'post'},
         },
         
         init : function(){

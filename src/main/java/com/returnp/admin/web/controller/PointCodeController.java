@@ -3,6 +3,8 @@ package com.returnp.admin.web.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.returnp.admin.common.AppConstants;
+import com.returnp.admin.common.ResponseUtil;
+import com.returnp.admin.dto.AdminSession;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.model.PointCodeIssue;
+import com.returnp.admin.model.PointCodeIssueRequest;
 import com.returnp.admin.service.interfaces.PointCodeService;
 
 @Controller
@@ -21,18 +28,68 @@ public class PointCodeController extends ApplicationController{
 	
 	@Autowired PointCodeService  pointCodeService;
 	
+	// --------------------------------------------------------------------------------------------------------------------
+	// 포인트 코드발급 요청 컨트롤러 메서드 
+	// --------------------------------------------------------------------------------------------------------------------
+
 	@ResponseBody
-	@RequestMapping(value = "/pointCode/pointCodeReports", method = RequestMethod.GET)
+	@RequestMapping(value = "/pointCodeIssueRequest/reports", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectPointCodeIssueRequestReports(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
+		return this.pointCodeService.selectPointCodeIssueRequestReports(dbParams);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/pointCodeIssueRequest/periodReports", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectPeriodPointCodeIssueRequestReports(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
+		return this.pointCodeService.selectPeriodPointCodeIssueRequestReports(dbParams);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/pointCodeIssueRequest/get", method = RequestMethod.POST)
+	public ReturnpBaseResponse  loadPointCodeIssueRequests(@RequestParam HashMap<String, Object> params) {
+		return this.pointCodeService.loadPointCodeIssueRequests(params);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/pointCodeIssueRequest/issuePointCode", method = RequestMethod.POST)
+	public ReturnpBaseResponse  issuePointCodeIssueRequest(PointCodeIssue pointCodeIssue) {
+		return this.pointCodeService.issuePointCode(pointCodeIssue);
+	}
+
+	
+	@ResponseBody
+	@RequestMapping(value = "/pointCodeIssueRequest/change", method = RequestMethod.GET)
+	public ReturnpBaseResponse changePointCodeIssueRequestStatus(PointCodeIssueRequest pointCodeIssueRequest, HttpSession httpSession){
+		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
+		ReturnpBaseResponse res = null;
+		if (adminSession == null) {
+			res = new ReturnpBaseResponse();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "1098", "관리자 세션이 없습니다. 관리자 로그인을 해주세요");
+			return res;
+		}else {
+			return this.pointCodeService.chanagePointCodeRequestStatus(pointCodeIssueRequest);
+		}
+	}
+	
+	
+	// --------------------------------------------------------------------------------------------------------------------
+	// 포인트 코드 컨트롤러 메서드 
+	// --------------------------------------------------------------------------------------------------------------------
+	
+	@ResponseBody
+	@RequestMapping(value = "/pointCodeIssue/reports", method = RequestMethod.GET)
 	public ReturnpBaseResponse  selectPointCodeReports(@RequestParam HashMap<String, Object> dbParams) {
 		this.checkParameter(dbParams);
 		return this.pointCodeService.selectPointCodeReports(dbParams);
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/pointCode/periodPointCodeReports", method = RequestMethod.GET)
-	public ReturnpBaseResponse  selectPeriodSalesReports(@RequestParam HashMap<String, Object> dbParams) {
+	@RequestMapping(value = "/pointCodeIssue/periodReports", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectPeriodPointCodeReports(@RequestParam HashMap<String, Object> dbParams) {
 		this.checkParameter(dbParams);
-		return this.pointCodeService.selectPeriodPointCodeReports(dbParams);
+		return this.pointCodeService.selectPeriodPointCodeIssueReports(dbParams);
 	}
 	
 	private HashMap<String, Object> checkParameter(HashMap<String, Object> params){
@@ -47,5 +104,10 @@ public class PointCodeController extends ApplicationController{
 		}
 		return params;
 	}
+	
+	// --------------------------------------------------------------------------------------------------------------------
+		//  발급된 포인트 코드 
+		// --------------------------------------------------------------------------------------------------------------------
+
 	
 }

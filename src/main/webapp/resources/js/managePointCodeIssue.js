@@ -16,7 +16,9 @@ var columns = [[
 	    {field:'memberNo',width:15,align:'center',title : '회원 번호',hidden:true},
 	    {field:'memberName',width:50,align:'center',title : '회원 이름'},
 	    {field:'memberEmail',width:60,align:'center',title : '회원 이메일'},
+	    {field:'pointCode',width:60,align:'center',title : '포인트코드'},
 	    {field:'issueType',width:40,align:'center',title : '발행 타입'},
+	    {field:'useStatus',width:40,align:'center',title : '사용 상태', formatter : pointCodeIssueUseStatusFormatter},
 	    {field:'payAmount',width:40,align:'center',title : '기준 금액', formatter : numberFormatter},
 	    {field:'accPointRate',width:25,align:'center',title : '적립율', formatter : percentFormatter},
 	    {field:'accPointAmount',width:40,align:'center',title : '적립 금액', formatter : numberFormatter},
@@ -69,18 +71,8 @@ function initView(){
 	});
 	
 	
-	$('#searchDepositStatus').combobox({
-		labelPosition : 'top',
-		showItemIcon: true,
-		editable: false,
-		panelHeight: 'auto',
-		labelPosition: 'top',
-		multiple:false,
-		required:true,
-		width: 120
-	});
 
-	$('#searchStatus').combobox({
+	$('#searchUseStatus').combobox({
 		labelPosition : 'top',
 		showItemIcon: true,
 		editable: false,
@@ -106,12 +98,12 @@ function initView(){
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "year"}
-			returnp.api.call("selectPointCodeIssueRequestReports", param, function(res){
+			returnp.api.call("selectPointCodeIssueReports", param, function(res){
 				if (res.resultCode == "100") {
 					
 					if (res.rows.length < 1) {
 					}
-					setSummary(res, '연도별 포인트코드 발급요청 적립 총계');
+					setSummary(res, '연도별 포인트코드 발급 적립 총계');
 				}else {
 					$.messager.alert('오류 발생', res.message);
 				}
@@ -127,14 +119,14 @@ function initView(){
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "daily"}
-			returnp.api.call("selectPointCodeIssueRequestReports", param, function(res){
+			returnp.api.call("selectPointCodeIssueReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
 					if (res.rows.length < 1) {
 						//$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
 					
-					setSummary(res, '일별 포인트코드 발급요청 적립 총계');
+					setSummary(res, '일별 포인트코드 발급 적립 총계');
 				}else {
 					$.messager.alert('오류 발생', message);
 				}
@@ -149,7 +141,7 @@ function initView(){
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "month"}
-			returnp.api.call("selectPointCodeIssueRequestReports", param, function(res){
+			returnp.api.call("selectPointCodeIssueReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
 					
@@ -157,7 +149,7 @@ function initView(){
 						//$.messager.alert('알림', "검색 결과가 없습니다.");
 					}
 					
-					setSummary(res, '월별 포인트코드 발급요청 적립 총계');
+					setSummary(res, '월별 포인트코드 발급 적립 총계');
 				}else {
 					$.messager.alert('오류 발생', message);
 				}
@@ -185,7 +177,7 @@ function initView(){
 				var searchDateEnd = new Date(dateArr[0], dateArr[1], dateArr[2]);
 				param.searchDateEnd = searchDateEnd.getFullYear() + "-" + searchDateEnd.getMonth() + "-" + (searchDateEnd.getDate() + 1)
 			}
-			returnp.api.call("selectPeriodPointCodeIssueRequestReports", param, function(res){
+			returnp.api.call("selectPeriodPointCodeIssueReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
 					
@@ -198,9 +190,9 @@ function initView(){
 					});
 					var shStr = "";
 					if (param.searchDateStart != ''  ) {
-						shStr = '[' + param.searchDateStart + " ~ "+  oriDateEnd + "] 포인트코드 발급요청 적립 총계 :";
+						shStr = '[' + param.searchDateStart + " ~ "+  oriDateEnd + "] 포인트코드 발급 적립 총계 :";
 					}else {
-						shStr = "[전체 기간 포인트코드 발급요청 적립 총계] : "
+						shStr = "[전체 기간 포인트코드 발급 적립 총계] : "
 					}
 					setSummary(res, shStr);
 				}else {
@@ -238,7 +230,7 @@ function initView(){
 		onSelect : function(index,row){
 			$('#node_list').datagrid('loadData', []);
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
-			loadPointCodeIssueRequests(index, row);
+			loadPointCodeIssues(index, row);
 		},
 		onLoadSuccess : function(){
 			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);
@@ -278,7 +270,7 @@ function initView(){
 			 });
 
 			 var item = null;
-			 var findItemCode = "입금 상태 변경";
+			 var findItemCode = "사용 상태 변경";
 			 cmenu.menu('appendItem', {
 				 id : "pc_2",  // the parent item element
 				 text:  findItemCode,
@@ -290,106 +282,42 @@ function initView(){
 			 cmenu.menu('appendItem', {
 				 parent: item.target,  // the parent item element
 				 //iconCls: 'icon-ok',
-				 text:  row.depositStatus == "1" ? roundLabel("입금 확인중", "#04B404") : "입금 확인중",
+				 text:  row.depositStatus == "1" ? roundLabel("사용 가능", "#04B404") : "사용 가능",
 						 onclick: function(){
-							 changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, depositStatus : "1"});
+							 changePointCodeIssueStatus({pointCodeIssuetNo : row.pointCodeIssueNo, useStatus : "1"});
+						 }
+			 });
+			 
+			 item = cmenu.menu('findItem', findItemCode);  
+			 cmenu.menu('appendItem', {
+				 parent: item.target,  // the parent item element
+				 //iconCls: 'icon-ok',
+				 text:  row.depositStatus == "2" ? roundLabel("사용 중지", "#04B404") : "사용 중지",
+						 onclick: function(){
+							 changePointCodeIssueStatus({pointCodeIssuetNo : row.pointCodeIssueNo, useStatus : "2"});
+						 }
+			 });
+			 
+			 item = cmenu.menu('findItem', findItemCode);  
+			 cmenu.menu('appendItem', {
+				 parent: item.target,  // the parent item element
+				 //iconCls: 'icon-ok',
+				 text:  row.depositStatus == "3" ? roundLabel("사용 완료", "#04B404") : "사용 완료",
+						 onclick: function(){
+							 changePointCodeIssueStatus({pointCodeIssuetNo : row.pointCodeIssueNo, useStatus : "3"});
+						 }
+			 });
+			 
+			 item = cmenu.menu('findItem', findItemCode);  
+			 cmenu.menu('appendItem', {
+				 parent: item.target,  // the parent item element
+				 //iconCls: 'icon-ok',
+				 text:  row.depositStatus == "4" ? roundLabel("등록 해제", "#04B404") : "등록 해제",
+						 onclick: function(){
+							 changePointCodeIssueStatus({pointCodeIssuetNo : row.pointCodeIssueNo, useStatus : "4"});
 						 }
 			 });
 
-			 item = cmenu.menu('findItem', findItemCode);  
-			 cmenu.menu('appendItem', {
-				 parent: item.target,  // the parent item element
-				 //iconCls: 'icon-ok',
-				 text:  row.depositStatus== "2" ? roundLabel("입금확인 요청중", "#04B404") : "입금확인 요청중",
-						 onclick: function(){
-							 changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, depositStatus : "2"});
-						 }
-			 });
-
-			 item = cmenu.menu('findItem', findItemCode);  
-			 cmenu.menu('appendItem', {
-				 parent: item.target,  // the parent item element
-				 //iconCls: 'icon-ok',
-				 text:  row.depositStatus == "3" ? roundLabel("입금 완료", "#04B404") : "입금 완료",
-						 onclick: function(){
-							 changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, depositStatus : "3"});
-						 }
-			 });
-
-			 item = cmenu.menu('findItem', findItemCode);  
-			 cmenu.menu('appendItem', {
-				 parent: item.target,  // the parent item element
-				 //iconCls: 'icon-ok',
-				 text:  row.depositStatus == "4" ? roundLabel("입금 취소", "#04B404") : "입금 취소",
-						 onclick: function(){
-							 changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, depositStatus : "4"});
-						 }
-			 });
-			
-			 
-			 findItemCode = "상태 변경"
-			 cmenu.menu('appendItem', {
-				 id : "pc_2",  // the parent item element
-				 text:  findItemCode,
-				 //iconCls: 'icon-ok',
-				 onclick: function(){
-				 }
-			 });
-			 
-			 item = cmenu.menu('findItem', findItemCode);  
-			 cmenu.menu('appendItem', {
-				 parent: item.target,  // the parent item element
-				 //iconCls: 'icon-ok',
-				 text:  row.status == "1" ? roundLabel("정상", "#04B404") : "정상",
-						 onclick: function(){
-							 changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, status : "1"});
-						 }
-			 });
-			 
-			 item = cmenu.menu('findItem', findItemCode);  
-			 cmenu.menu('appendItem', {
-				 parent: item.target,  // the parent item element
-				 //iconCls: 'icon-ok',
-				 text:  row.status == "2" ? roundLabel(" 사용 중지", "#04B404") : "사용 중지",
-						 onclick: function(){
-							 changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, status : "2"});
-						 }
-			 });
-			 
-			 item = cmenu.menu('findItem', findItemCode);  
-			 cmenu.menu('appendItem', {
-				 parent: item.target,  // the parent item element
-				 //iconCls: 'icon-ok',
-				 text:  row.status == "3" ? roundLabel("등록 해제", "#04B404") : "등록 해제",
-						 onclick: function(){
-							 changeStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, status : "3"});
-						 }
-			 });
-			 
-			 item = cmenu.menu('findItem', findItemCode);  
-			 cmenu.menu('appendItem', {
-				 parent: item.target,  // the parent item element
-				 //iconCls: 'icon-ok',
-				 text:  row.status == "4" ? roundLabel("처리 불가", "#04B404") : "처리 불가",
-						 onclick: function(){
-							 changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, status : "4"});
-						 }
-			 });
-			 
-			 cmenu.menu('appendItem', { separator: true });
-			 
-			 cmenu.menu('appendItem', {
-				 id : "pc_2",  // the parent item element
-				 text:  "적립 코드 발급",
-				 //iconCls: 'icon-ok',
-				 onclick: function(){
-					 if (row.depositStatus !=  "3") {
-						 $.messager.alert('알림', "해당 요청건은 입금이 완료된 상태가 아닙니다.</br>입금 확인후 발급하시기 바랍니다.");
-						 return;
-					 }
-					 issuePointCode({pointCodeIssueRequestNo :row.pointCodeIssueRequestNo , memberNo : row.memberNo })
-				 }
-			 });
 			 cmenu.menu('show', {
 				 left:e.pageX,
 				 top:e.pageY
@@ -401,60 +329,12 @@ function initView(){
 	setListPager();
 }
 
-function loadPointCodeIssueRequests(index, row){
-	//var param = {searchDateStart : row.searchDate, searchDateEnd : row.searchDate};
-	if (typeof row.searchDate == 'undefined' || row.searchDate == '총계') {return;}
-	var param = {searchDate : row.searchDate};
-	var opts = $('#node_list').datagrid('options');
-	var total = $('#node_list').datagrid('getData').total;
-	if (index == 'pager' ){
-		$.extend(param, {
-			pagination : opts.pagination,
-			pageSize : opts.pageSize,
-			page : opts.pageNumber,
-			total : total,
-			offset : (opts.pageNumber-1) * opts.pageSize
-		});
-	}else {
-		opts.pageNumber = 1;
-		$.extend(param, {
-			pagination : opts.pagination,
-			pageSize : opts.pageSize,
-			page : opts.pageNumber,
-			total : total,
-			offset : (opts.pageNumber-1) * opts.pageSize
-		});
-	}
+function loadPointCodeIssues(index, row){
 	
-	$.extend(param, $('#searchForm').serializeObject());
-	returnp.api.call("loadPointCodeIssueRequests", param, function(res){
-		console.log(res);
-		if (res.resultCode == "100") {
-			$('#node_list').datagrid({
-				data : res,
-				title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
-			});
-			setListPager();
-		}else {
-			$.messager.alert('알림', res.message);
-		}
-	});
 }
 
-function issuePointCode(options){
-	returnp.api.call("issuePointCode", options, function(res){
-		console.log(res);
-		if (res.resultCode == "100") {
-        	var node = $('#summary_table').datagrid('getSelected');
-        	loadPointCoupons("pager", node);
-		}else {
-			$.messager.alert('알림', res.message);
-		}
-	});
-}
-
-function changePointCodeIssueRequestStatus(options){
-	returnp.api.call("changePointCodeIssueRequestStatus", options, function(res){
+function changePointCodeIssueStatus(options){
+	returnp.api.call("changePointCodeIssueStatus", options, function(res){
 		console.log(res);
 		if (res.resultCode == "100") {
         	var node = $('#summary_table').datagrid('getSelected');
@@ -637,7 +517,7 @@ function loadPointCodes(index, row){
 	}
 	
 	$.extend(param, $('#searchForm').serializeObject());
-	returnp.api.call("loadPointCodes", param, function(res){
+	returnp.api.call("loadPointCodeIssueRequests", param, function(res){
 		console.log(res);
 		if (res.resultCode == "100") {
 			$('#node_list').datagrid({
