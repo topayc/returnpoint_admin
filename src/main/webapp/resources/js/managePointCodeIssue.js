@@ -12,7 +12,8 @@ var summary_columns = [[
 var columns = [[
 	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 	   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
-	    {field:'pointCodeIssueRequestNo',width:15,align:'center',title : '번호',hidden:false},
+	    {field:'pointCodeIssueRequestNo',width:15,align:'center',title : '발행 요청 번호',hidden:true},
+	    {field:'pointCodeIssueNo',width:15,align:'center',title : '등록 번호',hidden:true},
 	    {field:'memberNo',width:15,align:'center',title : '회원 번호',hidden:true},
 	    {field:'memberName',width:50,align:'center',title : '회원 이름'},
 	    {field:'memberEmail',width:60,align:'center',title : '회원 이메일'},
