@@ -313,13 +313,13 @@
 		                            
 		                            <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePointCodeIssueRequest" menu_deps= '2' >
-		                            		<span style = "font-weight : bold; ">포인트코드 발급요청 관리</span>
+		                            		<span style = "font-weight : bold; ">포인트코드 발행 요청 관리</span>
 		                            	</a> 
 		                            </li>
 		                            
 		                            <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePointCodeIssue" menu_deps= '2' >
-		                            		<span style = "font-weight : bold; ">포인트코드 발급 관리 </span>
+		                            		<span style = "font-weight : bold; ">발행 포인트코드 관리 </span>
 		                            	</a> 
 		                            </li>
 									 <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
