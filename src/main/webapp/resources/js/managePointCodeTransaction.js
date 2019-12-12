@@ -73,7 +73,7 @@ function initView(){
 	
 	
 
-	$('#searchUseStatus').combobox({
+	$('#searchPointbackStatus').combobox({
 		labelPosition : 'top',
 		showItemIcon: true,
 		editable: false,

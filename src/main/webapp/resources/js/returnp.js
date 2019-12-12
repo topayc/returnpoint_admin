@@ -388,6 +388,13 @@ $(function () {
          	loadPointCodeIssues: {apiCode: 10000, apiPath : '/api/pointCodeIssue/get' , requestMethod: 'get'},
          	deletePointCodeIssue: {apiCode: 10000, apiPath : '/api/pointCodeIssue/delete' , requestMethod: 'post'},
          	changePointCodeIssueStatus: {apiCode: 10000, apiPath : '/api/pointCodeIssue/change' , requestMethod: 'get'},
+
+         	/*PointCodeTransaction*/
+         	selectPointCodeTransactionReports: {apiCode: 10000, apiPath : '/api/pointCodeTransaction/reports' , requestMethod: 'get'},
+         	selectPeriodPointCodeTransactionReports: {apiCode: 10000, apiPath : '/api/pointCodeTransaction/periodReports' , requestMethod: 'get'},
+         	loadPointCodeTransactions: {apiCode: 10000, apiPath : '/api/pointCodeTransaction/get' , requestMethod: 'get'},
+         	deletePointCodeTransaction: {apiCode: 10000, apiPath : '/api/pointCodeTransaction/delete' , requestMethod: 'post'},
+         	changePointCodeTransactionStatus: {apiCode: 10000, apiPath : '/api/pointCodeTransaction/change' , requestMethod: 'get'},
          	
         },
         
