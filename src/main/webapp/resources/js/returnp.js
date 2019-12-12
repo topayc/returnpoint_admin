@@ -396,6 +396,9 @@ $(function () {
          	deletePointCodeTransaction: {apiCode: 10000, apiPath : '/api/pointCodeTransaction/delete' , requestMethod: 'post'},
          	changePointCodeTransactionStatus: {apiCode: 10000, apiPath : '/api/pointCodeTransaction/change' , requestMethod: 'get'},
          	
+         	/*PointCodePointbackRecord*/
+         	selectPointCodePointbackRecords: {apiCode: 10000, apiPath : '/api/pointCoupon/pointCodePointbackRecords' , requestMethod: 'get'},
+         	
         },
         
         init : function(){

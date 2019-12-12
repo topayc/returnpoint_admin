@@ -820,4 +820,152 @@
 			limit ${pageSize} offset ${offset}
 		</if>
 	   </select>
+	   
+	   <!-- ===============================================================================================================    -->   
+	  	<!-- point_code_transaction-->
+	   <select id="selectPointCodeTransactionReports" parameterType="HashMap" resultType="HashMap">
+	   	SELECT
+			<if test = "searchType != null and searchType  =='year'" >  date_format(A.createTime, '%Y') as searchDate , </if>
+			<if test = "searchType != null and searchType  =='month'" >  date_format(A.createTime, '%Y-%m') as searchDate, </if>
+			<if test = "searchType != null and searchType  =='daily'" >  date_format(A.createTime, '%Y-%m-%d') as searchDate, </if>
+			
+			count(issueType) as totalCount,
+			sum(payAmount) as totalPayAmount,
+			sum(accPointAmount) as totalAccPointAmount
+		from point_code_transaction as A 
+		inner join point_code_issue  as B on (A.pointCodeIssueNo = B.pointCodeIssueNo)
+		inner join point_code_issue_request  as C on (B.pointCodeIssueRequestNo = C.pointCodeIssueRequestNo)
+		group by searchDate;
+	   </select>
+	   
+	   <select id="selectPeriodPointCodeTransactionReports" parameterType="HashMap" resultType="HashMap">
+	    select 
+			date_format(createTime, '%Y-%m-%d') as searchDate,
+   	 		count(payAmount) as totalCount,
+   	 		sum(payAmount) as totalPayAmount,
+			sum(accPointAmount) as totalAccPointAmount
+		from 
+		(
+			select 
+				D.memberNo,
+			    D.issueType,
+				D.issueStatus,
+				D.payAmount,
+				D.accPointRate,
+				D.accPointAmount,
+				D.accTargetRange,
+				D.depositAmount,
+				D.depositStatus,
+				D.uploadFile,
+				D.publisher,
+				D.useStartTime,
+				D.useEndTime,
+				A.createTime
+			from point_code_transaction as A 
+			inner join member  as B on (A.memberNo = B.memberNo)
+			inner join point_code_issue  as C on (A.pointCodeIssueNo = C.pointCodeIssueNo)
+			inner join point_code_issue_request  as D on (C.pointCodeIssueRequestNo = D.pointCodeIssueRequestNo)
+			where 1= 1
+				<if test = "searchDateStart != null and searchDateEnd != null  "> and (A.createTime between #{searchDateStart} and #{searchDateEnd})</if>
+				<if test = "searchPointbackStatus != null">and pointBackStatus = #{searchPointbackStatus}</if>
+				<if test="searchKeyword != null ">
+	      			AND ( memberName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR memberEmail LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) ) 
+			     </if>
+			) as A
+		group by searchDate;
+	    </select>
+	    
+	   <select id="loadPointCodeTransactions" parameterType="HashMap" resultType="HashMap">
+	    select 
+   		sql_calc_found_rows
+  		A.createTime,
+  		A.updateTime,
+  		A.pointBackStatus,
+  		
+  		B.memberName,
+   		B.memberEmail,
+   		B.memberPhone
+   		
+  		C.pointCode,
+  		C.useStatus,
+  		
+  		D.pointCodeIssueRequestNo, 
+  		D.memberNo, 
+  		D.issueType, 
+  		D.payAmount, 
+  		D.accPointRate, 
+  		D.accPointAmount, 
+    	D.accTargetRange, 
+    	D.depositAmount, 
+    	D.depositStatus, 
+    	D.uploadFile, 
+    	D.status, 
+    	D.publisher, 
+    	D.useStartTime, 
+    	D.useEndTime
+   
+	   	from point_code_transaction as A 
+		inner join member  as B on (A.memberNo = B.memberNo)
+		inner join point_code_issue  as C on (A.pointCodeIssueNo = C.pointCodeIssueNo)
+		inner join point_code_issue_request  as D on (C.pointCodeIssueRequestNo = D.pointCodeIssueRequestNo)
+	    where 
+	    	1 = 1
+	    	<if test="searchDate != null "> AND A.createTime LIKE CONCAT(#{searchDate},'%') </if>
+			<if test = "searchUseStatus!= null">and useStatus = #{searchUseStatus!=}</if>
+			<if test="searchKeyword != null ">
+      				AND ( 
+      					memberName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR 
+      					memberEmail LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR
+      					pointCode LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' )
+      				) 
+		   	  </if>
+	     <choose>
+	   	<when test="order !=null">
+			order by ${order} 
+		</when>
+		<otherwise>
+			order by createTime desc
+		</otherwise>
+		</choose>
+		<if test="pagination">
+			limit ${pageSize} offset ${offset}
+		</if>
+	   </select>
+	   
+	   <select id="selectPointCodePointbackRecords" parameterType="HashMap" resultType="HashMap">
+	   	select
+			sql_calc_found_rows 
+			B.memberNo as registerMemberNo,
+			B.memberName as registerMemberName,
+			B.memberEmail as registerMemberEmail,
+			B.memberPhone as registerMemberPhone,
+			
+			E.pointCodePointbackRecordNo, 
+			E.memberNo, 
+			E.pointCouponTransactionNo, 
+			E.nodeNo, 
+			E.nodeType, 
+		    E.accRate, 
+		    E.accPoint, 
+		    
+			D.payAmount,
+			D.issueType,
+			
+			F.memberName,
+			F.memberEmail,
+			F.memberPhone
+			
+	 	from point_code_transaction as A 
+		inner join member  as B on (A.memberNo = B.memberNo)
+		inner join point_code_issue  as C on (A.pointCodeIssueNo = C.pointCodeIssueNo)
+		inner join point_code_issue_request  as D on (C.pointCodeIssueRequestNo = D.pointCodeIssueRequestNo)
+		inner join point_code_pointback_record as E on (A.pointCodeTransactionNo= E.pointCodeTransactionNo)
+		inner join member as F on (E.memberNo= F.memberNo)
+		
+		where 1 = 1
+		   <if test="pointCoderansactionNo != null"> AND A.pointCoderansactionNo = #{pointCoderansactionNo,jdbcType=INTEGER}</if>
+		   <if test="pointCodePointbackRecordNo != null"> AND pointCodePointbackRecordNo = #{pointCodePointbackRecordNo,jdbcType=INTEGER}</if>
+		   <if test="memberNo != null"> AND memberNo = #{memberNo,jdbcType=INTEGER}</if>
+	   </select>
+	   
 </mapper>

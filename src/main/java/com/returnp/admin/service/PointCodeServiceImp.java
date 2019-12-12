@@ -218,5 +218,77 @@ public class PointCodeServiceImp implements PointCodeService{
 		}
 	}
 
+	// --------------------------------------------------------------------------------------------------------------------
+	// 포인트 코드 적립 트랜잭션 서비스 메서드 
+	// --------------------------------------------------------------------------------------------------------------------
+	
+	@Override
+	public ReturnpBaseResponse selectPointCodeTransactionReports(HashMap<String, Object> dbParams) {
+		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
+		try {
+			ArrayList<HashMap<String, Object>> pcr = this.mainMapper.selectPointCodeTransactionReports(dbParams);
+			res.setRows(pcr);
+			res.setTotal(	pcr.size());
+			ResponseUtil.setSuccessResponse(res, "100" , "조회 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "조회 에러 ");
+			return res;
+		}
+	}
+
+	@Override
+	public ReturnpBaseResponse selectPeriodPointCodeTransactionReports(HashMap<String, Object> dbParams) {
+		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
+		try {
+			ArrayList<HashMap<String, Object>> pcr = this.mainMapper.selectPeriodPointCodeTransactionReports(dbParams);
+			res.setRows(pcr);
+			res.setTotal(	pcr.size());
+			ResponseUtil.setSuccessResponse(res, "100" , "조회 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "조회 에러 ");
+			return res;
+		}
+	}
+
+	@Override
+	public ReturnpBaseResponse loadPointCodeTransactions(HashMap<String, Object> params) {
+		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
+		try {
+			ArrayList<HashMap<String, Object>> pointCodeIssues = this.mainMapper.loadPointCodeTransactions(params);
+			res.setRows(pointCodeIssues);
+			res.setTotal(	this.searchService.selectTotalRecords());
+			ResponseUtil.setSuccessResponse(res, "100" , "조회 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "서버 에러 ");
+			return res;
+		}
+	}
+
+	@Override
+	public ReturnpBaseResponse selectPointCodePointbackRecords(HashMap<String, Object> param) {
+		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
+		try {
+			ArrayList<HashMap<String, Object>> pointCodeIssues = this.mainMapper.selectPointCodePointbackRecords(param);
+			res.setRows(pointCodeIssues);
+			res.setTotal(	this.searchService.selectTotalRecords());
+			ResponseUtil.setSuccessResponse(res, "100" , "조회 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "서버 에러 ");
+			return res;
+		}
+	}
+
 
 }

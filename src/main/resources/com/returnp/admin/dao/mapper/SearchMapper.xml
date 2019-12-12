@@ -4474,6 +4474,7 @@ memberConfigNo, memberNo, devicePush, emailReceive, createTime, updateTime
 	   </select>
 	
 	  <!-- ===============================================================================================================    -->
+	  
   <!-- AffiliateTagMapper   -->
   
     <resultMap id="AffiliateTagResultMap" type="com.returnp.admin.model.AffiliateTag">

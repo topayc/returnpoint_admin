@@ -330,18 +330,6 @@ function initView(){
 				 }
 			 });
 			 
-			 if (row.useStatus == 3) {
-				 cmenu.menu('appendItem', { separator: true });
-				 cmenu.menu('appendItem', {
-					 id : "pc_10",  // the parent item element
-					 text:  "이 적립코드의 적립 내역 보기",
-					 //iconCls: 'icon-ok',
-					 onclick: function(){
-						 viewFile(row.uploadFile);
-					 }
-				 });
-			 }
-			 
 			 cmenu.menu('show', {
 				 left:e.pageX,
 				 top:e.pageY

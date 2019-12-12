@@ -33,6 +33,26 @@ var columns = [[
 	    {field:'useEndTime',width:40,align:'center',title : '사용 종료일', formatter : dateFormatter},*/
 	    {field:'createTime',width:40,align:'center',title : '등록일',formatter : dateFormatter}
 	    ]];
+
+var pointback_record_columns = [[
+	  {field:'pointCouponPointbackRecordNo',width:50,align:'center',title : '번호',hidden: true},
+	  {field:'pointCouponTransactionNo',width:50,align:'center',title : '참조 번호',hidden:true},
+	  {field:'registerMemberNo',width:60,align:'center',title : '회원 번호',hidden:true},
+	  {field:'registerMemberName',width:70,align:'center',title : '등록자 이름',hidden:false},
+	  {field:'registerMemberEmail',width:100,align:'center',title : '등록자 이메일',hidden: true},
+	  {field:'registerMemberPhone',width:80,align:'center',title : '등록자 핸드폰',hidden:false},
+	  {field:'memberNo',width:100,align:'center',title : '수취자 회원 번호',hidden  : true},
+	  {field:'memberName',width:100,align:'center',title : '수취자 이름'},
+	  {field:'memberEmail',width:150,align:'center',title : '수취자 이메일'},
+	  {field:'memberPhone',width:100,align:'center',title : '수취자 핸드폰'},
+	  {field:'payAmount',width:90,align:'center',title : '기준 금액', formatter : numberBoldFormatter},
+	  {field:'accRate',width:70,align:'center',title : '적립율'},
+	  {field:'accPoint',width:100,align:'center',title : '지급 G 포인트', formatter : numberGreenFormatter},
+	  {field:'couponType',width:100,align:'center',title : '적립 타입',formatter : pointCouponTypeFormatter},
+	  {field:'nodeNo',width:70,align:'center',title : 'nodeNo',hidden:true},
+	  {field:'createTime',width:120,align:'center',title : '등록일', formatter : dateFormatter},
+	  {field:'updateTime',width:120,align:'center',hidden:true, title : '수정일', formatter : dateFormatter},
+	  ]]
 /**
  * 뷰 초기화 
  * @returns
@@ -99,7 +119,7 @@ function initView(){
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "year"}
-			returnp.api.call("selectPointCodeIssueReports", param, function(res){
+			returnp.api.call("selectPointCodeTransactionReports", param, function(res){
 				if (res.resultCode == "100") {
 					
 					if (res.rows.length < 1) {
@@ -120,7 +140,7 @@ function initView(){
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "daily"}
-			returnp.api.call("selectPointCodeIssueReports", param, function(res){
+			returnp.api.call("selectPointCodeTransactionReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
 					if (res.rows.length < 1) {
@@ -142,7 +162,7 @@ function initView(){
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
 			var param = {searchType  : "month"}
-			returnp.api.call("selectPointCodeIssueReports", param, function(res){
+			returnp.api.call("selectPointCodeTransactionReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
 					
@@ -178,7 +198,7 @@ function initView(){
 				var searchDateEnd = new Date(dateArr[0], dateArr[1], dateArr[2]);
 				param.searchDateEnd = searchDateEnd.getFullYear() + "-" + searchDateEnd.getMonth() + "-" + (searchDateEnd.getDate() + 1)
 			}
-			returnp.api.call("selectPeriodPointCodeIssueReports", param, function(res){
+			returnp.api.call("selectPeriodPointCodeTransactionReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
 					
@@ -231,7 +251,7 @@ function initView(){
 		onSelect : function(index,row){
 			$('#node_list').datagrid('loadData', []);
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
-			loadPointCodeIssues(index, row);
+			loadPointCodeTransactions(index, row);
 		},
 		onLoadSuccess : function(){
 			//$(this).datagrid('freezeRow',0).datagrid('freezeRow',1);
@@ -271,55 +291,6 @@ function initView(){
 			 });
 
 			 var item = null;
-			 var findItemCode = "사용 상태 변경";
-			 cmenu.menu('appendItem', {
-				 id : "pc_2",  // the parent item element
-				 text:  findItemCode,
-				 //iconCls: 'icon-ok',
-				 onclick: function(){
-				 }
-			 });
-			 item = cmenu.menu('findItem', findItemCode);  
-			 cmenu.menu('appendItem', {
-				 parent: item.target,  // the parent item element
-				 //iconCls: 'icon-ok',
-				 text:  row.depositStatus == "1" ? roundLabel("사용 가능", "#04B404") : "사용 가능",
-						 onclick: function(){
-							 changePointCodeIssueStatus({pointCodeIssuetNo : row.pointCodeIssueNo, useStatus : "1"});
-						 }
-			 });
-			 
-			 item = cmenu.menu('findItem', findItemCode);  
-			 cmenu.menu('appendItem', {
-				 parent: item.target,  // the parent item element
-				 //iconCls: 'icon-ok',
-				 text:  row.depositStatus == "2" ? roundLabel("사용 중지", "#04B404") : "사용 중지",
-						 onclick: function(){
-							 changePointCodeIssueStatus({pointCodeIssuetNo : row.pointCodeIssueNo, useStatus : "2"});
-						 }
-			 });
-			 
-			 item = cmenu.menu('findItem', findItemCode);  
-			 cmenu.menu('appendItem', {
-				 parent: item.target,  // the parent item element
-				 //iconCls: 'icon-ok',
-				 text:  row.depositStatus == "3" ? roundLabel("사용 완료", "#04B404") : "사용 완료",
-						 onclick: function(){
-							 changePointCodeIssueStatus({pointCodeIssuetNo : row.pointCodeIssueNo, useStatus : "3"});
-						 }
-			 });
-			 
-			 item = cmenu.menu('findItem', findItemCode);  
-			 cmenu.menu('appendItem', {
-				 parent: item.target,  // the parent item element
-				 //iconCls: 'icon-ok',
-				 text:  row.depositStatus == "4" ? roundLabel("등록 해제", "#04B404") : "등록 해제",
-						 onclick: function(){
-							 changePointCodeIssueStatus({pointCodeIssuetNo : row.pointCodeIssueNo, useStatus : "4"});
-						 }
-			 });
-			 
-			 cmenu.menu('appendItem', { separator: true });
 			 cmenu.menu('appendItem', {
 				 id : "pc_10",  // the parent item element
 				 text:  "영수증 보기 ",
@@ -329,17 +300,15 @@ function initView(){
 				 }
 			 });
 			 
-			 if (row.useStatus == 3) {
-				 cmenu.menu('appendItem', { separator: true });
-				 cmenu.menu('appendItem', {
-					 id : "pc_10",  // the parent item element
-					 text:  "이 적립코드의 적립 내역 보기",
-					 //iconCls: 'icon-ok',
-					 onclick: function(){
-						 viewFile(row.uploadFile);
-					 }
-				 });
-			 }
+			 cmenu.menu('appendItem', {
+				 id : "pc_10",  // the parent item element
+				 text:  "세부  적립 내역 보기",
+				 //iconCls: 'icon-ok',
+				 onclick: function(){
+					 viewPointbackList();
+				 }
+			 });
+			 
 			 
 			 cmenu.menu('show', {
 				 left:e.pageX,
@@ -350,6 +319,78 @@ function initView(){
 	});
 	setListPager2();
 	setListPager();
+}
+
+
+function viewPointbackList(){
+  var node = $('#node_list').datagrid('getSelected');
+  if (!node) {
+     $.messager.alert('알림','세부 적립 리스트를 보실 적립 항목을 선택해 주세요');
+     return;
+  }
+  
+  $('#pointback_record_dlg').dialog({
+    width : 1400,
+    height : 400,
+    cache : false,
+    modal : true,
+    closable : true,
+    border : 'thick',
+    constrain : true,
+    shadow : true,
+    collapsible : false,
+    minimizable : false,
+    maximizable : false,
+    title : "&nbsp; " + "세부 적립 정보",
+    shadow : false,
+    onOpen : function(){
+    	$('#pointback_record_list').datagrid({
+    		singleSelect:true,
+    		collapsible:false,
+    		fitColumns:true,
+    		selectOnCheck : true,
+    		checkOnSelect : true,
+    		border:false,
+    		rownumbers : true,
+    		pagination: false,
+    		onLoadSuccess : function(){
+    		},  
+    		columns: pointback_record_columns
+    	});
+    
+    	  
+    	var param = {pointCodeTransactionNo : node.pointCodeTransactionNo};
+    	returnp.api .call( 'selectPointCodePointbackRecords', param, function(res) {
+    		console.log(res)
+    		if (res.resultCode == "100") {
+    			$('#pointback_record_list').datagrid('loadData', []);
+    			$('#pointback_record_list') .datagrid({ data : res.rows })
+    			var totalAccPoint= 0
+    			for (var i = 0; i < res.rows.length; i++) {
+    				totalAccPoint += parseInt(res.rows[i].accPoint);
+    			}
+    			$('#pointback_record_list') .datagrid( 'appendRow', { pointCodePointbackRecordNo : "소계", accPoint : totalAccPoint });
+    		} else {
+    			$.messager.alert('오류 발생', res.message);
+    		}
+    	});
+    },  
+    buttons : [ {
+      text : '확인',
+      iconCls : 'icon-ok',
+      handler : function() {
+        $('#pointback_record_dlg').dialog('close');
+        $('#pointback_record_dlg').removeAttr('style');
+      }
+    } /*
+     * , { text:'취소', handler:function(){
+     * $('#dlgForm').dialog('close');
+     * $('#dlgForm').removeAttr('style'); } }
+     */
+    ]
+  });
+  
+
 }
 
 function viewFile(path){
@@ -376,7 +417,7 @@ function viewFile(path){
 		});
 	}
 
-function loadPointCodeIssues(index, row){
+function loadPointCodeTransactions(index, row){
 	if (typeof row.searchDate == 'undefined' || row.searchDate == '총계') {return;}
 	var param = {searchDate : row.searchDate};
 	var opts = $('#node_list').datagrid('options');
@@ -401,7 +442,7 @@ function loadPointCodeIssues(index, row){
 	}
 	
 	$.extend(param, $('#searchForm').serializeObject());
-	returnp.api.call("loadPointCodeIssues", param, function(res){
+	returnp.api.call("loadPointCodeTransactions", param, function(res){
 		console.log(res);
 		if (res.resultCode == "100") {
 			$('#node_list').datagrid({
@@ -415,17 +456,6 @@ function loadPointCodeIssues(index, row){
 	});
 }
 
-function changePointCodeIssueStatus(options){
-	returnp.api.call("changePointCodeIssueStatus", options, function(res){
-		console.log(res);
-		if (res.resultCode == "100") {
-        	var node = $('#summary_table').datagrid('getSelected');
-        	loadPointCoupons("pager", node);
-		}else {
-			$.messager.alert('알림', res.message);
-		}
-	});
-}
 
 
 function setListPager2(){
@@ -571,46 +601,6 @@ function setListPager(){
         	loadPointCouponTransactions("pager", node);
     	}
     }); 
-}
-
-function loadPointCodes(index, row){
-	//var param = {searchDateStart : row.searchDate, searchDateEnd : row.searchDate};
-	if (typeof row.searchDate == 'undefined' || row.searchDate == '총계') {return;}
-	var param = {searchDate : row.searchDate};
-	var opts = $('#node_list').datagrid('options');
-	var total = $('#node_list').datagrid('getData').total;
-	if (index == 'pager' ){
-		$.extend(param, {
-			pagination : opts.pagination,
-			pageSize : opts.pageSize,
-			page : opts.pageNumber,
-			total : total,
-			offset : (opts.pageNumber-1) * opts.pageSize
-		});
-	}else {
-		opts.pageNumber = 1;
-		$.extend(param, {
-			pagination : opts.pagination,
-			pageSize : opts.pageSize,
-			page : opts.pageNumber,
-			total : total,
-			offset : (opts.pageNumber-1) * opts.pageSize
-		});
-	}
-	
-	$.extend(param, $('#searchForm').serializeObject());
-	returnp.api.call("loadPointCodeIssueRequests", param, function(res){
-		console.log(res);
-		if (res.resultCode == "100") {
-			$('#node_list').datagrid({
-				data : res,
-				title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
-			});
-			setListPager();
-		}else {
-			$.messager.alert('오류 발생', message);
-		}
-	});
 }
 
 function setSummary(res, str){

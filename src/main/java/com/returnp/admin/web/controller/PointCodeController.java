@@ -111,6 +111,37 @@ public class PointCodeController extends ApplicationController{
 			return this.pointCodeService.chanagePointCodeIssueStatus(pointCodeIssue);
 		}
 	}
+
+	// --------------------------------------------------------------------------------------------------------------------
+	// 포인트 코드 적립 트랜잭션 컨트롤러 메서드 
+	// --------------------------------------------------------------------------------------------------------------------
+	
+	@ResponseBody
+	@RequestMapping(value = "/pointCodeTransaction/reports", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectPointCodeTransactionReports(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
+		return this.pointCodeService.selectPointCodeTransactionReports(dbParams);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/pointCodeTransaction/periodReports", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectPeriodPointCodeTransactionReports(@RequestParam HashMap<String, Object> dbParams) {
+		this.checkParameter(dbParams);
+		return this.pointCodeService.selectPeriodPointCodeTransactionReports(dbParams);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/pointCodeTransaction/get", method = RequestMethod.POST)
+	public ReturnpBaseResponse  loadPointCodeTransactions(@RequestParam HashMap<String, Object> params) {
+		return this.pointCodeService.loadPointCodeTransactions(params);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/pointCoupon/pointCodePointbackRecords", method = RequestMethod.GET)
+	public ReturnpBaseResponse  selectPointCodePointbackRecords(@RequestParam HashMap<String, Object> param) {
+		this.checkParameter(param);
+		return this.pointCodeService.selectPointCodePointbackRecords(param);
+	}
 	
 	private HashMap<String, Object> checkParameter(HashMap<String, Object> params){
 		for (Map.Entry<String, Object> entry : params.entrySet()) {
@@ -125,9 +156,6 @@ public class PointCodeController extends ApplicationController{
 		return params;
 	}
 	
-	// --------------------------------------------------------------------------------------------------------------------
-		//  발급된 포인트 코드 
-		// --------------------------------------------------------------------------------------------------------------------
 
 	
 }

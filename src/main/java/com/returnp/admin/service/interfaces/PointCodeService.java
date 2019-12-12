@@ -37,5 +37,13 @@ public interface PointCodeService {
 
 	ReturnpBaseResponse chanagePointCodeIssueStatus(PointCodeIssue pointCodeIssue);
 
+	ReturnpBaseResponse selectPointCodeTransactionReports(HashMap<String, Object> dbParams);
+
+	ReturnpBaseResponse selectPeriodPointCodeTransactionReports(HashMap<String, Object> dbParams);
+
+	ReturnpBaseResponse loadPointCodeTransactions(HashMap<String, Object> params);
+
+	ReturnpBaseResponse selectPointCodePointbackRecords(HashMap<String, Object> param);
+
 
 }
