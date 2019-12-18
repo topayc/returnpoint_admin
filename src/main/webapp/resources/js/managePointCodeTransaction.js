@@ -4,7 +4,7 @@ var summary_columns = [[
 	    {field:'totalCount',width:10,align:'center',title : '요청 건수 ', formatter : numberFormatter},
 	    {field:'totalPayAmount',width:20,align:'center',title : '기준 금액 소계', formatter : numberFormatter},
 	    {field:'totalAccPointAmount',width:20,align:'center',title : '적립 금액 소계', formatter : numberFormatter},
-	    {field:'totalAccPointAmount',width:20,align:'center',title : '입금 금액 소계', formatter : numberFormatter},
+	    {field:'totalDepositAmount',width:20,align:'center',title : '입금 금액 소계', formatter : numberFormatter},
 	    {field:'ss1',width:40,align:'center',title : '비고'},
 	 ]];
 
@@ -609,6 +609,8 @@ function setSummary(res, str){
 	var totalCount = 0;
 	var totalPayAmount = 0
 	var totalAccPointAmount = 0; 
+	var totalDepositAmount = 0; 
+	totalDepositAmount+=parseFloat(res.rows[i].totalDepositAmount);
 	for (var i = 0; i < res.rows.length; i++) {
 		totalCount+=parseInt(res.rows[i].totalCount);
 		totalPayAmount += parseFloat(res.rows[i].totalPayAmount);
@@ -619,7 +621,7 @@ function setSummary(res, str){
 	});
 	$('#summary_table') .datagrid( 
 		'appendRow', 
-		{ searchDate : "총계", totalCount : totalCount, totalPayAmount : totalPayAmount , totalAccPointAmount :  totalAccPointAmount });
+		{ searchDate : "총계", totalCount : totalCount, totalPayAmount : totalPayAmount , totalAccPointAmount :  totalAccPointAmount,totalDepositAmount : totalDepositAmount  });
 	setListPager2();
 }
 /**

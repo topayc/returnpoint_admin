@@ -836,7 +836,8 @@
 			
 			count(issueType) as totalCount,
 			sum(A.payAmount) as totalPayAmount,
-			sum(A.accPointAmount) as totalAccPointAmount
+			sum(A.accPointAmount) as totalAccPointAmount,
+			sum(C.depositAmount) as totalDepositAmount
 		from point_code_transaction as A 
 		inner join point_code_issue  as B on (A.pointCodeIssueNo = B.pointCodeIssueNo)
 		inner join point_code_issue_request  as C on (B.pointCodeIssueRequestNo = C.pointCodeIssueRequestNo)
@@ -848,7 +849,8 @@
 			date_format(createTime, '%Y-%m-%d') as searchDate,
    	 		count(payAmount) as totalCount,
    	 		sum(payAmount) as totalPayAmount,
-			sum(accPointAmount) as totalAccPointAmount
+			sum(accPointAmount) as totalAccPointAmount,
+			sum(depositAmount) as totalDepositAmount
 		from 
 		(
 			select 
@@ -862,6 +864,7 @@
 				D.depositBankAccount, 
     			D.depositRate, 
 				D.uploadFile,
+				D.depositAmount,
 				D.publisher,
 				D.useStartTime,
 				D.useEndTime,
