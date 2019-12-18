@@ -741,8 +741,8 @@
 			<if test = "searchType != null and searchType  =='daily'" >  date_format(A.createTime, '%Y-%m-%d') as searchDate, </if>
 			
 			count(issueType) as totalCount,
-			sum(payAmount) as totalPayAmount,
-			sum(accPointAmount) as totalAccPointAmount
+			sum(A.payAmount) as totalPayAmount,
+			sum(A.accPointAmount) as totalAccPointAmount
 		from point_code_issue as A 
 		inner join point_code_issue_request as B on (A.pointCodeIssueRequestNo = B.pointCodeIssueRequestNo)
 		group by searchDate;
@@ -830,8 +830,8 @@
 			<if test = "searchType != null and searchType  =='daily'" >  date_format(A.createTime, '%Y-%m-%d') as searchDate, </if>
 			
 			count(issueType) as totalCount,
-			sum(payAmount) as totalPayAmount,
-			sum(accPointAmount) as totalAccPointAmount
+			sum(A.payAmount) as totalPayAmount,
+			sum(A.accPointAmount) as totalAccPointAmount
 		from point_code_transaction as A 
 		inner join point_code_issue  as B on (A.pointCodeIssueNo = B.pointCodeIssueNo)
 		inner join point_code_issue_request  as C on (B.pointCodeIssueRequestNo = C.pointCodeIssueRequestNo)
@@ -856,6 +856,8 @@
 				D.accTargetRange,
 				D.depositAmount,
 				D.depositStatus,
+				D.depositBankAccount, 
+    			D.depositRate, 
 				D.uploadFile,
 				D.publisher,
 				D.useStartTime,
@@ -898,6 +900,8 @@
     	D.accTargetRange, 
     	D.depositAmount, 
     	D.depositStatus, 
+    	D.depositBankAccount, 
+    	D.depositRate, 
     	D.uploadFile, 
     	D.status, 
     	D.publisher, 

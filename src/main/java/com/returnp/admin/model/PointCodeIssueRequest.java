@@ -22,9 +22,13 @@ public class PointCodeIssueRequest extends QueryCondition {
 
     private Float depositAmount;
 
+    private Float depositRate;
+
     private String depositStatus;
 
     private String uploadFile;
+
+    private String depositBankAccount;
 
     private String status;
 
@@ -110,6 +114,14 @@ public class PointCodeIssueRequest extends QueryCondition {
         this.depositAmount = depositAmount;
     }
 
+    public Float getDepositRate() {
+        return depositRate;
+    }
+
+    public void setDepositRate(Float depositRate) {
+        this.depositRate = depositRate;
+    }
+
     public String getDepositStatus() {
         return depositStatus;
     }
@@ -124,6 +136,14 @@ public class PointCodeIssueRequest extends QueryCondition {
 
     public void setUploadFile(String uploadFile) {
         this.uploadFile = uploadFile == null ? null : uploadFile.trim();
+    }
+
+    public String getDepositBankAccount() {
+        return depositBankAccount;
+    }
+
+    public void setDepositBankAccount(String depositBankAccount) {
+        this.depositBankAccount = depositBankAccount == null ? null : depositBankAccount.trim();
     }
 
     public String getStatus() {

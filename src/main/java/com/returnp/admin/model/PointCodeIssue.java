@@ -16,6 +16,12 @@ public class PointCodeIssue extends QueryCondition {
 
     private String useStatus;
 
+    private Integer payAmount;
+
+    private Float accPointRate;
+
+    private Float accPointAmount;
+
     private Date createTime;
 
     private Date updateTime;
@@ -66,6 +72,30 @@ public class PointCodeIssue extends QueryCondition {
 
     public void setUseStatus(String useStatus) {
         this.useStatus = useStatus == null ? null : useStatus.trim();
+    }
+
+    public Integer getPayAmount() {
+        return payAmount;
+    }
+
+    public void setPayAmount(Integer payAmount) {
+        this.payAmount = payAmount;
+    }
+
+    public Float getAccPointRate() {
+        return accPointRate;
+    }
+
+    public void setAccPointRate(Float accPointRate) {
+        this.accPointRate = accPointRate;
+    }
+
+    public Float getAccPointAmount() {
+        return accPointAmount;
+    }
+
+    public void setAccPointAmount(Float accPointAmount) {
+        this.accPointAmount = accPointAmount;
     }
 
     public Date getCreateTime() {
