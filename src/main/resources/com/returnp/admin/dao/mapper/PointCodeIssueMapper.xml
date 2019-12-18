@@ -6,7 +6,6 @@
     <result column="pointCodeIssueRequestNo" jdbcType="INTEGER" property="pointCodeIssueRequestNo" />
     <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
     <result column="pointCode" jdbcType="VARCHAR" property="pointCode" />
-    <result column="pointBackStatus" jdbcType="VARCHAR" property="pointBackStatus" />
     <result column="useStatus" jdbcType="VARCHAR" property="useStatus" />
     <result column="payAmount" jdbcType="INTEGER" property="payAmount" />
     <result column="accPointRate" jdbcType="REAL" property="accPointRate" />
@@ -15,8 +14,8 @@
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    pointCodeIssueNo, pointCodeIssueRequestNo, memberNo, pointCode, pointBackStatus, 
-    useStatus, payAmount, accPointRate, accPointAmount, createTime, updateTime
+    pointCodeIssueNo, pointCodeIssueRequestNo, memberNo, pointCode, useStatus, payAmount, 
+    accPointRate, accPointAmount, createTime, updateTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -30,15 +29,17 @@
   </delete>
   <insert id="insert" parameterType="com.returnp.admin.model.PointCodeIssue">
     insert into point_code_issue (pointCodeIssueNo, pointCodeIssueRequestNo, 
-      memberNo, pointCode, pointBackStatus, 
-      useStatus, payAmount, accPointRate, 
-      accPointAmount, createTime, updateTime
-      )
+      memberNo, pointCode, useStatus, 
+      payAmount, accPointRate, accPointAmount, 
+      createTime, updateTime)
     values (#{pointCodeIssueNo,jdbcType=INTEGER}, #{pointCodeIssueRequestNo,jdbcType=INTEGER}, 
-      #{memberNo,jdbcType=INTEGER}, #{pointCode,jdbcType=VARCHAR}, #{pointBackStatus,jdbcType=VARCHAR}, 
-      #{useStatus,jdbcType=VARCHAR}, #{payAmount,jdbcType=INTEGER}, #{accPointRate,jdbcType=REAL}, 
-      #{accPointAmount,jdbcType=REAL}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+      #{memberNo,jdbcType=INTEGER}, #{pointCode,jdbcType=VARCHAR}, #{useStatus,jdbcType=VARCHAR}, 
+      #{payAmount,jdbcType=INTEGER}, #{accPointRate,jdbcType=REAL}, #{accPointAmount,jdbcType=REAL}, 
+      NOW(), NOW())
+      
+        <selectKey keyProperty="pointCodeIssueNo" resultType="java.lang.Integer" order ="AFTER">
+		    SELECT LAST_INSERT_ID()
+	 </selectKey>	
   </insert>
   <insert id="insertSelective" parameterType="com.returnp.admin.model.PointCodeIssue">
     insert into point_code_issue
@@ -54,9 +55,6 @@
       </if>
       <if test="pointCode != null">
         pointCode,
-      </if>
-      <if test="pointBackStatus != null">
-        pointBackStatus,
       </if>
       <if test="useStatus != null">
         useStatus,
@@ -90,9 +88,6 @@
       <if test="pointCode != null">
         #{pointCode,jdbcType=VARCHAR},
       </if>
-      <if test="pointBackStatus != null">
-        #{pointBackStatus,jdbcType=VARCHAR},
-      </if>
       <if test="useStatus != null">
         #{useStatus,jdbcType=VARCHAR},
       </if>
@@ -125,9 +120,6 @@
       <if test="pointCode != null">
         pointCode = #{pointCode,jdbcType=VARCHAR},
       </if>
-      <if test="pointBackStatus != null">
-        pointBackStatus = #{pointBackStatus,jdbcType=VARCHAR},
-      </if>
       <if test="useStatus != null">
         useStatus = #{useStatus,jdbcType=VARCHAR},
       </if>
@@ -154,13 +146,12 @@
     set pointCodeIssueRequestNo = #{pointCodeIssueRequestNo,jdbcType=INTEGER},
       memberNo = #{memberNo,jdbcType=INTEGER},
       pointCode = #{pointCode,jdbcType=VARCHAR},
-      pointBackStatus = #{pointBackStatus,jdbcType=VARCHAR},
       useStatus = #{useStatus,jdbcType=VARCHAR},
       payAmount = #{payAmount,jdbcType=INTEGER},
       accPointRate = #{accPointRate,jdbcType=REAL},
       accPointAmount = #{accPointAmount,jdbcType=REAL},
       createTime = #{createTime,jdbcType=TIMESTAMP},
-      updateTime = #{updateTime,jdbcType=TIMESTAMP}
+      updateTime = NOW()
     where pointCodeIssueNo = #{pointCodeIssueNo,jdbcType=INTEGER}
   </update>
 </mapper>

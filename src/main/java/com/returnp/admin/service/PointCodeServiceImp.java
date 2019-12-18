@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.google.firebase.auth.internal.GetAccountInfoResponse;
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.common.ReturnpException;
@@ -120,13 +121,18 @@ public class PointCodeServiceImp implements PointCodeService{
 			}
 			
 			/*발급상태로 변경*/
-			req.setIssueStatus("1");
+			req.setStatus("4");
 			this.pointCodeIssueRequestMapper.updateByPrimaryKey(req);
 			
 			/*포인트 코드 발급 및 insert*/
 			pointCodeIssue.setPointCode(CodeGenerator.genPointCode());
 			pointCodeIssue.setUseStatus("1");
+			pointCodeIssue.setPayAmount(req.getPayAmount());
+			pointCodeIssue.setAccPointAmount(req.getAccPointAmount());
+			pointCodeIssue.setAccPointRate(req.getAccPointRate());
+			pointCodeIssue.setMemberNo(req.getMemberNo());
 			this.pointCodeIssueMapper.insert(pointCodeIssue);
+			
 			ResponseUtil.setSuccessResponse(res, "100" , "발급 성공");
 			return res;
 		}catch(Exception e) {

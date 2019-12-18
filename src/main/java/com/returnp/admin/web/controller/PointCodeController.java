@@ -47,8 +47,9 @@ public class PointCodeController extends ApplicationController{
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/pointCodeIssueRequest/get", method = RequestMethod.POST)
+	@RequestMapping(value = "/pointCodeIssueRequest/get", method = RequestMethod.GET)
 	public ReturnpBaseResponse  loadPointCodeIssueRequests(@RequestParam HashMap<String, Object> params) {
+		this.checkParameter(params);
 		return this.pointCodeService.loadPointCodeIssueRequests(params);
 	}
 
@@ -93,8 +94,9 @@ public class PointCodeController extends ApplicationController{
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/pointCodeIssue/get", method = RequestMethod.POST)
+	@RequestMapping(value = "/pointCodeIssue/get", method = RequestMethod.GET)
 	public ReturnpBaseResponse  loadPointCodeIssues(@RequestParam HashMap<String, Object> params) {
+		this.checkParameter(params);
 		return this.pointCodeService.loadPointCodeIssues(params);
 	}
 	
@@ -133,6 +135,7 @@ public class PointCodeController extends ApplicationController{
 	@ResponseBody
 	@RequestMapping(value = "/pointCodeTransaction/get", method = RequestMethod.POST)
 	public ReturnpBaseResponse  loadPointCodeTransactions(@RequestParam HashMap<String, Object> params) {
+		this.checkParameter(params);
 		return this.pointCodeService.loadPointCodeTransactions(params);
 	}
 	

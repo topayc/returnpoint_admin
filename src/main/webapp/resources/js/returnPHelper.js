@@ -29,6 +29,14 @@ function issueStatusFormatter(value){
 	return result;
 }
 
+function issueTypeFormatter(value){
+	switch (value) {
+	case "1": result = "영수증"; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
 function pointCodeIssueUseStatusFormatter(value){
 	switch (value) {
 	case "1": result = '<span style = "font-weight : bold" >' + roundLabel("사용 가능", '#04B404') + ' </span>'; break;
@@ -41,10 +49,12 @@ function pointCodeIssueUseStatusFormatter(value){
 }
 function pointCodeIssuerequestStatusFormatter(value){
 	switch (value) {
-	case "1": result = '<span style = "font-weight : bold" >' + roundLabel("정상", '#04B404') + ' </span>'; break;
-	case "2": result = '<span style = "font-weight : bold" >' + roundLabel("중지", '#FF4000') + ' </span>'; break;
-	case "3": result = '<span style = "font-weight : bold" >' + roundLabel("등록해제", '#01A9DB') + ' </span>'; break;
-	case "3": result = '<span style = "font-weight : bold" >' + roundLabel("처리불가", '#01A9DB') + ' </span>'; break;
+	case "1": result = '<span style = "font-weight : bold" >' + roundLabel("입금확인중", '#DF0101') + ' </span>'; break;
+	case "2": result = '<span style = "font-weight : bold" >' + roundLabel("입금확인 요청중", '#BF00FF') + ' </span>'; break;
+	case "3": result = '<span style = "font-weight : bold" >' + roundLabel("입금완료", '#4000FF') + ' </span>'; break;
+	case "4": result = '<span style = "font-weight : bold" >' + roundLabel("처리완료", '#04B404') + ' </span>'; break;
+	case "5": result = '<span style = "font-weight : bold" >' + roundLabel("입금취소", '#FF8000') + ' </span>'; break;
+	case "6": result = '<span style = "font-weight : bold" >' + roundLabel("처리불가", '#6E6E6E') + ' </span>'; break;
 	default: result = "-"; break;
 	}
 	return result;

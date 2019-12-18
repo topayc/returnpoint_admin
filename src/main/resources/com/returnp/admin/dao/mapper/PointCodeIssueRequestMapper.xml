@@ -5,14 +5,12 @@
     <id column="pointCodeIssueRequestNo" jdbcType="INTEGER" property="pointCodeIssueRequestNo" />
     <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
     <result column="issueType" jdbcType="VARCHAR" property="issueType" />
-    <result column="issueStatus" jdbcType="VARCHAR" property="issueStatus" />
     <result column="payAmount" jdbcType="INTEGER" property="payAmount" />
     <result column="accPointRate" jdbcType="REAL" property="accPointRate" />
     <result column="accPointAmount" jdbcType="REAL" property="accPointAmount" />
     <result column="accTargetRange" jdbcType="VARCHAR" property="accTargetRange" />
     <result column="depositAmount" jdbcType="REAL" property="depositAmount" />
     <result column="depositRate" jdbcType="REAL" property="depositRate" />
-    <result column="depositStatus" jdbcType="VARCHAR" property="depositStatus" />
     <result column="uploadFile" jdbcType="VARCHAR" property="uploadFile" />
     <result column="depositBankAccount" jdbcType="VARCHAR" property="depositBankAccount" />
     <result column="status" jdbcType="VARCHAR" property="status" />
@@ -23,9 +21,9 @@
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    pointCodeIssueRequestNo, memberNo, issueType, issueStatus, payAmount, accPointRate, 
-    accPointAmount, accTargetRange, depositAmount, depositRate, depositStatus, uploadFile, 
-    depositBankAccount, status, publisher, useStartTime, useEndTime, createTime, updateTime
+    pointCodeIssueRequestNo, memberNo, issueType, payAmount, accPointRate, accPointAmount, 
+    accTargetRange, depositAmount, depositRate, uploadFile, depositBankAccount, status, 
+    publisher, useStartTime, useEndTime, createTime, updateTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -39,19 +37,23 @@
   </delete>
   <insert id="insert" parameterType="com.returnp.admin.model.PointCodeIssueRequest">
     insert into point_code_issue_request (pointCodeIssueRequestNo, memberNo, 
-      issueType, issueStatus, payAmount, 
-      accPointRate, accPointAmount, accTargetRange, 
-      depositAmount, depositRate, depositStatus, 
-      uploadFile, depositBankAccount, status, 
-      publisher, useStartTime, useEndTime, 
-      createTime, updateTime)
+      issueType, payAmount, accPointRate, 
+      accPointAmount, accTargetRange, depositAmount, 
+      depositRate, uploadFile, depositBankAccount, 
+      status, publisher, useStartTime, 
+      useEndTime, createTime, updateTime
+      )
     values (#{pointCodeIssueRequestNo,jdbcType=INTEGER}, #{memberNo,jdbcType=INTEGER}, 
-      #{issueType,jdbcType=VARCHAR}, #{issueStatus,jdbcType=VARCHAR}, #{payAmount,jdbcType=INTEGER}, 
-      #{accPointRate,jdbcType=REAL}, #{accPointAmount,jdbcType=REAL}, #{accTargetRange,jdbcType=VARCHAR}, 
-      #{depositAmount,jdbcType=REAL}, #{depositRate,jdbcType=REAL}, #{depositStatus,jdbcType=VARCHAR}, 
-      #{uploadFile,jdbcType=VARCHAR}, #{depositBankAccount,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{publisher,jdbcType=VARCHAR}, #{useStartTime,jdbcType=TIMESTAMP}, #{useEndTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{issueType,jdbcType=VARCHAR}, #{payAmount,jdbcType=INTEGER}, #{accPointRate,jdbcType=REAL}, 
+      #{accPointAmount,jdbcType=REAL}, #{accTargetRange,jdbcType=VARCHAR}, #{depositAmount,jdbcType=REAL}, 
+      #{depositRate,jdbcType=REAL}, #{uploadFile,jdbcType=VARCHAR}, #{depositBankAccount,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{publisher,jdbcType=VARCHAR}, #{useStartTime,jdbcType=TIMESTAMP}, 
+      #{useEndTime,jdbcType=TIMESTAMP}, NOW(), NOW()
+      )
+      
+      <selectKey keyProperty="pointCodeIssueRequestNo" resultType="java.lang.Integer" order ="AFTER">
+		    SELECT LAST_INSERT_ID()
+	 </selectKey>	
   </insert>
   <insert id="insertSelective" parameterType="com.returnp.admin.model.PointCodeIssueRequest">
     insert into point_code_issue_request
@@ -64,9 +66,6 @@
       </if>
       <if test="issueType != null">
         issueType,
-      </if>
-      <if test="issueStatus != null">
-        issueStatus,
       </if>
       <if test="payAmount != null">
         payAmount,
@@ -85,9 +84,6 @@
       </if>
       <if test="depositRate != null">
         depositRate,
-      </if>
-      <if test="depositStatus != null">
-        depositStatus,
       </if>
       <if test="uploadFile != null">
         uploadFile,
@@ -124,9 +120,6 @@
       <if test="issueType != null">
         #{issueType,jdbcType=VARCHAR},
       </if>
-      <if test="issueStatus != null">
-        #{issueStatus,jdbcType=VARCHAR},
-      </if>
       <if test="payAmount != null">
         #{payAmount,jdbcType=INTEGER},
       </if>
@@ -144,9 +137,6 @@
       </if>
       <if test="depositRate != null">
         #{depositRate,jdbcType=REAL},
-      </if>
-      <if test="depositStatus != null">
-        #{depositStatus,jdbcType=VARCHAR},
       </if>
       <if test="uploadFile != null">
         #{uploadFile,jdbcType=VARCHAR},
@@ -183,9 +173,6 @@
       <if test="issueType != null">
         issueType = #{issueType,jdbcType=VARCHAR},
       </if>
-      <if test="issueStatus != null">
-        issueStatus = #{issueStatus,jdbcType=VARCHAR},
-      </if>
       <if test="payAmount != null">
         payAmount = #{payAmount,jdbcType=INTEGER},
       </if>
@@ -203,9 +190,6 @@
       </if>
       <if test="depositRate != null">
         depositRate = #{depositRate,jdbcType=REAL},
-      </if>
-      <if test="depositStatus != null">
-        depositStatus = #{depositStatus,jdbcType=VARCHAR},
       </if>
       <if test="uploadFile != null">
         uploadFile = #{uploadFile,jdbcType=VARCHAR},
@@ -238,14 +222,12 @@
     update point_code_issue_request
     set memberNo = #{memberNo,jdbcType=INTEGER},
       issueType = #{issueType,jdbcType=VARCHAR},
-      issueStatus = #{issueStatus,jdbcType=VARCHAR},
       payAmount = #{payAmount,jdbcType=INTEGER},
       accPointRate = #{accPointRate,jdbcType=REAL},
       accPointAmount = #{accPointAmount,jdbcType=REAL},
       accTargetRange = #{accTargetRange,jdbcType=VARCHAR},
       depositAmount = #{depositAmount,jdbcType=REAL},
       depositRate = #{depositRate,jdbcType=REAL},
-      depositStatus = #{depositStatus,jdbcType=VARCHAR},
       uploadFile = #{uploadFile,jdbcType=VARCHAR},
       depositBankAccount = #{depositBankAccount,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
@@ -253,7 +235,7 @@
       useStartTime = #{useStartTime,jdbcType=TIMESTAMP},
       useEndTime = #{useEndTime,jdbcType=TIMESTAMP},
       createTime = #{createTime,jdbcType=TIMESTAMP},
-      updateTime = #{updateTime,jdbcType=TIMESTAMP}
+      updateTime = NOW()
     where pointCodeIssueRequestNo = #{pointCodeIssueRequestNo,jdbcType=INTEGER}
   </update>
 </mapper>

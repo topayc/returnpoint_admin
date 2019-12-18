@@ -661,7 +661,8 @@
 			
 			count(issueType) as totalCount,
 			sum(payAmount) as totalPayAmount,
-			sum(accPointAmount) as totalAccPointAmount
+			sum(accPointAmount) as totalAccPointAmount,
+			sum(depositAmount) as totalDepositAmount
 		from point_code_issue_request  group by searchDate;
 	   </select>
 	   
@@ -670,7 +671,8 @@
 			date_format(A.createTime, '%Y-%m-%d') as searchDate,
    	 		count(A.payAmount) as totalCount,
    	 		sum(A.payAmount) as totalPayAmount,
-			sum(A.accPointAmount) as totalAccPointAmount
+			sum(A.accPointAmount) as totalAccPointAmount,
+			sum(A.depositAmount) as totalDepositAmount
 		from 
 		(
 			 select A.*, M.memberName, M.memberEmail
@@ -698,12 +700,12 @@
   		A.accPointAmount, 
     	A.accTargetRange, 
     	A.depositAmount, 
-    	A.depositStatus, 
     	A.uploadFile, 
     	A.status, 
     	A.publisher, 
     	A.useStartTime, 
     	A.useEndTime, 
+    	A.createTime, 
     	
     	B.memberName,
    		B.memberEmail,
@@ -742,7 +744,8 @@
 			
 			count(issueType) as totalCount,
 			sum(A.payAmount) as totalPayAmount,
-			sum(A.accPointAmount) as totalAccPointAmount
+			sum(A.accPointAmount) as totalAccPointAmount,
+			sum(B.depositAmount) as totalDepositAmount
 		from point_code_issue as A 
 		inner join point_code_issue_request as B on (A.pointCodeIssueRequestNo = B.pointCodeIssueRequestNo)
 		group by searchDate;
@@ -753,10 +756,11 @@
 			date_format(createTime, '%Y-%m-%d') as searchDate,
    	 		count(payAmount) as totalCount,
    	 		sum(payAmount) as totalPayAmount,
-			sum(accPointAmount) as totalAccPointAmount
+			sum(accPointAmount) as totalAccPointAmount,
+			sum(depositAmount) as totalDepositAmount
 		from 
 		(
-			 select B.*,A.useStatus
+			 select B.*,A.useStatus, A.pointCodeIssueNo
 			 from point_code_issue as A 
 			 inner join point_code_issue_request as B on (A.pointCodeIssueRequestNo = B.pointCodeIssueRequestNo)
 			 where 1= 1
@@ -773,6 +777,7 @@
 	    select 
    		sql_calc_found_rows
   		A.pointCode,
+  		A.pointCodeIssueNo,
   		A.useStatus,
   		
   		B.pointCodeIssueRequestNo, 
@@ -783,12 +788,12 @@
   		B.accPointAmount, 
     	B.accTargetRange, 
     	B.depositAmount, 
-    	B.depositStatus, 
     	B.uploadFile, 
     	B.status, 
     	B.publisher, 
     	B.useStartTime, 
     	B.useEndTime, 
+    	A.createTime,
     	
     	C.memberName,
    		C.memberEmail,
@@ -849,13 +854,11 @@
 			select 
 				D.memberNo,
 			    D.issueType,
-				D.issueStatus,
 				D.payAmount,
 				D.accPointRate,
 				D.accPointAmount,
 				D.accTargetRange,
 				D.depositAmount,
-				D.depositStatus,
 				D.depositBankAccount, 
     			D.depositRate, 
 				D.uploadFile,

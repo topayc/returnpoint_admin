@@ -10,8 +10,6 @@ public class PointCodeIssueRequest extends QueryCondition {
 
     private String issueType;
 
-    private String issueStatus;
-
     private Integer payAmount;
 
     private Float accPointRate;
@@ -23,8 +21,6 @@ public class PointCodeIssueRequest extends QueryCondition {
     private Float depositAmount;
 
     private Float depositRate;
-
-    private String depositStatus;
 
     private String uploadFile;
 
@@ -64,14 +60,6 @@ public class PointCodeIssueRequest extends QueryCondition {
 
     public void setIssueType(String issueType) {
         this.issueType = issueType == null ? null : issueType.trim();
-    }
-
-    public String getIssueStatus() {
-        return issueStatus;
-    }
-
-    public void setIssueStatus(String issueStatus) {
-        this.issueStatus = issueStatus == null ? null : issueStatus.trim();
     }
 
     public Integer getPayAmount() {
@@ -120,14 +108,6 @@ public class PointCodeIssueRequest extends QueryCondition {
 
     public void setDepositRate(Float depositRate) {
         this.depositRate = depositRate;
-    }
-
-    public String getDepositStatus() {
-        return depositStatus;
-    }
-
-    public void setDepositStatus(String depositStatus) {
-        this.depositStatus = depositStatus == null ? null : depositStatus.trim();
     }
 
     public String getUploadFile() {

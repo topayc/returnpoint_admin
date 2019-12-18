@@ -12,8 +12,6 @@ public class PointCodeIssue extends QueryCondition {
 
     private String pointCode;
 
-    private String pointBackStatus;
-
     private String useStatus;
 
     private Integer payAmount;
@@ -56,14 +54,6 @@ public class PointCodeIssue extends QueryCondition {
 
     public void setPointCode(String pointCode) {
         this.pointCode = pointCode == null ? null : pointCode.trim();
-    }
-
-    public String getPointBackStatus() {
-        return pointBackStatus;
-    }
-
-    public void setPointBackStatus(String pointBackStatus) {
-        this.pointBackStatus = pointBackStatus == null ? null : pointBackStatus.trim();
     }
 
     public String getUseStatus() {

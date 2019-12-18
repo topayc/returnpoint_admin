@@ -4,7 +4,7 @@ var summary_columns = [[
 	    {field:'totalCount',width:10,align:'center',title : '요청 건수 ', formatter : numberFormatter},
 	    {field:'totalPayAmount',width:20,align:'center',title : '기준 금액 소계', formatter : numberFormatter},
 	    {field:'totalAccPointAmount',width:20,align:'center',title : '적립 금액 소계', formatter : numberFormatter},
-	    {field:'totalAccPointAmount',width:20,align:'center',title : '입금 금액 소계', formatter : numberFormatter},
+	    {field:'totalDepositAmount',width:20,align:'center',title : '입금 금액 소계', formatter : numberFormatter},
 	    {field:'ss1',width:40,align:'center',title : '비고'},
 	 ]];
 
@@ -13,21 +13,19 @@ var columns = [[
 	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 	   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 	    {field:'pointCodeIssueRequestNo',width:15,align:'center',title : '발행 요청 번호',hidden:true},
-	    {field:'pointCodeIssueNo',width:15,align:'center',title : '등록 번호',hidden:false},
+	    {field:'pointCodeIssueNo',width:35,align:'center',title : '등록 번호'},
 	    {field:'memberNo',width:15,align:'center',title : '회원 번호',hidden:true},
 	    {field:'memberName',width:50,align:'center',title : '회원 이름'},
 	    {field:'memberPhone',width:50,align:'center',title : '회원 전화'},
 	    {field:'memberEmail',width:60,align:'center',title : '회원 이메일'},
 	    {field:'pointCode',width:80,align:'center',title : '포인트코드'},
-	    {field:'issueType',width:40,align:'center',title : '발행 타입'},
-	    {field:'useStatus',width:40,align:'center',title : '사용 상태', formatter : pointCodeIssueUseStatusFormatter},
 	    {field:'payAmount',width:40,align:'center',title : '기준 금액', formatter : numberFormatter},
 	    {field:'accPointRate',width:25,align:'center',title : '적립율', formatter : percentFormatter},
 	    {field:'accPointAmount',width:40,align:'center',title : '적립 금액', formatter : numberFormatter},
-	    {field:'accTargetRange',width:55,align:'center',title : '적립 대상',  formatter : accTargetRangeFormatter},
-	    {field:'status',width:30,align:'center',title : '상태',  formatter : pointCodeIssuerequestStatusFormatter},
 	    {field:'depositAmount',width:35,align:'center',title : '입금 금액',  formatter : numberFormatter},
-	    {field:'depositStatus',width:45,align:'center',title : '입금 상태',  formatter : depositStatusFormatter},
+	    {field:'accTargetRange',width:55,align:'center',title : '적립 대상',  formatter : accTargetRangeFormatter},
+	    {field:'useStatus',width:40,align:'center',title : '사용 상태', formatter : pointCodeIssueUseStatusFormatter},
+	    {field:'issueType',width:40,align:'center',title : '발행 타입', formatter : issueTypeFormatter},
 	    {field:'uploadFile',width:55,align:'center',title : '업로드 파일'},
 	    {field:'publisher',width:30,align:'center',title : '발행자'},
 /*	    {field:'useStartTime',width:40,align:'center',title : '사용 시작일', formatter : dateFormatter},
@@ -284,9 +282,9 @@ function initView(){
 			 cmenu.menu('appendItem', {
 				 parent: item.target,  // the parent item element
 				 //iconCls: 'icon-ok',
-				 text:  row.depositStatus == "1" ? roundLabel("사용 가능", "#04B404") : "사용 가능",
+				 text:  row.useStatus == "1" ? roundLabel("사용 가능", "#04B404") : "사용 가능",
 						 onclick: function(){
-							 changePointCodeIssueStatus({pointCodeIssuetNo : row.pointCodeIssueNo, useStatus : "1"});
+							 changePointCodeIssueStatus({pointCodeIssueNo : row.pointCodeIssueNo, useStatus : "1"});
 						 }
 			 });
 			 
@@ -294,9 +292,9 @@ function initView(){
 			 cmenu.menu('appendItem', {
 				 parent: item.target,  // the parent item element
 				 //iconCls: 'icon-ok',
-				 text:  row.depositStatus == "2" ? roundLabel("사용 중지", "#04B404") : "사용 중지",
+				 text:  row.useStatus == "2" ? roundLabel("사용 중지", "#04B404") : "사용 중지",
 						 onclick: function(){
-							 changePointCodeIssueStatus({pointCodeIssuetNo : row.pointCodeIssueNo, useStatus : "2"});
+							 changePointCodeIssueStatus({pointCodeIssueNo : row.pointCodeIssueNo, useStatus : "2"});
 						 }
 			 });
 			 
@@ -304,9 +302,9 @@ function initView(){
 			 cmenu.menu('appendItem', {
 				 parent: item.target,  // the parent item element
 				 //iconCls: 'icon-ok',
-				 text:  row.depositStatus == "3" ? roundLabel("사용 완료", "#04B404") : "사용 완료",
+				 text:  row.useStatus == "3" ? roundLabel("사용 완료", "#04B404") : "사용 완료",
 						 onclick: function(){
-							 changePointCodeIssueStatus({pointCodeIssuetNo : row.pointCodeIssueNo, useStatus : "3"});
+							 changePointCodeIssueStatus({pointCodeIssueNo : row.pointCodeIssueNo, useStatus : "3"});
 						 }
 			 });
 			 
@@ -314,9 +312,9 @@ function initView(){
 			 cmenu.menu('appendItem', {
 				 parent: item.target,  // the parent item element
 				 //iconCls: 'icon-ok',
-				 text:  row.depositStatus == "4" ? roundLabel("등록 해제", "#04B404") : "등록 해제",
+				 text:  row.useStatus == "4" ? roundLabel("등록 해제", "#04B404") : "등록 해제",
 						 onclick: function(){
-							 changePointCodeIssueStatus({pointCodeIssuetNo : row.pointCodeIssueNo, useStatus : "4"});
+							 changePointCodeIssueStatus({pointCodeIssueNo : row.pointCodeIssueNo, useStatus : "4"});
 						 }
 			 });
 			 
@@ -326,7 +324,7 @@ function initView(){
 				 text:  "영수증 보기 ",
 				 //iconCls: 'icon-ok',
 				 onclick: function(){
-					 viewFile(row.uploadFile);
+					 viewReceiptImage(row.uploadFile);
 				 }
 			 });
 			 
@@ -341,28 +339,32 @@ function initView(){
 	setListPager();
 }
 
-function viewFile(path){
-		$('#receipt_img').attr("src", "");
-		$('#receipt_img').attr("src", "https://www.returnp.com/cloud/images/receipt/" +path );
-		$("#receipt_view").dialog({
-			title : type == "영수증",
-			modal : true,
-			closable : true,
-			border : 'thick',
-			shadow : true,
-			collapsible : false,
-			minimizable : false,
-			maximizable : false,
-			shadow : false,
-			buttons : [ {
-				text : '확인',
-				iconCls : 'icon-ok',
-				handler : function(){
-					$("#qr_code_view").dialog('close');
-					$('#qr_code_no').attr("src", "");
-				}
-			} ]
-		});
+function viewReceiptImage(path){
+	/*	var url = "/api/giftCardIssue/downQrCode?giftCardIssueNo=" + giftCardIssueNo + "&type=" + type;
+	var w = window.open(path, "QR Code", "width=550, height=550, left=100, top=100"); 
+	w.document.title = title;*/
+	$('#receipt_img').attr("src", "");
+	//$('#receipt_img').attr("src", "https://www.returnp.com" +path );
+	$('#receipt_img').attr("src", "http://localhost:9090/" +path );
+	$("#receipt_view").dialog({
+		title : "영수증",
+		modal : true,
+		closable : true,
+		border : 'thick',
+		shadow : true,
+		collapsible : false,
+		minimizable : false,
+		maximizable : false,
+		shadow : false,
+		buttons : [ {
+			text : '확인',
+			iconCls : 'icon-ok',
+			handler : function(){
+				$("#qr_code_view").dialog('close');
+				$('#qr_code_no').attr("src", "");
+			}
+		} ]
+	});
 	}
 
 function loadPointCodeIssues(index, row){
@@ -407,9 +409,10 @@ function loadPointCodeIssues(index, row){
 function changePointCodeIssueStatus(options){
 	returnp.api.call("changePointCodeIssueStatus", options, function(res){
 		console.log(res);
+		$.messager.alert('알림', res.message);
 		if (res.resultCode == "100") {
-        	var node = $('#summary_table').datagrid('getSelected');
-        	loadPointCoupons("pager", node);
+			var node = $('#summary_table').datagrid('getSelected');
+        	loadPointCodeIssues("pager", node);
 		}else {
 			$.messager.alert('알림', res.message);
 		}
@@ -610,17 +613,19 @@ function setSummary(res, str){
 	var totalCount = 0;
 	var totalPayAmount = 0
 	var totalAccPointAmount = 0; 
+	var totalDepositAmount = 0; 
 	for (var i = 0; i < res.rows.length; i++) {
 		totalCount+=parseInt(res.rows[i].totalCount);
 		totalPayAmount += parseFloat(res.rows[i].totalPayAmount);
 		totalAccPointAmount+=parseFloat(res.rows[i].totalAccPointAmount);
+		totalDepositAmount+=parseFloat(res.rows[i].totalDepositAmount);
     }
 	$('#summary_table').datagrid({
 		title : '[' +str+ ']  : ' +numberGreenFormatter(totalAccPointAmount + "  /   " + totalPayAmount ),
 	});
 	$('#summary_table') .datagrid( 
 		'appendRow', 
-		{ searchDate : "총계", totalCount : totalCount, totalPayAmount : totalPayAmount , totalAccPointAmount :  totalAccPointAmount });
+		{ searchDate : "총계", totalCount : totalCount, totalPayAmount : totalPayAmount , totalAccPointAmount :  totalAccPointAmount, totalDepositAmount : totalDepositAmount });
 	setListPager2();
 }
 /**
