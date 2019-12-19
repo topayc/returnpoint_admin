@@ -307,24 +307,24 @@
 		                         <ul>
 		                             <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePointCouponIssue" menu_deps= '2' >
-		                            		<span style = "font-weight : bold; ">포인트코드 생성</span>
+		                            		<span style = "font-weight : bold; ">포인트 코드 생성</span>
 		                            	</a> 
 		                            </li>
 		                            
 		                            <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePointCodeIssueRequest" menu_deps= '2' >
-		                            		<span style = "font-weight : bold; ">포인트코드 발행 요청 관리</span>
+		                            		<span style = "font-weight : bold; ">포인트 코드 발행요청 관리</span>
 		                            	</a> 
 		                            </li>
 		                            
 		                            <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePointCodeIssue" menu_deps= '2' >
-		                            		<span style = "font-weight : bold; ">발행 포인트코드 관리 </span>
+		                            		<span style = "font-weight : bold; ">포인트 코드 발행 관리 </span>
 		                            	</a> 
 		                            </li>
 									 <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePointCodeTransaction" menu_deps= '2' >
-		                            		<span style = "font-weight : bold; ">포인트코드 적립 관리 </span>
+		                            		<span style = "font-weight : bold; ">포인트 코드 적립 관리 </span>
 		                            	</a> 
 		                            </li>
 		                            		                            

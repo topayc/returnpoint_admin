@@ -294,7 +294,7 @@ function initView(){
 				 text:  "영수증 보기 ",
 				 //iconCls: 'icon-ok',
 				 onclick: function(){
-					 viewFile(row.uploadFile);
+					 viewReceiptImage(row.uploadFile);
 				 }
 			 });
 			 
@@ -391,11 +391,15 @@ function viewPointbackList(){
 
 }
 
-function viewFile(path){
+function viewReceiptImage(path){
+	/*	var url = "/api/giftCardIssue/downQrCode?giftCardIssueNo=" + giftCardIssueNo + "&type=" + type;
+		var w = window.open(path, "QR Code", "width=550, height=550, left=100, top=100"); 
+		w.document.title = title;*/
 		$('#receipt_img').attr("src", "");
-		$('#receipt_img').attr("src", "https://www.returnp.com/cloud/images/receipt/" +path );
+		//$('#receipt_img').attr("src", "https://www.returnp.com" +path );
+		$('#receipt_img').attr("src", "http://localhost:9090/" +path );
 		$("#receipt_view").dialog({
-			title : type == "영수증",
+			title : "영수증",
 			modal : true,
 			closable : true,
 			border : 'thick',

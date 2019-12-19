@@ -133,7 +133,7 @@ public class PointCodeController extends ApplicationController{
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/pointCodeTransaction/get", method = RequestMethod.POST)
+	@RequestMapping(value = "/pointCodeTransaction/get", method = RequestMethod.GET)
 	public ReturnpBaseResponse  loadPointCodeTransactions(@RequestParam HashMap<String, Object> params) {
 		this.checkParameter(params);
 		return this.pointCodeService.loadPointCodeTransactions(params);

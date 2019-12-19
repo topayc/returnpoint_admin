@@ -7,17 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import com.google.firebase.auth.internal.GetAccountInfoResponse;
 import com.returnp.admin.code.CodeGenerator;
 import com.returnp.admin.common.ResponseUtil;
 import com.returnp.admin.common.ReturnpException;
 import com.returnp.admin.dao.mapper.MainMapper;
+import com.returnp.admin.dao.mapper.MemberConfigMapper;
 import com.returnp.admin.dao.mapper.PointCodeIssueMapper;
 import com.returnp.admin.dao.mapper.PointCodeIssueRequestMapper;
+import com.returnp.admin.dao.mapper.SearchMapper;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.model.DeviceInfo;
+import com.returnp.admin.model.GiftCardIssue;
+import com.returnp.admin.model.MemberConfig;
 import com.returnp.admin.model.PointCodeIssue;
 import com.returnp.admin.model.PointCodeIssueRequest;
+import com.returnp.admin.service.interfaces.AndroidPushService;
+import com.returnp.admin.service.interfaces.IOSPushService;
 import com.returnp.admin.service.interfaces.PointCodeService;
 import com.returnp.admin.service.interfaces.SearchService;
 
@@ -27,6 +33,10 @@ public class PointCodeServiceImp implements PointCodeService{
 	@Autowired PointCodeIssueRequestMapper pointCodeIssueRequestMapper  ;
 	@Autowired PointCodeIssueMapper pointCodeIssueMapper  ;
 	@Autowired SearchService searchService;;
+	@Autowired SearchMapper searchMapper;
+	@Autowired MemberConfigMapper  memberConfigMapper;
+	@Autowired AndroidPushService androidPushService;
+	@Autowired IOSPushService iosPushService;
 	
 	// --------------------------------------------------------------------------------------------------------------------
 	// 포인트 코드 발급 요청 서비스 메서드 
@@ -112,6 +122,7 @@ public class PointCodeServiceImp implements PointCodeService{
 	@Override
 	public ReturnpBaseResponse issuePointCode(PointCodeIssue pointCodeIssue) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		String message = null;
 		try {
 			/*관련 포인트 발급 요청 테이블 업데이트*/
 			PointCodeIssueRequest req = this.pointCodeIssueRequestMapper.selectByPrimaryKey(pointCodeIssue.getPointCodeIssueRequestNo());
@@ -133,7 +144,61 @@ public class PointCodeServiceImp implements PointCodeService{
 			pointCodeIssue.setMemberNo(req.getMemberNo());
 			this.pointCodeIssueMapper.insert(pointCodeIssue);
 			
-			ResponseUtil.setSuccessResponse(res, "100" , "발급 성공");
+			message = "포인트 적립 코드 발급 완료 ";
+			
+			/* 포인트코드 발급 확인 푸시 메시지 전송*/
+			/*
+			 * 디바이스 정보 확인
+			 * */
+			DeviceInfo deviceInfo = new DeviceInfo();
+			deviceInfo.setMemberNo(req.getMemberNo());
+			ArrayList<DeviceInfo> deviceInfos = this.searchMapper.selectDeviceInfos(deviceInfo);
+			
+			if (deviceInfos.size() != 1) {
+				message +="</br>기기 정보 부재로 Push Message 발송하지 않음";
+			}else {
+				/*
+				 * 푸시 알림 설정 확인
+				 * */
+				MemberConfig memberConfig = new MemberConfig();
+				memberConfig.setMemberNo(req.getMemberNo());
+				ArrayList<MemberConfig> memberConfigs = this.searchService.selectMemberConfigs(memberConfig);
+				
+				/*푸쉬 알림 설정이 존재하지 않는 다면, 기본 OFF 로 인서트*/ 
+				boolean push = false;
+				if (memberConfigs.size()< 1) {
+					memberConfig.setDevicePush("N");
+					memberConfig.setEmailReceive("N");
+					this.memberConfigMapper.insert(memberConfig);
+					push = false;
+				}else {
+					memberConfig = memberConfigs.get(0);
+					push = memberConfig.getDevicePush().equals("Y") ? true : false;;
+				}
+				
+				String pushReturn = "";
+				deviceInfo = deviceInfos.get(0);
+				
+				if (!push) {
+					message += "</br> 알림 설정이 OFF 로 Push Message 발송않함";
+				}else {
+					
+					/* 선택한 상품권 푸시 발송*/
+					if (deviceInfo.getOs().equalsIgnoreCase("android")) {
+						pushReturn = androidPushService.pushPointCode(deviceInfo, pointCodeIssue);
+					}else  if (deviceInfo.getOs().equalsIgnoreCase("apple")) {
+						pushReturn = iosPushService.pushPointCode(deviceInfo, pointCodeIssue);
+					}
+					
+					if (pushReturn == null) {
+						message += "</br> Push Message  발송 실패";
+					}else {
+						message += "</br> Push Message 발송 완료";
+					}
+				}
+			}
+			
+			ResponseUtil.setSuccessResponse(res, "100" , message);
 			return res;
 		}catch(Exception e) {
 			e.printStackTrace();

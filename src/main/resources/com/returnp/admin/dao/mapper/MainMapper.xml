@@ -864,7 +864,6 @@
 				D.depositBankAccount, 
     			D.depositRate, 
 				D.uploadFile,
-				D.depositAmount,
 				D.publisher,
 				D.useStartTime,
 				D.useEndTime,
@@ -892,7 +891,7 @@
   		
   		B.memberName,
    		B.memberEmail,
-   		B.memberPhone
+   		B.memberPhone,
    		
   		C.pointCode,
   		C.useStatus,
@@ -905,7 +904,6 @@
   		D.accPointAmount, 
     	D.accTargetRange, 
     	D.depositAmount, 
-    	D.depositStatus, 
     	D.depositBankAccount, 
     	D.depositRate, 
     	D.uploadFile, 
@@ -952,7 +950,7 @@
 			
 			E.pointCodePointbackRecordNo, 
 			E.memberNo, 
-			E.pointCouponTransactionNo, 
+			E.pointCodeTransactionNo, 
 			E.nodeNo, 
 			E.nodeType, 
 		    E.accRate, 

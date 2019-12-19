@@ -322,7 +322,7 @@ function initView(){
 				 //iconCls: 'icon-ok',
 				 text:  row.status == "4" ? roundLabel("처리 완료", "#04B404") : "처리 완료",
 						 onclick: function(){
-							 changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, status : "4"});
+							/* changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, status : "4"});*/
 						 }
 			 });
 			 

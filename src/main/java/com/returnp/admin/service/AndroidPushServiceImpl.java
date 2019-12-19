@@ -12,6 +12,7 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.returnp.admin.model.DeviceInfo;
 import com.returnp.admin.model.GiftCardIssue;
+import com.returnp.admin.model.PointCodeIssue;
 import com.returnp.admin.service.interfaces.AndroidPushService;
 
 @Service
@@ -46,4 +47,26 @@ public class AndroidPushServiceImpl implements AndroidPushService {
 		//System.out.println("#######################################################");
 		return response;
 	}
+
+	@Override
+	public String pushMessage(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String pushPointCode(DeviceInfo deviceInfo, PointCodeIssue pointCodeIssue) throws FirebaseMessagingException {
+		Message message = Message.builder()
+				.putData("title", "포인트 코드 적립 코드 등록")
+				.putData("link", "/m/pointCoupon/index.do")
+				.putData("pushCode", "2")
+				.putData("content", "일반 영수증 적립 코드가 회원님의 계정으로 등록되었습니다.")
+				.setToken(deviceInfo.getPushKey())
+				.build();
+			String response = FirebaseMessaging.getInstance().send(message);
+			//System.out.println("Push Return Value  : " + response);
+			//System.out.println("#######################################################");
+			return response;
+	}
+
 }
