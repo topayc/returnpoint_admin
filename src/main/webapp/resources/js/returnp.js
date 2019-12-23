@@ -182,6 +182,7 @@ $(function () {
         	createPointWithdrawal: { apiCode: 10000, apiPath : '/api/pointWithdrawal/create' ,  requestMethod: "post"},  
         	updatePointWithdrawal: { apiCode: 10000, apiPath : '/api/pointWithdrawal/update' ,  requestMethod: "post"},  
         	deletePointWithdrawal: { apiCode: 10000, apiPath : '/api/pointWithdrawal/delete' ,  requestMethod: "post"},
+        	changeWithdrawalStatus : { apiCode: 10000, apiPath : '/api/pointWithdrawal/changeStatus' ,  requestMethod: "post"},
         	
         	/* 포인트 전환율 , 누적 포인트 등 관리*/
         	getPointConversionTransactions: { apiCode: 10000, apiPath : '/api/pointConversionTransactions' ,	  requestMethod: "get"},  

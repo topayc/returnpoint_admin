@@ -16,4 +16,5 @@ public interface PointWithdrawalService {
 	public void delete(PointWithdrawal pointWithdrawal);
 	public void delete(int pointWithdrawalNo);
 	public void update(PointWithdrawal pointWithdrawal);
+	public ReturnpBaseResponse changeWithdrawalStatus(ArrayList<Integer> pointWithdrawalNos, String withdrawalStatus);
 }

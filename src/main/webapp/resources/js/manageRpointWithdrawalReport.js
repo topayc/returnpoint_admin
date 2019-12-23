@@ -421,11 +421,11 @@ function initView(){
 	    columns: summary_columns
 	});
 	
-	
 	/* 노드 데이타그리드   초기화*/
 	$('#node_list').datagrid({
 		title : '[검색 결과]',
-		singleSelect:true,
+		singleSelect:false,
+		showColumn : "ck",
 		collapsible:false,
 		//autoRowHeight: false,
 		fitColumns:true,
@@ -478,6 +478,60 @@ function initView(){
 		  			iconCls: icons[i]
 		  		});
 		  	}
+		  	
+			cmenu.menu('appendItem', {
+	  			id : "pc_2",  // the parent item element
+	  			text:  "<strong>출금 상태 변경</strong>",
+	  			//iconCls: 'icon-ok',
+	  			onclick: function(){
+	  			}
+	  		});
+			item = cmenu.menu('findItem', '출금 상태 변경');  
+			cmenu.menu('appendItem', {
+	  			parent: item.target,  // the parent item element
+	  			//iconCls: 'icon-ok',
+	  			text:  row.useStatus == "1" ? roundLabel("출금 처리중", "#04B404") : "출금 처리중",
+	  			onclick: function(){
+	  				changeWithdrawalStatus("1");
+	  			}
+	  		});
+			
+			cmenu.menu('appendItem', {
+	  			parent: item.target,  // the parent item element
+	  			//iconCls: 'icon-ok',
+	  			text:  row.useStatus == "2" ? roundLabel("출금 완료", "#04B404") : "출금 완료",
+	  			onclick: function(){
+	  				changeWithdrawalStatus("2");
+	  			}
+	  		});
+			
+			cmenu.menu('appendItem', {
+	  			parent: item.target,  // the parent item element
+	  			//iconCls: 'icon-ok',
+	  			text:  row.useStatus == "3" ? roundLabel("출금 보류", "#04B404") : "출금 보류",
+	  			onclick: function(){
+	  				changeWithdrawalStatus("3");
+	  			}
+	  		});
+			
+			cmenu.menu('appendItem', {
+	  			parent: item.target,  // the parent item element
+	  			//iconCls: 'icon-ok',
+	  			text:  row.useStatus == "4" ? roundLabel("사용자 취소", "#04B404") : "사용자 취소",
+	  			onclick: function(){
+	  				changeWithdrawalStatus("4");
+	  			}
+	  		});
+			
+			cmenu.menu('appendItem', {
+	  			parent: item.target,  // the parent item element
+	  			//iconCls: 'icon-ok',
+	  			text:  row.useStatus == "5" ? roundLabel("관리자 취소", "#04B404") : "관리자 취소",
+	  			onclick: function(){
+	  				changeWithdrawalStatus("5");
+	  			}
+	  		});
+			
 		  	cmenu.menu('show', {
 		  		left:e.pageX,
 		  		top:e.pageY
@@ -489,6 +543,29 @@ function initView(){
 	setListPager();
 }
 
+function changeWithdrawalStatus(status){
+	var params ={withdrawalStatus : status}
+	params.pointWithdrawalNos = [];
+	
+	var selectedRows =  $('#node_list').datagrid('getSelections');
+	if (selectedRows.length < 1) {
+		$.messager.alert('알림', "선택된 출금 항목이 없습니다.");
+	}
+	
+	for (var i = 0; i < selectedRows.length; i++){
+		params.pointWithdrawalNos.push(selectedRows[i].pointWithdrawalNo);
+	}
+	
+	returnp.api.call("changeWithdrawalStatus", params, function(res){
+		console.log(res);
+		$.messager.alert('알림', res.message);
+		if (res.resultCode == "100") {
+        	var node = $('#summary_table').datagrid('getSelected');
+        	loadPointWithdrawals("pager", node);
+		}else {
+		}
+	});
+}
 
 function loadPointWithdrawals(index, row){
 	//var param = {searchDateStart : row.searchDate, searchDateEnd : row.searchDate};

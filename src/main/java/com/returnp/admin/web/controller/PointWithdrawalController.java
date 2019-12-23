@@ -139,6 +139,14 @@ public class PointWithdrawalController extends ApplicationController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/pointWithdrawal/changeStatus", method = RequestMethod.POST)
+	public ReturnpBaseResponse  changeWithdrawalStatus(
+			@RequestParam(value = "pointWithdrawalNos[]", required = true) ArrayList<Integer>  pointWithdrawalNos, 
+			@RequestParam(value = "withdrawalStatus", required = true) String withdrawalStatus) {
+		return this.pointWithdrawalService.changeWithdrawalStatus(pointWithdrawalNos,withdrawalStatus );
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/pointWithdrawal/delete", method = RequestMethod.POST)
 	public ReturnpBaseResponse  deletePointWithdrawal(
 			@RequestParam(value = "pointWithdrawalNo", required = true) int  pointWithdrawalNo) {
