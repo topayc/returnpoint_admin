@@ -494,6 +494,7 @@ function initView(){
 	setListPager();
 }
 
+
 $.extend($.fn.datagrid.methods, {
 	editCell: function(jq,param){
 		return jq.each(function(){
@@ -551,6 +552,125 @@ $.extend($.fn.datagrid.methods, {
         });
     }
 });
+
+function cancelPaymentTransaction(){
+	var node = $('#node_list').datagrid('getSelected');
+	if (!node) {
+		 $.messager.alert('알림','취소하실 거래 내역을 선택해주세요');
+		 return;
+	}
+	if (node.pointBackStatus == "4" || node.pointBackStatus == "5"  || 
+			node.pointBackStatus == "6" || node.pointBackStatus == "7" || 
+			node.pointBackStatus == "8"){
+		$.messager.alert('알림','해당 내역은 취소할 수 없는 내역입니다');
+		return;
+	}
+	$.messager.confirm(
+		'알림', 
+		"해당 거래 내역이 취소됩니다. </br>취소 시 관련 계층의 G Point가  취소된 포인트만큼 차감됩니다. 진행하시겠습니까?",
+		function(r){
+			if (r) {
+				var param = { paymentTransactionNo : node.paymentTransactionNo }
+				returnp.api.call("cancelPaymentTransaction", param, function(res){
+	        		if (res.resultCode  == "100") {
+	        			$.messager.alert('알림', res.message);
+	        			realodPage();
+	        		}else {
+	        			console.log(res);
+	        			$.messager.alert('오류 발생', res.message);
+	        		}
+	        	});
+			}
+		});
+}
+
+
+function cancelForcedPaymentTransaction(){
+	var node = $('#node_list').datagrid('getSelected');
+	if (!node) {
+		$.messager.alert('알림','취소하실 거래 내역을 선택해주세요');
+		return;
+	}
+	if (node.pointBackStatus == "4" || node.pointBackStatus == "5"  || 
+			node.pointBackStatus == "6" || node.pointBackStatus == "7" || 
+			node.pointBackStatus == "8"){
+		$.messager.alert('알림','해당 내역은 취소할 수 없는 내역입니다');
+		return;
+	}
+	$.messager.confirm(
+			'알림', 
+			"해당 거래 내역이 취소됩니다. </br>취소 시 관련 계층의 G Point가  취소된 포인트만큼 차감됩니다. 진행하시겠습니까?",
+			function(r){
+				if (r) {
+					var param = { paymentTransactionNo : node.paymentTransactionNo }
+					returnp.api.call("cancelForcedPaymentTransaction", param, function(res){
+						if (res.resultCode  == "100") {
+							$.messager.alert('알림', res.message);
+							realodPage();
+						}else {
+							//console.log("[오류]");
+							//console.log(res);
+							$.messager.alert('오류 발생', res.message);
+						}
+					});
+				}
+			});
+}
+
+
+function accForcedPaymentTransaction(){
+	var node = $('#node_list').datagrid('getSelected');
+	if (!node) {
+		$.messager.alert('알림','강제 적립하실  거래 내역을 선택해주세요');
+		return;
+	}
+
+	$.messager.confirm(
+			'알림', 
+			"해당 거래 내역에 대해서 동일한 결제번호로 강제 적립을 진행합니다.</br> 진행하시겠습니까?",
+			function(r){
+				if (r) {
+					var param = { paymentTransactionNo : node.paymentTransactionNo }
+					returnp.api.call("accForcedPaymentTransaction", param, function(res){
+						if (res.resultCode  == "100") {
+							$.messager.alert('알림', res.message);
+							realodPage();
+						}else {
+							//console.log("[오류]");
+							//console.log(res);
+							$.messager.alert('오류 발생', res.message);
+						}
+					});
+				}
+			});
+}
+
+
+function removePaymentTransaction(){
+	var node = $('#node_list').datagrid('getSelected');
+	if (!node) {
+		 $.messager.alert('알림','삭제하실 항목을 선택해주세요');
+		 return;
+	}
+	
+	$.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 해당 내용을 정말로 삭제하시겠습니까?', function(r){
+        if (r){
+        	var param = {
+        			paymentTransactionNo : node.paymentTransactionNo
+        	}
+        	returnp.api.call("deleteVanPaymentTransaction", param, function(res){
+        		if (res.resultCode  == "100") {
+        			$.messager.alert('알림', res.message);
+        			realodPage();
+        		}else {
+        			//console.log("[오류]");
+        			//console.log(res);
+        			$.messager.alert('오류 발생', res.message);
+        		}
+        	});
+        }
+    });
+}
 
 function selectPaymentTransactions(index, row){
 	//var param = {searchDateStart : row.searchDate, searchDateEnd : row.searchDate};
