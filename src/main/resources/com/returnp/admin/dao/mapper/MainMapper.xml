@@ -709,10 +709,14 @@
     	
     	B.memberName,
    		B.memberEmail,
-   		B.memberPhone
+   		B.memberPhone,
+   		
+   		C.affiliateNo,
+   		C.affiliateName 
    
 	   	from point_code_issue_request as A
 		inner join member as B on (A.memberNo= B.memberNo)
+		left outer join affiliate C on (A.affiliateNo = C.affiliateNo)
 	    where 
 	    	1 = 1
 	    	<if test="searchDate != null "> AND A.createTime LIKE CONCAT(#{searchDate},'%') </if>

@@ -18,15 +18,16 @@ var columns = [[
 	    {field:'memberName',width:50,align:'center',title : '회원 이름'},
 	    {field:'memberEmail',width:60,align:'center',title : '회원 이메일'},
 	    {field:'pointCode',width:80,align:'center',title : '포인트코드'},
+	    {field:'issueType',width:43,align:'center',title : '발행타입', formatter : issueTypeFormatter2},
 	    {field:'useStatus',width:40,align:'center',title : '사용 상태', formatter : pointCodeIssueUseStatusFormatter},
 	    {field:'payAmount',width:40,align:'center',title : '기준 금액', formatter : numberFormatter},
+	    {field:'depositAmount',width:35,align:'center',title : '입금 금액',  formatter : numberFormatter},
 	    {field:'accPointRate',width:25,align:'center',title : '적립율', formatter : percentFormatter},
 	    {field:'accPointAmount',width:40,align:'center',title : '적립 금액', formatter : numberFormatter},
-	    {field:'accTargetRange',width:55,align:'center',title : '적립 대상',  formatter : accTargetRangeFormatter},
-	    {field:'status',width:30,align:'center',title : '상태',  formatter : pointCodeIssuerequestStatusFormatter},
-	    {field:'depositAmount',width:35,align:'center',title : '입금 금액',  formatter : numberFormatter},
+	    {field:'accTargetRange',width:50,align:'center',title : '적립 대상',  formatter : accTargetRangeFormatter},
+	    {field:'status',width:40,align:'center',title : '상태',  formatter : pointCodeIssuerequestStatusFormatter},
 	    {field:'uploadFile',width:55,align:'center',title : '업로드 파일'},
-	    {field:'publisher',width:30,align:'center',title : '발행자'},
+	    {field:'publisher',width:30,align:'center',title : '발행자', hidden:true},
 /*	    {field:'useStartTime',width:40,align:'center',title : '사용 시작일', formatter : dateFormatter},
 	    {field:'useEndTime',width:40,align:'center',title : '사용 종료일', formatter : dateFormatter},*/
 	    {field:'createTime',width:40,align:'center',title : '등록일',formatter : dateFormatter}
@@ -614,11 +615,11 @@ function setSummary(res, str){
 	var totalPayAmount = 0
 	var totalAccPointAmount = 0; 
 	var totalDepositAmount = 0; 
-	totalDepositAmount+=parseFloat(res.rows[i].totalDepositAmount);
 	for (var i = 0; i < res.rows.length; i++) {
 		totalCount+=parseInt(res.rows[i].totalCount);
 		totalPayAmount += parseFloat(res.rows[i].totalPayAmount);
 		totalAccPointAmount+=parseFloat(res.rows[i].totalAccPointAmount);
+		totalDepositAmount+=parseFloat(res.rows[i].totalDepositAmount);
     }
 	$('#summary_table').datagrid({
 		title : '[' +str+ ']  : ' +numberGreenFormatter(totalAccPointAmount + "  /   " + totalPayAmount ),

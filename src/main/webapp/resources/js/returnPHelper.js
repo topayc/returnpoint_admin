@@ -29,12 +29,30 @@ function issueStatusFormatter(value){
 	return result;
 }
 
+function issueTypeFormatter2(value){
+	var result = "";
+	switch (value) {
+	case "1": result = '<span style = "font-weight : bold" >가맹점영수증</span>'; break;
+	case "2": result = '<span style = "font-weight : bold" >비가맹점영수증</span>'; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
 function issueTypeFormatter(value){
 	switch (value) {
 	case "1": result = "영수증"; break;
 	default: result = "-"; break;
 	}
 	return result;
+}
+
+function receiptAffiliateFomatter(value){
+	if (value) {
+		return value;
+	}else {
+		return '-';
+	}
 }
 
 function pointCodeIssueUseStatusFormatter(value){
@@ -87,6 +105,7 @@ function accTargetRangeFormatter(value){
 	case "1": result = "&nbsp;"+roundLabel("본인", '#0080FF'); break;
 	case "2": result = "&nbsp;"+roundLabel("본인", '#0080FF') + "&nbsp;"+ roundLabel("1대", '#FF00FF');break;
 	case "3": result = "&nbsp;"+roundLabel("본인", '#0080FF') + "&nbsp;"+ roundLabel("1대", '#FF00FF') + "&nbsp;"+ roundLabel("2대", '#FE2E2E'); break;
+	case "10": result = "&nbsp;"+roundLabel("일반QR범위", '#2ECCFA') ; break;
 	default: result = "-"; break;
 	}
 	return result;
