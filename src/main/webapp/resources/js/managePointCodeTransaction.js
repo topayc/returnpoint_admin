@@ -26,7 +26,7 @@ var columns = [[
 	    {field:'depositAmount',width:35,align:'center',title : '입금금액',  formatter : numberFormatter},
 	    {field:'accPointRate',width:25,align:'center',title : '적립율', formatter : percentFormatter},
 	    {field:'accPointAmount',width:40,align:'center',title : '적립금액', formatter : numberFormatter},
-	    {field:'accTargetRange',width:50,align:'center',title : '적립대상',  formatter : accTargetRangeFormatter},
+	    {field:'accTargetRange',width:0,align:'center',title : '적립대상',  formatter : accTargetRangeFormatter},
 	    {field:'pointbackStatus',width:40,align:'center',title : '적립상태',  formatter : pointBackStatusFormatter},
 	    {field:'uploadFile',width:55,align:'center',title : '업로드 파일'},
 	    {field:'publisher',width:30,align:'center',title : '발행자', hidden:true},
