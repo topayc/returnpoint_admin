@@ -903,7 +903,7 @@ function pointBackStatusFormatter(value, row, index) {
 		  text = '<span style = "border-radius: 10px;background-color: #ff6600;padding: 5px;color : #ffffff;font-weight : bold">적립취소</span>'; break;;
 		break;
 	case "7":
-		text = "적립 중지";
+		text = "적립 중지"; 
 		break;
 	case "8":
 		text = "적립 취소 중지";
