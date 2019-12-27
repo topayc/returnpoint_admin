@@ -11,6 +11,13 @@ function pointCouponTypeFormatter(data){
 	return result;
 }
 
+function nullCheckFormatter(value){
+	if (value) {
+		return value;
+	}else {
+		return '-';
+	}
+}
 function replyOkFormatter (data){
 	switch (data) {
 	case "Y": result = '<span style = "font-weight : bold" >' + roundLabel("답변완료", '#009933') + ' </span>'; break;
@@ -878,22 +885,22 @@ function pointBackStatusFormatter(value, row, index) {
 	var text;
 	switch (status) {
 	case "1":
-		  text = '<span style = "border-radius: 10px;background-color: #bbbbbbc;padding: 5px;color : #ffffff;font-weight : bold">시작</span>'; break;
+		  text = '<span style = "border-radius: 10px;background-color: #bbbbbbc;padding: 5px;color : #ffffff;font-weight : bold">적립시작</span>'; break;
 		break;
 	case "2":
-		  text = '<span style = "border-radius: 10px;background-color: #999999;padding: 5px;color : #ffffff;font-weight : bold">진행중</span>'; break;
+		  text = '<span style = "border-radius: 10px;background-color: #999999;padding: 5px;color : #ffffff;font-weight : bold">적립진행중</span>'; break;
 		break;
 	case "3":
-		  text = '<span style = "border-radius: 10px;background-color: #00b33c;padding: 5px;color : #ffffff;font-weight : bold">완료</span>'; break;
+		  text = '<span style = "border-radius: 10px;background-color: #00b33c;padding: 5px;color : #ffffff;font-weight : bold">적립완료</span>'; break;
 		break;
 	case "4":
-		  text = '<span style = "border-radius: 10px;background-color: #bbbbbb;padding: 5px;color : #ffffff;font-weight : bold">취소 시작</span>'; break;;
+		  text = '<span style = "border-radius: 10px;background-color: #bbbbbb;padding: 5px;color : #ffffff;font-weight : bold">적립취소시작</span>'; break;;
 		break;
 	case "5":
-		  text = '<span style = "border-radius: 10px;background-color: #999999c;padding: 5px;color : #ffffff;font-weight : bold">쥐소중</span>'; break;
+		  text = '<span style = "border-radius: 10px;background-color: #999999c;padding: 5px;color : #ffffff;font-weight : bold">적립쥐소중</span>'; break;
 		break;
 	case "6":
-		  text = '<span style = "border-radius: 10px;background-color: #ff6600;padding: 5px;color : #ffffff;font-weight : bold">취소</span>'; break;;
+		  text = '<span style = "border-radius: 10px;background-color: #ff6600;padding: 5px;color : #ffffff;font-weight : bold">적립취소</span>'; break;;
 		break;
 	case "7":
 		text = "적립 중지";

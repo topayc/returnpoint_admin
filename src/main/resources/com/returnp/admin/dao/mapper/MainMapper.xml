@@ -801,11 +801,14 @@
     	
     	C.memberName,
    		C.memberEmail,
-   		C.memberPhone
+   		C.memberPhone,
+   		
+   		D.affiliateName
    
 	   	from point_code_issue as A
 		inner join point_code_issue_request  as B on (A.pointCodeIssueRequestNo= B.pointCodeIssueRequestNo)
 		inner join member as C on (A.memberNo= C.memberNo)
+		left outer join affiliate  as D on (D.affiliateNo = B.affiliateNo)
 	    where 
 	    	1 = 1
 	    	<if test="searchDate != null "> AND A.createTime LIKE CONCAT(#{searchDate},'%') </if>
@@ -892,6 +895,7 @@
   		A.createTime,
   		A.updateTime,
   		A.pointBackStatus,
+  		A.pointCodeTransactionNo,
   		
   		B.memberName,
    		B.memberEmail,
@@ -914,12 +918,15 @@
     	D.status, 
     	D.publisher, 
     	D.useStartTime, 
-    	D.useEndTime
+    	D.useEndTime,
+    	
+    	E.affiliateName
    
 	   	from point_code_transaction as A 
 		inner join member  as B on (A.memberNo = B.memberNo)
 		inner join point_code_issue  as C on (A.pointCodeIssueNo = C.pointCodeIssueNo)
 		inner join point_code_issue_request  as D on (C.pointCodeIssueRequestNo = D.pointCodeIssueRequestNo)
+		left outer join affiliate as E on (D.affiliateNo = E.affiliateNo)
 	    where 
 	    	1 = 1
 	    	<if test="searchDate != null "> AND A.createTime LIKE CONCAT(#{searchDate},'%') </if>
@@ -975,7 +982,7 @@
 		inner join member as F on (E.memberNo= F.memberNo)
 		
 		where 1 = 1
-		   <if test="pointCoderansactionNo != null"> AND A.pointCoderansactionNo = #{pointCoderansactionNo,jdbcType=INTEGER}</if>
+		   <if test="pointCodeTransactionNo != null"> AND E.pointCodeTransactionNo = #{pointCodeTransactionNo,jdbcType=INTEGER}</if>
 		   <if test="pointCodePointbackRecordNo != null"> AND pointCodePointbackRecordNo = #{pointCodePointbackRecordNo,jdbcType=INTEGER}</if>
 		   <if test="memberNo != null"> AND memberNo = #{memberNo,jdbcType=INTEGER}</if>
 	   </select>

@@ -13,19 +13,21 @@ var columns = [[
 	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 	   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 	    {field:'pointCodeIssueRequestNo',width:15,align:'center',title : '발행 요청 번호',hidden:true},
-	    {field:'pointCodeIssueNo',width:15,align:'center',title : '등록 번호',hidden:true},
+	    {field:'pointCodeIssueNo',width:15,align:'center',title : '발행 참조 번호',hidden:true},
+	    {field:'pointCodeTransactionNo',width:15,align:'center',title : '등록번호',hidden:true},
 	    {field:'memberNo',width:15,align:'center',title : '회원 번호',hidden:true},
-	    {field:'memberName',width:50,align:'center',title : '회원 이름'},
-	    {field:'memberEmail',width:60,align:'center',title : '회원 이메일'},
-	    {field:'pointCode',width:80,align:'center',title : '포인트코드'},
+	    {field:'memberName',width:50,align:'center',title : '회원이름'},
+	    {field:'memberEmail',width:60,align:'center',title : '회원이메일'},
+	    {field:'pointCode',width:70,align:'center',title : '포인트코드'},
+	    {field:'affiliateName',width:60,align:'center',title : '영수증발행점', formatter : nullCheckFormatter},
 	    {field:'issueType',width:43,align:'center',title : '발행타입', formatter : issueTypeFormatter2},
-	    {field:'useStatus',width:40,align:'center',title : '사용 상태', formatter : pointCodeIssueUseStatusFormatter},
-	    {field:'payAmount',width:40,align:'center',title : '기준 금액', formatter : numberFormatter},
-	    {field:'depositAmount',width:35,align:'center',title : '입금 금액',  formatter : numberFormatter},
+	/*    {field:'useStatus',width:40,align:'center',title : '사용 상태', formatter : pointCodeIssueUseStatusFormatter},*/
+	    {field:'payAmount',width:40,align:'center',title : '기준금액', formatter : numberFormatter},
+	    {field:'depositAmount',width:35,align:'center',title : '입금금액',  formatter : numberFormatter},
 	    {field:'accPointRate',width:25,align:'center',title : '적립율', formatter : percentFormatter},
-	    {field:'accPointAmount',width:40,align:'center',title : '적립 금액', formatter : numberFormatter},
-	    {field:'accTargetRange',width:50,align:'center',title : '적립 대상',  formatter : accTargetRangeFormatter},
-	    {field:'status',width:40,align:'center',title : '상태',  formatter : pointCodeIssuerequestStatusFormatter},
+	    {field:'accPointAmount',width:40,align:'center',title : '적립금액', formatter : numberFormatter},
+	    {field:'accTargetRange',width:50,align:'center',title : '적립대상',  formatter : accTargetRangeFormatter},
+	    {field:'pointbackStatus',width:40,align:'center',title : '적립상태',  formatter : pointBackStatusFormatter},
 	    {field:'uploadFile',width:55,align:'center',title : '업로드 파일'},
 	    {field:'publisher',width:30,align:'center',title : '발행자', hidden:true},
 /*	    {field:'useStartTime',width:40,align:'center',title : '사용 시작일', formatter : dateFormatter},
@@ -330,7 +332,7 @@ function viewPointbackList(){
   
   $('#pointback_record_dlg').dialog({
     width : 1400,
-    height : 400,
+    height : 500,
     cache : false,
     modal : true,
     closable : true,
@@ -359,6 +361,7 @@ function viewPointbackList(){
     
     	  
     	var param = {pointCodeTransactionNo : node.pointCodeTransactionNo};
+    	console.log(param);
     	returnp.api .call( 'selectPointCodePointbackRecords', param, function(res) {
     		console.log(res)
     		if (res.resultCode == "100") {

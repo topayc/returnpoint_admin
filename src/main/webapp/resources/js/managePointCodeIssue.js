@@ -19,6 +19,7 @@ var columns = [[
 	    {field:'memberPhone',width:50,align:'center',title : '회원 전화'},
 	    {field:'memberEmail',width:60,align:'center',title : '회원 이메일'},
 	    {field:'pointCode',width:80,align:'center',title : '포인트코드'},
+	    {field:'affiliateName',width:60,align:'center',title : '영수증발행점', formatter : nullCheckFormatter},
 	    {field:'issueType',width:43,align:'center',title : '발행타입', formatter : issueTypeFormatter2},
 	    {field:'payAmount',width:40,align:'center',title : '기준 금액', formatter : numberFormatter},
 	    {field:'accPointRate',width:25,align:'center',title : '적립율', formatter : percentFormatter},

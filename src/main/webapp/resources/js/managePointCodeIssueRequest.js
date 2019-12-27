@@ -17,7 +17,7 @@ var columns = [[
 	    {field:'memberName',width:50,align:'center',title : '회원이름'},
 	    {field:'memberEmail',width:60,align:'center',title : '회원이메일'},
 	    {field:'issueType',width:40,align:'center',title : '발행타입', formatter : issueTypeFormatter2},
-	    {field:'affiliateName',width:40,align:'center',title : '협력업체',formatter : receiptAffiliateFomatter},
+	    {field:'affiliateName',width:60,align:'center',title : '영수증발행점', formatter : nullCheckFormatter},
 	    {field:'payAmount',width:40,align:'center',title : '기준금액', formatter : numberFormatter},
 	    {field:'accPointRate',width:25,align:'center',title : '적립율', formatter : percentFormatter},
 	    {field:'accPointAmount',width:40,align:'center',title : '적립금액', formatter : numberFormatter},
