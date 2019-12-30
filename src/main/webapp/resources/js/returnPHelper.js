@@ -3,8 +3,8 @@ function viewReceiptImage(path){
 		var w = window.open(path, "QR Code", "width=550, height=550, left=100, top=100"); 
 		w.document.title = title;*/
 		$('#receipt_img').attr("src", "");
-		//$('#receipt_img').attr("src", "https://www.returnp.com" +path );
-		$('#receipt_img').attr("src", "http://localhost:9090/" +path );
+		$('#receipt_img').attr("src", "https://www.returnp.com" +path );
+		//$('#receipt_img').attr("src", "http://localhost:9090/" +path );
 		$("#receipt_view").dialog({
 			title : "영수증",
 			modal : true,

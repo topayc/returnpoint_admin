@@ -96,13 +96,13 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
-		width: 150
+		width: 200
 	});
 	
 	/* 검색어 입력 박스 초기화 */
 	$('#searchKeyword').textbox({ 
 		labelPosition : 'top',
-		width: 200,
+		width: 180,
 		prompt : "아이디 / 이름" ,
 	});
 	
