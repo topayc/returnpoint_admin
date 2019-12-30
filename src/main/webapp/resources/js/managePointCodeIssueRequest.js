@@ -262,11 +262,12 @@ function initView(){
 	/* 노드 데이타그리드   초기화*/
 	$('#node_list').datagrid({
 		title : '[검색 결과]',
-		singleSelect:true,
+		singleSelect:false,
 		collapsible:false,
 		//autoRowHeight: false,
 		fitColumns:true,
 		selectOnCheck : true,
+		ctrlSelect : true,
 		checkOnSelect : true,
 		border:false,
 		rownumbers : true,
@@ -288,6 +289,16 @@ function initView(){
 			 var item = null;
 			 var findItemCode = "상태 변경"
 			 
+			 cmenu.menu('appendItem', {
+				 id : "pc_10",  // the parent item element
+				 text:  "선택 항목 입금금액 합산 ",
+				 //iconCls: 'icon-ok',
+				 onclick: function(){
+					 calcDepositAmount();
+				 }
+			 });
+			 
+			 cmenu.menu('appendItem', { separator: true });
 			 cmenu.menu('appendItem', {
 				 id : "pc_2",  // the parent item element
 				 text:  findItemCode,
@@ -392,6 +403,21 @@ function initView(){
 	setListPager();
 }
 
+function calcDepositAmount(){
+	var totalAmount = 0;
+	
+	var selectedRows =  $('#node_list').datagrid('getSelections');
+	if (selectedRows.length < 1) {
+		$.messager.alert('알림', "선택된 항목이 없습니다.");
+	}
+	
+	for (var i = 0; i < selectedRows.length; i++){
+		totalAmount+=selectedRows[i].depositAmount;
+	}
+	$.messager.alert('총금액', "<b style = 'font-size : 15px'> 금액 : " + numberFormatter(totalAmount)+"</b> ");
+	
+	
+}
 
 function loadPointCodeIssueRequests(index, row){
 	//var param = {searchDateStart : row.searchDate, searchDateEnd : row.searchDate};
