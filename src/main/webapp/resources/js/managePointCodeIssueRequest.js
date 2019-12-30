@@ -5,6 +5,8 @@ var summary_columns = [[
 	    {field:'totalPayAmount',width:20,align:'center',title : '기준 금액 소계', formatter : numberFormatter},
 	    {field:'totalAccPointAmount',width:20,align:'center',title : '적립 포인트 소계', formatter : numberFormatter},
 	    {field:'totalDepositAmount',width:20,align:'center',title : '입금 금액 소계', formatter : numberFormatter},
+	    {field:'totalCompleteDeposit',width:20,align:'center',title : '입금 완료 소계', formatter : numberFormatter},
+	    {field:'totalNotCompleteDeposit',width:20,align:'center',title : '입금 미완료 소계', formatter : numberFormatter},
 	    {field:'ss1',width:40,align:'center',title : '비고'},
 	 ]];
 
@@ -47,6 +49,12 @@ function initView(){
 	$('#searchKeyword').textbox({ 
 		width: 200,
 		prompt : "검색할 단어를 입력해주세요" ,
+		inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
+			keyup:function(e){
+				if(e.keyCode==13)
+					$('#search_btn').click();
+			}
+		})
 	});
 	
 	
@@ -88,7 +96,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
-		width: 120
+		width: 150
 	});
 	
 	/* 검색어 입력 박스 초기화 */
@@ -384,33 +392,6 @@ function initView(){
 	setListPager();
 }
 
-function viewReceiptImage(path){
-	/*	var url = "/api/giftCardIssue/downQrCode?giftCardIssueNo=" + giftCardIssueNo + "&type=" + type;
-		var w = window.open(path, "QR Code", "width=550, height=550, left=100, top=100"); 
-		w.document.title = title;*/
-		$('#receipt_img').attr("src", "");
-		//$('#receipt_img').attr("src", "https://www.returnp.com" +path );
-		$('#receipt_img').attr("src", "http://localhost:9090/" +path );
-		$("#receipt_view").dialog({
-			title : "영수증",
-			modal : true,
-			closable : true,
-			border : 'thick',
-			shadow : true,
-			collapsible : false,
-			minimizable : false,
-			maximizable : false,
-			shadow : false,
-			buttons : [ {
-				text : '확인',
-				iconCls : 'icon-ok',
-				handler : function(){
-					$("#qr_code_view").dialog('close');
-					$('#qr_code_no').attr("src", "");
-				}
-			} ]
-		});
-	}
 
 function loadPointCodeIssueRequests(index, row){
 	//var param = {searchDateStart : row.searchDate, searchDateEnd : row.searchDate};
@@ -672,18 +653,30 @@ function setSummary(res, str){
 	var totalPayAmount = 0
 	var totalAccPointAmount = 0; 
 	var totalDepositAmount = 0; 
+	var totalCompleteDeposit = 0; 
+	var totalNotCompleteDeposit = 0; 
 	for (var i = 0; i < res.rows.length; i++) {
 		totalCount+=parseInt(res.rows[i].totalCount);
 		totalPayAmount += parseFloat(res.rows[i].totalPayAmount);
 		totalAccPointAmount+=parseFloat(res.rows[i].totalAccPointAmount);
 		totalDepositAmount+=parseFloat(res.rows[i].totalDepositAmount);
+		totalCompleteDeposit+=parseFloat(res.rows[i].totalCompleteDeposit);
+		totalNotCompleteDeposit+=parseFloat(res.rows[i].totalNotCompleteDeposit);
     }
 	$('#summary_table').datagrid({
 		title : '[' +str+ ']  : ' +numberGreenFormatter(totalAccPointAmount + "  /   " + totalPayAmount ),
 	});
 	$('#summary_table') .datagrid( 
 		'appendRow', 
-		{ searchDate : "총계", totalCount : totalCount, totalPayAmount : totalPayAmount , totalAccPointAmount :  totalAccPointAmount,totalDepositAmount : totalDepositAmount });
+		{ 
+			searchDate : "총계", 
+			totalCount : totalCount, 
+			totalPayAmount : totalPayAmount ,
+			totalAccPointAmount :  totalAccPointAmount,
+			totalDepositAmount : totalDepositAmount,
+			totalCompleteDeposit : totalCompleteDeposit,
+			totalNotCompleteDeposit : totalNotCompleteDeposit,
+		});
 	setListPager2();
 }
 /**

@@ -180,7 +180,7 @@ public class PointCodeServiceImp implements PointCodeService{
 				deviceInfo = deviceInfos.get(0);
 				
 				if (!push) {
-					message += "</br> 알림 설정이 OFF 로 Push Message 발송않함";
+					message += "</br> <b style = 'font-color : red'>알림 설정이 OFF 로 Push Message 발송않함</b>";
 				}else {
 					
 					/* 선택한 상품권 푸시 발송*/
@@ -191,9 +191,9 @@ public class PointCodeServiceImp implements PointCodeService{
 					}
 					
 					if (pushReturn == null) {
-						message += "</br> Push Message  발송 실패";
+						message += "</br>  <b style = 'font-color : red'>Push Message  발송 실패</b>";
 					}else {
-						message += "</br> Push Message 발송 완료";
+						message += "</br>  <b style = 'font-color :green'>Push Message 발송 완료</b>";
 					}
 				}
 			}

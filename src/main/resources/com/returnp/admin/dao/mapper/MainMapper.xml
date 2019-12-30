@@ -662,7 +662,9 @@
 			count(issueType) as totalCount,
 			sum(payAmount) as totalPayAmount,
 			sum(accPointAmount) as totalAccPointAmount,
-			sum(depositAmount) as totalDepositAmount
+			sum(depositAmount) as totalDepositAmount,
+			sum(if(status = '3' or status = '4'  , depositAmount , 0)) as totalCompleteDeposit,
+			sum(if(status = '1' or status = '2' or status = '5' or status = '6' , depositAmount , 0)) as totalNotCompleteDeposit
 		from point_code_issue_request  group by searchDate;
 	   </select>
 	   
@@ -672,7 +674,9 @@
    	 		count(A.payAmount) as totalCount,
    	 		sum(A.payAmount) as totalPayAmount,
 			sum(A.accPointAmount) as totalAccPointAmount,
-			sum(A.depositAmount) as totalDepositAmount
+			sum(A.depositAmount) as totalDepositAmount,
+			sum(if(status = '3' or status = '4'  , depositAmount , 0)) as totalCompleteDeposit,
+			sum(if(status = '1' or status = '2' or status = '5' or status = '6' , depositAmount , 0)) as totalNotCompleteDeposit
 		from 
 		(
 			 select A.*, M.memberName, M.memberEmail

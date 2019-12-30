@@ -395,33 +395,6 @@ function viewPointbackList(){
 
 }
 
-function viewReceiptImage(path){
-	/*	var url = "/api/giftCardIssue/downQrCode?giftCardIssueNo=" + giftCardIssueNo + "&type=" + type;
-		var w = window.open(path, "QR Code", "width=550, height=550, left=100, top=100"); 
-		w.document.title = title;*/
-		$('#receipt_img').attr("src", "");
-		//$('#receipt_img').attr("src", "https://www.returnp.com" +path );
-		$('#receipt_img').attr("src", "http://localhost:9090/" +path );
-		$("#receipt_view").dialog({
-			title : "영수증",
-			modal : true,
-			closable : true,
-			border : 'thick',
-			shadow : true,
-			collapsible : false,
-			minimizable : false,
-			maximizable : false,
-			shadow : false,
-			buttons : [ {
-				text : '확인',
-				iconCls : 'icon-ok',
-				handler : function(){
-					$("#qr_code_view").dialog('close');
-					$('#qr_code_no').attr("src", "");
-				}
-			} ]
-		});
-	}
 
 function loadPointCodeTransactions(index, row){
 	if (typeof row.searchDate == 'undefined' || row.searchDate == '총계') {return;}
