@@ -73,11 +73,11 @@ public class AdminController extends ApplicationController{
 	@RequestMapping(value = AccessPoint.ROOT, method = RequestMethod.GET)
 	public String adminMainView(HttpSession session, Locale locale, Model model) {
 		session.setAttribute("admin", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)));
-
 		session.setAttribute("adminType", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAuthType());
 		session.setAttribute("adminTypeStr", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAuthTypeStr());
 		session.setAttribute("loginName", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAdminName());
 		session.setAttribute("initAuthMenu", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getInitAuthMenu());
+		session.setAttribute("exceptAuthMenu", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAdmin().getExceptAuth());
 		session.setAttribute("admin", ((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)));
 		if (!((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getAuthType().equals(AppConstants.AdminType.TOP_HAPPY)){
 			session.setAttribute("organCode",((AdminSession)session.getAttribute(AppConstants.ADMIN_SESSION)).getSaleOrgan().getOrganCode());

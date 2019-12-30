@@ -7,6 +7,8 @@ var summary_columns = [[
 	    {field:'totalDepositAmount',width:20,align:'center',title : '입금 금액 소계', formatter : numberFormatter},
 	    {field:'totalCompleteDeposit',width:20,align:'center',title : '입금 완료 소계', formatter : numberFormatter},
 	    {field:'totalNotCompleteDeposit',width:20,align:'center',title : '입금 미완료 소계', formatter : numberFormatter},
+	    {field:'totalDistTop',width:20,align:'center',title : '정산 13.5%', formatter : numberRedFormatter},
+	    {field:'totalDistMe',width:20,align:'center',title : '정산 1.5%', formatter : numberGreenFormatter},
 	    {field:'ss1',width:40,align:'center',title : '비고'},
 	 ]];
 
@@ -25,7 +27,7 @@ var columns = [[
 	    {field:'accPointAmount',width:40,align:'center',title : '적립금액', formatter : numberFormatter},
 	    {field:'depositAmount',width:35,align:'center',title : '입금금액',  formatter : numberFormatter},
 	    {field:'accTargetRange',width:45,align:'center',title : '적립대상',  formatter : accTargetRangeFormatter},
-	    {field:'status',width:40,align:'center',title : '상태',  formatter : pointCodeIssuerequestStatusFormatter},
+	    {field:'status',width:60,align:'center',title : '상태',  formatter : pointCodeIssuerequestStatusFormatter},
 	    {field:'uploadFile',width:55,align:'center',title : '업로드파일'},
 	    {field:'publisher',width:18,align:'center',title : '발행자',hidden:true},
 /*	    {field:'useStartTime',width:40,align:'center',title : '사용 시작일', formatter : dateFormatter},
@@ -116,7 +118,6 @@ function initView(){
 			var param = {searchType  : "year"}
 			returnp.api.call("selectPointCodeIssueRequestReports", param, function(res){
 				if (res.resultCode == "100") {
-					
 					if (res.rows.length < 1) {
 					}
 					setSummary(res, '연도별 포인트코드 발급요청 적립 총계');
@@ -619,68 +620,26 @@ function setListPager(){
         	var opts = $('#node_list').datagrid('options');
         	opts.pageSize=rows;
         	opts.pageNumber = page;
-        	
+        
         	var node = $('#summary_table').datagrid('getSelected');
         	if (!node) {
         		 $.messager.alert('알림','선택이 필요합니다.');
         		 return;
         	}
-        	loadPointCouponTransactions("pager", node);
+        	loadPointCodeIssueRequests("pager", node);
     	}
     }); 
 }
 
-function loadPointCodes(index, row){
-	//var param = {searchDateStart : row.searchDate, searchDateEnd : row.searchDate};
-	if (typeof row.searchDate == 'undefined' || row.searchDate == '총계') {return;}
-	var param = {searchDate : row.searchDate};
-	var opts = $('#node_list').datagrid('options');
-	var total = $('#node_list').datagrid('getData').total;
-	if (index == 'pager' ){
-		$.extend(param, {
-			pagination : opts.pagination,
-			pageSize : opts.pageSize,
-			page : opts.pageNumber,
-			total : total,
-			offset : (opts.pageNumber-1) * opts.pageSize
-		});
-	}else {
-		opts.pageNumber = 1;
-		$.extend(param, {
-			pagination : opts.pagination,
-			pageSize : opts.pageSize,
-			page : opts.pageNumber,
-			total : total,
-			offset : (opts.pageNumber-1) * opts.pageSize
-		});
-	}
-	
-	$.extend(param, $('#searchForm').serializeObject());
-	returnp.api.call("loadPointCodes", param, function(res){
-		console.log(res);
-		if (res.resultCode == "100") {
-			$('#node_list').datagrid({
-				data : res,
-				title : '[검색 결과] ' + res.total + " 개의 결과가 검색되었습니다",
-			});
-			setListPager();
-		}else {
-			$.messager.alert('오류 발생', message);
-		}
-	});
-}
-
 function setSummary(res, str){
-	$('#summary_table').datagrid({
-		data : res,
-		title : '['+str+ '] ' ,
-	});
 	var totalCount = 0;
 	var totalPayAmount = 0
 	var totalAccPointAmount = 0; 
 	var totalDepositAmount = 0; 
 	var totalCompleteDeposit = 0; 
 	var totalNotCompleteDeposit = 0; 
+	var totalDistTop = 0; 
+	var totalDistMe = 0; 
 	for (var i = 0; i < res.rows.length; i++) {
 		totalCount+=parseInt(res.rows[i].totalCount);
 		totalPayAmount += parseFloat(res.rows[i].totalPayAmount);
@@ -688,10 +647,21 @@ function setSummary(res, str){
 		totalDepositAmount+=parseFloat(res.rows[i].totalDepositAmount);
 		totalCompleteDeposit+=parseFloat(res.rows[i].totalCompleteDeposit);
 		totalNotCompleteDeposit+=parseFloat(res.rows[i].totalNotCompleteDeposit);
+		res.rows[i]['totalDistTop'] = parseInt(parseFloat(res.rows[i].totalCompleteDeposit) * 0.9)
+		res.rows[i]['totalDistMe'] = parseInt(parseFloat(res.rows[i].totalCompleteDeposit) * 0.1)
+		totalDistTop+=res.rows[i]['totalDistTop'];
+		totalDistMe+=res.rows[i]['totalDistMe'];
     }
+	
+	$('#summary_table').datagrid({
+		data : res,
+		title : '['+str+ '] ' ,
+	});
+	
 	$('#summary_table').datagrid({
 		title : '[' +str+ ']  : ' +numberGreenFormatter(totalAccPointAmount + "  /   " + totalPayAmount ),
 	});
+	
 	$('#summary_table') .datagrid( 
 		'appendRow', 
 		{ 
@@ -702,6 +672,9 @@ function setSummary(res, str){
 			totalDepositAmount : totalDepositAmount,
 			totalCompleteDeposit : totalCompleteDeposit,
 			totalNotCompleteDeposit : totalNotCompleteDeposit,
+			totalDistTop : totalDistTop,
+			totalDistMe: totalDistMe
+			
 		});
 	setListPager2();
 }

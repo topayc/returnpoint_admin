@@ -67,8 +67,8 @@ function issueStatusFormatter(value){
 function issueTypeFormatter2(value){
 	var result = "";
 	switch (value) {
-	case "1": result = '<span style = "font-weight : bold" >가맹점영수증</span>'; break;
-	case "2": result = '<span style = "font-weight : bold" >비가맹점영수증</span>'; break;
+	case "1": result = '<span style = "font-weight : bold;border-radius: 15px;border : 1px solid green;color : green;padding:3px;font-size:11px"  >가맹점</span>'; break;
+	case "2": result = '<span style = "font-weight : bold;border-radius: 15px;border : 1px solid red;color : red;padding:3px;font-size:11px"  >비가맹점</span>'; break;
 	default: result = "-"; break;
 	}
 	return result;
@@ -105,7 +105,7 @@ function pointCodeIssuerequestStatusFormatter(value){
 	case "1": result = '<span style = "font-weight : bold" >' + roundLabel("입금확인중", '#DF0101') + ' </span>'; break;
 	case "2": result = '<span style = "font-weight : bold" >' + roundLabel("입금확인 요청중", '#BF00FF') + ' </span>'; break;
 	case "3": result = '<span style = "font-weight : bold" >' + roundLabel("입금완료", '#4000FF') + ' </span>'; break;
-	case "4": result = '<span style = "font-weight : bold" >' + roundLabel("처리완료", '#04B404') + ' </span>'; break;
+	case "4": result = '<span style = "font-weight : bold" >' + roundLabel("코드발급-처리완료", '#04B404') + ' </span>'; break;
 	case "5": result = '<span style = "font-weight : bold" >' + roundLabel("입금취소", '#FF8000') + ' </span>'; break;
 	case "6": result = '<span style = "font-weight : bold" >' + roundLabel("처리불가", '#6E6E6E') + ' </span>'; break;
 	default: result = "-"; break;

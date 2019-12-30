@@ -30,12 +30,13 @@
     <result column="level" jdbcType="VARCHAR" property="level" />
     <result column="levelCode" jdbcType="VARCHAR" property="levelCode" />
     <result column="initAuthMenu" jdbcType="VARCHAR" property="initAuthMenu" />
+    <result column="exceptAuth" jdbcType="VARCHAR" property="exceptAuth" />
     <result column="regAdminNo" jdbcType="INTEGER" property="regAdminNo" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Admin_Column_List">
-   adminNo, adminName, adminEmail, adminPassword, authType, level, levelCode, initAuthMenu, 
+   adminNo, adminName, adminEmail, adminPassword, authType, level, levelCode, initAuthMenu,exceptAuth, 
     regAdminNo, createTime, updateTime
   </sql>
   

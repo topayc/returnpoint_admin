@@ -7,9 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.returnp.admin.dto.QueryCondition;
 
-public class Admin extends QueryCondition implements UserDetails{
+public class Admin extends QueryCondition implements UserDetails {
     
-	 private List<AdminRole> authorities;
+	private List<AdminRole> authorities;
+	
 	private Integer adminNo;
 
     private String adminName;
@@ -25,6 +26,8 @@ public class Admin extends QueryCondition implements UserDetails{
     private String levelCode;
 
     private String initAuthMenu;
+
+    private String exceptAuth;
 
     private Integer regAdminNo;
 
@@ -96,6 +99,14 @@ public class Admin extends QueryCondition implements UserDetails{
         this.initAuthMenu = initAuthMenu == null ? null : initAuthMenu.trim();
     }
 
+    public String getExceptAuth() {
+        return exceptAuth;
+    }
+
+    public void setExceptAuth(String exceptAuth) {
+        this.exceptAuth = exceptAuth == null ? null : exceptAuth.trim();
+    }
+
     public Integer getRegAdminNo() {
         return regAdminNo;
     }
@@ -119,7 +130,7 @@ public class Admin extends QueryCondition implements UserDetails{
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-    
+
     @Override
 	public String getPassword() {
 		// TODO Auto-generated method stub

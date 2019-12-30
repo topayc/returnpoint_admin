@@ -44,6 +44,7 @@
 	                	 <option value = "1">KICC</option>
 	                	 <option value = "2">KFTC</option>
 	                	 <option value = "7">KIS</option>
+	                	 <option value = "8">KOVAN</option>
 	                	 <option value = "3">CIDER</option>
 	                	 <option value = "4">ADMIN</option>
 	                	 <option value = "5">API</option>

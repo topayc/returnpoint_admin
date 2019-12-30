@@ -10,13 +10,14 @@
     <result column="level" jdbcType="VARCHAR" property="level" />
     <result column="levelCode" jdbcType="VARCHAR" property="levelCode" />
     <result column="initAuthMenu" jdbcType="VARCHAR" property="initAuthMenu" />
+    <result column="exceptAuth" jdbcType="VARCHAR" property="exceptAuth" />
     <result column="regAdminNo" jdbcType="INTEGER" property="regAdminNo" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
     adminNo, adminName, adminEmail, adminPassword, authType, level, levelCode, initAuthMenu, 
-    regAdminNo, createTime, updateTime
+    exceptAuth, regAdminNo, createTime, updateTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -31,16 +32,14 @@
   <insert id="insert" parameterType="com.returnp.admin.model.Admin">
     insert into admin (adminNo, adminName, adminEmail, 
       adminPassword, authType, level, 
-      levelCode, initAuthMenu, regAdminNo, 
-      createTime, updateTime)
+      levelCode, initAuthMenu, exceptAuth, 
+      regAdminNo, createTime, updateTime
+      )
     values (#{adminNo,jdbcType=INTEGER}, #{adminName,jdbcType=VARCHAR}, #{adminEmail,jdbcType=VARCHAR}, 
       #{adminPassword,jdbcType=VARCHAR}, #{authType,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
-      #{levelCode,jdbcType=VARCHAR}, #{initAuthMenu,jdbcType=VARCHAR}, #{regAdminNo,jdbcType=INTEGER}, 
-      NOW(), NOW())
-      
-        <selectKey keyProperty="adminNo" resultType="java.lang.Integer" order ="AFTER">
-		    SELECT LAST_INSERT_ID()
-	 </selectKey>	
+      #{levelCode,jdbcType=VARCHAR}, #{initAuthMenu,jdbcType=VARCHAR}, #{exceptAuth,jdbcType=VARCHAR}, 
+      #{regAdminNo,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.returnp.admin.model.Admin">
     insert into admin
@@ -68,6 +67,9 @@
       </if>
       <if test="initAuthMenu != null">
         initAuthMenu,
+      </if>
+      <if test="exceptAuth != null">
+        exceptAuth,
       </if>
       <if test="regAdminNo != null">
         regAdminNo,
@@ -104,6 +106,9 @@
       <if test="initAuthMenu != null">
         #{initAuthMenu,jdbcType=VARCHAR},
       </if>
+      <if test="exceptAuth != null">
+        #{exceptAuth,jdbcType=VARCHAR},
+      </if>
       <if test="regAdminNo != null">
         #{regAdminNo,jdbcType=INTEGER},
       </if>
@@ -139,6 +144,9 @@
       <if test="initAuthMenu != null">
         initAuthMenu = #{initAuthMenu,jdbcType=VARCHAR},
       </if>
+      <if test="exceptAuth != null">
+        exceptAuth = #{exceptAuth,jdbcType=VARCHAR},
+      </if>
       <if test="regAdminNo != null">
         regAdminNo = #{regAdminNo,jdbcType=INTEGER},
       </if>
@@ -160,9 +168,10 @@
       level = #{level,jdbcType=VARCHAR},
       levelCode = #{levelCode,jdbcType=VARCHAR},
       initAuthMenu = #{initAuthMenu,jdbcType=VARCHAR},
+      exceptAuth = #{exceptAuth,jdbcType=VARCHAR},
       regAdminNo = #{regAdminNo,jdbcType=INTEGER},
       createTime = #{createTime,jdbcType=TIMESTAMP},
-      updateTime = NOW()
+      updateTime = #{updateTime,jdbcType=TIMESTAMP}
     where adminNo = #{adminNo,jdbcType=INTEGER}
   </update>
 </mapper>

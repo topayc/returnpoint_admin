@@ -305,24 +305,24 @@
                  			 <li class = "S manage" data-options = "iconCls :'icon-info'">
                             	 <span  class = "S manage" style = "font-weight : bold">영수증 적립 자체 관리 ver 2</span>
 		                         <ul>
-		                             <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
+		                        <!--      <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePointCouponIssue" menu_deps= '2' >
 		                            		<span style = "font-weight : bold; ">포인트 코드 생성</span>
 		                            	</a> 
-		                            </li>
+		                            </li> -->
 		                            
-		                            <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
+		                            <li  class = "S_2 manage" id = "" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePointCodeIssueRequest" menu_deps= '2' >
 		                            		<span style = "font-weight : bold; ">포인트 코드 발행요청 관리</span>
 		                            	</a> 
 		                            </li>
 		                            
-		                            <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
+		                            <li  class = "S_3 manage" id = "" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePointCodeIssue" menu_deps= '2' >
 		                            		<span style = "font-weight : bold; ">포인트 코드 발행 관리 </span>
 		                            	</a> 
 		                            </li>
-									 <li  class = "S_1 manage" id = "" data-options = "iconCls :'icon-info'">
+									 <li  class = "S_4 manage" id = "" data-options = "iconCls :'icon-info'">
 		                            	<a class= "sub_menu"  view_req_name = "managePointCodeTransaction" menu_deps= '2' >
 		                            		<span style = "font-weight : bold; ">포인트 코드 적립 관리 </span>
 		                            	</a> 
@@ -677,6 +677,7 @@
 		var canNodeListSearchBlank = false;
 		var loginType = '${authType}'
 		var initMenu = "${initAuthMenu}";
+		var exceptAuthMenu = "${exceptAuthMenu}";
 		var organType =  "${authType}";
 		if (organType == null || organType == ""){
 			organType = "10";
@@ -701,6 +702,16 @@
 			$(".manage").not(menuSel).remove();
 			console.log(menuSel);
 		}
+		
+		var exceptAuthMenuArr= exceptAuthMenu.split(",");
+		
+		for (var  i = 0; i < exceptAuthMenuArr.length; i++){
+				console.log("########################");
+				console.log("." + exceptAuthMenuArr[i].trim());
+				console.log("########################");
+				$("." + exceptAuthMenuArr[i].trim()).remove();
+		}
+		
 		$.fn.serializeObject = function () {
 		    "use strict";
 		    var result = {};
