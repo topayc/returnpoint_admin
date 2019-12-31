@@ -706,9 +706,6 @@
 		var exceptAuthMenuArr= exceptAuthMenu.split(",");
 		
 		for (var  i = 0; i < exceptAuthMenuArr.length; i++){
-				console.log("########################");
-				console.log("." + exceptAuthMenuArr[i].trim());
-				console.log("########################");
 				$("." + exceptAuthMenuArr[i].trim()).remove();
 		}
 		
