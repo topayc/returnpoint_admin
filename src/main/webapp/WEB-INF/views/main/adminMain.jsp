@@ -704,9 +704,10 @@
 		}
 		
 		var exceptAuthMenuArr= exceptAuthMenu.split(",");
-		
 		for (var  i = 0; i < exceptAuthMenuArr.length; i++){
+			if (exceptAuthMenuArr[i] != null &&exceptAuthMenuArr[i].trim() != ""){
 				$("." + exceptAuthMenuArr[i].trim()).remove();
+			}	
 		}
 		
 		$.fn.serializeObject = function () {
