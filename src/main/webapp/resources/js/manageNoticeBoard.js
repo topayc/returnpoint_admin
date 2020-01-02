@@ -2,8 +2,8 @@
 	    	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 			   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 			    {field:'mainBbsNo',width:7,align:'center',title : '번호'},
-			    {field:'bbsType1',width:10,align:'center',title : '분류', formatter : bbsType1Formatter},
-			    {field:'bbsType2',width:10,align:'center',title : '타입', formatter : bbsType2Formatter},
+			    {field:'bbsType1',width:10,align:'center',title : '게시판 종류', formatter : bbsType1Formatter},
+			    {field:'bbsType2',width:10,align:'center',title : '세부 타입', formatter : bbsType2Formatter},
 			    {field:'title',width:50,align:'left',title : '제목'},
 			    {field:'status',width:10,align:'center',title : '상태', formatter : bbsStatusFormatter},
 			    {field:'writerNo',width:10,align:'center',title : '작성자 번호'},
@@ -27,7 +27,15 @@ function initView(){
 	/* 패널   초기화*/
 	$('.easyui-panel').panel({ border: false });
 	
-	
+	$('#bbsType2').combobox({
+		label : "게시판 세부분류 선택",
+		labelPosition : 'top',
+		editable: false,
+		panelHeight: 'auto',
+		labelPosition: 'top',
+		multiple:false,
+		required:true,
+	});
 	/* 노드 데이타그리드   초기화*/
 	$('#node_list').datagrid({
 		title : '[검색 결과]',
