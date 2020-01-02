@@ -669,6 +669,16 @@ function ynFormatter(value, row, index) {
 	return result;
 }
 
+function depositorFormatter(value, row, index) {
+	var result;
+	if (value) {
+		result = value;
+	}else {
+		result= row.memberName;
+	return result;
+	}
+}
+
 function boardLevelFormatter(value, row, index) {
 	var result;
 	switch (value) {

@@ -706,6 +706,7 @@
     	A.depositAmount, 
     	A.uploadFile, 
     	A.status, 
+    	A.depositor, 
     	A.publisher, 
     	A.useStartTime, 
     	A.useEndTime, 
@@ -866,6 +867,9 @@
 		(
 			select 
 				D.memberNo,
+				B.memberName,
+				B.memberEmail,
+				B.memberPhone,
 			    D.issueType,
 				D.payAmount,
 				D.accPointRate,

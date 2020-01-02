@@ -18,6 +18,7 @@ var columns = [[
 	    {field:'memberNo',width:15,align:'center',title : '회원 번호',hidden:true},
 	    {field:'memberName',width:50,align:'center',title : '회원이름'},
 	    {field:'memberEmail',width:60,align:'center',title : '회원이메일'},
+	    {field:'memberPhone',width:60,align:'center',title : '회원전화'},
 	    {field:'pointCode',width:70,align:'center',title : '포인트코드'},
 	    {field:'affiliateName',width:60,align:'center',title : '영수증발행점', formatter : nullCheckFormatter},
 	    {field:'issueType',width:43,align:'center',title : '발행타입', formatter : issueTypeFormatter2},
