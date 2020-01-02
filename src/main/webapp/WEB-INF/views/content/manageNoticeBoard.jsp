@@ -8,24 +8,24 @@
 </div>
 <div id="board_create_container"  style = "padding : 15px;display : none">
 	<form id="createBoardForm"  enctype="multipart/form-data" name = "createBoardForm" method="post" >
-	<input  type = "hidden" id = "mainBbsNo"  name="mainBbsNo"  value = "0"/>
-	<input  type = "hidden" id = "bbsType1"  name="bbsType1"  value = "1"/>
-  	
-  	
-  	<div style="margin-top:10px;margin-bottom:20px;margin-left : 10px;">
-		<input  id = "title"  name="title" style="width:100%"/>
-	</div>
-	
-	<div style="margin-bottom: 20px; margin-left: 10px;">
-			<select id=bbsType2 class="easyui-combobox" name="bbsType2"  style="width: 100%">
-				<option value="1">전체 공지</option>
-				<option value="2">가맹점 공지</option>
-			</select>
+		<input  type = "hidden" id = "mainBbsNo"  name="mainBbsNo"  value = "0"/>
+		<input  type = "hidden" id = "bbsType1"  name="bbsType1"  value = "1"/>
+	  	
+	  	
+	  	<div style="margin-top:10px;margin-bottom:20px;margin-left : 10px;">
+			<input  id = "title"  name="title" style="width:100%"/>
 		</div>
-
-		<div style="margin-bottom:20px;margin-left : 10px;">
-		<textarea  id = "content"  name="content" style="width:100%;height: 400px"></textarea> 
-	</div>
+		
+		<div style="margin-bottom: 20px; margin-left: 10px;">
+				<select id=bbsType2 class="easyui-combobox" name="bbsType2"  style="width: 100%">
+					<option value="1">전체 공지</option>
+					<option value="2">가맹점 공지</option>
+				</select>
+			</div>
+	
+			<div style="margin-bottom:20px;margin-left : 10px;">
+			<textarea  id = "content"  name="content" style="width:100%;height: 400px"></textarea> 
+		</div>
 	</form>
 </div>
 

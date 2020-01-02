@@ -204,9 +204,12 @@ function bbsStatusFormatter(value, row, index){
 function bbsType2Formatter(value, row, index){
 	var result = "-";
 	if (row.bbsType1 == '1') {
-		if (row.bbsType1 == '1'){result  = "전체 공지"}
-		else if (row.bbsType2 == '2'){result  = "가맹점 공지" }
-		else {result  = "전체 공지" }
+		if (row.bbsType2 == '1'){
+			result  = "전체 공지";
+		} else if (row.bbsType2 == '2'){
+			result  = "가맹점 공지";
+		} else {result  = "전체 공지" }
+		
 	}else if (row.bbsType1 == '2') {
 		if (row.bbsType2 == "1") { result  = "회원 정보"}
 		if (row.bbsType2 == "2") { result  = "포인트"}
