@@ -33,7 +33,7 @@
 	            </div>
 	            
    				<div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
-	                <input class="easyui-textbox"  id ="searchKeyword" name="searchKeyword"  style="width:100%" label="이름/아이디">
+	                <input class="easyui-textbox"  id ="searchKeyword" name="searchKeyword"  style="width:100%" label="아이디/이름/가맹점명/입금자명">
 	            </div>
 	            
 	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">

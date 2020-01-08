@@ -676,12 +676,12 @@ function ynFormatter(value, row, index) {
 
 function depositorFormatter(value, row, index) {
 	var result;
-	if (value) {
-		result = value;
-	}else {
+	if (!value || typeof value == "undefined"  || value == '0' ){
 		result= row.memberName;
-	return result;
+	}else {
+		result = value;
 	}
+	return result;
 }
 
 function boardLevelFormatter(value, row, index) {

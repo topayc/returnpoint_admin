@@ -22,11 +22,11 @@ var columns = [[
 	    {field:'memberEmail',width:60,align:'center',title : '회원이메일'},
 	    {field:'memberPhone',width:45,align:'center',title : '회원전화'},
 	    {field:'issueType',width:40,align:'center',title : '발행타입', formatter : issueTypeFormatter2},
-	    {field:'affiliateName',width:60,align:'center',title : '영수증발행점', formatter : nullCheckFormatter},
+	    {field:'affiliateName',width:60,align:'center',title : '가맹점', formatter : nullCheckFormatter},
 	    {field:'payAmount',width:40,align:'center',title : '기준금액', formatter : numberFormatter},
 	    {field:'accPointRate',width:25,align:'center',title : '적립율', formatter : percentFormatter},
 	    {field:'accPointAmount',width:40,align:'center',title : '적립금액', formatter : numberFormatter},
-	    {field:'depositor',width:35,align:'center',title : '입금자명',formatter : depositorFormatter},
+	    {field:'depositor',width:50,align:'center',title : '입금자명',formatter : depositorFormatter},
 	    {field:'depositAmount',width:35,align:'center',title : '입금금액',  formatter : numberFormatter},
 	    {field:'accTargetRange',width:45,align:'center',title : '적립대상',  formatter : accTargetRangeFormatter},
 	    {field:'status',width:60,align:'center',title : '상태',  formatter : pointCodeIssuerequestStatusFormatter},
@@ -100,14 +100,14 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
-		width: 200
+		width: 170
 	});
 	
 	/* 검색어 입력 박스 초기화 */
 	$('#searchKeyword').textbox({ 
 		labelPosition : 'top',
 		width: 180,
-		prompt : "아이디 / 이름" ,
+		prompt : "" ,
 	});
 	
 	
@@ -234,8 +234,9 @@ function initView(){
 	
 	/* 노드 데이타그리드   초기화*/
 	$('#summary_table').datagrid({
-		singleSelect:true,
+		singleSelect:false,
 		title : '[요약]',
+		ctrlSelect : true,
 		collapsible:false,
 		//autoRowHeight: false,
 		fitColumns:true,
@@ -256,7 +257,7 @@ function initView(){
 		},	
 		onRowContextMenu : function(e, index, row){
 			e.preventDefault();
-		  	$(this).datagrid("selectRow", index);
+		 /* 	$(this).datagrid("selectRow", index);*/
 		},
 	    columns: summary_columns
 	});
@@ -593,6 +594,12 @@ function setListPager2(){
             	    }
 
             	});
+            }
+        }, {
+            iconCls:'icon-add',
+            text : "엑셀 변환",
+            handler:function(){
+                gridToExcel('#summary_table','point_code_sum.xls');
             }
         }],
         layout:[ ],
