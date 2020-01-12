@@ -1,5 +1,6 @@
 package com.returnp.admin.service.interfaces;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -25,7 +26,7 @@ public interface PointCodeService {
 
 	ReturnpBaseResponse chanagePointCodeRequestStatus(PointCodeIssueRequest pointCodeIssueRequest);
 
-	ReturnpBaseResponse issuePointCode(PointCodeIssue pointCodeIssue);
+	ReturnpBaseResponse issuePointCode(PointCodeIssue pointCodeIssue , boolean isPush);
 
 	ReturnpBaseResponse selectPointCodeReports(HashMap<String, Object> dbParams);
 
@@ -44,6 +45,10 @@ public interface PointCodeService {
 	ReturnpBaseResponse loadPointCodeTransactions(HashMap<String, Object> params);
 
 	ReturnpBaseResponse selectPointCodePointbackRecords(HashMap<String, Object> param);
+
+	ReturnpBaseResponse chanagePointCodeRequestsStatus(ArrayList<Integer> pointCodeIssueRequestNos, String status);
+
+	ReturnpBaseResponse issuePointCodes(ArrayList<String> issueRequests);
 
 
 }

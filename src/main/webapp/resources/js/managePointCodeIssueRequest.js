@@ -317,7 +317,7 @@ function initView(){
 				 //iconCls: 'icon-ok',
 				 text:  row.status == "1" ? roundLabel("입금확인중", "#04B404") : "입금확인중",
 						 onclick: function(){
-							 changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, status : "1"});
+							 changePointCodeIssueRequestsStatus("1");
 						 }
 			 });
 			 
@@ -327,7 +327,7 @@ function initView(){
 				 //iconCls: 'icon-ok',
 				 text:  row.status == "2" ? roundLabel(" 입금확인 요청중", "#04B404") : "입금확인 요청중",
 						 onclick: function(){
-							 changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, status : "2"});
+							 changePointCodeIssueRequestsStatus("2");
 						 }
 			 });
 			 
@@ -337,7 +337,7 @@ function initView(){
 				 //iconCls: 'icon-ok',
 				 text:  row.status == "3" ? roundLabel("입금 완료 ", "#04B404") : "입금 완료 ",
 						 onclick: function(){
-							 changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, status : "3"});
+							 changePointCodeIssueRequestsStatus("3");
 						 }
 			 });
 			 
@@ -347,7 +347,7 @@ function initView(){
 				 //iconCls: 'icon-ok',
 				 text:  row.status == "4" ? roundLabel("처리 완료", "#04B404") : "처리 완료",
 						 onclick: function(){
-							/* changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, status : "4"});*/
+							/* changePointCodeIssueRequestsStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, status : "4"});*/
 						 }
 			 });
 			 
@@ -357,7 +357,7 @@ function initView(){
 				 //iconCls: 'icon-ok',
 				 text:  row.status == "5" ? roundLabel("입금 취소 ", "#04B404") : "입금 취소 ",
 						 onclick: function(){
-							 changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, status : "5"});
+							 changePointCodeIssueRequestsStatus("5");
 						 }
 			 });
 			 
@@ -367,7 +367,7 @@ function initView(){
 				 //iconCls: 'icon-ok',
 				 text:  row.status == "6" ? roundLabel("처리 불가  ", "#04B404") : "처리 불가 ",
 						 onclick: function(){
-							 changePointCodeIssueRequestStatus({pointCodeIssueRequestNo : row.pointCodeIssueRequestNo, status : "6"});
+							 changePointCodeIssueRequestsStatus("6");
 						 }
 			 });
 			 
@@ -392,7 +392,8 @@ function initView(){
 							 $.messager.alert('알림', "해당 요청건은 입금이 완료된 상태가 아닙니다.</br>입금 확인후 발급하시기 바랍니다.");
 							 return;
 						 }
-						 issuePointCode({pointCodeIssueRequestNo :row.pointCodeIssueRequestNo , memberNo : row.memberNo })
+						 //issuePointCode({pointCodeIssueRequestNo :row.pointCodeIssueRequestNo , memberNo : row.memberNo })
+						 issuePointCodes();
 					 }
 				 });
 			 }
@@ -450,7 +451,6 @@ function loadPointCodeIssueRequests(index, row){
 	
 	$.extend(param, $('#searchForm').serializeObject());
 	returnp.api.call("loadPointCodeIssueRequests", param, function(res){
-		console.log(res);
 		if (res.resultCode == "100") {
 			$('#node_list').datagrid({
 				data : res,
@@ -463,9 +463,9 @@ function loadPointCodeIssueRequests(index, row){
 	});
 }
 
+/*단건 포인트코드 발행  */
 function issuePointCode(options){
 	returnp.api.call("issuePointCode", options, function(res){
-		console.log(res);
 		$.messager.alert('알림', res.message);
 		if (res.resultCode == "100") {
 			var node = $('#summary_table').datagrid('getSelected');
@@ -476,6 +476,91 @@ function issuePointCode(options){
 	});
 }
 
+/*다수의 포인트 코드 발행 */
+function issuePointCodes(){
+	var params = {issueRequests : []}
+	var selectedRows =  $('#node_list').datagrid('getSelections');
+	if (selectedRows.length < 1) {
+		$.messager.alert('알림', "선택된 항목이 없습니다.");
+	}
+	
+	for (var i = 0; i < selectedRows.length; i++){
+		if (selectedRows[i].status == '4') {
+			$.messager.alert(
+				'알림', "코드 발행 요청이 잘못되었습니다.</br>" + 
+				"발행번호 " +selectedRows[i].pointCodeIssueRequestNo + " 번의 발행요청건은 이미 코드발급이 완료된 상태입니다. </br>" + 
+				"확인후 다시 시도해주세요"
+			);
+			return;
+		}
+		
+		if (selectedRows[i].status != '3') {
+			$.messager.alert(
+				'알림', "코드 발행 요청이 잘못되었습니다.</br>" + 
+				"발행번호 " + selectedRows[i].pointCodeIssueRequestNo + " 번의 발행요청건은 입금 완료 상태가 아닙니다. </br>" + 
+				"확인후 다시 시도해주세요"
+			);
+			return;
+		}
+		
+
+		params.issueRequests.push(selectedRows[i].pointCodeIssueRequestNo + "_" + selectedRows[i].memberNo + "_" + selectedRows[i].accPointAmount + "_" + selectedRows[i].memberName)
+	}
+	
+	returnp.api.call("issuePointCodes", params, function(res){
+		$.messager.alert('알림', res.message);
+		if (res.resultCode == "100") {
+        	var node = $('#summary_table').datagrid('getSelected');
+        	loadPointCodeIssueRequests("pager", node);
+		}else {
+		}
+	});
+}
+
+/*다수건 상태 변경*/
+function changePointCodeIssueRequestsStatus(status){
+	var params = {status : status};
+	params.pointCodeIssueRequestNos = [];
+	
+	var selectedRows =  $('#node_list').datagrid('getSelections');
+	if (selectedRows.length < 1) {
+		$.messager.alert('알림', "선택된 항목이 없습니다.");
+	}
+	
+	for (var i = 0; i < selectedRows.length; i++){
+		if (selectedRows[i].status == '4') {
+			$.messager.alert(
+				'알림', "상태 변경 요청이 잘못되었습니다.</br>" + 
+				"발행번호 " +selectedRows[i].pointCodeIssueRequestNo + " 번의 발행요청건은 이미 코드발급이 완료된 상태로 다른 상태로 변경할 수 없습니다 </br>" + 
+				"확인후 다시 시도해주세요"
+			);
+			return;
+		}
+		
+		if (selectedRows[i].status == '3') {
+			$.messager.alert(
+				'알림', "상태 변경 요청이 잘못되었습니다.</br>" + 
+				"발행번호 " + selectedRows[i].pointCodeIssueRequestNo + " 번의 발행요청건은 입금 완료상태로 다른 상태로 변경할 수 없습니다 </br>" + 
+				"확인후 다시 시도해주세요"
+			);
+			return;
+		}
+		
+		params.pointCodeIssueRequestNos.push(selectedRows[i].pointCodeIssueRequestNo);
+	}
+	
+	returnp.api.call("changePointCodeIssueRequestsStatus", params, function(res){
+		console.log(res);
+		$.messager.alert('알림', res.message);
+		if (res.resultCode == "100") {
+        	var node = $('#summary_table').datagrid('getSelected');
+        	loadPointCodeIssueRequests("pager", node);
+		}else {
+		}
+	});
+}
+
+/*단건 상태 변경*/
 function changePointCodeIssueRequestStatus(options){
 	returnp.api.call("changePointCodeIssueRequestStatus", options, function(res){
 		console.log(res);

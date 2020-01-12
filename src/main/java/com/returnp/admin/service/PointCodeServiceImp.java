@@ -2,6 +2,7 @@ package com.returnp.admin.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,6 @@ import com.returnp.admin.dao.mapper.SearchMapper;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
 import com.returnp.admin.model.DeviceInfo;
-import com.returnp.admin.model.GiftCardIssue;
 import com.returnp.admin.model.MemberConfig;
 import com.returnp.admin.model.PointCodeIssue;
 import com.returnp.admin.model.PointCodeIssueRequest;
@@ -76,6 +76,9 @@ public class PointCodeServiceImp implements PointCodeService{
 		}
 	}
 
+	/*
+	 * 1건의 포인트 코드발행요청건의 상태를 변경 
+	 */
 	@Override
 	public ReturnpBaseResponse chanagePointCodeRequestStatus(PointCodeIssueRequest pointCodeIssueRequest) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
@@ -101,6 +104,30 @@ public class PointCodeServiceImp implements PointCodeService{
 		}
 	}
 	
+	/*
+	 * 다수건의 포인트 코드발행요청건의 상태를 변경 
+	 */
+	@Override
+	public ReturnpBaseResponse chanagePointCodeRequestsStatus(ArrayList<Integer> pointCodeIssueRequestNos, String status) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		try {
+			PointCodeIssueRequest request = null;
+			for(Integer pointCodeIssueRequestNo : pointCodeIssueRequestNos) {
+				request = new PointCodeIssueRequest();
+				request.setPointCodeIssueRequestNo(pointCodeIssueRequestNo);
+				request.setStatus(status);
+				this.chanagePointCodeRequestStatus(request);
+			}
+			ResponseUtil.setSuccessResponse(res, "100" , "총 " +pointCodeIssueRequestNos.size()  + " 개의  포인트 코드 발급요청  상태변경 완료했습니다");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "서버 에러 ");
+			return res;
+		}
+	}
+	
 	@Override
 	public ReturnpBaseResponse loadPointCodeIssueRequests(HashMap<String, Object> params) {
 		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
@@ -119,8 +146,9 @@ public class PointCodeServiceImp implements PointCodeService{
 	}
 	
 
+	/*단건의 포인트 코드 발행*/
 	@Override
-	public ReturnpBaseResponse issuePointCode(PointCodeIssue pointCodeIssue) {
+	public ReturnpBaseResponse issuePointCode(PointCodeIssue pointCodeIssue, boolean isPush) {
 		ReturnpBaseResponse res = new ReturnpBaseResponse();
 		String message = null;
 		try {
@@ -146,58 +174,56 @@ public class PointCodeServiceImp implements PointCodeService{
 			
 			message = "포인트 적립 코드 발급 완료 ";
 			
-			/* 포인트코드 발급 확인 푸시 메시지 전송*/
-			/*
-			 * 디바이스 정보 확인
-			 * */
-			DeviceInfo deviceInfo = new DeviceInfo();
-			deviceInfo.setMemberNo(req.getMemberNo());
-			ArrayList<DeviceInfo> deviceInfos = this.searchMapper.selectDeviceInfos(deviceInfo);
-			
-			if (deviceInfos.size() != 1) {
-				message +="</br>기기 정보 부재로 Push Message 발송하지 않음";
-			}else {
-				/*
-				 * 푸시 알림 설정 확인
-				 * */
-				MemberConfig memberConfig = new MemberConfig();
-				memberConfig.setMemberNo(req.getMemberNo());
-				ArrayList<MemberConfig> memberConfigs = this.searchService.selectMemberConfigs(memberConfig);
+			if (isPush) {
+				/* 포인트코드 발급 확인 푸시 메시지 전송, 디바이스 정보 확인 */
+				DeviceInfo deviceInfo = new DeviceInfo();
+				deviceInfo.setMemberNo(req.getMemberNo());
+				ArrayList<DeviceInfo> deviceInfos = this.searchMapper.selectDeviceInfos(deviceInfo);
 				
-				/*푸쉬 알림 설정이 존재하지 않는 다면, 기본 OFF 로 인서트*/ 
-				boolean push = false;
-				if (memberConfigs.size()< 1) {
-					memberConfig.setDevicePush("N");
-					memberConfig.setEmailReceive("N");
-					this.memberConfigMapper.insert(memberConfig);
-					push = false;
+				if (deviceInfos.size() != 1) {
+					message +="</br>기기 정보 부재로 Push Message 발송하지 않음";
 				}else {
-					memberConfig = memberConfigs.get(0);
-					push = memberConfig.getDevicePush().equals("Y") ? true : false;;
-				}
-				
-				String pushReturn = "";
-				deviceInfo = deviceInfos.get(0);
-				
-				if (!push) {
-					message += "</br> <b style = 'font-color : red'>알림 설정이 OFF 로 Push Message 발송않함</b>";
-				}else {
+					/*
+					 * 푸시 알림 설정 확인
+					 * */
+					MemberConfig memberConfig = new MemberConfig();
+					memberConfig.setMemberNo(req.getMemberNo());
+					ArrayList<MemberConfig> memberConfigs = this.searchService.selectMemberConfigs(memberConfig);
 					
-					/* 선택한 상품권 푸시 발송*/
-					if (deviceInfo.getOs().equalsIgnoreCase("android")) {
-						pushReturn = androidPushService.pushPointCode(deviceInfo, pointCodeIssue);
-					}else  if (deviceInfo.getOs().equalsIgnoreCase("apple")) {
-						pushReturn = iosPushService.pushPointCode(deviceInfo, pointCodeIssue);
+					/*푸쉬 알림 설정이 존재하지 않는 다면, 기본 OFF 로 인서트*/ 
+					boolean push = false;
+					if (memberConfigs.size()< 1) {
+						memberConfig.setDevicePush("N");
+						memberConfig.setEmailReceive("N");
+						this.memberConfigMapper.insert(memberConfig);
+						push = false;
+					}else {
+						memberConfig = memberConfigs.get(0);
+						push = memberConfig.getDevicePush().equals("Y") ? true : false;;
 					}
 					
-					if (pushReturn == null) {
-						message += "</br>  <b style = 'font-color : red'>Push Message  발송 실패</b>";
+					String pushReturn = "";
+					deviceInfo = deviceInfos.get(0);
+					
+					if (!push) {
+						message += "</br> <b style = 'font-color : red'>알림 설정이 OFF 로 Push Message 발송않함</b>";
 					}else {
-						message += "</br>  <b style = 'font-color :green'>Push Message 발송 완료</b>";
+						
+						/* 선택한 상품권 푸시 발송*/
+						if (deviceInfo.getOs().equalsIgnoreCase("android")) {
+							pushReturn = androidPushService.pushPointCode(deviceInfo, pointCodeIssue);
+						}else  if (deviceInfo.getOs().equalsIgnoreCase("apple")) {
+							pushReturn = iosPushService.pushPointCode(deviceInfo, pointCodeIssue);
+						}
+						
+						if (pushReturn == null) {
+							message += "</br>  <b style = 'font-color : red'>Push Message  발송 실패</b>";
+						}else {
+							message += "</br>  <b style = 'font-color :green'>Push Message 발송 완료</b>";
+						}
 					}
 				}
 			}
-			
 			ResponseUtil.setSuccessResponse(res, "100" , message);
 			return res;
 		}catch(Exception e) {
@@ -208,6 +234,105 @@ public class PointCodeServiceImp implements PointCodeService{
 		}
 	}
 
+	/*다수건의 포인트 코드 발행*/
+	@Override
+	public ReturnpBaseResponse issuePointCodes(ArrayList<String> issueRequests) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		
+		/* 
+		 * 코드를 발행하고, 디바이스 푸쉬를 보내기 위한 맵
+		 * 키 : 멤버 번호
+		 * 값 : 발행한 건수(total) , 총 발행 금액(totalAmount)을 가지고 있는 맵
+		 * */
+		HashMap<Integer, HashMap<String, Object>> sendMap = new HashMap<Integer, HashMap<String, Object>>();
+		
+		try {
+			/*포인트 코드 발급 */
+			PointCodeIssue pointCodeIssue = null;
+			for (String issueRequest : issueRequests) {
+				Integer pointCodeIssueRequestNo = Integer.parseInt(issueRequest.split("_")[0]); 
+				Integer memberNo = Integer.parseInt(issueRequest.split("_")[1]); 
+				Integer accPointAmount= Integer.parseInt(issueRequest.split("_")[2]); 
+				String memberName = issueRequest.split("_")[3]; 
+				
+				if (!sendMap.containsKey(memberNo)) {
+					sendMap.put(memberNo,  new HashMap<String, Object>());
+					sendMap.get(memberNo).put("totalCount", 0);
+					sendMap.get(memberNo).put("totalAmount", 0);
+					sendMap.get(memberNo).put("memberName", memberName);
+				}
+				
+				sendMap.get(memberNo).put("totalCount", (int)sendMap.get(memberNo).get("totalCount") + 1);
+				sendMap.get(memberNo).put("totalAmount", (int)sendMap.get(memberNo).get("totalAmount") + accPointAmount);
+				
+				pointCodeIssue = new PointCodeIssue();
+				pointCodeIssue.setPointCodeIssueRequestNo(pointCodeIssueRequestNo);
+				pointCodeIssue.setMemberNo(memberNo);
+				this.issuePointCode(pointCodeIssue, false);
+		    }
+
+			/* 발송 코드 요약에 대하여 해당 발송자에게 푸쉬 메시지 발송  */
+			String title = null;
+			String content = null;
+			ArrayList<DeviceInfo> deviceInfos = null;
+			DeviceInfo deviceInfo = null;
+			String pushReturn = null;
+
+			if (sendMap.size() > 0) {
+				for (Map.Entry<Integer, HashMap<String, Object>> entry : sendMap.entrySet()) {
+					int key   = entry.getKey();
+					HashMap<String, Object>  value =  entry.getValue(); 
+
+					deviceInfo = new DeviceInfo();
+					deviceInfo.setMemberNo(key);
+					deviceInfos = this.searchMapper.selectDeviceInfos(deviceInfo);
+
+					if (deviceInfos.size() == 1) {
+						deviceInfo = deviceInfos.get(0);
+
+						/*  푸시 알림 설정 확인 */
+						MemberConfig memberConfig = new MemberConfig();
+						memberConfig.setMemberNo(key);
+						ArrayList<MemberConfig> memberConfigs = this.searchService.selectMemberConfigs(memberConfig);
+
+						/*푸쉬 알림 설정이 존재하지 않는 다면, 기본 OFF 로 인서트*/ 
+						boolean push = false;
+						if (memberConfigs.size()< 1) {
+							memberConfig.setDevicePush("N");
+							memberConfig.setEmailReceive("N");
+							this.memberConfigMapper.insert(memberConfig);
+							push = false;
+						}else {
+							memberConfig = memberConfigs.get(0);
+							push = memberConfig.getDevicePush().equals("Y") ? true : false;
+						}
+
+						if (push) {
+							title = String.format("%s님 적립코드가 등록되었습니다.", (String)value.get("memberName"));
+							content = String.format(
+								 "총 적립금 : %,d 원 , 코드 갯수 : %d개 등록되었습니다", 
+								(int)value.get("totalAmount"), 
+								(int)value.get("totalCount"));
+
+							/* 선택한 상품권 푸시 발송*/
+							if (deviceInfo.getOs().equalsIgnoreCase("android")) {
+								pushReturn = androidPushService.pushMessage(deviceInfo.getPushKey(), title, content, "10", "");
+							}else  if (deviceInfo.getOs().equalsIgnoreCase("apple")) {
+								pushReturn = iosPushService.pushPointCode(deviceInfo, pointCodeIssue);
+							}
+						}
+					}
+				}
+			}
+			ResponseUtil.setSuccessResponse(res, "100" , issueRequests.size() + " 개의 포인트 코드 생성 및 푸시 발송완료");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "포인트 코드 생성 실패");
+			return res;
+		}
+	}
 	
 	// --------------------------------------------------------------------------------------------------------------------
 	// 포인트 코드 서비스 메서드 
@@ -247,6 +372,7 @@ public class PointCodeServiceImp implements PointCodeService{
 		}
 	}
 
+	
 	@Override
 	public ReturnpBaseResponse loadPointCodeIssues(HashMap<String, Object> params) {
 		ArrayListResponse<HashMap<String, Object>> res = new ArrayListResponse<HashMap<String, Object>>();
@@ -360,6 +486,5 @@ public class PointCodeServiceImp implements PointCodeService{
 			return res;
 		}
 	}
-
 
 }

@@ -1,5 +1,6 @@
 package com.returnp.admin.web.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,16 +54,33 @@ public class PointCodeController extends ApplicationController{
 		return this.pointCodeService.loadPointCodeIssueRequests(params);
 	}
 
+	/**
+	 * 1건의 포인트 코드 발행
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/pointCodeIssueRequest/issuePointCode", method = RequestMethod.POST)
 	public ReturnpBaseResponse  issuePointCodeIssueRequest(PointCodeIssue pointCodeIssue) {
-		return this.pointCodeService.issuePointCode(pointCodeIssue);
+		return this.pointCodeService.issuePointCode(pointCodeIssue, true);
+	}
+
+	/**
+	 * 다수건의 포인트 코드 발행
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/pointCodeIssueRequest/issuePointCodes", method = RequestMethod.POST)
+	public ReturnpBaseResponse  issuePointCodesIssueRequest(
+			@RequestParam(value = "issueRequests[]", required = true) ArrayList<String>  issueRequests ) {
+		return this.pointCodeService.issuePointCodes(issueRequests);
 	}
 
 	
+	/**
+	 * 1건의 포인트 코드 발행 요청 건의 상태를 변경함 
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/pointCodeIssueRequest/change", method = RequestMethod.GET)
-	public ReturnpBaseResponse changePointCodeIssueRequestStatus(PointCodeIssueRequest pointCodeIssueRequest, HttpSession httpSession){
+	public ReturnpBaseResponse changePointCodeIssueRequestStatus(
+			PointCodeIssueRequest pointCodeIssueRequest, HttpSession httpSession){
 		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
 		ReturnpBaseResponse res = null;
 		if (adminSession == null) {
@@ -71,6 +89,29 @@ public class PointCodeController extends ApplicationController{
 			return res;
 		}else {
 			return this.pointCodeService.chanagePointCodeRequestStatus(pointCodeIssueRequest);
+		}
+	}
+
+	/**
+	 * 다수의 포인트코드발행 요청 건의 상태를 변경
+	 * @param pointCodeIssueRequest
+	 * @param httpSession
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/pointCodeIssueRequest/changes", method = RequestMethod.GET)
+	public ReturnpBaseResponse changePointCodeIssueRequestsStatus(
+			@RequestParam(value = "pointCodeIssueRequestNos[]", required = true) ArrayList<Integer>  pointCodeIssueRequestNos, 
+			@RequestParam(value = "status", required = true) String status,
+			HttpSession httpSession){
+		AdminSession adminSession = (AdminSession)httpSession.getAttribute(AppConstants.ADMIN_SESSION);
+		ReturnpBaseResponse res = null;
+		if (adminSession == null) {
+			res = new ReturnpBaseResponse();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "1098", "관리자 세션이 없습니다. 관리자 로그인을 해주세요");
+			return res;
+		}else {
+			return this.pointCodeService.chanagePointCodeRequestsStatus(pointCodeIssueRequestNos, status);
 		}
 	}
 	

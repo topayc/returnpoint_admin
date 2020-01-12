@@ -11,8 +11,8 @@ import com.returnp.admin.model.PointCodeIssue;
 public interface AndroidPushService {
 	public String pushGiftCard(DeviceInfo deviceInfo, GiftCardIssue giftCardIssueCommand, int myGiftCardNo) throws FirebaseMessagingException;
 
-	public String pushMessage(String string);
-
 	public String pushPointCode(DeviceInfo deviceInfo, PointCodeIssue pointCodeIssue) throws FirebaseMessagingException;
+
+	public String pushMessage(String pushToken, String title, String content, String pushCode, String link) throws FirebaseMessagingException;
 
 }

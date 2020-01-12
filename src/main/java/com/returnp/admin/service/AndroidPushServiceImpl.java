@@ -30,8 +30,6 @@ public class AndroidPushServiceImpl implements AndroidPushService {
 	
 	@Override
 	public String pushGiftCard(DeviceInfo deviceInfo, GiftCardIssue giftCardIssue,  int myGiftCardNo) throws FirebaseMessagingException {
-		//System.out.println("#######################################################");
-		//System.out.println("AndroidPushServiceImpl.pushGiftCard");
 		Message message = Message.builder()
 			.putData("title", "R 포인트상품권 도착")
 			.putData("pinNumber", giftCardIssue.getPinNumber())
@@ -43,15 +41,20 @@ public class AndroidPushServiceImpl implements AndroidPushService {
 			.setToken(deviceInfo.getPushKey())
 			.build();
 		String response = FirebaseMessaging.getInstance().send(message);
-		//System.out.println("Push Return Value  : " + response);
-		//System.out.println("#######################################################");
 		return response;
 	}
 
 	@Override
-	public String pushMessage(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public String pushMessage(String pushToken, String title, String content, String pushCode, String link) throws FirebaseMessagingException {
+		Message message = Message.builder()
+				.setToken(pushToken)
+				.putData("title", title)
+				.putData("content", content)
+				.putData("pushCode",pushCode)
+				.putData("link", link)
+				.build();
+			String response = FirebaseMessaging.getInstance().send(message);
+			return response;
 	}
 
 	@Override
@@ -68,5 +71,6 @@ public class AndroidPushServiceImpl implements AndroidPushService {
 			//System.out.println("#######################################################");
 			return response;
 	}
+
 
 }
