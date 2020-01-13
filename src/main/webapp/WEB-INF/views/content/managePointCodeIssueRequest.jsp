@@ -19,8 +19,15 @@
 	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <input id = "searchDateEnd"  name="searchDateEnd" label="검색 종료일" style="width:100%"/>
 	            </div>
-
-	                 <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
+				 
+	              <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
+	                <select id = "searchIssueType" class="easyui-combobox" name="searchIssueType" label="영수증 타입" style="width:100%">
+	                	 	<option value="0">전체</option>
+						   <option value="1">가맹점 영수증</option>
+						   <option value="2">비가맹점 영수증</option>
+	                </select>
+	            </div>
+	              <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <select id = "searchStatus" class="easyui-combobox" name="searchStatus" label="상태" style="width:100%">
 	                	 	<option value="0">전체</option>
 						   <option value="1">입금 확인중</option>

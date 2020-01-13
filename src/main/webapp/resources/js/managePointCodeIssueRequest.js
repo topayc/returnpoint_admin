@@ -7,8 +7,8 @@ var summary_columns = [[
 	    {field:'totalDepositAmount',width:20,align:'center',title : '입금 금액 소계', formatter : numberFormatter},
 	    {field:'totalCompleteDeposit',width:20,align:'center',title : '입금 완료 소계', formatter : numberFormatter},
 	    {field:'totalNotCompleteDeposit',width:20,align:'center',title : '입금 미완료 소계', formatter : numberFormatter},
-	    {field:'totalDistTop',width:20,align:'center',title : '정산 13.5%', formatter : numberRedFormatter},
-	    {field:'totalDistMe',width:20,align:'center',title : '정산 1.5%', formatter : numberGreenFormatter},
+	    {field:'totalDistTop',width:20,align:'center',title : '본사 정산', formatter : numberRedFormatter},
+	    {field:'totalDistMe',width:20,align:'center',title : '운영 정산', formatter : numberGreenFormatter},
 	    {field:'ss1',width:40,align:'center',title : '비고'},
 	 ]];
 
@@ -92,6 +92,16 @@ function initView(){
 		width: 120
 	});
 
+	$('#searchIssueType').combobox({
+		labelPosition : 'top',
+		showItemIcon: true,
+		editable: false,
+		panelHeight: 'auto',
+		labelPosition: 'top',
+		multiple:false,
+		required:true,
+		width: 135
+	});
 	$('#searchStatus').combobox({
 		labelPosition : 'top',
 		showItemIcon: true,
@@ -100,7 +110,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
-		width: 170
+		width: 150
 	});
 	
 	/* 검색어 입력 박스 초기화 */
@@ -741,8 +751,8 @@ function setSummary(res, str){
 		totalDepositAmount+=parseFloat(res.rows[i].totalDepositAmount);
 		totalCompleteDeposit+=parseFloat(res.rows[i].totalCompleteDeposit);
 		totalNotCompleteDeposit+=parseFloat(res.rows[i].totalNotCompleteDeposit);
-		res.rows[i]['totalDistTop'] = parseInt(parseFloat(res.rows[i].totalCompleteDeposit) * 0.9)
-		res.rows[i]['totalDistMe'] = parseInt(parseFloat(res.rows[i].totalCompleteDeposit) * 0.1)
+		res.rows[i]['totalDistTop'] = parseInt(parseFloat(res.rows[i].totalCompleteDeposit) / 3 * 2.6)
+		res.rows[i]['totalDistMe'] = parseInt(parseFloat(res.rows[i].totalCompleteDeposit) /3 * 0.4)
 		totalDistTop+=res.rows[i]['totalDistTop'];
 		totalDistMe+=res.rows[i]['totalDistMe'];
     }
