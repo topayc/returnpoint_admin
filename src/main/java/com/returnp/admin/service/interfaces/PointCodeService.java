@@ -50,5 +50,7 @@ public interface PointCodeService {
 
 	ReturnpBaseResponse issuePointCodes(ArrayList<String> issueRequests);
 
+	ReturnpBaseResponse deletePointCodeIssueRequest(HashMap<String, Object> params);
+
 
 }

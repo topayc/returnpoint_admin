@@ -145,6 +145,24 @@ public class PointCodeServiceImp implements PointCodeService{
 		}
 	}
 	
+	@Override
+	public ReturnpBaseResponse deletePointCodeIssueRequest(HashMap<String, Object> params) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		try {
+			PointCodeIssueRequest request = new PointCodeIssueRequest();
+			request.setMemberNo(Integer.parseInt((String)params.get("memberNo")));
+			request.setPointCodeIssueRequestNo(Integer.parseInt((String)params.get("pointCodeIssueRequestNo")));
+			this.pointCodeIssueRequestMapper.deleteByPrimaryKey(request.getPointCodeIssueRequestNo());
+			ResponseUtil.setSuccessResponse(res, "100" , "삭제 성공");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "서버 에러 ");
+			return res;
+		}
+	}
+	
 
 	/*단건의 포인트 코드 발행*/
 	@Override

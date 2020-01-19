@@ -8,7 +8,7 @@ var summary_columns = [[
 	    {field:'totalCompleteDeposit',width:20,align:'center',title : '입금 완료 소계', formatter : numberFormatter},
 	    {field:'totalNotCompleteDeposit',width:20,align:'center',title : '입금 미완료 소계', formatter : numberFormatter},
 	    {field:'totalDistTop',width:20,align:'center',title : '본사 정산', formatter : numberRedFormatter},
-	    {field:'totalDistMe',width:20,align:'center',title : '운영 정산', formatter : numberGreenFormatter},
+	    {field:'totalDistMe',width:20,align:'center',title : '개발/운영 정산', formatter : numberGreenFormatter},
 	    {field:'ss1',width:40,align:'center',title : '비고'},
 	 ]];
 
@@ -21,15 +21,16 @@ var columns = [[
 	    {field:'memberName',width:40,align:'center',title : '회원이름'},
 	    {field:'memberEmail',width:60,align:'center',title : '회원이메일'},
 	    {field:'memberPhone',width:45,align:'center',title : '회원전화'},
-	    {field:'issueType',width:40,align:'center',title : '발행타입', formatter : issueTypeFormatter2},
-	    {field:'affiliateName',width:60,align:'center',title : '가맹점', formatter : nullCheckFormatter},
+	    {field:'issueType',width:35,align:'center',title : '발행타입', formatter : issueTypeFormatter2},
+	    {field:'affiliateName',width:45,align:'center',title : '가맹점', formatter : nullCheckFormatter},
 	    {field:'payAmount',width:40,align:'center',title : '기준금액', formatter : numberFormatter},
 	    {field:'accPointRate',width:25,align:'center',title : '적립율', formatter : percentFormatter},
 	    {field:'accPointAmount',width:40,align:'center',title : '적립금액', formatter : numberFormatter},
-	    {field:'depositor',width:50,align:'center',title : '입금자명',formatter : depositorFormatter},
-	    {field:'depositAmount',width:35,align:'center',title : '입금금액',  formatter : numberFormatter},
+	    {field:'depositAmount',width:40,align:'center',title : '공제전입금금액',  formatter : numberFormatter},
+	    {field:'finalDepositAmount',width:40,align:'center',title : '공제후입금금액',  formatter : numberFormatter},
+	    {field:'depositor',width:45,align:'center',title : '입금자명',formatter : depositorFormatter},
 	    {field:'accTargetRange',width:45,align:'center',title : '적립대상',  formatter : accTargetRangeFormatter},
-	    {field:'status',width:60,align:'center',title : '상태',  formatter : pointCodeIssuerequestStatusFormatter},
+	    {field:'status',width:37,align:'center',title : '상태',  formatter : pointCodeIssuerequestStatusFormatter},
 	    {field:'uploadFile',width:55,align:'center',title : '업로드파일', hidden:true},
 	    {field:'publisher',width:18,align:'center',title : '발행자',hidden:true},
 /*	    {field:'useStartTime',width:40,align:'center',title : '사용 시작일', formatter : dateFormatter},
@@ -407,6 +408,39 @@ function initView(){
 					 }
 				 });
 			 }
+			 
+			 if (row.status == '1') {
+				 cmenu.menu('appendItem', { separator: true });
+				 cmenu.menu('appendItem', {
+					 id : "pc_2",  // the parent item element
+					 text:  "삭제",
+					 //iconCls: 'icon-ok',
+					 onclick: function(){
+						 if (row.status !=  "1") {
+							 $.messager.alert('알림', "해당 요청건은 삭제할 수 업습니다.");
+							 return;
+						 }else {
+							 $.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 해당 항목을 정말로 삭제하시겠습니까?', function(r){
+							        if (r){
+							        	var param = {
+							        		memberNo : row.memberNo,
+							        		pointCodeIssueRequestNo : row.pointCodeIssueRequestNo
+							        	}
+							        	returnp.api.call("deletePointCodeIssueRequest", param, function(res){
+							        		if (res.resultCode  == "100") {
+							        			$.messager.alert('알림', res.message);
+							        			realodPage();
+							        		}else {
+							        			$.messager.alert('오류 발생', res.message);
+							        		}
+							        	});
+							        }
+							    });
+						 }
+					 }
+				 });
+			 }
+			 
 			 cmenu.menu('show', {
 				 left:e.pageX,
 				 top:e.pageY
@@ -461,6 +495,7 @@ function loadPointCodeIssueRequests(index, row){
 	
 	$.extend(param, $('#searchForm').serializeObject());
 	returnp.api.call("loadPointCodeIssueRequests", param, function(res){
+		console.log(res);
 		if (res.resultCode == "100") {
 			$('#node_list').datagrid({
 				data : res,

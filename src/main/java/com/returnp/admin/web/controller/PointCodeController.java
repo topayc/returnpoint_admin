@@ -54,6 +54,12 @@ public class PointCodeController extends ApplicationController{
 		return this.pointCodeService.loadPointCodeIssueRequests(params);
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/pointCodeIssueRequest/delete", method = RequestMethod.POST)
+	public ReturnpBaseResponse  deletePointCodeIssueRequest(@RequestParam HashMap<String, Object> params) {
+		return this.pointCodeService.deletePointCodeIssueRequest(params);
+	}
+
 	/**
 	 * 1건의 포인트 코드 발행
 	 */

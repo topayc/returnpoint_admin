@@ -712,6 +712,7 @@
   		A.accPointAmount, 
     	A.accTargetRange, 
     	A.depositAmount, 
+    	A.finalDepositAmount, 
     	A.uploadFile, 
     	A.status, 
     	A.depositor, 
