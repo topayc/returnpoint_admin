@@ -734,7 +734,7 @@
 	    where 
 	    	1 = 1
 	    	<if test="searchDate != null "> AND A.createTime LIKE CONCAT(#{searchDate},'%') </if>
-			<if test = "searchStatus!= null">and status = #{searchStatus!=!=} </if>
+			<if test = "searchStatus != null">and status = #{searchStatus} </if>
 			<if test = "searchIssueType != null">and issueType = #{searchIssueType} </if>
 			<if test="searchKeyword != null ">
       				AND 
