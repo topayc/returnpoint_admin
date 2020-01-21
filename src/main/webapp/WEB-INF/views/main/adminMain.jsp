@@ -224,22 +224,22 @@
    											<span style = "font-weight : bold">매출 및 적립 현황</span>
    										</a> 
    									</li>
-   									<li class = "E_1 manage" id = "manageSalesReport" data-options = "iconCls :'icon-info'">
+   									<li class = "E_2 manage" id = "manageSalesReport" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageRpointWithdrawalReport" menu_deps= '2' >
    											<span style = "font-weight : bold">R 포인트 출금 현황</span>
    										</a> 
    									</li>
-   									<li class = "E_2 manage" id = "manageSalesReport" data-options = "iconCls :'icon-info'">
+   									<li class = "E_3 manage" id = "manageSalesReport" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageMemberReport" menu_deps= '2' >
    											<span style = "font-weight : bold">회원 현황</span>
    										</a> 
    									</li>
-   									<li class = "E_3 manage" id = "manageSalesReport" data-options = "iconCls :'icon-info'">
+   									<li class = "E_4 manage" id = "manageSalesReport" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "managePointReport" menu_deps= '2' >
    											<span style = "font-weight : bold">G 포인트 현황</span>
    										</a> 
    									</li>
-   									<li class = "E_4 manage" id = "manageSalesReport" data-options = "iconCls :'icon-info'">
+   									<li class = "E_5 manage" id = "manageSalesReport" data-options = "iconCls :'icon-info'">
    										<a class= "sub_menu"  view_req_name = "manageGiftReport" menu_deps= '2' >
    											<span style = "font-weight : bold">상품권 현황</span>
    										</a> 
