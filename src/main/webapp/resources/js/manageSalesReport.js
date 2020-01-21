@@ -1,7 +1,7 @@
 
 var summary_columns = [[
 	    {field:'searchDate',width:20,align:'center',title : '검색 기준 연/월/일',formatter : addBoldFomatter},
-	    {field:'payCase',width:10,align:'center',title : '매출 건수 ', formatter : addBoldFomatter},
+	    {field:'payCase',width:10,align:'center',title : '매출 건수 ', formatter : numberFormatter},
 	    {field:'salesSum',width:15,align:'center',title : '결제 금액 소계', formatter  : numberGreenFormatter},
 	    {field:'salesApprovalSum',width:15,align:'center',title : '결제 승인 소계', formatter  : numberBlueFormatter2},
 	    {field:'salesCancelSum',width:15,align:'center',title : '결제 취소 소계', formatter  : numberRedFormatter},
@@ -160,7 +160,14 @@ function initView(){
 			$('#node_list').datagrid('loadData', []);
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
-			var param = {searchType  : "year"}
+			var param = makeSearchParam();
+			if ((param.searchDateStart == '' &&  param.searchDateEnd == "") || (param.searchDateStart != '' &&  param.searchDateEnd != "") ){
+			}else {
+				$.messager.alert('알림', "검색 시작일 혹은 검색 종료일을 설정해주세요");
+				return;
+			} 
+			param.searchType  = "year";
+			
 			returnp.api.call("selectSalesReports", param, function(res){
 				if (res.resultCode == "100") {
 					
@@ -200,7 +207,14 @@ function initView(){
 			$('#node_list').datagrid('loadData', []);
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
-			var param = {searchType  : "daily"}
+			var param = makeSearchParam();
+			if ((param.searchDateStart == '' &&  param.searchDateEnd == "") || (param.searchDateStart != '' &&  param.searchDateEnd != "") ){
+			}else {
+				$.messager.alert('알림', "검색 시작일 혹은 검색 종료일을 설정해주세요");
+				return;
+			} 
+			param.searchType  =  "daily";
+
 			returnp.api.call("selectSalesReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
@@ -240,7 +254,14 @@ function initView(){
 			$('#node_list').datagrid('loadData', []);
 			$('#node_list').datagrid('getPanel').panel('setTitle', "");
 			
-			var param = {searchType  : "month"}
+			var param = makeSearchParam();
+			if ((param.searchDateStart == '' &&  param.searchDateEnd == "") || (param.searchDateStart != '' &&  param.searchDateEnd != "") ){
+			}else {
+				$.messager.alert('알림', "검색 시작일 혹은 검색 종료일을 설정해주세요");
+				return;
+			} 
+			param.searchType  =  "month";
+			
 			returnp.api.call("selectSalesReports", param, function(res){
 				console.log(res);
 				if (res.resultCode == "100") {
@@ -873,7 +894,6 @@ function makeSearchParam(){
 	var total = $('#node_list').datagrid('getData').total;
 	
 	$.extend(param, {
-		searchNodeType : 10,
 		pagination : opts.pagination,
 		pageSize : opts.pageSize,
 		page : opts.pageNumber,
