@@ -163,6 +163,27 @@ public class PointCodeServiceImp implements PointCodeService{
 		}
 	}
 	
+	@Override
+	public ReturnpBaseResponse deletePointCodeIssueRequests(ArrayList<String> pointCodeIssueRequests) {
+	ReturnpBaseResponse res = new ReturnpBaseResponse();
+		
+		try {
+			for (String delRequest : pointCodeIssueRequests) {
+				Integer pointCodeIssueRequestNo = Integer.parseInt(delRequest.split("_")[0]); 
+				Integer memberNo = Integer.parseInt(delRequest.split("_")[1]); 
+				Integer accPointAmount= Integer.parseInt(delRequest.split("_")[2]); 
+				String memberName = delRequest.split("_")[3]; 
+				this.pointCodeIssueRequestMapper.deleteByPrimaryKey(pointCodeIssueRequestNo);
+		    }
+			ResponseUtil.setSuccessResponse(res, "100" , pointCodeIssueRequests.size() + " 개의 포인트 코드 요청건 삭제");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "포인트 코드발행 요청 삭제 실패");
+			return res;
+		}
+	}
 
 	/*단건의 포인트 코드 발행*/
 	@Override
@@ -352,6 +373,7 @@ public class PointCodeServiceImp implements PointCodeService{
 		}
 	}
 	
+	
 	// --------------------------------------------------------------------------------------------------------------------
 	// 포인트 코드 서비스 메서드 
 	// --------------------------------------------------------------------------------------------------------------------
@@ -504,5 +526,6 @@ public class PointCodeServiceImp implements PointCodeService{
 			return res;
 		}
 	}
+
 
 }

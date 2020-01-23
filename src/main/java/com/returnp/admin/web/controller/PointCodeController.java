@@ -79,6 +79,16 @@ public class PointCodeController extends ApplicationController{
 		return this.pointCodeService.issuePointCodes(issueRequests);
 	}
 
+	/**
+	 * 다수건의 포인트코드 발생 요청 삭제
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/pointCodeIssueRequests/delete", method = RequestMethod.POST)
+	public ReturnpBaseResponse  deletePointCodeIssueRequests(
+			@RequestParam(value = "pointCodeIssueRequests[]", required = true) ArrayList<String>  pointCodeIssueRequests ) {
+		return this.pointCodeService.deletePointCodeIssueRequests(pointCodeIssueRequests);
+	}
+	
 	
 	/**
 	 * 1건의 포인트 코드 발행 요청 건의 상태를 변경함 

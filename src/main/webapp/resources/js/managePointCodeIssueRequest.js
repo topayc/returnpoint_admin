@@ -409,31 +409,20 @@ function initView(){
 				 });
 			 }
 			 
-			 if (row.status == '1') {
+			 if (row.status == '1' || row.status == '2') {
 				 cmenu.menu('appendItem', { separator: true });
 				 cmenu.menu('appendItem', {
 					 id : "pc_2",  // the parent item element
 					 text:  "삭제",
 					 //iconCls: 'icon-ok',
 					 onclick: function(){
-						 if (row.status !=  "1") {
+						 if (row.status !=  "1" && row.status !=  "2") {
 							 $.messager.alert('알림', "해당 요청건은 삭제할 수 업습니다.");
 							 return;
 						 }else {
 							 $.messager.confirm('삭제', /*item.data.memberEmail +*/ ' 해당 항목을 정말로 삭제하시겠습니까?', function(r){
 							        if (r){
-							        	var param = {
-							        		memberNo : row.memberNo,
-							        		pointCodeIssueRequestNo : row.pointCodeIssueRequestNo
-							        	}
-							        	returnp.api.call("deletePointCodeIssueRequest", param, function(res){
-							        		if (res.resultCode  == "100") {
-							        			$.messager.alert('알림', res.message);
-							        			realodPage();
-							        		}else {
-							        			$.messager.alert('오류 발생', res.message);
-							        		}
-							        	});
+							        	deletePointCodeIssueRequests();
 							        }
 							    });
 						 }
@@ -450,6 +439,38 @@ function initView(){
 	});
 	setListPager2();
 	setListPager();
+}
+
+
+function deletePointCodeIssueRequests(){
+	var params = {pointCodeIssueRequests : []}
+	var selectedRows =  $('#node_list').datagrid('getSelections');
+	if (selectedRows.length < 1) {
+		$.messager.alert('알림', "선택된 항목이 없습니다.");
+	}
+	
+	for (var i = 0; i < selectedRows.length; i++){
+		if (selectedRows[i].status != '1' && selectedRows[i].status != '2') {
+			$.messager.alert(
+				'알림', "삭제 요청이 잘못되었습니다.</br>" + 
+				"발행번호 " +selectedRows[i].pointCodeIssueRequestNo + "</br>" + 
+				"상태가 입금확인중 혹은 입금확인요청중인  요청건만 삭제할 수 있습니다."
+			);
+			return;
+		}
+
+		params.pointCodeIssueRequests.push(selectedRows[i].pointCodeIssueRequestNo + "_" + selectedRows[i].memberNo + "_" + selectedRows[i].accPointAmount + "_" + selectedRows[i].memberName)
+	}
+	
+	
+	returnp.api.call("deletePointCodeIssueRequests", params, function(res){
+		$.messager.alert('알림', res.message);
+		if (res.resultCode == "100") {
+        	var node = $('#summary_table').datagrid('getSelected');
+        	loadPointCodeIssueRequests("pager", node);
+		}else {
+		}
+	});
 }
 
 function calcDepositAmount(){

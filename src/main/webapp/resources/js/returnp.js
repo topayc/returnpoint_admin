@@ -379,6 +379,7 @@ $(function () {
         	selectPeriodPointCodeIssueRequestReports: {apiCode: 10000, apiPath : '/api/pointCodeIssueRequest/periodReports' , requestMethod: 'get'},
          	loadPointCodeIssueRequests: {apiCode: 10000, apiPath : '/api/pointCodeIssueRequest/get' , requestMethod: 'get'},
          	deletePointCodeIssueRequest: {apiCode: 10000, apiPath : '/api/pointCodeIssueRequest/delete' , requestMethod: 'post'},
+         	deletePointCodeIssueRequests: {apiCode: 10000, apiPath : '/api/pointCodeIssueRequests/delete' , requestMethod: 'post'},
          	
          	/*1건의 포인트코드발행요청 상태를 변경*/
          	changePointCodeIssueRequestStatus: {apiCode: 10000, apiPath : '/api/pointCodeIssueRequest/change' , requestMethod: 'get'},
