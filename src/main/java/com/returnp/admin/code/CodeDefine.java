@@ -148,6 +148,8 @@ public class CodeDefine {
 		list.add(new CodeKeyValuePair("3", "관리자", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("4", "결제 앱", "Y", "Y" ,""));
 		list.add(new CodeKeyValuePair("5", "API", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("6", "Capital 1", "Y", "Y" ,""));
+		list.add(new CodeKeyValuePair("7", "Capital 2", "Y", "Y" ,""));
 		return list;
 	}
 	

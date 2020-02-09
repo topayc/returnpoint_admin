@@ -153,6 +153,11 @@
 	        				<div style = "width: 100%;">
 								<input class="easyui-textbox" id ="rPayWithdrawalMinLimit"  name="rPayWithdrawalMinLimit"  data-options="label:'* R POINT 최저 출금 금액',labelPosition : 'top'" style="width:100%;"> 
 							</div>
+							<div style = "width: 100%;margin-top : 20px">
+								<input class="easyui-textbox" id ="rPayWithdrawalMaxLimitPerWeek"  name="rPayWithdrawalMaxLimitPerWeek"  
+									data-options="label:'* R POINT 1주 출금한도',labelPosition : 'top'" style="width:100%;" value = "0"> 
+							</div>
+							
 	        				<div style = "width: 100%;margin-top : 20px">
 								<input class="easyui-textbox" id ="rPayWithdrawalMaxLimit"  name="rPayWithdrawalMaxLimit"  data-options="label:'* R POINT 일일 출금 한도',labelPosition : 'top'" style="width:100%;"> 
 							</div>

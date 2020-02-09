@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.osgl.xls.ExcelReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.util.StringUtils;
@@ -24,6 +25,9 @@ import com.returnp.admin.utils.FileManager;
 import com.returnp.admin.web.message.MessageUtils;
 
 @Service
+@PropertySource("classpath:/config.properties")
+@PropertySource("classpath:/affiliate_sales.properties")
+@PropertySource("classpath:/capital_point_policy.properties")
 public class UploadFileServiceImpl implements UploadFileService {
 
 	@Autowired MessageUtils messageUtils;
@@ -120,5 +124,12 @@ public class UploadFileServiceImpl implements UploadFileService {
 			ResponseUtil.setResponse(res, "20000", this.messageUtils.getMessage("sales_file_upload_fail"));
 			return res;
 		}
+	}
+
+
+	@Override
+	public ReturnpBaseResponse uploadCapFile(MultipartFile capFile, String paymentTransactionType, String realPath) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

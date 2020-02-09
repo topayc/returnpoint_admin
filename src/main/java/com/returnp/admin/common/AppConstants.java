@@ -118,6 +118,8 @@ public class AppConstants {
 		public static final  String  MANUAL= "3";
 		public static final  String  APP= "4";
 		public static final  String  API= "5";
+		public static final  String  CAP1= "6";  /*캐피탈 1호 */
+		public static final  String  CAP2= "7"; /*캐피탈 2호 */
 	}
 
 	public static class VanPaymentStatus {

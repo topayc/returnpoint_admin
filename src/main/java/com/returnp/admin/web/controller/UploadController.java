@@ -24,4 +24,13 @@ public class UploadController extends ApplicationController {
 		System.out.println("#### UploadController - uploadSalesFile");
 		return this.uploadService.uploadSalesFile(salesFile, request.getSession().getServletContext().getRealPath("/salesFile"));
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/upload/capFile", method = RequestMethod.POST)
+	public ReturnpBaseResponse  uploadCap1File( 
+			@RequestParam("capFile") MultipartFile capFile, @RequestParam String paymentTransactionType,   HttpServletRequest request) {
+		System.out.println("#### UploadController - uploadSalesFile");
+		String dir = paymentTransactionType.trim().equals("6") ? "cap1File"  : "cap2File";
+		return this.uploadService.uploadCapFile(capFile, paymentTransactionType, request.getSession().getServletContext().getRealPath("/" + dir));
+	}
 }

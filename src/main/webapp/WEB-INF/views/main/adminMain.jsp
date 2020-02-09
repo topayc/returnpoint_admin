@@ -679,6 +679,7 @@
 		var initMenu = "${initAuthMenu}";
 		var exceptAuthMenu = "${exceptAuthMenu}";
 		var organType =  "${authType}";
+		var adminId = "${admin.admin.adminEmail}"
 		if (organType == null || organType == ""){
 			organType = "10";
 		}

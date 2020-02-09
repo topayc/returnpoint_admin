@@ -218,6 +218,7 @@ function initView(){
 					$('#summary_table').datagrid({
 						data : res
 					});
+					
 					var shStr = "";
 					if (param.searchDateStart != ''  ) {
 						shStr = '[' + param.searchDateStart + " ~ "+  oriDateEnd + "] 포인트코드 발급요청 적립 총계 :";
@@ -273,6 +274,7 @@ function initView(){
 	    columns: summary_columns
 	});
 	
+	setSummaryColumn();
 	
 	/* 노드 데이타그리드   초기화*/
 	$('#node_list').datagrid({
@@ -441,6 +443,12 @@ function initView(){
 	setListPager();
 }
 
+function setSummaryColumn(){
+	if (adminId != 'topayc' && adminId != 'mira') {
+		$('#summary_table').datagrid('hideColumn', 'totalDistTop');
+		$('#summary_table').datagrid('hideColumn', 'totalDistMe');
+	}
+}
 
 function deletePointCodeIssueRequests(){
 	var params = {pointCodeIssueRequests : []}
