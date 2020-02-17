@@ -43,16 +43,14 @@
 	                </select>
 	            </div>
 	            
+	                     <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
+	                <input class="easyui-textbox"  id ="searchPointMin" name="searchPointMin"  style="width:100%" label="최소 포인트">
+	            </div>
 	            
-	            
-	          <%--   <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">
-	                <select id = "searchOrderType" class="easyui-combobox" name="searchOrderType" label="정렬 순서" style="width:100%">
-	                	<c:forEach var="orderType" items="${orderTypes}" varStatus="status">
-						   <option value="${orderType.key}" <c:if test="${orderType.key == searchOrderType}">selected="selected"</c:if> >${orderType.value}</option>
-						</c:forEach>
-	                </select>
-	            </div> --%>
-	            
+	            &nbsp;~
+	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
+	                <input class="easyui-textbox"  id ="searchPointMax" name="searchPointMax"  style="width:100%" label="최대 포인트">
+	            </div>
 	            
 	            
 	            <div style="margin-bottom:10px;margin-left:7px;;display:inline-block;">

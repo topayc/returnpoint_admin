@@ -76,7 +76,20 @@ public class RedPointController extends ApplicationController {
 			cond.setMemberName(searchQuery.getSearchKeyword());
 			cond.setMemberPhone(searchQuery.getSearchKeyword());
 		}
+		//System.out.println(searchQuery.getSearchPointMin());
+		//System.out.println(searchQuery.getSearchPointMax());
 		
+		if (searchQuery.getSearchPointMin() == null  || searchQuery.getSearchPointMin() == 0 ) {
+			cond.setSearchPointMin(null);
+		}else {
+			cond.setSearchPointMin(searchQuery.getSearchPointMin());
+		}
+		
+		if (searchQuery.getSearchPointMax() == null ||  searchQuery.getSearchPointMax() == 0 ) {
+			cond.setSearchPointMax(null);
+		}else {
+			cond.setSearchPointMax(searchQuery.getSearchPointMax());
+		}
 		ArrayList<RedPointCommand> commandList = this.searchService.findRedPointCommands(cond);
 		ArrayListResponse<RedPointCommand> slr = new ArrayListResponse<RedPointCommand>();
 		slr.setRows(commandList);

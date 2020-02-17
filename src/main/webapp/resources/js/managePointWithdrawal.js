@@ -195,9 +195,9 @@ function setListPager(){
             iconCls:'icon-add',
             text : "출금정보 생성",
             handler:function(){
-            	$('#node_list').datagrid('unselectAll');
+            /*	$('#node_list').datagrid('unselectAll');
             	$('#node_list').datagrid('uncheckAll');
-                loadPointWithdrawalCreateForm();
+                loadPointWithdrawalCreateForm();*/
             }
         },{
             iconCls:'icon-add',

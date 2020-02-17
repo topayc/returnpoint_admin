@@ -29,6 +29,22 @@ public class RedPointCommand extends RedPoint {
 	    private String redPointUseStatus;
 	    private Date createTime;
 	    private Date updateTime;
+	    
+	    private Integer searchPointMin;
+	    private Integer searchPointMax;
+	    
+		public Integer getSearchPointMin() {
+			return searchPointMin;
+		}
+		public void setSearchPointMin(Integer searchPointMin) {
+			this.searchPointMin = searchPointMin;
+		}
+		public Integer getSearchPointMax() {
+			return searchPointMax;
+		}
+		public void setSearchPointMax(Integer searchPointMax) {
+			this.searchPointMax = searchPointMax;
+		}
 		public String getMemberName() {
 			return memberName;
 		}

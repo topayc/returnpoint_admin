@@ -2146,6 +2146,16 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     )
     where 
     	1 = 1
+    	<if test="searchPointMin != null and searchPointMax != null">
+			and (pointAmount 	<![CDATA[ >=]]> #{searchPointMin} and pointAmount <![CDATA[ <=]]> #{searchPointMax})
+		</if>
+		<if test="searchPointMin != null and searchPointMax == null">
+			and (pointAmount 	<![CDATA[ >=]]> #{searchPointMin}) 
+		</if>
+			
+		<if test="searchPointMin == null and searchPointMax != null">
+			and (pointAmount 	<![CDATA[ <=]]> #{searchPointMax})
+		</if>
     	<include refid = "RedPointCommand_Where"/>
     	<include refid = "commonStatement"/>
   </select>

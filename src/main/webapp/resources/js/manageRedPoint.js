@@ -73,6 +73,18 @@ function initView() {
 		required : true,
 	});
 
+	$('#searchPointMin').textbox({
+		width: 140,
+		prompt : "최저 포인트" ,
+		labelPosition: 'top'
+	});
+
+	$('#searchPointMax').textbox({
+		width: 140,
+		prompt : "최대 포인트 " ,
+		labelPosition: 'top'
+	});
+	
 	/* 검색어 타입 셀렉트 박스 초기화 */
 	$('#searchKeywordType').combobox({
 		labelPosition : 'top',

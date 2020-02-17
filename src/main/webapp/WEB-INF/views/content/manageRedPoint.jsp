@@ -15,24 +15,6 @@
 	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <input class="easyui-datetimebox"   id = "searchDateEnd"  name="searchDateEnd" label="검색 종료일" style="width:100%"/>
 	            </div>
-	             
-	           <%--   <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">
-	                <select id = pointType class="easyui-combobox" name="pointType" label="포인트" style="width:100%" disabled = "disabled">
-	                	<c:forEach var="pointType" items="${pointTypes}" varStatus="status">
-						   <option value="${pointType.key}" <c:if test="${pointType.key == searchPointType}">selected="selected"</c:if>><strong>${pointType.value}</strong></option>
-						</c:forEach>
-	                </select>
-	            </div> --%>
-	            
-	            
-	          <%--    <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">
-	                <select id = "searchNodeType" class="easyui-combobox" name="searchNodeType" label="검색 그룹" style="width:100%">
-	                	 <option value="0">전체</option>
-	                	<c:forEach var="nodeType" items="${nodeTypeList}" varStatus="status">
-						   <option value="${nodeType.key}" <c:if test="${nodeType.key == searchNodeType}">selected="selected"</c:if> >${nodeType.value}</option>
-						</c:forEach>
-	                </select>
-	            </div> --%>
 
 	            <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <select id = "searchNodeStatus" class="easyui-combobox" name="searchNodeStatus" label="상태" style="width:100%">
@@ -43,15 +25,14 @@
 	                </select>
 	            </div>
 	            
-	          <%--   <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;width:200px">
-	                <select id = "orderType" class="easyui-combobox" name="orderType" label="정렬 순서" style="width:100%">
-	                	<c:forEach var="orderType" items="${orderTypes}" varStatus="status">
-						   <option value="${orderType.key}" <c:if test="${orderType.key == searchOrderType}">selected="selected"</c:if> >${orderType.value}</option>
-						</c:forEach>
-	                </select>
-	            </div> --%>
+	              <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
+	                <input class="easyui-textbox"  id ="searchPointMin" name="searchPointMin"  style="width:100%" label="최소 포인트">
+	            </div>
 	            
-	            
+	            &nbsp;~
+	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
+	                <input class="easyui-textbox"  id ="searchPointMax" name="searchPointMax"  style="width:100%" label="최대 포인트">
+	            </div>
 	            
 	            <div style="margin-bottom:10px;margin-left:7px;display:inline-block;">
 	                <input class="easyui-textbox"  id ="searchKeyword" name="searchKeyword"  style="width:100%">

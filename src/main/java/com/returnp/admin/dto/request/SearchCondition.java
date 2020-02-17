@@ -61,7 +61,23 @@ public class SearchCondition extends QueryCondition {
     private String orderType;
     private String orderNumber;
     
-    private Integer giftCardAccHistoryNo;
+    private Integer searchPointMin;
+    private Integer searchPointMax;
+    
+    
+    public Integer getSearchPointMin() {
+		return searchPointMin;
+	}
+	public void setSearchPointMin(Integer searchPointMin) {
+		this.searchPointMin = searchPointMin;
+	}
+	public Integer getSearchPointMax() {
+		return searchPointMax;
+	}
+	public void setSearchPointMax(Integer searchPointMax) {
+		this.searchPointMax = searchPointMax;
+	}
+	private Integer giftCardAccHistoryNo;
     
 	public Integer getGiftCardAccHistoryNo() {
 		return giftCardAccHistoryNo;

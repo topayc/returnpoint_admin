@@ -38,7 +38,7 @@
 	            </div>
 	            
 	            
-	                <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
+	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <input class="easyui-textbox"  id ="searchWithdrawalLowLimit" name="searchWithdrawalLowLimit"  style="width:100%" label="최소 출금 금액">
 	            </div>
 	            
