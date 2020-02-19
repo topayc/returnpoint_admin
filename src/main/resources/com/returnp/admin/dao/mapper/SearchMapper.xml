@@ -1181,7 +1181,7 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
       <if test="affiliateStatus != null and affiliateStatus !=  '0'  and affiliateStatus !=  0">AND AF.affiliateStatus = #{affiliateStatus,jdbcType=VARCHAR} </if>
       <if test="regType != null">AND AF.regType = #{regType,jdbcType=CHAR} </if>
       <if test="regAdminNo != null">AND AF.regAdminNo = #{regAdminNo,jdbcType=INTEGER} </if>
-
+	  <if test="paymentRouterNo != null and paymentRouterNo != 0">AND paymentRouterNo = #{paymentRouterNo,jdbcType=INTEGER} </if>
       <if test="paymentRouterType != null"> AND paymentRouterType = #{paymentRouterType,jdbcType=INTEGER} </if>
       <if test="paymentRouterName != null"> AND paymentRouterName = #{paymentRouterName,jdbcType=INTEGER} </if>
       <if test="paymentRouterCode != null"> AND paymentRouterCode = #{paymentRouterCode,jdbcType=INTEGER} </if>
@@ -2007,6 +2007,16 @@ saleManagerNo, memberNo, saleManagerCode, saleManagerName, saleManagerAddress, s
     )
     where 
     	1 = 1
+    	  	<if test="searchPointMin != null and searchPointMax != null">
+			and (pointAmount 	<![CDATA[ >=]]> #{searchPointMin} and pointAmount <![CDATA[ <=]]> #{searchPointMax})
+		</if>
+		<if test="searchPointMin != null and searchPointMax == null">
+			and (pointAmount 	<![CDATA[ >=]]> #{searchPointMin}) 
+		</if>
+			
+		<if test="searchPointMin == null and searchPointMax != null">
+			and (pointAmount 	<![CDATA[ <=]]> #{searchPointMax})
+		</if>
     	<include refid = "GreenPointCommand_Where"/>
     	<include refid = "commonStatement"/>
   </select>

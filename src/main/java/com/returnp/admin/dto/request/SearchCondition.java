@@ -64,8 +64,16 @@ public class SearchCondition extends QueryCondition {
     private Integer searchPointMin;
     private Integer searchPointMax;
     
+    private Integer searchPaymentRouterNo;
     
-    public Integer getSearchPointMin() {
+
+	public Integer getSearchPaymentRouterNo() {
+		return searchPaymentRouterNo;
+	}
+	public void setSearchPaymentRouterNo(Integer searchPaymentRouterNo) {
+		this.searchPaymentRouterNo = searchPaymentRouterNo;
+	}
+	public Integer getSearchPointMin() {
 		return searchPointMin;
 	}
 	public void setSearchPointMin(Integer searchPointMin) {

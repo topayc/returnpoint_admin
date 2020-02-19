@@ -22,10 +22,25 @@ public class GreenPointCommand extends GreenPoint{
     private String isAffiliate;
     private String isAgency;
     private String regType;
-    private Integer regAdminNo;
+    public Integer getSearchPointMin() {
+		return searchPointMin;
+	}
+	public void setSearchPointMin(Integer searchPointMin) {
+		this.searchPointMin = searchPointMin;
+	}
+	public Integer getSearchPointMax() {
+		return searchPointMax;
+	}
+	public void setSearchPointMax(Integer searchPointMax) {
+		this.searchPointMax = searchPointMax;
+	}
+	private Integer regAdminNo;
     private String greenPointAccStatus;
     private Date createTime;
     private Date updateTime;
+    
+    private Integer searchPointMin;
+    private Integer searchPointMax;
     
     public Date getCreateTime() {
 		return createTime;

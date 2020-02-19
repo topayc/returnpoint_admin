@@ -19,8 +19,8 @@
 			  //  {field:'noname',width:30,align:'center',title : 'TID 보기' , formatter : tidActionFormatter, hidden: true},
 			    {field:'affiliateComm',width:30,align:'center',title : 'QR 적립율'},
 			    {field:'giftCardPayRefundRate',width:30,align:'center',title : 'GIFT 요율'},
-			    {field:'greenPointAmount',width:40,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
-			    {field:'redPointAmount',width:40,align:'center',title : 'R POINT', formatter : numberRedFormatter},
+			    {field:'greenPointAmount',width:50,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
+			    {field:'redPointAmount',width:50,align:'center',title : 'R POINT', formatter : numberRedFormatter},
 			    {field:'ciderPayStatus',width:20,align:'center',title : 'CIDER', formatter :ciderPayStatusFormattter },
 			    {field:'agencyName',width:35,align:'center',title : '대리점', hidden:false,formatter : slashFormatter},
 			    {field:'recommenderName',width:30,align:'center',title : '추천인'},
@@ -155,6 +155,17 @@ function initView(){
 	    formatter :  searchDateFomatter
 	});
 
+	$('#searchPaymentRouterNo').combobox({
+		labelPosition : 'top',
+		showItemIcon: true,
+		editable: false,
+		panelHeight: 'auto',
+		labelPosition: 'top',
+		multiple:false,
+		required:true,
+		width: 100
+	});
+	
 	/* 검색 버튼  초기화*/
 	$('#search_btn').linkbutton({
 		onClick : function(){
@@ -506,7 +517,13 @@ function setListPager(){
 	var pager = $('#node_list').datagrid().datagrid('getPager');
 	pager.pagination({
 		displayMsg : ' {from} to {to} of {total}',
-		buttons:[{
+		buttons:[	{
+            iconCls:'icon-add',
+            text : "엑셀 변환",
+            handler:function(){
+            	gridToExcel('#node_list','affiliates.xls');
+            }
+        },{
             iconCls:'icon-add',
             handler:function(){
             	$('#node_list').datagrid('unselectAll');

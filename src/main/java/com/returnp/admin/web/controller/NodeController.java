@@ -188,6 +188,7 @@ public class NodeController extends ApplicationController{
 			if (StringUtils.isEmpty(nodeSearch.getSearchKeyword())) {
 				nodeSearch.setSearchKeyword(null);
 			}
+			
 			afCond.setMemberName(nodeSearch.getSearchKeyword());
 			afCond.setMemberEmail(nodeSearch.getSearchKeyword());
 			afCond.setAffiliateName(nodeSearch.getSearchKeyword());
@@ -195,6 +196,8 @@ public class NodeController extends ApplicationController{
 			afCond.setAffiliatePhone(nodeSearch.getSearchKeyword());
 			afCond.setAffiliateTel(nodeSearch.getSearchKeyword());
 			afCond.setAffiliateAddress(nodeSearch.getSearchKeyword());
+		//	System.out.println(nodeSearch.getSearchPaymentRouterNo());
+			afCond.setPaymentRouterNo(nodeSearch.getSearchPaymentRouterNo() == null ? null : nodeSearch.getSearchPaymentRouterNo());
 			/* afCond.setAffiliateSerial(nodeSearch.getSearchKeyword()); */
 			afCond.valueOf(nodeSearch);
 			ArrayList<AffiliateCommand> affiliateList = this.searchService.findAffiliateCommands(afCond);

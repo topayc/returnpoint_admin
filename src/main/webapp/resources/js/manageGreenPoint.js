@@ -31,7 +31,7 @@ function initView(){
 	
 	/* 검색어 입력 박스 초기화 */
 	$('#searchKeyword').textbox({ 
-		prompt : "검색할 단어를 입력해주세요" ,
+		prompt : "검색어" ,
 		inputEvents:$.extend({},$.fn.textbox.defaults.inputEvents,{
 			keyup:function(e){
 				if(e.keyCode==13)
@@ -49,6 +49,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
+		width: 100
 	});
 	
 	/* 노드 상태 셀렉트 박스  초기화*/
@@ -60,6 +61,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
+		width: 100
 	});
 	
 	/* 노드 상태 셀렉트 박스  초기화*/
@@ -82,6 +84,7 @@ function initView(){
 		labelPosition: 'top',
 		multiple:false,
 		required:true,
+		width: 80
 	});
 	
 	$('#searchPointMin').textbox({
@@ -259,7 +262,13 @@ function setListPager(){
 	var pager = $('#node_list').datagrid().datagrid('getPager');
 	pager.pagination({
 		displayMsg : ' {from} to {to} of {total}',
-		buttons:[{
+		buttons:[	{
+            iconCls:'icon-add',
+            text : "엑셀 변환",
+            handler:function(){
+            	gridToExcel('#node_list','gpoint.xls');
+            }
+        },{
             iconCls:'icon-add',
             handler:function(){
             	$('#node_list').datagrid('unselectAll');

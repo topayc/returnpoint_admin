@@ -24,6 +24,19 @@
 	                </select>
 	            </div>
 	            
+	                     <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
+	                <select id = "searchPaymentRouterNo" class="easyui-combobox" name="searchPaymentRouterNo" label="결제 라우터" style="width:100%">
+	                	 <option value = "0">전체</option>
+	                	 <option value = "1">KICC</option>
+	                	 <option value = "2">KFTC</option>
+	                	 <option value = "7">KIS</option>
+	                	 <option value = "8">KOVAN</option>
+	                	 <option value = "3">CIDER</option>
+	                	 <option value = "4">ADMIN</option>
+	                	 <option value = "5">API</option>
+	                </select>	
+	            </div>
+	            
 	             <div style="margin-bottom:10px;margin-left : 10px;display:inline-block;">
 	                <select id = "searchNodeStatus" class="easyui-combobox" name="searchNodeStatus" label="상태" style="width:100%">
 	                	 <option value="0">전체</option>

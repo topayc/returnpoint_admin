@@ -48,7 +48,6 @@
 	                	 <option value = "3">CIDER</option>
 	                	 <option value = "4">ADMIN</option>
 	                	 <option value = "5">API</option>
-	                	
 	                </select>	
 	            </div>
 	            

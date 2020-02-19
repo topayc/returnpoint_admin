@@ -82,7 +82,17 @@ public class GreenPointController extends ApplicationController {
 			cond.setMemberName(searchQuery.getSearchKeyword());
 			cond.setMemberPhone(searchQuery.getSearchKeyword());
 		}
+		if (searchQuery.getSearchPointMin() == null  || searchQuery.getSearchPointMin() == 0 ) {
+			cond.setSearchPointMin(null);
+		}else {
+			cond.setSearchPointMin(searchQuery.getSearchPointMin());
+		}
 		
+		if (searchQuery.getSearchPointMax() == null ||  searchQuery.getSearchPointMax() == 0 ) {
+			cond.setSearchPointMax(null);
+		}else {
+			cond.setSearchPointMax(searchQuery.getSearchPointMax());
+		}
 		
 		ArrayList<GreenPointCommand> commandList = this.searchService.findGreenPointCommands(cond);
 		ArrayListResponse<GreenPointCommand> slr = new ArrayListResponse<GreenPointCommand>();
