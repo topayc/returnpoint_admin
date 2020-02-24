@@ -51,7 +51,7 @@ public class AffiliateCommand  extends QueryCondition{
     public String lat;
     public String lng;
     public String agencyName;
-    public int paymentRouterNo;
+    public Integer paymentRouterNo;
     public String paymentRouterType;
     public String paymentRouterName;
     public String paymentRouterCode;
@@ -94,10 +94,10 @@ public class AffiliateCommand  extends QueryCondition{
 	public void setCiderPayStatus(String ciderPayStatus) {
 		this.ciderPayStatus = ciderPayStatus;
 	}
-	public int getPaymentRouterNo() {
+	public Integer getPaymentRouterNo() {
 		return paymentRouterNo;
 	}
-	public void setPaymentRouterNo(int paymentRouterNo) {
+	public void setPaymentRouterNo(Integer paymentRouterNo) {
 		this.paymentRouterNo = paymentRouterNo;
 	}
 	public String getPaymentRouterType() {

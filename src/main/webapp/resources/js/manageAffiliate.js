@@ -6,6 +6,7 @@
 			    {field:'memberEmail',width:60,align:'center',title : '이메일'},
 			    {field:'affiliateName',width:55,align:'center',title : '가맹점 이름'},
 			    {field:'affiliateCode',width:60,align:'center',title : '가맹점 코드',hidden:false},
+			    {field:'affiliateTel',width:60,align:'center',title : '가맹점 전화',hidden:false},
 			    {field:'affiliateType',width:45,align:'center',title : '분류' , formatter : affiliateTypeFormatter},
 			    {field:'category1NoName',width:45,align:'center',title : 'Cate 1', formatter : slashFormatter},
 			    {field:'category2NoName',width:45,align:'center',title : 'Cate 2',formatter : slashFormatter},
@@ -165,7 +166,7 @@ function initView(){
 		required:true,
 		width: 100
 	});
-	
+
 	/* 검색 버튼  초기화*/
 	$('#search_btn').linkbutton({
 		onClick : function(){
@@ -504,13 +505,13 @@ function initView(){
 	$('#businessItem').textbox({
 		label : roundLabel("사업자 업종")
 	});
-	
+
 	$('#affiliate_tag_form').form();
 
 	$('#affiliateTag').textbox({
 	//	label : roundLabel("태그")
 	});
-	
+
 }
 
 function setListPager(){
@@ -1244,8 +1245,8 @@ function loadAffiliateModifyForm(actionType){
 						res.data.category1No = "0";
 						res.data.category2No = "0";
 					}
-				
-					
+
+
 					$("#orgMemberNo").val(res.data.memberNo)
 					$('#createAffiliateForm').form('load',res.data);
 					if (res.data.category != "0"){
@@ -1264,7 +1265,7 @@ function loadAffiliateModifyForm(actionType){
 							}
 						});
 					}
-					
+
 					//$('#memberNo').textbox({disabled : true });
 					$("#affiliateRoad").textbox('setValue', res.data.zipNo + " " + res.data.roadFullAddr+ " " + res.data.addrDetail);
 					modifyModeCallback(res.data.zipNo + " " + res.data.jibunAddr + " " + res.data.addrDetail,res.data.lat,res.data.lng);
@@ -1437,7 +1438,7 @@ function createAffiliateTagForm(){
 		   		if (res.resultCode  == "100") {
 		   			console.log(res);
 		   			$("#affiliateTag").textbox("setValue", res.data.affiliateTag);
-		   		
+
 		   		}else {
 		   			$.messager.alert('알림', res.message);
 		   		}
@@ -1452,7 +1453,7 @@ function createAffiliateTag(){
 			 affiliateNo : node.affiliateNo,
 			 affiliateTag : $("#affiliateTag").textbox('getValue').trim()
 	}
-	
+
 	if (params.affiliateTag.length < 1 || params.affiliateTag.length > 60) {
 		$.messager.alert('알림', "태그는 최소 1자 이상 , 60자 이하로 입력이 가능합니다.");
 		return;
