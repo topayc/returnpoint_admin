@@ -402,6 +402,12 @@ function makeSearchParam(){
 }
 
 function loadPaymentTransactionCreateForm(){
+	
+	if (adminId != 'topayc') {
+		 $.messager.alert('알림','해당 기능을 사용할 수 있는 권한이 업습니다');
+		 return;
+	}
+	
 	var data = {
     		targetElem : "#dlgForm",
         	title :"POS 결제 내역 생성",
@@ -444,6 +450,10 @@ function loadPaymentTransactionCreateForm(){
 }
 
 function loadPaymentTransactionModifyForm(){
+	if (adminId != 'topayc') {
+		 $.messager.alert('알림','해당 기능을 사용할 수 있는 권한이 업습니다');
+		 return;
+	}
 	var node = $('#node_list').datagrid('getSelected');
 	if (!node) {
 		 $.messager.alert('알림','수정하실 항목을 내역을 선택해주세요');

@@ -353,7 +353,10 @@ function statusFormatter(value,row,index){
 }
 
 function loadGreenPointCreateForm(){
-	
+	if (adminId != 'topayc') {
+		 $.messager.alert('알림','해당 기능을 사용할 수 있는 권한이 업습니다');
+		 return;
+	}
 	var data = {
     	targetElem : "#dlgForm",
         title : "G 포인트생성",
@@ -395,7 +398,11 @@ function loadGreenPointCreateForm(){
 }
 
 function loadGreenPointModifyForm(){
-   	var node = $('#node_list').datagrid('getSelected');
+	if (adminId != 'topayc') {
+		 $.messager.alert('알림','해당 기능을 사용할 수 있는 권한이 업습니다');
+		 return;
+	}
+	var node = $('#node_list').datagrid('getSelected');
 	if (!node) {
 		 $.messager.alert('알림','수정하실 노드를 선택해주세요');
 		 return;

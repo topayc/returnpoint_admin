@@ -360,7 +360,10 @@ function statusFormatter(value, row, index) {
 }
 
 function loadRedPointCreateForm() {
-
+	if (adminId != 'topayc') {
+		 $.messager.alert('알림','해당 기능을 사용할 수 있는 권한이 업습니다');
+		 return;
+	}
 	var nodeType = $('input[name=nodeType]').val();
 	var data = {
 		targetElem : "#dlgForm",
@@ -407,6 +410,10 @@ function loadRedPointCreateForm() {
 }
 
 function loadRedPointModifyForm() {
+	if (adminId != 'topayc') {
+		 $.messager.alert('알림','해당 기능을 사용할 수 있는 권한이 업습니다');
+		 return;
+	}
 	var node = $('#node_list').datagrid('getSelected');
 	if (!node) {
 		$.messager.alert('알림', '수정하실 노드를 선택해주세요');

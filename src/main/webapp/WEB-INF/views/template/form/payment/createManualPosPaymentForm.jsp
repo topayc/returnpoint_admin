@@ -257,6 +257,10 @@ function formatDate(date) {
 }
 
 function createVanPayment(){
+	if (adminId != 'topayc') {
+		 $.messager.alert('알림','해당 기능을 사용할 수 있는 권한이 업습니다');
+		 return;
+	}
 	var data = makeVanPaymentParam();
 	var valid = true;
 	for (var prop in data){
