@@ -93,7 +93,7 @@ public class GreenPointController extends ApplicationController {
 		}else {
 			cond.setSearchPointMax(searchQuery.getSearchPointMax());
 		}
-		
+		cond.setOrder("pointAmount DESC");
 		ArrayList<GreenPointCommand> commandList = this.searchService.findGreenPointCommands(cond);
 		ArrayListResponse<GreenPointCommand> slr = new ArrayListResponse<GreenPointCommand>();
 		slr.setRows(commandList);

@@ -90,6 +90,7 @@ public class RedPointController extends ApplicationController {
 		}else {
 			cond.setSearchPointMax(searchQuery.getSearchPointMax());
 		}
+		cond.setOrder("pointAmount DESC");
 		ArrayList<RedPointCommand> commandList = this.searchService.findRedPointCommands(cond);
 		ArrayListResponse<RedPointCommand> slr = new ArrayListResponse<RedPointCommand>();
 		slr.setRows(commandList);
