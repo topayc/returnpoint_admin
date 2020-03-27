@@ -22,11 +22,11 @@
 			<input type="text" id="lng"  name="lng" />
 			</div>
 			<input type = "hidden" id = "orgMemberNo" value = "">
-			<div style="margin-bottom:8px"><input id ="memberNo"  name="memberNo" style="width:100%" data-options="label:'회원 검색 ',labelWidth :140,labelPosition : 'left'"> </div>
-			<div style="margin-bottom:8px"><input id ="affiliateName"  name="affiliateName" style="width:100%" data-options="label:'협력업체 이름 ',labelWidth :140,labelPosition : 'left'"> </div>
-			<div style="margin-bottom:8px"><input id ="affiliateEmail"  name="affiliateEmail" style="width:100%" data-options="label:'협력업체 이메일 ',labelWidth :140,labelPosition : 'left'"> </div>
+			<div style="margin-bottom:12px"><input id ="memberNo"  name="memberNo" style="width:100%" data-options="label:'회원 검색 ',labelWidth :140,labelPosition : 'left'"> </div>
+			<div style="margin-bottom:12px"><input id ="affiliateName"  name="affiliateName" style="width:100%" data-options="label:'협력업체 이름 ',labelWidth :140,labelPosition : 'left'"> </div>
+			<div style="margin-bottom:12px"><input id ="affiliateEmail"  name="affiliateEmail" style="width:100%" data-options="label:'협력업체 이메일 ',labelWidth :140,labelPosition : 'left'"> </div>
 			
-			<div style="margin-bottom:8px"> 
+			<div style="margin-bottom:12px"> 
 				<select class = "easyui-combobox"  id ="affiliateType" name="affiliateType"   style="width:100%" data-options="label:'협력업체 타입',labelWidth :140,labelAlign:'left',labelPosition : 'left'"> 
 					<c:forEach var="affiliateType"  items="${affiliateTypes}" varStatus="status">
 						<option value='${affiliateType.key}' >${affiliateType.value} </option>
@@ -34,16 +34,17 @@
 				</select> 
 			</div>
 
-			<div style="margin-bottom:8px">
+			<div style="margin-bottom:12px">
 				<input id ="affiliateSerialCount"  name="affiliateSerialCount" style="width:35%" data-options="label:'TID 수 ',labelWidth :140,labelPosition : 'left'"> 개 (입력할 필요 없음)
  			<!-- 	<a id = "view_tid" >TID 보기</a>
 				<a id = "addtid" >TID 추가</a> -->
 			</div>
 			
-			<div style="margin-bottom:8px"><input id ="affiliateComm"  name="affiliateComm" style="width:100%" data-options="label:'환급율) ',labelWidth :140,labelPosition : 'left'" value = "${policy.affiliateComm}"> </div>
-			<div style="margin-bottom:8px"><input id ="giftCardPayRefundRate"  name="giftCardPayRefundRate" style="width:100%" data-options="label:'상품권 수수료율) ',labelWidth :140,labelPosition : 'left'"  value = "0"> </div>
+			<div style="margin-bottom:12px"><input id ="affiliateComm"  name="affiliateComm" style="width:100%" data-options="label:'환급율 ',labelWidth :140,labelPosition : 'left'" value = "${policy.affiliateComm}"> </div>
+			<div style="margin-bottom:12px"><input id ="customerComm"  name="customerComm" style="width:100%" data-options="label:'고객 제공 포인트율 ) ',labelWidth :140,labelPosition : 'left'" value = "${policy.customerComm}"> </div>
+			<div style="margin-bottom:12px"><input id ="giftCardPayRefundRate"  name="giftCardPayRefundRate" style="width:100%" data-options="label:'상품권 수수료율) ',labelWidth :140,labelPosition : 'left'"  value = "0"> </div>
 			
-			<div style="margin-bottom:8px"> 
+			<div style="margin-bottom:12px"> 
 				<select class = "easyui-combobox"  id ="category1No" name="category1No"   style="width:100%" data-options="label:'카테고리1',labelWidth :140,labelAlign:'left',labelPosition : 'left'"> 
 					<option value = "0">선택안함</option>
 					<c:forEach var="category"  items="${categories1}" varStatus="status">
@@ -51,29 +52,29 @@
 					</c:forEach>
 				</select> 
 			</div>
-			<div style="margin-bottom:8px"> 
+			<div style="margin-bottom:12px"> 
 				<select class = "easyui-combobox"  id ="category2No" name="category2No"   style="width:100%" data-options="label:'카테고리2',labelWidth :140,labelAlign:'left',labelPosition : 'left'"> 
 					<c:forEach var="nodeStatus"  items="${nodeStatuses}" varStatus="status">
 						   <option value = "0">선택 안함</option>
 					</c:forEach>
 				</select> 
 			</div>
-			<div style="margin-bottom:8px"><input id ="affiliateAddress"  name="affiliateAddress" style="width:100%" data-options="label:'협력업체 주소',labelWidth :140,labelPosition : 'left'"> </div>
-			<div style="margin-bottom:8px"><input id ="affiliateRoad"  name="affiliateRoad" style="width:100%" data-options="label:'협력업체 도로명',labelWidth :140,labelPosition : 'left'"> </div>
-			<div style="margin-bottom:8px"><div id="map-canvas" style="height:200px;;border : 1px solid #aaaaaa;background-color : #ffffff"></div></div>
-			<div style="margin-bottom:8px"><input id ="affiliateTel"  name="affiliateTel" style="width:100%" data-options="label:'협력업체 전화번호',labelWidth :140,labelPosition : 'left'"> </div>
-			<div style="margin-bottom:8px"><input id ="affiliatePhone"  name="affiliatePhone" style="width:100%" data-options="label:'협력업체 모바일',labelWidth :140,labelPosition : 'left'"> </div>
+			<div style="margin-bottom:12px"><input id ="affiliateAddress"  name="affiliateAddress" style="width:100%" data-options="label:'협력업체 주소',labelWidth :140,labelPosition : 'left'"> </div>
+			<div style="margin-bottom:12px"><input id ="affiliateRoad"  name="affiliateRoad" style="width:100%" data-options="label:'협력업체 도로명',labelWidth :140,labelPosition : 'left'"> </div>
+			<div style="margin-bottom:12px;"><div id="map-canvas" style="height:180px;;border : 1px solid #aaaaaa;background-color : #ffffff"></div></div>
+			<div style="margin-bottom:12px"><input id ="affiliateTel"  name="affiliateTel" style="width:100%" data-options="label:'협력업체 전화번호',labelWidth :140,labelPosition : 'left'"> </div>
+			<div style="margin-bottom:12px"><input id ="affiliatePhone"  name="affiliatePhone" style="width:100%" data-options="label:'협력업체 모바일',labelWidth :140,labelPosition : 'left'"> </div>
 			
-			<div style="margin-bottom:8px"><input id ="agencyNo"  name="agencyNo" style="width:100%" data-options="label:'대리점 검색 ',labelWidth :140,labelPosition : 'left'"> </div>
-			<div style="margin-bottom:8px">
+			<div style="margin-bottom:12px"><input id ="agencyNo"  name="agencyNo" style="width:100%" data-options="label:'대리점 검색 ',labelWidth :140,labelPosition : 'left'"> </div>
+			<div style="margin-bottom:12px">
 				<input id ="agencyName"  name="agencyName" style="width:100%" data-options="label:'대리점 이름 ',labelWidth :140,labelPosition : 'left'"> 
 			</div>
 			
-			<div style="margin-bottom:8px"><input id ="recommenderNo"  name="recommenderNo" style="width:100%" data-options="label:'추천인 검색 ',labelWidth :140,labelPosition : 'left'"> </div>
-			<div style="margin-bottom:8px">
+			<div style="margin-bottom:12px"><input id ="recommenderNo"  name="recommenderNo" style="width:100%" data-options="label:'추천인 검색 ',labelWidth :140,labelPosition : 'left'"> </div>
+			<div style="margin-bottom:12px">
 				<input id ="recommenderName"  name="recommenderName" style="width:100%" data-options="label:'추천인 이름 ',labelWidth :140,labelPosition : 'left'"> 
 			</div>
-			<div style="margin-bottom:8px"> 
+			<div style="margin-bottom:12px"> 
 				<select class = "easyui-combobox"  id ="affiliateStatus" name="affiliateStatus"   style="width:100%" data-options="label:'협력 업체 상태',labelWidth :140,labelAlign:'left',labelPosition : 'left'"> 
 					<c:forEach var="nodeStatus"  items="${nodeStatuses}" varStatus="status">
 						   <c:if test = "${ nodeStatus.useInAdmin == 'Y' }">
@@ -232,6 +233,11 @@
 		$('#affiliateComm').textbox({
 			label : roundLabel("환급율"),
 			prompt: '환급 수수료'
+		});
+
+		$('#customerComm').textbox({
+			label : roundLabel("고객제공 포인트율"),
+			prompt: '고객에게 제공할 포인트 요율'
 		});
 		
 		$('#giftCardPayRefundRate').textbox({

@@ -4,11 +4,11 @@
 				{field:'redPointNo',width:50,align:'center',title : '포인트 번호',hidden:false},	
 				{field:'memberNo',width:50,align:'center',title : '회원 번호',hidden:false},
 				{field:'memberName',width:80,align:'center',title : '이름'},
+				{field:'memberPhone',width:80,align:'center',title : '핸드폰'},
 				{field:'memberEmail',width:100,align:'center',title : '이메일'},
 				{field:'pointAmount',width:100,align:'center',title : 'R POINT', formatter : numberRedFormatter},
-			    {field:'memberPhone',width:120,align:'center',title : '핸드폰'},
-			    {field:'redPointCreateTime',width:100,align:'center',title : '등록일',formatter : dateFormatter},
-			    {field:'redPointUpdateTime',width:100,align:'center',title : '수정일',formatter : dateFormatter},
+			    {field:'redPointCreateTime',width:70,align:'center',title : '등록일',formatter : dateFormatter},
+			    {field:'redPointUpdateTime',width:70,align:'center',title : '수정일',formatter : dateFormatter},
 			    ]];
 initView();
 

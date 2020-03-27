@@ -4,14 +4,14 @@
 			{field:'greenPointNo',width:45,align:'center',title : '포인트 번호',hidden:false},	
 			{field:'memberNo',width:45,align:'center',title : '회원 번호',hidden:false},
 			{field:'memberName',width:80,align:'center',title : '이름'},
-			{field:'nodeType',width:50,align:'center',title : '분류',formatter : nodeTypeFormatter},
-			{field:'nodeNo',width:50,align:'center',title : '노드 번호',hidden:true},
+			{field:'nodeType',width:60,align:'center',title : '분류',formatter : nodeTypeFormatter},
+			{field:'memberPhone',width:80,align:'center',title : '핸드폰'},
 			{field:'memberEmail',width:100,align:'center',title : '이메일'},
+			{field:'nodeNo',width:50,align:'center',title : '노드 번호',hidden:true},
 			{field:'nodeTypeName',width:100,align:'center',title : '노드 이름',formatter : nodeTypeFormatter, hidden : true},
 			{field:'pointAmount',width:100,align:'center',title : 'G POINT', formatter : numberGreenFormatter},
-		    {field:'memberPhone',width:80,align:'center',title : '핸드폰'},
-			{field:'greenPointCreateTime',width:100,align:'center',title : '등록일',formatter : dateFormatter},
-			{field:'greenPointUpdateTime',width:100,align:'center',title : '수정일',formatter : dateFormatter},
+			{field:'greenPointCreateTime',width:70,align:'center',title : '등록일',formatter : dateFormatter},
+			{field:'greenPointUpdateTime',width:70,align:'center',title : '수정일',formatter : dateFormatter},
 			]];
 initView();
 
