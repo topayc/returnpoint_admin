@@ -109,8 +109,7 @@ public class MemberController extends ApplicationController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/member/myTotalPointInfo", method = RequestMethod.GET)
-	public ReturnpBaseResponse  getMyTotalPointInfo(
-			@RequestParam(value = "searchKeyword", required = false, defaultValue =  "0" ) String  searchKeyword) {
+	public ReturnpBaseResponse  getMyTotalPointInfo( @RequestParam(value = "searchKeyword", required = false, defaultValue =  "0" ) String  searchKeyword) {
 		MemberCommand  mCond =  new MemberCommand();
 		if(!"0".equals(searchKeyword)) {
 			mCond.setMemberEmail(searchKeyword);

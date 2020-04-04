@@ -30,13 +30,14 @@ import com.returnp.admin.service.interfaces.SearchService;
 @Service
 public class PointCodeServiceImp implements PointCodeService{
 	@Autowired MainMapper mainMapper;
-	@Autowired PointCodeIssueRequestMapper pointCodeIssueRequestMapper  ;
-	@Autowired PointCodeIssueMapper pointCodeIssueMapper  ;
-	@Autowired SearchService searchService;;
+	@Autowired PointCodeIssueRequestMapper pointCodeIssueRequestMapper;
+	@Autowired PointCodeIssueMapper pointCodeIssueMapper;
+	@Autowired SearchService searchService;
 	@Autowired SearchMapper searchMapper;
 	@Autowired MemberConfigMapper  memberConfigMapper;
 	@Autowired AndroidPushService androidPushService;
 	@Autowired IOSPushService iosPushService;
+
 	
 	// --------------------------------------------------------------------------------------------------------------------
 	// 포인트 코드 발급 요청 서비스 메서드 
@@ -526,6 +527,5 @@ public class PointCodeServiceImp implements PointCodeService{
 			return res;
 		}
 	}
-
 
 }

@@ -59,4 +59,10 @@ public interface MainMapper {
 	public ArrayList<HashMap<String, Object>> loadPointCodeTransactions(HashMap<String, Object> params);
 
 	public ArrayList<HashMap<String, Object>> selectPointCodePointbackRecords(HashMap<String, Object> param);
+
+	public ArrayList<HashMap<String, Object>> selectOrderReports(HashMap<String, Object> dbParams);
+
+	public ArrayList<HashMap<String, Object>> selectPeriodOrderReports(HashMap<String, Object> dbParams);
+
+	public ArrayList<HashMap<String, Object>> loadOrders(HashMap<String, Object> params);
 }

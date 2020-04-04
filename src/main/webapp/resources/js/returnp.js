@@ -407,6 +407,12 @@ $(function () {
          	/*PointCodePointbackRecord*/
          	selectPointCodePointbackRecords: {apiCode: 10000, apiPath : '/api/pointCoupon/pointCodePointbackRecords' , requestMethod: 'get'},
          	
+        	/*shop*/
+        	selectOrderReports: {apiCode: 10000, apiPath : '/api/shop/orders/reports' , requestMethod: 'get'},
+        	selectPeriodOrderReports: {apiCode: 10000, apiPath : '/api/shop/orders/periodReports' , requestMethod: 'get'},
+         	loadOrders: {apiCode: 10000, apiPath : '/api/shop/orders/get' , requestMethod: 'get'},
+         	deleteOrder: {apiCode: 10000, apiPath : '/api/shop/orders/delete' , requestMethod: 'post'},
+         	
         },
         
         init : function(){

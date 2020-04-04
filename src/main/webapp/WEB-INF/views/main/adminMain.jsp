@@ -175,6 +175,17 @@
 		                        </ul>
                             </li> 
                             
+                                <li class = "Q manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "C manage"  style = "font-weight : bold">쇼핑몰 관리</span>
+		                         <ul>
+		                         	<li class = "Q_1 manage" id = "manageMaskOrder" data-options = "iconCls :'icon-info'">
+					                   	<a class= "sub_menu"  view_req_name = "manageMaskOrder"  menu_deps= '2' >
+					                   		<span style = "font-weight : bold">마스크 주문 관리</span>
+					                   	</a>
+					                  </li>
+		                        </ul>
+                            </li> 
+                            
                               <li class = "D manage" data-options = "iconCls :'icon-info'">
                             	 <span  class = "D manage" style = "font-weight : bold">사이트 관리</span>
 		                         <ul>
@@ -405,6 +416,8 @@
                             		
 		                        </ul>
                             </li>
+                            
+                            
                              <li class = "K manage" data-options = "iconCls :'icon-info'">
                             	 <span  class = "K manage" style = "font-weight : bold">포인트 출금 관리</span>
 		                         <ul>
@@ -570,7 +583,7 @@
                         </ul>
                     </li>
                     
-                    <li class = "Q manage">
+                    <li class = "V manage">
                         <span>
                         	<span class="sub_menu" menu_deps= '1'  style = "font-weight : bold">시스템 관리자 패널</span>
                         </span>
