@@ -1047,37 +1047,35 @@
 			<if test = "searchType != null and searchType  =='month'" >  date_format(createTime, '%Y-%m') as searchDate, </if>
 			<if test = "searchType != null and searchType  =='daily'" >  date_format(createTime, '%Y-%m-%d') as searchDate, </if>
 			
-			count(orderPrice) as totalCount,
-			sum(orderPrice) as totalPayAmount
-			sum(gPointAmount) as totalAccPointAmount,
-			sum(if(status = '3' or status = '4'  , orderPrice , 0)) as totalCompleteOrderAmount,
-			sum(if(status = '1' or status = '6' or status = '5' or status = '6' , orderPrice , 0)) as totalNotCompleteOrderAmount
+			count(orderAmount) as totalCount,
+			sum(orderAmount) as totalPayAmount
+			sum(gpointAmount) as totalAccPointAmount,
+			sum(if(status = '3' or status = '4'  , orderAmount , 0)) as totalCompleteOrderAmount,
+			sum(if(status = '1' or status = '6' or status = '5' or status = '6' , orderAmount , 0)) as totalNotCompleteOrderAmount
 		from shop_product_order  group by searchDate;
 	   </select>
 	   
 	  <select id="selectPeriodOrderReports" parameterType="HashMap" resultType="HashMap">
 	    select 
 			date_format(A.createTime, '%Y-%m-%d') as searchDate,
-   	 		count(A.orderPrice) as totalCount,
-   			sum(A.orderPrice) as totalPayAmount,
-			sum(A.gPointAmount) as totalAccPointAmount,
-			sum(if(status = '3' or status = '4'  , A.orderPrice , 0)) as totalCompleteOrderAmount,
-			sum(if(status = '1' or status = '6' or status = '5' or status = '6' , A.orderPrice , 0)) as totalNotCompleteOrderAmount
+   	 		count(A.orderAmount) as totalCount,
+   			sum(A.orderAmount) as totalPayAmount,
+			sum(A.gpointAmount) as totalAccPointAmount,
+			sum(if(status = '3' or status = '4'  , A.orderAmount , 0)) as totalCompleteOrderAmount,
+			sum(if(status = '1' or status = '6' or status = '5' or status = '6' , A.orderAmount , 0)) as totalNotCompleteOrderAmount
 		from 
 		(
-			 select A.*, M.memberName, M.memberEmail,M.memberPhone
-			 	from shop_product_order as A
-			 	inner join member as M on ( A.memberNo = M.memberNo)
+			 select B.*, C.memberName, C.memberEmail,C.memberPhone
+			 	from shop_product_order as B
+			 	inner join member as C on ( B.orderMemberNo= C.memberNo)
 			 where 1= 1
-				<if test = "searchDateStart != null and searchDateEnd != null  "> and (PCT.createTime between #{searchDateStart} and #{searchDateEnd})</if>
-				<if test = "searchStatus != null">and status = #{searchStatus} </if>
+				<if test = "searchDateStart != null and searchDateEnd != null  "> and (B.createTime between #{searchDateStart} and #{searchDateEnd})</if>
+				<if test = "searchStatus != null">and B.status = #{searchStatus} </if>
 				<if test="searchKeyword != null ">
 	      			AND 
 	      			(
 	      				memberName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR 
-      					memberEmail LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR 
-      					affiliateName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR 
-      					depositor LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) 
+      					memberEmail LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) 
 	      			) 
 			     </if>
 			) as A
@@ -1091,7 +1089,7 @@
   		B.memberName, B.memberEmail, B.memberPhone
    
 	   	from shop_product_order  as A
-		inner join member as B on (A.memberNo= B.memberNo)
+		inner join member as B on (A.orderMemberNo= B.memberNo)
 	    where 
 	    	1 = 1
 	    	<if test="searchDate != null "> AND A.createTime LIKE CONCAT(#{searchDate},'%') </if>
@@ -1101,8 +1099,7 @@
       				(
       					memberName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR 
       					memberEmail LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR 
-      					affiliateName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) OR 
-      					depositor LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) 
+      					affiliateName LIKE CONCAT('%',#{searchKeyword,jdbcType=VARCHAR},'%' ) 
       				) 
 		   	  </if>
 	     <choose>

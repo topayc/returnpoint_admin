@@ -13,19 +13,25 @@ var columns = [[
 	   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 	    {field:'shopProductOrderNo',width:15,align:'center',title : '번호',hidden:false},
 	    {field:'memberNo',width:15,align:'center',title : '회원번호',hidden:true},
-	    {field:'memberName',width:40,align:'center',title : '회원 이름'},
-	    {field:'memberPhone',width:45,align:'center',title : '회원 전화'},
-	    {field:'memberEmail',width:45,align:'center',title : '회원 이메일'},
+	    {field:'memberName',width:30,align:'center',title : '주문자이름'},
+	    {field:'memberPhone',width:34,align:'center',title : '주문자전화'},
+	    {field:'memberEmail',width:45,align:'center',title : '주문자이메일',hidden:true},
 	    {field:'productName',width:60,align:'center',title : '상품명'},
-	    {field:'productPrice',width:35,align:'center',title : '상품 1개 단가', formatter : issueTypeFormatter2},
-	    {field:'productUnit',width:35,align:'center',title : '판매 단위 ', formatter : issueTypeFormatter2},
-	    {field:'productQty',width:20,align:'center',title : '갯수', formatter : issueTypeFormatter2},
-	    {field:'orderPrice',width:35,align:'center',title : '총구매 가격', formatter : issueTypeFormatter2},
-	    {field:'gPointRate',width:35,align:'center',title : '제공 GPOINT 비율', formatter : issueTypeFormatter2},
-	    {field:'gPointRateAmount',width:35,align:'center',title : '제공 G POINT', formatter : issueTypeFormatter2},
-	    {field:'orderStatus',width:35,align:'center',title : '주문 상태', formatter : issueTypeFormatter2},
-	    {field:'deliveryAddress',width:35,align:'center',title : '배송 주소 ', formatter : issueTypeFormatter2},
-
+	    {field:'productPrice',width:30,align:'center',title : '판매가',formatter : numberFormatter},
+	    {field:'orderUnit',width:20,align:'center',title : '단위',formatter : numberFormatter},
+	    {field:'orderQty',width:20,align:'center',title : '수량', formatter : numberFormatter},
+	    {field:'orderColor',width:20,align:'center',title : '색상'},
+	    {field:'totalPriceAmount',width:35,align:'center',title : '총 상품가격',formatter : numberFormatter},
+	    {field:'deliveryChargeType',width:35,align:'center',title : '배송타입 ', formatter : deliveryChargeTypeFormatter},
+	    {field:'deliveryCharge',width:25,align:'center',title : '배송비',formatter : numberFormatter},
+	    {field:'orderAmount',width:35,align:'center',title : '총 주문가격',formatter : numberGreenFormatter},
+	    {field:'gpointRate',width:20,align:'center',title : 'G비율',formatter : numberFormatter},
+	    {field:'gpointAmount',width:30,align:'center',title : 'G금액',formatter : numberFormatter},
+	    {field:'status',width:35,align:'center',title : '주문 상태', formatter : maskOrderStatusFormatter},
+	    {field:'receiverName',width:35,align:'center',title : '수령자 '},
+	    {field:'receiverPhone',width:35,align:'center',title : '수령자폰 '},
+	    {field:'receiverAddress',width:35,align:'center',title : '배송 주소 '},
+	    {field:'reqMsg',width:35,align:'center',title : '배송메세지 '},
 	    {field:'createTime',width:40,align:'center',title : '등록일',formatter : dateFormatter}
 	    ]];
 /**
@@ -477,7 +483,7 @@ function setListPager2(){
             iconCls:'icon-add',
             text : "엑셀 변환",
             handler:function(){
-                gridToExcel('#summary_table','point_code_sum.xls');
+                gridToExcel('#summary_table','mask_order_summary.xls');
             }
         }],
         layout:[ ],
@@ -493,7 +499,7 @@ function setListPager(){
 	            iconCls:'icon-add',
 	            text : "엑셀 변환",
 	            handler:function(){
-	            	gridToExcel('#node_list','point_coupons.xls');
+	            	gridToExcel('#node_list','mask_order_list.xls');
 	            }
 	        },{
             iconCls:'icon-chart',

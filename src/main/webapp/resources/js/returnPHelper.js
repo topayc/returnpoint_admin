@@ -55,6 +55,31 @@ function replyOkFormatter (data){
 	return result;
 }
 
+function maskOrderStatusFormatter (data){
+	var result;
+	switch (data) {
+	case "1": result ="입금확인중" ; break;
+	case "2": result ="입금 완료/배송전" ; break;
+	case "3": result ="배송중" ; break;
+	case "4": result ="배송완료" ; break;
+	case "5": result ="주문 취소 " ; break;
+	case "6": result ="관리자 주문 취소 " ; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
+function deliveryChargeTypeFormatter (data){
+	var result;
+	switch (data) {
+	case "condition": result ="조건부배송" ; break;
+	case "free": result ="무료배송" ; break;
+	case "nofree": result ="유료배송" ; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
 function realDepositAmountFormatter(value, row, index){
 	
 	switch (row.issueType) {
@@ -82,6 +107,9 @@ function issueTypeFormatter2(value){
 	default: result = "-"; break;
 	}
 	return result;
+}
+
+function maskColorFormatter(value){
 }
 
 function issueTypeFormatter(value){
@@ -824,6 +852,11 @@ function greenPointFormatter(data) {
 function numberFormatter(data) {
 	data = String(data);
 	return '<span style = "color : #000000;font-weight : bold">' + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>'; 
+}
+
+function normalNumberFormatter(data) {
+	data = String(data);
+	return '<span style = "color : #000000;">' + (data.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,')) + '</span>'; 
 }
 
 function numberGreenFormatter(data) {
