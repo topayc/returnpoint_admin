@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.ShopProductOrderMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.ShopProductOrder">
+    <id column="shopProductOrderNo" jdbcType="INTEGER" property="shopProductOrderNo" />
+    <id column="status" jdbcType="VARCHAR" property="status" />
+    <id column="receiverPhone" jdbcType="VARCHAR" property="receiverPhone" />
+    <result column="orderNumber" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="orderMemberNo" jdbcType="INTEGER" property="orderMemberNo" />
+    <result column="productName" jdbcType="VARCHAR" property="productName" />
+    <result column="productPrice" jdbcType="INTEGER" property="productPrice" />
+    <result column="orderColor" jdbcType="VARCHAR" property="orderColor" />
+    <result column="orderUnit" jdbcType="INTEGER" property="orderUnit" />
+    <result column="orderQty" jdbcType="INTEGER" property="orderQty" />
+    <result column="totalPriceAmount" jdbcType="INTEGER" property="totalPriceAmount" />
+    <result column="orderAmount" jdbcType="INTEGER" property="orderAmount" />
+    <result column="payType" jdbcType="VARCHAR" property="payType" />
+    <result column="gpointRate" jdbcType="REAL" property="gpointRate" />
+    <result column="gpointAmount" jdbcType="REAL" property="gpointAmount" />
+    <result column="receiverName" jdbcType="VARCHAR" property="receiverName" />
+    <result column="receiverAddress" jdbcType="VARCHAR" property="receiverAddress" />
+    <result column="reqMsg" jdbcType="VARCHAR" property="reqMsg" />
+    <result column="deliveryChargeType" jdbcType="VARCHAR" property="deliveryChargeType" />
+    <result column="deliveryCharge" jdbcType="INTEGER" property="deliveryCharge" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    shopProductOrderNo, status, receiverPhone, orderNumber, orderMemberNo, productName, 
+    productPrice, orderColor, orderUnit, orderQty, totalPriceAmount, orderAmount, payType, 
+    gpointRate, gpointAmount, receiverName, receiverAddress, reqMsg, deliveryChargeType, 
+    deliveryCharge, createTime, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.returnp.admin.model.ShopProductOrderKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop_product_order
+    where shopProductOrderNo = #{shopProductOrderNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.returnp.admin.model.ShopProductOrderKey">
+    delete from shop_product_order
+    where shopProductOrderNo = #{shopProductOrderNo,jdbcType=INTEGER}
+      and status = #{status,jdbcType=VARCHAR}
+      and receiverPhone = #{receiverPhone,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.ShopProductOrder">
+    insert into shop_product_order (shopProductOrderNo, status, receiverPhone, 
+      orderNumber, orderMemberNo, productName, 
+      productPrice, orderColor, orderUnit, 
+      orderQty, totalPriceAmount, orderAmount, 
+      payType, gpointRate, gpointAmount, 
+      receiverName, receiverAddress, reqMsg, 
+      deliveryChargeType, deliveryCharge, createTime, 
+      updateTime)
+    values (#{shopProductOrderNo,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{receiverPhone,jdbcType=VARCHAR}, 
+      #{orderNumber,jdbcType=VARCHAR}, #{orderMemberNo,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, 
+      #{productPrice,jdbcType=INTEGER}, #{orderColor,jdbcType=VARCHAR}, #{orderUnit,jdbcType=INTEGER}, 
+      #{orderQty,jdbcType=INTEGER}, #{totalPriceAmount,jdbcType=INTEGER}, #{orderAmount,jdbcType=INTEGER}, 
+      #{payType,jdbcType=VARCHAR}, #{gpointRate,jdbcType=REAL}, #{gpointAmount,jdbcType=REAL}, 
+      #{receiverName,jdbcType=VARCHAR}, #{receiverAddress,jdbcType=VARCHAR}, #{reqMsg,jdbcType=VARCHAR}, 
+      #{deliveryChargeType,jdbcType=VARCHAR}, #{deliveryCharge,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.ShopProductOrder">
+    insert into shop_product_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shopProductOrderNo != null">
+        shopProductOrderNo,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="receiverPhone != null">
+        receiverPhone,
+      </if>
+      <if test="orderNumber != null">
+        orderNumber,
+      </if>
+      <if test="orderMemberNo != null">
+        orderMemberNo,
+      </if>
+      <if test="productName != null">
+        productName,
+      </if>
+      <if test="productPrice != null">
+        productPrice,
+      </if>
+      <if test="orderColor != null">
+        orderColor,
+      </if>
+      <if test="orderUnit != null">
+        orderUnit,
+      </if>
+      <if test="orderQty != null">
+        orderQty,
+      </if>
+      <if test="totalPriceAmount != null">
+        totalPriceAmount,
+      </if>
+      <if test="orderAmount != null">
+        orderAmount,
+      </if>
+      <if test="payType != null">
+        payType,
+      </if>
+      <if test="gpointRate != null">
+        gpointRate,
+      </if>
+      <if test="gpointAmount != null">
+        gpointAmount,
+      </if>
+      <if test="receiverName != null">
+        receiverName,
+      </if>
+      <if test="receiverAddress != null">
+        receiverAddress,
+      </if>
+      <if test="reqMsg != null">
+        reqMsg,
+      </if>
+      <if test="deliveryChargeType != null">
+        deliveryChargeType,
+      </if>
+      <if test="deliveryCharge != null">
+        deliveryCharge,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updateTime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shopProductOrderNo != null">
+        #{shopProductOrderNo,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverPhone != null">
+        #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMemberNo != null">
+        #{orderMemberNo,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice,jdbcType=INTEGER},
+      </if>
+      <if test="orderColor != null">
+        #{orderColor,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUnit != null">
+        #{orderUnit,jdbcType=INTEGER},
+      </if>
+      <if test="orderQty != null">
+        #{orderQty,jdbcType=INTEGER},
+      </if>
+      <if test="totalPriceAmount != null">
+        #{totalPriceAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderAmount != null">
+        #{orderAmount,jdbcType=INTEGER},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="gpointRate != null">
+        #{gpointRate,jdbcType=REAL},
+      </if>
+      <if test="gpointAmount != null">
+        #{gpointAmount,jdbcType=REAL},
+      </if>
+      <if test="receiverName != null">
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverAddress != null">
+        #{receiverAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="reqMsg != null">
+        #{reqMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryChargeType != null">
+        #{deliveryChargeType,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryCharge != null">
+        #{deliveryCharge,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.ShopProductOrder">
+    update shop_product_order
+    <set>
+      <if test="orderNumber != null">
+        orderNumber = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMemberNo != null">
+        orderMemberNo = #{orderMemberNo,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null">
+        productName = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productPrice != null">
+        productPrice = #{productPrice,jdbcType=INTEGER},
+      </if>
+      <if test="orderColor != null">
+        orderColor = #{orderColor,jdbcType=VARCHAR},
+      </if>
+      <if test="orderUnit != null">
+        orderUnit = #{orderUnit,jdbcType=INTEGER},
+      </if>
+      <if test="orderQty != null">
+        orderQty = #{orderQty,jdbcType=INTEGER},
+      </if>
+      <if test="totalPriceAmount != null">
+        totalPriceAmount = #{totalPriceAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderAmount != null">
+        orderAmount = #{orderAmount,jdbcType=INTEGER},
+      </if>
+      <if test="payType != null">
+        payType = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="gpointRate != null">
+        gpointRate = #{gpointRate,jdbcType=REAL},
+      </if>
+      <if test="gpointAmount != null">
+        gpointAmount = #{gpointAmount,jdbcType=REAL},
+      </if>
+      <if test="receiverName != null">
+        receiverName = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverAddress != null">
+        receiverAddress = #{receiverAddress,jdbcType=VARCHAR},
+      </if>
+      
+        <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="reqMsg != null">
+        reqMsg = #{reqMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryChargeType != null">
+        deliveryChargeType = #{deliveryChargeType,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryCharge != null">
+        deliveryCharge = #{deliveryCharge,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where 
+    	shopProductOrderNo = #{shopProductOrderNo,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.ShopProductOrder">
+    update shop_product_order
+    set orderNumber = #{orderNumber,jdbcType=VARCHAR},
+      orderMemberNo = #{orderMemberNo,jdbcType=INTEGER},
+      productName = #{productName,jdbcType=VARCHAR},
+      productPrice = #{productPrice,jdbcType=INTEGER},
+      orderColor = #{orderColor,jdbcType=VARCHAR},
+      orderUnit = #{orderUnit,jdbcType=INTEGER},
+      orderQty = #{orderQty,jdbcType=INTEGER},
+      totalPriceAmount = #{totalPriceAmount,jdbcType=INTEGER},
+      orderAmount = #{orderAmount,jdbcType=INTEGER},
+      payType = #{payType,jdbcType=VARCHAR},
+      gpointRate = #{gpointRate,jdbcType=REAL},
+      gpointAmount = #{gpointAmount,jdbcType=REAL},
+      receiverName = #{receiverName,jdbcType=VARCHAR},
+      receiverAddress = #{receiverAddress,jdbcType=VARCHAR},
+      reqMsg = #{reqMsg,jdbcType=VARCHAR},
+      deliveryChargeType = #{deliveryChargeType,jdbcType=VARCHAR},
+      deliveryCharge = #{deliveryCharge,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP}
+    where shopProductOrderNo = #{shopProductOrderNo,jdbcType=INTEGER}
+      and status = #{status,jdbcType=VARCHAR}
+      and receiverPhone = #{receiverPhone,jdbcType=VARCHAR}
+  </update>
+</mapper>

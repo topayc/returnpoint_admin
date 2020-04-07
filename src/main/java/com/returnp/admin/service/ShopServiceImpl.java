@@ -8,9 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.returnp.admin.common.ResponseUtil;
+import com.returnp.admin.common.ReturnpException;
 import com.returnp.admin.dao.mapper.MainMapper;
+import com.returnp.admin.dao.mapper.ShopProductOrderMapper;
 import com.returnp.admin.dto.reponse.ArrayListResponse;
 import com.returnp.admin.dto.reponse.ReturnpBaseResponse;
+import com.returnp.admin.model.ShopProductOrder;
+import com.returnp.admin.model.ShopProductOrderKey;
 import com.returnp.admin.service.interfaces.SearchService;
 import com.returnp.admin.service.interfaces.ShopService;
 
@@ -18,6 +22,7 @@ import com.returnp.admin.service.interfaces.ShopService;
 public class ShopServiceImpl implements ShopService{
 	@Autowired MainMapper mainMapper;
 	@Autowired SearchService searchService;
+	@Autowired ShopProductOrderMapper shopProductOrderMapper;
 	
 
 	@Override
@@ -76,6 +81,30 @@ public class ShopServiceImpl implements ShopService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public ReturnpBaseResponse changeOrderStatuses(ArrayList<Integer> shopProductOrderNos, String status) {
+		ReturnpBaseResponse res = new ReturnpBaseResponse();
+		try {
+			ShopProductOrder  order = null;
+			ShopProductOrderKey	key = new ShopProductOrderKey();
+			for(Integer shopProductOrderNo : shopProductOrderNos) {
+				order = new ShopProductOrder();
+				order.setShopProductOrderNo(shopProductOrderNo);
+				order.setStatus(status);
+				this.shopProductOrderMapper.updateByPrimaryKeySelective(order);
+				
+			}
+			ResponseUtil.setSuccessResponse(res, "100" , "총 " +shopProductOrderNos.size()  + " 개의  주문 상태 변경을 완료했습니다");
+			return res;
+		}catch(Exception e) {
+			e.printStackTrace();
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			ResponseUtil.setResponse(res, ResponseUtil.RESPONSE_ERROR, "500", "서버 에러 ");
+			return res;
+		}
+	}
+
 
 
 }

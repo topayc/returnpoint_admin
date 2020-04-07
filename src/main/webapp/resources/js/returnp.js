@@ -412,6 +412,7 @@ $(function () {
         	selectPeriodOrderReports: {apiCode: 10000, apiPath : '/api/shop/orders/periodReports' , requestMethod: 'get'},
          	loadOrders: {apiCode: 10000, apiPath : '/api/shop/orders/get' , requestMethod: 'get'},
          	deleteOrder: {apiCode: 10000, apiPath : '/api/shop/orders/delete' , requestMethod: 'post'},
+         	changeMaskOrderStatus: {apiCode: 10000, apiPath : '/api/shop/orders/changeStatus' , requestMethod: 'post'},
          	
         },
         

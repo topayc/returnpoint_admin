@@ -12,6 +12,7 @@ var columns = [[
 	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 	   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 	    {field:'shopProductOrderNo',width:15,align:'center',title : '번호',hidden:false},
+	    {field:'orderNumber',width:15,align:'center',title : '번호',hidden:false},
 	    {field:'memberNo',width:15,align:'center',title : '회원번호',hidden:true},
 	    {field:'memberName',width:30,align:'center',title : '주문자이름'},
 	    {field:'memberPhone',width:34,align:'center',title : '주문자전화'},
@@ -24,10 +25,11 @@ var columns = [[
 	    {field:'totalPriceAmount',width:35,align:'center',title : '총 상품가격',formatter : numberFormatter},
 	    {field:'deliveryChargeType',width:35,align:'center',title : '배송타입 ', formatter : deliveryChargeTypeFormatter},
 	    {field:'deliveryCharge',width:25,align:'center',title : '배송비',formatter : numberFormatter},
+	    {field:'payType',width:35,align:'center',title : '결제방법',formatter : shopPayTypeFormatter},
 	    {field:'orderAmount',width:35,align:'center',title : '총 주문가격',formatter : numberGreenFormatter},
+	    {field:'status',width:35,align:'center',title : '주문 상태', formatter : maskOrderStatusFormatter},
 	    {field:'gpointRate',width:20,align:'center',title : 'G비율',formatter : numberFormatter},
 	    {field:'gpointAmount',width:30,align:'center',title : 'G금액',formatter : numberFormatter},
-	    {field:'status',width:35,align:'center',title : '주문 상태', formatter : maskOrderStatusFormatter},
 	    {field:'receiverName',width:35,align:'center',title : '수령자 '},
 	    {field:'receiverPhone',width:35,align:'center',title : '수령자폰 '},
 	    {field:'receiverAddress',width:35,align:'center',title : '배송 주소 '},
@@ -280,6 +282,63 @@ function initView(){
 			 });
 
 			
+			 cmenu.menu('appendItem', {
+				 id : "o_1",  // the parent item element
+				 text:  "주문 상태 변경",
+				 //iconCls: 'icon-ok',
+				 onclick: function(){
+				 }
+			 });
+			 
+			 item = cmenu.menu('findItem', "주문 상태 변경");  
+			 cmenu.menu('appendItem', {
+				 parent: item.target,  // the parent item element
+				 text:  row.status == "1" ? roundLabel("입금확인중", "#04B404") : "입금확인중",
+						 onclick: function(){
+							 changeOrderStatus("1");
+						 }
+			 });
+			 
+			 cmenu.menu('appendItem', {
+				 parent: item.target,  // the parent item element
+				 text:  row.status == "2" ? roundLabel("입금완료/배송준비", "#04B404") : "입금완료/배송준비",
+						 onclick: function(){
+							 changeOrderStatus("2");
+						 }
+			 });
+
+			 cmenu.menu('appendItem', {
+				 parent: item.target,  // the parent item element
+				 text:  row.status == "3" ? roundLabel("배송중", "#04B404") : "배송중",
+						 onclick: function(){
+							 changeOrderStatus("3");
+						 }
+			 });
+			 
+			 cmenu.menu('appendItem', {
+				 parent: item.target,  // the parent item element
+				 text:  row.status == "4" ? roundLabel("배송완료", "#04B404") : "배송완료",
+						 onclick: function(){
+							 changeOrderStatus("4");
+						 }
+			 });
+			 
+			 cmenu.menu('appendItem', {
+				 parent: item.target,  // the parent item element
+				 text:  row.status == "5" ? roundLabel("주문취소", "#04B404") : "주문취소",
+						 onclick: function(){
+							 changeOrderStatus("5");
+						 }
+			 });
+			 
+			 cmenu.menu('appendItem', {
+				 parent: item.target,  // the parent item element
+				 text:  row.status == "6" ? roundLabel("관리자 주문 취소", "#04B404") : "관리자 주문 취소",
+						 onclick: function(){
+							 changeOrderStatus("6");
+						 }
+			 });
+			 
 			 cmenu.menu('show', {
 				 left:e.pageX,
 				 top:e.pageY
@@ -290,7 +349,42 @@ function initView(){
 	setListPager2();
 	setListPager();
 }
-
+function changeOrderStatus(status){
+	var selectedRows =  $('#node_list').datagrid('getSelections');
+	if (selectedRows.length < 1) {
+		$.messager.alert('알림', "선택된 항목이 없습니다.");
+	}
+	var params = {status : status};
+	params.shopProductOrderNos = [];
+	
+	
+	for (var i = 0; i < selectedRows.length; i++){
+		if (selectedRows[i].status != '1') {
+			$.messager.alert(
+				'알림', "상태 변경 요청이 잘못되었습니다.</br>" + 
+				"번호:주문번호 " +selectedRows[i].shopProductOrderNo+ ": " + selectedRows[i].shopProductOrderNo+ + " 주문상태를 변경할 수 없습니다</br>" + 
+				"확인후 다시 시도해주세요"
+			);
+			return;
+		}
+		params.shopProductOrderNos.push(selectedRows[i].shopProductOrderNo);
+	}
+	
+	returnp.api.call("changeMaskOrderStatus", params, function(res){
+		console.log(res);
+		$.messager.alert('알림', res.message);
+		if (res.resultCode == "100") {
+        	var node = $('#summary_table').datagrid('getSelected');
+        	loadOrders("pager", node);
+		}else {
+		}
+	});
+	
+	var selectedRows =  $('#node_list').datagrid('getSelections');
+	if (selectedRows.length < 1) {
+		$.messager.alert('알림', "선택된 항목이 없습니다.");
+	}
+}
 function setSummaryColumn(){
 	if (adminId != 'topayc' && adminId != 'mira') {
 		$('#summary_table').datagrid('hideColumn', 'totalDistTop');

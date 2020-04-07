@@ -55,19 +55,7 @@ function replyOkFormatter (data){
 	return result;
 }
 
-function maskOrderStatusFormatter (data){
-	var result;
-	switch (data) {
-	case "1": result ="입금확인중" ; break;
-	case "2": result ="입금 완료/배송전" ; break;
-	case "3": result ="배송중" ; break;
-	case "4": result ="배송완료" ; break;
-	case "5": result ="주문 취소 " ; break;
-	case "6": result ="관리자 주문 취소 " ; break;
-	default: result = "-"; break;
-	}
-	return result;
-}
+
 
 function deliveryChargeTypeFormatter (data){
 	var result;
@@ -104,6 +92,32 @@ function issueTypeFormatter2(value){
 	switch (value) {
 	case "1": result = '<span style = "font-weight : bold;border-radius: 15px;border : 1px solid green;color : green;padding:3px;font-size:11px"  >가맹점</span>'; break;
 	case "2": result = '<span style = "font-weight : bold;border-radius: 15px;border : 1px solid red;color : red;padding:3px;font-size:11px"  >비가맹점</span>'; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
+function shopPayTypeFormatter(value){
+	var result = "";
+	switch (value) {
+	case "1": result = '<span style = "font-weight : bold;border-radius: 15px;border : 1px solid green;color : black;padding:3px;font-size:11px"  >카드결제</span>'; break;
+	case "2": result = '<span style = "font-weight : bold;border-radius: 15px;border : 1px solid red;color : black;padding:3px;font-size:11px"  >간편결제</span>'; break;
+	case "3": result = '<span style = "font-weight : bold;border-radius: 15px;border : 1px solid black;color : black;padding:3px;font-size:11px"  >무통장입급</span>'; break;
+	case "4": result = '<span style = "font-weight : bold;border-radius: 15px;border : 1px solid blue;color : black;padding:3px;font-size:11px"  >계좌이체</span>'; break;
+	default: result = "-"; break;
+	}
+	return result;
+}
+
+function maskOrderStatusFormatter(value){
+	var result = "";
+	switch (value) {
+	case "1": result = '<span style = "font-weight : bold;border-radius: 15px;background-color: red;color : white;padding:3px;font-size:11px"  >입금확인중</span>'; break;
+	case "2": result = '<span style = "font-weight : bold;border-radius: 15px;background-color: green;color : white;padding:3px;font-size:11px"  >입금완료</span>'; break;
+	case "3": result = '<span style = "font-weight : bold;border-radius: 15px;background-color: blue;color : white;padding:3px;font-size:11px"  >배송중</span>'; break;
+	case "4": result = '<span style = "font-weight : bold;border-radius: 15px;background-color: #33cccc;color : white;padding:3px;font-size:11px"  >배송완료</span>'; break;
+	case "5": result = '<span style = "font-weight : bold;border-radius: 15px;background-color: gray;color : white;padding:3px;font-size:11px"  >주문취소</span>'; break;
+	case "6": result = '<span style = "font-weight : bold;border-radius: 15px;background-color: black;color : white;padding:3px;font-size:11px"  >관리자취소</span>'; break;
 	default: result = "-"; break;
 	}
 	return result;

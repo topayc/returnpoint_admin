@@ -1,5 +1,6 @@
 package com.returnp.admin.web.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +19,6 @@ import com.returnp.admin.service.interfaces.ShopService;
 @RequestMapping("/api")
 public class ShopController extends ApplicationController{
 	
-	@Autowired PointCodeService  pointCodeService;
 	@Autowired ShopService  shopService;
 	
 	// --------------------------------------------------------------------------------------------------------------------
@@ -50,6 +50,14 @@ public class ShopController extends ApplicationController{
 	@RequestMapping(value = "/shop/orders/delete", method = RequestMethod.POST)
 	public ReturnpBaseResponse  deletePointCodeIssueRequest(@RequestParam HashMap<String, Object> params) {
 		return this.shopService.deleteOrder(params);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/shop/orders/changeStatus", method = RequestMethod.POST)
+	public ReturnpBaseResponse  changeStatus(
+			@RequestParam(value = "shopProductOrderNos[]", required = true) ArrayList<Integer>  shopProductOrderNos, 
+			@RequestParam(value = "status", required = true) String status) {
+		return this.shopService.changeOrderStatuses(shopProductOrderNos, status);
 	}
 
 	private HashMap<String, Object> checkParameter(HashMap<String, Object> params){
