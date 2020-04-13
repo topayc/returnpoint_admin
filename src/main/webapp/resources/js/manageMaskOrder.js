@@ -12,7 +12,7 @@ var columns = [[
 	//{field:'check',width:30,align:'center',title : '선택',checkbox : true},
 	   // {field:'action',width:20,align:'center', halign : 'center',formatter : projectActionFormatter},
 	    {field:'shopProductOrderNo',width:15,align:'center',title : '번호',hidden:false},
-	    {field:'orderNumber',width:15,align:'center',title : '번호',hidden:false},
+	    {field:'orderNumber',width:40,align:'center',title : '주문 번호'},
 	    {field:'memberNo',width:15,align:'center',title : '회원번호',hidden:true},
 	    {field:'memberName',width:30,align:'center',title : '주문자이름'},
 	    {field:'memberPhone',width:34,align:'center',title : '주문자전화'},
@@ -28,8 +28,8 @@ var columns = [[
 	    {field:'payType',width:35,align:'center',title : '결제방법',formatter : shopPayTypeFormatter},
 	    {field:'orderAmount',width:35,align:'center',title : '총 주문가격',formatter : numberGreenFormatter},
 	    {field:'status',width:35,align:'center',title : '주문 상태', formatter : maskOrderStatusFormatter},
-	    {field:'gpointRate',width:20,align:'center',title : 'G비율',formatter : numberFormatter},
-	    {field:'gpointAmount',width:30,align:'center',title : 'G금액',formatter : numberFormatter},
+	    {field:'gpointRate',width:15,align:'center',title : 'G비율',formatter : numberFormatter},
+	    {field:'gpointAmount',width:20,align:'center',title : 'G금액',formatter : numberFormatter},
 	    {field:'receiverName',width:35,align:'center',title : '수령자 '},
 	    {field:'receiverPhone',width:35,align:'center',title : '수령자폰 '},
 	    {field:'receiverAddress',width:35,align:'center',title : '배송 주소 '},
@@ -359,14 +359,14 @@ function changeOrderStatus(status){
 	
 	
 	for (var i = 0; i < selectedRows.length; i++){
-		if (selectedRows[i].status != '1') {
+	/*	if (selectedRows[i].status != '1') {
 			$.messager.alert(
 				'알림', "상태 변경 요청이 잘못되었습니다.</br>" + 
-				"번호:주문번호 " +selectedRows[i].shopProductOrderNo+ ": " + selectedRows[i].shopProductOrderNo+ + " 주문상태를 변경할 수 없습니다</br>" + 
+				"번호:주문번호 " +selectedRows[i].shopProductOrderNo+ ": " + selectedRows[i].shopProductOrderNo+ " 주문상태를 변경할 수 없습니다</br>" + 
 				"확인후 다시 시도해주세요"
 			);
 			return;
-		}
+		}*/
 		params.shopProductOrderNos.push(selectedRows[i].shopProductOrderNo);
 	}
 	
@@ -386,10 +386,10 @@ function changeOrderStatus(status){
 	}
 }
 function setSummaryColumn(){
-	if (adminId != 'topayc' && adminId != 'mira') {
+/*	if (adminId != 'topayc' && adminId != 'mira') {
 		$('#summary_table').datagrid('hideColumn', 'totalDistTop');
 		$('#summary_table').datagrid('hideColumn', 'totalDistMe');
-	}
+	}*/
 }
 
 function deleteOrderRequests(){
