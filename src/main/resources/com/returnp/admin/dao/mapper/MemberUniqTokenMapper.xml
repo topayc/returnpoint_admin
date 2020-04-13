@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.returnp.admin.dao.mapper.MemberUniqTokenMapper">
+  <resultMap id="BaseResultMap" type="com.returnp.admin.model.MemberUniqToken">
+    <id column="memberUniqTokenNo" jdbcType="INTEGER" property="memberUniqTokenNo" />
+    <result column="memberNo" jdbcType="INTEGER" property="memberNo" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="memberName" jdbcType="VARCHAR" property="memberName" />
+    <result column="memberEmail" jdbcType="VARCHAR" property="memberEmail" />
+    <result column="memberPhone" jdbcType="VARCHAR" property="memberPhone" />
+    <result column="tokenType" jdbcType="VARCHAR" property="tokenType" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="updatetiem" jdbcType="TIMESTAMP" property="updatetiem" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    memberUniqTokenNo, memberNo, token, memberName, memberEmail, memberPhone, tokenType, 
+    createTime, updatetiem
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from member_uniq_token
+    where memberUniqTokenNo = #{memberUniqTokenNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from member_uniq_token
+    where memberUniqTokenNo = #{memberUniqTokenNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.returnp.admin.model.MemberUniqToken">
+    insert into member_uniq_token (memberUniqTokenNo, memberNo, token, 
+      memberName, memberEmail, memberPhone, 
+      tokenType, createTime, updatetiem
+      )
+    values (#{memberUniqTokenNo,jdbcType=INTEGER}, #{memberNo,jdbcType=INTEGER}, #{token,jdbcType=VARCHAR}, 
+      #{memberName,jdbcType=VARCHAR}, #{memberEmail,jdbcType=VARCHAR}, #{memberPhone,jdbcType=VARCHAR}, 
+      #{tokenType,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updatetiem,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.returnp.admin.model.MemberUniqToken">
+    insert into member_uniq_token
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="memberUniqTokenNo != null">
+        memberUniqTokenNo,
+      </if>
+      <if test="memberNo != null">
+        memberNo,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+      <if test="memberName != null">
+        memberName,
+      </if>
+      <if test="memberEmail != null">
+        memberEmail,
+      </if>
+      <if test="memberPhone != null">
+        memberPhone,
+      </if>
+      <if test="tokenType != null">
+        tokenType,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="updatetiem != null">
+        updatetiem,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="memberUniqTokenNo != null">
+        #{memberUniqTokenNo,jdbcType=INTEGER},
+      </if>
+      <if test="memberNo != null">
+        #{memberNo,jdbcType=INTEGER},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null">
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberEmail != null">
+        #{memberEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="memberPhone != null">
+        #{memberPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="tokenType != null">
+        #{tokenType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetiem != null">
+        #{updatetiem,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.returnp.admin.model.MemberUniqToken">
+    update member_uniq_token
+    <set>
+      <if test="memberNo != null">
+        memberNo = #{memberNo,jdbcType=INTEGER},
+      </if>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="memberName != null">
+        memberName = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberEmail != null">
+        memberEmail = #{memberEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="memberPhone != null">
+        memberPhone = #{memberPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="tokenType != null">
+        tokenType = #{tokenType,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetiem != null">
+        updatetiem = #{updatetiem,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where memberUniqTokenNo = #{memberUniqTokenNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.returnp.admin.model.MemberUniqToken">
+    update member_uniq_token
+    set memberNo = #{memberNo,jdbcType=INTEGER},
+      token = #{token,jdbcType=VARCHAR},
+      memberName = #{memberName,jdbcType=VARCHAR},
+      memberEmail = #{memberEmail,jdbcType=VARCHAR},
+      memberPhone = #{memberPhone,jdbcType=VARCHAR},
+      tokenType = #{tokenType,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updatetiem = #{updatetiem,jdbcType=TIMESTAMP}
+    where memberUniqTokenNo = #{memberUniqTokenNo,jdbcType=INTEGER}
+  </update>
+</mapper>
