@@ -100,8 +100,8 @@
 	            </div>
 	            
 	            <div style="padding:5px 0;display:inline-block;">
-		            <a href="javascript:void(0)" id = "search_btn"  style="width:80px;margin-right : 5px;margin-left:10px">검색</a>
-		            <a href="javascript:void(0)" id = "reset_btn"   style="width:80px">리셋</a>
+		            <a href="javascript:void(0)" id = "search_btn"  style="width:40px;margin-right : 5px;margin-left:10px">검색</a>
+		            <a href="javascript:void(0)" id = "reset_btn"   style="width:40px">리셋</a>
 	       	 	</div>
 	       	 	</div>
 	        </form>

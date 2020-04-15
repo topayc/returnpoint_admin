@@ -186,6 +186,30 @@
 		                        </ul>
                             </li> 
                             
+                             <li class = "Q manage" data-options = "iconCls :'icon-info'">
+                            	 <span  class = "C manage"  style = "font-weight : bold">캐피탈 프로그램 관리</span>
+		                         <ul>
+		                         	<li class = "Q_1 manage" id = "manageCapitalProduct" data-options = "iconCls :'icon-info'">
+					                   	<a class= "sub_menu"  view_req_name = "manageCapitalProduct"  menu_deps= '2' >
+					                   		<span style = "font-weight : bold">캐피탈 프로그램 등록</span>
+					                   	</a>
+					                  </li>
+					                  
+					                  <li class = "Q_1 manage" id = "manageMaskOrder" data-options = "iconCls :'icon-info'">
+					                   	<a class= "sub_menu"  view_req_name = "manageMaskOrder"  menu_deps= '2' >
+					                   		<span style = "font-weight : bold">캐피탈 포인트</span>
+					                   	</a>
+					                  </li>
+					                  
+					                   <li class = "Q_1 manage" id = "manageMaskOrder" data-options = "iconCls :'icon-info'">
+					                   	<a class= "sub_menu"  view_req_name = "manageMaskOrder"  menu_deps= '2' >
+					                   		<span style = "font-weight : bold">캐피탈 포인트 출금</span>
+					                   	</a>
+					                  </li>
+					                  
+		                        </ul>
+                            </li> 
+                            
                               <li class = "D manage" data-options = "iconCls :'icon-info'">
                             	 <span  class = "D manage" style = "font-weight : bold">사이트 관리</span>
 		                         <ul>
